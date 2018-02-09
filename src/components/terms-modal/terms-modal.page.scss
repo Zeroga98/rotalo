@@ -1,0 +1,50 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
+:host{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background: rgba(0, 0,0, 0.5);
+    display: flex;
+    justify-content: center;
+    padding: 5rem 0;
+
+    .container-modal{
+        background: white;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .modal__header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            .icon-close{
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+        .modal__body{
+            color: black;
+            font-size: 1.6rem;
+            flex-shrink: 1;
+            .title{
+                font-size: 3.2rem;
+                color: $red;
+            }
+            .subtitle{
+                font-size: 2.4rem;
+                font-weight: 300;
+            }
+        }
+        .modal__footer{
+            
+        }
+    }
+}

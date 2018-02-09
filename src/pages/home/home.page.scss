@@ -1,0 +1,33 @@
+:host{    
+    .container{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        .container-form{
+            max-width: 284px;
+            width: 100%;
+        }
+        .container-logo{
+            margin-bottom: 10px;
+        }
+        .container-text{
+            margin-bottom: 60px;
+            color: white;
+            font-size: 16px;
+        }
+        .button-ingresar{
+            margin-bottom: 10px;
+        }
+    }
+    .sufi-logo{
+        position: absolute;
+        right: 1%;
+        bottom: 1%;
+    }
+    .vigilado-logo{
+        position: absolute;
+        left: 1%;
+        bottom: 1%;
+    }
+}

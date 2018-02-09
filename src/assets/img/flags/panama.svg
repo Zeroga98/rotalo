@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg width="150" height="100" preserveAspectRatio="xMidYMid meet" zoomAndPan="magnify" version="1.0" contentScriptType="text/ecmascript" contentStyleType="text/css" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><title content="structured text">PANAMA</title><defs><polygon id="star5" points="             0, -1             0.587785252292473, 0.809016994374947             -0.951056516295154, -0.309016994374947             0.951056516295154, -0.309016994374947             -0.587785252292473, 0.809016994374947         "/></defs><rect width="100%" height="100%" fill="white"/>
+        
+        
+        
+        
+    <g>
+        <rect x="0" y="50%" width="50%" height="50%" fill="blue"/>
+        <rect x="50%" y="0" width="50%" height="50%" fill="red"/>
+        <use xlink:href="#star5" fill="blue" transform="translate(37.5,25) scale(15)" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+        <use xlink:href="#star5" fill="red" transform="translate(112.5,75) scale(15)" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+    </g></svg>

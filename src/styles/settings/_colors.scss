@@ -1,0 +1,57 @@
+$gray-base : #000 !default;
+$gray-darker : lighten($gray-base, 13.5%) !default; // #222
+$gray-dark : lighten($gray-base, 20%) !default; // #333
+$gray : lighten($gray-base, 33.5%) !default; // #555
+$gray-light : lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter : lighten($gray-base, 93.5%) !default; // #eee
+$grey : #9B9B9B;
+$grey-dark : #4A4A4A;
+$grey-light : #D7D7D7;
+$greenblue : #41BAD0;
+$greenblue-light : lighten($greenblue, 44%); // #f5fbfd
+$greenblue-dark : darken($greenblue, 10%); // #2c9db2
+$blue-light : #D3E0E9;
+$red : #ED2F3C;
+$red-light : rgba(237, 47, 60, 0.4); // #ed2f3c
+$red-dark : darken($red, 10%); // #d61320
+$purple : #5C2D90;
+/* DG $orange : #F16531; */
+$brand-primary : $red !default;
+$brand-primary-dark : darken($brand-primary, 10%); // #d61320
+$brand-secondary : $greenblue !default;
+$brand-secondary-dark : darken($brand-secondary, 10%); // #d61320
+$brand-success : #5cb85c !default;
+$brand-info : #5bc0de !default;
+$brand-warning : #f0ad4e !default;
+$brand-danger : #d9534f !default;
+$brand-ui : #DFDFDF;
+$brand-default : $greenblue;
+$color-brand : #f5f5dc;
+$body-bg : #fff;
+$panel-bg: #F7F7F7;
+$hr-border : $blue-light;
+$link-color : $brand-primary;
+$link-hover-color : darken($link-color, 15%); // #278b9e
+$link-color-grey : $grey;
+$link-hover-color-grey: darken($link-color-grey, 15%); // #757575
+$color-text-body : $grey;
+$unactive-link: #e1aeb2;
+$border-color: $blue-light;
+$modal-bg: #000;
+
+/* DG */
+
+$gray_light_text: #A3A3A3;
+$gray_dark_text: #808080;
+
+/* Categories colors */
+
+$blue-sea: #33D7C7;
+$yellow: #DBB202;
+$pink: #D3609F;
+$orange: #EC6531;
+$violet: #5C2D8B;
+$blue: #41B5CB;
+$yellow-dark: #F3A643;
+$green: #B1CF4A;
+$violet-light: #9D47DE

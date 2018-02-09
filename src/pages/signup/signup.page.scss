@@ -1,0 +1,51 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+:host{
+    display: block; 
+    margin-bottom: 4rem;
+    back-arrow{
+        display: block;
+        padding: 2rem 1.5rem;
+        width: 100%;
+    }
+
+    form{
+        max-width: 284px;
+        margin:0 auto;        
+        .title-text{
+            color: $grey-dark;
+            font-weight: 700;
+            margin-bottom: 5rem;
+            font-size: 1.6rem;
+        }
+        .terms{
+            margin: 5rem 0 2rem;
+            font-size: 1.6rem;
+            font-weight: 400;
+            label{                
+                display: inline-block;
+            }
+            a{
+                color: $red;
+                cursor: pointer;                
+            }
+        }
+        custom-button{
+            display: block;
+            width: 100%;
+            margin-bottom: 5rem;
+        }
+        footer{
+            font-weight: 400;
+            line-height: 19px;
+            p{
+                font-size: 1.4rem;
+            }            
+            a{
+                color: $red;
+                font-size: 1.4rem;
+                cursor: pointer;
+            }
+        }
+    }
+}
