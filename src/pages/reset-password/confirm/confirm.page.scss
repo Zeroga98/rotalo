@@ -1,0 +1,32 @@
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+
+:host {
+  display: block;
+  margin-bottom: 4rem;
+  back-arrow {
+    display: block;
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+  form {
+    max-width: 284px;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    .text--small{
+      font-size: 1.4rem;
+    }
+    footer {
+      font-weight: 400;
+      line-height: 19px;
+      a {
+        color: $red;
+        cursor: pointer;
+      }
+      a:hover{
+        color: #bf111c;
+        text-decoration: none;
+      }
+    }
+  }
+}

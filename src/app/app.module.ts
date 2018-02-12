@@ -16,6 +16,9 @@ import { CustomButtonComponent } from '../components/custom-button/custom-button
 import { TermsModalComponent } from '../components/terms-modal/terms-modal.page';
 import { SignUpPage } from '../pages/signup/signup.page';
 import { LoginPage } from '../pages/login/login.page';
+import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
+import { RecoverPage } from '../pages/reset-password/recover/recover.page';
+
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { LoginPage } from '../pages/login/login.page';
     TermsModalComponent,
     HomePage,
     SignUpPage,
-    LoginPage
+    LoginPage,
+    RecoverPage,
+    ConfirmPage
   ],
   imports: [
     BrowserModule,

@@ -3,52 +3,56 @@
 .base-text{
     font-size: $font-size-base;
   }
-  
+
   // Text size
   .text--larger  {
     font-size: em($font-size-larger);
   }
-  
+
   .text--large   {
     font-size: em($font-size-large);
   }
-  
+
   .text--small,
   .text--small,
   .small-text{
     font-size: em($font-size-small);
   }
-  
+
   .text--smaller {
     font-size: em($font-size-smaller);
   }
-  
+
   // Text alignment
   .text-start,
   .text--start {
     text-align: $start;
   }
-  
+
+  .text-left {
+    text-align: left;
+  }
+
   .text--end {
     text-align: $end;
   }
-  
+
   .text--center,
   .text-center {
     text-align: center;
   }
-  
+
   .text--capitalize{
     text-transform: capitalize;
   }
-  
+
   .medium--text-center{
     text-align: center;
     @media #{$medium} {
       text-align: inherit;
     }
   }
-  
+
   .small--text-start{
     @media #{$small} {
       text-align: $start;
@@ -59,7 +63,7 @@
       text-align: $end;
     }
   }
-  
+
   .medium--text-start{
     @media #{$medium} {
       text-align: $start;
@@ -70,68 +74,94 @@
       text-align: $end;
     }
   }
-  
+
   .large--only {
     @media #{$medium-max}{
       display: none;
     }
   }
-  
+
   .small--only {
     @media #{$medium}{
       display: none;
     }
   }
-  
+
   .line-height--large {
     line-height: $line-height-small;
   }
-  
+
   .line-height--small {
     line-height: $line-height-large;
   }
-  
-  
-  
+
+  // text colors
+.text--white {
+  color: white;
+}
+
+.text--black {
+  color: black;
+}
+
+.text--grey {
+  color: $grey;
+}
+
+.text--red {
+  color: $red;
+}
+
+.text--grey-dark {
+  color: $grey-dark;
+}
+
+.text--greenblue {
+  color: $greenblue;
+}
+
+.text--blue-light {
+  color: $blue-light;
+}
+
   // Font Helpers
   //===================
-  
+
   // Font weights
   .weight--light        { font-weight: $font-weight-light; }
-  
+
   .face-regular,
   .regular,
   .weight--normal       { font-weight: $font-weight-base; }
-  
+
   .face-semi,
   .semibold,
   .weight--semibold     { font-weight: $font-weight-semibold; }
-  
+
   .face-bold,
   .bold,
   .weight--bold         { font-weight: $font-weight-bold; }
-  
+
   // Font styles
   .style--normal        { font-style: normal; }
-  
+
   .border--none         { border: 0; }
-  
+
   // refactor // was inside from transparency core helpers
   .word-break{
     word-break: break-all;
     word-wrap: break-word;
   }
-  
+
   .uppercase{
     text-transform: uppercase;
   }
-  
+
   .capitalize {
     text-transform: capitalize;
   }
-  
+
   .underline {
     text-decoration: underline;
   }
-  
-  
+
