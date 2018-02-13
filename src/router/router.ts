@@ -5,6 +5,9 @@ import { HomePage } from "../pages/home/home.page";
 import { SignUpPage } from "../pages/signup/signup.page";
 import { ConfirmPage } from "../pages/reset-password/confirm/confirm.page";
 import { RecoverPage } from "../pages/reset-password/recover/recover.page";
+import { ShowPage } from '../pages/profile/show/show.page';
+import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
+import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 
 export const appRouter: Routes = [
   {
@@ -27,6 +30,21 @@ export const appRouter: Routes = [
       {
         path: '',
         redirectTo: ROUTES.RECOVER,
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
+    path: ROUTES.PROFILE,
+    children: [
+      { path: ROUTES.SHOW, component: ShowPage },
+      { path: ROUTES.PROFILEPASS, component: ConfirmPage },
+      { path: ROUTES.HOBBIES, component: HobbiesPage },
+      { path: ROUTES.EDITPROFILE, component: EditProfilePage },
+      { path: ROUTES.NOTIFICATIONSSETTINGS, component: ConfirmPage },
+      {
+        path: '',
+        redirectTo: ROUTES.SHOW,
         pathMatch: 'full'
       }
     ]

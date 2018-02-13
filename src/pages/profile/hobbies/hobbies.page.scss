@@ -1,0 +1,53 @@
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+:host {
+  display: block;
+  margin-bottom: 4rem;
+  .container {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .form-control {
+    height: auto;
+    min-height: 120px;
+    border: none;
+    border-bottom: 1px solid #d7d7d7;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    line-height: 1.6;
+    color: #536570;
+    display: block;
+  }
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+  form,
+  footer {
+    margin-top: 20px;
+  }
+  .form-group {
+    p {
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 780px) {
+    .container {
+      width: 100%;
+    }
+  }
+}

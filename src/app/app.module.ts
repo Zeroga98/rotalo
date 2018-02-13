@@ -18,6 +18,9 @@ import { SignUpPage } from '../pages/signup/signup.page';
 import { LoginPage } from '../pages/login/login.page';
 import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
 import { RecoverPage } from '../pages/reset-password/recover/recover.page';
+import { ShowPage } from '../pages/profile/show/show.page';
+import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
+import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 
 
 
@@ -34,7 +37,10 @@ import { RecoverPage } from '../pages/reset-password/recover/recover.page';
     SignUpPage,
     LoginPage,
     RecoverPage,
-    ConfirmPage
+    ConfirmPage,
+    ShowPage,
+    HobbiesPage,
+    EditProfilePage
   ],
   imports: [
     BrowserModule,

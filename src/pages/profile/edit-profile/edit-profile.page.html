@@ -1,0 +1,46 @@
+<div>
+  <div class="container">
+    <div id="top"></div>
+    <div partial path="views/shared/flash-message.html"></div>
+    <h1 class="zeta text--grey-dark">Editar cuenta</h1>
+    <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
+    <form class="form-theme" name="editUserForm" role="form">
+      <div class="form-group file-uploader">
+        <label for="file-uploader" class="file-uploader__label">
+          <div  class="input-file input-file--circle">
+            <span class="icon-custom  icon-custom--cam"></span>
+            <p class="">Agregar Foto</p>
+          </div>
+          <div class="input-file input-file--circle bg-img-fix" ngf-thumbnail="ctrl.profilePicture.url || ctrl.profilePicture"
+            ngf-as-background="true" ngf-size="{quality: 1}"></div>
+        </label>
+        <div class="hidden">
+          <input type="file" id="file-uploader" class="file-uploader__input" accept="image/*"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Cédula">
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="E-mail">
+      </div>
+      <div class="form-group">
+        <input  name="cellphone" type="number" class="form-control" placeholder="Teléfono celular">
+      </div>
+      <div class="form-group location">
+        <label class="text--grey-dark">Ubicación</label>
+        <div class="form-group">
+          <location-select ></location-select>
+        </div>
+      </div>
+      <footer>
+        <div>
+          <custom-button  type="submit" text="Guardar Cambios"></custom-button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
