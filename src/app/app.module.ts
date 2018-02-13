@@ -1,3 +1,4 @@
+import { TokenInterceptor } from './../commons/interceptors/token.interceptor';
 import { appRouter } from './../router/router';
 import { ROUTES } from './../router/routes';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,7 +11,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { FlashMessageComponent } from '../components/flash-message/flash-message.controller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SliderComponent } from '../components/slider/slider.component';
 import { HomePage } from '../pages/home/home.page';
 import { BackArrowComponent } from '../components/back-arrow/back-arrow.component';
@@ -26,6 +27,8 @@ import { SelectCountryComponent } from '../components/select-country/select-coun
 import { CollectionSelectService } from '../services/collection-select.service';
 import { SelectStatesComponent } from '../components/select-states/select-states.component';
 import { SelectCitiesComponent } from '../components/select-cities/select-cities.component';
+import { ProductsService } from '../services/products.service';
+import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
 
 
 @NgModule({
@@ -57,7 +60,18 @@ import { SelectCitiesComponent } from '../components/select-cities/select-cities
     RouterModule.forRoot(appRouter)
   ],
   providers: [
-    CollectionSelectService
+    CollectionSelectService,
+    ProductsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi:true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: NormalizeInterceptor,
+      multi: true 
+    } 
   ],
   bootstrap: [AppComponent]
 })
