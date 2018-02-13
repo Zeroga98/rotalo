@@ -6,4 +6,4 @@
         $base: strip-units($base);
     }
     @return ($pxval / $base) * 1em;
-  }
+}

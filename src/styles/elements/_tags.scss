@@ -14,3 +14,15 @@ body{
 a{
     text-decoration: none;
 }
+
+ul{
+    list-style: none;
+}
+
+select{
+    background-image: url(assets/img/arrow.png);
+    background-position: 92% center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    appearance: none;
+}

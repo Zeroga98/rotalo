@@ -1,3 +1,4 @@
+import { ProductsFeedPage } from './../pages/products-feed/products-feed.page';
 import { LoginPage } from './../pages/login/login.page';
 import { ROUTES } from './routes';
 import { Routes } from '@angular/router';
@@ -12,6 +13,10 @@ export const appRouter: Routes = [
     {
         path: ROUTES.SIGNUP,
         component: SignUpPage
+    },
+    {
+        path: ROUTES.PRODUCTS_FEED,
+        component: ProductsFeedPage
     },
     {
         path: ROUTES.LOGIN,

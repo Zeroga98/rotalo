@@ -1,0 +1,61 @@
+:host{
+    display: block;
+    background-color: #ED2F3C;
+    border-color: #d61320;
+    .navbar-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 7.5rem;
+        .upload-offer-button{
+            .outside-circle{
+                padding: 5px;
+                display: table-cell;
+                vertical-align: middle;
+                background-color: #CD0E2E;
+                color: white;
+                height: 50px;
+                width: 190px;
+                border-radius: 30px 30px 30px 30px;
+                .inside-circle {
+                    display: inline-block;
+                    vertical-align: middle;
+                    padding: 9px 6px;
+                    height: 40px;
+                    width: 40px;
+                    background-color: #41b5cb;
+                    border-radius: 20px 20px 20px 20px;
+                    span {
+                        font-size: 25px;
+                    }
+                }
+                label {
+                    vertical-align: middle;
+                    margin-left: 16px;
+                    cursor: pointer;
+                    font-weight: normal;
+                    font-size: 20px;
+                    margin-bottom: 0px;
+                }
+            }
+        }
+        .navbar-brand {
+            width: 130px;
+            img{
+                width: 100%;
+            }            
+        }
+        .list-options{
+            display: flex;
+            color: white;            
+            
+            li{
+                font-size: 2.5rem;
+            }
+            li:not(:last-child){
+                margin-right: 5rem;
+            }
+        }
+    }
+    
+}
