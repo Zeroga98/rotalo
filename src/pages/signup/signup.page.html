@@ -79,7 +79,13 @@
           placeholder="Confirmar Contraseña">
         </div>
         <div class="form-group">
-          <location-select (changed)="selectOption($event)"> </location-select>
+          <select-country (selected)="selectedCountry($event)"></select-country>
+        </div>
+        <div class="form-group">
+          <select-states [country]="country" (selected)="selectedStates($event)"></select-states>
+        </div>
+        <div class="form-group">
+          <select-cities [state]="state"></select-cities>
         </div>
         <div class="form-group" class="terms">
           <label for="checkTerms">

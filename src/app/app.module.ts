@@ -3,13 +3,15 @@ import { ROUTES } from './../router/routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {RlTagInputModule} from 'angular2-tag-input';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { FlashMessageComponent } from '../components/flash-message/flash-message.controller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SliderComponent } from '../components/slider/slider.component';
-import { LocationSelectComponent } from '../components/location-select/location-select.component';
 import { HomePage } from '../pages/home/home.page';
 import { BackArrowComponent } from '../components/back-arrow/back-arrow.component';
 import { CustomButtonComponent } from '../components/custom-button/custom-button.component';
@@ -25,6 +27,15 @@ import { ChangePasswordPage } from '../pages/profile/change-password/change-pass
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 import { GroupByPipe } from '../commons/pipes/groupBy.pipe';
 
+import { ProductsFeedPage } from '../pages/products-feed/products-feed.page';
+import { BackTopComponent } from '../components/back-top/back-top.component';
+import { NavigationTopComponent } from '../components/navigation-top/navigation-top.component';
+import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+import { SelectCountryComponent } from '../components/select-country/select-country.component';
+import { CollectionSelectService } from '../services/collection-select.service';
+import { SelectStatesComponent } from '../components/select-states/select-states.component';
+import { SelectCitiesComponent } from '../components/select-cities/select-cities.component';
+
 
 @NgModule({
   declarations: [
@@ -33,8 +44,13 @@ import { GroupByPipe } from '../commons/pipes/groupBy.pipe';
     CustomButtonComponent,
     FlashMessageComponent,
     BackArrowComponent,
-    LocationSelectComponent,
     TermsModalComponent,
+    BackTopComponent,
+    NavigationTopComponent,
+    SelectCountryComponent,
+    SelectStatesComponent,
+    SelectCitiesComponent,
+    ToolbarComponent,
     HomePage,
     SignUpPage,
     LoginPage,
@@ -45,17 +61,22 @@ import { GroupByPipe } from '../commons/pipes/groupBy.pipe';
     EditProfilePage,
     ChangePasswordPage,
     NotificationsSettingsPage,
-    GroupByPipe
+    GroupByPipe,
+    ProductsFeedPage
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RlTagInputModule,
+    NgxCarouselModule,
     RouterModule.forRoot(appRouter)
 
   ],
-  providers: [],
+  providers: [
+    CollectionSelectService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

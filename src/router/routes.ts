@@ -10,5 +10,6 @@ export const ROUTES = {
     PROFILEPASS: 'change-password',
     HOBBIES: 'gustos',
     EDITPROFILE: 'edit',
-    NOTIFICATIONSSETTINGS: 'notifications-settings'
+    NOTIFICATIONSSETTINGS: 'notifications-settings',
+    PRODUCTS_FEED: 'products-feed'
 };

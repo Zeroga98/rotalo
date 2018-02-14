@@ -1,10 +1,11 @@
 import { ROUTES } from "./routes";
 import { Routes } from "@angular/router";
-import { LoginPage } from "./../pages/login/login.page";
+import { LoginPage } from './../pages/login/login.page';
 import { HomePage } from "../pages/home/home.page";
 import { SignUpPage } from "../pages/signup/signup.page";
-import { ConfirmPage } from "../pages/reset-password/confirm/confirm.page";
-import { RecoverPage } from "../pages/reset-password/recover/recover.page";
+import { ProductsFeedPage } from '../pages/products-feed/products-feed.page';
+import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
+import { RecoverPage } from '../pages/reset-password/recover/recover.page';
 import { ShowPage } from '../pages/profile/show/show.page';
 import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
@@ -19,6 +20,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SIGNUP,
     component: SignUpPage
+  },
+  {
+    path: ROUTES.PRODUCTS_FEED,
+    component: ProductsFeedPage
   },
   {
     path: ROUTES.LOGIN,

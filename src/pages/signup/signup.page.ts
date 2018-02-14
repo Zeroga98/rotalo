@@ -11,7 +11,9 @@ export class SignUpPage implements OnInit {
     public registerForm: FormGroup;
     public selectIsCompleted: boolean = false;
     public location: Object = {};
-
+    public country: Object = {};
+    public state: Object = {};
+    
     ngOnInit(): void {
         this.registerForm = new FormGroup({
             name: new FormControl('', [Validators.required]),
@@ -26,6 +28,14 @@ export class SignUpPage implements OnInit {
 
     onSubmit() {
         alert("Submit");
+    }
+
+    selectedCountry(ev) {
+        this.country = ev;
+    }
+
+    selectedStates(ev) {
+        this.state = ev;
     }
 
     selectOption(ev) {

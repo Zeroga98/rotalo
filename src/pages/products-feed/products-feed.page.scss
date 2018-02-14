@@ -1,0 +1,28 @@
+:host{
+    ngx-carousel{
+        position: relative;
+        .item-banner{
+            height: 400px;
+        }
+       .arrow{
+            display: inline-block !important;
+            border: 0;
+            border-bottom: 4px solid white;
+            border-left: 4px solid white;
+            z-index: 1;
+            top: 46%;
+            left: 2rem;
+            width: 30px;
+            height: 30px;
+            transform: rotate(45deg);
+            border-radius: 1px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .arrow-next{
+            left: unset;
+            right: 2rem;
+            transform: rotate(-135deg);
+        }
+    }
+}

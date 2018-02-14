@@ -32,15 +32,7 @@
     }
     .form-group {
         margin-bottom: 15px;
-    }
-
-    select.form-control {
-        background-image: url(assets/img/arrow.png);
-        background-position: 95% center;
-        background-size: 15px;
-        background-repeat: no-repeat;
-        appearance: none;
-    }
+    }    
 
     input.invalid{
         border-bottom:1px solid $red;

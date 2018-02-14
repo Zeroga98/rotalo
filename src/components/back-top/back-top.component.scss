@@ -1,0 +1,29 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
+:host{
+    display: inline-block;
+    .container-arrow{
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        border: .5rem solid $red;
+        background: white;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        .arrow{
+            display: block;
+            border: none;
+            border-left: .4rem solid $red;
+            border-top: .4rem solid $red;
+            height: 2rem;
+            width: 2rem;
+            transform: rotate(45deg);
+            border-radius: .4rem;  
+            position: relative;
+            top: .3rem;          
+        }
+    }
+}
