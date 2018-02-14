@@ -7,7 +7,7 @@ export const ROUTES = {
     CONFIRM: 'confirm',
     PROFILE: 'profile',
     SHOW: 'show',
-    PROFILEPASS: 'password',
+    PROFILEPASS: 'change-password',
     HOBBIES: 'gustos',
     EDITPROFILE: 'edit',
     NOTIFICATIONSSETTINGS: 'notifications-settings'

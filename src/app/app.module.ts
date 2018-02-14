@@ -21,7 +21,9 @@ import { RecoverPage } from '../pages/reset-password/recover/recover.page';
 import { ShowPage } from '../pages/profile/show/show.page';
 import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
-
+import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
+import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
+import { GroupByPipe } from '../commons/pipes/groupBy.pipe';
 
 
 @NgModule({
@@ -40,7 +42,10 @@ import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page
     ConfirmPage,
     ShowPage,
     HobbiesPage,
-    EditProfilePage
+    EditProfilePage,
+    ChangePasswordPage,
+    NotificationsSettingsPage,
+    GroupByPipe
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,7 @@ import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRouter)
+
   ],
   providers: [],
   bootstrap: [AppComponent]

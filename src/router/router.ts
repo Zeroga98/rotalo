@@ -8,6 +8,8 @@ import { RecoverPage } from "../pages/reset-password/recover/recover.page";
 import { ShowPage } from '../pages/profile/show/show.page';
 import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
+import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
+import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 
 export const appRouter: Routes = [
   {
@@ -38,10 +40,10 @@ export const appRouter: Routes = [
     path: ROUTES.PROFILE,
     children: [
       { path: ROUTES.SHOW, component: ShowPage },
-      { path: ROUTES.PROFILEPASS, component: ConfirmPage },
+      { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.HOBBIES, component: HobbiesPage },
       { path: ROUTES.EDITPROFILE, component: EditProfilePage },
-      { path: ROUTES.NOTIFICATIONSSETTINGS, component: ConfirmPage },
+      { path: ROUTES.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       {
         path: '',
         redirectTo: ROUTES.SHOW,

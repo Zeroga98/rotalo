@@ -1,0 +1,28 @@
+<div>
+  <div class="container container--app">
+    <div partial path="views/shared/flash-message.html"></div>
+    <h1 class="zeta text--grey-dark bold">Notificaciones</h1>
+    <p class="text--grey-dark">Administra tus notificationes.</p>
+    <form>
+      <ul class="notifications-settings__list">
+        <li class="notifications-settings__item" *ngFor="let categories of preferenceOptions | groupBy:'category'">
+          <span class="icon icon-mail notifications-settings__icon"></span>
+          <div class="notifications-settings__info">
+            <label for="" class="uppercase">{{categories.key}}</label>
+            <div class="checkbox custom-control custom-checkbox" *ngFor="let preference of categories.value">
+              <label>
+                <input type="checkbox">
+                <span class="custom-control-indicator custom-control-indicator--top">
+                </span>
+                {{preference.label}}
+              </label>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div>
+          <custom-button  type="submit" text="Guardar Cambios"></custom-button>
+      </div>
+    </form>
+  </div>
+</div>
