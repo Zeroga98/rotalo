@@ -13,7 +13,6 @@ export class CollectionSelectService {
             const response = await this.getCollection();
             this.includes = response.included;
             this.collection = response.data;
-            console.log(this.collection);
             return this.collection;
         } catch (error) {
             return error;

@@ -15,13 +15,6 @@ export class SelectCountryComponent implements OnInit {
         this.getCountries();
     }
 
-    onSelected(ev) {
-        const name = ev.target.selectedOptions[0].text;
-        const id = ev.target.value;
-        console.log({name, id});
-        this.selected.emit({name, id});
-    }
-
     async getCountries() {
         try {
             await this.collectionService.isReady();
@@ -30,4 +23,11 @@ export class SelectCountryComponent implements OnInit {
             console.error(error);
         }
     }
+
+    onSelected(ev) {
+      const name = ev.target.selectedOptions[0].text;
+      const id = ev.target.value;
+      console.log({name, id});
+      this.selected.emit({name, id});
+  }
 }

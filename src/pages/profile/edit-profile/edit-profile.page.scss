@@ -24,6 +24,13 @@
       font-size: 1.4rem;
     }
   }
+
+  select.form-control{
+    background-position: 95% center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+  }
+
   @media (max-width: 780px) {
     .container {
       width: 100%;

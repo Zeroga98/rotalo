@@ -1,10 +1,13 @@
+<navigation-top></navigation-top>
 <div>
   <div class="container">
     <div id="top"></div>
     <div partial path="views/shared/flash-message.html"></div>
     <h1 class="zeta text--grey-dark">Editar cuenta</h1>
     <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
-    <form class="form-theme" name="editUserForm" role="form">
+
+    <form class="form-theme" name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+
       <div class="form-group file-uploader">
         <label for="file-uploader" class="file-uploader__label">
           <div  class="input-file input-file--circle">
@@ -18,26 +21,37 @@
           <input type="file" id="file-uploader" class="file-uploader__input" accept="image/*"/>
         </div>
       </div>
+
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Nombre">
+        <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="20" placeholder="Nombre">
       </div>
+
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Cédula">
+        <input id="txt-cedula" type="text" class="form-control" placeholder="Cédula">
       </div>
+
       <div class="form-group">
-        <input type="email" class="form-control" placeholder="E-mail">
+        <input id="txt-email" type="email" class="form-control" placeholder="E-mail">
       </div>
+
       <div class="form-group">
-        <input  name="cellphone" type="number" class="form-control" placeholder="Teléfono celular">
+        <input id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular">
       </div>
+
       <div class="form-group location">
         <label class="text--grey-dark">Ubicación</label>
         <div class="form-group">
-
-        </div>
+            <select-country class="white-theme-select" (selected)="country=$event"></select-country>
+          </div>
+          <div class="form-group">
+            <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+          </div>
+          <div class="form-group">
+            <select-cities class="white-theme-select" [state]="state"></select-cities>
+          </div>
       </div>
       <footer>
-        <div>
+        <div class="btn-square">
           <custom-button  type="submit" text="Guardar Cambios"></custom-button>
         </div>
       </footer>
