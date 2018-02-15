@@ -16,6 +16,10 @@ export class ProductsFeedPage implements OnInit {
     public carouselConfig: NgxCarousel;
     public imagesBanner: Array<string>;
     public products: Array<ProductInterface> = [];
+    private currentFilter: any = { 
+        'filter[status]': 'active',
+        'filter[country]': 1
+    }
     @ViewChild('backTop', {read: ElementRef}) backTop: ElementRef;
     
     constructor(private productsService:ProductsService, private rendered: Renderer2 ){
@@ -30,15 +34,32 @@ export class ProductsFeedPage implements OnInit {
     }
 
     async loadProducts(params:Object = {}){
-        this.productsService.getProducts(params).subscribe(product => this.products.push(product));
+        this.productsService.getProducts(params).then(products => {
+            this.products = [].concat(products);
+        });
+    }
+    getParamsToProducts(){
+        return this.currentFilter;
     }
 
-    getParamsToProducts():Object{
-        let params ={
-            'filter[status]': 'active',
-            'filter[country]': 1
-        }
-        return params;
+    onCountryChanged(evt){
+        this.routineUpdateProducts("filter[country]", evt.id);
+    }
+
+    changeCommunity(community:any){
+        this.routineUpdateProducts("filter[community]", community.id);
+    }
+
+    private routineUpdateProducts(filter:string, value:any){
+        let paramsFilter = {};
+        paramsFilter[filter] = value;
+        const newFilter = this.updateCurrentFilter(paramsFilter);
+        this.loadProducts(newFilter);
+    }
+    private updateCurrentFilter(filter = {}){
+        this.currentFilter = Object.assign({},this.currentFilter,filter);
+        console.log("current: ", this.currentFilter);
+        return this.currentFilter;
     }
 
     private setScrollEvent(){

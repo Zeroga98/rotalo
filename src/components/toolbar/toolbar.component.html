@@ -18,10 +18,10 @@
     </div> -->
     <div class="toolbar__filters">
       <div class="select-community">
-        <select name="community" ng-model="ctrl.communityFilter" ng-change="ctrl.changeCommunity()">
+        <select name="community" (change)= "changeSelectComunidad($event)">
           <option selected value disabled>Comunidades</option>
-          <option ng-value="true">Todas</option>
-          <option ng-value="false">{{"Comunidad"}}</option>
+          <option value="-1">Todas</option>
+          <option *ngIf="community" value="{{community.id}}">{{community.name}}</option>
         </select>
       </div>
     </div>

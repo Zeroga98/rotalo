@@ -8,6 +8,7 @@ import {CollectionSelectService} from '../../services/collection-select.service'
 })
 export class SelectCountryComponent implements OnInit {
     @Output() selected: EventEmitter<Object> = new EventEmitter();
+    @Output() loaded: EventEmitter<void> = new EventEmitter();
     countries: Array < any > = [];
     constructor(private collectionService: CollectionSelectService) {}
 
@@ -25,6 +26,7 @@ export class SelectCountryComponent implements OnInit {
         try {
             await this.collectionService.isReady();
             this.countries = await this.collectionService.getCountries();
+            this.loaded.emit();
         } catch (error) {
             console.error(error);
         }

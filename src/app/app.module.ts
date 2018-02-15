@@ -31,6 +31,7 @@ import { SelectCitiesComponent } from '../components/select-cities/select-cities
 import { ProductsService } from '../services/products.service';
 import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
 import { ProductComponent } from '../components/product/product.component';
+import { UserService } from '../services/user.service';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { ProductComponent } from '../components/product/product.component';
     RouterModule.forRoot(appRouter)
   ],
   providers: [
+    UserService, 
     CollectionSelectService,
     ProductsService,
     {

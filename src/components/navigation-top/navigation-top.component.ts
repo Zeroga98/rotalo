@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'navigation-top',
@@ -6,9 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation-top.component.scss']
 })
 export class NavigationTopComponent implements OnInit {
+  @Output() countryChanged : EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  changeSelectorCounrty(evt){
+    this.countryChanged.emit(evt);
   }
 
 }

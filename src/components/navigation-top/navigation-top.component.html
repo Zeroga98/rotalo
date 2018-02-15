@@ -14,7 +14,7 @@
     </a>
     <ul class="list-options">
       <li>
-        <select-country class="red-theme-select"></select-country>
+        <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
       </li>
       <!-- <li class="country-mobile">
         <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">

@@ -24,15 +24,16 @@ export class NormalizeInterceptor implements HttpInterceptor {
         const body = response.body
         const data: Array<any> = response.body.data;
         const includes: Array<any> = response.body.included;
-        this.fillDataWithRelationships(data, includes);
+        this.fillDataWithRelationships(this.checkData(data), includes);
     }
     
     private cleanAttributes(response:HttpResponse<any>){
-        let data: Array<any> = response.body.data;
+        let data: Array<any> = this.checkData(response.body.data);
         response.body.data = data.map( item => {
             item.attributes.id = item.id;
             return item.attributes;
         });
+        response.body.data = response.body.data.length == 1 ? response.body.data[0] : response.body.data;
     }
 
     private fillDataWithRelationships(data, includes){
@@ -59,5 +60,9 @@ export class NormalizeInterceptor implements HttpInterceptor {
         return includes.find(resource => {
             return resource.id == value.id && resource.type == value.type;
         });
+    }
+
+    private checkData(data:any){
+        return Array.isArray(data) ? data : [data]; 
     }
 }
