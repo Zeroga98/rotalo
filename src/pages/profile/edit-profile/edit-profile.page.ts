@@ -15,11 +15,16 @@ export class EditProfilePage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.editProfileForm =  new FormGroup({});
+    this.editProfileForm =  new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      idNumber: new FormControl('', [Validators.required]),
+      email: new FormControl('', [ Validators.required, Validators.email]),
+      cellphone: new FormControl('', [Validators.required])
+    });
   }
 
   onSubmit() {
-    alert('Submit');
+    console.log(this.editProfileForm);
   }
 
 }

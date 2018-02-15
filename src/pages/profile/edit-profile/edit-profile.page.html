@@ -8,51 +8,54 @@
 
     <form class="form-theme" name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
 
-      <div class="form-group file-uploader">
+     <!--   <div class="form-group file-uploader">
         <label for="file-uploader" class="file-uploader__label">
-          <div  class="input-file input-file--circle">
+          <div ng-if="!ctrl.profilePicture" class="input-file input-file--circle">
             <span class="icon-custom  icon-custom--cam"></span>
-            <p class="">Agregar Foto</p>
+            <p class="m-b-0 text--smaller">Agregar Foto</p>
           </div>
-          <div class="input-file input-file--circle bg-img-fix" ngf-thumbnail="ctrl.profilePicture.url || ctrl.profilePicture"
+         <div class="input-file input-file--circle bg-img-fix" ng-if="ctrl.profilePicture" ngf-thumbnail="ctrl.profilePicture.url || ctrl.profilePicture"
             ngf-as-background="true" ngf-size="{quality: 1}"></div>
         </label>
         <div class="hidden">
-          <input type="file" id="file-uploader" class="file-uploader__input" accept="image/*"/>
+          <input type="file" id="file-uploader" class="file-uploader__input" accept="image/*" ngf-select="ctrl.addProfilePicture($file)"
+            ng-model="ctrl.profilePicture" ngf-max-files="1" ngf-fix-orientation="true" />
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group">
         <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="20" placeholder="Nombre">
       </div>
 
       <div class="form-group">
-        <input id="txt-cedula" type="text" class="form-control" placeholder="Cédula">
+        <input formControlName="idNumber" id="txt-idNumber" type="text" class="form-control" placeholder="Cédula" maxlength="20"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
       </div>
 
       <div class="form-group">
-        <input id="txt-email" type="email" class="form-control" placeholder="E-mail">
+        <input formControlName="email" id="txt-email" type="email" class="form-control" placeholder="E-mail" maxlength="50">
       </div>
 
       <div class="form-group">
-        <input id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular">
+        <input formControlName="cellphone" id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="20">
       </div>
 
       <div class="form-group location">
         <label class="text--grey-dark">Ubicación</label>
         <div class="form-group">
-            <select-country class="white-theme-select" (selected)="country=$event"></select-country>
-          </div>
-          <div class="form-group">
-            <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
-          </div>
-          <div class="form-group">
-            <select-cities class="white-theme-select" [state]="state"></select-cities>
-          </div>
+          <select-country class="white-theme-select" (selected)="country=$event"></select-country>
+        </div>
+        <div class="form-group">
+          <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+        </div>
+        <div class="form-group">
+          <select-cities class="white-theme-select" [state]="state"></select-cities>
+        </div>
       </div>
       <footer>
         <div class="btn-square">
-          <custom-button  type="submit" text="Guardar Cambios"></custom-button>
+          <custom-button type="submit" text="Guardar Cambios"></custom-button>
         </div>
       </footer>
     </form>
