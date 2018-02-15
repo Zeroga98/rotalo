@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {NgxCarousel} from 'ngx-carousel';
+import { ProductInterface } from './../../commons/interfaces/product.interface';
+import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { NgxCarousel }  from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
 import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
+
 @Component({
     selector: 'products-feed',
     templateUrl: 'products-feed.page.html',
@@ -12,8 +15,10 @@ import { CAROUSEL_CONFIG } from './carousel.config';
 export class ProductsFeedPage implements OnInit {
     public carouselConfig: NgxCarousel;
     public imagesBanner: Array<string>;
-
-    constructor(private productsService:ProductsService ){
+    public products: Array<ProductInterface> = [];
+    @ViewChild('backTop', {read: ElementRef}) backTop: ElementRef;
+    
+    constructor(private productsService:ProductsService, private rendered: Renderer2 ){
         this.carouselConfig = CAROUSEL_CONFIG;
         this.imagesBanner = IMGS_BANNER;
     }
@@ -21,15 +26,11 @@ export class ProductsFeedPage implements OnInit {
     ngOnInit() {
         const params = this.getParamsToProducts();
         this.loadProducts(params);
+        this.setScrollEvent();
     }
 
     async loadProducts(params:Object = {}){
-        try {
-            const response = await this.productsService.getProducts(params);
-            console.log(response);
-        } catch (error) {
-            console.log("error: ",error);
-        }
+        this.productsService.getProducts(params).subscribe(product => this.products.push(product));
     }
 
     getParamsToProducts():Object{
@@ -38,5 +39,15 @@ export class ProductsFeedPage implements OnInit {
             'filter[country]': 1
         }
         return params;
+    }
+
+    private setScrollEvent(){
+        window.addEventListener("scroll", this.backTopToggle.bind(this));
+    }
+
+    private backTopToggle(ev){
+        const doc = document.documentElement;
+        var offsetScrollTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+        offsetScrollTop > 50 ? this.rendered.addClass(this.backTop.nativeElement, 'show') : this.rendered.removeClass(this.backTop.nativeElement, 'show') ;
     }
 }

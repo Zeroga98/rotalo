@@ -10,9 +10,11 @@ export class NormalizeInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
         return next.handle(req).map( (evt:HttpEvent<any> ) => {
-            let newResponse;
+            let newResponse:HttpEvent<any> ;
             if(evt instanceof HttpResponse){
-                newResponse = this.normalizeResponse(evt.clone());
+                this.normalizeResponse(evt.clone());
+                this.cleanAttributes(evt.clone());
+                console.log("Respuesta: ",evt);
             }
             return evt;
         });
@@ -22,8 +24,15 @@ export class NormalizeInterceptor implements HttpInterceptor {
         const body = response.body
         const data: Array<any> = response.body.data;
         const includes: Array<any> = response.body.included;
-        const newData = this.fillDataWithRelationships(data, includes);
-        return newData;
+        this.fillDataWithRelationships(data, includes);
+    }
+    
+    private cleanAttributes(response:HttpResponse<any>){
+        let data: Array<any> = response.body.data;
+        response.body.data = data.map( item => {
+            item.attributes.id = item.id;
+            return item.attributes;
+        });
     }
 
     private fillDataWithRelationships(data, includes){
@@ -37,8 +46,11 @@ export class NormalizeInterceptor implements HttpInterceptor {
                     let newResource = this.getInfoInclude(element, includes);
                     relacioneToAdd.push(newResource);
                 });
-                item.attributes[key] = this.fillDataWithRelationships(relacioneToAdd, includes);
-            })
+                let value = this.fillDataWithRelationships(relacioneToAdd, includes);
+                item.attributes[key] = value.length == 1 ? value[0] : value;
+            });
+            item.attributes.id = item.id;
+            item = item.attributes;
             return item;
         });
     }

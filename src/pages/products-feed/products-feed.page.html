@@ -1,4 +1,4 @@
-<back-top number="300" stepTime="10"></back-top>
+<back-top number="300" stepTime="10" #backTop></back-top>
 <!-- <div class="overlay" ng-if="ctrl.searchOpen" ng-click="ctrl.toogleSearchBar()"></div>
 <button class="button-floating" ui-sref="products.form">
   <span class="icon-tag"></span>
@@ -13,35 +13,6 @@
   <span NgxCarouselPrev class="arrow arrow-prev"></span>
   <span NgxCarouselNext class="arrow arrow-next"></span>
 </ngx-carousel>
-<!-- <div ng-show="showCarousel" class="carousel-home" ng-controller="CarouselController as carousel">
-  <div class="carousel-arrow-container" uib-carousel active="carousel.active" interval="carousel.myInterval" no-wrap="carousel.noWrapSlides">
-    <span class="carousel-arrow carousel-arrow__prev" ng-click="carousel.carouselPrev()">
-      <span class="icon icon-chevron-thin-left"></span>
-    </span>
-    <span class="carousel-arrow carousel-arrow__next" ng-click="carousel.carouselNext()">
-      <span class="icon icon-chevron-thin-right"></span>
-    </span>
-    <div class="images-container" uib-slide ng-repeat="slide in carousel.slides track by slide.id" index="slide.id">
-      
-      <img ng-class="slide.class" ng-click="carousel.openCampaign(slide.redirect)" ng-src="{{slide.image}}" style="margin:auto;">
-      
-    </div>
-  </div>
+<div class="container-products">
+  <product *ngFor="let product of products" [product]="product"></product>
 </div>
-<div class="container container--app p-t" ng-class="{'container--grid': isList}" infinite-scroll="ctrl.loadProducts()" infinite-scroll-distance="1"
-  infinite-scroll-disabled="ctrl.busy || ctrl.stopPaging">
- 
-
-  <product ng-if="!isList" ng-repeat="product in products" data="product"></product>
-  <div ng-if="isList" deckgrid source="products" cardTemplate="views/products/product-feed.html" class="deckgrid"></div>
-</div>
-<div class="container container--app" ng-if="products.length <= 0">
-  <p class="text-center m-t-lg">No hay publicaciones</p>
-</div>
-<div class="overlay-spinner" ng-if="ctrl.busy">
-  <div class="text--center spinner">
-    <img src="../images/spinner.svg" alt="">
-    <p class="text--grey-dark text--small m-b-0">Cargando…</p>
-  </div>
-</div>
- -->

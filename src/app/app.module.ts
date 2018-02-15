@@ -2,6 +2,7 @@ import { TokenInterceptor } from './../commons/interceptors/token.interceptor';
 import { appRouter } from './../router/router';
 import { ROUTES } from './../router/routes';
 import { BrowserModule } from '@angular/platform-browser';
+import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
@@ -29,6 +30,7 @@ import { SelectStatesComponent } from '../components/select-states/select-states
 import { SelectCitiesComponent } from '../components/select-cities/select-cities.component';
 import { ProductsService } from '../services/products.service';
 import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
+import { ProductComponent } from '../components/product/product.component';
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { NormalizeInterceptor } from '../commons/interceptors/normalize.intercep
     SelectCountryComponent,
     SelectStatesComponent,
     SelectCitiesComponent,
+    ProductComponent,
     ToolbarComponent,
     HomePage,
     SignUpPage,
@@ -54,6 +57,7 @@ import { NormalizeInterceptor } from '../commons/interceptors/normalize.intercep
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MomentModule,
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,

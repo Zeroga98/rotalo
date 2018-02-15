@@ -18,7 +18,6 @@ export class SelectCountryComponent implements OnInit {
     onSelected(ev) {
         const name = ev.target.selectedOptions[0].text;
         const id = ev.target.value;
-        console.log({name, id});
         this.selected.emit({name, id});
     }
 
