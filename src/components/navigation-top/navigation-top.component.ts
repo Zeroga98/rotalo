@@ -1,3 +1,4 @@
+import { ROUTES } from './../../router/routes';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -7,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class NavigationTopComponent implements OnInit {
   @Output() countryChanged : EventEmitter<any> = new EventEmitter();
+  uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
 
   constructor() { }
 

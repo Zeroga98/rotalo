@@ -1,0 +1,38 @@
+:host{
+    .categories-container{
+        display: inline-flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 500px;
+        max-width: 100%;
+        padding: 2rem;
+        .category{
+            margin-bottom: 1rem;
+            .title-circle{
+                background: cadetblue;
+                display: inline-block;
+                padding: .5rem 1rem;
+                border-radius: 2rem;
+                margin-bottom: 1rem;
+                cursor: pointer;
+                min-width: 10rem;
+                text-align: center;
+                label{
+                    color:white;
+                    font-size: 1.7rem;
+                }
+            }
+            .sub-categories{
+                ul{
+                    padding:0;
+                    li{
+                        font-size: 1.6rem;
+                        color: #9B9B9B;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

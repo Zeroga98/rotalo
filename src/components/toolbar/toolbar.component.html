@@ -1,36 +1,20 @@
 <div class="toolbar">
-  <div class="toolbar-container" ng-class="{'toolbar--search-open': searchOpen}">
-    <img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
-    <rl-tag-input [(ngModel)]="tags" [addOnSpace]="true" placeholder="¿Qué estás buscando?"></rl-tag-input>
-
-    <div class="container-categrias">
-      <span class="categ-text">Categorías</span>
-      <span class="icon-width icon-menu" ng-class="ctrl.menuicon"></span>
-    </div>
-  </div>
-    <!-- <div class="mobile-circles" ng-class="{'hide-comp': searchOpen }">
-      <div class="search-circle" ng-click="searchOpen = true">
-        <span class="icon-search"></span>
-      </div>
-      <div class="categories-circle" ng-click="ctrl.tooglehideCategories()">
-        <span class="icon-menu"></span>
-      </div>
-    </div> -->
-    <div class="toolbar__filters">
-      <div class="select-community">
-        <select name="community" (change)= "changeSelectComunidad($event)">
-          <option selected value disabled>Comunidades</option>
-          <option value="-1">Todas</option>
-          <option *ngIf="community" value="{{community.id}}">{{community.name}}</option>
-        </select>
-      </div>
-    </div>
-    <!-- <div class="search-results" ng-if="searchOpen && ctrl.withTerms">
-      <recent-searches select-item="ctrl.selectItem"></recent-searches>
-    </div> -->
+	<div class="toolbar-container" ng-class="{'toolbar--search-open': searchOpen}">
+		<img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
+		<rl-tag-input [(ngModel)]="tags" [addOnSpace]="true" placeholder="¿Qué estás buscando?" (addTag)="changeTags($event)" (removeTag)="changeTags($event)"></rl-tag-input>
+		<div class="container-categrias">
+			<span class="categ-text">Categorías</span>
+			<span class="icon-width icon-close icon-menu" (click)="openCategories($event)"></span>
+		</div>
+	</div>
+	<div class="toolbar__filters">
+		<div class="select-community">
+			<select name="community" (change)="changeSelectComunidad($event)">
+				<option selected value disabled>Comunidades</option>
+				<option value="-1">Todas</option>
+				<option *ngIf="community" value="{{community.id}}">{{community.name}}</option>
+			</select>
+		</div>
+	</div>
+	<categories-menu #categoriesMenu (categorySelected)= "selectedCategory($event)" (subCategorySelected)= "selectedSubCategory($event)"></categories-menu>
 </div>
-<!-- <div ng-class="{'invisible': $root.hideCategories}" class="categories" partial path="views/categories/categories-menu.html"></div>
-  <div ng-if="!$root.showCarousel" class="text-center padding-top">
-    <location-filter-select location-model="$root.country"></location-filter-select>
-  </div> -->
-

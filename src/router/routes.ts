@@ -2,5 +2,9 @@ export const ROUTES = {
     HOME: 'home',
     SIGNUP: 'signup',
     LOGIN: 'login',
-    PRODUCTS_FEED: 'products-feed'
+    PRODUCTS: {
+        LINK:'products',
+        FEED:'feed',
+        UPLOAD:'form'
+    }
 };

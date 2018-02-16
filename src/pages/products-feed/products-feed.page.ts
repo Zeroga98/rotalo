@@ -1,3 +1,5 @@
+import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
@@ -43,17 +45,38 @@ export class ProductsFeedPage implements OnInit {
     }
 
     onCountryChanged(evt){
-        this.routineUpdateProducts("filter[country]", evt.id);
+        this.routineUpdateProducts({"filter[country]":evt.id});
+    }
+
+    searchByTags(evt:Array<string>){
+        const filterValue = evt.join("+");
+        this.routineUpdateProducts({"filter[search]": filterValue});
     }
 
     changeCommunity(community:any){
-        this.routineUpdateProducts("filter[community]", community.id);
+        this.routineUpdateProducts({"filter[community]": community.id});
     }
 
-    private routineUpdateProducts(filter:string, value:any){
-        let paramsFilter = {};
-        paramsFilter[filter] = value;
-        const newFilter = this.updateCurrentFilter(paramsFilter);
+    selectedCategory(category:CategoryInterface){
+        this.routineUpdateProducts({
+            "filter[category]": category.id,
+            "filter[subcategory_id]": null
+        });
+    }
+
+    selectedSubCategory(subCategory:SubcategoryInterface){
+        this.routineUpdateProducts({
+            "filter[subcategory_id]": subCategory.id,
+            "filter[category]": null,
+        });
+    }
+
+    get isSpinnerShow():boolean{
+        return this.products.length <= 0;
+    }
+
+    private routineUpdateProducts(filter:Object){
+        const newFilter = this.updateCurrentFilter(filter);
         this.loadProducts(newFilter);
     }
     private updateCurrentFilter(filter = {}){

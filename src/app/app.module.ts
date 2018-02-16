@@ -32,6 +32,11 @@ import { ProductsService } from '../services/products.service';
 import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
 import { ProductComponent } from '../components/product/product.component';
 import { UserService } from '../services/user.service';
+import { SpinnerComponent } from '../components/spinner/spinner.component';
+import { CategoriesMenuComponent } from '../components/categories-menu/categories-menu.component';
+import { CategoriesService } from '../services/categories.service';
+import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
+import { ProductsPage } from '../pages/products/products.page';
 
 
 @NgModule({
@@ -47,10 +52,14 @@ import { UserService } from '../services/user.service';
     SelectCountryComponent,
     SelectStatesComponent,
     SelectCitiesComponent,
+    CategoriesMenuComponent,
+    SpinnerComponent,
     ProductComponent,
     ToolbarComponent,
     HomePage,
     SignUpPage,
+    ProductsUploadPage, 
+    ProductsPage,
     LoginPage,
     ProductsFeedPage
   ],
@@ -67,6 +76,7 @@ import { UserService } from '../services/user.service';
   providers: [
     UserService, 
     CollectionSelectService,
+    CategoriesService,
     ProductsService,
     {
       provide: HTTP_INTERCEPTORS,
