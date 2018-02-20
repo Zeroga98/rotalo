@@ -12,8 +12,10 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;
+  public errorLogin: String;
   constructor(private loginService: LoginService, private currentSessionService: CurrentSessionService,
     private router: Router) { }
+
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -42,12 +44,17 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
-      this.currentSessionService.authToken();
+
       this.router.navigate(['/products-feed']);
-      console.log('Testeo');
-      }).catch((error) => {
-        console.log("error");
-        console.log(error);
-      });
+    }).catch((httpErrorResponse) => {
+        if (httpErrorResponse.status === 403) {
+        }
+        if (httpErrorResponse.status ===  422) {
+          this.errorLogin = httpErrorResponse.error.errors[0].title;
+        }
+        if (httpErrorResponse.status === 0) {
+          this.errorLogin = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+        }
+    });
   }
 }

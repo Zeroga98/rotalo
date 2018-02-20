@@ -30,6 +30,7 @@
         text-decoration: none;
       }
     }
+
     custom-button {
       display: block;
       width: 100%;
@@ -50,6 +51,25 @@
         color: #bf111c;
         text-decoration: none;
       }
+    }
+  }
+
+  .container--app{
+    margin: 2em auto 0;
+    padding-bottom: 20px;
+  }
+
+  .alert-danger {
+    color: #ED2F3C;
+    text-align: center;
+    background-color: #F2F2F2;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    span{
+      font-size: 1.6rem;
     }
   }
 }
