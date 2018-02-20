@@ -17,6 +17,6 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     private getToken():string{
-        return 'TsLCvqaVTeyVejQxxYvu';
+        return 'PyxRby2giXFjzjPcGoeS';
     }
 }
