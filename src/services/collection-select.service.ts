@@ -11,7 +11,6 @@ export class CollectionSelectService {
     async isReady() {
         try {
             const response = await this.getCollection();
-            this.includes = response.included;
             this.collection = response.data;
             return this.collection;
         } catch (error) {
@@ -24,7 +23,7 @@ export class CollectionSelectService {
             const countries = this.collection.map( value => {
                 return {
                     id: value.id,
-                    name: value.attributes.name
+                    name: value.name,
                 };
             });
             resolve(countries);
@@ -33,28 +32,22 @@ export class CollectionSelectService {
 
     async getStatesById(id: number) {
         const country = await this.getCountryById(id);
-        const idRelationships = this.getIdArrayRelationships(country.relationships.states.data);
-        this.states = this.includes.filter( value => {
-            return value.type == 'states' && idRelationships.indexOf(value.id) != -1;
-        });
+        this.states = country.states;
         return this.states.map( state => {
             return {
                 id: state.id,
-                name: state.attributes.name
+                name: state.name
             };
         });
     }
 
     async getCitiesById(id: number) {
         const state: any = await this.getStateById(id);
-        const idRelationships = this.getIdArrayRelationships(state.relationships.cities.data);
-        const cities = this.includes.filter( value => {
-            return value.type == 'cities' && idRelationships.indexOf(value.id) != -1;
-        });
+        const cities = state.cities;
         return cities.map( city => {
             return {
                 id: city.id,
-                name: city.attributes.name
+                name: city.name
             };
         });
     }
@@ -66,10 +59,6 @@ export class CollectionSelectService {
             });
             resolve(states[0]);
         });
-    }
-
-    private getIdArrayRelationships(relationships: Array<any>): Array<any> {
-        return relationships.map( value =>  value.id );
     }
 
     private getCountryById(id: number): Promise <any> {

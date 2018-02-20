@@ -1,7 +1,9 @@
 <back-arrow></back-arrow>
 <div class="container-fluid">
   <div class="">
-    <form role="form" name="loginForm" class="text-center form-theme">
+
+
+    <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme">
       <div class="m-b">
         <a href="../index.html" class="m-b-lg">
           <img src="./assets/img/logo-red.svg" alt="brand">
@@ -10,13 +12,27 @@
       </div>
       <p class="title-text">Ingresar</p>
       <div class="form-group">
-        <input id="ipt-email" required name="email" type="email" class="form-control" placeholder="Email">
+        <input
+        [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
+        formControlName="email"
+         maxlength="50"
+         id="txt-email"
+         type="email"
+         class="form-control"
+         placeholder="Email">
       </div>
       <div class="form-group">
-        <input id="ctn-password" required name="password" type="password" class="form-control" placeholder="Contraseña">
+        <input
+        [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
+        formControlName="password"
+        maxlength="20"
+        id="txt-password"
+        type="password"
+        class="form-control"
+        placeholder="Contraseña">
       </div>
       <div>
-        <custom-button routerLink="/profile" type="submit" text="Ingresar"></custom-button>
+        <custom-button [disabled]="!loginForm.valid"  type="submit" text="Ingresar"></custom-button>
       </div>
       <div class="content-link">
         <a routerLink="/reset-password" class="">¿Olvidaste tu contraseña?</a>

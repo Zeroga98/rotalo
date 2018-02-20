@@ -1,4 +1,17 @@
 :host{
+    back-top{
+        position: fixed;
+        z-index: 99999;
+        bottom: 15px;
+        left: 50%;
+        opacity: 0;
+        transition: opacity 0.5s;
+        &.show{
+            opacity: 1;
+            transition: opacity 1s;
+        }
+    }
+
     ngx-carousel{
         position: relative;
         .item-banner{
@@ -23,6 +36,16 @@
             left: unset;
             right: 2rem;
             transform: rotate(-135deg);
+        }
+    }
+    .container-products{
+        padding: 4rem 10rem;
+        width: 100%;
+        product{
+            width: 31%;
+            overflow: hidden;
+            margin: 0 1rem 2.5rem;
+            float: left;
         }
     }
 }

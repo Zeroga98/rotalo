@@ -1,6 +1,8 @@
+import { TokenInterceptor } from './../commons/interceptors/token.interceptor';
 import { appRouter } from './../router/router';
 import { ROUTES } from './../router/routes';
 import { BrowserModule } from '@angular/platform-browser';
+import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
@@ -10,7 +12,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { FlashMessageComponent } from '../components/flash-message/flash-message.controller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SliderComponent } from '../components/slider/slider.component';
 import { HomePage } from '../pages/home/home.page';
 import { BackArrowComponent } from '../components/back-arrow/back-arrow.component';
@@ -35,7 +37,12 @@ import { SelectCountryComponent } from '../components/select-country/select-coun
 import { CollectionSelectService } from '../services/collection-select.service';
 import { SelectStatesComponent } from '../components/select-states/select-states.component';
 import { SelectCitiesComponent } from '../components/select-cities/select-cities.component';
-
+import { ProductsService } from '../services/products.service';
+/*import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';*/
+import { ProductComponent } from '../components/product/product.component';
+import { LoginService } from '../services/login/login.service';
+import { ConfigurationService } from '../services/configuration.service';
+import { CurrentSessionService } from '../services/current-session.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +57,7 @@ import { SelectCitiesComponent } from '../components/select-cities/select-cities
     SelectCountryComponent,
     SelectStatesComponent,
     SelectCitiesComponent,
+    ProductComponent,
     ToolbarComponent,
     HomePage,
     SignUpPage,
@@ -68,6 +76,7 @@ import { SelectCitiesComponent } from '../components/select-cities/select-cities
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MomentModule,
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
@@ -75,7 +84,21 @@ import { SelectCitiesComponent } from '../components/select-cities/select-cities
 
   ],
   providers: [
-    CollectionSelectService
+    CollectionSelectService,
+    ProductsService,
+    LoginService,
+    ConfigurationService,
+    CurrentSessionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }/*,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NormalizeInterceptor,
+      multi: true
+    }*/
   ],
   bootstrap: [AppComponent]
 })
