@@ -44,8 +44,9 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
-      this.router.navigate(['/products-feed']);
+      this.router.navigate(['/products/feed']);
     }).catch((httpErrorResponse) => {
+
         if (httpErrorResponse.status === 403) {
         }
         if (httpErrorResponse.status ===  422) {

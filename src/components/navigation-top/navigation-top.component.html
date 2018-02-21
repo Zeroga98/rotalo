@@ -1,6 +1,6 @@
 <nav>
   <div class="navbar-header">
-    <a class="upload-offer-button" ng-click="main.goToCreateProduct()">
+    <a class="upload-offer-button" routerLink="/products/form'">
       <div class="outside-circle">
         <div class="inside-circle">
           <span class="icon-tag"></span>
@@ -14,7 +14,7 @@
     </a>
     <ul class="list-options">
       <li>
-        <select-country class="red-theme-select"></select-country>
+        <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
       </li>
       <!-- <li class="country-mobile">
         <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">

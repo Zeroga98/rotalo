@@ -11,9 +11,12 @@ export class CurrentSessionService {
     localStorage.setItem('currentUser', JSON.stringify({}));
   }
   currentUser(): any {
-    return  localStorage.getItem('currentUser');
+    return  localStorage.getItem('currentUser') || '';
   }
   authToken (): string {
-    return JSON.parse(this.currentUser()).attributes['auth-token'];
+    if (this.currentUser() !== '') {
+      return JSON.parse(this.currentUser())['auth-token'];
+    }
+    return '';
   }
 }

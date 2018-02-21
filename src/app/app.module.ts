@@ -38,12 +38,19 @@ import { CollectionSelectService } from '../services/collection-select.service';
 import { SelectStatesComponent } from '../components/select-states/select-states.component';
 import { SelectCitiesComponent } from '../components/select-cities/select-cities.component';
 import { ProductsService } from '../services/products.service';
-/*import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';*/
+import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
 import { ProductComponent } from '../components/product/product.component';
 import { LoginService } from '../services/login/login.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { CurrentSessionService } from '../services/current-session.service';
 import { RecoverService } from '../services/reset-password/recover.service';
+import { UserService } from '../services/user.service';
+import { SpinnerComponent } from '../components/spinner/spinner.component';
+import { CategoriesMenuComponent } from '../components/categories-menu/categories-menu.component';
+import { CategoriesService } from '../services/categories.service';
+import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
+import { ProductsPage } from '../pages/products/products.page';
+
 
 @NgModule({
   declarations: [
@@ -58,10 +65,14 @@ import { RecoverService } from '../services/reset-password/recover.service';
     SelectCountryComponent,
     SelectStatesComponent,
     SelectCitiesComponent,
+    CategoriesMenuComponent,
+    SpinnerComponent,
     ProductComponent,
     ToolbarComponent,
     HomePage,
     SignUpPage,
+    ProductsUploadPage,
+    ProductsPage,
     LoginPage,
     RecoverPage,
     ConfirmPage,
@@ -85,7 +96,9 @@ import { RecoverService } from '../services/reset-password/recover.service';
 
   ],
   providers: [
+    UserService,
     CollectionSelectService,
+    CategoriesService,
     ProductsService,
     LoginService,
     ConfigurationService,
@@ -95,12 +108,12 @@ import { RecoverService } from '../services/reset-password/recover.service';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }/*,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: NormalizeInterceptor,
       multi: true
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,17 @@
+<div class="categories-container">
+	<div class="category" *ngFor="let category of categories">
+		<div class="title-circle">
+			<a (click)= "selectCategory(category)">
+				<span></span>
+				<label>{{ category.name }}</label>
+			</a>
+		</div>
+		<div class="sub-categories">
+			<ul>
+				<li *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory)">
+					<a> {{ subcategory.name }} </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

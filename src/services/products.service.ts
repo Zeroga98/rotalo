@@ -8,10 +8,11 @@ export class ProductsService {
 
     constructor(private http: HttpClient) { }
 
-    getProducts(params): Observable<any>{
+    getProducts(params): Promise<any>{
         console.log("load products");
         const url = 'https://api.staging.rotalo.co/v1/products';
         return this.http.get(url, {params: params})
-                    .flatMap( (response: any) => response.data);
+                    .toPromise()
+                    .then( (response: any) => response.data);
     }
 }

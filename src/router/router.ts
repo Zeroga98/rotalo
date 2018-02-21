@@ -1,9 +1,11 @@
-import { ROUTES } from "./routes";
-import { Routes } from "@angular/router";
+import { ROUTES } from './routes';
+import { Routes } from '@angular/router';
 import { LoginPage } from './../pages/login/login.page';
-import { HomePage } from "../pages/home/home.page";
-import { SignUpPage } from "../pages/signup/signup.page";
+import { HomePage } from '../pages/home/home.page';
+import { SignUpPage } from '../pages/signup/signup.page';
 import { ProductsFeedPage } from '../pages/products-feed/products-feed.page';
+import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
+import { ProductsPage } from '../pages/products/products.page';
 import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
 import { RecoverPage } from '../pages/reset-password/recover/recover.page';
 import { ShowPage } from '../pages/profile/show/show.page';
@@ -11,6 +13,7 @@ import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
+
 
 export const appRouter: Routes = [
   {
@@ -22,9 +25,24 @@ export const appRouter: Routes = [
     component: SignUpPage
   },
   {
-    path: ROUTES.PRODUCTS_FEED,
-    component: ProductsFeedPage
-  },
+    path: ROUTES.PRODUCTS.LINK,
+    component: ProductsPage,
+    children: [
+        {
+            path: ROUTES.PRODUCTS.FEED,
+            component: ProductsFeedPage,
+        },
+        {
+            path: ROUTES.PRODUCTS.UPLOAD,
+            component: ProductsUploadPage,
+        },
+        {
+            path: '',
+            redirectTo: ROUTES.PRODUCTS.FEED,
+            pathMatch: 'full'
+        },
+    ]
+},
   {
     path: ROUTES.LOGIN,
     component: LoginPage

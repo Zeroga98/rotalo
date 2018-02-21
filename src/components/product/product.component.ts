@@ -1,5 +1,5 @@
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'product',
@@ -7,14 +7,10 @@ import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/c
   styleUrls: ['./product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnChanges{
+export class ProductComponent{
   @Input() product: ProductInterface;
 
   constructor() { }
-
-  ngOnChanges() {
-    console.log(this.product);
-  }
 
   getLocation(product):string{
     const city = product.user.city;

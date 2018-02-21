@@ -1,3 +1,5 @@
+import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
@@ -16,6 +18,10 @@ export class ProductsFeedPage implements OnInit {
     public carouselConfig: NgxCarousel;
     public imagesBanner: Array<string>;
     public products: Array<ProductInterface> = [];
+    private currentFilter: any = {
+        'filter[status]': 'active',
+        'filter[country]': 1
+    };
     @ViewChild('backTop', {read: ElementRef}) backTop: ElementRef;
 
     constructor(private productsService: ProductsService, private rendered: Renderer2 ) {
@@ -29,23 +35,61 @@ export class ProductsFeedPage implements OnInit {
         this.setScrollEvent();
     }
 
-    loadProducts(params:Object = {}){
-        this.productsService.getProducts(params).subscribe(product => this.products.push(product));
+    async loadProducts(params:Object = {}) {
+        this.productsService.getProducts(params).then(products => {
+            this.products = [].concat(products);
+        });
+    }
+    getParamsToProducts() {
+        return this.currentFilter;
     }
 
-    getParamsToProducts(): Object {
-        const params = {
-            'filter[status]': 'active',
-            'filter[country]': 1
-        };
-        return params;
+    onCountryChanged(evt) {
+        this.routineUpdateProducts({"filter[country]":evt.id});
     }
 
-    private setScrollEvent(){
+    searchByTags(evt:Array<string>) {
+        const filterValue = evt.join("+");
+        this.routineUpdateProducts({"filter[search]": filterValue});
+    }
+
+    changeCommunity(community:any){
+        this.routineUpdateProducts({"filter[community]": community.id});
+    }
+
+    selectedCategory(category:CategoryInterface){
+        this.routineUpdateProducts({
+            "filter[category]": category.id,
+            "filter[subcategory_id]": null
+        });
+    }
+
+    selectedSubCategory(subCategory: SubcategoryInterface){
+        this.routineUpdateProducts({
+            "filter[subcategory_id]": subCategory.id,
+            "filter[category]": null,
+        });
+    }
+
+    get isSpinnerShow(): boolean{
+        return this.products.length <= 0;
+    }
+
+    private routineUpdateProducts(filter: Object){
+        const newFilter = this.updateCurrentFilter(filter);
+        this.loadProducts(newFilter);
+    }
+    private updateCurrentFilter(filter = {}) {
+        this.currentFilter = Object.assign({},this.currentFilter,filter);
+        console.log('current: ', this.currentFilter);
+        return this.currentFilter;
+    }
+
+    private setScrollEvent() {
         window.addEventListener('scroll', this.backTopToggle.bind(this));
     }
 
-    private backTopToggle(ev){
+    private backTopToggle(ev) {
         const doc = document.documentElement;
         const offsetScrollTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
         offsetScrollTop > 50 ? this.rendered.addClass(this.backTop.nativeElement, 'show') :

@@ -7,6 +7,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
         .toolbar-container{
             background: white;
             display: inline-flex;
@@ -50,6 +51,22 @@
                 padding: .5rem 5rem .5rem 1rem;
                 border-radius: 2rem;
                 font-size: 2rem;
+            }
+        }
+        categories-menu{
+            position: absolute;
+            top:100%;
+            left: 5%;
+            background: white;
+            z-index: 9999999;
+            width: 90%;
+            border-radius: 1rem;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s;
+            &.opened{
+                max-height: 100rem;
+                transition: max-height 0.5s;
             }
         }
     }
