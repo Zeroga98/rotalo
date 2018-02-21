@@ -1,21 +1,24 @@
 <back-arrow></back-arrow>
 <div class="container-fluid container container--app p-t p-b">
   <div>
-    <div class="alert alert-success text--center p-y" role="success">
-      <p>
-        <span class="icon-check alert-icon"></span>
-      </p>
+    <div *ngIf="errorLogin" class="container--app">
+      <div class="alert-danger" role="alert">
+        <div>
+          <span>{{errorLogin}}</span>
+        </div>
+      </div>
     </div>
-    <form role="form" class="form-theme text-center">
+    <form role="form" [formGroup]="recoverForm" (ngSubmit)="onSubmit()" class="form-theme text-center">
       <div class="text-left">
         <p class="text--grey-dark bold">Recuperar Contraseña</p>
         <p class="text--grey text--small m-b">Ingresa tu email para recuperar tu contraseña. Enviaremos instrucciones para recuperar tu contraseña.</p>
       </div>
       <div class="form-group">
-        <input type="email" class="form-control" placeholder="E-mail">
+        <input [ngClass]="{'invalid': recoverForm.get('email').invalid && !recoverForm.get('email').pristine}" formControlName="email"
+          maxlength="50" id="txt-email" type="email" class="form-control" placeholder="E-mail">
       </div>
-      <div class="texto">
-        <custom-button type="submit" text="Enviar"></custom-button>
+      <div class="texto btn-square">
+        <custom-button [disabled]="!recoverForm.valid" type="submit" text="Enviar"></custom-button>
       </div>
     </form>
   </div>

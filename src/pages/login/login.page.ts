@@ -6,9 +6,9 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: "login-page",
-  templateUrl: "login.page.html",
-  styleUrls: ["login.page.scss"]
+  selector: 'login-page',
+  templateUrl: 'login.page.html',
+  styleUrls: ['login.page.scss']
 })
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;
@@ -27,24 +27,23 @@ export class LoginPage implements OnInit {
   }
   onSubmit() {
     if (this.loginForm.valid) {
-      let email = this.loginForm.get('email').value;
-      let password = this.loginForm.get('password').value;
+      const email = this.loginForm.get('email').value;
+      const password = this.loginForm.get('password').value;
       this.login(email, password);
     }
   }
-  login(userName: string, password: string) {
+  login(userEmail: string, password: string) {
     const user = {
       'data': {
         'type': 'sessions',
         'attributes': {
-          'email': userName,
+          'email': userEmail,
           'password': password
         }
       }
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
-
       this.router.navigate(['/products-feed']);
     }).catch((httpErrorResponse) => {
         if (httpErrorResponse.status === 403) {

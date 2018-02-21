@@ -2,7 +2,7 @@
 @import '../../styles/settings/_variables.scss';
 
 :host{
-    .back-arrow{        
+    .back-arrow{
         .back-circle{
             position: relative;
             display: inline-flex;
@@ -12,8 +12,9 @@
             width: 40px;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
-    
+
         .icon:before{
             content: '';
             position: relative;
@@ -26,7 +27,6 @@
             border-top:none;
             transform: rotate(45deg);
             border-radius: 3px;
-            cursor: pointer;
         }
     }
 }

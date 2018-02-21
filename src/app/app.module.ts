@@ -43,6 +43,7 @@ import { ProductComponent } from '../components/product/product.component';
 import { LoginService } from '../services/login/login.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { CurrentSessionService } from '../services/current-session.service';
+import { RecoverService } from '../services/reset-password/recover.service';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { CurrentSessionService } from '../services/current-session.service';
     LoginService,
     ConfigurationService,
     CurrentSessionService,
+    RecoverService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
