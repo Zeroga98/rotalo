@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { PreferenceService } from '../../../services/profile/preference.service';
 
 
 @Component({
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['notifications-settings.page.scss']
 })
 export class NotificationsSettingsPage implements OnInit {
+  @ViewChild('f') preferenceForm: NgForm;
   preferenceOptions = [{
     category: 'Publicaciones',
     label: 'Notifícame cuando una publicación expire.',
@@ -73,9 +76,69 @@ export class NotificationsSettingsPage implements OnInit {
     key: 'rate-buyer'
   }
 ];
-  constructor() { }
 
-  ngOnInit() {
+public errorChange: String;
+public messageChange: String;
+public preferencesArray: Array<string> = [];
+public userId: string;
+
+
+  constructor(private preferenceService: PreferenceService) {}
+
+  ngOnInit(): void {
+    this.initPreference();
   }
 
+  initPreference() {
+    this.preferenceService.getPreference().then(response => {
+      this.preferencesArray = response.data;
+      this.userId = this.preferencesArray['id'];
+      /**Se elimina atributo id del request**/
+      this.preferencesArray['id'] = null;
+      delete this.preferencesArray['id'];
+      /**Se crea el request**/
+      })
+      .catch(httpErrorResponse => {
+        this.messageChange = '';
+        if (httpErrorResponse.status === 403) {
+        }
+        if (httpErrorResponse.status === 422) {
+          this.errorChange = httpErrorResponse.error.errors[0].title;
+        }
+        if (httpErrorResponse.status === 0) {
+          this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+        }
+      });
+  }
+
+  updatePreference() {
+
+    const userPreference = {
+      'data': {
+        'id': this.userId,
+        'type': 'preferences',
+        'attributes': this.preferencesArray
+      }
+    };
+    console.log(userPreference);
+    this.preferenceService.updatePrefarence(userPreference).then(response => {
+      this.messageChange = 'Sus preferencias se ha guardado correctamente.';
+      this.errorChange = '';
+      }).catch(httpErrorResponse => {
+        this.messageChange = '';
+        if (httpErrorResponse.status === 403) {
+        }
+        if (httpErrorResponse.status === 422) {
+          this.errorChange = httpErrorResponse.error.errors[0].title;
+        }
+        if (httpErrorResponse.status === 0) {
+          this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+        }
+      });
+  }
+
+  onSubmit() {
+    console.log(this.preferencesArray);
+    this.updatePreference();
+  }
 }

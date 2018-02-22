@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
     });
   }
   onSubmit() {
+
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email').value;
       const password = this.loginForm.get('password').value;
@@ -46,7 +47,6 @@ export class LoginPage implements OnInit {
       this.currentSessionService.setSession(response.data);
       this.router.navigate(['/products/feed']);
     }).catch((httpErrorResponse) => {
-
         if (httpErrorResponse.status === 403) {
         }
         if (httpErrorResponse.status ===  422) {

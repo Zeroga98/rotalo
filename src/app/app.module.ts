@@ -50,6 +50,8 @@ import { CategoriesMenuComponent } from '../components/categories-menu/categorie
 import { CategoriesService } from '../services/categories.service';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { ChangePasswordService } from '../services/profile/changePassword.service';
+import { PreferenceService } from '../services/profile/preference.service';
 
 
 @NgModule({
@@ -104,6 +106,8 @@ import { ProductsPage } from '../pages/products/products.page';
     ConfigurationService,
     CurrentSessionService,
     RecoverService,
+    ChangePasswordService,
+    PreferenceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

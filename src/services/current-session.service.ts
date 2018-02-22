@@ -19,4 +19,10 @@ export class CurrentSessionService {
     }
     return '';
   }
+  getIdUser (): string {
+    if (this.currentUser() !== '') {
+      return JSON.parse(this.currentUser())['id'];
+    }
+    return '';
+  }
 }

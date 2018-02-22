@@ -19,19 +19,23 @@ export class NormalizeInterceptor implements HttpInterceptor {
             return evt;
         });
     }
-    private normalizeResponse(response:HttpResponse<any>){
-        const body = response.body
+    private normalizeResponse(response: HttpResponse<any>) {
+      if (response.body) {
+        const body = response.body;
         const data: Array<any> = response.body.data;
         const includes: Array<any> = response.body.included;
         this.fillDataWithRelationships(this.checkData(data), includes);
+      }
     }
-    private cleanAttributes(response:HttpResponse<any>){
+    private cleanAttributes(response: HttpResponse<any>) {
+      if (response.body) {
         let data: Array<any> = this.checkData(response.body.data);
         response.body.data = data.map( item => {
             item.attributes.id = item.id;
             return item.attributes;
         });
         response.body.data = response.body.data.length == 1 ? response.body.data[0] : response.body.data;
+      }
     }
     private fillDataWithRelationships(data, includes){
         return data.map( item => {
