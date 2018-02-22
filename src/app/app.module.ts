@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { NgxCarouselModule } from 'ngx-carousel';
+import { ImageUploadModule } from "angular2-image-upload";
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -37,6 +38,8 @@ import { CategoriesMenuComponent } from '../components/categories-menu/categorie
 import { CategoriesService } from '../services/categories.service';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { PhotosService } from '../services/photos.service';
+import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
 
 
 @NgModule({
@@ -71,6 +74,7 @@ import { ProductsPage } from '../pages/products/products.page';
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter)
   ],
   providers: [
@@ -78,6 +82,7 @@ import { ProductsPage } from '../pages/products/products.page';
     CollectionSelectService,
     CategoriesService,
     ProductsService,
+    PhotosService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
