@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { CurrentSessionService } from '../../services/current-session.service';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class HeadersInterceptor implements HttpInterceptor {
 
-    constructor(private currentSessionService: CurrentSessionService) {}
+    constructor(){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const request = req.clone({
-            setHeaders: {
-                Authorization: this.getToken()
+            setHeaders:{
+                'Accept': 'application/vnd.api+json',
+                'Content-Type': 'application/vnd.api+json'
             }
         });
         return next.handle(request);
-    }
-
-    private getToken(): string {
-      return this.currentSessionService.authToken();
     }
 }

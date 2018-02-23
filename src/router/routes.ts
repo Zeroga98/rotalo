@@ -14,6 +14,7 @@ export const ROUTES = {
     PRODUCTS_FEED: 'products-feed',
     PRODUCTS: {
         LINK: 'products',
+        SHOW: 'show/:id',
         FEED: 'feed',
         UPLOAD: 'form'
     }

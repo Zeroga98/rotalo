@@ -13,7 +13,7 @@ import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
-
+import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 
 export const appRouter: Routes = [
   {
@@ -35,6 +35,10 @@ export const appRouter: Routes = [
         {
             path: ROUTES.PRODUCTS.UPLOAD,
             component: ProductsUploadPage,
+        },
+        {
+          path: ROUTES.PRODUCTS.SHOW,
+          component: DetalleProductoComponent,
         },
         {
             path: '',

@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { NgxCarouselModule } from 'ngx-carousel';
+import { ImageUploadModule } from "angular2-image-upload";
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -52,6 +53,10 @@ import { ProductsUploadPage } from '../pages/products-upload/products-upload.pag
 import { ProductsPage } from '../pages/products/products.page';
 import { ChangePasswordService } from '../services/profile/changePassword.service';
 import { PreferenceService } from '../services/profile/preference.service';
+import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
+import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
+import { PhotosService } from '../services/photos.service';
+import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
 
 
 @NgModule({
@@ -84,7 +89,9 @@ import { PreferenceService } from '../services/profile/preference.service';
     ChangePasswordPage,
     NotificationsSettingsPage,
     GroupByPipe,
-    ProductsFeedPage
+    ProductsFeedPage,
+    DetalleProductoComponent,
+    LigthboxSendMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +101,7 @@ import { PreferenceService } from '../services/profile/preference.service';
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter)
 
   ],
@@ -108,6 +116,7 @@ import { PreferenceService } from '../services/profile/preference.service';
     RecoverService,
     ChangePasswordService,
     PreferenceService,
+    PhotosService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

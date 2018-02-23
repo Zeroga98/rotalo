@@ -11,10 +11,9 @@ export class NormalizeInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).map( (evt:HttpEvent<any> ) => {
             let newResponse:HttpEvent<any> ;
-            if(evt instanceof HttpResponse){
+            if(evt instanceof HttpResponse && evt.body){
                 this.normalizeResponse(evt.clone());
                 this.cleanAttributes(evt.clone());
-                console.log("Respuesta: ",evt);
             }
             return evt;
         });
