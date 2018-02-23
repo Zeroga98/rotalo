@@ -18,6 +18,18 @@
             margin-bottom: 5rem;
             font-size: 1.6rem;
         }
+        .container-errors{
+            margin-bottom: 5rem;
+            ul{
+                padding: 0;
+                text-align: center;
+                .error{
+                    color: $red;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
         .terms{
             margin: 5rem 0 2rem;
             font-size: 1.6rem;

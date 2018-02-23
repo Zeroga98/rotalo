@@ -11,7 +11,8 @@ export const ROUTES = {
     HOBBIES: 'gustos',
     EDITPROFILE: 'edit',
     NOTIFICATIONSSETTINGS: 'notifications-settings',
-    PRODUCTS_FEED: 'products-feed',
+    ACTIVACION:'activacion',
+    SUCCESS:'success-activation',
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show/:id',

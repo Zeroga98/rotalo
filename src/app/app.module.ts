@@ -54,9 +54,13 @@ import { ProductsPage } from '../pages/products/products.page';
 import { ChangePasswordService } from '../services/profile/changePassword.service';
 import { PreferenceService } from '../services/profile/preference.service';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
-import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
 import { PhotosService } from '../services/photos.service';
 import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
+import { UtilsService } from '../util/utils.service';
+import { ActivacionCuentaPage } from '../pages/activacion-cuenta/activacion-cuenta.page';
+import { ActivationService } from '../services/activation.service';
+import { SimpleFormComponent } from '../components/simple-form/simple-form.component';
+import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
 
 
 @NgModule({
@@ -76,10 +80,12 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     SpinnerComponent,
     ProductComponent,
     ToolbarComponent,
+    SimpleFormComponent ,
     HomePage,
     SignUpPage,
     ProductsUploadPage,
     ProductsPage,
+    SuccessActivationPage,
     LoginPage,
     RecoverPage,
     ConfirmPage,
@@ -88,10 +94,10 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     EditProfilePage,
     ChangePasswordPage,
     NotificationsSettingsPage,
+    ActivacionCuentaPage,
     GroupByPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
-    LigthboxSendMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +114,7 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
   providers: [
     UserService,
     CollectionSelectService,
+    ActivationService,
     CategoriesService,
     ProductsService,
     LoginService,
@@ -115,8 +122,14 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     CurrentSessionService,
     RecoverService,
     ChangePasswordService,
+    UtilsService,
     PreferenceService,
     PhotosService,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi:true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
