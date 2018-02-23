@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserInterface } from "./../commons/interfaces/user.interface";
 import { Injectable } from "@angular/core";
 import { ConfigurationService } from "../services/configuration.service";
@@ -34,9 +34,15 @@ export class UserService {
     } catch (error) {}
   }
 
+  updateUser(currentUser): Promise <any> {
+    const jsonApiHeaders = this.configurationService.getJsonApiHeaders();
+    const url = this.configurationService.getBaseUrl() + '/v1/users/' + this.idUser;
+    const headers = new HttpHeaders(jsonApiHeaders);
+    return this.httpClient.put(url, currentUser, { headers: headers }).toPromise();
+  }
+
   private getUser(): Promise<any> {
-    const url =
-      this.configurationService.getBaseUrl() + '/v1/users/' + this.idUser;
+    const url = this.configurationService.getBaseUrl() + '/v1/users/' + this.idUser;
     return this.httpClient
       .get(url)
       .map((response: any) => response.data)

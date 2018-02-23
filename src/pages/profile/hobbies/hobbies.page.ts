@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { UserService } from "../../../services/user.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: "app-hobbies",
-  templateUrl: "hobbies.page.html",
-  styleUrls: ["hobbies.page.scss"]
+  selector: 'app-hobbies',
+  templateUrl: 'hobbies.page.html',
+  styleUrls: ['hobbies.page.scss']
 })
 export class HobbiesPage implements OnInit {
   public hobbiesForm: FormGroup;
@@ -16,7 +16,7 @@ export class HobbiesPage implements OnInit {
 
   ngOnInit() {
     this.hobbiesForm = this.fb.group({
-      hobbie: ""
+      hobbies: ''
     });
     this.getHobbie();
   }
@@ -31,11 +31,39 @@ export class HobbiesPage implements OnInit {
        this.hobbiesForm.reset();
     }
     this.hobbiesForm.patchValue({
-      hobbie: user.hobbies
+      hobbies: user.hobbies
     });
   }
 
+  saveHobbie(): void {
+    console.log(this.userHobbie);
+    let infoUser = Object.assign({}, this.hobbiesForm.value);
+    const currentUser = {
+      'data': {
+        'id': this.userHobbie.id,
+        'type': 'users',
+        'attributes': infoUser
+      }
+    };
+    console.log(currentUser);
+    this.userService.updateUser(currentUser).then(response => {
+      this.messageChange = 'Su cuenta se ha actualizado..';
+      this.errorChange = '';
+      })
+      .catch(httpErrorResponse => {
+        this.messageChange = '';
+        if (httpErrorResponse.status === 403) {
+        }
+        if (httpErrorResponse.status === 422) {
+          this.errorChange = httpErrorResponse.error.errors[0].title;
+        }
+        if (httpErrorResponse.status === 0) {
+          this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+        }
+      });
+  }
+
   onSubmit() {
-    console.log('onSubmit');
+    this.saveHobbie();
   }
 }

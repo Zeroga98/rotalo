@@ -82,7 +82,7 @@ export class ProductsFeedPage implements OnInit {
         this.loadProducts(newFilter);
     }
     private updateCurrentFilter(filter = {}) {
-        this.currentFilter = Object.assign({},this.currentFilter,filter);
+        this.currentFilter = Object.assign({}, this.currentFilter, filter);
         console.log('current: ', this.currentFilter);
         return this.currentFilter;
     }
