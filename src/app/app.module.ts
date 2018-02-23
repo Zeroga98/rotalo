@@ -37,6 +37,8 @@ import { CategoriesMenuComponent } from '../components/categories-menu/categorie
 import { CategoriesService } from '../services/categories.service';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
+import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { ProductsPage } from '../pages/products/products.page';
     ProductsUploadPage, 
     ProductsPage,
     LoginPage,
-    ProductsFeedPage
+    ProductsFeedPage,
+    DetalleProductoComponent,
+    LigthboxSendMessageComponent
   ],
   imports: [
     BrowserModule,

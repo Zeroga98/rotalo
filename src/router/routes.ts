@@ -4,6 +4,7 @@ export const ROUTES = {
     LOGIN: 'login',
     PRODUCTS: {
         LINK:'products',
+        SHOW:'show/:id',
         FEED:'feed',
         UPLOAD:'form'
     }

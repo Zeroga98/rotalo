@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home.page';
 import { SignUpPage } from '../pages/signup/signup.page';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 
 export const appRouter: Routes = [
     {
@@ -27,6 +28,10 @@ export const appRouter: Routes = [
             {
                 path: ROUTES.PRODUCTS.UPLOAD,
                 component: ProductsUploadPage,
+            },
+            {
+                path: ROUTES.PRODUCTS.SHOW,
+                component: DetalleProductoComponent,
             },
             {
                 path: '',

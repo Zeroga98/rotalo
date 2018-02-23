@@ -7,6 +7,7 @@ import { NgxCarousel }  from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
 import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
+import { ROUTES } from './../../router/routes';
 
 @Component({
     selector: 'products-feed',
@@ -18,6 +19,7 @@ export class ProductsFeedPage implements OnInit {
     public carouselConfig: NgxCarousel;
     public imagesBanner: Array<string>;
     public products: Array<ProductInterface> = [];
+
     private currentFilter: any = { 
         'filter[status]': 'active',
         'filter[country]': 1
@@ -90,6 +92,7 @@ export class ProductsFeedPage implements OnInit {
     }
 
     private backTopToggle(ev){
+        
         const doc = document.documentElement;
         var offsetScrollTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
         offsetScrollTop > 50 ? this.rendered.addClass(this.backTop.nativeElement, 'show') : this.rendered.removeClass(this.backTop.nativeElement, 'show') ;

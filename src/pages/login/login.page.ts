@@ -6,6 +6,4 @@ import { Component } from "@angular/core";
     styleUrls: ['login.page.scss']
 })
 
-export class LoginPage{
-
-}
+export class LoginPage{}

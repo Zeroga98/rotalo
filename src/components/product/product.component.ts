@@ -1,5 +1,6 @@
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'product',
@@ -9,8 +10,10 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ProductComponent{
   @Input() product: ProductInterface;
+  productLink: string = `/${ROUTES.PRODUCTS.LINK}/show`;
 
-  constructor() { }
+  constructor() {
+  }
 
   getLocation(product):string{
     const city = product.user.city;
