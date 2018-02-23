@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
 
@@ -19,5 +19,19 @@ export class ProductsService {
     getProductsById(id:number):Promise<any>{
         const url = `${this.url}/${id}`;
         return this.http.get(url).toPromise().then( (response:any) => response.data);
+    }
+    
+    saveProducts(params):Promise<any>{
+        return this.http.post(this.url,
+                    {
+                        data:{
+                            attributes: params,
+                            type: 'products'
+                        },
+                    },
+                    {
+                        headers: { 'Content-Type': 'application/vnd.api+json'}
+                    })
+                    .toPromise();
     }
 }

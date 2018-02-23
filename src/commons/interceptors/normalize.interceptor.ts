@@ -11,17 +11,16 @@ export class NormalizeInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
         return next.handle(req).map( (evt:HttpEvent<any> ) => {
             let newResponse:HttpEvent<any> ;
-            if(evt instanceof HttpResponse){
+            if(evt instanceof HttpResponse && evt.body){
                 this.normalizeResponse(evt.clone());
                 this.cleanAttributes(evt.clone());
-                console.log("Respuesta: ",evt);
             }
             return evt;
         });
     }
 
     private normalizeResponse(response:HttpResponse<any>){
-        const body = response.body
+        const body = response.body;
         const data: Array<any> = response.body.data;
         const includes: Array<any> = response.body.included;
         this.fillDataWithRelationships(this.checkData(data), includes);

@@ -1,0 +1,36 @@
+image-upload{
+    .img-ul{
+        text-align: center;
+        border-color: #9B9B9B !important;
+        .img-ul-file-upload{
+            display: inline-block;
+            .img-ul-upload, .img-ul-clear{
+                background: $red;
+            }
+            .img-ul-clear{
+                margin-left: 1rem;
+            }
+        }
+        .img-ul-container{
+            .img-ul-image {
+                height: 150px;
+                width: 185px;
+                &:not(:last-child){
+                    margin-right: 1.5rem;
+                }
+            }
+            .img-ul-x-mark{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: $red;
+                .img-ul-close{
+                    display: inline-block;
+                    height: 15px;
+                    padding: 0;
+                    width: 15px;
+                }
+            }
+        }
+    }
+}

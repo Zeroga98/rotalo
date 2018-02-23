@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { NgxCarouselModule } from 'ngx-carousel';
+import { ImageUploadModule } from "angular2-image-upload";
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -39,6 +40,8 @@ import { ProductsUploadPage } from '../pages/products-upload/products-upload.pag
 import { ProductsPage } from '../pages/products/products.page';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
+import { PhotosService } from '../services/photos.service';
+import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
 
 
 @NgModule({
@@ -75,6 +78,7 @@ import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter)
   ],
   providers: [
@@ -82,6 +86,7 @@ import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/
     CollectionSelectService,
     CategoriesService,
     ProductsService,
+    PhotosService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
