@@ -1,19 +1,20 @@
 <navigation-top></navigation-top>
 <div>
-  <div class="container">
+  <div  class="container">
     <div id="top"></div>
     <h1 class="zeta text--grey-dark bold">Gustos y Aficiones</h1>
     <p class="text--grey-dark">Ingresa tu gustos y aficiones.</p>
     <p class="text--grey-dark">Usa palabras clave separadas por comas (,).</p>
 
-    <form role="form">
+    <form role="form"  (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <textarea id="txta-hobbie" class="form-control hobbies-input"  placeholder="música, tecnología, fútbol, iPhone, deportes, teclados, mouse, camaras digitales, relojes, zapatos, viajes, audífonos, macbook pro, gafas de sol, maletín."></textarea>
+        <textarea  id="txta-hobbie" class="form-control hobbies-input"  placeholder="música, tecnología, fútbol, iPhone, deportes, teclados, mouse, camaras digitales, relojes, zapatos, viajes, audífonos, macbook pro, gafas de sol, maletín.">
+        </textarea>
         <p class="line-height--large text-left text--grey"><i>Ejemplo: carros, tecnología, cocina</i></p>
       </div>
       <footer>
         <div class="btn-square">
-          <custom-button class="btn--square" type="submit" text="Guardar Cambios"></custom-button>
+          <custom-button  class="btn--square" type="submit" text="Guardar Cambios"></custom-button>
         </div>
       </footer>
     </form>
