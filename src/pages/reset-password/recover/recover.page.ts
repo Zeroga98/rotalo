@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecoverService } from '../../../services/reset-password/recover.service';
 import { Router } from '@angular/router';
+import { ROUTES } from '../../../router/routes';
 
 @Component({
   selector: 'recover-page',
@@ -35,7 +36,7 @@ export class RecoverPage implements OnInit {
       }
     };
     this.recoverService.recoverUser(user).then((response) => {
-      this.router.navigate(['/reset-password/confirm']);
+      this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
     }).catch((httpErrorResponse) => {
       if (httpErrorResponse.status ===  404) {
         this.errorLogin = httpErrorResponse.error.errors[0].title;

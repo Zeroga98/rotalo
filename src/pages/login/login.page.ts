@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'login-page',
@@ -45,7 +46,7 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
-      this.router.navigate(['/products/feed']);
+      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
     }).catch((httpErrorResponse) => {
         if (httpErrorResponse.status === 403) {
         }

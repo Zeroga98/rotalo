@@ -26,7 +26,6 @@ export class ToolbarComponent implements OnInit {
 
   async ngOnInit() {
     this.community = await this.userService.getCommunityUser();
-    console.log(this.community);
   }
 
   changeSelectComunidad(evt) {

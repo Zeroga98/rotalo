@@ -19,7 +19,7 @@ export class ProductsUploadPage implements OnInit {
 	categories: Array<CategoryInterface>= [];
 	subCategories: Array<SubcategoryInterface> = [];
 	constructor(
-		private photosService: PhotosService, 
+		private photosService: PhotosService,
 		private categoryService:CategoriesService,
 		private productsService:ProductsService,
 		private router: Router) { }
@@ -45,7 +45,7 @@ export class ProductsUploadPage implements OnInit {
 			const photo = Object.assign({}, response, { 'file': event.file });
 			this.photosUploaded.push(photo);
 		} catch (error) {
-			console.error("Error: ",error);	
+			console.error("Error: ",error);
 		}
 	}
 
@@ -57,19 +57,19 @@ export class ProductsUploadPage implements OnInit {
 		} catch (error) {
 			console.error("error: ", error);
 		}
-		
+
 	}
 
 	async publishPhoto(form){
 		try {
 			const photosIds = { 'photo-ids': this.getPhotosIds()};
 			const publishDate = {
-				'publish-until': this.getPublishUntilDate(), 
+				'publish-until': this.getPublishUntilDate(),
 				'published-at': new Date()
 			}
 			const params = Object.assign({}, this.photosForm.value, photosIds, publishDate);
 			const response = await this.productsService.saveProducts(params);
-			this.router.navigate([`/${ROUTES.PRODUCTS}/${ROUTES.PRODUCTS.FEED}`]);
+			this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
 		} catch (error) {
 			console.error("Error: ",error);
 		}

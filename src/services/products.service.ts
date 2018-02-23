@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from "../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class ProductsService {
-    readonly url = "https://api.staging.rotalo.co/v1/products";
+    readonly url = this.configurationService.getBaseUrl() + '/v1/products';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     getProducts(params): Promise<any>{
         console.log("load products");

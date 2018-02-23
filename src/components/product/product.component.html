@@ -1,6 +1,6 @@
 <div class="container-product" routerLink="{{productLink}}/{{product.id}}">
   <div class="container-photo">
-    <img [src]="product.photos.url" [alt]="product.name">
+    <img [src]="product.photos?.url" [alt]="product.name">
   </div>
   <div class="container-name">
     <span class="name">{{product.name}}</span>
