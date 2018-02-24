@@ -1,0 +1,40 @@
+.message-show-product{
+    border-bottom: 1px solid #D3E0E9;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+
+    &:hover{
+        background: #f5fbfd;
+    }
+
+    .media{
+        > * {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        div{
+            *{
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 25px;
+                margin: 0;
+                color: #4A4A4A;
+            }
+
+            h2{
+                font-weight: bold;
+            }
+        }
+
+        .avatar{
+            width: 46px;
+            height: 46px;
+            background-size: cover;
+            border-radius: 4px;
+            background-color: red;
+            margin-right: 10px;
+        }
+    }
+}

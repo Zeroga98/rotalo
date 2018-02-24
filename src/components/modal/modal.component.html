@@ -2,9 +2,9 @@
   <div class="modal-dialog">
     <div class="modal-header">
       <div>
-        <h1 class="modal__title ng-hide" ng-hide="ctrl.selectedConversation">Mensajes</h1>
+        <h1 class="modal__title ng-hide">Mensajes</h1>
       </div>
-      <div class="modal-close" ng-click="ctrl.close()">
+      <div class="modal-close" (click)="showOcult()">
         <span class="icon-custom icon-custom--cross"></span>
       </div>
     </div>

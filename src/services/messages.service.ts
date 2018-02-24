@@ -12,14 +12,23 @@ export class MessagesService {
     constructor(private http: HttpClient) { }
 
     getConversation(): Promise<any> {
-
         const url = `${this.url}`;
         return this.http.get(url).toPromise().then((response: any) => response.data);
-
     }
 
     getConversationByID(id: string): Promise<any> {
         const url = `${this.url}/${id}`;
         return this.http.get(url).toPromise().then((response: any) => response.data);
+    }
+
+    sendMessage(params): Promise<any> {
+        return this.http.post("https://api.staging.rotalo.co/v1/messages",
+            {
+                data: {
+                    attributes: params,
+                    type: 'messages'
+                },
+            })
+            .toPromise();
     }
 }

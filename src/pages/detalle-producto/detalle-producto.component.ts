@@ -5,6 +5,7 @@ import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
+import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
 
 @Component({
   selector: 'detalle-producto',
@@ -14,8 +15,10 @@ import { Router } from '@angular/router';
 export class DetalleProductoComponent implements OnInit {
   public carouselConfig: NgxCarousel;
   public products: Array<ProductInterface> = [];
+  public conversation: ConversationInterface;
   public productsPhotos: any;
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
+  idUser: string = "3061";
 
   constructor(private productsService: ProductsService, private router: Router) {
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -23,14 +26,19 @@ export class DetalleProductoComponent implements OnInit {
 
   ngOnInit() { 
     this.loadProduct();
+    console.log(this.productsService.getProductsById(this.idProduct));
   }
 
   loadProduct() {
     this.productsService.getProductsById(this.idProduct).then(prod => {
-      this.products = [].concat(prod);      
+      this.products = [].concat(prod);
       if(typeof this.products[0].photos != undefined){
         this.productsPhotos = [].concat(this.products[0].photos);
         this.products[0].photos = this.productsPhotos;
+      }
+      this.conversation = {
+        photo: this.products[0].photos[0].url,
+        name: this.products[0].user.name,
       }
     });
   }
@@ -47,7 +55,7 @@ export class DetalleProductoComponent implements OnInit {
 
   validateSession(){
     //poner id del usuario logueado
-    return this.products[0].user.id == "3061" && this.products[0].status === 'active';
+    return this.idUser == "3061" && this.products[0].status === 'active';
   }
 
 }

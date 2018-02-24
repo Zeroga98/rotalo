@@ -64,7 +64,11 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
 import { ModalComponent } from '../components/modal/modal.component';
 import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
 import { MessagesService } from '../services/messages.service';
+<<<<<<< HEAD
 import { StepsPage } from '../pages/steps/steps.page';
+=======
+import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
+>>>>>>> modals
 
 
 @NgModule({
@@ -104,7 +108,11 @@ import { StepsPage } from '../pages/steps/steps.page';
     DetalleProductoComponent,
     ModalComponent,
     ModalSendMessageComponent,
+<<<<<<< HEAD
     StepsPage,
+=======
+    ModalMessageComponent
+>>>>>>> modals
   ],
   imports: [
     BrowserModule,
