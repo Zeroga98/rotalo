@@ -17,6 +17,8 @@ import { ChangePasswordPage } from '../pages/profile/change-password/change-pass
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
+import { BuyProductPage } from '../pages/buy-product/buy-product.page';
+import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 
 export const appRouter: Routes = [
   {
@@ -48,12 +50,20 @@ export const appRouter: Routes = [
             component: ProductsFeedPage,
         },
         {
-            path: ROUTES.PRODUCTS.UPLOAD,
-            component: ProductsUploadPage,
+          path: ROUTES.PRODUCTS.UPLOAD,
+          component: ProductsUploadPage,
         },
         {
-          path: ROUTES.PRODUCTS.SHOW,
+          path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
+          component: ProductEditPage,
+        },
+        {
+          path: `${ROUTES.PRODUCTS.SHOW}/:id`,
           component: DetalleProductoComponent,
+        },
+        {
+          path: `${ROUTES.PRODUCTS.BUY}/:id`,
+          component: BuyProductPage,
         },
         {
             path: '',

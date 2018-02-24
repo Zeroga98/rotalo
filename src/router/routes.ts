@@ -16,8 +16,9 @@ export const ROUTES = {
     STEPS: 'steps',
     PRODUCTS: {
         LINK: 'products',
-        SHOW: 'show/:id',
+        SHOW: 'show',
         FEED: 'feed',
+        BUY: 'buy',
         UPLOAD: 'form'
     }
 };

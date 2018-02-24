@@ -1,5 +1,6 @@
 <navigation-top></navigation-top>
-<modal-send-message></modal-send-message>
+<sufi-modal *ngIf="isSufiModalShowed" [config]="configModal"></sufi-modal>
+<offer-modal *ngIf="isOfferModalShowed" [config]="configModal"></offer-modal>
 
 <custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
 <div class="container" *ngIf="isSpinnerShow()">
@@ -73,16 +74,16 @@
       <div class="product-btns" *ngIf="!validateSession()">
         <div class="cont-botons">
 
-          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
+          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'" (click)="openSufiModal(products[0])">
             <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
           </button>
 
 
-          <button class="botons" *ngIf="products[0].negotiable">
+          <button class="botons" *ngIf="products[0].negotiable" (click)="openOfferModal(products[0])">
             <span class="icon-offer"></span> Hacer oferta
           </button>
 
-          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
+          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products[0].id)">
             <span class="icon-shop_car"></span> {{ products[0]['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
 
@@ -90,11 +91,11 @@
       </div>
       <div class="product-btns" *ngIf="validateSession()">
         <div class="cont-botons">
-          <div class="botons">
+          <div class="botons" (click)="editProduct(products[0])">
             <span class="icon icon-edit"></span>
             Editar
           </div>
-          <div class="botons">
+          <div class="botons" (click)="deleteProduct(products[0])">
             <span class="icon icon-trash"></span>
             Eliminar
           </div>

@@ -3,10 +3,10 @@
     <div class="message-show-product">
       <div class="media">
         <span class="media-left">
-          <div class="avatar" style="background-image: url({{conversation.photo}})"></div>
+          <div class="avatar" style="background-image: url({{conversation[0].photo}})"></div>
         </span>
         <div class="media-body">
-          <h2>{{conversation.name}}</h2>
+          <h2>{{conversation[0].name}}</h2>
           <p>{{conversation[0].messages.length}} Mensajes</p>
         </div>
       </div>

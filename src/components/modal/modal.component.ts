@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'custom-modal',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  @Input() title:string = "Mensajes";
+  
   constructor() { }
 
   ngOnInit() { }
