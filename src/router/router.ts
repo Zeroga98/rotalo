@@ -1,3 +1,4 @@
+import { StepsPage } from './../pages/steps/steps.page';
 import { ActivacionCuentaPage } from './../pages/activacion-cuenta/activacion-cuenta.page';
 import { ROUTES } from './routes';
 import { Routes } from '@angular/router';
@@ -33,6 +34,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SUCCESS,
     component: SuccessActivationPage
+  },
+  {
+    path: ROUTES.STEPS,
+    component: StepsPage
   },
   {
     path: ROUTES.PRODUCTS.LINK,
