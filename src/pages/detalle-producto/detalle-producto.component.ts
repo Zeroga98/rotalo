@@ -27,15 +27,11 @@ export class DetalleProductoComponent implements OnInit {
 
   loadProduct() {
     this.productsService.getProductsById(this.idProduct).then(prod => {
-      this.products = [].concat(prod);
-      
+      this.products = [].concat(prod);      
       if(typeof this.products[0].photos != undefined){
         this.productsPhotos = [].concat(this.products[0].photos);
         this.products[0].photos = this.productsPhotos;
       }
-      console.log("------------------------------------------");
-      console.log(this.products[0]);
-      console.log("------------------------------------------");
     });
   }
 

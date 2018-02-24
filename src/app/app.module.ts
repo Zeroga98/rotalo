@@ -61,6 +61,9 @@ import { ActivacionCuentaPage } from '../pages/activacion-cuenta/activacion-cuen
 import { ActivationService } from '../services/activation.service';
 import { SimpleFormComponent } from '../components/simple-form/simple-form.component';
 import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
+import { ModalComponent } from '../components/modal/modal.component';
+import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
+import { MessagesService } from '../services/messages.service';
 
 
 @NgModule({
@@ -98,6 +101,8 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
     GroupByPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
+    ModalComponent,
+    ModalSendMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -125,6 +130,7 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
     UtilsService,
     PreferenceService,
     PhotosService,
+    MessagesService,
     {
       provide:HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
