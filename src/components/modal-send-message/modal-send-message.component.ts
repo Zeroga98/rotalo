@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { MessagesService } from '../../services/messages.service';
 import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
 import { ProductsService } from '../../services/products.service';
+import { MessageInterface } from '../../commons/interfaces/message.interface';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'modal-send-message',
@@ -9,21 +11,85 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./modal-send-message.component.scss']
 })
 export class ModalSendMessageComponent implements OnInit {
-  public conversation: Array<ConversationInterface> = [];
+  @Input() idConversation: string;
+  @Input() idProduct: string;
+  @Input() idUserProduct: string;
+  @Input() conversationDefault: ConversationInterface;
 
-  constructor(private messagesService: MessagesService, private productsService: ProductsService) { }
+  public conversation: Array<ConversationInterface> = [];
+  public conversations: Array<ConversationInterface> = [];
+  messages: Array<MessageInterface> = [];
+  idUser: string = "3061";
+  formMessage: FormGroup;
+
+  constructor(
+    private messagesService: MessagesService) { }
 
   ngOnInit() {
-    this.loadConversation();
+    this.loadMessage();
   }
 
-  loadConversation() {
-    this.messagesService.getConversationByID("1741-3061").then(conver => {
-      this.conversation = conver;
-      console.log(this.conversation);
-      console.log(this.messagesService.getConversationByID("1741-3061"));
-      console.log(this.productsService.getProductsById(1741));
+  validateForm(){
+    this.formMessage = new FormGroup({
+      message: new FormControl('', [Validators.required])
     });
   }
 
+  loadConversation(idMessage) {
+    this.messagesService.getConversationByID(idMessage).then(conver => {
+      this.conversation = [].concat(conver);
+      this.messages = [].concat(this.conversation[0].messages);
+    });
+    console.log(this.conversation[0]);
+  }
+
+  async loadMessage() {
+    this.validateForm();
+    try {
+      const conver = await this.messagesService.getConversation();
+      this.conversations = [].concat(conver);
+      this.conversations.forEach(item => {
+        if (item.id === this.idConversation) {
+          this.loadConversation(this.idConversation);
+        } else if (item.id === this.idProduct + "-" + this.idUser) {
+          this.loadConversation(this.idProduct + "-" + this.idUser);
+        } else {
+          this.conversation = [].concat(this.conversationDefault);
+        }
+      });
+    }catch (error) {
+      
+    }
+  }
+
+  showModal(): boolean {
+    return this.conversation.length > 0;
+  }
+
+  ocultConversation(){
+    this.showOcultConversation = false;
+  }
+
+  onSubmit() {
+    let date = new Date();
+    try {
+      const data = {
+          "user-id": parseInt(this.idUser),
+          "content": this.formMessage.controls['message'].value,
+          "product-id": this.conversation[0].id.split("-")[0]
+      }
+
+      let params = Object.assign(data);
+      console.log(params);
+
+      const response = this.messagesService.sendMessage(params);
+      this.loadMessage();
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
+
+  getUrlImage() {
+      return `url('${this.conversation[0].photo}')`;
+  }
 }

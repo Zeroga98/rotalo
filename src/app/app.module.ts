@@ -64,6 +64,7 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
 import { ModalComponent } from '../components/modal/modal.component';
 import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
 import { MessagesService } from '../services/messages.service';
+import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { MessagesService } from '../services/messages.service';
     ProductsFeedPage,
     DetalleProductoComponent,
     ModalComponent,
-    ModalSendMessageComponent
+    ModalSendMessageComponent,
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,
