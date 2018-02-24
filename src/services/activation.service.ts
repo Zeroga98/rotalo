@@ -16,6 +16,6 @@ export class ActivationService {
                         },
                         type:'users'
                     }
-                }).toPromise();
+                }).toPromise().then( (response:any) => response.data);
     }
 }

@@ -1,3 +1,4 @@
+import { ROUTES } from './../../router/routes';
 import { UtilsService } from './../../util/utils.service';
 import { Router } from '@angular/router';
 import { UserInterface } from './../../commons/interfaces/user.interface';
@@ -41,6 +42,7 @@ export class SignUpPage implements OnInit {
             const params:UserRequestInterface = this.buildParamsUserRequest();
             const response = await this.userService.saveUser(params);
             this.errorsSubmit = [];
+            this.router.navigate([ROUTES.ACTIVACION]);
         } catch (error) {
             this.errorsSubmit = error.error.errors;
             this.utilsService.goToTopWindow(20, 600);

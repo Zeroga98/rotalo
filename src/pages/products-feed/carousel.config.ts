@@ -12,7 +12,7 @@ export const CAROUSEL_CONFIG: NgxCarousel = {
     speed: 400,
     interval: 4000,
     point: {
-        visible: true
+        visible: false
     },
     load: 2,
     touch: true,

@@ -113,11 +113,6 @@ export class ProductsUploadPage implements OnInit {
 		return this.photosService.getUrlPhotos();
 	}
 
-	get headerWithToken():Object{
-		const token = 'PyxRby2giXFjzjPcGoeS';
-		return { 'Authorization': token};
-	}
-
 	get formIsInValid(){
 		return this.photosForm.invalid;
 	}

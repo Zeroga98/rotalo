@@ -1,0 +1,59 @@
+:host{
+    display: flex;
+    justify-content: center;
+    .container-carousel{
+        display: inline-block;
+        width: 45.5rem;
+        .skip{
+            text-align: right;
+            margin: 1rem 0;
+            font-size: 1.6rem;
+            color:#9B9B9B;
+            button{
+                border:0;
+                background: transparent;
+                cursor: pointer;
+            }
+        }
+        ngx-carousel{
+            ngx-item{
+                border-radius: 1.5rem;
+                text-align: center;
+                color: white;
+                font-size: 1.6rem;
+                padding: 5rem 8rem;
+                .image{
+                    margin-bottom: 10rem;
+                }
+                .text{
+                    font-weight: 600;
+                }
+                .title{
+                    margin-bottom: 2rem;
+                    font-weight: 400;
+                }
+                .logo{
+                    margin-bottom: 1rem;
+                }
+                .action{
+                    button{
+                        background-color: transparent;
+                        border:1px solid white;
+                        padding: 1rem 5rem;
+                        border-radius: .5rem;
+                        cursor: pointer;
+                    }
+                }
+                &:nth-child(1){
+                    background-color:#41BAD0;
+                }
+                &:nth-child(2){
+                    background-color:#5C2D90;
+                }
+                &:nth-child(3){
+                    background-color:#ED2F3C;
+                }
+            }
+        }
+    }
+}

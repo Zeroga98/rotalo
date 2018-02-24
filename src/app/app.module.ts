@@ -61,6 +61,7 @@ import { ActivacionCuentaPage } from '../pages/activacion-cuenta/activacion-cuen
 import { ActivationService } from '../services/activation.service';
 import { SimpleFormComponent } from '../components/simple-form/simple-form.component';
 import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
+import { StepsPage } from '../pages/steps/steps.page';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
     GroupByPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
+    StepsPage,
   ],
   imports: [
     BrowserModule,

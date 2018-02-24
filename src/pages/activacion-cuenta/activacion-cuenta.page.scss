@@ -1,7 +1,25 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
 :host{
+    display: block;
+    width: 100%;
     back-arrow{
         display: block;
         padding: 2rem;
         margin-bottom: 4rem;
+    }
+    .container-form{
+        display: block;
+        margin: 0 auto;
+        .container-errors{
+            margin-bottom: 2rem;
+            .list-errors{
+                .error{
+                    color: $red;
+                    font-size: 1.6rem;
+                }
+            }
+        }
     }
 }

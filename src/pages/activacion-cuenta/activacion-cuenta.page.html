@@ -1,7 +1,14 @@
 <back-arrow></back-arrow>
-<simple-form 
-  title="¡Tu cuenta ha sido creada!" 
-  firstRow="Hemos enviado un código de activación a tu correo." 
-  secondRow="Ingresa el código para activar tu cuenta."
-  placeholder="Ingresa tu código de activación"
-  (next)="activate($event)"></simple-form>
+<div class="container-form">
+  <div class="container-errors">
+    <ul class="list-errors">
+      <li class="error" *ngFor="let error of errorRequest">{{error.title}}</li>
+    </ul>
+  </div>
+  <simple-form 
+    title="¡Tu cuenta ha sido creada!" 
+    firstRow="Hemos enviado un código de activación a tu correo." 
+    secondRow="Ingresa el código para activar tu cuenta."
+    placeholder="Ingresa tu código de activación"
+    (next)="activate($event)"></simple-form>
+</div>
