@@ -1,0 +1,49 @@
+<custom-modal>
+  <div modal-header>
+    <div class="message-show-product">
+      <div class="media">
+        <span class="media-left">
+          <div class="avatar" style="background-image: url({{conversation.photo}})"></div>
+        </span>
+        <div class="media-body">
+          <h2>{{conversation.name}}</h2>
+          <p>{{conversation[0].messages.length}} Mensajes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div modal-body>
+    <div class="message-show-history">
+      <ul class="media-list-conversation">
+        <li class="">
+          <a class="avatar-user" href="#">
+            <img src="https://s3.amazonaws.com/rotalo-app-imagenes/staging/uploads/photo/file/7207/Penguins.jpg">
+          </a>
+          <div class="data-message">
+            <div class="media-body-text">
+              hghhhg
+            </div>
+            <div class="media-footer">
+              <small>
+                <a href="#">John Alexander</a> Enviado: Feb 23, 2018 10:28:42 AM
+              </small>
+            </div>
+          </div>
+          <a class="avatar-user" href="#" *ngIf="false">
+            <img src="https://s3.amazonaws.com/rotalo-app-imagenes/staging/uploads/photo/file/7207/Penguins.jpg">
+          </a>
+        </li>
+      </ul>
+      <div id="bottom"></div>
+    </div>
+  </div>
+  <div modal-footer>
+    <div class="modal-footer">
+      <form>
+        <input type="text" class="message-show-input" placeholder="Message" required />
+        <input type="submit" class="message-show-button" value="Enviar" />
+      </form>
+    </div>
+  </div>
+</custom-modal>

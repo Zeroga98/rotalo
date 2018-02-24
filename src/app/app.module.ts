@@ -42,6 +42,9 @@ import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-prod
 import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
 import { PhotosService } from '../services/photos.service';
 import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
+import { ModalComponent } from '../components/modal/modal.component';
+import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
+import { MessagesService } from '../services/messages.service';
 
 
 @NgModule({
@@ -68,7 +71,9 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     LoginPage,
     ProductsFeedPage,
     DetalleProductoComponent,
-    LigthboxSendMessageComponent
+    LigthboxSendMessageComponent,
+    ModalComponent,
+    ModalSendMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,7 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     CategoriesService,
     ProductsService,
     PhotosService,
+    MessagesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
