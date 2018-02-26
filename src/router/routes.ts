@@ -11,8 +11,8 @@ export const ROUTES = {
     HOBBIES: 'gustos',
     EDITPROFILE: 'edit',
     NOTIFICATIONSSETTINGS: 'notifications-settings',
-    ACTIVACION:'activacion',
-    SUCCESS:'success-activation',
+    ACTIVACION: 'activacion',
+    SUCCESS: 'success-activation',
     STEPS: 'steps',
     PRODUCTS: {
         LINK: 'products',
