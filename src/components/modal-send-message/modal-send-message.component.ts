@@ -4,6 +4,7 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 import { ProductsService } from '../../services/products.service';
 import { MessageInterface } from '../../commons/interfaces/message.interface';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: 'modal-send-message',
@@ -19,11 +20,11 @@ export class ModalSendMessageComponent implements OnInit {
   public conversation: Array<ConversationInterface> = [];
   public conversations: Array<ConversationInterface> = [];
   messages: Array<MessageInterface> = [];
-  idUser: string = "3061";
+  idUser: string = this.currentSessionSevice.getIdUser();
   formMessage: FormGroup;
 
   constructor(
-    private messagesService: MessagesService) { }
+    private messagesService: MessagesService, private currentSessionSevice: CurrentSessionService) { }
 
   ngOnInit() {
     this.loadMessage();
