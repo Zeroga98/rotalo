@@ -179,4 +179,5 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
