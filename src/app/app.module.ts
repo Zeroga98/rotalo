@@ -75,6 +75,8 @@ import { MsgCongratulationComponent } from '../components/msg-congratulation/msg
 import { FormProductComponent } from '../components/form-product/form-product.component';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
+import { DetailProductComponent } from '../components/detail-product/detail-product.component';
+import { SellingComponent } from '../pages/selling/selling.component';
 
 
 
@@ -122,7 +124,9 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
     SufiTePrestaModalComponent,
     OfferModalComponent,
     StepsPage,
-    ModalMessageComponent
+    ModalMessageComponent,
+    DetailProductComponent,
+    SellingComponent
   ],
   imports: [
     BrowserModule,

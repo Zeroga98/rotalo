@@ -1,4 +1,4 @@
-<div *ngIf="!showOcultConversation">
+<div *ngIf="true">
   <custom-modal *ngIf="showModal()">
     <div modal-body>
       <div class="message-show-product" *ngFor="let conversation of conversations" (click)="sendIdConversation(conversation.id)">
@@ -16,4 +16,4 @@
   </custom-modal>
 </div>
 
-<modal-send-message *ngIf="showOcultConversation" [idConversation]="idConversation"></modal-send-message>
+<modal-send-message *ngIf="false" [idConversation]="idConversation"></modal-send-message>

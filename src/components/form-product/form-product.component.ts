@@ -26,6 +26,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 		private categoryService:CategoriesService) { }
 
 	ngOnInit() {
+		this.setInitialForm(this.getInitialConfig());
 		this.categoryService.getCategories().then( (categorias:any) => this.categories = categorias);
 	}
 

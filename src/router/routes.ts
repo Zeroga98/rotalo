@@ -13,10 +13,7 @@ export const ROUTES = {
     NOTIFICATIONSSETTINGS: 'notifications-settings',
     ACTIVACION:'activacion',
     SUCCESS:'success-activation',
-<<<<<<< HEAD
     STEPS: 'steps',
-=======
->>>>>>> modals
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

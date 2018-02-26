@@ -1,11 +1,2 @@
 <navigation-top></navigation-top>
-<sufi-modal *ngIf="isSufiModalShowed" [config]="configModal"></sufi-modal>
-<offer-modal *ngIf="isOfferModalShowed" [config]="configModal"></offer-modal>
-
-<custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
-<div class="container" *ngIf="isSpinnerShow()">
-    <modal-send-message *ngIf="false" [idProduct]="products[0].id" [idUserProduct]="products[0].user.id" [conversationDefault]="conversation"></modal-send-message>
-    <modal-message></modal-message>
-
-</div>
-
+<detail-product [idProduct]="idProduct"></detail-product>

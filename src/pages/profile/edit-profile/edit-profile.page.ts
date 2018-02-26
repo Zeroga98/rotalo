@@ -13,6 +13,7 @@ export class EditProfilePage implements OnInit {
   public location: Object = {};
   public country: Object = {};
   public state: Object = {};
+  public city: Object = {};
   public userEdit: any;
   public countryValue: String;
   public stateValue: String;

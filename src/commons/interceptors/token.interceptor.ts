@@ -18,6 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     private getToken(): string {
-      return this.currentSessionService.authToken() || 'PyxRby2giXFjzjPcGoeS';
+      return this.currentSessionService.authToken() || 'nsvYKXEDfc_boamGXzFz';
     }
 }
