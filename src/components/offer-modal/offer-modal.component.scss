@@ -1,0 +1,33 @@
+:host{
+    .container-body{
+        padding: 2rem;
+        min-height: 23rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .container-form{
+            width: 100%;
+        }
+        .title-form{
+            font-size: 1.6rem;
+            color: #4A4A4A;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .msg-success{
+            border: 1px solid #d6e9c6;
+            padding: 1.5rem;
+            background-color: #F2F2F2;
+            color: #4A4A4A;
+            text-align: center;
+            font-size: 1.6rem;
+            border-radius: 3.4rem;
+            width: 100%;
+            .icon{
+                margin-right: 1rem;
+                color: #8DBA02;
+            }
+        }
+    }
+}

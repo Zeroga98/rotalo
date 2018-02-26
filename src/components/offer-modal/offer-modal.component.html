@@ -1,0 +1,32 @@
+<custom-modal title="{{title}}" class="modal-theme">
+	<div modal-header class="container-header">
+		<div class="image">
+			<img [src]="config?.photo">
+		</div>
+		<div class="text">
+			<div class="title">{{config?.title}}</div>
+			<div class="price">Precio actual: {{config?.price}}</div>
+		</div>
+	</div>
+	<div modal-body class="container-body">
+		<div *ngIf="!isReadyResponse" class="container-form">
+			<div class="title-form">Tu oferta es: </div>
+			<form class="form-theme" role="form">
+				<div class="form-group">
+					<input 
+					class="form-control" 
+					placeholder="Precio" 
+					#priceInput
+					onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+				</div>
+			</form>
+		</div>
+		<div *ngIf="isReadyResponse" class="msg-success">
+			<span class="icon-check alert-icon icon"></span>
+			<span>Tu oferta ha sido enviada</span>
+		</div>
+	</div>
+	<div modal-footer class="container-actions" *ngIf="!isReadyResponse">
+		<custom-button text="Confirmar Oferta" (click)="sendOffer()" [disabled]="!isPriceCorrect"></custom-button>
+	</div>
+</custom-modal>

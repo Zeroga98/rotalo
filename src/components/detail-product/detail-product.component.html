@@ -1,0 +1,99 @@
+<div class="product">
+  <div class="product-photos">
+    <div class="panel-heading">
+      <ngx-carousel [inputs]="carouselConfig">
+        <ngx-item NgxCarouselItem *ngFor="let productImage of products[0].photos">
+          <div class="container-product__image">
+            <img src="{{productImage.url}}">
+          </div>
+        </ngx-item>
+        <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+          <span class="icon icon-chevron-thin-left"></span>
+        </span>
+        <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+          <span class="icon icon-chevron-thin-right"></span>
+        </span>
+      </ngx-carousel>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="title-product">{{products[0].name}}</div>
+    <div class="valor-product">{{products[0].price | currency:"$":0}} {{ products[0].currency }}</div>
+    <div class="capitalize">{{products[0]['sell-type'].toLowerCase()}}</div>
+    <div class="contTipo">
+      <strong>{{products[0].subcategory.category.name}} -</strong> {{products[0].subcategory.name}}</div>
+    <div class="description">{{products[0].description}}</div>
+    <div class="product-info-ubicacion">
+      <div>
+        <span class="icon icon-calendar"></span>
+        <strong>Fecha de Publicación: </strong>
+        <span>{{products[0]['published-at'] | amTimeAgo}}</span>
+      </div>
+      <span class="icon icon-location"></span>
+      <span>{{getLocation(products[0])}}</span>
+    </div>
+    <div class="product-info-estado">
+      <span class="condition">Condición: </span>
+      <span>{{products[0].used ? 'Usado' : 'Nuevo'}}</span>
+    </div>
+    <div class="product-info-user">
+      <div class="media-middle">
+        <div class="product-info-user--icon">
+          <span class="icon-account"></span>
+        </div>
+        <div class="panel-product__owner">
+        </div>
+      </div>
+
+      <div class="media-middle product-info-user--data">
+        <p class="name-user">{{products[0].user.name}}</p>
+        <p class="panel-product">{{products[0].user.company.name}} -
+          <span>{{products[0].user.company.community.name}}</span>
+        </p>
+      </div>
+      <div class="product-btn" *ngIf="!validateSession()">
+        <div class="product-btns">
+          <div class="cont-botons">
+            <div class="botons">
+              <span class="icon icon-edit"></span>
+              Enviar Mensaje
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="product-btn">
+    <div class="product-btns" *ngIf="!validateSession()">
+      <div class="cont-botons">
+
+        <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
+          <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
+        </button>
+
+
+        <button class="botons" *ngIf="products[0].negotiable">
+          <span class="icon-offer"></span> Hacer oferta
+        </button>
+
+        <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
+          <span class="icon-shop_car"></span> {{ products[0]['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+        </button>
+
+      </div>
+    </div>
+    <div class="product-btns" *ngIf="validateSession()">
+      <div class="cont-botons">
+        <div class="botons">
+          <span class="icon icon-edit"></span>
+          Editar
+        </div>
+        <div class="botons">
+          <span class="icon icon-trash"></span>
+          Eliminar
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,6 +66,14 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
 import { MessagesService } from '../services/messages.service';
 import { StepsPage } from '../pages/steps/steps.page';
+import { SufiTePrestaModalComponent } from '../components/sufi-te-presta-modal/sufi-te-presta-modal.component';
+import { OfferModalComponent } from '../components/offer-modal/offer-modal.component';
+import { OfferService } from '../services/offer.service';
+import { BuyProductPage } from '../pages/buy-product/buy-product.page';
+import { BuyService } from '../services/buy.service';
+import { MsgCongratulationComponent } from '../components/msg-congratulation/msg-congratulation.component';
+import { FormProductComponent } from '../components/form-product/form-product.component';
+import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 import { SoldPage } from '../pages/profile/sold/sold.page';
 
@@ -80,22 +88,26 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     TermsModalComponent,
     BackTopComponent,
     NavigationTopComponent,
+    MsgCongratulationComponent,
     SelectCountryComponent,
     SelectStatesComponent,
     SelectCitiesComponent,
     CategoriesMenuComponent,
     SpinnerComponent,
+    FormProductComponent,
     ProductComponent,
     ToolbarComponent,
     SimpleFormComponent ,
     HomePage,
     SignUpPage,
     ProductsUploadPage,
+    ProductEditPage,
     ProductsPage,
     SuccessActivationPage,
     LoginPage,
     RecoverPage,
     ConfirmPage,
+    BuyProductPage,
     ShowPage,
     HobbiesPage,
     EditProfilePage,
@@ -107,6 +119,8 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     DetalleProductoComponent,
     ModalComponent,
     ModalSendMessageComponent,
+    SufiTePrestaModalComponent,
+    OfferModalComponent,
     StepsPage,
     ModalMessageComponent,
     SoldPage
@@ -133,6 +147,8 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     LoginService,
     ConfigurationService,
     CurrentSessionService,
+    BuyService,
+    OfferService,
     RecoverService,
     ChangePasswordService,
     UtilsService,

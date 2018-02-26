@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
@@ -26,7 +27,10 @@ export class ProductsFeedPage implements OnInit{
     };
     @ViewChild('backTop', {read: ElementRef}) backTop: ElementRef;
 
-    constructor(private productsService: ProductsService, private rendered: Renderer2 ) {
+    constructor(
+        private productsService: ProductsService, 
+        private rendered: Renderer2,
+        private router: Router ) {
         this.carouselConfig = CAROUSEL_CONFIG;
         this.imagesBanner = IMGS_BANNER;
     }
@@ -37,11 +41,22 @@ export class ProductsFeedPage implements OnInit{
         this.setScrollEvent();
     }
 
+<<<<<<< HEAD
     async loadProducts(params: Object = {}) {
         this.productsService.getProducts(params).then(products => {
             this.products = [].concat(products);
         });
+=======
+    async loadProducts(params:Object = {}) {
+        try {
+            const products = await this.productsService.getProducts(params)
+            this.products = [].concat(this.filterNoVisibleProducts(products));
+        } catch (error) {
+            
+        }
+>>>>>>> 3134b85bddca5e4f7b74da4ef1844bdedc08e0f7
     }
+
     getParamsToProducts() {
         return this.currentFilter;
     }
@@ -64,6 +79,11 @@ export class ProductsFeedPage implements OnInit{
             "filter[category]": category.id,
             "filter[subcategory_id]": null
         });
+    }
+
+    selectProduct(product:ProductInterface){
+        const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product.id}`;
+        this.router.navigate([routeDetailProduct]);
     }
 
     selectedSubCategory(subCategory: SubcategoryInterface){
@@ -89,6 +109,10 @@ export class ProductsFeedPage implements OnInit{
 
     private setScrollEvent() {
         window.addEventListener('scroll', this.backTopToggle.bind(this));
+    }
+
+    private filterNoVisibleProducts(products: Array<any>){
+        return products.filter( (product:ProductInterface) => product.visible)
     }
 
     private backTopToggle(ev) {

@@ -1,9 +1,12 @@
 <navigation-top></navigation-top>
+<sufi-modal *ngIf="isSufiModalShowed" [config]="configModal"></sufi-modal>
+<offer-modal *ngIf="isOfferModalShowed" [config]="configModal"></offer-modal>
 
 <custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
 <div class="container" *ngIf="isSpinnerShow()">
     <modal-send-message *ngIf="false" [idProduct]="products[0].id" [idUserProduct]="products[0].user.id" [conversationDefault]="conversation"></modal-send-message>
     <modal-message></modal-message>
+<<<<<<< HEAD
     <div class="product">
     <div class="product-photos">
       <div class="panel-heading">
@@ -67,41 +70,8 @@
             </div>
           </div>
         </div>
+=======
+>>>>>>> 3134b85bddca5e4f7b74da4ef1844bdedc08e0f7
 
-      </div>
-    </div>
-    <div class="product-btn">
-      <div class="product-btns" *ngIf="!validateSession()">
-        <div class="cont-botons">
-
-          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
-            <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
-          </button>
-
-
-          <button class="botons" *ngIf="products[0].negotiable">
-            <span class="icon-offer"></span> Hacer oferta
-          </button>
-
-          <button class="botons" *ngIf="products[0]['sell-type'] !== 'SUBASTA'">
-            <span class="icon-shop_car"></span> {{ products[0]['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
-          </button>
-
-        </div>
-      </div>
-      <div class="product-btns" *ngIf="validateSession()">
-        <div class="cont-botons">
-          <div class="botons">
-            <span class="icon icon-edit"></span>
-            Editar
-          </div>
-          <div class="botons">
-            <span class="icon icon-trash"></span>
-            Eliminar
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
