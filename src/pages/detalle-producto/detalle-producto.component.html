@@ -1,9 +1,10 @@
 <navigation-top></navigation-top>
-<ligthboxSendMessage></ligthboxSendMessage>
 
 <custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
 <div class="container" *ngIf="isSpinnerShow()">
-  <div class="product">
+    <modal-send-message *ngIf="false" [idProduct]="products[0].id" [idUserProduct]="products[0].user.id" [conversationDefault]="conversation"></modal-send-message>
+    <modal-message></modal-message>
+    <div class="product">
     <div class="product-photos">
       <div class="panel-heading">
         <ngx-carousel [inputs]="carouselConfig">
@@ -16,7 +17,7 @@
             <span class="icon icon-chevron-thin-left"></span>
           </span>
           <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
-            <span class="icon icon-chevron-thin-right"></span>
+            <span class="icon icon-chevron-thin-right"></span>  
           </span>
         </ngx-carousel>
       </div>
@@ -103,3 +104,4 @@
     </div>
   </div>
 </div>
+

@@ -15,7 +15,7 @@ import { ROUTES } from './../../router/routes';
     styleUrls: ['products-feed.page.scss']
 })
 
-export class ProductsFeedPage implements OnInit {
+export class ProductsFeedPage implements OnInit{
     public carouselConfig: NgxCarousel;
     public imagesBanner: Array<string>;
     public products: Array<ProductInterface> = [];

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { LigthboxSendMessageComponent } from './ligthboxSendMessage.component';
+import { SimpleFormComponent } from './simple-form.component';
 
-describe('LigthboxSendMessageComponent', () => {
-  let component: LigthboxSendMessageComponent;
-  let fixture: ComponentFixture<LigthboxSendMessageComponent>;
+describe('SimpleFormComponent', () => {
+  let component: SimpleFormComponent;
+  let fixture: ComponentFixture<SimpleFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LigthboxSendMessageComponent ]
+      declarations: [ SimpleFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LigthboxSendMessageComponent);
+    fixture = TestBed.createComponent(SimpleFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

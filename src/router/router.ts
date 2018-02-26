@@ -1,3 +1,5 @@
+import { StepsPage } from './../pages/steps/steps.page';
+import { ActivacionCuentaPage } from './../pages/activacion-cuenta/activacion-cuenta.page';
 import { ROUTES } from './routes';
 import { Routes } from '@angular/router';
 import { LoginPage } from './../pages/login/login.page';
@@ -15,6 +17,7 @@ import { ChangePasswordPage } from '../pages/profile/change-password/change-pass
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 import { AuthGuardService } from '../services/login/auth-guard.service';
+import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
 
 export const appRouter: Routes = [
   {
@@ -24,6 +27,18 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SIGNUP,
     component: SignUpPage
+  },
+  {
+    path: ROUTES.ACTIVACION,
+    component: ActivacionCuentaPage
+  },
+  {
+    path: ROUTES.SUCCESS,
+    component: SuccessActivationPage
+  },
+  {
+    path: ROUTES.STEPS,
+    component: StepsPage
   },
   {
     path: ROUTES.PRODUCTS.LINK,

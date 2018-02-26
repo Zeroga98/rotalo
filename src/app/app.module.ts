@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { NgxCarouselModule } from 'ngx-carousel';
-import { ImageUploadModule } from "angular2-image-upload";
+import { ImageUploadModule } from 'angular2-image-upload';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -55,9 +55,18 @@ import { ProductsPage } from '../pages/products/products.page';
 import { ChangePasswordService } from '../services/profile/changePassword.service';
 import { PreferenceService } from '../services/profile/preference.service';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
-import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
 import { PhotosService } from '../services/photos.service';
 import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
+import { UtilsService } from '../util/utils.service';
+import { ActivacionCuentaPage } from '../pages/activacion-cuenta/activacion-cuenta.page';
+import { ActivationService } from '../services/activation.service';
+import { SimpleFormComponent } from '../components/simple-form/simple-form.component';
+import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
+import { ModalComponent } from '../components/modal/modal.component';
+import { ModalSendMessageComponent } from '../components/modal-send-message/modal-send-message.component';
+import { MessagesService } from '../services/messages.service';
+import { StepsPage } from '../pages/steps/steps.page';
+import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 
 
 
@@ -78,10 +87,12 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     SpinnerComponent,
     ProductComponent,
     ToolbarComponent,
+    SimpleFormComponent ,
     HomePage,
     SignUpPage,
     ProductsUploadPage,
     ProductsPage,
+    SuccessActivationPage,
     LoginPage,
     RecoverPage,
     ConfirmPage,
@@ -90,10 +101,14 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     EditProfilePage,
     ChangePasswordPage,
     NotificationsSettingsPage,
+    ActivacionCuentaPage,
     GroupByPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
-    LigthboxSendMessageComponent
+    ModalComponent,
+    ModalSendMessageComponent,
+    StepsPage,
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +125,7 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
   providers: [
     UserService,
     CollectionSelectService,
+    ActivationService,
     CategoriesService,
     ProductsService,
     LoginService,
@@ -117,9 +133,16 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     CurrentSessionService,
     RecoverService,
     ChangePasswordService,
+    UtilsService,
     PreferenceService,
     PhotosService,
     AuthGuardService,
+    MessagesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
