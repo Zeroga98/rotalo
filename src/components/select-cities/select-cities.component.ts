@@ -9,8 +9,11 @@ import { CollectionSelectService } from '../../services/collection-select.servic
 export class SelectCitiesComponent implements OnChanges {
   @Input() state: any = {};
   @Output() selected: EventEmitter<Object> = new EventEmitter();
+  @Input() initialValue;
   cities: Array<any> = [];
 
+
+  currentCity: String = '';
   constructor(private collectionService: CollectionSelectService) { }
 
   ngOnChanges() {
@@ -20,6 +23,15 @@ export class SelectCitiesComponent implements OnChanges {
   async getCities() {
     if (this.state && this.state.id) {
         this.cities = await this.collectionService.getCitiesById(this.state.id);
+        this.currentCity = '';
+        if (this.initialValue) {
+          if (this.state.id === this.initialValue.id) {
+            const name  = this.initialValue.name;
+            const id = this.initialValue.id;
+            this.currentCity = id;
+            this.selected.emit({name, id});
+          }
+        }
     }
   }
 

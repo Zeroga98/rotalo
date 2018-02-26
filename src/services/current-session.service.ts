@@ -8,19 +8,19 @@ export class CurrentSessionService {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
   }
   clearSession(): void {
-    localStorage.setItem('currentUser', JSON.stringify({}));
+    localStorage.removeItem('currentUser');
   }
   currentUser(): any {
-    return  localStorage.getItem('currentUser') || '';
+    return  localStorage.getItem('currentUser') || null;
   }
   authToken (): string {
-    if (this.currentUser() !== '') {
+    if (this.currentUser() !== null) {
       return JSON.parse(this.currentUser())['auth-token'];
     }
     return '';
   }
   getIdUser (): string {
-    if (this.currentUser() !== '') {
+    if (this.currentUser() !== null) {
       return JSON.parse(this.currentUser())['id'];
     }
     return '';

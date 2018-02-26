@@ -1,7 +1,8 @@
-<select 
-  class="form-control" 
+<select
+[(ngModel)]="currentState"
+  class="form-control"
   (change) = "onSelect($event)"
   name="states">
-      <option selected value disabled>Selecciona Estado</option>
+      <option value="" disabled>Selecciona Estado</option>
       <option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</option>
 </select>

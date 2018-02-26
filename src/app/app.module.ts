@@ -42,6 +42,7 @@ import { ProductsService } from '../services/products.service';
 import { NormalizeInterceptor } from '../commons/interceptors/normalize.interceptor';
 import { ProductComponent } from '../components/product/product.component';
 import { LoginService } from '../services/login/login.service';
+import { AuthGuardService } from '../services/login/auth-guard.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { CurrentSessionService } from '../services/current-session.service';
 import { RecoverService } from '../services/reset-password/recover.service';
@@ -57,6 +58,7 @@ import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-prod
 import { LigthboxSendMessageComponent } from '../components/ligthboxSendMessage/ligthboxSendMessage.component';
 import { PhotosService } from '../services/photos.service';
 import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
+
 
 
 @NgModule({
@@ -117,6 +119,7 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
     ChangePasswordService,
     PreferenceService,
     PhotosService,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

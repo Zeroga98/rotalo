@@ -36,8 +36,7 @@ export class HobbiesPage implements OnInit {
   }
 
   saveHobbie(): void {
-    console.log(this.userHobbie);
-    let infoUser = Object.assign({}, this.hobbiesForm.value);
+    const infoUser = Object.assign({}, this.hobbiesForm.value);
     const currentUser = {
       'data': {
         'id': this.userHobbie.id,
@@ -45,9 +44,9 @@ export class HobbiesPage implements OnInit {
         'attributes': infoUser
       }
     };
-    console.log(currentUser);
+
     this.userService.updateUser(currentUser).then(response => {
-      this.messageChange = 'Su cuenta se ha actualizado..';
+      this.messageChange = 'Su cuenta se ha actualizado.';
       this.errorChange = '';
       })
       .catch(httpErrorResponse => {

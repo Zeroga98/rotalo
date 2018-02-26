@@ -14,6 +14,7 @@ import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
+import { AuthGuardService } from '../services/login/auth-guard.service';
 
 export const appRouter: Routes = [
   {
@@ -27,6 +28,7 @@ export const appRouter: Routes = [
   {
     path: ROUTES.PRODUCTS.LINK,
     component: ProductsPage,
+    canActivate: [AuthGuardService],
     children: [
         {
             path: ROUTES.PRODUCTS.FEED,
@@ -65,6 +67,7 @@ export const appRouter: Routes = [
   },
   {
     path: ROUTES.PROFILE,
+    canActivate: [AuthGuardService],
     children: [
       { path: ROUTES.SHOW, component: ShowPage },
       { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
