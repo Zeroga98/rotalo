@@ -1,0 +1,36 @@
+<navigation-top></navigation-top>
+<div class="container-offer">
+    <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
+    <div class="container" *ngIf="!transactionSuccess">
+        <div class="container-header" *ngIf="product">
+            <div class="image">
+                <img [src]="product.photos.url || product.photos[0].url">
+            </div>
+            <div>
+                <div class="title">{{product.name}}</div>
+                <div class="price">Total a pagar: {{product.price}}</div>
+            </div>
+        </div>
+        <div class="container-form">
+            <div class="title-form">1. Cuéntale ¿Cómo le vas a pagar?</div>
+            <form class="form-theme" (ngSubmit)="buyProduct()">
+                <div class="form-group" class="select-medium">
+                    <select class="form-control" #selectMedium>
+                        <option selected disabled>--Seleccionar--</option>
+                        <option value="cash">Efectivo</option>
+                        <option value="bank_account_transfer">Tranferencia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <custom-button type="submit" text="Confirmar Compra"></custom-button>
+                </div>
+            </form>
+        </div>
+        <div class="container-sufi">
+            <div class="title">¿Necesitas plata para comprarlo?</div>
+            <div class="action">
+                <custom-button text="Te presta"></custom-button>
+            </div>
+        </div>
+    </div>
+</div>

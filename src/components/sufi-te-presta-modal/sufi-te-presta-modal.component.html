@@ -1,0 +1,23 @@
+<custom-modal title="{{title}}" class="modal-theme">
+	<div modal-header class="container-header">
+		<div class="image">
+			<img [src]="config?.photo">
+		</div>
+		<div class="text">
+			<div class="title">{{config?.title}}</div>
+			<div class="price">Precio actual: {{config?.price}}</div>
+		</div>
+	</div>
+	<div modal-body class="container-body">
+		<div class="container-logo">
+			<img src="./assets/img/sufi.svg" alt="Sufi">
+		</div>
+		<div class="container-text">
+			<span>¡Relájate! Nosotros te prestamos para que sea tuyo.</span>
+			<span>Envía una solicitud de crédito.</span>
+		</div>
+	</div>
+	<div modal-footer class="container-actions">
+		<custom-button text="Enviar Solicitud"></custom-button>
+	</div>
+</custom-modal>
