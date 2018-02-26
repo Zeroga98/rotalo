@@ -20,9 +20,8 @@ export class ModalSendMessageComponent implements OnInit {
   public conversation: Array<ConversationInterface> = [];
   public conversations: Array<ConversationInterface> = [];
   messages: Array<MessageInterface> = [];
-  idUser: string = this.currentSessionSevice.getIdUser();
   formMessage: FormGroup;
-
+  idUser: string = this.currentSessionSevice.getIdUser();
   constructor(
     private messagesService: MessagesService, private currentSessionSevice: CurrentSessionService) { }
 
@@ -59,7 +58,7 @@ export class ModalSendMessageComponent implements OnInit {
         }
       });
     }catch (error) {
-      
+
     }
   }
 

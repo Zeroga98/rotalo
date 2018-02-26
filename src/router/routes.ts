@@ -18,7 +18,8 @@ export const ROUTES = {
         LINK: 'products',
         SHOW: 'show',
         FEED: 'feed',
-        BUY: 'buy',
-        UPLOAD: 'form'
+        UPLOAD: 'form',
+        SOLD: 'sold',
+        BUY: 'buy'
     }
 };

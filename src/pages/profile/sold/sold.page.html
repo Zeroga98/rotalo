@@ -1,0 +1,15 @@
+<navigation-top></navigation-top>
+<div>
+  <nav class="sold-header-nav bg--red">
+    <ul class="nav nav-tabs">
+      <li [ngClass]="{ active:  currentTab == 'sold' }">
+        <a (click)="currentTab = 'sold'" class="link uppercase">({{productsSold.length}}) Rotados</a>
+      </li>
+      <li [ngClass]="{ active:  currentTab == 'purchased' }">
+        <a (click)="currentTab = 'purchased'" class="link uppercase">({{productsPurchased.length}}) Adquiridos</a>
+      </li>
+    </ul>
+  </nav>
+
+  </div>
+
