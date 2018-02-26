@@ -76,6 +76,8 @@ import { FormProductComponent } from '../components/form-product/form-product.co
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 import { SoldPage } from '../pages/profile/sold/sold.page';
+import { DetailProductComponent } from '../components/detail-product/detail-product.component';
+import { SellingComponent } from '../pages/selling/selling.component';
 
 
 @NgModule({
@@ -98,6 +100,7 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     ProductComponent,
     ToolbarComponent,
     SimpleFormComponent ,
+    DetailProductComponent,
     HomePage,
     SignUpPage,
     ProductsUploadPage,
@@ -123,7 +126,8 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     OfferModalComponent,
     StepsPage,
     ModalMessageComponent,
-    SoldPage
+    SoldPage,
+    SellingComponent
 
   ],
   imports: [
