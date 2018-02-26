@@ -1,50 +1,54 @@
 <nav>
-  <div class="navbar-header">
-    <a class="upload-offer-button" routerLink="/products/form">
-      <div class="outside-circle">
-        <div class="inside-circle">
-          <span class="icon-tag"></span>
-        </div>
-        <label>Sube tu oferta</label>
-      </div>
-    </a>
-    <a class="navbar-brand" ng-click="main.goToHome()">
-      <img src="./assets/img/logo-white.svg" alt="brand">
-      <h1 class="sr-only">rótalo</h1>
-    </a>
-    <ul class="list-options">
-      <li>
-        <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
-      </li>
-      <!-- <li class="country-mobile">
-        <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">
-        </div>
-        <div class="select-country-mob" ng-if="main.openSelectCountryMobile">
-          <div ng-repeat="country in main.countries" ng-click="main.changeCountry(country)">
-            {{ country.name }}
-            <span class="icon-check" ng-if="main.country.name == country.name"></span>
+  <div class="container">
+    <div class="navbar-header">
+      <a class="upload-offer-button" routerLink="/products/form">
+        <div class="outside-circle">
+          <div class="inside-circle">
+            <span class="icon-tag"></span>
           </div>
+          <label>Sube tu oferta</label>
         </div>
-      </li> -->
-      <li>
-        <a ng-click="main.goToNotifications()">
-          <span class="icon-ring">
-            <!--               <span ng-if="unreadNotificationsCount" class="noti-circle">{{unreadNotificationsCount}}</span>-->
-      </span>
-        </a>
-      </li>
-      <li>
-        <a ng-click="main.openConversations()">
-          <span class="icon-message">
-<!--             <span ng-if="unreadMessageCount" class="noti-circle">{{unreadMessageCount}}</span>
- -->          </span>
-        </a>
-      </li>
-      <li routerLink="/profile/show">
-        <a ui-sref="profile.show">
-          <span class="icon-account"></span>
-        </a>
-      </li>
-    </ul>
+      </a>
+      <a class="navbar-brand" ng-click="main.goToHome()">
+        <img src="./assets/img/logo-white.svg" alt="brand">
+        <h1 class="sr-only">rótalo</h1>
+      </a>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="select-country">
+            <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
+          </div>
+        </li>
+        <li class="country-mobile">
+          <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">
+          </div>
+          <!-- <div class="select-country-mob" ng-if="main.openSelectCountryMobile">
+            <div ng-repeat="country in main.countries" ng-click="main.changeCountry(country)">
+              {{ country.name }}
+              <span class="icon-check" ng-if="main.country.name == country.name"></span>
+            </div>
+          </div> -->
+        </li>
+        <li>
+          <a ng-click="main.goToNotifications()">
+            <span class="icon-ring">
+              <!--               <span ng-if="unreadNotificationsCount" class="noti-circle">{{unreadNotificationsCount}}</span>-->
+        </span>
+          </a>
+        </li>
+        <li>
+          <a ng-click="main.openConversations()">
+            <span class="icon-message">
+  <!--             <span ng-if="unreadMessageCount" class="noti-circle">{{unreadMessageCount}}</span>
+   -->          </span>
+          </a>
+        </li>
+        <li routerLink="/profile/show">
+          <a ui-sref="profile.show">
+            <span class="icon-account"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

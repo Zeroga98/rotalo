@@ -130,4 +130,5 @@ import { HeadersInterceptor } from '../commons/interceptors/header.interceptor';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
