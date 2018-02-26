@@ -22,7 +22,11 @@
             background-color: $red;
             padding: 19px 17px;
             position: relative;
-        
+            color:white;
+            
+            .title{
+                margin: 0;
+            }
             .modal-close{
                 color: #CCC;
                 font-size: 10px;

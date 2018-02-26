@@ -19,8 +19,9 @@ export const ROUTES = {
 >>>>>>> modals
     PRODUCTS: {
         LINK: 'products',
-        SHOW: 'show/:id',
+        SHOW: 'show',
         FEED: 'feed',
+        BUY: 'buy',
         UPLOAD: 'form'
     }
 };

@@ -1,0 +1,65 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
+:host{
+    .container-offer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        .container{
+            width: 57rem;
+            min-width: 40rem;
+            .container-header{
+                font-size: 1.4rem;
+                display: flex;  
+                align-items: center;
+                border-bottom: 1px solid #D3E0E9;
+                padding: 1.5rem;
+                margin-bottom: 5rem;
+                .image{
+                    width: 5rem;
+                    margin-right: 2rem;
+                    img{
+                        width: 100%;
+                        height: auto;
+                        max-height: 8rem;
+                    }
+                }
+                .title{
+                    font-weight: bold;
+                    color: #4A4A4A;
+                }
+                .price{
+                    color: $red;
+                    font-weight: 500;
+                    line-height: 2.5rem;
+                }
+            }
+            .container-form{
+                .title-form{
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    color: #4A4A4A;
+                    margin-bottom: 3rem;
+                }
+                .select-medium{
+                    margin-bottom: 3rem;
+                }
+            }
+            .container-sufi{
+                .title{
+                    font-size: 1.6rem;
+                    color: #4A4A4A;
+                    font-weight: 700;
+                    margin: 3rem 0;
+                    text-align: center;
+                }
+                .action{
+
+                }
+            }
+        }
+    }
+    
+}

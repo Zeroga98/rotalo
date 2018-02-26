@@ -11,7 +11,6 @@ export class ProductsService {
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     getProducts(params): Promise<any>{
-        console.log("load products");
         return this.http.get(this.url, {params: params})
                     .toPromise()
                     .then( (response: any) => response.data);
@@ -20,6 +19,11 @@ export class ProductsService {
     getProductsById(id:number):Promise<any> {
         const url = `${this.url}/${id}`;
         return this.http.get(url).toPromise().then( (response: any) => response.data);
+    }
+
+    deleteProduct(id:number | string ):Promise<any>{
+        const url = `${this.url}/${id}`;
+        return this.http.delete(url).toPromise().then( (response: any) => response.data);
     }
 
     saveProducts(params):Promise<any>{

@@ -21,9 +21,7 @@ export class LoginService {
   }
 
   loginUser(currentUser): Promise<any> {
-    const jsonApiHeaders = this.configurationService.getJsonApiHeaders();
     const url =  this.configurationService. getBaseUrl() + '/v1/sessions';
-    const headers = new HttpHeaders(jsonApiHeaders);
-    return this.http.post(url, currentUser, { headers: headers }).toPromise();
+    return this.http.post(url, currentUser).toPromise();
   }
 }

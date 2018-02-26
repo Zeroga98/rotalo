@@ -1,6 +1,5 @@
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ROUTES } from '../../router/routes';
+import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'product',
@@ -10,7 +9,7 @@ import { ROUTES } from '../../router/routes';
 })
 export class ProductComponent{
   @Input() product: ProductInterface;
-  productLink: string = `/${ROUTES.PRODUCTS.LINK}/show`;
+  @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
 
   constructor() {
   }
@@ -19,6 +18,10 @@ export class ProductComponent{
     const city = product.user.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
+  }
+
+  selectProduct(){
+    this.selected.emit(this.product);
   }
 
 }

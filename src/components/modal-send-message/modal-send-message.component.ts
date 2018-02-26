@@ -66,10 +66,6 @@ export class ModalSendMessageComponent implements OnInit {
     return this.conversation.length > 0;
   }
 
-  ocultConversation(){
-    this.showOcultConversation = false;
-  }
-
   onSubmit() {
     let date = new Date();
     try {
