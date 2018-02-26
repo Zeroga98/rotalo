@@ -18,6 +18,7 @@ import { NotificationsSettingsPage } from '../pages/profile/notifications-settin
 import { DetalleProductoComponent } from '../pages/detalle-producto/detalle-producto.component';
 import { AuthGuardService } from '../services/login/auth-guard.service';
 import { SuccessActivationPage } from '../pages/success-activation/success-activation.page';
+import { SoldPage } from '../pages/profile/sold/sold.page';
 import { BuyProductPage } from '../pages/buy-product/buy-product.page';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 
@@ -64,6 +65,9 @@ export const appRouter: Routes = [
           component: DetalleProductoComponent,
         },
         {
+          path: ROUTES.PRODUCTS.SOLD,
+          component: SoldPage,
+        }, {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,
           component: BuyProductPage,
         },

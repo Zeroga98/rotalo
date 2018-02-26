@@ -77,6 +77,7 @@ import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 import { DetailProductComponent } from '../components/detail-product/detail-product.component';
 import { SellingComponent } from '../pages/selling/selling.component';
+import { SoldPage } from '../pages/profile/sold/sold.page';
 
 
 
@@ -100,6 +101,7 @@ import { SellingComponent } from '../pages/selling/selling.component';
     ProductComponent,
     ToolbarComponent,
     SimpleFormComponent ,
+    DetailProductComponent,
     HomePage,
     SignUpPage,
     ProductsUploadPage,
@@ -126,7 +128,8 @@ import { SellingComponent } from '../pages/selling/selling.component';
     StepsPage,
     ModalMessageComponent,
     DetailProductComponent,
-    SellingComponent
+    SellingComponent,
+    SoldPage
   ],
   imports: [
     BrowserModule,
