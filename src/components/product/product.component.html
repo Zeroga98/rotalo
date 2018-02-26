@@ -1,6 +1,8 @@
 <div class="container-product" (click)="selectProduct()" *ngIf="product">
   <div class="container-photo">
-    <img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">
+    <!--<img [src]="product.photos.url" [alt]="product.name">-->
+    <img [src]="product.photos?.url" [alt]="product.name">
+    <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
   </div>
   <div class="container-name">
     <span class="name">{{product.name}}</span>

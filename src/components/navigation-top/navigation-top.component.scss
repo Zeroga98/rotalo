@@ -1,12 +1,23 @@
+@import "../../styles/settings/colors.scss";
+@import "../../styles/settings/variables.scss";
+
 :host{
     display: block;
     background-color: #ED2F3C;
     border-color: #d61320;
+    .container {
+        width: 98%;
+        max-width: 1200px;
+        margin: 0 auto;
+        @media #{$medium-max} {
+            width: 90%;;
+        }
+    }
     .navbar-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2rem 7.5rem;
+        padding: 20px;
         .upload-offer-button{
             .outside-circle{
                 padding: 5px;
@@ -38,11 +49,15 @@
                     margin-bottom: 0px;
                 }
             }
+            @media #{$medium-max} {
+                display: none;
+            }
         }
         .navbar-brand {
             width: 130px;
             img{
-                width: 100%;
+                height: auto;
+                width: 130px;
             }            
         }
         .list-options{

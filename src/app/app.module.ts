@@ -176,4 +176,5 @@ import { SellingComponent } from '../pages/selling/selling.component';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
