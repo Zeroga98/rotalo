@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'custom-modal',
@@ -7,9 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Input() title:string = "Mensajes";
-  
+  @Output() close: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() { }
 
+  showOcult(){
+    this.close.emit()
+  }
 }

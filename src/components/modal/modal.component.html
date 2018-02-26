@@ -4,7 +4,7 @@
       <div>
         <h1 class="title ng-hide" ng-hide="ctrl.selectedConversation">{{title}}</h1>
       </div>
-      <div class="modal-close" ng-click="ctrl.close()">
+      <div class="modal-close" (click)="showOcult()">
         <span class="icon-custom icon-custom--cross"></span>
       </div>
     </div>

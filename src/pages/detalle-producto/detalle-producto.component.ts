@@ -6,6 +6,7 @@ import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
 import { ModalInterface } from '../../commons/interfaces/modal.interface';
+import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
 
 @Component({
 	selector: 'detalle-producto',

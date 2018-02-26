@@ -2,7 +2,7 @@ import { MessageInterface } from "./message.interface";
 
 export interface ConversationInterface {
     'id'?: string;
-    'messages': Array<MessageInterface>;
+    'messages'?: Array<MessageInterface>;
     'name': string;
     'photo'?: string;
     'preview'?: string;

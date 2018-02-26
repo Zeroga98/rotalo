@@ -73,6 +73,8 @@ import { BuyService } from '../services/buy.service';
 import { MsgCongratulationComponent } from '../components/msg-congratulation/msg-congratulation.component';
 import { FormProductComponent } from '../components/form-product/form-product.component';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
+import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
+
 
 
 @NgModule({
@@ -119,6 +121,7 @@ import { ProductEditPage } from '../pages/product-edit/product-edit.page';
     SufiTePrestaModalComponent,
     OfferModalComponent,
     StepsPage,
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,

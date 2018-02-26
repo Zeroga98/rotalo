@@ -95,6 +95,7 @@
                     height: 10px;
                     transform: rotate(45deg);
                     left: -4px;
+                    right: 0;
                 }
             }
 
@@ -111,6 +112,7 @@
 
                     &::before{
                         right: -4px;
+                        left: 0;
                         background: $greenblue;
                     }
                 }
@@ -140,6 +142,8 @@
         box-shadow: none;
         padding: 6px 12px;
         color: #536570;
+        display: inline-block;
+        vertical-align: top
     }
 
     .message-show-button{
@@ -148,6 +152,9 @@
         border: 0;
         height: 35px;
         width: 25%;
+        display: inline-block;
+        vertical-align: top;
+        background-color: #fff;
     }
 
 }
