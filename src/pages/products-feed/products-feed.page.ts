@@ -37,7 +37,7 @@ export class ProductsFeedPage implements OnInit{
         this.setScrollEvent();
     }
 
-    async loadProducts(params:Object = {}) {
+    async loadProducts(params: Object = {}) {
         this.productsService.getProducts(params).then(products => {
             this.products = [].concat(products);
         });
@@ -77,7 +77,7 @@ export class ProductsFeedPage implements OnInit{
         return this.products.length <= 0;
     }
 
-    private routineUpdateProducts(filter: Object){
+    private routineUpdateProducts(filter: Object) {
         const newFilter = this.updateCurrentFilter(filter);
         this.loadProducts(newFilter);
     }

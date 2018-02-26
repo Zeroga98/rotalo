@@ -1,0 +1,41 @@
+<navigation-top></navigation-top>
+<div>
+  <nav class="sold-header-nav bg--red">
+    <ul class="nav nav-tabs">
+      <li [ngClass]="{ active:  currentTab == 'sold' }">
+        <a (click)="currentTab = 'sold'" class="link uppercase">({{productsSold.length}}) Rotados</a>
+      </li>
+      <li [ngClass]="{ active:  currentTab == 'purchased' }">
+        <a (click)="currentTab = 'purchased'" class="link uppercase">({{productsPurchased.length}}) Adquiridos</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container--app m-x product-sold">
+      <div id="sold" ng-show="ctrl.currentTab == 'sold'">
+          <p class="text-center m-y-lg" ng-if="ctrl.sold.length <= 0">No has vendido ningún producto.</p>
+          <div class="row-list__wrapper" ng-if="ctrl.sold.length > 0">
+            <ul class="row-list__ul modal--offer">
+              <li class="row-list__item" ng-repeat="product in ctrl.sold">
+                <div class="product-buy__thumbnail" style="background-image: url({{product.photos[0].url || 'images/product-no-image.png'}})"></div>
+                <div class="product-buy__info">
+                  <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{product.name}}</h1>
+                  <!-- sold -->
+                  <p class="text--small text--red m-b-0" ng-if="product.status==='sold'">Vendido en: <strong>{{product.price | currency:"$":0}}</strong></p>
+                  <div ui-sref="notifications.feed">
+                    <!-- purchased -->
+                    <p class="text--small text--red m-b-0" ng-if="product.status==='purchased'">Venta por confirmar</p>
+                    <!-- auctioned -->
+                    <p class="text--small text--red m-b-0" ng-if="product.status==='auctioned'">Subasta asignada</p>
+                    <!-- negotiated -->
+                    <p class="text--small text--red m-b-0" ng-if="product.status==='negotiated'">Oferta aceptada</p>
+                    <!-- sufi -->
+                    <p class="text--small text--red m-b-0" ng-if="product.status==='sufi'">Esperando crédito SUFI</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+  </div>
+</div>
+

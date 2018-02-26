@@ -67,7 +67,7 @@ import { ModalSendMessageComponent } from '../components/modal-send-message/moda
 import { MessagesService } from '../services/messages.service';
 import { StepsPage } from '../pages/steps/steps.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
-
+import { SoldPage } from '../pages/profile/sold/sold.page';
 
 
 @NgModule({
@@ -108,7 +108,9 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
     ModalComponent,
     ModalSendMessageComponent,
     StepsPage,
-    ModalMessageComponent
+    ModalMessageComponent,
+    SoldPage
+
   ],
   imports: [
     BrowserModule,

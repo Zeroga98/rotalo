@@ -31,7 +31,6 @@ export class ModalMessageComponent implements OnInit {
   sendIdConversation(id: string) {
     console.log("dio click");
     this.idConversation = id;
-    this.showOcultConversation = true;
   }
 
   showModal(): boolean {

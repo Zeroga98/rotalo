@@ -11,16 +11,14 @@ export const ROUTES = {
     HOBBIES: 'gustos',
     EDITPROFILE: 'edit',
     NOTIFICATIONSSETTINGS: 'notifications-settings',
-    ACTIVACION:'activacion',
-    SUCCESS:'success-activation',
-<<<<<<< HEAD
+    ACTIVACION: 'activacion',
+    SUCCESS: 'success-activation',
     STEPS: 'steps',
-=======
->>>>>>> modals
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show/:id',
         FEED: 'feed',
-        UPLOAD: 'form'
+        UPLOAD: 'form',
+        SOLD: 'sold'
     }
 };
