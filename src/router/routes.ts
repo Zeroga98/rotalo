@@ -20,6 +20,7 @@ export const ROUTES = {
         FEED: 'feed',
         UPLOAD: 'form',
         SOLD: 'sold',
+        SELLING: 'selling',
         BUY: 'buy'
     }
 };

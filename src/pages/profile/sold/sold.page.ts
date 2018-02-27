@@ -17,9 +17,10 @@ export class SoldPage implements OnInit {
   private currentFilterPurchased: any = {
     'filter[staged]': 'purchased'
   };
+
   constructor(private userService: UserService, private productsService: ProductsService) {
     this.loadProductsSold();
-    this.loadProductsPurchased()
+    this.loadProductsPurchased();
   }
 
   async loadProductsSold() {

@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { MessagesService } from '../../services/messages.service';
-import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
-import { ProductsService } from '../../services/products.service';
-import { MessageInterface } from '../../commons/interfaces/message.interface';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { CurrentSessionService } from '../../services/current-session.service';
+import { Component, OnInit, Input, Output } from "@angular/core";
+import { MessagesService } from "../../services/messages.service";
+import { ConversationInterface } from "../../commons/interfaces/conversation.interface";
+import { ProductsService } from "../../services/products.service";
+import { MessageInterface } from "../../commons/interfaces/message.interface";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { CurrentSessionService } from "../../services/current-session.service";
 
 @Component({
-  selector: 'modal-send-message',
-  templateUrl: './modal-send-message.component.html',
-  styleUrls: ['./modal-send-message.component.scss']
+  selector: "modal-send-message",
+  templateUrl: "./modal-send-message.component.html",
+  styleUrls: ["./modal-send-message.component.scss"]
 })
 export class ModalSendMessageComponent implements OnInit {
   @Input() idConversation: string;
@@ -23,21 +23,25 @@ export class ModalSendMessageComponent implements OnInit {
   formMessage: FormGroup;
   idUser: string = this.currentSessionSevice.getIdUser();
   constructor(
-    private messagesService: MessagesService, private currentSessionSevice: CurrentSessionService) { }
+    private messagesService: MessagesService,
+    private currentSessionSevice: CurrentSessionService
+  ) {}
 
   ngOnInit() {
     this.loadMessage();
   }
 
-  validateForm(){
+  validateForm() {
     this.formMessage = new FormGroup({
-      message: new FormControl('', [Validators.required])
+      message: new FormControl("", [Validators.required])
     });
   }
 
   loadConversation(idMessage) {
     this.messagesService.getConversationByID(idMessage).then(conver => {
+      console.log("conver: ", conver);
       this.conversation = [].concat(conver);
+      console.log(this.conversation);
       this.messages = [].concat(this.conversation[0].messages);
     });
     console.log(this.conversation[0]);
@@ -47,7 +51,11 @@ export class ModalSendMessageComponent implements OnInit {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
+      console.log("conver: ", conver);
       this.conversations = [].concat(conver);
+      if (this.conversation.length == 0) {
+        this.conversation = [].concat(this.conversationDefault);
+      }
       this.conversations.forEach(item => {
         if (item.id === this.idConversation) {
           this.loadConversation(this.idConversation);
@@ -57,9 +65,7 @@ export class ModalSendMessageComponent implements OnInit {
           this.conversation = [].concat(this.conversationDefault);
         }
       });
-    }catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   showModal(): boolean {
@@ -70,13 +76,12 @@ export class ModalSendMessageComponent implements OnInit {
     let date = new Date();
     try {
       const data = {
-          "user-id": parseInt(this.idUser),
-          "content": this.formMessage.controls['message'].value,
-          "product-id": this.conversation[0].id.split("-")[0]
-      }
+        "user-id": parseInt(this.idUser),
+        content: this.formMessage.controls["message"].value,
+        "product-id": this.idProduct
+      };
 
       let params = Object.assign(data);
-      console.log(params);
 
       const response = this.messagesService.sendMessage(params);
       this.loadMessage();
@@ -86,6 +91,6 @@ export class ModalSendMessageComponent implements OnInit {
   }
 
   getUrlImage() {
-      return `url('${this.conversation[0].photo}')`;
+    return `url('${this.conversation[0].photo}')`;
   }
 }
