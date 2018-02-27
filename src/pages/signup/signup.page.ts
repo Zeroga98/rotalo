@@ -21,10 +21,10 @@ export class SignUpPage implements OnInit {
     public state;
 
     constructor(
-        private userService:UserService, 
+        private userService:UserService,
         private router: Router,
         private utilsService: UtilsService){}
-    
+
     ngOnInit(): void {
         this.registerForm = new FormGroup({
             name: new FormControl('', [Validators.required]),
@@ -49,8 +49,8 @@ export class SignUpPage implements OnInit {
         }
     }
 
-    buildParamsUserRequest():UserRequestInterface{
-        let params = Object.assign({}, this.registerForm.value, {'city-id':this.city.id});
+    buildParamsUserRequest(): UserRequestInterface{
+        let params = Object.assign({}, this.registerForm.value, {'city-id': this.city.id});
         delete params.termsCheckbox
         return params;
     }

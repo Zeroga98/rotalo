@@ -29,7 +29,7 @@ export class ProductsService {
     saveProducts(params): Promise<any> {
         return this.http.post(this.url,
                     {
-                        data:{
+                        data: {
                             attributes: params,
                             type: 'products'
                         },

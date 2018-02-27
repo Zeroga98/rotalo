@@ -10,7 +10,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let request: HttpRequest<any>;
         console.log("MEthod: ", req.method);
-        if(req.method.toLocaleLowerCase() == 'post'){
+        if (this.isNecessaryHeader(req)) {
             request = req.clone({
                 setHeaders:{
                     'Accept': 'application/vnd.api+json',
@@ -21,5 +21,11 @@ export class HeadersInterceptor implements HttpInterceptor {
             request = req.clone();
         }
         return next.handle(request);
+    }
+
+    private isNecessaryHeader(req: HttpRequest<any>): boolean{
+      const ablesMethods = ['post', 'put', 'update'];
+      const method = req.method.toLocaleLowerCase();
+      return ablesMethods.includes(method);
     }
 }

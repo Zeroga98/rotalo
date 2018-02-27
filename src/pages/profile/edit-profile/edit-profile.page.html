@@ -1,5 +1,4 @@
 <navigation-top></navigation-top>
-<custom-spinner></custom-spinner>
 <div>
   <div class="container">
     <div id="flashMessage" class="flashMessage">
@@ -15,9 +14,19 @@
         </ul>
       </div>
     </div>
+
     <h1 class="zeta text--grey-dark">Editar cuenta</h1>
     <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
-
+    <div>
+        <image-upload
+        [max]="6"
+        [extensions]="['jpg','png']"
+        [buttonCaption]="'Selecciona una Imagen'"
+        [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
+        [clearButtonCaption]="'Limpiar'"
+        (uploadFinished)="onUploadImageFinished($event)"
+        (removed)="onRemoveImage($event)"></image-upload>
+    </div>
     <form class="form-theme" name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
 
 
