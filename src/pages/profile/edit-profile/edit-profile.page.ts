@@ -22,6 +22,7 @@ export class EditProfilePage implements OnInit {
   public errorChange: String;
   public messageChange: String;
   public photosUploaded: Array<any> = [];
+  public idImagenProfile: String;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
@@ -46,6 +47,9 @@ export class EditProfilePage implements OnInit {
   async onUploadImageFinished(event) {
     try {
       const response = await this.photosService.updatePhoto(event.file);
+      console.log(response);
+      this.idImagenProfile = response.id;
+      console.log(this.idImagenProfile);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
     } catch (error) {
@@ -91,9 +95,12 @@ export class EditProfilePage implements OnInit {
   }
 
   editUser(): void {
-
-    const infoUser = Object.assign({}, this.editProfileForm.value,  {'city-id': this.city['id']});
-
+    let infoUser;
+    if (this.idImagenProfile) {
+      infoUser = Object.assign({}, this.editProfileForm.value,  {'city-id': this.city['id']}, {'photo-id': this.idImagenProfile});
+    }else {
+      infoUser = Object.assign({}, this.editProfileForm.value,  {'city-id': this.city['id']});
+    }
     const currentUser = {
       data: {
         id: this.userEdit.id,
@@ -122,6 +129,8 @@ export class EditProfilePage implements OnInit {
   }
 
   onSubmit() {
-    this.editUser();
+    if (this.city['id']) {
+      this.editUser();
+    }
   }
 }
