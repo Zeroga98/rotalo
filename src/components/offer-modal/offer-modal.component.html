@@ -1,4 +1,4 @@
-<custom-modal title="{{title}}" class="modal-theme">
+<custom-modal title="{{title}}" class="modal-theme" (close)="closeModal()">
 	<div modal-header class="container-header">
 		<div class="image">
 			<img [src]="config?.photo">

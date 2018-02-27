@@ -9,7 +9,7 @@ export class CategoriesService {
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    async getCategories(): Promise<CategoryInterface> {
+    async getCategories(): Promise<any>{
         if (!this.categories) {
             this.categories = await this.getCategoriesFromServer();
         }

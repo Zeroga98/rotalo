@@ -1,5 +1,5 @@
-<sufi-modal *ngIf="isSufiModalShowed" [config]="configModal"></sufi-modal>
-<offer-modal *ngIf="isOfferModalShowed" [config]="configModal"></offer-modal>
+<sufi-modal *ngIf="isSufiModalShowed" [config]="configModal" (close)="isSufiModalShowed = false"></sufi-modal>
+<offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
 
 <custom-spinner></custom-spinner>
 

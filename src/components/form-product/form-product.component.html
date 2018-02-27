@@ -28,42 +28,51 @@
             <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar?*" maxlength="100">
           </div>
           <div class="form-group item-price">
-            <input class="form-control" name="price" formControlName="price" placeholder="¿Cuánto vale?*" maxlength="100">
+            <input 
+            class="form-control input-price" 
+            name="price" 
+            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            formControlName="price" 
+            placeholder="¿Cuánto vale?*" 
+            maxlength="100">
             <select class="form-control currency-select" name="currency" formControlName="currency">
               <option value="COP">COP</option>
               <option value="'USD'">USD</option>
             </select>
-            <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked> Recibo Ofertas
+            <div class="check-offer">
+              <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+              <span>Recibo Ofertas</span>
+            </div>
           </div>
           <div class="form-group">
-            <select class="form-control" (change)="selectedComunity($event)">
-              <option value="Escoge una categoria*">Escoge una categoria*</option>
+            <select class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
+              <option value="Escoge una categoria*" disabled>Escoge una categoria*</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <select class="form-control" name="subcategory-id" formControlName= "subcategory-id">
-              <option value="Escoge una subcategoria*">Escoge una subcategoria*</option>
+              <option value="Escoge una subcategoria*" disabled>Escoge una subcategoria*</option>
               <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <select class="form-control" name="used" formControlName= "used">
-              <option value="Estado del articulo*">Estado del articulo*</option>
+              <option value="Estado del articulo*" disabled>Estado del articulo*</option>
               <option [ngValue]="true">Articulo Usado</option>
               <option [ngValue]="false">Articulo Nuevo</option>
             </select>
           </div>
           <div class="form-group">
             <select class="form-control" name="visible" formControlName= "visible">
-              <option value="¿Quién puede verlo?">¿Quién puede verlo?</option>
+              <option value="¿Quién puede verlo?" disabled>¿Quién puede verlo?</option>
               <option [ngValue]="true">Todas las cominidades</option>
               <option [ngValue]="false">Solo mi comunidad</option>
             </select>
           </div>
           <div class="form-group">
             <select class="form-control" name="sell-type" formControlName= "sell-type">
-              <option value="Tipo de venta*">Tipo de venta*</option>
+              <option value="Tipo de venta*" disabled>Tipo de venta*</option>
               <option value="VENTA">Vendo</option>
               <option value="SUBASTA">Subasto</option>
               <option value="GRATIS">Regalo</option>
