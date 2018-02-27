@@ -9,8 +9,8 @@ export class HeadersInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let request: HttpRequest<any>;
-        console.log("MEthod: ", req.method);
-        if(req.method.toLocaleLowerCase() == 'post'){
+        /** Deuda Tecnica Verificar otra forma de evitar que en servicio de photos no incluya los headers */
+        if(req.method.toLocaleLowerCase() == 'post' && !req.url.includes('photos')){
             request = req.clone({
                 setHeaders:{
                     'Accept': 'application/vnd.api+json',

@@ -45,6 +45,7 @@ export class ProductsFeedPage implements OnInit {
   async loadProducts(params: Object = {}) {
     try {
       const products = await this.productsService.getProducts(params);
+      console.log(products);
       this.products = [].concat(this.filterNoVisibleProducts(products));
     } catch (error) {}
   }
