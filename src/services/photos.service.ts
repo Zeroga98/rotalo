@@ -15,7 +15,7 @@ export class PhotosService {
         return this.url;
     }
 
-    updatePhoto(file: File): Promise<any>{
+    updatePhoto(file: File): Promise<any> {
         const formData: FormData = this.buildFormData(file);
         return this.http.post(this.url, formData,
                     {

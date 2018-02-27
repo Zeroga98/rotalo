@@ -10,16 +10,22 @@ export class HeadersInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let request: HttpRequest<any>;
         /** Deuda Tecnica Verificar otra forma de evitar que en servicio de photos no incluya los headers */
-        if(req.method.toLocaleLowerCase() == 'post' && !req.url.includes('photos')){
+        if (this.isNecessaryHeader(req)) {
             request = req.clone({
-                setHeaders:{
+                setHeaders: {
                     'Accept': 'application/vnd.api+json',
                     'Content-Type': 'application/vnd.api+json'
                 }
             });
-        }else{
+        }else {
             request = req.clone();
         }
         return next.handle(request);
+    }
+
+    private isNecessaryHeader(req: HttpRequest<any>): boolean{
+      const ablesMethods = ['post', 'put'];
+      const method = req.method.toLocaleLowerCase();
+      return ablesMethods.includes(method) && !req.url.includes('photos');
     }
 }

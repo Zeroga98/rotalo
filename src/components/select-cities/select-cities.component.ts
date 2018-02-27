@@ -25,7 +25,8 @@ export class SelectCitiesComponent implements OnChanges {
         this.cities = await this.collectionService.getCitiesById(this.state.id);
         this.currentCity = '';
         if (this.initialValue) {
-          if (this.state.id === this.initialValue.id) {
+
+          if (this.state.id === this.initialValue.state.id) {
             const name  = this.initialValue.name;
             const id = this.initialValue.id;
             this.currentCity = id;

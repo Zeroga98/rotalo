@@ -22,8 +22,9 @@ export class SelectStatesComponent implements OnChanges {
     if (this.country && this.country.id) {
         this.currentState = '';
         this.states = await this.collectionService.getStatesById(this.country.id);
+
         if (this.initialValue) {
-          if (this.country.id === this.initialValue.id) {
+          if (this.country.id === this.initialValue.country.id) {
             const name  = this.initialValue.name;
             const id = this.initialValue.id;
             this.currentState = id;

@@ -3,8 +3,9 @@
   <div>
     <div class="profile-header text-center p-b-0" style="background-image: url(../assets/img/banner.jpg); ">
       <div class="container-fluid">
-        <div class="container-inner">
-          <div class="img-circle media-object bg-img-fix" style="background-image: url(../assets/img/profile-no-image.png)"></div>
+        <div  class="container-inner">
+          <div *ngIf="!photoProfile" class="img-circle media-object bg-img-fix" style="background-image: url(../assets/img/profile-no-image.png)"></div>
+          <div *ngIf="photoProfile" class="img-circle media-object bg-img-fix" [style.background-image]="photoProfile" ></div>
           <h3 class="profile-header-user">Testing</h3>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/login/login.service';
 import { UserService } from '../../../services/user.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'show-page',
@@ -12,7 +12,9 @@ export class ShowPage implements OnInit {
   selling: String;
   staged: String;
   userInfo: any;
-  constructor(private loginService: LoginService, private userService: UserService) { }
+  photoUrl: String;
+  photoProfile: any;
+  constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService) { }
 
   ngOnInit() {
     this.getUserInfo();
@@ -22,6 +24,9 @@ export class ShowPage implements OnInit {
     this.userInfo = await this.userService.getInfoUser();
     this.selling = this.userInfo.selling;
     this.staged = this.userInfo.staged;
+    console.log(this.userInfo);
+    this.photoUrl = this.userInfo.photo.url;
+    this.photoProfile = this.sanitizer.bypassSecurityTrustStyle('url(' + this.photoUrl + ')');
   }
 
   onLogout() {

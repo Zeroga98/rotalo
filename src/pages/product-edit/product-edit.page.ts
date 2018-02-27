@@ -5,34 +5,36 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTES } from '../../router/routes';
 
 @Component({
-  selector: 'product-edit',
-  templateUrl: './product-edit.page.html',
-  styleUrls: ['./product-edit.page.scss']
+  selector: "product-edit",
+  templateUrl: "./product-edit.page.html",
+  styleUrls: ["./product-edit.page.scss"]
 })
 export class ProductEditPage implements OnInit {
-	idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-	product: ProductInterface;
-	constructor(private router: Router, private productsService: ProductsService) { }
+  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+  product: ProductInterface;
+  constructor(
+    private router: Router,
+    private productsService: ProductsService
+  ) {}
 
-	ngOnInit() {
-		this.loadProduct();
-	}
+  ngOnInit() {
+    this.loadProduct();
+  }
 
-	async loadProduct(){
-		try {
-			this.product = await this.productsService.getProductsById(this.idProduct);
-		} catch (error) {
-			
-		}
-	}
+  async loadProduct() {
+    try {
+      this.product = await this.productsService.getProductsById(this.idProduct);
+    } catch (error) {}
+  }
 
-  	async publishPhoto(event){
-		try {
-			const response = await this.productsService.saveProducts(event);
-			this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
-		} catch (error) {
-			console.error("Error: ",error);
-		}
-	}
-
+  async publishPhoto(event) {
+    try {
+      const response = await this.productsService.saveProducts(event);
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
 }
