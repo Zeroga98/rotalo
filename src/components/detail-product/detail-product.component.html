@@ -4,16 +4,16 @@
 <custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
 
 <div class="container" *ngIf="isSpinnerShow()">
-  <modal-send-message *ngIf="false" [idProduct]="products[0].id" [idUserProduct]="products[0].user.id" [conversationDefault]="conversation"></modal-send-message>
+  <modal-send-message [idProduct]="products[0].id" *ngIf="false" [idUserProduct]="products[0].user.id" [conversationDefault]="conversation"></modal-send-message>
   <modal-message *ngIf="false"></modal-message>
 
-  <div class="product" *ngIf="isSpinnerShow()">
+  <div class="product">
     <div class="product-photos">
       <div class="panel-heading">
         <ngx-carousel [inputs]="carouselConfig">
           <ngx-item NgxCarouselItem *ngFor="let productImage of products[0].photos">
             <div class="container-product__image">
-              <img src="{{productImage.url}}">
+              <img src="{{productImage?.url}}">
             </div>
           </ngx-item>
           <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">

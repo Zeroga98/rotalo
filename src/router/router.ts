@@ -21,6 +21,7 @@ import { SuccessActivationPage } from '../pages/success-activation/success-activ
 import { SoldPage } from '../pages/profile/sold/sold.page';
 import { BuyProductPage } from '../pages/buy-product/buy-product.page';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
+import { SellingPage } from '../pages/profile/selling/selling.page';
 
 export const appRouter: Routes = [
   {
@@ -67,7 +68,12 @@ export const appRouter: Routes = [
         {
           path: ROUTES.PRODUCTS.SOLD,
           component: SoldPage,
-        }, {
+        },
+        {
+          path: ROUTES.PRODUCTS.SELLING,
+          component: SellingPage,
+        }
+        , {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,
           component: BuyProductPage,
         },

@@ -20,9 +20,11 @@ export class EditProfilePage implements OnInit {
   public cityValue: String;
   public errorChange: String;
   public messageChange: String;
+  public isLoadingInfo: boolean;
   constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
+    this.isLoadingInfo = true;
     this.editProfileForm = this.fb.group({
       name: ['', [ Validators.required, Validators.maxLength(50)]],
       idNumber: [{value: '', disabled: true}, Validators.required],
@@ -38,7 +40,6 @@ export class EditProfilePage implements OnInit {
   }
 
   onInfoRetrieved(user): void {
-    console.log(user);
     if (this.editProfileForm) {
        this.editProfileForm.reset();
     }
@@ -51,6 +52,7 @@ export class EditProfilePage implements OnInit {
     this.countryValue = user.city.state.country;
     this.stateValue = user.city.state;
     this.cityValue = user.city;
+    this.isLoadingInfo = false;
   }
 
   editUser(): void {

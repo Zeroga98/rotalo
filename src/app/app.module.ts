@@ -76,8 +76,8 @@ import { FormProductComponent } from '../components/form-product/form-product.co
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 import { DetailProductComponent } from '../components/detail-product/detail-product.component';
-import { SellingComponent } from '../pages/selling/selling.component';
 import { SoldPage } from '../pages/profile/sold/sold.page';
+import { SellingPage } from '../pages/profile/selling/selling.page';
 
 
 
@@ -128,8 +128,8 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
     StepsPage,
     ModalMessageComponent,
     DetailProductComponent,
-    SellingComponent,
-    SoldPage
+    SoldPage,
+    SellingPage
   ],
   imports: [
     BrowserModule,

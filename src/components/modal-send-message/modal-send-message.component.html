@@ -1,9 +1,9 @@
-<custom-modal *ngIf="showModal()">
+<custom-modal >
   <div modal-header>
     <div class="message-show-product">
-      <div class="media">
+      <div class="media" *ngIf="conversation.length > 0">
         <span>
-          <div class="avatar" [ngStyle]="{'background-image': getUrlImage('avatar')}"></div>
+          <div class="avatar" [ngStyle]="{'background-image': getUrlImage()}"></div>
         </span>
         <div>
           <h2>{{conversation[0].name}}</h2>
@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  
+
   <div modal-body>
     <div class="message-show-history">
       <ul Class="media-list-conversation">

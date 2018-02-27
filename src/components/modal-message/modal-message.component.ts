@@ -10,6 +10,7 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 export class ModalMessageComponent implements OnInit {
   idConversation: string = "";
   public conversations: Array<ConversationInterface> = [];
+  showMessage: boolean = false;
 
   constructor(private messagesService: MessagesService) { }
 
@@ -29,8 +30,8 @@ export class ModalMessageComponent implements OnInit {
   }
 
   sendIdConversation(id: string) {
-    console.log("dio click");
     this.idConversation = id;
+    this.showMessage = true;
   }
 
   showModal(): boolean {

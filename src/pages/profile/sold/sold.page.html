@@ -10,6 +10,70 @@
       </li>
     </ul>
   </nav>
-
+  <div class="container--app">
+    <div id="sold" *ngIf="currentTab === 'sold'">
+      <p class="text-center m-y-lg" *ngIf="productsSold.length <= 0">No has vendido ningún producto.</p>
+      <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
+        <ul class="row-list__ul modal--offer">
+          <li routerLink="/notifications/feed" class="row-list__item" *ngFor="let productSold of productsSold">
+            <div *ngIf="productSold.photos.url">
+              <img class="product-buy__thumbnail" [src]="productSold.photos?.url || productSold.photos[0].url " [alt]="productSold.name">
+            </div>
+            <div *ngIf="!productSold.photos.url">
+              <img class="product-buy__thumbnail" src="../../../assets/img/product-no-image.png" alt="producto sin imagen">
+            </div>
+            <div class="product-buy__info">
+              <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productSold.name}}</h1>
+              <!-- sold -->
+              <p class="text--small text--red m-b-0" *ngIf="productSold.status==='sold'">Vendido en:
+                <strong>{{productSold.price | currency:"$":0}}</strong>
+              </p>
+              <div>
+                <!-- purchased -->
+                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='purchased'">Venta por confirmar</p>
+                <!-- auctioned -->
+                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='auctioned'">Subasta asignada</p>
+                <!-- negotiated -->
+                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='negotiated'">Oferta aceptada</p>
+                <!-- sufi -->
+                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='sufi'">Esperando crédito SUFI</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="purchased" *ngIf="currentTab === 'purchased'">
+      <p class="text-center m-y-lg" *ngIf="productsPurchased.length <= 0">No has comprado ningún producto.</p>
+      <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
+        <ul class="row-list__ul modal--offer">
+          <li routerLink="/notifications/feed" class="row-list__item" *ngFor="let productPurchased of productsPurchased">
+            <div *ngIf="productPurchased.photos.url">
+              <img class="product-buy__thumbnail" [src]="productPurchased.photos?.url" [alt]="productPurchased.name">
+            </div>
+            <div *ngIf="!productPurchased.photos.url">
+              <img class="product-buy__thumbnail" src="../../../assets/img/product-no-image.png" alt="producto sin imagen">
+            </div>
+            <div class="product-buy__info">
+              <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productPurchased.name}}</h1>
+              <!-- sold -->
+              <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='sold'">Comprado en:
+                <strong>{{productPurchased.price | currency:"$":0}}</strong>
+              </p>
+              <div ui-sref="notifications.feed">
+                <!-- purchased -->
+                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='purchased'">Compra por confirmar</p>
+                <!-- auctioned -->
+                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='auctioned'">Subasta asignada</p>
+                <!-- negotiated -->
+                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='negotiated'">Oferta aceptada</p>
+                <!-- sufi -->
+                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='sufi'">Esperando crédito SUFI</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-
+</div>

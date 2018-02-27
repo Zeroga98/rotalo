@@ -10,91 +10,105 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
-  selector: 'detail-product',
-  templateUrl: './detail-product.component.html',
-  styleUrls: ['./detail-product.component.scss']
+  selector: "detail-product",
+  templateUrl: "./detail-product.component.html",
+  styleUrls: ["./detail-product.component.scss"]
 })
 export class DetailProductComponent implements OnInit {
-	public carouselConfig: NgxCarousel;
-	public products: Array<ProductInterface> = [];
-	public productsPhotos: any;
-	configModal: ModalInterface;
-	isSufiModalShowed :boolean = false;
+  public carouselConfig: NgxCarousel;
+  public products: Array<ProductInterface> = [];
+  public productsPhotos: any;
+  configModal: ModalInterface;
+  isSufiModalShowed: boolean = false;
   isOfferModalShowed: boolean = false;
   idUser: string = this.currentSessionSevice.getIdUser();
+  public conversation: ConversationInterface;
+  @Input() idProduct: number ;
 
-	@Input() idProduct: number;
+  constructor(
+    private productsService: ProductsService,
+    private router: Router,
+    private currentSessionSevice: CurrentSessionService
+  ) {
+    this.carouselConfig = CAROUSEL_CONFIG;
+  }
 
-	constructor(private productsService: ProductsService, private router: Router, private currentSessionSevice: CurrentSessionService) {
-		this.carouselConfig = CAROUSEL_CONFIG;
-	}
+  ngOnInit() {
+    this.loadProduct();
+  }
 
-	ngOnInit() {
-		this.loadProduct();
-	}
+  loadProduct() {
+    this.productsService.getProductsById(this.idProduct).then(prod => {
+      this.products = [].concat(prod);
 
-	loadProduct() {
-		this.productsService.getProductsById(this.idProduct).then(prod => {
-			this.products = [].concat(prod);
-			if (typeof this.products[0].photos != undefined) {
-				this.productsPhotos = [].concat(this.products[0].photos);
-				this.products[0].photos = this.productsPhotos;
-			}
-		});
-	}
+      if (typeof this.products[0].photos != undefined) {
 
-	isSpinnerShow(): boolean {
-		return this.products.length > 0;
-	}
+        this.productsPhotos = [].concat(this.products[0].photos);
+        this.products[0].photos = this.productsPhotos;
+      }
+      console.log(this.products);
+      this.conversation = {
+        photo: this.products[0].photos[0].url,
+        name: this.products[0].user.name
+      };
+    });
+  }
 
-	validateSession() {
-		//poner id del usuario logueado
-		return this.products[0].user.id == this.idUser && this.products[0].status === 'active';
-	}
+  isSpinnerShow(): boolean {
+    return this.products.length > 0;
+  }
 
-	async deleteProduct(product: ProductInterface){
-		try {
-			const result = confirm("¿Seguro quieres borrar esta publicación?")
-			if(!result) return;
-			const response = await this.productsService.deleteProduct(product.id);
-			this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
-		} catch (error) {
-			
-		}
-	}
+  validateSession() {
+    return (
+      this.products[0].user.id === this.idUser &&
+      this.products[0].status === "active"
+    );
+  }
 
-	editProduct(product: ProductInterface){
-		this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`]);
-	}
+  async deleteProduct(product: ProductInterface) {
+    try {
+      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      if (!result) { return ; }
+      const response = await this.productsService.deleteProduct(product.id);
+      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+    } catch (error) {}
+  }
 
-	getLocation(product): string {
-		const city = product.user.city;
-		const state = city.state;
-		return `${city.name}, ${state.name}`;
-	}
+  editProduct(product: ProductInterface) {
+    this.router.navigate([
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+    ]);
+  }
 
-	buyProduct(id: number | string){
-		const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.BUY}/${id}`;
-		this.router.navigate([urlBuyProduct]);
-	}
+  getLocation(product): string {
+    const city = product.user.city;
+    const state = city.state;
+    return `${city.name}, ${state.name}`;
+  }
 
-	openSufiModal(product:ProductInterface){
-		this.isSufiModalShowed = true;
-		this.configurarModal(product);
-	}
+  buyProduct(id: number | string) {
+    const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.BUY
+    }/${id}`;
+    this.router.navigate([urlBuyProduct]);
+  }
 
-	openOfferModal(product:ProductInterface){
-		this.isOfferModalShowed = true;
-		this.configurarModal(product);
-	}
+  openSufiModal(product: ProductInterface) {
+    this.isSufiModalShowed = true;
+    this.configurarModal(product);
+  }
 
-	private configurarModal(product:ProductInterface){
-		this.configModal = {
-			photo: product.photos[0].url,
-			title: product.name,
-			price: product.price,
-			'product-id': product.id
-		}
-	}
+  openOfferModal(product: ProductInterface) {
+    this.isOfferModalShowed = true;
+    this.configurarModal(product);
+  }
 
+  private configurarModal(product: ProductInterface) {
+    this.configModal = {
+      photo: product.photos[0].url,
+      title: product.name,
+      price: product.price,
+      "product-id": product.id
+    };
+  }
 }

@@ -91,13 +91,20 @@
     padding-bottom: 20px;
   }
 
-
-
   select.form-control{
     background-position: 95% center;
     background-size: 15px;
     background-repeat: no-repeat;
   }
+
+  custom-spinner{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    -webkit-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%);
+  }
+
 
   @media (max-width: 780px) {
     .container {
