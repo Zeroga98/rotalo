@@ -78,6 +78,7 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
 import { DetailProductComponent } from '../components/detail-product/detail-product.component';
 import { SoldPage } from '../pages/profile/sold/sold.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
+import { LoansService } from '../services/loans.service';
 
 
 
@@ -153,6 +154,7 @@ import { SellingPage } from '../pages/profile/selling/selling.page';
     ConfigurationService,
     CurrentSessionService,
     BuyService,
+    LoansService,
     OfferService,
     RecoverService,
     ChangePasswordService,

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
@@ -20,6 +20,15 @@ export class MessagesService {
     getConversationByID(id: string): Promise<any> {
         const url = `${this.url}/${id}`;
         return this.http.get(url).toPromise().then((response: any) => response.data);
+    }
+
+    getConversationsUnread(): Promise<any> {
+        return this.http.get(this.url)
+                    .map( (conversations:any) => conversations.data)
+                    .map( (conversations: any) => {
+                        return conversations.filter( (conversation:any) => conversation['unread-count'] > 0);
+                    })
+                    .toPromise();
     }
 
     sendMessage(params): Promise<any> {

@@ -9,11 +9,11 @@
           <label>Sube tu oferta</label>
         </div>
       </a>
-      <a class="navbar-brand" ng-click="main.goToHome()">
+      <a class="navbar-brand" (click)="goToHome()">
         <img src="./assets/img/logo-white.svg" alt="brand">
         <h1 class="sr-only">rótalo</h1>
       </a>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="list-options">
         <li>
           <div class="select-country">
             <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
@@ -39,8 +39,8 @@
         <li>
           <a ng-click="main.openConversations()">
             <span class="icon-message">
-  <!--             <span ng-if="unreadMessageCount" class="noti-circle">{{unreadMessageCount}}</span>
-   -->          </span>
+              <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
+            </span>
           </a>
         </li>
         <li routerLink="/profile/show">

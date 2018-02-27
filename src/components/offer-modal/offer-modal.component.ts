@@ -1,3 +1,4 @@
+import { EventEmitter, Output } from '@angular/core';
 import { OfferService } from './../../services/offer.service';
 import { ModalInterface } from './../../commons/interfaces/modal.interface';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
@@ -10,6 +11,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 export class OfferModalComponent implements OnInit {
 	@ViewChild('priceInput', {read: ElementRef}) priceInput:ElementRef;
 	@Input() config: ModalInterface;
+	@Output() close: EventEmitter<any> = new EventEmitter();
 	title: string = "¿Cuánto quieres ofertar?";
 	isReadyResponse: boolean = false;
 
@@ -30,6 +32,10 @@ export class OfferModalComponent implements OnInit {
 		} catch (error) {
 			
 		}
+	}
+
+	closeModal(){
+		this.close.emit();
 	}
 
 	private routineSuccess(){

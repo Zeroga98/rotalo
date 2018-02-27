@@ -9,6 +9,17 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'icon-family';
+    src:  url('assets/fonts/icon-family.eot');
+    src:  url('assets/fonts/icon-family.eot') format('embedded-opentype'),
+      url('assets/fonts/icon-family.ttf') format('truetype'),
+      url('assets/fonts/icon-family.woff') format('woff'),
+      url('assets/fonts/icon-family.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 
   @font-face {
     font-family: "toolkit-entypo";
@@ -32,6 +43,64 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-custom {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icon-family' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+  
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-custom--sufi:before {
+	content: "\e90d";
+  }
+  .icon-custom--filter:before {
+	content: "\e90a";
+  }
+  .icon-custom--order:before {
+	content: "\e90b";
+  }
+  .icon-custom--search:before {
+	content: "\e90c";
+  }
+  .icon-custom--consufi:before {
+	content: "\e909";
+  }
+  .icon-custom--info:before {
+	content: "\e908";
+  }
+  .icon-custom--check:before {
+	content: "\e906";
+  }
+  .icon-custom--cross:before {
+	content: "\e907";
+  }
+  .icon-custom--cam:before {
+	content: "\e905";
+  }
+  .icon-custom--sufi-logo:before {
+	content: "\e904";
+  }
+  .icon-custom--mail:before {
+	content: "\e903";
+  }
+  .icon-custom--grid:before {
+	content: "\e901";
+  }
+  .icon-custom--list:before {
+	content: "\e902";
+  }
+  .icon-custom--back:before {
+	content: "\e900";
   }
 
   .icon-bike:before {
@@ -138,3 +207,4 @@
   .icon-chevron-thin-right:before {
     content: "\EA4B";
   }
+
