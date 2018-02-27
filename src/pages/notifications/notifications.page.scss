@@ -1,0 +1,111 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+:host {
+    back-top {
+        position: fixed;
+        z-index: 99999;
+        bottom: 15px;
+        left: 50%;
+        opacity: 0;
+        transition: opacity 0.5s;
+        &.show {
+            opacity: 1;
+            transition: opacity 1s;
+        }
+    }
+    #section-notifications {
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 2em;
+        border-radius: 4px;
+        border: 1px solid $border-color;
+        header {
+            &.tittle-section-notifications {
+                background-color: $red;
+                padding: 19px 17px;
+                h1 {
+                    color: $body-bg;
+                    font-size: 18px;
+                    font-weight: 700;
+                    margin: 0;
+                }
+            }
+        }
+        article {
+            aside {
+                &.notifications {
+                    div {
+                        div {
+                            &.notifications {
+                                &-item {
+                                    border-bottom: 1px solid $blue-light;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    align-items: center;
+                                    padding: 1.6em .9em;
+                                    position: relative;
+                                    p {
+                                        &.notification-text {
+                                            font-size: 1.4em;
+                                            margin: 0 .7em;
+                                            width: 90%;
+                                            .highlight {
+                                                color: $red;
+                                                background-color: transparent;
+                                                &.bold {
+                                                    font-weight: 700;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .notification {
+                                        &-icon {
+                                            color: $grey;
+                                            font-size: 1.6em;
+                                        }
+                                        &-date {
+                                            position: absolute;
+                                            bottom: auto;
+                                            color: $grey;
+                                            font-size: 1.2em;
+                                            top: 5px;
+                                            right: 10px;
+                                        }
+                                        &-buttons {
+                                            width: 100%;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+                                            padding: 1em 0 0 0;
+                                            .button-item {
+                                                width: 50%;
+                                                padding: 0 1.5%;
+                                                button {
+                                                    width: 100%;
+                                                    padding: 5px 12px;
+                                                    font-size: 1.2em;
+                                                    font-weight: 600;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.no-notifications {
+                    text-align: center;
+                    padding: 2em 0;
+                    p {
+                        font-size: 1.6em;
+                        color: $color-text-body;
+                        font-family: $font-family-base;
+                        font-weight: $font-weight-base;
+                        line-height: $line-height-base;
+                    }
+                }
+            }
+        }
+    }
+}

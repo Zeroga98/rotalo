@@ -7,27 +7,87 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
-  }
-.sr-only-focusable:active,
-.sr-only-focusable:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
 }
 
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+}
 
+.red-theme-select {
+    select {
+        background-color: #CD0C2F;
+        background-image: url(assets/img/arrow.svg);
+        color: white;
+        border: 0;
+        border-radius: 3rem;
+        font-size: 2rem;
+        padding: .3rem 6.7rem .3rem 1.2rem;
+    }
+}
 
-.red-theme-select{
-  select{
-    background-color: #CD0C2F;
-    background-image: url(assets/img/arrow.svg);
-    color: white;
-    border: 0;
-    border-radius: 3rem;
-    font-size: 2rem;
-    padding: .3rem 6.7rem .3rem 1.2rem;
-  }
+.button {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 10px 12px;
+    font-size: $font-size-base;
+    font-weight: 600;
+    line-height: 1.375;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    &-primary {
+        background-color: $brand-primary;
+        color: white;
+        &:hover,
+        &:active,
+        &:focus {
+            color: white;
+            background-color: darken($brand-primary, 15%);
+        }
+        &[disabled] {
+            background: $red-light;
+            border-color: darken($red-light, 12%);
+        }
+    }
+    &-secondary {
+        background-color: $brand-secondary;
+        border-color: $greenblue-dark;
+        color: white;
+        &:hover,
+        &:active,
+        &:focus {
+            color: white;
+            background-color: darken($brand-secondary, 15%);
+        }
+        &[disabled] {
+            background: $blue-light;
+            border-color: darken($blue-light, 12%);
+        }
+    }
+    &-alternative {
+        background-color: rgba(white, 0.5);
+        color: white;
+        &:hover,
+        &:active,
+        &:focus {
+            color: white;
+            background-color: darken(rgba(white, 0.5), 15%);
+        }
+    }
 }

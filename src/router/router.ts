@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home.page';
 import { SignUpPage } from '../pages/signup/signup.page';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { NotificationsPage } from '../pages/notifications/notifications.page';
 
 export const appRouter: Routes = [
     {
@@ -15,6 +16,10 @@ export const appRouter: Routes = [
     {
         path: ROUTES.SIGNUP,
         component: SignUpPage
+    },
+    {
+        path:ROUTES.NOTIFICATIONS,
+        component: NotificationsPage
     },
     {
         path: ROUTES.PRODUCTS.LINK,

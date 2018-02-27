@@ -37,6 +37,8 @@ import { CategoriesMenuComponent } from '../components/categories-menu/categorie
 import { CategoriesService } from '../services/categories.service';
 import { ProductsUploadPage } from '../pages/products-upload/products-upload.page';
 import { ProductsPage } from '../pages/products/products.page';
+import { NotificationsPage } from "../pages/notifications/notifications.page";
+import { NotificationsService } from '../services/notifications.service';
 
 
 @NgModule({
@@ -61,7 +63,8 @@ import { ProductsPage } from '../pages/products/products.page';
     ProductsUploadPage, 
     ProductsPage,
     LoginPage,
-    ProductsFeedPage
+    ProductsFeedPage,
+    NotificationsPage
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { ProductsPage } from '../pages/products/products.page';
   providers: [
     UserService, 
     CollectionSelectService,
+    NotificationsService,
     CategoriesService,
     ProductsService,
     {

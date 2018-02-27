@@ -14,7 +14,6 @@ export class NormalizeInterceptor implements HttpInterceptor {
             if(evt instanceof HttpResponse){
                 this.normalizeResponse(evt.clone());
                 this.cleanAttributes(evt.clone());
-                console.log("Respuesta: ",evt);
             }
             return evt;
         });

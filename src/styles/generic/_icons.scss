@@ -120,4 +120,32 @@
   .icon-chevron-thin-right:before {
     content: "\EA4B";
   }
-  
+
+  @font-face {
+    font-family: "toolkit-entypo";
+    src: url('assets/fonts/toolkit-entypo.eot');
+    src: url('assets/fonts/toolkit-entypo.eot?#iefix') format('eot'), url('assets/fonts/toolkit-entypo.woff2') format('woff2'), url('assets/fonts/toolkit-entypo.woff') format('woff'), url('assets/fonts/toolkit-entypo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .icon:before {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    font-family: "toolkit-entypo";
+    speak: none;
+    font-size: 100%;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .icon-mail:before {
+    content: "\EAF1";
+  }
+  .icon-flag:before {
+    content: "\EA9D";
+  }
