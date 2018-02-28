@@ -7,57 +7,62 @@ import { UserRequestInterface } from "../commons/interfaces/user-request.interfa
 
 @Injectable()
 export class UserService {
-	readonly url: string = `${this.configurationService.getBaseUrl()}/v1/users`
-	currentUser: UserInterface;
-	idUser: string;
+  readonly url: string = `${this.configurationService.getBaseUrl()}/v1/users`;
+  currentUser: UserInterface;
+  idUser: string;
 
-	constructor(
-		private httpClient: HttpClient,
-		private configurationService: ConfigurationService,
-		private currentSessionService: CurrentSessionService
-	) {
-		this.idUser = this.currentSessionService.getIdUser();
-	}
+  constructor(
+    private httpClient: HttpClient,
+    private configurationService: ConfigurationService,
+    private currentSessionService: CurrentSessionService
+  ) {
+    this.idUser = this.currentSessionService.getIdUser();
+  }
 
-	async getCommunityUser(): Promise<any> {
-		try {
-			if (!this.currentUser) {
-				this.currentUser = await this.getUser();
-			}
-			return this.currentUser.company.community;
-		} catch (error) { }
-	}
+  async getCommunityUser(): Promise<any> {
+    try {
+      if (!this.currentUser) {
+        this.currentUser = await this.getUser();
+      }
+      return this.currentUser.company.community;
+    } catch (error) {}
+  }
 
-	updateUser(currentUser): Promise<any> {
-		const url = `${this.url}/${this.idUser}`;
-		return this.httpClient.put(url, currentUser).toPromise();
-	}
+  updateUser(currentUser): Promise<any> {
+    const url = `${this.url}/${this.idUser}`;
+    return this.httpClient.put(url, currentUser).toPromise();
+  }
 
-	async getInfoUser(): Promise<any> {
-		try {
-			if (!this.currentUser) {
-				this.currentUser = await this.getUser();
-			}
-			return this.currentUser;
-		} catch (error) { }
-	}
+  async updateInfoUser() {
+    this.currentUser = await this.getUser();
+  }
 
-	saveUser(params: UserRequestInterface): Promise<any> {
-		return this.httpClient.post(this.url,
-			{
-				data: {
-					attributes: params,
-					type: 'users'
-				}
-			}).toPromise();
-	}
+  async getInfoUser(): Promise<any> {
+    try {
+      if (!this.currentUser) {
+        this.currentUser = await this.getUser();
+      }
+      return this.currentUser;
+    } catch (error) {}
+  }
 
-	private getUser(): Promise<any> {
-		const url = `${this.url}/${this.idUser}`;
-		return this.httpClient
-			.get(url)
-			.map((response: any) => response.data)
-			.toPromise()
-			.catch(err => console.error(err));
-	}
+  saveUser(params: UserRequestInterface): Promise<any> {
+    return this.httpClient
+      .post(this.url, {
+        data: {
+          attributes: params,
+          type: "users"
+        }
+      })
+      .toPromise();
+  }
+
+  private getUser(): Promise<any> {
+    const url = `${this.url}/${this.idUser}`;
+    return this.httpClient
+      .get(url)
+      .map((response: any) => response.data)
+      .toPromise()
+      .catch(err => console.error(err));
+  }
 }

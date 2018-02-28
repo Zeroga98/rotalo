@@ -47,9 +47,7 @@ export class EditProfilePage implements OnInit {
   async onUploadImageFinished(event) {
     try {
       const response = await this.photosService.updatePhoto(event.file);
-      console.log(response);
       this.idImagenProfile = response.id;
-      console.log(this.idImagenProfile);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
     } catch (error) {
@@ -113,6 +111,7 @@ export class EditProfilePage implements OnInit {
       .then(response => {
         this.messageChange = "Su cuenta se ha actualizado.";
         this.errorChange = "";
+        this.userService.updateInfoUser();
       })
       .catch(httpErrorResponse => {
         this.messageChange = "";

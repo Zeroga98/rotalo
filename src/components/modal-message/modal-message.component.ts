@@ -21,7 +21,6 @@ export class ModalMessageComponent implements OnInit {
   loadMessage() {
     this.messagesService.getConversation().then(conver => {
       this.conversations = [].concat(conver);
-      console.log(this.conversations);
     });
   }
 

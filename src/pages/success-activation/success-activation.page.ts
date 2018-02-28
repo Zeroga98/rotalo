@@ -25,7 +25,6 @@ export class SuccessActivationPage implements OnInit {
 				}
 			};
 			const response = await this.userService.updateUser(params);
-			console.log(response);
 			this.router.navigate([`${ROUTES.STEPS}`]);
 		} catch (error) {
 

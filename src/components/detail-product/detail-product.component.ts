@@ -16,8 +16,10 @@ import { CurrentSessionService } from '../../services/current-session.service';
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;
-  public products: Array<ProductInterface> = [];
+  public products: ProductInterface;
+  public nameProducto: String;
   public productsPhotos: any;
+
   configModal: ModalInterface;
   isSufiModalShowed: boolean = false;
   isOfferModalShowed: boolean = false;
@@ -28,8 +30,8 @@ export class DetailProductComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private currentSessionSevice: CurrentSessionService
-  ) {
+    private currentSessionSevice: CurrentSessionService) {
+
     this.carouselConfig = CAROUSEL_CONFIG;
   }
 
@@ -38,36 +40,30 @@ export class DetailProductComponent implements OnInit {
   }
 
   loadProduct() {
-    this.productsService.getProductsById(this.idProduct).then(prod => {
-      this.products = [].concat(prod);
-
-      if (typeof this.products[0].photos != undefined) {
-
-        this.productsPhotos = [].concat(this.products[0].photos);
-        this.products[0].photos = this.productsPhotos;
+    this.productsService.getProductsById(this.idProduct).then(product => {
+      this.products = product;
+      if (this.products.photos !== undefined) {
+        this.productsPhotos = [].concat(this.products.photos);
+        this.products.photos = this.productsPhotos;
       }
-      console.log(this.products);
-      this.conversation = {
-        photo: this.products[0].photos[0].url,
-        name: this.products[0].user.name
-      };
+    /*  this.conversation = {
+        photo: this.products.photos.url,
+        name: this.products.photos.name
+      };*/
     });
   }
 
-  isSpinnerShow(): boolean {
-    return this.products.length > 0;
+  isSpinnerShow() {
+    return this.products;
   }
 
   validateSession() {
-    return (
-      this.products[0].user.id === this.idUser &&
-      this.products[0].status === "active"
-    );
+    return (this.products.user.id === this.idUser && this.products.status === 'active');
   }
 
   async deleteProduct(product: ProductInterface) {
     try {
-      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      const result = confirm('¿Seguro quieres borrar esta publicación?');
       if (!result) { return ; }
       const response = await this.productsService.deleteProduct(product.id);
       this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);

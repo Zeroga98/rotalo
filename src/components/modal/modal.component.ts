@@ -12,7 +12,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() { }
 
-  showOcult(){
+  showOcult() {
     console.log("close");
     this.close.emit();
   }

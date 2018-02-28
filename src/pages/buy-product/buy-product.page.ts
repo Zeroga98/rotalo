@@ -18,7 +18,7 @@ export class BuyProductPage implements OnInit {
 	constructor(
 		private router: Router,
 		private productsService:ProductsService,
-		private buyService:BuyService 
+		private buyService:BuyService
 	) { }
 
 	ngOnInit() {
@@ -29,17 +29,16 @@ export class BuyProductPage implements OnInit {
 		try {
 			this.product = await this.productsService.getProductsById(this.idProduct);
 		} catch (error) {
-			
+
 		}
 	}
 
 	async buyProduct(){
 		try {
 			const response  = await this.buyService.buyProduct(this.buildParams());
-			console.log(response);
 			this.transactionSuccess = true;
 		} catch (error) {
-			
+
 		}
 	}
 
