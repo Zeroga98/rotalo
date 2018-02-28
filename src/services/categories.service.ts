@@ -1,25 +1,27 @@
 import { CategoryInterface } from './../commons/interfaces/category.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from "../services/configuration.service";
 
 @Injectable()
 export class CategoriesService {
-    categories:CategoryInterface;
+    categories: CategoryInterface;
 
-    constructor(private httpClient:HttpClient) { }
+    constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    async getCategories():Promise<CategoryInterface>{
-        if(!this.categories){
+    async getCategories(): Promise<any>{
+        if (!this.categories) {
             this.categories = await this.getCategoriesFromServer();
         }
         return this.categories;
     }
 
-    private getCategoriesFromServer():Promise<any>{
-        const url = "https://api.staging.rotalo.co/v1/categories"
+    private getCategoriesFromServer(): Promise<any> {
+
+        const url = this.configurationService.getBaseUrl() + '/v1/categories';
         return this.httpClient
                     .get(url)
-                    .map( (response:any) => response.data)
+                    .map( (response: any) => response.data)
                     .toPromise();
     }
 

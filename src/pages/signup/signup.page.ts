@@ -1,5 +1,11 @@
+import { ROUTES } from './../../router/routes';
+import { UtilsService } from './../../util/utils.service';
+import { Router } from '@angular/router';
+import { UserInterface } from './../../commons/interfaces/user.interface';
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,  Validators } from '@angular/forms';
+import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
 
 @Component({
     selector: 'signup-page',
@@ -7,27 +13,46 @@ import { FormControl, FormGroup,  Validators } from '@angular/forms';
     styleUrls: ['signup.page.scss']
 })
 export class SignUpPage implements OnInit {
+    public errorsSubmit: Array<any> = [];
     public modalTermsIsOpen: boolean = false;
     public registerForm: FormGroup;
-    public selectIsCompleted: boolean = false;
-    public location: Object = {};
-    public country: Object = {};
-    public state: Object = {};
-    
+    public country;
+    public city;
+    public state;
+
+    constructor(
+        private userService:UserService,
+        private router: Router,
+        private utilsService: UtilsService){}
+
     ngOnInit(): void {
         this.registerForm = new FormGroup({
             name: new FormControl('', [Validators.required]),
-            idNumber: new FormControl('', [Validators.required]),
+            'id-number': new FormControl('', [Validators.required]),
             email: new FormControl('', [ Validators.required, Validators.email]),
             cellphone: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(6), this.validatePasswordConfirm.bind(this)]),
+            'password-confirmation': new FormControl('', [Validators.required, Validators.minLength(6), this.validatePasswordConfirm.bind(this)]),
             termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
         });
     }
 
-    onSubmit() {
-        alert("Submit");
+    async onSubmit() {
+        try {
+            const params:UserRequestInterface = this.buildParamsUserRequest();
+            const response = await this.userService.saveUser(params);
+            this.errorsSubmit = [];
+            this.router.navigate([ROUTES.ACTIVACION]);
+        } catch (error) {
+            this.errorsSubmit = error.error.errors;
+            this.utilsService.goToTopWindow(20, 600);
+        }
+    }
+
+    buildParamsUserRequest(): UserRequestInterface{
+        let params = Object.assign({}, this.registerForm.value, {'city-id': this.city.id});
+        delete params.termsCheckbox
+        return params;
     }
 
     selectedCountry(ev) {
@@ -36,11 +61,6 @@ export class SignUpPage implements OnInit {
 
     selectedStates(ev) {
         this.state = ev;
-    }
-
-    selectOption(ev) {
-        this.selectIsCompleted = ev.completed;
-        this.location = ev.location;
     }
 
     checkBoxRequired(checkBox: FormGroup): any {
@@ -54,7 +74,11 @@ export class SignUpPage implements OnInit {
     }
 
     get formIsInValid(): boolean{
-        return this.registerForm.invalid || !this.selectIsCompleted;
+        return this.registerForm.invalid || !this.selectIsCompleted();
+    }
+
+    private selectIsCompleted():boolean{
+        return this.country && this.state && this.city;
     }
 
     openTermsModal(): void {

@@ -22,32 +22,6 @@
                 </div>
                 <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
 
-                <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-                <div *ngIf="notification['notification-type'] == 'rate_seller'" class="notifications-item">
-                    <span class="icon icon-flag notification-icon"></span>
-                    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la compra de ' + notification.product.name + '?'"></p>
-                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
-                    <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
-                        <div class="button-item">
-                            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'"></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-
-                <!-- INICIO NOTIFICACIÓN CALIFICACIÓN VENTA -->
-                <div *ngIf="notification['notification-type'] == 'rate_buyer'" class="notifications-item">
-                    <span class="icon icon-flag notification-icon"></span>
-                    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la venta de ' + notification.product.name + '?'"></p>
-                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
-                    <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
-                        <div class="button-item">
-                            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'"></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- FIN NOTIFICACIÓN CALIFICACIÓN VENTA -->
-
                 <!-- INICIO NOTIFICACIÓN NUEVA OFERTA -->
                 <div *ngIf="notification['notification-type'] == 'new_offer'" class="notifications-item">
                     <span class="icon icon-flag notification-icon"></span>
@@ -210,6 +184,32 @@
                     <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
                 </div>
                 <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
+
+                <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+                <div *ngIf="notification['notification-type'] == 'rate_seller'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la compra de ' + notification.product.name + '?'"></p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+
+                <!-- INICIO NOTIFICACIÓN CALIFICACIÓN VENTA -->
+                <div *ngIf="notification['notification-type'] == 'rate_buyer'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la venta de ' + notification.product.name + '?'"></p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN CALIFICACIÓN VENTA -->
 
                 <!-- INICIO NOTIFICACIÓN NUEVO SUFI -->
                 <div *ngIf="notification['notification-type'] == 'new_sufi'" class="notifications-item">

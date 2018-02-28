@@ -1,111 +1,81 @@
-  <back-arrow></back-arrow>
-  <div class="container-fluid">
-    <div class="">
-      <form role="form" [formGroup]="registerForm" name="registerForm" class="text-center form-theme" (ngSubmit)="onSubmit()">  
-        <div class="m-b">
-          <a href="../index.html" class="m-b-lg">
-            <img src="./assets/img/logo-red.svg" alt="brand">
-            <h1 class="sr-only">rótalo</h1>
-          </a>
-        </div>
-  
-        <p class="title-text">Crea una cuenta</p>
-  
-<!--         <flash-message error="ctrl.error" success="ctrl.success"></flash-message>
- -->  
-        <div class="form-group">
-          <input 
-          name="name" 
-          formControlName="name" 
-          type="text" class="form-control"
-          maxlength="20" 
-          placeholder="Nombre completo">
-        </div>
-  
-        <div class="form-group">
-          <input
-            [ngClass]="{'invalid': registerForm.get('idNumber').invalid && !registerForm.get('idNumber').pristine}"
-            name="idNumber"
-            formControlName="idNumber"
-            type="text" 
-            maxlength="20" 
-            onkeypress='return event.charCode >= 48 && event.charCode <= 57'            class="form-control" 
-            placeholder="Cédula">
-<!--           <p ng-show="registerForm.idNumber && !registerForm.idNumber.$pristine" class="help-block">Tú cédula debe estar en el formato de {{ ctrl.location.country.name }}</p>
- -->        </div>
-  
-        <div class="form-group">
-          <input
-           [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" 
-           name="email"
-           formControlName="email"
-           type="email" 
-           class="form-control" 
-           maxlength="50"
-           placeholder="Tu email corporativo">
-        </div>
-  
-        <div class="form-group">
-          <input 
-          [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" 
-          name="cellphone"
-          formControlName="cellphone"
-          type="text"
-          onkeypress='return event.charCode >= 48 && event.charCode <= 57'          class="form-control" 
-          maxlength="20"
-          class="form-control" 
-          placeholder="Teléfono celular">
-        </div>
-  
-        <div class="form-group">
-          <input
-            [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" 
-            name="password"
-            formControlName="password"
-            type="password" 
-            maxlength="20"
-            class="form-control" 
-            placeholder="Contraseña">
-        </div>
-  
-        <div class="form-group">
-          <input 
-          [ngClass]="{'invalid': registerForm.get('passwordConfirmation').invalid && !registerForm.get('passwordConfirmation').pristine}"
-          name="passwordConfirmation"
-          formControlName="passwordConfirmation"
-          type="password" 
-          maxlength="20"
-          class="form-control"
+<back-arrow></back-arrow>
+<div class="container-fluid">
+  <div class="">
+    <form role="form" [formGroup]="registerForm" name="registerForm" class="text-center form-theme" (ngSubmit)="onSubmit()">
+      <div class="m-b">
+        <a href="../index.html" class="m-b-lg">
+          <img src="./assets/img/logo-red.svg" alt="brand">
+          <h1 class="sr-only">rótalo</h1>
+        </a>
+      </div>
+
+      <p class="title-text">Crea una cuenta</p>
+
+      <div class="container-errors">
+        <ul>
+            <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <input name="name" formControlName="name" type="text" class="form-control" maxlength="100" placeholder="Nombre completo">
+      </div>
+
+      <div class="form-group">
+        <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}" name="id-number"
+          formControlName="id-number" type="text" maxlength="20" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          class="form-control" placeholder="Cédula">
+        <!--           <p ng-show="registerForm.idNumber && !registerForm.idNumber.$pristine" class="help-block">Tú cédula debe estar en el formato de {{ ctrl.location.country.name }}</p>
+ -->
+      </div>
+
+      <div class="form-group">
+        <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
+          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo">
+      </div>
+
+      <div class="form-group">
+        <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
+          formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
+          maxlength="20" class="form-control" placeholder="Teléfono celular">
+      </div>
+
+      <div class="form-group">
+        <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
+          formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña">
+      </div>
+
+      <div class="form-group">
+        <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
+          name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
           placeholder="Confirmar Contraseña">
-        </div>
-        <div class="form-group">
-          <select-country (selected)="selectedCountry($event)"></select-country>
-        </div>
-        <div class="form-group">
-          <select-states [country]="country" (selected)="selectedStates($event)"></select-states>
-        </div>
-        <div class="form-group">
-          <select-cities [state]="state"></select-cities>
-        </div>
-        <div class="form-group" class="terms">
-          <label for="checkTerms">
-            <input 
-            type="checkbox" 
-            id="checkTerms" 
-            name="checkTerms" 
-            formControlName="termsCheckbox"
-            #checkBoxTerms>
-         </label>
-          Acepto <a (click)="openTermsModal()">términos y condiciones</a>
-        </div>
-        <div>
-          <custom-button type="submit" text="Crear Cuenta" [disabled]="formIsInValid"></custom-button>          
-        </div>
-  
-        <footer>
-          <p>¿Tienes cuenta?<a  class=""> Ingresar</a></p>
-        </footer>
-      </form>
-    </div>
+      </div>
+      <div class="form-group">
+        <select-country class="white-theme-select" (selected)="country=$event"></select-country>
+      </div>
+      <div class="form-group">
+        <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+      </div>
+      <div class="form-group">
+        <select-cities class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+      </div>
+      <div class="form-group" class="terms">
+        <label for="checkTerms">
+          <input type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
+        </label>
+        Acepto
+        <a (click)="openTermsModal()">términos y condiciones</a>
+      </div>
+      <div>
+        <custom-button type="submit" text="Crear Cuenta" [disabled]="formIsInValid"></custom-button>
+      </div>
+
+      <footer>
+        <p>¿Tienes cuenta?
+          <a class=""> Ingresar</a>
+        </p>
+      </footer>
+    </form>
   </div>
-  <terms-modal *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
+</div>
+<terms-modal *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>

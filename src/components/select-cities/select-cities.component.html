@@ -1,7 +1,8 @@
-<select 
-  class="form-control" 
+<select
+[(ngModel)]="currentCity"
+  class="form-control"
   (change) = "onSelect($event)"
   name="cities">
-      <option selected value disabled>Selecciona Ciudad</option>
+      <option value="" disabled>Selecciona Ciudad</option>
       <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
 </select>

@@ -19,5 +19,5 @@
 </ngx-carousel>
 <div class="container-products">
   <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-  <product *ngFor="let product of products" [product]="product"></product>
+  <product *ngFor="let product of products" [product]="product" (selected)="selectProduct($event)"></product>
 </div>

@@ -1,0 +1,75 @@
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_variables.scss";
+:host {
+  display: block;
+  margin-bottom: 4rem;
+  back-arrow {
+    display: block;
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+  form {
+    max-width: 284px;
+    margin: 0 auto;
+    .title-text {
+      color: $grey-dark;
+      font-weight: 700;
+      margin-bottom: 5rem;
+      font-size: 1.6rem;
+    }
+    .content-link{
+      margin-bottom: 5rem;
+      a{
+        cursor: pointer;
+        font-size: 1.4rem;
+        color: #9B9B9B;
+        text-decoration: none
+      }
+      a:hover{
+        color: #757575;
+        text-decoration: none;
+      }
+    }
+
+    custom-button {
+      display: block;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+    footer {
+      font-weight: 400;
+      line-height: 19px;
+      p {
+        font-size: 1.4rem;
+      }
+      a {
+        color: $red;
+        font-size: 1.4rem;
+        cursor: pointer;
+      }
+      a:hover{
+        color: #bf111c;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .container--app{
+    margin: 2em auto 0;
+    padding-bottom: 20px;
+  }
+
+  .alert-danger {
+    color: #ED2F3C;
+    text-align: center;
+    background-color: #F2F2F2;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    span{
+      font-size: 1.6rem;
+    }
+  }
+}

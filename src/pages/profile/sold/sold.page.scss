@@ -1,0 +1,128 @@
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+:host {
+  .bg--red {
+    background-color: #ed2f3c;
+  }
+  .sold-header-nav {
+    line-height: 0;
+    padding-top: 5px;
+    .nav {
+      display: inline-block;
+      border-bottom: 0;
+      display: table;
+      margin-bottom: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .nav-tabs {
+      width: 100%;
+      li,
+      .item {
+        display: table-cell;
+        float: none;
+        text-align: center;
+        .link {
+          cursor: pointer;
+          position: relative;
+          display: block;
+          font-size: 1.2rem;
+          padding: 19px 10px 30px;
+          background: none;
+          border: none;
+          &:hover,
+          &:focus {
+            color: #fff;
+          }
+        }
+        &.active > .link {
+          color: #fff;
+          &:hover {
+            background: none;
+            border: none;
+          }
+          &:after {
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            content: "";
+            margin-left: -7px;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid #fff;
+          }
+        }
+        & > * {
+          background: none;
+          border: none;
+          color: $unactive-link;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .sold-header-nav .nav-tabs li.active > .link:after,
+  .sold-header-nav .nav-tabs .item.active > .link:after {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    content: "";
+    margin-left: -7px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+    box-sizing: border-box;
+  }
+  .container--app {
+    width: 44%;
+    margin: 0 auto;
+    margin-top: 2em;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .row-list__wrapper {
+    margin: 20px 0;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+  }
+  .row-list__ul {
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .modal--offer {
+    overflow-y: visible;
+  }
+  .row-list__item {
+    width: 100%;
+    border-bottom: 1px solid #d7d7d7;
+    overflow: hidden;
+    list-style-type: none;
+    padding: 15px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+  }
+  .product-buy__thumbnail {
+    margin-right: 15px;
+    height: 46px;
+    width: 46px;
+    border-radius: 4px;
+    float: left;
+    background-size: cover;
+  }
+  .product-buy__info {
+    float: left;
+    padding-top: 3px;
+  }
+  .product-buy__title {
+    line-height: 19px;
+    margin-bottom: 2px;
+    margin-top: 0;
+  }
+  .text--small,
+  .product-buy__title {
+    font-size: 1.4rem;
+  }
+}

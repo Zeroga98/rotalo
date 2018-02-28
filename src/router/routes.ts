@@ -3,9 +3,25 @@ export const ROUTES = {
     SIGNUP: 'signup',
     LOGIN: 'login',
     NOTIFICATIONS:'notifications',
+    RESETPASS: 'reset-password',
+    RECOVER: 'recover',
+    CONFIRM: 'confirm',
+    PROFILE: 'profile',
+    SHOW: 'show',
+    PROFILEPASS: 'change-password',
+    HOBBIES: 'gustos',
+    EDITPROFILE: 'edit',
+    NOTIFICATIONSSETTINGS: 'notifications-settings',
+    ACTIVACION: 'activacion',
+    SUCCESS: 'success-activation',
+    STEPS: 'steps',
     PRODUCTS: {
-        LINK:'products',
-        FEED:'feed',
-        UPLOAD:'form'
+        LINK: 'products',
+        SHOW: 'show',
+        FEED: 'feed',
+        UPLOAD: 'form',
+        SOLD: 'sold',
+        SELLING: 'selling',
+        BUY: 'buy'
     }
 };

@@ -1,0 +1,49 @@
+<custom-modal title="{{title}}" class="modal-theme" (close)="closeModal()">
+	<div modal-header class="container-header">
+		<div class="image">
+			<img [src]="config?.photo">
+		</div>
+		<div class="text">
+			<div class="title">{{config?.title}}</div>
+			<div class="price">Precio actual: {{config?.price}}</div>
+		</div>
+	</div>
+	<div modal-body class="container-body" [ngSwitch]="stateRequest">
+		<div *ngSwitchCase="statesRequestEnum.initial">
+			<div class="container-logo">
+				<img src="./assets/img/sufi.svg" alt="Sufi">
+			</div>
+			<div class="container-text">
+				<span>¡Relájate! Nosotros te prestamos para que sea tuyo.</span>
+				<span>Envía una solicitud de crédito.</span>
+			</div>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.loading">
+			<div>
+				<div>
+					<img src="./assets/img/spinner.svg">
+				</div>
+				<div>
+					Verificando...
+				</div>
+			</div>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.success">
+			<div class="container-logo">
+				<img src="./assets/img/sufi.svg" alt="Sufi">
+			</div>
+			<div class="container-text">
+				<span>Un representate se pondrá en contacto contigo pronto.</span>
+			</div>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.error">
+			<div class="container-text">
+				<span>Ha ocurrido un error durante la transacción.</span>
+				<span>Intentalo de nuevo por favor.</span>
+			</div>
+		</div>
+	</div>
+	<div modal-footer class="container-actions" *ngIf="stateRequest == statesRequestEnum.initial">
+		<custom-button text="Enviar Solicitud" (click)="loanWithSufi()"></custom-button>
+	</div>
+</custom-modal>

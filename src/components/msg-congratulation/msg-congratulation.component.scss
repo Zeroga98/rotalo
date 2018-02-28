@@ -1,0 +1,36 @@
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_variables.scss";
+:host{
+    .container-msg{
+        text-align: center;
+        font-size: 1.4rem;
+        width: 27rem;
+        padding: 0 1rem;
+        .image{
+            width: 100%;
+            img{
+                width: 100%;
+            }
+        }
+        .title{
+            color: #4A4A4A;
+            font-weight: bold;
+            span{
+                display: block;
+            }
+        }
+        .text{
+            color: #9B9B9B;
+            font-weight: 400;
+        }
+        .link, .link:visited{
+            color: $red;
+            font-weight: bold;
+            color: $red;
+        }
+        & > div {
+            margin-bottom: 2rem;
+        }
+    }
+	
+}

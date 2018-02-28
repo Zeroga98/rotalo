@@ -1,12 +1,23 @@
+@import "../../styles/settings/colors.scss";
+@import "../../styles/settings/variables.scss";
+
 :host{
     display: block;
     background-color: #ED2F3C;
     border-color: #d61320;
+    .container {
+        width: 98%;
+        max-width: 1200px;
+        margin: 0 auto;
+        @media #{$medium-max} {
+            width: 90%;;
+        }
+    }
     .navbar-header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2rem 7.5rem;
+        padding: 20px;
         .upload-offer-button{
             .outside-circle{
                 padding: 5px;
@@ -23,7 +34,7 @@
                     padding: 9px 6px;
                     height: 40px;
                     width: 40px;
-                    background-color: #41b5cb;
+                    background-color: $blue;
                     border-radius: 20px 20px 20px 20px;
                     span {
                         font-size: 25px;
@@ -38,11 +49,16 @@
                     margin-bottom: 0px;
                 }
             }
+            @media #{$medium-max} {
+                display: none;
+            }
         }
         .navbar-brand {
             width: 130px;
+            cursor: pointer;
             img{
-                width: 100%;
+                height: auto;
+                width: 130px;
             }            
         }
         .list-options{
@@ -51,6 +67,27 @@
             
             li{
                 font-size: 2.5rem;
+                a{
+                    cursor: pointer;
+                }
+                .icon-message{
+                    position: relative;
+                }
+                .noti-circle{
+                    position: absolute;
+                    background-color: $blue;
+                    top: -2px;
+                    right: -6px;
+                    border-radius: 50%;
+                    font-size: 13px;
+                    height: 20px;
+                    width: 20px;
+                    display: flex;
+                    justify-content: center;
+                    font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                    font-weight: bold;
+                    align-items: center;
+                }
             }
             li:not(:last-child){
                 margin-right: 5rem;

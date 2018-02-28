@@ -1,0 +1,16 @@
+<div class="opacity">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div>
+        <h1 class="title ng-hide" ng-hide="ctrl.selectedConversation">{{title}}</h1>
+      </div>
+      <div class="modal-close" (click)="showOcult()">
+        <span class="icon-close"></span>
+      </div>
+    </div>
+
+    <ng-content select="[modal-header]"></ng-content>
+    <ng-content select="[modal-body]"></ng-content>
+    <ng-content select="[modal-footer]"></ng-content>
+  </div>
+</div>

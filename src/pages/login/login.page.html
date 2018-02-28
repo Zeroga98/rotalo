@@ -1,1 +1,52 @@
-login
+<back-arrow></back-arrow>
+<div class="container-fluid">
+  <div class="">
+
+
+    <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme">
+      <div class="m-b">
+        <a href="../index.html" class="m-b-lg">
+          <img src="./assets/img/logo-red.svg" alt="brand">
+          <h1 class="sr-only">rótalo</h1>
+        </a>
+      </div>
+      <p class="title-text">Ingresar</p>
+      <div *ngIf="errorLogin" class="container--app">
+        <div class="alert-danger" role="alert">
+          <div>
+            <span>{{errorLogin}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input
+        [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
+        formControlName="email"
+         maxlength="50"
+         id="txt-email"
+         type="email"
+         class="form-control"
+         placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input
+        [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
+        formControlName="password"
+        maxlength="20"
+        id="txt-password"
+        type="password"
+        class="form-control"
+        placeholder="Contraseña">
+      </div>
+      <div>
+        <custom-button [disabled]="!loginForm.valid"  type="submit" text="Ingresar"></custom-button>
+      </div>
+      <div class="content-link">
+        <a routerLink="/reset-password" class="">¿Olvidaste tu contraseña?</a>
+      </div>
+      <footer>
+        <p class="">¿No tienes una cuenta? <a routerLink="/signup" >Crea una cuenta</a></p>
+      </footer>
+    </form>
+  </div>
+</div>

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ConfigurationService } from "../services/configuration.service";
 
 @Injectable()
 export class CollectionSelectService {
     collection: Array<any> = [];
     includes: Array<any> = [];
     states: Array<any> = [];
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
     async isReady() {
         try {
@@ -71,7 +72,7 @@ export class CollectionSelectService {
     }
 
     private getCollection(filterActive: string = 'true'): Promise<any> {
-        const url = 'https://api.staging.rotalo.co/v1/locations/';
+        const url = this.configurationService.getBaseUrl() + '/v1/locations/';
         return this.http.get(url, {
             params: {
                 'filter[active]': filterActive

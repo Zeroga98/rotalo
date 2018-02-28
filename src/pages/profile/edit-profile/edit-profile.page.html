@@ -1,0 +1,70 @@
+<navigation-top></navigation-top>
+<div>
+  <div class="container">
+    <div id="flashMessage" class="flashMessage">
+      <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
+        <p>
+          <span class="icon-check alert-icon"></span> {{messageChange}}</p>
+      </div>
+      <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
+        <ul>
+          <li>
+            <span>{{errorChange}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="zeta text--grey-dark">Editar cuenta</h1>
+    <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
+    <div>
+        <image-upload
+        [max]="6"
+        [extensions]="['jpg','png']"
+        [buttonCaption]="'Selecciona una Imagen'"
+        [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
+        [clearButtonCaption]="'Limpiar'"
+        (uploadFinished)="onUploadImageFinished($event)"
+        (removed)="onRemoveImage($event)"></image-upload>
+    </div>
+    <form class="form-theme" name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+
+
+      <div class="form-group">
+        <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="20" placeholder="Nombre">
+      </div>
+
+      <div class="form-group">
+        <input  formControlName="idNumber" id="txt-idNumber" type="text" class="form-control" placeholder="Cédula" maxlength="20"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+      </div>
+
+      <div class="form-group">
+        <input formControlName="email" id="txt-email" type="email" class="form-control" placeholder="E-mail" maxlength="50">
+      </div>
+
+      <div class="form-group">
+        <input formControlName="cellphone" id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="20">
+      </div>
+
+      <div class="form-group location">
+        <label class="text--grey-dark">Ubicación</label>
+        <div class="form-group">
+          <select-country class="white-theme-select" [initialValue]="countryValue" (selected)="country=$event"></select-country>
+        </div>
+        <div class="form-group">
+          <select-states class="white-theme-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event"></select-states>
+        </div>
+        <div class="form-group">
+          <select-cities class="white-theme-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event"></select-cities>
+        </div>
+      </div>
+      <footer>
+        <div class="btn-square">
+          <custom-button type="submit" text="Guardar Cambios"></custom-button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>

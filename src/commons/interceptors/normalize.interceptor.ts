@@ -6,42 +6,43 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class NormalizeInterceptor implements HttpInterceptor {
 
-    constructor(){}
+    constructor() {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).map( (evt:HttpEvent<any> ) => {
             let newResponse:HttpEvent<any> ;
-            if(evt instanceof HttpResponse){
+            if(evt instanceof HttpResponse && evt.body){
                 this.normalizeResponse(evt.clone());
                 this.cleanAttributes(evt.clone());
             }
             return evt;
         });
     }
-
-    private normalizeResponse(response:HttpResponse<any>){
-        const body = response.body
+    private normalizeResponse(response: HttpResponse<any>) {
+      if (response.body) {
+        const body = response.body;
         const data: Array<any> = response.body.data;
         const includes: Array<any> = response.body.included;
         this.fillDataWithRelationships(this.checkData(data), includes);
+      }
     }
-    
-    private cleanAttributes(response:HttpResponse<any>){
+    private cleanAttributes(response: HttpResponse<any>) {
+      if (response.body) {
         let data: Array<any> = this.checkData(response.body.data);
         response.body.data = data.map( item => {
             item.attributes.id = item.id;
             return item.attributes;
         });
         response.body.data = response.body.data.length == 1 ? response.body.data[0] : response.body.data;
+      }
     }
-
     private fillDataWithRelationships(data, includes){
         return data.map( item => {
             const keys = Object.keys(item.relationships || {});
             keys.forEach( key => {
                 let relacioneToAdd = [];
                 let relaciones = item.relationships[key].data;
-                Array.isArray(relaciones) ? '' : relaciones = [relaciones]; 
+                Array.isArray(relaciones) ? '' : relaciones = [relaciones];
                 relaciones.forEach(element => {
                     let newResource = this.getInfoInclude(element, includes);
                     relacioneToAdd.push(newResource);
@@ -54,7 +55,6 @@ export class NormalizeInterceptor implements HttpInterceptor {
             return item;
         });
     }
-
     private getInfoInclude(value, includes){
         return includes.find(resource => {
             return resource.id == value.id && resource.type == value.type;
@@ -62,6 +62,6 @@ export class NormalizeInterceptor implements HttpInterceptor {
     }
 
     private checkData(data:any){
-        return Array.isArray(data) ? data : [data]; 
+        return Array.isArray(data) ? data : [data];
     }
 }

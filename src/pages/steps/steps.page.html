@@ -1,0 +1,24 @@
+<div class="container-carousel">
+	<div class="skip">
+		<button (click)="skipSteps()">Saltar</button>
+	</div>
+	<ngx-carousel [inputs]="carouselConfig">
+		<ngx-item NgxCarouselItem *ngFor="let step of steps; let i = index">
+			<div>
+				<div class="image">
+					<img [src]="step.img" alt="">
+				</div>
+				<footer>
+					<img *ngIf="step.logo" [src]="step.logo" alt="Rótalo logo" class="logo">
+					<p *ngIf="step.text" class="text">{{step.text}}</p>
+					<p class="title">{{step.title}}</p>
+					<div class="action">
+						<button (click)="continueSlide(i)">{{step.buttonText}}</button>
+					</div>
+				</footer>
+			</div>
+		</ngx-item>
+		<span NgxCarouselPrev class="arrow arrow-prev"></span>
+  		<span NgxCarouselNext #nextCarousel class="arrow arrow-next"></span>
+	</ngx-carousel>
+</div>

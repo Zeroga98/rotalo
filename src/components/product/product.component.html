@@ -1,33 +1,38 @@
-<div class="container-product">
-    <div class="container-photo">
-      <img [src]="product.photos.url" [alt]="product.name">
-    </div>
-    <div class="container-name">
-      <span class="name">{{product.name}}</span>
-    </div>
-    <div class="container-price">
-      <span class="name">{{product.price | currency:"$":0}} {{ product.currency }}</span>
-    </div>
-    <div class="container-status">
-      <span class="name">{{product['sell-type'].toLowerCase()}}</span>
-    </div>
-    <div class="container-location">
-      <span class="icon-location"></span><span>{{getLocation(product)}}</span>
-    </div>
-    <div class="container-date">
-      <span class="icon-calendar"></span>
-      <p><span>Fecha de Publicación</span>
+<div class="container-product" (click)="selectProduct()" *ngIf="product">
+  <div class="container-photo">
+    <!--<img [src]="product.photos.url" [alt]="product.name">-->
+    <img [src]="product.photos?.url || product.photos[0].url" [alt]="product.name" (error)="updateSrc($event)">
+    <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
+  </div>
+  <div class="container-name">
+    <span class="name">{{product.name}}</span>
+  </div>
+  <div class="container-price">
+    <span class="name">{{product.price | currency:"$":0}} {{ product.currency }}</span>
+  </div>
+  <div class="container-status">
+    <span class="name">{{product['sell-type'].toLowerCase()}}</span>
+  </div>
+  <div class="container-location">
+    <span class="icon-location"></span>
+    <span>{{getLocation(product)}}</span>
+  </div>
+  <div class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de Publicación</span>
       {{product['published-at'] | amTimeAgo}}</p>
+  </div>
+  <div class="container-info-user">
+    <div class="icon-container">
+      <span class="icon-account"></span>
     </div>
-    <div class="container-info-user">
-        <div class="icon-container">
-          <span class="icon-account"></span>
-        </div>
-        <div>
-          <p class="name-text">{{product.user.name}}</p>
-          <p class="company-text">
-            {{product.user.company.name}}<span class="comunidad-text"> - {{product.user.company.community.name}}</span>
-          </p>
-        </div>
+    <div>
+      <p class="name-text">{{product.user.name}}</p>
+      <p class="company-text">
+        {{product.user.company.name}}
+        <span class="comunidad-text"> - {{product.user.company.community.name}}</span>
+      </p>
     </div>
+  </div>
 </div>
