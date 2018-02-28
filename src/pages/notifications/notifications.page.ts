@@ -19,18 +19,27 @@ export class NotificationsPage implements OnInit {
         'na': 'No aplica'
     }
 
+    idProductMessage: string;
+    idUserProductMessage: string;
+    showSendMessage: boolean = false;
+    idConversation;
+
     constructor(private notificationsService: NotificationsService) { }
 
     ngOnInit() {
         this.notificationsService.getNotifications().then(response => {
             this.notificationsList = [].concat(response);
-            console.log(this.notificationsList)
         });
 
         this.setStatus();
     }
 
-    private setStatus(){
-        console.log('set Status');
+    private setStatus() {
+    }
+
+    openConversation(idProduct: string, idUserProduct) {
+        this.idConversation = idProduct + '-' + idUserProduct;
+        this.showSendMessage = true;
+
     }
 }

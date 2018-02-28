@@ -9,6 +9,8 @@
 
         <!-- Inicio Sección cuando hay notificaciones -->
         <aside *ngIf="notificationsList.length > 0" class="notifications">
+            
+            <modal-send-message [idConversation]="idConversation" *ngIf="showSendMessage"></modal-send-message>
 
             <!-- Inicio ngFor para notificaciones -->
             <div *ngFor="let notification of notificationsList">
@@ -17,7 +19,7 @@
                 <div *ngIf="notification['notification-type'] == 'new_message'" class="notifications-item">
                     <span class="icon icon-mail notification-icon"></span>
                     <p class="notification-text">Tienes un
-                        <span class="highlight bold" [innerHTML]="'nuevo mensaje '"></span> de {{notification.message.name}}.</p>
+                        <span class="highlight bold clickable" [innerHTML]="'nuevo mensaje '" (click)="openConversation(notification.product.id, notification.message['author-id'])"></span> de {{notification.message.name}}.</p>
                     <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
                 </div>
                 <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
