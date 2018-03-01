@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../services/notifications.service';
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
@@ -12,16 +13,22 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 	@Output() countryChanged: EventEmitter<any> = new EventEmitter();
 	readonly timeToCheckNotification: number = 5000;
 	uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
-	listenerNotifications:any;
+	listenerNotifications: any;
+	listenerMessages: any;
 	messagesUnRead: number = 0;
+	notificationsUnread: number = 0;
 
-	constructor(private router: Router,private messagesService: MessagesService) { }
+	constructor(
+		private router: Router,
+		private messagesService: MessagesService,
+		private notificationsService: NotificationsService) { }
 
 	ngOnInit() {
-		this.listenerNotifications = this.setListenerNotifications();
-		console.log(this.listenerNotifications);
+		this.listenerMessages = this.setListenerMessagesUnread();
+		this.listenerMessages = this.setListenerNotificationsUnread();
 	}
 	ngOnDestroy(): void {
+		clearInterval(this.listenerMessages);
 		clearInterval(this.listenerNotifications);
 	}
 
@@ -38,7 +45,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 		return this.messagesUnRead > 0;
 	}
 
-	private setListenerNotifications(){
+	get notificationsAvailable(): boolean{
+		return this.notificationsUnread > 0;
+	}
+
+	private setListenerMessagesUnread(){
 		return setInterval(() => {
 			this.messagesService.getConversationsUnread()
 								.then( conversations => {
@@ -48,6 +59,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 									});
 								});
 		}, this.timeToCheckNotification);
+	}
+
+	private setListenerNotificationsUnread(){
+		return setInterval(() => {
+			this.notificationsService.getUnreadNotifications()
+									.then((notifications:any)=>{
+										this.notificationsUnread = notifications['unread-notifications'];
+									})
+		}, this.timeToCheckNotification)
 	}
 
 }

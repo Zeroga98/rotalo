@@ -32,8 +32,8 @@
         <li>
           <a ng-click="main.goToNotifications()">
             <span class="icon-ring">
-              <!--               <span ng-if="unreadNotificationsCount" class="noti-circle">{{unreadNotificationsCount}}</span>-->
-        </span>
+                <span *ngIf="notificationsAvailable" class="noti-circle">{{notificationsUnread}}</span>        
+              </span>
           </a>
         </li>
         <li>

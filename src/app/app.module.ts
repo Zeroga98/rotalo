@@ -79,6 +79,7 @@ import { DetailProductComponent } from '../components/detail-product/detail-prod
 import { SoldPage } from '../pages/profile/sold/sold.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoansService } from '../services/loans.service';
+import { NotificationsService } from '../services/notifications.service';
 
 
 
@@ -163,6 +164,7 @@ import { LoansService } from '../services/loans.service';
     PhotosService,
     AuthGuardService,
     MessagesService,
+    NotificationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
