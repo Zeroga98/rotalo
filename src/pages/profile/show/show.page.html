@@ -6,7 +6,7 @@
         <div  class="container-inner">
           <div *ngIf="!photoProfile" class="img-circle media-object bg-img-fix" style="background-image: url(../assets/img/profile-no-image.png)"></div>
           <div *ngIf="photoProfile" class="img-circle media-object bg-img-fix" [style.background-image]="photoProfile" ></div>
-          <h3 class="profile-header-user">Testing</h3>
+          <h3 class="profile-header-user">{{userName}}</h3>
         </div>
       </div>
     </div>

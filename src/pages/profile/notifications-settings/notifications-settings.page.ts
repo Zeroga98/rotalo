@@ -120,7 +120,6 @@ public userId: string;
         'attributes': this.preferencesArray
       }
     };
-    console.log(userPreference);
     this.preferenceService.updatePrefarence(userPreference).then(response => {
       this.messageChange = 'Sus preferencias se ha guardado correctamente.';
       this.errorChange = '';
@@ -138,7 +137,6 @@ public userId: string;
   }
 
   onSubmit() {
-    console.log(this.preferencesArray);
     this.updatePreference();
   }
 }

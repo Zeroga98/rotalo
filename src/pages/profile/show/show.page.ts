@@ -14,6 +14,7 @@ export class ShowPage implements OnInit {
   userInfo: any;
   photoUrl: String;
   photoProfile: any;
+  userName: String;
   constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService) { }
 
   ngOnInit() {
@@ -22,9 +23,9 @@ export class ShowPage implements OnInit {
 
   async getUserInfo() {
     this.userInfo = await this.userService.getInfoUser();
+    this.userName =   this.userInfo.name;
     this.selling = this.userInfo.selling;
     this.staged = this.userInfo.staged;
-    console.log(this.userInfo);
     this.photoUrl = this.userInfo.photo.url;
     this.photoProfile = this.sanitizer.bypassSecurityTrustStyle('url(' + this.photoUrl + ')');
   }

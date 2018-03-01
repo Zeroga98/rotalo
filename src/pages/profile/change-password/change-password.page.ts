@@ -61,7 +61,6 @@ export class ChangePasswordPage implements OnInit {
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';
-        console.log(httpErrorResponse);
         if (httpErrorResponse.status === 403) {
         }
         if (httpErrorResponse.status === 422) {

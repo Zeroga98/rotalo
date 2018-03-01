@@ -16,14 +16,19 @@ export class ProductsService {
                     .then( (response: any) => response.data);
     }
 
-    getProductsById(id:number): Promise<any> {
+    getProductsById(id: number): Promise<any> {
         const url = `${this.url}/${id}`;
         return this.http.get(url).toPromise().then( (response: any) => response.data);
     }
 
-    deleteProduct(id:number | string ): Promise<any> {
+    deleteProduct(id: number | string ): Promise<any> {
         const url = `${this.url}/${id}`;
         return this.http.delete(url).toPromise().then( (response: any) => response.data);
+    }
+
+    updateProduct(id: number | string , params): Promise<any> {
+      const url = `${this.url}/${id}`;
+      return this.http.put(url , params).toPromise().then( (response: any) => response.data);
     }
 
     saveProducts(params): Promise<any> {

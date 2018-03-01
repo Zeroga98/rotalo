@@ -13,145 +13,155 @@ import { CategoriesService } from '../../services/categories.service';
   styleUrls: ["./form-product.component.scss"]
 })
 export class FormProductComponent implements OnInit, OnChanges {
-	@Input() product: ProductInterface;
-	@Output() submit: EventEmitter<any> = new EventEmitter();
-	@ViewChild('categorySelect',{read: ElementRef}) categorySelectElem: ElementRef;
-	photosForm: FormGroup;
-	photosUploaded: Array<any> = [];
-	categories: Array<CategoryInterface> = [];
-	subCategories: Array<SubcategoryInterface> = [];
-	
-	constructor(
-		private photosService: PhotosService,
-		private categoryService:CategoriesService) { }
+  @Input() product: ProductInterface;
+  @Output() submit: EventEmitter<any> = new EventEmitter();
+  @ViewChild("categorySelect", { read: ElementRef })
+  categorySelectElem: ElementRef;
+  photosForm: FormGroup;
+  photosUploaded: Array<any> = [];
+  categories: Array<CategoryInterface> = [];
+  subCategories: Array<SubcategoryInterface> = [];
 
-	async ngOnInit() {
-		try {
-			this.setInitialForm(this.getInitialConfig());
-			this.categories = await this.categoryService.getCategories();
-		} catch (error) {
-			
-		}
-	}
+  constructor(
+    private photosService: PhotosService,
+    private categoryService: CategoriesService
+  ) {}
 
-	ngOnChanges(): void {
-		if(this.product){
-			this.setInitialForm(this.getInitialConfig());
-			const interval = setInterval(() => {
-				if(this.categories.length > 0){
-					this.setCategoryDefault(this.product.subcategory);
-					clearInterval(interval);
-				}
-			},20)
-		}
-	}
+  async ngOnInit() {
+    try {
+      this.setInitialForm(this.getInitialConfig());
+      this.categories = await this.categoryService.getCategories();
+    } catch (error) {}
+  }
 
-	async publishPhoto(form){
-		const photosIds = { 'photo-ids': this.getPhotosIds()};
-		const publishDate = {
-			'publish-until': this.getPublishUntilDate(),
-			'published-at': new Date()
-		}
-		const params = Object.assign({}, this.photosForm.value, photosIds, publishDate);
-		this.submit.emit(params);
-	}
+  ngOnChanges(): void {
+    if (this.product) {
+      this.setInitialForm(this.getInitialConfig());
+      const interval = setInterval(() => {
+        if (this.categories.length > 0) {
+          this.setCategoryDefault(this.product.subcategory);
+          clearInterval(interval);
+        }
+      }, 20);
+    }
+  }
 
-	async onUploadImageFinished(event){
-		try {
-			const response = await this.photosService.updatePhoto(event.file);
-			const photo = Object.assign({}, response, { 'file': event.file });
-			this.photosUploaded.push(photo);
-		} catch (error) {
-			console.error("Error: ",error);
-		}
-	}
+  async publishPhoto(form) {
+    const photosIds = { "photo-ids": this.getPhotosIds() };
+    const publishDate = {
+      "publish-until": this.getPublishUntilDate(),
+      "published-at": new Date()
+    };
+    const params = Object.assign(
+      {},
+      this.photosForm.value,
+      photosIds,
+      publishDate
+    );
+    this.submit.emit(params);
+  }
 
-	async onRemoveImage(event){
-		try {
-			const photo = this.findPhoto(event.file);
-			const response =  await this.photosService.deletePhotoById(photo.id);
-			this.removePhoto(photo.id);
-		} catch (error) {
-			console.error("error: ", error);
-		}
-	}
+  async onUploadImageFinished(event) {
+    try {
+      const response = await this.photosService.updatePhoto(event.file);
+      const photo = Object.assign({}, response, { file: event.file });
+      this.photosUploaded.push(photo);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
 
-	selectedComunity(idCategory :number){
-		this.subCategories = this.findCategory(idCategory).subcategories;
-	}
+  async onRemoveImage(event) {
+    try {
+      const photo = this.findPhoto(event.file);
+      const response = await this.photosService.deletePhotoById(photo.id);
+      this.removePhoto(photo.id);
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  }
 
-	private setInitialForm(config:ProductInterface){
-		this.photosForm = new FormGroup({
-			name: new FormControl(config.name,[Validators.required]),
-			price: new FormControl(config.price,[Validators.required]),
-			currency: new FormControl(config.currency,[Validators.required]),
-			'subcategory-id': new FormControl(config['subcategory-id'],[Validators.required]),
-			used: new FormControl(config.used,[Validators.required]),
-			visible: new FormControl(config.visible,[Validators.required]),
-			'sell-type': new FormControl(config['sell-type'],[Validators.required]),
-			description: new FormControl(config.description,[Validators.required]),
-			negotiable: new FormControl(config.negotiable,[])
-		});
-	}
+  selectedComunity(idCategory: number) {
+    this.subCategories = this.findCategory(idCategory).subcategories;
+  }
 
-	private getInitialConfig():ProductInterface{
-		const product: ProductInterface = {
-			name: '',
-			price: '',
-			currency: 'COP',
-			'subcategory-id':'Escoge una subcategoria*',
-			used:'Estado del articulo*',
-			visible:'¿Quién puede verlo?',
-			'sell-type':'Tipo de venta*',
-			description:'',
-			negotiable: '',
-		};
-		return Object.assign({}, product, this.product) as ProductInterface;
-	}
+  private setInitialForm(config: ProductInterface) {
+    this.photosForm = new FormGroup({
+      name: new FormControl(config.name, [Validators.required]),
+      price: new FormControl(config.price, [Validators.required]),
+      currency: new FormControl(config.currency, [Validators.required]),
+      "subcategory-id": new FormControl(config["subcategory-id"], [
+        Validators.required
+      ]),
+      used: new FormControl(config.used, [Validators.required]),
+      visible: new FormControl(config.visible, [Validators.required]),
+      "sell-type": new FormControl(config["sell-type"], [Validators.required]),
+      description: new FormControl(config.description, [Validators.required]),
+      negotiable: new FormControl(config.negotiable, [])
+    });
+  }
 
-	private getPhotosIds():Array<string>{
-		return this.photosUploaded.map( photo => photo.id.toString());
-	}
+  private getInitialConfig(): ProductInterface {
+    const product: ProductInterface = {
+      name: "",
+      price: "",
+      currency: "COP",
+      "subcategory-id": "Escoge una subcategoria*",
+      used: "Estado del articulo*",
+      visible: "¿Quién puede verlo?",
+      "sell-type": "Tipo de venta*",
+      description: "",
+      negotiable: ""
+    };
+    return Object.assign({}, product, this.product) as ProductInterface;
+  }
 
-	private setCategoryDefault(subCategory: SubcategoryInterface) {
-		const options = this.categorySelectElem.nativeElement.options;
-		const length = options.length;
-		for (let index = 0; index < length; index++) {
-			options[index].selected = options[index].value == subCategory.category.id;
-			if(options[index].value == subCategory.category.id){
-				this.selectedComunity(subCategory.category.id as number);
-				this.photosForm.controls['subcategory-id'].setValue(subCategory.id);
-			};
-		}
-	}
+  private getPhotosIds(): Array<string> {
+    return this.photosUploaded.map(photo => photo.id.toString());
+  }
 
-	private findCategory(id:number){
-		return this.categories.find( (category:CategoryInterface) => category.id == id);
-	}
+  private setCategoryDefault(subCategory: SubcategoryInterface) {
+    const options = this.categorySelectElem.nativeElement.options;
+    const length = options.length;
+    for (let index = 0; index < length; index++) {
+      options[index].selected = options[index].value == subCategory.category.id;
+      if (options[index].value == subCategory.category.id) {
+        this.selectedComunity(subCategory.category.id as number);
+        this.photosForm.controls["subcategory-id"].setValue(subCategory.id);
+      }
+    }
+  }
 
-	private getPublishUntilDate(): Date{
-		/** El 30 debe ser congifurable DEUDA TECNICA */
-		var date = new Date();
-		date.setDate(date.getDate() + 30);
-		return date;
-	}
+  private findCategory(id: number) {
+    return this.categories.find(
+      (category: CategoryInterface) => category.id == id
+    );
+  }
 
-	private cleanArrayPhotos(){
-		this.photosUploaded = this.photosUploaded.map ( photo => { return {id: photo.id, url: photo.url} });
-	}
+  private getPublishUntilDate(): Date {
+    /** El 30 debe ser congifurable DEUDA TECNICA */
+    var date = new Date();
+    date.setDate(date.getDate() + 30);
+    return date;
+  }
 
-	private findPhoto(file:File){
-		return this.photosUploaded.find( photo => {
-					return photo.file == file;
-				});
-	}
+  private cleanArrayPhotos() {
+    this.photosUploaded = this.photosUploaded.map(photo => {
+      return { id: photo.id, url: photo.url };
+    });
+  }
 
-	private removePhoto(id:number){
-		this.photosUploaded = this.photosUploaded.filter( photo => photo.id != id);
-	}
+  private findPhoto(file: File) {
+    return this.photosUploaded.find(photo => {
+      return photo.file == file;
+    });
+  }
 
-	get formIsInValid(){
-		return this.photosForm.invalid;
-	}
+  private removePhoto(id: number) {
+    this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
+  }
 
+  get formIsInValid() {
+    return this.photosForm.invalid;
+  }
 }

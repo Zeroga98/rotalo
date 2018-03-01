@@ -10,7 +10,7 @@ import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output } from 
 export class ProductComponent {
 	@Input() product: ProductInterface;
 	@Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
-	private readonly defaultImage: string = './assets/img/product-no-image.png';
+	readonly defaultImage: string = '../assets/img/product-no-image.png';
 
 	constructor() {
 	}

@@ -22,6 +22,7 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
 import { BuyProductPage } from '../pages/buy-product/buy-product.page';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
+import { LoggedGuardService } from '../services/login/logged-guard.service';
 
 export const appRouter: Routes = [
   {
@@ -86,6 +87,7 @@ export const appRouter: Routes = [
 },
   {
     path: ROUTES.LOGIN,
+    canActivate: [LoggedGuardService],
     component: LoginPage
   },
   {

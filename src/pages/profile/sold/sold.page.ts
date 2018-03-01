@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ProductsService } from '../../../services/products.service';
 import { ProductInterface } from '../../../commons/interfaces/product.interface';
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'sold',
   templateUrl: './sold.page.html',
@@ -18,7 +20,7 @@ export class SoldPage implements OnInit {
     'filter[staged]': 'purchased'
   };
 
-  constructor(private userService: UserService, private productsService: ProductsService) {
+  constructor(private sanitizer: DomSanitizer, private userService: UserService, private productsService: ProductsService) {
     this.loadProductsSold();
     this.loadProductsPurchased();
   }
@@ -37,4 +39,9 @@ export class SoldPage implements OnInit {
     this.currentTab = 'sold';
   }
 
+  sanitizePhoto(photo: String): any {
+   let trustPhoto;
+   trustPhoto =  this.sanitizer.bypassSecurityTrustStyle('url(' + photo + ')');
+   return trustPhoto;
+  }
 }

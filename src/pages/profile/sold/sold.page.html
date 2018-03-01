@@ -16,12 +16,11 @@
       <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
         <ul class="row-list__ul modal--offer">
           <li routerLink="/notifications/feed" class="row-list__item" *ngFor="let productSold of productsSold">
-            <div *ngIf="productSold.photos.url">
-              <img class="product-buy__thumbnail" [src]="productSold.photos?.url || productSold.photos[0].url " [alt]="productSold.name">
-            </div>
-            <div *ngIf="!productSold.photos.url">
-              <img class="product-buy__thumbnail" src="../../../assets/img/product-no-image.png" alt="producto sin imagen">
-            </div>
+
+            <div *ngIf="productSold.photos.url" class="product-buy__thumbnail"  [style.background-image]="sanitizePhoto(productSold.photos?.url)  || sanitizePhoto(productSold.photos[0].url)"></div>
+            <div *ngIf="!productSold.photos.url" class="product-buy__thumbnail" style="background-image: url(../../../assets/img/product-no-image.png)"></div>
+
+
             <div class="product-buy__info">
               <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productSold.name}}</h1>
               <!-- sold -->

@@ -80,6 +80,7 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoansService } from '../services/loans.service';
 import { NotificationsService } from '../services/notifications.service';
+import { LoggedGuardService } from '../services/login/logged-guard.service';
 
 
 
@@ -163,6 +164,7 @@ import { NotificationsService } from '../services/notifications.service';
     PreferenceService,
     PhotosService,
     AuthGuardService,
+    LoggedGuardService,
     MessagesService,
     NotificationsService,
     {
