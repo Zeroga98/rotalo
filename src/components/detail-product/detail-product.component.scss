@@ -10,9 +10,8 @@ custom-spinner{
 .container{
     width: 95%;
     margin: 0 auto;
-    height: 60rem;
+    height: 65rem;
 }
-
 
 .product-photos{
   width: 50%;
@@ -272,8 +271,6 @@ custom-spinner{
   }
 }
 
-
-
 .product-btn{
   width: 50%;
   float: left;
@@ -307,4 +304,96 @@ custom-spinner{
           }
       }
   }
+}
+
+/* The switch - the box around the switch-slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 0;
+}
+
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none;
+}
+
+
+/* The switch-slider */
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.switch-slider {
+  background-color: $greenblue;
+}
+
+input:focus+.switch-slider {
+  box-shadow: 0 0 1px $greenblue;
+}
+
+input:checked+.switch-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
+/* Rounded switch-sliders */
+.switch-slider.round {
+  border-radius: 34px;
+}
+
+.switch-slider.round:before {
+  border-radius: 50%;
+}
+
+.media{
+  .media-body{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 2%;
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+  }
+}
+
+.media-left{
+  display: table-cell;
+}
+.media-middle {
+  vertical-align: middle;
+}
+
+.post-status{
+  color: #9B9B9B;
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+.post-status.active {
+  color: #41BAD0;
 }

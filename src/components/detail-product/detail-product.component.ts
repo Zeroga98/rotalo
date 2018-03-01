@@ -19,6 +19,8 @@ export class DetailProductComponent implements OnInit {
   public products: ProductInterface;
   public nameProducto: String;
   public productsPhotos: any;
+  public productStatus: boolean;
+  public productChecked: String;
 
   configModal: ModalInterface;
   isSufiModalShowed: boolean = false;
@@ -46,6 +48,12 @@ export class DetailProductComponent implements OnInit {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
       }
+      this.productChecked = this.products.status;
+      if (this.products.status === 'active') {
+        this.productStatus = true;
+      }else {
+        this.productStatus = false;
+      }
     /*  this.conversation = {
         photo: this.products.photos.url,
         name: this.products.photos.name
@@ -53,20 +61,49 @@ export class DetailProductComponent implements OnInit {
     });
   }
 
+  saveCheck()  {
+    this.productStatus = !this.productStatus;
+    this.productStatus ?  this.productChecked = 'active' : this.productChecked =  'inactive';
+
+    const  params = {
+      status: this.productStatus ? 'active' : 'inactive'
+    };
+    const productRequest = {
+      'data': {
+        id: this.products.id,
+        'type': 'products',
+        'attributes': params
+      }
+    };
+
+    this.productsService.updateProduct(this.products.id, productRequest).then(response => {
+    });
+
+  }
+
+ changeDate() {
+    return new Date((this.products['publish-until'])) < new Date(new Date().toDateString())
+    || this.products.status === 'expired';
+  }
+
   isSpinnerShow() {
     return this.products;
   }
 
   validateSession() {
-    return (this.products.user.id === this.idUser && this.products.status === 'active');
+    return (this.products.user.id === this.idUser);
   }
 
   async deleteProduct(product: ProductInterface) {
     try {
       const result = confirm('¿Seguro quieres borrar esta publicación?');
+      console.log(result);
       if (!result) { return ; }
       const response = await this.productsService.deleteProduct(product.id);
-      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+      ]);
+      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
     } catch (error) {}
   }
 

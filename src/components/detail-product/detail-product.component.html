@@ -81,8 +81,8 @@
       </div>
     </div>
     <div class="product-btn">
-      <div class="product-btns" *ngIf="!validateSession()">
-        <div class="cont-botons">
+      <div class="product-btns">
+        <div class="cont-botons" *ngIf="!validateSession()">
           <button class="botons" *ngIf="products['sell-type'] !== 'SUBASTA'" (click)="openSufiModal(products)">
             <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
           </button>
@@ -92,8 +92,18 @@
           <button class="botons" *ngIf="products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
-
         </div>
+        <div class="media" *ngIf="validateSession()">
+            <div class="media-left media-middle">
+              <label class="switch">
+                  <input type="checkbox" [checked]="productStatus"  (change)="saveCheck()" >
+                  <div class="switch-slider round"></div>
+                </label>
+            </div>
+            <div class="media-body">
+              <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+            </div>
+          </div>
       </div>
       <div class="product-btns" *ngIf="validateSession()" >
         <div class="cont-botons">
