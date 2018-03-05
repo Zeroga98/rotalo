@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ModalInterface } from '../../commons/interfaces/modal.interface';
 import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: "detail-product",
@@ -32,8 +33,8 @@ export class DetailProductComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private currentSessionSevice: CurrentSessionService) {
-
+    private currentSessionSevice: CurrentSessionService,
+    private userService: UserService ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
 
@@ -78,7 +79,18 @@ export class DetailProductComponent implements OnInit {
 
     this.productsService.updateProduct(this.products.id, productRequest).then(response => {
     });
+  }
 
+  checkSufiBotton() {
+    const type = "privado";
+    const currentYear = (new Date()).getFullYear();
+    const modelo = 2008;
+    const differenceYear = currentYear - modelo;
+
+    if (this.products.subcategory.id === "9" && differenceYear <= 10 && type === "privado") {
+      return true;
+    }
+    return false;
   }
 
  changeDate() {
@@ -97,13 +109,9 @@ export class DetailProductComponent implements OnInit {
   async deleteProduct(product: ProductInterface) {
     try {
       const result = confirm('¿Seguro quieres borrar esta publicación?');
-      console.log(result);
       if (!result) { return ; }
-      const response = await this.productsService.deleteProduct(product.id);
-      this.router.navigate([
-        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
-      ]);
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+      const response = await this.productsService.deleteProduct(product.id);
     } catch (error) {}
   }
 

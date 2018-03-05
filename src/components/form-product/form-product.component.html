@@ -9,11 +9,11 @@
           <span class="number">1. </span>Excoge las imágenes perfectas, mira algunos tips.
         </div>
         <div>
-          <image-upload 
+          <image-upload
           [max]="6"
           [extensions]="['jpg','png']"
-          [buttonCaption]="'Selecciona una Imagen'" 
-          [dropBoxMessage]="'Arrastra tus imagenes aquí!'" 
+          [buttonCaption]="'Selecciona una Imagen'"
+          [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
           [clearButtonCaption]="'Limpiar'"
           (uploadFinished)="onUploadImageFinished($event)"
           (removed)="onRemoveImage($event)"></image-upload>
@@ -28,12 +28,12 @@
             <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar?*" maxlength="100">
           </div>
           <div class="form-group item-price">
-            <input 
-            class="form-control input-price" 
-            name="price" 
+            <input
+            class="form-control input-price"
+            name="price"
             onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-            formControlName="price" 
-            placeholder="¿Cuánto vale?*" 
+            formControlName="price"
+            placeholder="¿Cuánto vale?*"
             maxlength="100">
             <select class="form-control currency-select" name="currency" formControlName="currency">
               <option value="COP">COP</option>
@@ -46,15 +46,27 @@
           </div>
           <div class="form-group">
             <select class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
-              <option value="Escoge una categoria*" disabled>Escoge una categoria*</option>
+              <option value="" disabled>Escoge una categoria*</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
           </div>
           <div class="form-group">
-            <select class="form-control" name="subcategory-id" formControlName= "subcategory-id">
-              <option value="Escoge una subcategoria*" disabled>Escoge una subcategoria*</option>
+            <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value)" name="subcategory-id" formControlName= "subcategory-id">
+              <option value="" disabled>Escoge una subcategoria*</option>
               <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
             </select>
+          </div>
+          <div  *ngIf="subcategoryIsVehicle()" class="form-group">
+              <select class="form-control">
+                  <option value="Modelo de vehiculo*" disabled>Modelo de vehículo*</option>
+                  <option *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
+              </select>
+          </div>
+          <div  *ngIf="subcategoryIsVehicle()" class="form-group">
+              <select class="form-control">
+                  <option value="Tipo de vehiculo*" disabled>Tipo de vehículo*</option>
+                  <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
+              </select>
           </div>
           <div class="form-group">
             <select class="form-control" name="used" formControlName= "used">
@@ -84,7 +96,7 @@
         </div>
       </div>
       <div class="actions-form">
-        <custom-button type="submit" text="Subir Oferta" [disabled]="formIsInValid"></custom-button>          
+        <custom-button type="submit" text="Subir Oferta" [disabled]="formIsInValid"></custom-button>
       </div>
     </form>
   </div>

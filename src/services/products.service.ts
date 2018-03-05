@@ -3,17 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from "../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
+import { UserService } from './user.service';
 
 @Injectable()
 export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/v1/products';
 
-    constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
+    constructor(private http: HttpClient,
+      private configurationService: ConfigurationService,
+      private userService: UserService) { }
 
     getProducts(params): Promise<any>{
-        return this.http.get(this.url, {params: params})
-                    .toPromise()
-                    .then( (response: any) => response.data);
+        return this.http.get(this.url, {params: params}).toPromise().then( (response: any) => response.data);
     }
 
     getProductsById(id: number): Promise<any> {
@@ -23,7 +24,9 @@ export class ProductsService {
 
     deleteProduct(id: number | string ): Promise<any> {
         const url = `${this.url}/${id}`;
-        return this.http.delete(url).toPromise().then( (response: any) => response.data);
+        return this.http.delete(url).toPromise().then( (response: any) => {
+          this.userService.updateInfoUser();
+        });
     }
 
     updateProduct(id: number | string , params): Promise<any> {
