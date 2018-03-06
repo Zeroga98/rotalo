@@ -23,6 +23,7 @@ import { BuyProductPage } from '../pages/buy-product/buy-product.page';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
+import { NotificationsPage } from '../pages/notifications/notifications.page';
 
 export const appRouter: Routes = [
   {
@@ -32,6 +33,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SIGNUP,
     component: SignUpPage
+  },
+  {
+    path: ROUTES.NOTIFICATIONS,
+    component: NotificationsPage
   },
   {
     path: ROUTES.ACTIVACION,
@@ -50,41 +55,41 @@ export const appRouter: Routes = [
     component: ProductsPage,
     canActivate: [AuthGuardService],
     children: [
-        {
-            path: ROUTES.PRODUCTS.FEED,
-            component: ProductsFeedPage,
-        },
-        {
-          path: ROUTES.PRODUCTS.UPLOAD,
-          component: ProductsUploadPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
-          component: ProductEditPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.SHOW}/:id`,
-          component: DetalleProductoComponent,
-        },
-        {
-          path: ROUTES.PRODUCTS.SOLD,
-          component: SoldPage,
-        },
-        {
-          path: ROUTES.PRODUCTS.SELLING,
-          component: SellingPage,
-        }
-        , {
-          path: `${ROUTES.PRODUCTS.BUY}/:id`,
-          component: BuyProductPage,
-        },
-        {
-            path: '',
-            redirectTo: ROUTES.PRODUCTS.FEED,
-            pathMatch: 'full'
-        },
+      {
+        path: ROUTES.PRODUCTS.FEED,
+        component: ProductsFeedPage,
+      },
+      {
+        path: ROUTES.PRODUCTS.UPLOAD,
+        component: ProductsUploadPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
+        component: ProductEditPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.SHOW}/:id`,
+        component: DetalleProductoComponent,
+      },
+      {
+        path: ROUTES.PRODUCTS.SOLD,
+        component: SoldPage,
+      },
+      {
+        path: ROUTES.PRODUCTS.SELLING,
+        component: SellingPage,
+      }
+      , {
+        path: `${ROUTES.PRODUCTS.BUY}/:id`,
+        component: BuyProductPage,
+      },
+      {
+        path: '',
+        redirectTo: ROUTES.PRODUCTS.FEED,
+        pathMatch: 'full'
+      },
     ]
-},
+  },
   {
     path: ROUTES.LOGIN,
     canActivate: [LoggedGuardService],

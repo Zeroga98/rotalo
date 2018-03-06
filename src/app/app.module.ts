@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { FlashMessageComponent } from '../components/flash-message/flash-message.controller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SliderComponent } from '../components/slider/slider.component';
 import { HomePage } from '../pages/home/home.page';
 import { BackArrowComponent } from '../components/back-arrow/back-arrow.component';
 import { CustomButtonComponent } from '../components/custom-button/custom-button.component';
@@ -82,14 +81,25 @@ import { LoansService } from '../services/loans.service';
 import { NotificationsService } from '../services/notifications.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 
-
+import { NotificationsPage } from "../pages/notifications/notifications.page";
+import { NavigationService } from '../pages/products/navigation.service';
+import { SliderComponent } from '../components/slider/slider.component';
+import { StarRatingComponent } from '../components/star-rating/star-rating.component';
+import { ModalRateComponent } from '../components/modal-rate/modal-rate.component';
+import { RatingNotificationComponent } from '../components/notifications/rating-notification/rating-notification.component';
+import { RatingService } from '../services/rating.service';
+import { PurchaseAcceptedComponent } from '../components/notifications/purchase-accepted/purchase-accepted.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SliderComponent,
     CustomButtonComponent,
+    PurchaseAcceptedComponent,
+    ModalRateComponent,
+    RatingNotificationComponent,
     FlashMessageComponent,
+    StarRatingComponent, 
+    SliderComponent,
     BackArrowComponent,
     TermsModalComponent,
     BackTopComponent,
@@ -132,7 +142,8 @@ import { LoggedGuardService } from '../services/login/logged-guard.service';
     ModalMessageComponent,
     DetailProductComponent,
     SoldPage,
-    SellingPage
+    SellingPage,
+    NotificationsPage
   ],
   imports: [
     BrowserModule,
@@ -149,6 +160,7 @@ import { LoggedGuardService } from '../services/login/logged-guard.service';
   providers: [
     UserService,
     CollectionSelectService,
+    NotificationsService,
     ActivationService,
     CategoriesService,
     ProductsService,
@@ -160,6 +172,7 @@ import { LoggedGuardService } from '../services/login/logged-guard.service';
     OfferService,
     RecoverService,
     ChangePasswordService,
+    RatingService,
     UtilsService,
     PreferenceService,
     PhotosService,
@@ -167,6 +180,7 @@ import { LoggedGuardService } from '../services/login/logged-guard.service';
     LoggedGuardService,
     MessagesService,
     NotificationsService,
+    NavigationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

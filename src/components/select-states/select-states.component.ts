@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
   selector: 'select-states',
   templateUrl: './select-states.component.html',
-  styleUrls: ['./select-states.component.scss']
+  styleUrls: ['./select-states.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectStatesComponent implements OnChanges {
   @Input() country: any = {};

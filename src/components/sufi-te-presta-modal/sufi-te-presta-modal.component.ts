@@ -1,5 +1,5 @@
 import { LoansService } from './../../services/loans.service';
-import { EventEmitter, Output } from '@angular/core';
+import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalInterface } from '../../commons/interfaces/modal.interface';
 import { StatesRequestEnum } from '../../commons/states-request.enum';
@@ -7,7 +7,8 @@ import { StatesRequestEnum } from '../../commons/states-request.enum';
 @Component({
 	selector: 'sufi-modal',
 	templateUrl: './sufi-te-presta-modal.component.html',
-	styleUrls: ['./sufi-te-presta-modal.component.scss']
+	styleUrls: ['./sufi-te-presta-modal.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SufiTePrestaModalComponent implements OnInit {
 	@Input() config: ModalInterface;
@@ -16,7 +17,9 @@ export class SufiTePrestaModalComponent implements OnInit {
 	statesRequestEnum = StatesRequestEnum; 
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
 
-	constructor(private loansService: LoansService) { }
+	constructor(
+		private loansService: LoansService,
+		private changeDetectorRef: ChangeDetectorRef) { }
 
 	ngOnInit() {
 	}
@@ -30,8 +33,10 @@ export class SufiTePrestaModalComponent implements OnInit {
 			this.stateRequest = this.statesRequestEnum.loading;
 			const response = await this.loansService.loanWithSufi(this.config.price);
 			this.stateRequest = StatesRequestEnum.success;
+			this.changeDetectorRef.markForCheck();
 		} catch (error) {
 			this.stateRequest = this.statesRequestEnum.error;
+			this.changeDetectorRef.markForCheck();
 		}
 	}
 }

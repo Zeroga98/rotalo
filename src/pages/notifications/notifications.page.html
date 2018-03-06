@@ -1,0 +1,257 @@
+<navigation-top></navigation-top>
+<modal-rate *ngIf="isModalRateShow" (close)="closeModalRate()" [config]="configModalRate"></modal-rate>
+<section id="section-notifications">
+    <header class="tittle-section-notifications">
+        <h1 [innerHTML]="'Notificaciones'"></h1>
+    </header>
+    <article class="body-section-notifications">
+
+        <!-- Inicio Sección cuando hay notificaciones -->
+        <aside *ngIf="notificationsList.length > 0" class="notifications">
+            
+            <modal-send-message [idConversation]="idConversation" *ngIf="showSendMessage"></modal-send-message>
+
+            <!-- Inicio ngFor para notificaciones -->
+            <div *ngFor="let notification of notificationsList" class="notifications-theme">
+
+                <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
+                <div *ngIf="notification['notification-type'] == 'new_message'" class="notifications-item">
+                    <span class="icon icon-mail notification-icon"></span>
+                    <p class="notification-text">Tienes un
+                        <span class="highlight bold clickable" [innerHTML]="'nuevo mensaje '" (click)="openConversation(notification.product.id, notification.message['author-id'])"></span> de {{notification.message.name}}.</p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
+
+                <!-- INICIO NOTIFICACIÓN NUEVA OFERTA -->
+                <div *ngIf="notification['notification-type'] == 'new_offer'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        <span class="highlight bold" [innerHTML]="notification.offer.user.name"></span> ha hecho una oferta
+                        <span *ngIf="notification.product['sell-type'] !== 'SUBASTA'" [innerHTML]="'para tu '"></span>
+                        <span *ngIf="notification.product['sell-type'] === 'SUBASTA'" [innerHTML]="'en tu subasta '"></span>
+                        <span class="highlight bold" [innerHTML]="(notification.product.name )+ ': ' + (notification.offer.amount | currency:'$':0 ) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
+                    <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" [innerHTML]="'Aceptar'"></button>
+                        </div>
+                        <div class="button-item">
+                            <button class="button button-primary" [innerHTML]="'Rechazar'"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN NUEVA OFERTA -->
+
+                <!-- INICIO NOTIFICACIÓN OFERTA ACEPTADA -->
+                <div *ngIf="notification['notification-type'] == 'offer_accepted'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">Tu oferta ha sido aceptada
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
+                    <div class="notification-buttons" *ngIf="!notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" [innerHTML]="'Comprar'"></button>
+                        </div>
+                        <div class="button-item">
+                            <button class="button button-primary" [innerHTML]="'Cancelar'"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
+
+                <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
+                <div *ngIf="notification['notification-type'] == 'offer_declined'" class="notifications-item">
+                    <span class="icon icon-warning notification-icon"></span>
+                    <p class="notification-text">Tu oferta ha sido rechazada
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ' ' +(notification.offer.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
+
+                <!-- INICIO NOTIFICACIÓN OFERTA CANCELADA -->
+                <div *ngIf="notification['notification-type'] == 'offer_regretted'" class="notifications-item">
+                    <span class="icon icon-warning notification-icon"></span>
+                    <p class="notification-text">
+                        <span class="highlight bold" [innerHTML]="notification.offer.user.name"></span> ha cancelado su oferta
+                        <span *ngIf="notification.product['sell-type'] === 'SUBASTA'" [innerHTML]="'en tu subasta '"></span>
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN OFERTA CANCELADA -->
+
+                <!-- INICIO NOTIFICACIÓN NUEVA COMPRA -->
+                <div *ngIf="notification['notification-type'] == 'new_purchase'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        <span class="highlight bold" [innerHTML]="notification.purchase.user.name"></span>
+                        <span *ngIf="notification.product['sell-type'] === 'GRATIS'" [innerHTML]="'te ha pedido '"> </span>
+                        <span *ngIf="notification.product['sell-type'] !== 'GRATIS'" [innerHTML]="'ha comprado '"></span>
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'"></span>
+                        - Pago: {{paymentTypes[notification.purchase['payment-type']]}}
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
+                    <div class="notification-buttons" *ngIf="!notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary">
+                                <span *ngIf="notification.product['sell-type'] === 'GRATIS'" [innerHTML]="'Regalar'"></span>
+                                <span *ngIf="notification.product['sell-type'] !== 'GRATIS'" [innerHTML]="'Recibí el dinero'"></span>
+                            </button>
+                        </div>
+                        <div class="button-item">
+                            <button class="button button-primary">
+                                <span *ngIf="notification.product['sell-type'] === 'GRATIS'" [innerHTML]="'No Regalar'"></span>
+                                <span *ngIf="notification.product['sell-type'] !== 'GRATIS'" [innerHTML]="'Cancelar Compra'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
+
+                <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
+                <purchase-accepted *ngIf="notification['notification-type'] == 'purchase_accepted'" [notification]="notification">
+                </purchase-accepted>
+                <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
+
+                <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
+                <div *ngIf="notification['notification-type'] == 'purchase_declined'" class="notifications-item">
+                    <span class="icon icon-warning notification-icon"></span>
+                    <p class="notification-text" *ngIf="notification.product['sell-type'] !== 'GRATIS'">
+                        <span class="highlight bold" [innerHTML]="notification.product.user.name"></span>
+                        <span [innerHTML]="' ha cancelado tu compra '"></span>
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <p class="notification-text" *ngIf="notification.product['sell-type'] === 'GRATIS'">
+                        <span class="highlight bold" [innerHTML]="notification.product.user.name"></span>
+                        <span [innerHTML]="' No te ha regalado el artículo '"></span>
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
+
+                <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
+                <div *ngIf="notification['notification-type'] == 'product_expired'" class="notifications-item">
+                    <span class="icon icon-warning notification-icon"></span>
+                    <p class="notification-text">Tu publicación
+                        <span class="highlight bold" [innerHTML]="notification.product.name"></span>
+                        se ha vencido.
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
+
+                <!--INICIO NOTIFICACIÓN PRODUCTO RECIBIDO -->
+                <div *ngIf="notification['notification-type'] == 'product_received'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        Tu producto
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos.'"></span>
+                        ha sido recibido.
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
+
+                <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+                <div *ngIf="notification['notification-type'] == 'rate_seller' || notification['notification-type'] == 'rate_buyer'" class="notifications-item">
+                    <rating-notification class="notifications-theme" [notification]="notification" (rated)="showModalRate(true, notification)"></rating-notification>
+                </div>
+                <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+
+                <!-- INICIO NOTIFICACIÓN NUEVO SUFI -->
+                <div *ngIf="notification['notification-type'] == 'new_sufi'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        <span class="highlight bold" [innerHTML]="notification['sufi-loan'].user.name"></span>
+                        quiere comprar
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos'"></span>
+                        y para ello ha solicitado un crédito Sufi.
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
+
+                <!-- INICIO NOTIFICACIÓN SUFI APROVADO -->
+                <div *ngIf="notification['notification-type'] == 'sufi_approved'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        Felicitaciones! Tu crédito con Sufi para la compra del producto
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos '"></span>
+                        ha sido aprobada.
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN SUFI APROVADO -->
+
+                <!-- INICIO NOTIFICACIÓN SUFI RECHAZADO -->
+                <div *ngIf="notification['notification-type'] == 'sufi_declined'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        Tu solicitud de crédito Sufi para la compra del producto
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos '"></span>
+                        no fue aprobada.
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN SUFI RECHAZADO -->
+
+                <!-- INICIO NOTIFICACIÓN SUBASTA GANADA -->
+                <div *ngIf="notification['notification-type'] == 'auction_assigned'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">Has ganado la subasta
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                    <div class="notification-buttons" *ngIf="!notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" [innerHTML]="'Comprar'"></button>
+                        </div>
+                        <div class="button-item">
+                            <button class="button button-primary" [innerHTML]="'Cancelar'"></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN NOTIFICACIÓN SUBASTA GANADA -->
+
+                <!-- INICIO NOTIFICACIÓN SUBASTA FINALIZADA -->
+                <div *ngIf="notification['notification-type'] == 'auction_finished'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">
+                        <span class="highlight bold" [innerHTML]="notification.offer.user.name"></span> ha ganado tu subasta
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN SUBASTA FINALIZADA -->
+
+                <!-- INICIO NOTIFICACIÓN SUBASTA SOBREPASADA -->
+                <div *ngIf="notification['notification-type'] == 'auction_overtaken'" class="notifications-item">
+                    <span class="icon icon-flag notification-icon"></span>
+                    <p class="notification-text">Han superado tu oferta en la subasta del producto
+                        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' (notification.product.price | currency:'$':0) + ' pesos.'"></span>
+                    </p>
+                    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+                </div>
+                <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
+
+            </div>
+            <!-- Fin ngFor notificaciones -->
+
+        </aside>
+        <!-- Fin Sección cuando hay notificaciones -->
+
+        <!-- Inicio Sección cuando no hay notificaciones -->
+        <aside *ngIf="notificationsList.length <= 0" class="no-notifications">
+            <p [innerHTML]="'No hay notificaciones.'"></p>
+        </aside>
+        <!-- Fin Sección cuando no hay notificaciones -->
+    </article>
+</section>

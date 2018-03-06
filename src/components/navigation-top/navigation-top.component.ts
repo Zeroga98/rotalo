@@ -1,22 +1,26 @@
 import { NotificationsService } from './../../services/notifications.service';
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, Input, ChangeDetectionStrategy } from '@angular/core';
 import { MessagesService } from '../../services/messages.service';
 
 @Component({
 	selector: 'navigation-top',
 	templateUrl: './navigation-top.component.html',
-	styleUrls: ['./navigation-top.component.scss']
+	styleUrls: ['./navigation-top.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationTopComponent implements OnInit, OnDestroy {
 	@Output() countryChanged: EventEmitter<any> = new EventEmitter();
-	readonly timeToCheckNotification: number = 5000;
+	@Input() hideBackArrow: boolean = false;
+	readonly notificationsRoute: string = `/${ROUTES.NOTIFICATIONS}`;
 	uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
 	listenerNotifications: any;
 	listenerMessages: any;
 	messagesUnRead: number = 0;
 	notificationsUnread: number = 0;
+	private readonly timeToCheckNotification: number = 5000;
+
 
 	constructor(
 		private router: Router,

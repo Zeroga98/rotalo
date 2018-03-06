@@ -1,9 +1,10 @@
 import { UtilsService } from './../../util/utils.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 @Component({
     selector:'back-top',
     templateUrl: 'back-top.component.html',
-    styleUrls: ['back-top.component.scss']
+    styleUrls: ['back-top.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackTopComponent {
     @Input() time: number = 600;

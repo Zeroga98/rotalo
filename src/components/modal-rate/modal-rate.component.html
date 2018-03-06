@@ -1,0 +1,33 @@
+<custom-modal title="{{title}}" class="modal-theme" (close)="closeModal()">
+	<div modal-header class="container-header">
+	</div>
+	<div modal-body class="container-body" [ngSwitch]="stateRequest">
+		<div *ngSwitchCase="statesRequestEnum.initial" class="container-rating">
+			<div class="profile">
+				<span>Califica a {{config.name}}</span>
+			</div>
+			<div class="rating">
+				<star-rating (checked)="rate($event)"></star-rating>
+			</div>
+			<div class="comments">
+				<textarea placeholder="Agregar un comentario..." (blur)="onBlurText($event)"></textarea>
+			</div>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.loading">
+			<custom-spinner></custom-spinner>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.success">
+			<div class="container-text">
+				<span>{{msgRequest}}</span>
+			</div>
+		</div>
+		<div *ngSwitchCase="statesRequestEnum.error">
+			<div class="container-text">
+				<span>{{msgRequest}}</span>
+			</div>
+		</div>
+	</div>
+	<div modal-footer class="container-actions" *ngIf="stateRequest == statesRequestEnum.initial">
+		<custom-button text="Calificar" [disabled]= "!isRateButtonAvailable" (click)= "ratePurchase()"></custom-button>
+	</div>
+</custom-modal>

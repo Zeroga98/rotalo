@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
         return next.handle(request);
     }
 
-    private getToken(): string {
-      return this.currentSessionService.authToken();
+    private getToken():string{
+        return this.currentSessionService.authToken();
     }
 }

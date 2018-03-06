@@ -1,19 +1,19 @@
-import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
   selector: 'select-cities',
   templateUrl: './select-cities.component.html',
-  styleUrls: ['./select-cities.component.scss']
+  styleUrls: ['./select-cities.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectCitiesComponent implements OnChanges {
   @Input() state: any = {};
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   @Input() initialValue;
   cities: Array<any> = [];
-
-
   currentCity: String = '';
+
   constructor(private collectionService: CollectionSelectService) { }
 
   ngOnChanges() {

@@ -1,13 +1,14 @@
 import { ProductsService } from "../../services/products.service";
 import { Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
 
 @Component({
   selector: "roducts-upload",
   templateUrl: "./products-upload.page.html",
-  styleUrls: ["./products-upload.page.scss"]
+  styleUrls: ["./products-upload.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsUploadPage implements OnInit {
   constructor(

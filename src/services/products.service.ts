@@ -26,22 +26,27 @@ export class ProductsService {
         return this.http.delete(url).toPromise().then( (response: any) => response.data);
     }
 
+    receiveProduct(id: number,data): Promise<any>{
+        const url = `${this.url}/${id}/deliver`;
+        const params =Object.assign(this._buildParams(data).data, {id});
+        return this.http.post(url,params).toPromise();
+    }
+
     updateProduct(id: number | string , params): Promise<any> {
       const url = `${this.url}/${id}`;
       return this.http.put(url , params).toPromise().then( (response: any) => response.data);
     }
 
     saveProducts(params): Promise<any> {
-        return this.http.post(this.url,
-                    {
-                        data: {
-                            attributes: params,
-                            type: 'products'
-                        },
-                    },
-                    {
-                        headers: { 'Content-Type': 'application/vnd.api+json'}
-                    })
-                    .toPromise();
+        return this.http.post(this.url,this._buildParams(params)).toPromise();
+    }
+
+    private _buildParams(params): any{
+        return {
+            data: {
+                attributes: params,
+                type: 'products'
+            },
+        }
     }
 }

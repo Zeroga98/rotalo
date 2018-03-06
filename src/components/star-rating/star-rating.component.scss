@@ -1,0 +1,21 @@
+:host{
+    .container-stars{
+        .icon-star{
+            cursor: pointer;
+            font-size: 2rem;
+            color: #9B9B9B;
+            &.checked{
+                color: red;
+            }
+            &:before{
+                font-size: 1.8125em;
+                font-family: "toolkit-entypo";
+                display: inline-block;
+                content: "\EB5B";
+                &:not(:last-child){
+                    margin-block-start: .6rem;
+                }
+            }
+        }
+    }
+}

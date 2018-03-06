@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from "@angular/core";
+import { Component, OnInit, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { MessagesService } from "../../services/messages.service";
 import { ConversationInterface } from "../../commons/interfaces/conversation.interface";
 import { ProductsService } from "../../services/products.service";
@@ -9,7 +9,8 @@ import { CurrentSessionService } from "../../services/current-session.service";
 @Component({
   selector: "modal-send-message",
   templateUrl: "./modal-send-message.component.html",
-  styleUrls: ["./modal-send-message.component.scss"]
+  styleUrls: ["./modal-send-message.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalSendMessageComponent implements OnInit {
   @Input() idConversation: string;
@@ -24,7 +25,8 @@ export class ModalSendMessageComponent implements OnInit {
   idUser: string = this.currentSessionSevice.getIdUser();
   constructor(
     private messagesService: MessagesService,
-    private currentSessionSevice: CurrentSessionService
+    private currentSessionSevice: CurrentSessionService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -39,19 +41,16 @@ export class ModalSendMessageComponent implements OnInit {
 
   loadConversation(idMessage) {
     this.messagesService.getConversationByID(idMessage).then(conver => {
-      console.log("conver: ", conver);
       this.conversation = [].concat(conver);
-      console.log(this.conversation);
       this.messages = [].concat(this.conversation[0].messages);
+      this.changeDetectorRef.markForCheck();
     });
-    console.log(this.conversation[0]);
   }
 
   async loadMessage() {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
-      console.log("conver: ", conver);
       this.conversations = [].concat(conver);
       if (this.conversation.length == 0) {
         this.conversation = [].concat(this.conversationDefault);
@@ -65,6 +64,7 @@ export class ModalSendMessageComponent implements OnInit {
           this.conversation = [].concat(this.conversationDefault);
         }
       });
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 

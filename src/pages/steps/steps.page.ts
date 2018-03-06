@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { ROUTES } from './../../router/routes';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -7,7 +8,8 @@ import { NgxCarousel } from 'ngx-carousel';
 @Component({
 	selector: 'rotalo-steps',
 	templateUrl: './steps.page.html',
-	styleUrls: ['./steps.page.scss']
+	styleUrls: ['./steps.page.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepsPage implements OnInit {
 	steps: Array<any> = CONFIG.STEPS;

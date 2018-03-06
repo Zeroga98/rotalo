@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { EventEmitter, Output, Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -5,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'simple-form',
   templateUrl: './simple-form.component.html',
-  styleUrls: ['./simple-form.component.scss']
+  styleUrls: ['./simple-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SimpleFormComponent implements OnInit {
   @Output() next: EventEmitter<any> = new EventEmitter();

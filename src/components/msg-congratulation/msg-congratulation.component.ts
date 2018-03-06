@@ -1,10 +1,11 @@
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'msg-congratulation',
   templateUrl: './msg-congratulation.component.html',
-  styleUrls: ['./msg-congratulation.component.scss']
+  styleUrls: ['./msg-congratulation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MsgCongratulationComponent implements OnInit {
   routeHome:string = ROUTES.HOME

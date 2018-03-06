@@ -2,12 +2,13 @@ import { ROUTES } from './../../router/routes';
 import { Router } from '@angular/router';
 import { CurrentSessionService } from './../../services/current-session.service';
 import { ActivationService } from './../../services/activation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'app-activacion-cuenta',
 	templateUrl: './activacion-cuenta.page.html',
-	styleUrls: ['./activacion-cuenta.page.scss']
+	styleUrls: ['./activacion-cuenta.page.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivacionCuentaPage implements OnInit {
 	errorRequest: Array<string> = [];

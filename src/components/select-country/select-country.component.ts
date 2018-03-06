@@ -1,18 +1,21 @@
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { CollectionSelectService } from "../../services/collection-select.service";
 @Component({
   selector: "select-country",
   templateUrl: "./select-country.component.html",
-  styleUrls: ["./select-country.component.scss"]
+  styleUrls: ["./select-country.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectCountryComponent implements OnInit {
     @Output() selected: EventEmitter<Object> = new EventEmitter();
     @Output() loaded: EventEmitter<void> = new EventEmitter();
     @Input() initialValue;
-
     countries: Array < any > = [];
     currentCountry: String = '';
-    constructor(private collectionService: CollectionSelectService) {
+    
+    constructor(
+        private collectionService: CollectionSelectService,
+        private changeDetectorRef: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -36,6 +39,7 @@ export class SelectCountryComponent implements OnInit {
               this.currentCountry = id;
               this.selected.emit({name, id});
             }
+            this.changeDetectorRef.markForCheck();
         } catch (error) {
             console.error(error);
         }
