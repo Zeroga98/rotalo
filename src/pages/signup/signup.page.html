@@ -18,13 +18,23 @@
       </div>
 
       <div class="form-group">
-        <input name="name" formControlName="name" type="text" class="form-control" maxlength="100" placeholder="Nombre completo">
+        <input name="first-name" formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
       </div>
-
+      <div class="form-group">
+          <input name="last-name" formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos">
+      </div>
+      <div class="form-group">
+          <select class="form-control currency-select" name="type-id"  formControlName="type-number" >
+              <option value="" disabled>Selecciona tipo de documento</option>
+              <option value="cedula-ciudadania">Cédula de ciudadanía</option>
+              <option value="cedula-extranjeria">Cédula de extranjería</option>
+              <option value="pasaporte">Pasaporte</option>
+          </select>
+      </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}" name="id-number"
           formControlName="id-number" type="text" maxlength="20" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-          class="form-control" placeholder="Cédula">
+          class="form-control" placeholder="Número de documento">
         <!--           <p ng-show="registerForm.idNumber && !registerForm.idNumber.$pristine" class="help-block">Tú cédula debe estar en el formato de {{ ctrl.location.country.name }}</p>
  -->
       </div>

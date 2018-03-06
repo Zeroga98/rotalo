@@ -21,6 +21,7 @@ export const ROUTES = {
         UPLOAD: 'form',
         SOLD: 'sold',
         SELLING: 'selling',
-        BUY: 'buy'
+        BUY: 'buy',
+        SIMULATECREDIT: 'simulate-credit'
     }
 };

@@ -80,6 +80,7 @@ import { SoldPage } from '../pages/profile/sold/sold.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoansService } from '../services/loans.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
+import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 
 
 
@@ -131,7 +132,8 @@ import { LoggedGuardService } from '../services/login/logged-guard.service';
     ModalMessageComponent,
     DetailProductComponent,
     SoldPage,
-    SellingPage
+    SellingPage,
+    SimulateCreditPage
   ],
   imports: [
     BrowserModule,

@@ -83,7 +83,7 @@
     <div class="product-btn">
       <div class="product-btns">
         <div class="cont-botons" *ngIf="!validateSession()">
-          <button class="botons" *ngIf="products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSufiModal(products)">
+          <button class="botons" *ngIf="products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSimulateCreditSufi()">
             <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
           </button>
           <button class="botons" *ngIf="products.negotiable"  (click)="openOfferModal(products)">

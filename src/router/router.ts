@@ -23,6 +23,7 @@ import { BuyProductPage } from '../pages/buy-product/buy-product.page';
 import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
+import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 
 export const appRouter: Routes = [
   {
@@ -77,6 +78,10 @@ export const appRouter: Routes = [
         , {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,
           component: BuyProductPage,
+        },
+        {
+          path: ROUTES.PRODUCTS.SIMULATECREDIT,
+          component: SimulateCreditPage,
         },
         {
             path: '',

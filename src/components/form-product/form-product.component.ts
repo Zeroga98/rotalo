@@ -110,9 +110,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   loadYearsModelVehicle() {
-    const years = (new Date()).getFullYear() - 1899;
-    for (let i = 1; i <= years; i++) {
-      this.modelsVehicle.push(1900 + i);
+    const years = (new Date()).getFullYear() - 1968;
+    for (let i = 0; i < years; i++) {
+      this.modelsVehicle.push((new Date()).getFullYear() + 1 - i);
     }
   }
 

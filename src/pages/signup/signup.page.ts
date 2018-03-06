@@ -23,35 +23,45 @@ export class SignUpPage implements OnInit {
     constructor(
         private userService:UserService,
         private router: Router,
-        private utilsService: UtilsService){}
+        private utilsService: UtilsService) {}
 
     ngOnInit(): void {
         this.registerForm = new FormGroup({
-            name: new FormControl('', [Validators.required]),
+            'first-name': new FormControl('', [Validators.required]),
+            'last-name': new FormControl('', [Validators.required]),
+            'type-number': new FormControl('', null),
             'id-number': new FormControl('', [Validators.required]),
             email: new FormControl('', [ Validators.required, Validators.email]),
             cellphone: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            'password-confirmation': new FormControl('', [Validators.required, Validators.minLength(6), this.validatePasswordConfirm.bind(this)]),
+            'password-confirmation': new FormControl('', [Validators.required, Validators.minLength(6),
+              this.validatePasswordConfirm.bind(this)]),
             termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
         });
     }
 
     async onSubmit() {
         try {
-            const params:UserRequestInterface = this.buildParamsUserRequest();
+          if (this.registerForm.valid) {
+            const params: UserRequestInterface = this.buildParamsUserRequest();
             const response = await this.userService.saveUser(params);
             this.errorsSubmit = [];
             this.router.navigate([ROUTES.ACTIVACION]);
+          }
         } catch (error) {
             this.errorsSubmit = error.error.errors;
             this.utilsService.goToTopWindow(20, 600);
         }
     }
 
-    buildParamsUserRequest(): UserRequestInterface{
-        let params = Object.assign({}, this.registerForm.value, {'city-id': this.city.id});
-        delete params.termsCheckbox
+    buildParamsUserRequest(): UserRequestInterface {
+        const fullName = `${this.registerForm.get('first-name').value} ${this.registerForm.get('last-name').value}`;
+        delete  this.registerForm.value['first-name'];
+        delete  this.registerForm.value['last-name'];
+        delete  this.registerForm.value['type-number'];
+        const params = Object.assign({}, this.registerForm.value, {'name': fullName}, {'city-id': this.city.id});
+        delete params.termsCheckbox;
+        console.log(params);
         return params;
     }
 
@@ -61,6 +71,13 @@ export class SignUpPage implements OnInit {
 
     selectedStates(ev) {
         this.state = ev;
+    }
+
+    selectedCountryColombia(): boolean {
+      if (this.country && this.country.id === "1" && this.country.name === "Colombia") {
+        return true;
+      }
+      return false;
     }
 
     checkBoxRequired(checkBox: FormGroup): any {
@@ -77,7 +94,7 @@ export class SignUpPage implements OnInit {
         return this.registerForm.invalid || !this.selectIsCompleted();
     }
 
-    private selectIsCompleted():boolean{
+    private selectIsCompleted(): boolean {
         return this.country && this.state && this.city;
     }
 
