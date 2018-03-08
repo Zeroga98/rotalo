@@ -61,7 +61,6 @@ export class SignUpPage implements OnInit {
         delete  this.registerForm.value['type-number'];
         const params = Object.assign({}, this.registerForm.value, {'name': fullName}, {'city-id': this.city.id});
         delete params.termsCheckbox;
-        console.log(params);
         return params;
     }
 

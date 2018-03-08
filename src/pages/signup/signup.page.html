@@ -1,35 +1,44 @@
 <back-arrow></back-arrow>
 <div class="container-fluid">
   <div class="">
-    <form role="form" [formGroup]="registerForm" name="registerForm" class="text-center form-theme" (ngSubmit)="onSubmit()">
-      <div class="m-b">
+    <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+      <div class="text-center m-b">
         <a href="../index.html" class="m-b-lg">
           <img src="./assets/img/logo-red.svg" alt="brand">
           <h1 class="sr-only">rótalo</h1>
         </a>
       </div>
-
-      <p class="title-text">Crea una cuenta</p>
-
+      <p class="title-text text-center">Crea una cuenta</p>
       <div class="container-errors">
         <ul>
-            <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>
+          <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>
         </ul>
       </div>
-
       <div class="form-group">
-        <input name="first-name" formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
+        <input [ngClass]="{'invalid': registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine}" name="first-name"
+          formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
+        <span class="help-block">
+          <span *ngIf="registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine">
+            Este campo es obligatorio.
+          </span>
+        </span>
       </div>
       <div class="form-group">
-          <input name="last-name" formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos">
+        <input [ngClass]="{'invalid': registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine}" name="last-name"
+          formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos">
+        <span class="help-block">
+          <span *ngIf="registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine">
+            Este campo es obligatorio.
+          </span>
+        </span>
       </div>
       <div class="form-group">
-          <select class="form-control currency-select" name="type-id"  formControlName="type-number" >
-              <option value="" disabled>Selecciona tipo de documento</option>
-              <option value="cedula-ciudadania">Cédula de ciudadanía</option>
-              <option value="cedula-extranjeria">Cédula de extranjería</option>
-              <option value="pasaporte">Pasaporte</option>
-          </select>
+        <select class="form-control currency-select" name="type-id" formControlName="type-number">
+          <option value="" disabled>Selecciona tipo de documento</option>
+          <option value="cedula-ciudadania">Cédula de ciudadanía</option>
+          <option value="cedula-extranjeria">Cédula de extranjería</option>
+          <option value="pasaporte">Pasaporte</option>
+        </select>
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}" name="id-number"
@@ -38,27 +47,54 @@
         <!--           <p ng-show="registerForm.idNumber && !registerForm.idNumber.$pristine" class="help-block">Tú cédula debe estar en el formato de {{ ctrl.location.country.name }}</p>
  -->
       </div>
-
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
           type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo">
+        <span class="help-block">
+          <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
+            El campo no cumple con el formato de correo.
+          </span>
+        </span>
       </div>
-
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
-          maxlength="20" class="form-control" placeholder="Teléfono celular">
+          maxlength="10" class="form-control" placeholder="Teléfono celular">
+          <span class="help-block">
+              <span *ngIf="registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
+                  Este campo es obligatorio.
+              </span>
+            </span>
       </div>
 
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
           formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña">
+          <span class="help-block">
+              <span *ngIf="registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
+                  Este campo es obligatorio.
+              </span>
+              <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
+                  El campo no cumple la longitud mínima.
+              </span>
+            </span>
       </div>
 
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
           name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
           placeholder="Confirmar Contraseña">
+          <span class="help-block">
+              <span *ngIf="registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
+                  Este campo es obligatorio.
+              </span>
+              <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
+                  El campo no cumple la longitud mínima.
+              </span>
+              <span *ngIf="registerForm.get('password-confirmation').errors?.notSame && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
+                  La contraseña de verificación no coincide.
+              </span>
+            </span>
       </div>
       <div class="form-group">
         <select-country class="white-theme-select" (selected)="country=$event"></select-country>
@@ -69,7 +105,7 @@
       <div class="form-group">
         <select-cities class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
       </div>
-      <div class="form-group" class="terms">
+      <div class="text-center form-group terms">
         <label for="checkTerms">
           <input type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
         </label>
@@ -80,9 +116,9 @@
         <custom-button type="submit" text="Crear Cuenta" [disabled]="formIsInValid"></custom-button>
       </div>
 
-      <footer>
+      <footer class="text-center">
         <p>¿Tienes cuenta?
-          <a class=""> Ingresar</a>
+          <a routerLink="/login"> Ingresar</a>
         </p>
       </footer>
     </form>

@@ -10,7 +10,6 @@
         background-color: #fff;
         border: none;
         border-bottom: 1px solid #d4dbe0;
-        border-radius: 4px;
         box-shadow: none;
         -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -30,11 +29,18 @@
         background-color: transparent;
     }
     .form-group {
-        margin-bottom: 15px;
-    }    
+        margin-bottom: 20px;
+    }
 
     input.invalid{
         border-bottom:1px solid $red;
+    }
+
+    .help-block{
+      span{
+        color:$red-dark;
+        font-size: 1.4rem;
+      }
     }
 }
 

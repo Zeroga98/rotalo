@@ -30,6 +30,7 @@ export class UserService {
 
   updateUser(currentUser): Promise<any> {
     const url = `${this.url}/${this.idUser}`;
+    console.log(url);
     return this.httpClient.put(url, currentUser).toPromise();
   }
 

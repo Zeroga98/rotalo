@@ -81,7 +81,7 @@ import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoansService } from '../services/loans.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
-
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -144,8 +144,8 @@ import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.pag
     RlTagInputModule,
     NgxCarouselModule,
     ImageUploadModule.forRoot(),
-    RouterModule.forRoot(appRouter)
-
+    RouterModule.forRoot(appRouter),
+    CurrencyMaskModule
   ],
   providers: [
     UserService,

@@ -2,6 +2,13 @@
 @import "../../styles/settings/_variables.scss";
 
 :host {
+  custom-spinner {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, 50%);
+  }
+
   .container-form {
     padding: 66px 76px;
     .title-form {
@@ -39,6 +46,7 @@
         margin-bottom: 5rem;
         .form-group {
           width: 48%;
+          position: relative;
         }
         .item-price {
           display: flex;
@@ -104,9 +112,15 @@
         background-color: #d4dbe0;
         opacity: 1;
       }
-      .info-simulation {
+      .info-simulation, .message-bank {
         color: #9b9b9b;
         font-size: 1.4rem;
+      }
+      .message-bank{
+        margin-top: 10px;
+        span{
+          font-weight: bold;
+        }
       }
     }
     .check-info {
@@ -260,24 +274,28 @@
     cursor: pointer;
   }
 
-  .checkbox{
-    a{
+  .checkbox {
+    a {
       cursor: pointer;
       text-decoration: underline;
     }
   }
-  .checkbox{
-    .text-info{
+  .checkbox {
+    .text-info {
       margin-left: 35px;
     }
   }
-  .actions-form{
-    .text-info{
+  .actions-form {
+    .text-info {
       font-size: 1.6rem;
-    color: #536570;
+      color: #ed2f3c;
       cursor: pointer;
-      text-decoration: underline;
     }
+  }
+
+  .help-block{
+    position: absolute;
+    margin-left: 2%;
   }
 
   @media (max-width: 780px) {
@@ -285,7 +303,4 @@
       padding: 3% 3%;
     }
   }
-
-
 }
-

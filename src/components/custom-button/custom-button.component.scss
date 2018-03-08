@@ -5,7 +5,8 @@
     button, a{
         width: 100%;
         display: block;
-        padding: 6.3px 42px;
+       // padding: 6.3px 42px;
+        padding: 6.3px 35px;
         font-weight: normal;
         font-size: 21px;
         color: #FFF;
@@ -33,6 +34,6 @@
         &:disabled{
             cursor: not-allowed;
             opacity: 0.5;
-        }    
+        }
     }
 }

@@ -1,94 +1,142 @@
 <navigation-top></navigation-top>
-<div class="container-form">
-    <div class="title-form">
-      <span>Sufi te presta</span>
-      <span>Sufi es la marca creada por Grupo Bancolombia para que siempre puedas conseguir lo que quieres a tu medida y sin complicaciones.
-        Sea cual sea tu elección, tenemos diferentes productos y planes de financiación para que sin duda encuentres el vehículo ideal y llegues tan lejos como esperas.
+<custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
+<div *ngIf="isSpinnerShow()" class="container-form">
+  <div class="title-form">
+    <span>Sufi te presta</span>
+    <span>Sufi es la marca creada por Grupo Bancolombia para que siempre puedas conseguir lo que quieres a tu medida y sin complicaciones.
+      Sea cual sea tu elección, tenemos diferentes productos y planes de financiación para que sin duda encuentres el vehículo
+      ideal y llegues tan lejos como esperas.
+    </span>
+  </div>
+  <form *ngIf="showSimulator" role="form" [formGroup]="simulateForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+    <div class="container-step">
+      <div class="step-number">
+        <span class="number">Simula tu crédito</span>
+      </div>
+      <div class="info-product">
+        <div class="form-group">
+          <p class="text-label">¿Cuál es el valor del carro?*</p>
+          <input currencyMask  [ngClass]="{'invalid': simulateForm.get('price-vehicle').invalid && !simulateForm.get('price-vehicle').pristine}"
+            class="form-control" formControlName="price-vehicle" maxlength="18">
+          <span class="help-block" *ngIf="simulateForm.get('price-vehicle').invalid && !simulateForm.get('price-vehicle').pristine">
+            <span *ngIf="simulateForm.get('price-vehicle').errors['required']">
+              Este campo es obligatorio.
+            </span>
+            <span *ngIf="!simulateForm.get('price-vehicle').errors['required'] && simulateForm.get('price-vehicle').errors['priceValueMin']">
+              El campo no cumple con el valor mínimo $10,000,000.00
+            </span>
+            <span *ngIf="simulateForm.get('price-vehicle').errors['priceValueMax']">
+              El campo no cumple con el valor máximo $5,000,000,000.00
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <p class="text-label">¿Cuánto dinero tienes para la cuota inicial?*</p>
+          <input currencyMask [ngClass]="{'invalid': simulateForm.get('initial-fee').invalid && !simulateForm.get('initial-fee').pristine}" class="form-control"
+            formControlName="initial-fee"  maxlength="18">
+          <span class="help-block">
+            <span *ngIf="simulateForm.get('initial-fee').invalid && !simulateForm.get('initial-fee').pristine && simulateForm.get('initial-fee').errors['required']">
+              Este campo es obligatorio.
+            </span>
+            <span *ngIf="simulateForm.errors">
+              El campo no cumple con el valor máximo {{simulateForm.get('price-vehicle').value | currency}}
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <p class="text-label range">¿En cuánto tiempo quieres pagarlo?*</p>
+        <div class="slidecontainer">
+          <input [(ngModel)]="rangeTimeToPay" formControlName="range-time" type="range" min="1" max="72" class="slider">
+          <p>{{rangeTimeToPay}} meses</p>
+        </div>
+      </div>
+    </div>
+    <div class="actions-form">
+      <custom-button [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
+    </div>
+  </form>
+  <form *ngIf="!showSimulator" role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">
+    <div class="container-step">
+      <div class="step-number">
+        <span class="number">Tu crédito con Sufi te presta</span>
+        <div class="step-number">
+          Para la simulación que acabas de realizar, utilizamos una tasa representativa del 1,05% nominal mes vencido, equivalente
+          a 13,35% efectivo anual.
+          <br> Esta cuota incluye el valor del seguro de vida.
+        </div>
+      </div>
+      <div class="form-group">
+        <p class="result-simulation">72 cuotas mensuales: 442,335.70</p>
+      </div>
+      <div class="form-group">
+        <p class="info-simulation">Esta información es suministrada en atención a la solicitud que el cliente ha efectuado a Bancolombia S.A., la misma
+          se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia
+          S.A. Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que
+          han sido establecidas para la fecha en que se realiza. La cuota indicada está compuesta por seguro de vida, intereses
+          y capital. La cuota es fija, la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del
+          vehículo. </p>
+      </div>
+    </div>
+    <div class="container-step">
+      <div class="step-number">
+        <span class="number">¿Te gustó?</span>
+        <div class="step-number">
+          Necesitamos que nos confirmes un número telefónico para contactarte, además el horario perfecto para hacerlo.
+        </div>
+      </div>
+      <div class="info-product">
+        <div class="form-group">
+          <input maxlength="10" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone-user"
+            placeholder="¿Cuál es tu número de contacto?*" [ngClass]="{'invalid': contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine}">
+          <span *ngIf="contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine" class="help-block">
+            <span *ngIf="contactUser.get('phone-user').errors['required']">
+              Este campo es obligatorio.
+            </span>
+            <span *ngIf="!contactUser.get('phone-user').errors['required'] && contactUser.get('phone-user').dirty">
+              El campo no cumple con el minimo número de digitos.
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <select class="form-control" formControlName="contact-time" required>
+            <option value="" disabled>¿A qué horas quieres que te contactemos?*</option>
+            <option>Mañana</option>
+            <option>Tarde</option>
+            <option>Noche</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="checkbox custom-control custom-checkbox check-info">
+          <div>
+            <label>
+              <input formControlName="check-authorization" id="checkInfo" name="info-credit" type="checkbox">
+              <span class="custom-control-indicator custom-control-indicator--top">
+              </span>
+            </label>
+            <span class="text-info">Confirmo que autorizo consultar mi información para evaluar mis datos en crédito segun la
+              <a (click)="showMessageBank = true">politica de Bancolombia.</a>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="showMessageBank" class="message-bank">
+          <span>DECLARACIÓN Y AUTORIZACIÓN PARA CONSULTAR, REPORTAR Y COMPARTIR INFORMACIÓN.</span> Autorizo a BANCOLOMBIA S.A. y a las entidades
+          que pertenezcan a su Grupo Empresarial, para que conserven la información aquí suministrada, la compartan entre
+          ellas, me contacten con el fin de ofrecerme sus productos y servicios; y para que, con el fin de evaluar la posibilidad
+          de otorgarme los mismos, consulten y procesen mi información ante las entidades de consulta de bases de datos u
+          Operadores de Información y Riesgo. El resultado del análisis para acceder al producto, le será informado a través
+          de alguno de los medios de contacto que nos ha suministrado.
+        </div>
+      </div>
+    </div>
+    <div class="actions-form">
+      <custom-button [disabled]="formContactValid" type="submit" text="Solicíta ya"></custom-button>
+    </div>
+    <div class="actions-form">
+      <span (click)="showSimulator = !showSimulator; showMessageBank = false" class="text-info">
+        <a>Simula otra vez</a>
       </span>
     </div>
-    <form role="form" class="form-theme">
-        <div class="container-step">
-          <div class="step-number">
-            <span class="number">Simula tu crédito</span>
-          </div>
-          <div class="info-product">
-            <div class="form-group">
-                <p class="text-label">¿Cuál es el valor del carro?</p>
-                <input class="form-control" name="price-vehicle"  placeholder="100000000*" maxlength="100">
-            </div>
-            <div class="form-group">
-                <input class="form-control" name="initial-fee"  placeholder="¿Cuánto dinero tienes para la cuota inicial*" maxlength="100">
-            </div>
-          </div>
-          <div class="form-group">
-              <p class="text-label range">¿En cuánto tiempo quieres pagarlo?</p>
-              <div class="slidecontainer">
-                 <input [(ngModel)]="rangeTimeToPay" name="rangeTimeToPay" name="currentValueRange" type="range" min="1" max="72" class="slider">
-                 <p>{{rangeTimeToPay}} meses</p>
-              </div>
-           </div>
-        </div>
-        <div class="actions-form">
-          <custom-button class="button" type="submit" text="Simula tu crédito"></custom-button>
-        </div>
-      </form>
-      <form role="form" class="form-theme">
-          <div class="container-step">
-              <div class="step-number">
-                  <span class="number">Tu crédito con Sufi te presta</span>
-                  <div class="step-number">
-                      Para la simulación que acabas de realizar,
-                      utilizamos una tasa representativa del 1,05% nominal mes vencido, equivalente a 13,35% efectivo anual. <br>
-                      Esta cuota incluye el valor del seguro de vida.
-                  </div>
-              </div>
-              <div class="form-group">
-                  <p class="result-simulation">72 cuotas mensuales: 442,335.70</p>
-              </div>
-              <div class="form-group">
-                  <p class="info-simulation">Esta información es suministrada en atención a la solicitud que el cliente ha efectuado a Bancolombia S.A.,
-                    la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia S.A.
-                    Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se realiza.
-                    La cuota indicada está compuesta por seguro de vida, intereses y capital. La cuota es fija,
-                    la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del vehículo. </p>
-              </div>
-          </div>
-          <div class="container-step">
-              <div class="step-number">
-                  <span class="number">¿Te gustó?</span>
-                  <div class="step-number">
-                      Necesitamos que nos confirmes un número telefónico para contactarte, además el horario perfecto para hacerlo.
-                  </div>
-              </div>
-              <div class="info-product">
-                  <div class="form-group">
-                      <input class="form-control" name="price-vehicle"  placeholder="¿Cuál es tu número de contacto?*" maxlength="100">
-                  </div>
-                  <div class="form-group">
-                      <select class="form-control" name="countries" required>
-                          <option value="" disabled>¿A qué horas quieres que te contactemos?*</option>
-                          <option>Mañana - 10:00am a 12:00am</option>
-                      </select>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <div class="checkbox custom-control custom-checkbox check-info">
-                      <div>
-                        <label>
-                          <input id="checkInfo" name="info-credit" checked type="checkbox">
-                          <span class="custom-control-indicator custom-control-indicator--top">
-                          </span>
-                        </label>
-                        <span class="text-info">Confirmo que autorizo consultar mi información para evaluar mis datos en crédito segun la <a>politica de Bancolombia.</a></span>
-                      </div>
-                    </div>
-               </div>
-          </div>
-          <div class="actions-form">
-              <custom-button type="submit" text="Solicíta ya"></custom-button>
-          </div>
-          <div class="actions-form">
-              <span class="text-info"><a>Simula otra vez</a></span>
-          </div>
-      </form>
+  </form>
 </div>

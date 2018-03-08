@@ -139,8 +139,8 @@ export class DetailProductComponent implements OnInit {
     this.configurarModal(product);
   }
 
-  openSimulateCreditSufi() {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SIMULATECREDIT}`;
+  openSimulateCreditSufi(id: number | string) {
+    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SIMULATECREDIT}/${id}`;
     this.router.navigate([urlSimulateCredit]);
   }
 
