@@ -63,12 +63,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       "publish-until": this.getPublishUntilDate(),
       "published-at": new Date()
     };
-    const params = Object.assign(
-      {},
-      this.photosForm.value,
-      photosIds,
-      publishDate
-    );
+    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate);
     this.submit.emit(params);
   }
 
@@ -92,6 +87,26 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
+  setValidationVehicle() {
+    const typeVehicleControl = this.photosForm.get('type-vehicle');
+    const model = this.photosForm.get('model');
+    typeVehicleControl.clearValidators();
+    model.clearValidators();
+    if (this.subcategoryIsVehicle()) {
+      typeVehicleControl.setValidators([Validators.required]);
+      model.setValidators([Validators.required]);
+    }
+    typeVehicleControl.updateValueAndValidity();
+    model.updateValueAndValidity();
+  }
+
+  subcategoryIsVehicle(): boolean {
+    if (this.subCategory && this.subCategory.name === "Carros") {
+      return true;
+    }
+    return false;
+  }
+
   selectedComunity(idCategory: number) {
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = "";
@@ -100,13 +115,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   selectedSubcategory(idSubcategory) {
     this.subCategory = this.findSubCategory(idSubcategory);
-  }
-
-  subcategoryIsVehicle(): boolean {
-    if (this.subCategory && this.subCategory.name === "Carros y accesorios") {
-      return true;
-    }
-    return false;
   }
 
   loadYearsModelVehicle() {
@@ -128,7 +136,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: new FormControl(config.visible, [Validators.required]),
       "sell-type": new FormControl(config["sell-type"], [Validators.required]),
       description: new FormControl(config.description, [Validators.required]),
-      negotiable: new FormControl(config.negotiable, [])
+      negotiable: new FormControl(config.negotiable, []),
+      "type-vehicle": new FormControl('', []),
+      "model": new FormControl('', []),
     });
   }
 

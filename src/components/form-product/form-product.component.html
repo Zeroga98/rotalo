@@ -26,6 +26,11 @@
         <div class="info-product">
           <div class="form-group">
             <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar?*" maxlength="100">
+            <span class="help-block">
+                <span *ngIf="photosForm.get('name').invalid && !photosForm.get('name').pristine">
+                    Este campo es obligatorio.
+                </span>
+            </span>
           </div>
           <div class="form-group item-price">
             <input
@@ -51,20 +56,20 @@
             </select>
           </div>
           <div class="form-group">
-            <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value)" name="subcategory-id" formControlName= "subcategory-id">
+            <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()" name="subcategory-id" formControlName= "subcategory-id">
               <option value="" disabled>Escoge una subcategoria*</option>
               <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
             </select>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select class="form-control">
-                  <option value="Modelo de vehiculo*" disabled>Modelo de vehículo*</option>
+              <select class="form-control" formControlName="model">
+                  <option value=""  disabled>Modelo de vehículo*</option>
                   <option *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
               </select>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select class="form-control">
-                  <option value="Tipo de vehiculo*" disabled>Tipo de vehículo*</option>
+              <select class="form-control" formControlName="type-vehicle">
+                  <option value="" disabled>Tipo de vehículo*</option>
                   <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
               </select>
           </div>
@@ -78,7 +83,7 @@
           <div class="form-group">
             <select class="form-control" name="visible" formControlName= "visible">
               <option value="¿Quién puede verlo?" disabled>¿Quién puede verlo?</option>
-              <option [ngValue]="true">Todas las cominidades</option>
+              <option [ngValue]="true">Todas las comunidades</option>
               <option [ngValue]="false">Solo mi comunidad</option>
             </select>
           </div>

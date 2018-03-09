@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserInterface } from './../../commons/interfaces/user.interface';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup,  Validators } from '@angular/forms';
+import { FormControl, FormGroup,  Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
 
 @Component({
@@ -12,6 +12,7 @@ import { UserRequestInterface } from '../../commons/interfaces/user-request.inte
     templateUrl: 'signup.page.html',
     styleUrls: ['signup.page.scss']
 })
+
 export class SignUpPage implements OnInit {
     public errorsSubmit: Array<any> = [];
     public modalTermsIsOpen: boolean = false;
@@ -19,9 +20,10 @@ export class SignUpPage implements OnInit {
     public country;
     public city;
     public state;
-
+    public documentId;
+    public errorMessageId;
     constructor(
-        private userService:UserService,
+        private userService: UserService,
         private router: Router,
         private utilsService: UtilsService) {}
 
@@ -38,9 +40,11 @@ export class SignUpPage implements OnInit {
               this.validatePasswordConfirm.bind(this)]),
             termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
         });
+
     }
 
     async onSubmit() {
+      console.log(this.registerForm.get('id-number'));
         try {
           if (this.registerForm.valid) {
             const params: UserRequestInterface = this.buildParamsUserRequest();
@@ -108,5 +112,45 @@ export class SignUpPage implements OnInit {
     acceptTerms(checkbox) {
         checkbox.checked = true;
         this.closeModal();
+    }
+
+    setValidationId(): void {
+      if (this.country) {
+       const idCountry = this.country.id;
+       const idDocumentControl = this.registerForm.get('id-number');
+       idDocumentControl.clearValidators();
+        switch (idCountry) {
+          case '1': {
+            if (this.documentId === 'cc') {
+              idDocumentControl.setValidators([Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
+              Validators.required]);
+              this.errorMessageId = "El campo no cumple con el formato de cédula.";
+            }else if (this.documentId === 'ce') {
+              idDocumentControl.setValidators([Validators.minLength(3),
+              Validators.maxLength(15),
+              Validators.pattern('/^-?(0|[1-9]\d*)?$/'),
+              Validators.required]);
+              this.errorMessageId = "El campo no cumple con el formato de cédula.";
+            }else if (this.documentId === 'pt') {
+              idDocumentControl.setValidators([Validators.minLength(5),
+              Validators.maxLength(36),
+              Validators.required]);
+              this.errorMessageId = "El campo no cumple con el formato de Pasaporte.";
+            }
+             break;
+          }
+          case '2': {
+            idDocumentControl.setValidators([Validators.pattern('^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'),
+            Validators.required]);
+            this.errorMessageId = "El campo no cumple con el formato.";
+            break;
+          }
+          default: {
+            idDocumentControl.setValidators([Validators.required]);
+            break;
+          }
+       }
+       idDocumentControl.updateValueAndValidity();
+      }
     }
 }

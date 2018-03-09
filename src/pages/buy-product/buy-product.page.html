@@ -29,7 +29,7 @@
                 </div>
             </form>
         </div>
-        <div class="container-sufi">
+        <div *ngIf="checkSufiBotton()" class="container-sufi">
             <div class="title">¿Necesitas plata para comprarlo?</div>
             <div class="action">
                 <custom-button text="Te presta"></custom-button>

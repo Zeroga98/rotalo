@@ -61,4 +61,17 @@ export class BuyProductPage implements OnInit {
     }
   }
 
+  checkSufiBotton() {
+    if (this.product['type-vehicle'] && this.product['model']) {
+      const type =  this.product['type-vehicle'];
+      const currentYear = (new Date()).getFullYear() + 1;
+      const modelo = this.product['model'];
+      const differenceYear = currentYear - modelo;
+      if (this.product.subcategory.id === "9" && differenceYear <= 10 && type === "Particular") {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine}" name="first-name"
-          formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
+        formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
         <span class="help-block">
           <span *ngIf="registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine">
             Este campo es obligatorio.
@@ -32,20 +32,30 @@
           </span>
         </span>
       </div>
-      <div class="form-group">
-        <select class="form-control currency-select" name="type-id" formControlName="type-number">
+      <div *ngIf="selectedCountryColombia()" class="form-group">
+        <select class="form-control currency-select" name="type-id" formControlName="type-number" (change)="documentId=$event.target.value; setValidationId()">
           <option value="" disabled>Selecciona tipo de documento</option>
-          <option value="cedula-ciudadania">Cédula de ciudadanía</option>
-          <option value="cedula-extranjeria">Cédula de extranjería</option>
-          <option value="pasaporte">Pasaporte</option>
+          <option value="cc">Cédula de ciudadanía</option>
+          <option value="ce">Cédula de extranjería</option>
+          <option value="pt">Pasaporte</option>
         </select>
       </div>
       <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}" name="id-number"
-          formControlName="id-number" type="text" maxlength="20" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-          class="form-control" placeholder="Número de documento">
-        <!--           <p ng-show="registerForm.idNumber && !registerForm.idNumber.$pristine" class="help-block">Tú cédula debe estar en el formato de {{ ctrl.location.country.name }}</p>
- -->
+        <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
+        name="id-number"
+        formControlName="id-number"
+        type="text"
+        maxlength="40"
+        class="form-control"
+        placeholder="Número de documento">
+        <span class="help-block">
+            <span *ngIf="registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                Este campo es obligatorio.
+            </span>
+            <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
+                {{errorMessageId}}
+            </span>
+        </span>
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
@@ -97,7 +107,7 @@
             </span>
       </div>
       <div class="form-group">
-        <select-country class="white-theme-select" (selected)="country=$event"></select-country>
+        <select-country class="white-theme-select"  (selected)="country=$event; setValidationId()"></select-country>
       </div>
       <div class="form-group">
         <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>

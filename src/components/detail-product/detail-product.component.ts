@@ -82,13 +82,14 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    const type = "privado";
-    const currentYear = (new Date()).getFullYear();
-    const modelo = 2008;
-    const differenceYear = currentYear - modelo;
-
-    if (this.products.subcategory.id === "9" && differenceYear <= 10 && type === "privado") {
-      return true;
+    if (this.products['type-vehicle'] && this.products['model']) {
+      const type =  this.products['type-vehicle'];
+      const currentYear = (new Date()).getFullYear() + 1;
+      const modelo = this.products['model'];
+      const differenceYear = currentYear - modelo;
+      if (this.products.subcategory.id === "9" && differenceYear <= 10 && type === "Particular") {
+        return true;
+      }
     }
     return false;
   }

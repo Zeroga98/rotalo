@@ -82,6 +82,8 @@ import { LoansService } from '../services/loans.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { SettingsService } from '../services/settings.service';
+import { SimulateCreditService } from '../services/simulate-credit.service';
 
 
 @NgModule({
@@ -167,6 +169,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     AuthGuardService,
     LoggedGuardService,
     MessagesService,
+    SettingsService,
+    SimulateCreditService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

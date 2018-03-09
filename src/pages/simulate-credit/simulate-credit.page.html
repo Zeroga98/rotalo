@@ -16,30 +16,30 @@
       <div class="info-product">
         <div class="form-group">
           <p class="text-label">¿Cuál es el valor del carro?*</p>
-          <input currencyMask  [ngClass]="{'invalid': simulateForm.get('price-vehicle').invalid && !simulateForm.get('price-vehicle').pristine}"
-            class="form-control" formControlName="price-vehicle" maxlength="18">
-          <span class="help-block" *ngIf="simulateForm.get('price-vehicle').invalid && !simulateForm.get('price-vehicle').pristine">
-            <span *ngIf="simulateForm.get('price-vehicle').errors['required']">
+          <input currencyMask  [ngClass]="{'invalid': simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine}"
+            class="form-control" formControlName="credit-value" maxlength="18">
+          <span class="help-block" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
+            <span *ngIf="simulateForm.get('credit-value').errors['required']">
               Este campo es obligatorio.
             </span>
-            <span *ngIf="!simulateForm.get('price-vehicle').errors['required'] && simulateForm.get('price-vehicle').errors['priceValueMin']">
+            <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
               El campo no cumple con el valor mínimo $10,000,000.00
             </span>
-            <span *ngIf="simulateForm.get('price-vehicle').errors['priceValueMax']">
+            <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
               El campo no cumple con el valor máximo $5,000,000,000.00
             </span>
           </span>
         </div>
         <div class="form-group">
           <p class="text-label">¿Cuánto dinero tienes para la cuota inicial?*</p>
-          <input currencyMask [ngClass]="{'invalid': simulateForm.get('initial-fee').invalid && !simulateForm.get('initial-fee').pristine}" class="form-control"
-            formControlName="initial-fee"  maxlength="18">
+          <input currencyMask [ngClass]="{'invalid': simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine}" class="form-control"
+            formControlName="initial-quota"  maxlength="18">
           <span class="help-block">
-            <span *ngIf="simulateForm.get('initial-fee').invalid && !simulateForm.get('initial-fee').pristine && simulateForm.get('initial-fee').errors['required']">
+            <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
               Este campo es obligatorio.
             </span>
             <span *ngIf="simulateForm.errors">
-              El campo no cumple con el valor máximo {{simulateForm.get('price-vehicle').value | currency}}
+              El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency}}
             </span>
           </span>
         </div>
@@ -47,7 +47,7 @@
       <div class="form-group">
         <p class="text-label range">¿En cuánto tiempo quieres pagarlo?*</p>
         <div class="slidecontainer">
-          <input [(ngModel)]="rangeTimeToPay" formControlName="range-time" type="range" min="1" max="72" class="slider">
+          <input [(ngModel)]="rangeTimeToPay" formControlName="term-months" type="range" min="1" max="72" class="slider">
           <p>{{rangeTimeToPay}} meses</p>
         </div>
       </div>
@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="form-group">
-        <p class="result-simulation">72 cuotas mensuales: 442,335.70</p>
+        <p class="result-simulation">{{rangeTimeToPay}} cuotas mensuales: {{resultCredit | currency}}</p>
       </div>
       <div class="form-group">
         <p class="info-simulation">Esta información es suministrada en atención a la solicitud que el cliente ha efectuado a Bancolombia S.A., la misma
@@ -99,7 +99,7 @@
           </span>
         </div>
         <div class="form-group">
-          <select class="form-control" formControlName="contact-time" required>
+          <select class="form-control" formControlName="hour-contact" required>
             <option value="" disabled>¿A qué horas quieres que te contactemos?*</option>
             <option>Mañana</option>
             <option>Tarde</option>
