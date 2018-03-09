@@ -142,9 +142,9 @@ export class SimulateCreditPage implements OnInit {
     const dataVehicle = {
         "id-product": this.idProduct,
         "value-quota": this.resultCredit,
-        "type-vehicle":"camioneta",
-        "model":"2015",
-        "vehicle":"Corsa tal cosa",
+        "type-vehicle": this.product['type-vehicle'],
+        "model": this.product['model'],
+        "vehicle":this.product['name'],
         "rate": 1
     };
     const params = Object.assign({}, dataVehicle, this.simulateForm.value, this.contactUser.value);
@@ -182,6 +182,7 @@ export class SimulateCreditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.product);
       this.populatePreciVehicle(this.product);
     } catch (error) {}
   }
