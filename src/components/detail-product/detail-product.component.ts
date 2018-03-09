@@ -49,13 +49,17 @@ export class DetailProductComponent implements OnInit {
 			this.products = await this.productsService.getProductsById(this.idProduct)
 			if (this.products.photos !== undefined) {
 				this.productsPhotos = [].concat(this.products.photos);
-				this.products.photos = this.productsPhotos;
+				this.products.photos = this.productsPhotos;		
 			}
+			this.conversation = { 
+				photo: this.products.photos[0].url, 
+				name: this.products.user.name, 
+			} 
 			this.productChecked = this.products.status;
 			this.productStatus = this.products.status === 'active';
 			this.changeDetectorRef.markForCheck();
 		} catch (error) {
-
+			console.log("Error: ", error);
 		}
 	}
 
