@@ -127,10 +127,10 @@ export class SimulateCreditPage implements OnInit {
     const priceVehicle = this.simulateForm.get("credit-value").value;
     const initialFee = this.simulateForm.get("initial-quota").value;
     const requestedAmount = priceVehicle - initialFee;
-    this.interestRate = this.interestRate / 100;
+    const interestRate = this.interestRate / 100;
     const rangeTimeToPay = Number(this.rangeTimeToPay);
-    const operation_one = (requestedAmount *  this.interestRate );
-    const operation_two = (1 + this.interestRate);
+    const operation_one = (requestedAmount *  interestRate );
+    const operation_two = (1 + interestRate);
     const operation_three = Math.pow(operation_two ,  -rangeTimeToPay);
     this.resultCredit = (operation_one / (1 - operation_three)) + ((requestedAmount / 1000000) * 1200);
   }
