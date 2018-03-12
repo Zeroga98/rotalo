@@ -27,10 +27,10 @@ export class OfferModalComponent implements OnInit {
 				amount: price,
 				'product-id': this.config['product-id']
 			});
-			console.log("Response: ", response);
+
 			this.routineSuccess();
 		} catch (error) {
-			
+
 		}
 	}
 

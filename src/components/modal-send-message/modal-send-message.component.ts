@@ -39,9 +39,9 @@ export class ModalSendMessageComponent implements OnInit {
 
   loadConversation(idMessage) {
     this.messagesService.getConversationByID(idMessage).then(conver => {
-      console.log("conver: ", conver);
+
       this.conversation = [].concat(conver);
-      console.log(this.conversation);
+
       this.messages = [].concat(this.conversation[0].messages);
     });
     console.log(this.conversation[0]);
@@ -51,7 +51,7 @@ export class ModalSendMessageComponent implements OnInit {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
-      console.log("conver: ", conver);
+
       this.conversations = [].concat(conver);
       if (this.conversation.length == 0) {
         this.conversation = [].concat(this.conversationDefault);

@@ -55,7 +55,6 @@ function feeValidator(c: AbstractControl): { [key: string]: boolean } | null {
 
 function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
   const checkValues = c;
-  console.log(checkValues);
   if (checkValues.value === "" || checkValues.value === false) {
     return { checkBank: true };
   }
@@ -136,7 +135,7 @@ export class SimulateCreditPage implements OnInit {
   }
 
   creditRequest() {
-    console.log(this.simulateForm.value);
+
     delete  this.contactUser.value['phone-user'];
     delete  this.contactUser.value['check-authorization'];
     const dataVehicle = {
@@ -154,9 +153,9 @@ export class SimulateCreditPage implements OnInit {
         attributes: params
       }
     };
-    console.log(infoVehicle);
+
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-      console.log("response");
+
     })
     .catch(httpErrorResponse => {});
   }
@@ -182,7 +181,6 @@ export class SimulateCreditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.product);
       this.populatePreciVehicle(this.product);
     } catch (error) {}
   }
