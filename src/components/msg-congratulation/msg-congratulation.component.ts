@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MsgCongratulationComponent implements OnInit {
-  routeHome:string = ROUTES.HOME
+  routeHome:string = `/${ROUTES.PRODUCTS.LINK}`;
   constructor() { }
 
   ngOnInit() {

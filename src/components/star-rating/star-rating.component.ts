@@ -1,5 +1,5 @@
 import { element } from 'protractor';
-import { EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { EventEmitter, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Output } from '@angular/core';
@@ -11,8 +11,9 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./star-rating.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StarRatingComponent implements OnInit {
+export class StarRatingComponent implements OnInit, AfterViewInit {
 	@Input() max: number = 5;
+	@Input() rating: number | boolean;
 	@Output() checked: EventEmitter<number> = new EventEmitter();
 	@ViewChild('containerStars',{read: ElementRef}) containerStars: ElementRef;
 	stars: Array<any> = [];
@@ -23,13 +24,20 @@ export class StarRatingComponent implements OnInit {
 		this._drawStarts();
 	}
 
+	ngAfterViewInit(){
+		console.log("rating: ", this.rating);
+		if(this.rating) this._drawCheckedStars(this.rating as number - 1);
+	}
+
 	checkStar(index: number){
 		this._drawCheckedStars(index);
 		this.checked.emit(index + 1);
 	}
 
 	private _drawCheckedStars(index: number){
+		console.log(this.containerStars);
 		const stars = Array.from(this.containerStars.nativeElement.children);
+		console.log("stars: ", stars);
 		stars.forEach((element,i: number) => {
 			index >= i ? this.render.addClass(element,'checked') : this.render.removeClass(element,'checked');
 		});

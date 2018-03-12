@@ -47,15 +47,12 @@ export class NotificationsPage implements OnInit {
     }
     
     openConversation(notification: NotificationsInterface) {
-        console.log("open"); 
+        console.log(notification); 
         if(notification.message){
             this.idConversation = `${notification.product.id}-${notification.message['author-id']}`;
         }else{
             this.idConversation = undefined;
-            this.conversation = { 
-                photo: this.defaultImage,
-                name: notification.purchase.user.name, 
-            }
+            this.conversation = this._getDefaultConversation(notification);
         }     
         this.showMessage = true;
     }
@@ -64,20 +61,27 @@ export class NotificationsPage implements OnInit {
         this._isModalRateShow = false;
     }
 
-    showModalRate(value: boolean, notification){
-        console.log(notification);
+    showModalRate(notification){
         this.configModalRate = {
             name: notification.product.user.name,
-            'purchase-id': notification.purchase.id
+            'purchase-id': notification.purchase.id,
+            'seller-rate': notification.status && notification.purchase ? notification.purchase['seller-rate'].value : false,
+            comment: notification.status && notification.purchase ? notification.purchase['seller-rate'].comment : undefined,
         }
         this._isModalRateShow = true;
     }
 
     goToDetail(id: number){
-		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
+		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`,{readOnly: true}]);
 	}
 
     get isModalRateShow(){
         return this._isModalRateShow;
+    }
+
+    private _getDefaultConversation(notification: NotificationsInterface){
+        const name = notification.purchase ? notification.purchase.user.name : notification.offer.user.name;
+        const photo = this.defaultImage;
+        return {name, photo}
     }
 }

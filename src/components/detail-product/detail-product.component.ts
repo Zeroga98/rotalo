@@ -23,14 +23,14 @@ export class DetailProductComponent implements OnInit {
 	public productsPhotos: any;
 	public productStatus: boolean;
 	public productChecked: String;
-
-	configModal: ModalInterface;
-	isSufiModalShowed: boolean = false;
-	isOfferModalShowed: boolean = false;
-	idUser: string = this.currentSessionSevice.getIdUser();
+	public configModal: ModalInterface;
+	public isSufiModalShowed: boolean = false;
+	public isOfferModalShowed: boolean = false;
+	public idUser: string = this.currentSessionSevice.getIdUser();
 	public conversation: ConversationInterface;
 	@Input() idProduct: number;
-
+	@Input() readOnly: boolean = false;
+	
 	constructor(
 		private productsService: ProductsService,
 		private router: Router,

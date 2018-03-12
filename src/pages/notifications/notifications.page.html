@@ -119,7 +119,7 @@
                 <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
 
                 <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
-                <purchase-accepted *ngIf="notification['notification-type'] == 'purchase_accepted'" [notification]="notification" (userClicked)="openConversation(notification)">
+                <purchase-accepted *ngIf="notification['notification-type'] == 'purchase_accepted'" [notification]="notification" (userClicked)="openConversation(notification)" (onContactSeller)="openConversation(notification)">
                 </purchase-accepted>
                 <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
 
@@ -171,7 +171,7 @@
 
                 <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                 <div *ngIf="notification['notification-type'] == 'rate_seller' || notification['notification-type'] == 'rate_buyer'" class="notifications-item">
-                    <rating-notification class="notifications-theme" [notification]="notification" (rated)="showModalRate(true, notification)"></rating-notification>
+                    <rating-notification class="notifications-theme" [notification]="notification" (rated)="showModalRate(notification)"></rating-notification>
                 </div>
                 <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
 

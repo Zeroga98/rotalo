@@ -67,7 +67,7 @@
             <span>{{products.user.company.community.name}}</span>
           </p>
         </div>
-        <div class="product-btn" *ngIf="!validateSession()">
+        <div class="product-btn" *ngIf="!validateSession() || !readOnly">
           <div class="product-btns">
             <div class="cont-botons">
               <div class="botons">
@@ -80,7 +80,7 @@
 
       </div>
     </div>
-    <div class="product-btn">
+    <div class="product-btn" *ngIf="!readOnly">
       <div class="product-btns">
         <div class="cont-botons" *ngIf="!validateSession()">
           <button class="botons" *ngIf="products['sell-type'] !== 'SUBASTA'" (click)="openSufiModal(products)">

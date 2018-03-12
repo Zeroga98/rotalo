@@ -12,7 +12,7 @@ import { ProductsService } from '../../../services/products.service';
 export class PurchaseAcceptedComponent {
 	@Input() notification: NotificationsInterface;
 	@Output() userClicked: EventEmitter<any> = new EventEmitter();
-	
+	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
 	constructor(private productsService: ProductsService, private router: Router) { }
 	
 	async productReceived(id: number){
@@ -32,6 +32,10 @@ export class PurchaseAcceptedComponent {
 
 	goToDetail(id: number){
 		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
+	}
+
+	contactSeller(){
+		this.onContactSeller.emit();
 	}
 
 }

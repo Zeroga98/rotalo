@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "detalle-producto",
@@ -9,12 +9,15 @@ import { Router } from '@angular/router';
 })
 export class DetalleProductoComponent implements OnInit {
 	idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-
-	constructor(private router: Router) {
+	isDetailReadOnly: boolean = false;
+	constructor(private router: Router, private activedRoute: ActivatedRoute) {
 
 	}
 
 	ngOnInit() {
-
+		this.activedRoute.params.subscribe( params =>{
+			console.log("params: ", params);
+			this.isDetailReadOnly = params.readOnly || false;
+		})
 	}
 }
