@@ -1,4 +1,4 @@
-import { EventEmitter, Output } from '@angular/core';
+import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { OfferService } from './../../services/offer.service';
 import { ModalInterface } from './../../commons/interfaces/modal.interface';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
@@ -6,7 +6,8 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 @Component({
 	selector: 'offer-modal',
 	templateUrl: './offer-modal.component.html',
-	styleUrls: ['./offer-modal.component.scss']
+	styleUrls: ['./offer-modal.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OfferModalComponent implements OnInit {
 	@ViewChild('priceInput', {read: ElementRef}) priceInput:ElementRef;
@@ -15,7 +16,9 @@ export class OfferModalComponent implements OnInit {
 	title: string = "¿Cuánto quieres ofertar?";
 	isReadyResponse: boolean = false;
 
-	constructor(private offerService:OfferService) { }
+	constructor(
+		private offerService:OfferService,
+		private changeDetectorRef: ChangeDetectorRef) { }
 
 	ngOnInit() {
 	}
@@ -27,8 +30,8 @@ export class OfferModalComponent implements OnInit {
 				amount: price,
 				'product-id': this.config['product-id']
 			});
-
 			this.routineSuccess();
+			this.changeDetectorRef.markForCheck();
 		} catch (error) {
 
 		}

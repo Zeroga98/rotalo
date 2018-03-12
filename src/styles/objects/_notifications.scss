@@ -1,0 +1,58 @@
+.notifications-theme{
+    .notifications-item {
+        border-bottom: 1px solid $blue-light;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 1.6em .9em;
+        position: relative;
+        p {
+            &.notification-text {
+                font-size: 1.4em;
+                margin: 0 .7em;
+                width: 90%;
+                .highlight {
+                    color: $red;
+                    background-color: transparent;
+                    &.bold {
+                        font-weight: 700;
+                    }
+                    &.clickable{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .notification {
+            &-icon {
+                color: $grey;
+                font-size: 1.6em;
+            }
+            &-date {
+                position: absolute;
+                bottom: auto;
+                color: $grey;
+                font-size: 1.2em;
+                top: 5px;
+                right: 10px;
+            }
+            &-buttons {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1em 0 0 0;
+                .button-item {
+                    width: 50%;
+                    padding: 0 1.5%;
+                    button {
+                        width: 100%;
+                        padding: 5px 12px;
+                        font-size: 1.2em;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

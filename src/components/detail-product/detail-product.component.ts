@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
@@ -11,9 +12,10 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: "detail-product",
-  templateUrl: "./detail-product.component.html",
-  styleUrls: ["./detail-product.component.scss"]
+	selector: "detail-product",
+	templateUrl: "./detail-product.component.html",
+	styleUrls: ["./detail-product.component.scss"],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;
@@ -28,11 +30,12 @@ export class DetailProductComponent implements OnInit {
   isOfferModalShowed: boolean = false;
   idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
-  @Input() idProduct: number ;
+  @Input() idProduct: number;
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
     private userService: UserService ) {
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -50,15 +53,9 @@ export class DetailProductComponent implements OnInit {
         this.products.photos = this.productsPhotos;
       }
       this.productChecked = this.products.status;
-      if (this.products.status === 'active') {
-        this.productStatus = true;
-      }else {
-        this.productStatus = false;
-      }
-    /*  this.conversation = {
-        photo: this.products.photos.url,
-        name: this.products.photos.name
-      };*/
+      this.productStatus = this.products.status === 'active';
+      this.changeDetectorRef.markForCheck();
+
     });
   }
 

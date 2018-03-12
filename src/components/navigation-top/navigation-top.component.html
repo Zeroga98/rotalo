@@ -1,14 +1,17 @@
 <nav>
   <div class="container">
     <div class="navbar-header">
-      <a class="upload-offer-button" routerLink="/products/form">
-        <div class="outside-circle">
-          <div class="inside-circle">
-            <span class="icon-tag"></span>
+      <div>
+        <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
+        <a class="upload-offer-button" routerLink="/products/form">
+          <div class="outside-circle">
+            <div class="inside-circle">
+              <span class="icon-tag"></span>
+            </div>
+            <label>Sube tu oferta</label>
           </div>
-          <label>Sube tu oferta</label>
-        </div>
-      </a>
+        </a>
+      </div>
       <a class="navbar-brand" (click)="goToHome()">
         <img src="./assets/img/logo-white.svg" alt="brand">
         <h1 class="sr-only">rótalo</h1>
@@ -22,18 +25,12 @@
         <li class="country-mobile">
           <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">
           </div>
-          <!-- <div class="select-country-mob" ng-if="main.openSelectCountryMobile">
-            <div ng-repeat="country in main.countries" ng-click="main.changeCountry(country)">
-              {{ country.name }}
-              <span class="icon-check" ng-if="main.country.name == country.name"></span>
-            </div>
-          </div> -->
         </li>
         <li>
-          <a ng-click="main.goToNotifications()">
+          <a [routerLink]="notificationsRoute">
             <span class="icon-ring">
-              <!--               <span ng-if="unreadNotificationsCount" class="noti-circle">{{unreadNotificationsCount}}</span>-->
-        </span>
+              <span *ngIf="notificationsAvailable" class="noti-circle">{{notificationsUnread}}</span>
+            </span>
           </a>
         </li>
         <li>

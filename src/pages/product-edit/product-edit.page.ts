@@ -1,20 +1,22 @@
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { ProductsService } from './../../services/products.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: "product-edit",
   templateUrl: "./product-edit.page.html",
-  styleUrls: ["./product-edit.page.scss"]
+  styleUrls: ["./product-edit.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductEditPage implements OnInit {
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
   product: ProductInterface;
   constructor(
     private router: Router,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private chnageDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class ProductEditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      this.chnageDetectorRef.markForCheck();
     } catch (error) {}
   }
 

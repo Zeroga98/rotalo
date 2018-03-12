@@ -1,12 +1,13 @@
 import { CategoriesService } from "./../../services/categories.service";
 import { SubcategoryInterface } from "./../../commons/interfaces/subcategory.interface";
 import { CategoryInterface } from "./../../commons/interfaces/category.interface";
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "categories-menu",
   templateUrl: "./categories-menu.component.html",
-  styleUrls: ["./categories-menu.component.scss"]
+  styleUrls: ["./categories-menu.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesMenuComponent implements OnInit {
   @Output()
@@ -16,12 +17,17 @@ export class CategoriesMenuComponent implements OnInit {
 
   categories: CategoryInterface;
 
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(
+    private categoriesService: CategoriesService,
+    private changeDetectorRef: ChangeDetectorRef) {}
 
-  ngOnInit() {
-    this.categoriesService
-      .getCategories()
-      .then(response => (this.categories = response));
+  async ngOnInit() {
+    try {
+      this.categories  = await this.categoriesService.getCategories();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      
+    }
   }
 
   selectCategory(category: CategoryInterface) {

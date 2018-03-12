@@ -1,9 +1,5 @@
 <back-top number="300" stepTime="10" #backTop></back-top>
-<!-- <div class="overlay" ng-if="ctrl.searchOpen" ng-click="ctrl.toogleSearchBar()"></div>
-<button class="button-floating" ui-sref="products.form">
-  <span class="icon-tag"></span>
-</button> -->
-<navigation-top (countryChanged)="onCountryChanged($event)"></navigation-top>
+
 <toolbar 
 (selectedCommunity)="changeCommunity($event)" 
 (tagsChanged)="searchByTags($event)"

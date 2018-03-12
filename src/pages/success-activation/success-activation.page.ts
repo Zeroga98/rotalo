@@ -1,13 +1,14 @@
 import { ROUTES } from "./../../router/routes";
 import { Router } from "@angular/router";
 import { UserService } from "./../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CurrentSessionService } from "../../services/current-session.service";
 
 @Component({
   selector: "success-activation",
   templateUrl: "./success-activation.page.html",
-  styleUrls: ["./success-activation.page.scss"]
+  styleUrls: ["./success-activation.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuccessActivationPage implements OnInit {
   errorLogin: String;

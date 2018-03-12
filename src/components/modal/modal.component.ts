@@ -1,9 +1,11 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'custom-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnInit {
   @Input() title:string = "Mensajes";
@@ -13,7 +15,6 @@ export class ModalComponent implements OnInit {
   ngOnInit() { }
 
   showOcult() {
-    console.log("close");
     this.close.emit();
   }
 }

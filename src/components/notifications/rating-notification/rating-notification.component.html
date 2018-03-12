@@ -1,0 +1,10 @@
+<div class="notifications-item">
+    <span class="icon icon-flag notification-icon"></span>
+    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la compra de ' + notification.product.name + '?'"></p>
+    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+    <div class="notification-buttons">
+        <div class="button-item">
+            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'" (click)="rate()"></button>
+        </div>
+    </div>
+</div>

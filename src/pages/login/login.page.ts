@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoginService } from '../../services/login/login.service';
@@ -9,7 +9,8 @@ import { ROUTES } from '../../router/routes';
 @Component({
   selector: 'login-page',
   templateUrl: 'login.page.html',
-  styleUrls: ['login.page.scss']
+  styleUrls: ['login.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;

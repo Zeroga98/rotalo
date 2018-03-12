@@ -1,3 +1,5 @@
+import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { UserService } from './../../services/user.service';
@@ -6,7 +8,8 @@ import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Rendere
 @Component({
   selector: "toolbar",
   templateUrl: "./toolbar.component.html",
-  styleUrls: ["./toolbar.component.scss"]
+  styleUrls: ["./toolbar.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent implements OnInit {
   @Output() selectedCommunity: EventEmitter<any> = new EventEmitter();
@@ -22,10 +25,14 @@ export class ToolbarComponent implements OnInit {
   tags: Array<string> = [];
   community: any;
 
-  constructor(private userService: UserService, private render: Renderer2) {}
+  constructor(
+    private userService: UserService, 
+    private render: Renderer2,
+    private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
     this.community = await this.userService.getCommunityUser();
+    this.changeDetectorRef.markForCheck();
   }
 
   changeSelectComunidad(evt) {

@@ -24,6 +24,7 @@ import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
+import { NotificationsPage } from '../pages/notifications/notifications.page';
 
 export const appRouter: Routes = [
   {
@@ -33,6 +34,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SIGNUP,
     component: SignUpPage
+  },
+  {
+    path: ROUTES.NOTIFICATIONS,
+    component: NotificationsPage
   },
   {
     path: ROUTES.ACTIVACION,
@@ -89,7 +94,7 @@ export const appRouter: Routes = [
             pathMatch: 'full'
         },
     ]
-},
+  },
   {
     path: ROUTES.LOGIN,
     canActivate: [LoggedGuardService],

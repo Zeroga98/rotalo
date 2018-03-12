@@ -1,29 +1,39 @@
-html{
+html {
     font-size: 10px;
 }
 
-body{
+body {
     font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-*{
+* {
     box-sizing: border-box;
     outline: none;
     margin: 0;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
-select{
+select {
     background-image: url(assets/img/arrow.png);
     background-position: 92% center;
     background-size: 15px;
     background-repeat: no-repeat;
     appearance: none;
+}
+
+button {
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
 }

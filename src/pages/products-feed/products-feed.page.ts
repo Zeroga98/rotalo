@@ -1,25 +1,29 @@
+import { NavigationService } from './../products/navigation.service';
 import { Router } from '@angular/router';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
 import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "products-feed",
   templateUrl: "products-feed.page.html",
-  styleUrls: ["products-feed.page.scss"]
+  styleUrls: ["products-feed.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsFeedPage implements OnInit {
+export class ProductsFeedPage implements OnInit, OnDestroy {
+  
   public carouselConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
-
+  private _subscriptionCountryChanges: Subscription;
   private currentFilter: any = {
     "filter[status]": "active",
     "filter[country]": 1
@@ -30,7 +34,9 @@ export class ProductsFeedPage implements OnInit {
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService,
+    private changeDetectorRef:ChangeDetectorRef
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
@@ -39,22 +45,24 @@ export class ProductsFeedPage implements OnInit {
   ngOnInit() {
     const params = this.getParamsToProducts();
     this.loadProducts(params);
+    this._subscribeCountryChanges();
     this.setScrollEvent();
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptionCountryChanges.unsubscribe();
   }
 
   async loadProducts(params: Object = {}) {
     try {
       const products = await this.productsService.getProducts(params);
       this.products = [].concat(this.filterNoVisibleProducts(products));
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 
   getParamsToProducts() {
     return this.currentFilter;
-  }
-
-  onCountryChanged(evt) {
-    this.routineUpdateProducts({ "filter[country]": evt.id });
   }
 
   searchByTags(evt: Array<string>) {
@@ -88,7 +96,12 @@ export class ProductsFeedPage implements OnInit {
   }
 
   get isSpinnerShow(): boolean {
+    console.log("Spinner");
     return this.products.length <= 0;
+  }
+
+  private _subscribeCountryChanges(){
+    this._subscriptionCountryChanges = this.navigationService.countryChanged.subscribe( (country:any) => this.routineUpdateProducts({ "filter[country]": country.id }));
   }
 
   private routineUpdateProducts(filter: Object) {

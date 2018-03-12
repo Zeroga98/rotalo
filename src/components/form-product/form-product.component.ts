@@ -1,12 +1,5 @@
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
-import {
-  EventEmitter,
-  Output,
-  Input,
-  OnChanges,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { CategoryInterface } from "../../commons/interfaces/category.interface";
@@ -17,7 +10,8 @@ import { CategoriesService } from "../../services/categories.service";
 @Component({
   selector: "form-product",
   templateUrl: "./form-product.component.html",
-  styleUrls: ["./form-product.component.scss"]
+  styleUrls: ["./form-product.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormProductComponent implements OnInit, OnChanges {
   @Input() product: ProductInterface;
@@ -34,7 +28,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   currentSubcategory: String = "";
   constructor(
     private photosService: PhotosService,
-    private categoryService: CategoriesService
+    private categoryService: CategoriesService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -42,6 +37,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.setInitialForm(this.getInitialConfig());
       this.categories = await this.categoryService.getCategories();
       this.loadYearsModelVehicle();
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 
@@ -109,6 +105,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   selectedComunity(idCategory: number) {
     this.subCategories = this.findCategory(idCategory).subcategories;
+    console.log( this.subCategories);
     this.currentSubcategory = "";
     this.subCategory = null;
   }
