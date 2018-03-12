@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { NotificationsService } from './../../services/notifications.service';
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
@@ -25,6 +26,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 	constructor(
 		private router: Router,
 		private messagesService: MessagesService,
+		private changeDetector: ChangeDetectorRef,
 		private notificationsService: NotificationsService) { }
 
 	ngOnInit() {
@@ -61,6 +63,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 									conversations.forEach(conversation => {
 										this.messagesUnRead += conversation['unread-count']
 									});
+									this.changeDetector.markForCheck();
+									console.log("messagesunread", this.messagesUnRead);
 								});
 		}, this.timeToCheckNotification);
 	}
@@ -70,6 +74,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 			this.notificationsService.getUnreadNotifications()
 									.then((notifications:any)=>{
 										this.notificationsUnread = notifications['unread-notifications'];
+										this.changeDetector.markForCheck();
+										console.log("notifications unread: ", this.notificationsUnread)
 									})
 		}, this.timeToCheckNotification)
 	}

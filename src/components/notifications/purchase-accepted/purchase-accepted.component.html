@@ -1,27 +1,35 @@
 <div class="notifications-item">
     <span class="icon icon-warning notification-icon"></span>
     <p class="notification-text" *ngIf="notification.product['sell-type'] !== 'GRATIS'">
-        <span class="highlight bold" [innerHTML]="notification.product.user.name"></span>
-        <span [innerHTML]="'ha confirmado tu compra'"></span>
-        <span class="highlight bold" [innerHTML]="(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'"></span>
+        <span class="highlight bold clickable"(click)="clickUser()">
+            {{notification.product.user.name}}
+        </span>
+        <span>ha confirmado tu compra</span>
+        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+            {{ notification.product.name + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}
+        </span>
     </p>
     <p class="notification-text" *ngIf="notification.product['sell-type'] === 'GRATIS'">
-        <span [innerHTML]="'Has pedido a'"></span>
-        <span class="highlight bold clickable" [innerHTML]="notification.product.user.name"></span>
-        <span [innerHTML]="'el artículo'"></span>
-        <span class="highlight bold clickable" [innerHTML]="(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'"></span>
+        <span>Has pedido a</span>
+        <span class="highlight bold clickable">{{notification.product.user.name}}</span>
+        <span>el artículo</span>
+        <span class="highlight bold clickable">
+            {{ notification.product.name + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}
+        </span>
     </p>
-    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
+    <small class="notification-date">
+        {{notification.at | amLocale:'es' | amTimeAgo}}
+    </small>
     <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
     <div class="notification-buttons" *ngIf="!notification.status">
         <div class="button-item">
             <button class="button button-secondary" (click)="productReceived(notification.product.id)">
-                <span [innerHTML]="'Recibí el artículo'"></span>
+                <span>Recibí el artículo</span>
             </button>
         </div>
         <div class="button-item">
-            <button class="button button-primary">
-                <span [innerHTML]="'Contactar al vendedor'"></span>
+            <button class="button button-primary" (click)="contactSeller()">
+                <span>Contactar al vendedor</span>
             </button>
         </div>
     </div>

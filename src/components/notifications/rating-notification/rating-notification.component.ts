@@ -10,7 +10,6 @@ import { NotificationsInterface } from '../../../commons/interfaces/notification
 export class RatingNotificationComponent implements OnInit {
   @Input() notification: NotificationsInterface;
   @Output() rated: EventEmitter<any> = new EventEmitter();
-  
   constructor() { }
 
   ngOnInit() {

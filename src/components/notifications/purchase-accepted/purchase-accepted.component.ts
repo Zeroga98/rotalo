@@ -1,5 +1,7 @@
+import { ROUTES } from './../../../router/routes';
+import { Router } from '@angular/router';
 import { NotificationsInterface } from './../../../commons/interfaces/notifications.interface';
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 
 @Component({
@@ -9,8 +11,9 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class PurchaseAcceptedComponent {
 	@Input() notification: NotificationsInterface;
-	
-	constructor(private productsService: ProductsService) { }
+	@Output() userClicked: EventEmitter<any> = new EventEmitter();
+	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
+	constructor(private productsService: ProductsService, private router: Router) { }
 	
 	async productReceived(id: number){
 		try {
@@ -21,6 +24,18 @@ export class PurchaseAcceptedComponent {
 			console.log(error);
 			alert('Ha ocurrido un error: ' + error.error.errors[0]);
 		}
+	}
+
+	clickUser(){
+		this.userClicked.emit();
+	}
+
+	goToDetail(id: number){
+		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
+	}
+
+	contactSeller(){
+		this.onContactSeller.emit();
 	}
 
 }

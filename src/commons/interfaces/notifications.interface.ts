@@ -2,6 +2,7 @@ import { ProductInterface } from "./product.interface";
 import { UserInterface } from "./user.interface";
 import { MessageInterface } from "./message.interface";
 import { OfferInterface } from "./offer.interface";
+import { PurchaseInterface } from "./purchase.interface";
 
 export interface NotificationsInterface {
     'at': string;
@@ -13,5 +14,5 @@ export interface NotificationsInterface {
     'product': ProductInterface;
     'status': string;
     'user': UserInterface;
-
+    'purchase': PurchaseInterface;
 }
