@@ -113,6 +113,7 @@ export class SimulateCreditPage implements OnInit {
 
     this.loadProduct();
     this.loadInterestRate();
+
   }
 
   onSubmit() {
@@ -136,7 +137,7 @@ export class SimulateCreditPage implements OnInit {
 
   creditRequest() {
 
-    delete  this.contactUser.value['phone-user'];
+   // delete  this.contactUser.value['phone-user'];
     delete  this.contactUser.value['check-authorization'];
     const dataVehicle = {
         "id-product": this.idProduct,
@@ -155,7 +156,7 @@ export class SimulateCreditPage implements OnInit {
     };
 
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-
+      const result = confirm('¡Relájate! Lasolicitud ya fue enviada y pronto un integrante de nuestro equipo se pondrá en contacto para contarte el resultado.\n Si tienes alguna duda, contáctanos a través de nuestro correo\n servicioalcliente@rotalo.com.');
     })
     .catch(httpErrorResponse => {});
   }
@@ -175,6 +176,7 @@ export class SimulateCreditPage implements OnInit {
   }
 
   isSpinnerShow() {
+    console.log(this.product);
     return this.product;
   }
 
