@@ -27,8 +27,9 @@ export class SuccessActivationPage implements OnInit {
     this.userId = this.currentSessionService.getIdUser();
   }
 
-  async save(evt) {
+  save(evt) {
     try {
+      this.loadIdUser();
       const hobbies = evt.value.field;
       const params = {
         data: {
@@ -37,12 +38,14 @@ export class SuccessActivationPage implements OnInit {
           type: "users"
         }
       };
+      console.log(params);
       this.userService
         .updateUser(params)
         .then(response => {
           this.router.navigate([`${ROUTES.STEPS}`]);
         })
         .catch(httpErrorResponse => {
+          console.log(httpErrorResponse);
           if (httpErrorResponse.status === 403) {
           }
           if (httpErrorResponse.status === 422) {

@@ -37,5 +37,6 @@ export class ActivacionCuentaPage implements OnInit {
     this.errorRequest = [];
     this.currenSession.setSession(userInfo);
     this.router.navigate([ROUTES.SUCCESS]);
+    location.reload();
   }
 }
