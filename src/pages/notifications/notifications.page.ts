@@ -61,6 +61,10 @@ export class NotificationsPage implements OnInit {
         this._isModalRateShow = false;
     }
 
+    closeModalSendMessage(){
+        this.showMessage = false;
+    }
+
     showModalRate(notification){
         this.configModalRate = {
             name: notification.product.user.name,

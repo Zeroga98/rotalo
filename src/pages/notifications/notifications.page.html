@@ -1,6 +1,6 @@
 <navigation-top></navigation-top>
 <modal-rate *ngIf="isModalRateShow" (close)="closeModalRate()" [config]="configModalRate"></modal-rate>
-<modal-send-message *ngIf="showMessage" [idConversation]="idConversation" [conversationDefault]="conversation"></modal-send-message>
+<modal-send-message *ngIf="showMessage" (close)="closeModalSendMessage()" [idConversation]="idConversation" [conversationDefault]="conversation"></modal-send-message>
 
 <section id="section-notifications">
     <header class="tittle-section-notifications">

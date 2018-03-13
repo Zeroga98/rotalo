@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter } from "@angular/core";
 import { MessagesService } from "../../services/messages.service";
 import { ConversationInterface } from "../../commons/interfaces/conversation.interface";
 import { ProductsService } from "../../services/products.service";
@@ -17,6 +17,7 @@ export class ModalSendMessageComponent implements OnInit {
   @Input() idProduct: string;
   @Input() idUserProduct: string;
   @Input() conversationDefault: ConversationInterface;
+	@Output() close: EventEmitter<any> = new EventEmitter();
 
   public conversation: Array<ConversationInterface> = [];
   public conversations: Array<ConversationInterface> = [];
@@ -71,6 +72,10 @@ export class ModalSendMessageComponent implements OnInit {
   showModal(): boolean {
     return this.conversation.length > 0;
   }
+
+  closeModal() {
+		this.close.emit();
+	}
 
   onSubmit() {
     let date = new Date();

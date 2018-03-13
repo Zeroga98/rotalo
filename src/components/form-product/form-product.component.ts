@@ -114,7 +114,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: "¿Quién puede verlo?",
       "sell-type": "Tipo de venta*",
       description: "",
-      negotiable: ""
+      negotiable: true
     };
     return Object.assign({}, product, this.product) as ProductInterface;
   }
