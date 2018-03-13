@@ -128,7 +128,7 @@ export class SignUpPage implements OnInit {
             }else if (this.documentId === 'ce') {
               idDocumentControl.setValidators([Validators.minLength(3),
               Validators.maxLength(15),
-              Validators.pattern('/^-?(0|[1-9]\d*)?$/'),
+              Validators.pattern('^[0-9]+$'),
               Validators.required]);
               this.errorMessageId = "El campo no cumple con el formato de cédula.";
             }else if (this.documentId === 'pt') {

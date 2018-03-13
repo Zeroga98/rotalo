@@ -45,7 +45,10 @@ export class BuyProductPage implements OnInit {
         this.transactionSuccess = true;
         this.changeDetectorRef.markForCheck();
        } else {
+        const response = await this.buyService.buyProduct(this.buildParams());
         this.goToUrlBank();
+        this.transactionSuccess = true;
+        this.changeDetectorRef.markForCheck();
        }
     } catch (error) {}
   }
