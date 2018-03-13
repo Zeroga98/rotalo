@@ -11,6 +11,9 @@ import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
+import { StatesRequestEnum } from '../../commons/states-request.enum';
+import { UtilsService } from '../../util/utils.service';
+
 
 @Component({
   selector: "products-feed",
@@ -24,9 +27,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   private _subscriptionCountryChanges: Subscription;
-  private currentFilter: any = {
+  statesRequestEnum = StatesRequestEnum; 
+	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
+  private currentFilter: Object = {
     "filter[status]": "active",
-    "filter[country]": 1
+    "filter[country]": 1,
+    "filter[community]": -1,
   };
   @ViewChild("backTop", { read: ElementRef })
   backTop: ElementRef;
@@ -35,6 +41,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private rendered: Renderer2,
     private router: Router,
+    private utilService: UtilsService,
     private navigationService: NavigationService,
     private changeDetectorRef:ChangeDetectorRef
   ) {
@@ -55,10 +62,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   async loadProducts(params: Object = {}) {
     try {
+      this.stateRequest = this.statesRequestEnum.loading;
       const products = await this.productsService.getProducts(params);
+      this.stateRequest = this.statesRequestEnum.success;
+      console.log(products);
       this.products = [].concat(this.filterNoVisibleProducts(products));
       this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+    } catch (error) {
+      this.stateRequest = this.statesRequestEnum.error;
+    }
   }
 
   getParamsToProducts() {
@@ -75,9 +87,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedCategory(category: CategoryInterface) {
+    console.log("category");
     this.routineUpdateProducts({
       "filter[category]": category.id,
-      "filter[subcategory_id]": null
+      "filter[subcategory_id]": undefined
     });
   }
 
@@ -91,12 +104,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   selectedSubCategory(subCategory: SubcategoryInterface) {
     this.routineUpdateProducts({
       "filter[subcategory_id]": subCategory.id,
-      "filter[category]": null
+      "filter[category]": undefined
     });
   }
 
   get isSpinnerShow(): boolean {
-    console.log("Spinner");
+    return this.stateRequest == this.statesRequestEnum.loading;
+  }
+
+  get noExistProducts(): boolean {
     return this.products.length <= 0;
   }
 
@@ -110,7 +126,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
   private updateCurrentFilter(filter = {}) {
     this.currentFilter = Object.assign({}, this.currentFilter, filter);
-    console.log("current: ", this.currentFilter);
+    this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
     return this.currentFilter;
   }
 

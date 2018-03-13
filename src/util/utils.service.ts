@@ -17,6 +17,14 @@ export class UtilsService {
         }, stepTime);
     }
 
+    removeEmptyValues(object: Object):Object {
+        const keys = Object.keys(object);
+        keys.forEach(key => {
+            (object[key] === undefined || object[key] === null) && delete object[key]
+        }); 
+        return object;
+    }
+
     private getRemoveOffsetValue(offsetScroll, time:number, stepTime:number) {
         return (offsetScroll / time) * stepTime;
     }

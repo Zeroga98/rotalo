@@ -4,7 +4,7 @@
 		<rl-tag-input [(ngModel)]="tags" [addOnSpace]="true" placeholder="¿Qué estás buscando?" (addTag)="changeTags($event)" (removeTag)="changeTags($event)"></rl-tag-input>
 		<div class="container-categrias">
 			<span class="categ-text">Categorías</span>
-			<span class="icon-width icon-close icon-menu" (click)="openCategories($event)"></span>
+			<span class="icon-width icon-close icon-menu" #closeMenu (click)="openCategories($event)"></span>
 		</div>
 	</div>
 	<div class="toolbar__filters">

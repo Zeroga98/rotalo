@@ -14,6 +14,11 @@
   <span NgxCarouselNext class="arrow arrow-next"></span>
 </ngx-carousel>
 <div class="container-products">
-  <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+  <div class="container-spinner">
+      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+  </div>
+  <div class="msg-no-products" *ngIf="noExistProducts">
+    ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
+  </div>
   <product *ngFor="let product of products" [product]="product" (selected)="selectProduct($event)"></product>
 </div>
