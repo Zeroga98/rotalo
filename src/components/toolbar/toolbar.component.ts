@@ -14,13 +14,10 @@ import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Rendere
 export class ToolbarComponent implements OnInit {
   @Output() selectedCommunity: EventEmitter<any> = new EventEmitter();
   @Output() tagsChanged: EventEmitter<Array<string>> = new EventEmitter();
-  @Output()
-  categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
-  @Output()
-  subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
-
-  @ViewChild("categoriesMenu", { read: ElementRef })
-  categoriesMenu: ElementRef;
+  @Output() categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
+  @Output() subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
+  @ViewChild("closeMenu",{ read: ElementRef }) closeMenu: ElementRef;
+  @ViewChild("categoriesMenu", { read: ElementRef }) categoriesMenu: ElementRef;
 
   tags: Array<string> = [];
   community: any;
@@ -51,10 +48,17 @@ export class ToolbarComponent implements OnInit {
   }
 
   selectedCategory(category: CategoryInterface) {
+    this._closeMenu();
     this.categorySelected.emit(category);
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
+    this._closeMenu();
     this.subCategorySelected.emit(subCategory);
+  }
+
+  private _closeMenu(){
+    this.categoriesMenu.nativeElement.classList.remove("opened");
+    this.closeMenu.nativeElement.classList.add("icon-menu");
   }
 }
