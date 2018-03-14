@@ -16,7 +16,6 @@ export class UserService {
     private configurationService: ConfigurationService,
     private currentSessionService: CurrentSessionService
   ) {
-    this.idUser = this.currentSessionService.getIdUser();
   }
 
   async getCommunityUser(): Promise<any> {
@@ -29,8 +28,8 @@ export class UserService {
   }
 
   updateUser(currentUser): Promise<any> {
+    this.idUser = this.currentSessionService.getIdUser();
     const url = `${this.url}/${this.idUser}`;
-    console.log(url);
     return this.httpClient.put(url, currentUser).toPromise();
   }
 
@@ -59,6 +58,7 @@ export class UserService {
   }
 
   private getUser(): Promise<any> {
+    this.idUser = this.currentSessionService.getIdUser();
     const url = `${this.url}/${this.idUser}`;
     return this.httpClient
       .get(url)

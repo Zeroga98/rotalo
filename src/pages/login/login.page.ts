@@ -5,6 +5,7 @@ import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../router/routes';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'login-page',
@@ -15,8 +16,11 @@ import { ROUTES } from '../../router/routes';
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   public errorLogin: String;
-  constructor(private loginService: LoginService, private currentSessionService: CurrentSessionService,
-    private router: Router) { }
+  private userCountry: any;
+  constructor(private loginService: LoginService,
+    private currentSessionService: CurrentSessionService,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -46,6 +50,7 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
+      this.getInfoUser();
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
     }).catch((httpErrorResponse) => {
         if (httpErrorResponse.status === 403) {
@@ -57,5 +62,10 @@ export class LoginPage implements OnInit {
           this.errorLogin = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
         }
     });
+  }
+
+  async getInfoUser() {
+    this.userCountry = await this.userService.getInfoUser();
+    console.log(this.userCountry);
   }
 }

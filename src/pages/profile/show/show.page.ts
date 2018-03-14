@@ -22,7 +22,15 @@ export class ShowPage implements OnInit {
   }
 
   async getUserInfo() {
-    this.userInfo = await this.userService.getInfoUser();
+    try {
+      this.userInfo = await this.userService.getInfoUser();
+      this.setUserinfo();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  setUserinfo() {
     this.userName =   this.userInfo.name;
     this.selling = this.userInfo.selling;
     this.staged = this.userInfo.staged;
@@ -31,6 +39,7 @@ export class ShowPage implements OnInit {
   }
 
   onLogout() {
+    location.reload();
     this.loginService.logout();
   }
 
