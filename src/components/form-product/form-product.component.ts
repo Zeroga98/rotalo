@@ -1,3 +1,4 @@
+import { PhotoInterface } from './../../commons/interfaces/photo.interface';
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
 import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
@@ -15,7 +16,7 @@ import { CategoriesService } from "../../services/categories.service";
 })
 export class FormProductComponent implements OnInit, OnChanges {
   @Input() product: ProductInterface;
-  @Output() submit: EventEmitter<any> = new EventEmitter();
+  @Output() publish: EventEmitter<any> = new EventEmitter();
   @ViewChild("categorySelect", { read: ElementRef })
   categorySelectElem: ElementRef;
   photosForm: FormGroup;
@@ -46,6 +47,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
+          this.saveInitialPhotos(this.product.photos);
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
         }
@@ -60,7 +62,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       "published-at": new Date()
     };
     const params = Object.assign({}, this.photosForm.value, photosIds, publishDate);
-    this.submit.emit(params);
+    this.publish.emit(params);
   }
 
   async onUploadImageFinished(event) {
@@ -68,16 +70,24 @@ export class FormProductComponent implements OnInit, OnChanges {
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
+      console.log("photos: ",this.photosUploaded);
+      this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("Error: ", error);
     }
   }
 
-  async onRemoveImage(event) {
+  async onRemoveImage(file) {
+    const photo = this.findPhoto(file);
+    this.removeImageFromServer(photo.id);
+  }
+
+  async removeImageFromServer(id:number){
     try {
-      const photo = this.findPhoto(event.file);
-      const response = await this.photosService.deletePhotoById(photo.id);
-      this.removePhoto(photo.id);
+      const response = await this.photosService.deletePhotoById(id);
+      this.removePhoto(id);
+      console.log("photos: ", this.photosUploaded);
+      this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("error: ", error);
     }
@@ -97,10 +107,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   subcategoryIsVehicle(): boolean {
-    if (this.subCategory && this.subCategory.name === "Carros") {
-      return true;
-    }
-    return false;
+    /**No quemar 'Carros' */
+    return this.subCategory && this.subCategory.name === "Carros";
   }
 
   selectedComunity(idCategory: number) {
@@ -199,11 +207,15 @@ export class FormProductComponent implements OnInit, OnChanges {
     });
   }
 
+  private saveInitialPhotos(photos){
+    this.photosUploaded = [].concat(photos);
+  }
+
   private removePhoto(id: number) {
     this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid;
+    return this.photosForm.invalid && this.photosUploaded.length > 0 ;
   }
 }

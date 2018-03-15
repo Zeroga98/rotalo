@@ -1,0 +1,47 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
+:host{
+    .container{
+        display: flex;
+        justify-content: center;
+        background-color: #F1F1F1;
+        padding: 5rem;
+        .container-filters{
+            text-align: center;
+            margin-bottom: 1.5rem;
+            .category-title{
+                font-size: 4rem;
+                color: $red;
+                font-weight: bold;
+            }
+            .subcategory-title{
+                font-size: 3rem;
+                color: $red;
+                &:before{
+                    content: '•';
+                    display: inline-block;
+                    margin: 0 1rem;
+                }
+            }
+            .actions{
+                button{
+                    color: white;
+                    background: $red;
+                    font-size: 2rem;
+                    font-weight: 400;
+                    width: 12rem;
+                    padding: .7rem 2rem;
+                    border-radius: 2rem;
+                    &.active{
+                        background: $blue;
+                    }
+                }
+                
+                button:not(:last-child){
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+}

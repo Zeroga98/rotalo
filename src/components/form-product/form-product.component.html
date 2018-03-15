@@ -8,6 +8,12 @@
         <div class="step-number">
           <span class="number">1. </span>Escoge las imágenes perfectas, mira algunos tips.
         </div>
+        <div class="container-prev-photos" *ngIf="product">
+          <div class="prev-photos" *ngFor="let photo of photosUploaded">
+            <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
+            <div class="container-img"><img [src]="photo.url"></div>
+          </div>
+        </div>
         <div>
           <image-upload
           [max]="6"
@@ -16,7 +22,7 @@
           [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
           [clearButtonCaption]="'Limpiar'"
           (uploadFinished)="onUploadImageFinished($event)"
-          (removed)="onRemoveImage($event)"></image-upload>
+          (removed)="onRemoveImage($event.file)"></image-upload>
         </div>
       </div>
       <div class="container-step">

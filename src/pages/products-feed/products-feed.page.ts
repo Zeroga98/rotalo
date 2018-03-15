@@ -26,6 +26,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public carouselConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
+  public configFiltersSubcategory: Object;
   private _subscriptionCountryChanges: Subscription;
   statesRequestEnum = StatesRequestEnum; 
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
@@ -82,12 +83,16 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.routineUpdateProducts({ "filter[search]": filterValue });
   }
 
+  filteBySellType(sellType: string){
+    this.routineUpdateProducts({"filter[sell_type]": sellType.toUpperCase()});
+  }
+
   changeCommunity(community: any) {
     this.routineUpdateProducts({ "filter[community]": community.id });
   }
 
   selectedCategory(category: CategoryInterface) {
-    console.log("category");
+    this.configFiltersSubcategory = {category: category.name,subCategory: undefined};
     this.routineUpdateProducts({
       "filter[category]": category.id,
       "filter[subcategory_id]": undefined
@@ -102,6 +107,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
+    this.configFiltersSubcategory = {category: subCategory.category.name, subCategory: subCategory.name};
     this.routineUpdateProducts({
       "filter[subcategory_id]": subCategory.id,
       "filter[category]": undefined

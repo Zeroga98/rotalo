@@ -8,7 +8,7 @@
 		</div>
 		<div class="sub-categories">
 			<ul>
-				<li *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory)">
+				<li *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
 					<a> {{ subcategory.name }} </a>
 				</li>
 			</ul>

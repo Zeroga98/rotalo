@@ -7,6 +7,7 @@ export const ROUTES = {
     RECOVER: 'recover',
     CONFIRM: 'confirm',
     PROFILE: 'profile',
+    TERMS: 'terms',
     SHOW: 'show',
     PROFILEPASS: 'change-password',
     HOBBIES: 'gustos',
