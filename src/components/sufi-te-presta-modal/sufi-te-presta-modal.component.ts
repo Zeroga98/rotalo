@@ -1,4 +1,3 @@
-import { LoansService } from './../../services/loans.service';
 import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalInterface } from '../../commons/interfaces/modal.interface';
@@ -18,7 +17,6 @@ export class SufiTePrestaModalComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private loansService: LoansService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 

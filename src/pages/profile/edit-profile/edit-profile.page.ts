@@ -3,6 +3,7 @@ import { FormControl, FormBuilder, FormGroup,  Validators } from '@angular/forms
 import { UserService } from '../../../services/user.service';
 import { PhotosService } from '../../../services/photos.service';
 import { UtilsService } from '../../../util/utils.service';
+import { TypeDocumentsService } from '../../../services/type-documents.service';
 
 @Component({
   selector: "edit-profile",
@@ -17,18 +18,23 @@ export class EditProfilePage implements OnInit {
   public state: Object = {};
   public city: Object = {};
   public userEdit: any;
-  public countryValue: String;
+  public countryValue: String = "";
   public stateValue: String;
   public cityValue: String;
   public errorChange: String;
   public messageChange: String;
   public photosUploaded: Array<any> = [];
   public idImagenProfile: String;
+  public nameDocument: String;
+  private typeDocuments;
+  private typeDocument: String;
+  public showSpinner = true;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
     private userService: UserService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private typeDocumentsService: TypeDocumentsService
   ) {}
 
   ngOnInit(): void {
@@ -41,8 +47,10 @@ export class EditProfilePage implements OnInit {
     this.getInfoUser();
   }
 
+
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.loadTypeDocuments();
     this.onInfoRetrieved(this.userEdit);
   }
 
@@ -91,7 +99,6 @@ export class EditProfilePage implements OnInit {
     this.countryValue = user.city.state.country;
     this.stateValue = user.city.state;
     this.cityValue = user.city;
-
   }
 
   editUser(): void {
@@ -127,6 +134,21 @@ export class EditProfilePage implements OnInit {
             "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
         }
       });
+  }
+
+  async loadTypeDocuments() {
+    try {
+      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+      if (this.userEdit && this.userEdit['type-document-id']) {
+        const document =  this.typeDocuments.filter( value => {
+          return value.id === this.userEdit['type-document-id'].toString();
+        });
+        this.typeDocument = document[0]['name-document'];
+      }
+      this.showSpinner = false;
+    }catch (error) {
+
+    }
   }
 
   onSubmit() {

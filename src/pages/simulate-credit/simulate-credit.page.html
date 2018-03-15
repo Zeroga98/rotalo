@@ -48,7 +48,7 @@
         <p class="text-label range">¿En cuánto tiempo quieres pagarlo?*</p>
         <div class="slidecontainer">
           <input [(ngModel)]="rangeTimeToPay" formControlName="term-months" type="range" min="1" max="72" class="slider">
-          <p>{{rangeTimeToPay}} meses</p>
+          <p>{{rangeTimeToPay}} mes<span *ngIf="rangeTimeToPay > '1'">es</span></p>
         </div>
       </div>
     </div>

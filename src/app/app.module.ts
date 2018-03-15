@@ -92,6 +92,7 @@ import { ModalRateComponent } from '../components/modal-rate/modal-rate.componen
 import { RatingNotificationComponent } from '../components/notifications/rating-notification/rating-notification.component';
 import { RatingService } from '../services/rating.service';
 import { PurchaseAcceptedComponent } from '../components/notifications/purchase-accepted/purchase-accepted.component';
+import { TypeDocumentsService } from '../services/type-documents.service';
 
 @NgModule({
   declarations: [
@@ -187,6 +188,7 @@ import { PurchaseAcceptedComponent } from '../components/notifications/purchase-
     SimulateCreditService,
     NotificationsService,
     NavigationService,
+    TypeDocumentsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

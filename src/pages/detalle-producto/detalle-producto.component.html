@@ -1,1 +1,2 @@
-<detail-product [idProduct]="idProduct" [readOnly]="isDetailReadOnly"></detail-product>
+<custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+<detail-product *ngIf="!isSpinnerShow" [idProduct]="idProduct" [readOnly]="isDetailReadOnly"></detail-product>

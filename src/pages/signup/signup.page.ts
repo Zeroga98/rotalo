@@ -6,6 +6,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,  Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
+import { TypeDocumentsService } from '../../services/type-documents.service';
 
 @Component({
     selector: 'signup-page',
@@ -22,16 +23,18 @@ export class SignUpPage implements OnInit {
     public state;
     public documentId;
     public errorMessageId;
+    public typeDocuments;
     constructor(
         private userService: UserService,
         private router: Router,
-        private utilsService: UtilsService) {}
+        private utilsService: UtilsService,
+        private typeDocumentsService: TypeDocumentsService) {}
 
     ngOnInit(): void {
         this.registerForm = new FormGroup({
             'first-name': new FormControl('', [Validators.required]),
             'last-name': new FormControl('', [Validators.required]),
-            'type-number': new FormControl('', null),
+            'type-document-id': new FormControl('', null),
             'id-number': new FormControl('', [Validators.required]),
             email: new FormControl('', [ Validators.required, Validators.email]),
             cellphone: new FormControl('', [Validators.required]),
@@ -40,11 +43,10 @@ export class SignUpPage implements OnInit {
               this.validatePasswordConfirm.bind(this)]),
             termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
         });
-
+        this.loadTypeDocument();
     }
 
     async onSubmit() {
-      console.log(this.registerForm.get('id-number'));
         try {
           if (this.registerForm.valid) {
             const params: UserRequestInterface = this.buildParamsUserRequest();
@@ -58,11 +60,18 @@ export class SignUpPage implements OnInit {
         }
     }
 
+    async loadTypeDocument() {
+        try {
+         this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+         console.log(this.typeDocuments);
+        } catch (error) {}
+    }
+
     buildParamsUserRequest(): UserRequestInterface {
         const fullName = `${this.registerForm.get('first-name').value} ${this.registerForm.get('last-name').value}`;
         delete  this.registerForm.value['first-name'];
         delete  this.registerForm.value['last-name'];
-        delete  this.registerForm.value['type-number'];
+        //delete  this.registerForm.value['type-number'];
         const params = Object.assign({}, this.registerForm.value, {'name': fullName}, {'city-id': this.city.id});
         delete params.termsCheckbox;
         return params;
@@ -119,19 +128,20 @@ export class SignUpPage implements OnInit {
        const idCountry = this.country.id;
        const idDocumentControl = this.registerForm.get('id-number');
        idDocumentControl.clearValidators();
+       /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
         switch (idCountry) {
           case '1': {
-            if (this.documentId === 'cc') {
+            if (this.documentId === '1') {
               idDocumentControl.setValidators([Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
               Validators.required]);
               this.errorMessageId = "El campo no cumple con el formato de cédula.";
-            }else if (this.documentId === 'ce') {
+            }else if (this.documentId === '4') {
               idDocumentControl.setValidators([Validators.minLength(3),
               Validators.maxLength(15),
               Validators.pattern('^[0-9]+$'),
               Validators.required]);
               this.errorMessageId = "El campo no cumple con el formato de cédula.";
-            }else if (this.documentId === 'pt') {
+            }else if (this.documentId === '5') {
               idDocumentControl.setValidators([Validators.minLength(5),
               Validators.maxLength(36),
               Validators.required]);

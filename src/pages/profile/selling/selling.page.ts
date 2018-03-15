@@ -11,7 +11,7 @@ export class SellingPage implements OnInit {
   public products: Array<ProductInterface> = [];
   public userEdit: any;
   private filterProduct: any;
-
+  public isSpinnerShow = true;
   constructor(private productsService: ProductsService, private userService: UserService) { }
 
   ngOnInit() {
@@ -32,7 +32,9 @@ export class SellingPage implements OnInit {
   async getProducts(filter) {
     this.productsService.getProducts(filter).then(products => {
         this.products = [].concat(products);
+        this.isSpinnerShow = false;
     });
   }
+
 
 }

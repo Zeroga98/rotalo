@@ -117,12 +117,8 @@ export class DetailProductComponent implements OnInit {
     );
   }
 
-  isSpinnerShow() {
-    return this.products;
-  }
-
   validateSession() {
-    return this.products.user.id === this.idUser;
+    return this.products && this.products.user.id === this.idUser;
   }
 
   async deleteProduct(product: ProductInterface) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+
 import {
   FormControl,
   FormBuilder,
@@ -68,6 +69,7 @@ function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
   styleUrls: ["./simulate-credit.page.scss"]
 })
 export class SimulateCreditPage implements OnInit {
+  [x: string]: any;
   rangeTimeToPay = "1";
   simulateForm: FormGroup;
   contactUser: FormGroup;
@@ -114,7 +116,6 @@ export class SimulateCreditPage implements OnInit {
       "hour-contact": ["", Validators.required],
       "check-authorization": ["", [Validators.required, checkValidator]]
     });
-
     this.loadProduct();
     this.loadInterestRate();
   }
@@ -181,7 +182,6 @@ export class SimulateCreditPage implements OnInit {
   }
 
   isSpinnerShow() {
-    console.log(this.product);
     return this.product;
   }
 

@@ -32,12 +32,19 @@
           </span>
         </span>
       </div>
+      <div class="form-group">
+        <select-country class="white-theme-select"  (selected)="country=$event; setValidationId()"></select-country>
+      </div>
+      <div class="form-group">
+        <select-states *ngIf="country" class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+      </div>
+      <div class="form-group">
+        <select-cities *ngIf="state" class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+      </div>
       <div *ngIf="selectedCountryColombia()" class="form-group">
-        <select class="form-control currency-select" name="type-id" formControlName="type-number" (change)="documentId=$event.target.value; setValidationId()">
+        <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
           <option value="" disabled>Selecciona tipo de documento</option>
-          <option value="cc">Cédula de ciudadanía</option>
-          <option value="ce">Cédula de extranjería</option>
-          <option value="pt">Pasaporte</option>
+          <option *ngFor="let typeDocument of typeDocuments" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
         </select>
       </div>
       <div class="form-group">
@@ -105,15 +112,6 @@
                   La contraseña de verificación no coincide.
               </span>
             </span>
-      </div>
-      <div class="form-group">
-        <select-country class="white-theme-select"  (selected)="country=$event; setValidationId()"></select-country>
-      </div>
-      <div class="form-group">
-        <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
-      </div>
-      <div class="form-group">
-        <select-cities class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
       </div>
       <div class="text-center form-group terms">
         <label for="checkTerms">

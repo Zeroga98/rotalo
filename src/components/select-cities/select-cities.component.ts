@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class SelectCitiesComponent implements OnChanges {
   cities: Array<any> = [];
   currentCity: String = '';
 
-  constructor(private collectionService: CollectionSelectService) { }
+  constructor(private collectionService: CollectionSelectService,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnChanges() {
     this.getCities();
@@ -25,7 +26,6 @@ export class SelectCitiesComponent implements OnChanges {
         this.cities = await this.collectionService.getCitiesById(this.state.id);
         this.currentCity = '';
         if (this.initialValue) {
-
           if (this.state.id === this.initialValue.state.id) {
             const name  = this.initialValue.name;
             const id = this.initialValue.id;
@@ -34,6 +34,7 @@ export class SelectCitiesComponent implements OnChanges {
           }
         }
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   onSelect(ev) {

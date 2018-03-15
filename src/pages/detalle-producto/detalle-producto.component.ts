@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class DetalleProductoComponent implements OnInit {
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
   isDetailReadOnly: boolean = false;
+  isSpinnerShow = true;
   constructor(private router: Router, private activedRoute: ActivatedRoute) {}
 
   ngOnInit() {
@@ -17,5 +18,6 @@ export class DetalleProductoComponent implements OnInit {
       console.log("params: ", params);
       this.isDetailReadOnly = params.readOnly || false;
     });
+    this.isSpinnerShow = false;
   }
 }

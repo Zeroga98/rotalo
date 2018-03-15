@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class SelectStatesComponent implements OnChanges {
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   states: Array<any> = [];
   currentState: String = '';
-  constructor(private collectionService: CollectionSelectService) { }
+  constructor(private collectionService: CollectionSelectService,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnChanges() {
     this.getStates();
@@ -33,6 +34,7 @@ export class SelectStatesComponent implements OnChanges {
           }
         }
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   onSelect(ev) {
