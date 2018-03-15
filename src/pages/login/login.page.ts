@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
       this.currentSessionService.setSession(response.data);
-      this.getInfoUser();
+      this.setUserCountry(response.data);
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
     }).catch((httpErrorResponse) => {
         if (httpErrorResponse.status === 403) {
@@ -64,8 +64,14 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async getInfoUser() {
-    this.userCountry = await this.userService.getInfoUser();
-    console.log(this.userCountry);
+  async setUserCountry(userInfo) {
+    try {
+      const user = await this.userService.getInfoUser();
+      this.userCountry = user.city.state.country.id;
+      const userLogin = Object.assign({}, userInfo, { countryId: this.userCountry });
+      this.currentSessionService.setSession(userLogin);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

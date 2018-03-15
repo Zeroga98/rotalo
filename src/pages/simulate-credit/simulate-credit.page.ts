@@ -78,13 +78,16 @@ export class SimulateCreditPage implements OnInit {
   showMessageBank: boolean;
   interestRate: number;
   resultCredit: number;
+  showModalCredit: boolean;
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private fb: FormBuilder,
     private settingsService: SettingsService,
     private simulateCreditService: SimulateCreditService
-  ) {}
+  ) {
+    this.showModalCredit = false;
+  }
 
   ngOnInit(): void {
     this.simulateForm = this.fb.group(
@@ -114,7 +117,6 @@ export class SimulateCreditPage implements OnInit {
 
     this.loadProduct();
     this.loadInterestRate();
-
   }
 
   onSubmit() {
@@ -137,8 +139,6 @@ export class SimulateCreditPage implements OnInit {
   }
 
   creditRequest() {
-
-   // delete  this.contactUser.value['phone-user'];
     delete  this.contactUser.value['check-authorization'];
     const dataVehicle = {
         "id-product": this.idProduct,
@@ -157,11 +157,13 @@ export class SimulateCreditPage implements OnInit {
     };
 
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-      const result = confirm('¡Relájate! Lasolicitud ya fue enviada y pronto un integrante de nuestro equipo se pondrá en contacto para contarte el resultado.\n Si tienes alguna duda, contáctanos a través de nuestro correo\n servicioalcliente@rotalo.com.');
-      if (!result) { return; }
-      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+      this.showModalCredit = true;
     })
     .catch(httpErrorResponse => {});
+  }
+
+  closeModal() {
+     this.showModalCredit = false;
   }
 
   get formIsInValid(): boolean {

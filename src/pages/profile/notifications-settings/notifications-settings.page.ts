@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PreferenceService } from '../../../services/profile/preference.service';
+import { UtilsService } from '../../../util/utils.service';
 
 
 @Component({
@@ -83,7 +84,8 @@ public preferencesArray: Array<string> = [];
 public userId: string;
 
 
-  constructor(private preferenceService: PreferenceService) {}
+  constructor(private preferenceService: PreferenceService,
+    private utilsService: UtilsService) {}
 
   ngOnInit(): void {
     this.initPreference();
@@ -138,5 +140,6 @@ public userId: string;
 
   onSubmit() {
     this.updatePreference();
+    this.utilsService.goToTopWindow(20, 600);
   }
 }

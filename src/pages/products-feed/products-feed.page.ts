@@ -22,12 +22,12 @@ import { UtilsService } from '../../util/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsFeedPage implements OnInit, OnDestroy {
-  
+
   public carouselConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   private _subscriptionCountryChanges: Subscription;
-  statesRequestEnum = StatesRequestEnum; 
+  statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
   private currentFilter: Object = {
     "filter[status]": "active",
@@ -65,7 +65,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.stateRequest = this.statesRequestEnum.loading;
       const products = await this.productsService.getProducts(params);
       this.stateRequest = this.statesRequestEnum.success;
-      console.log(products);
       this.products = [].concat(this.filterNoVisibleProducts(products));
       this.changeDetectorRef.markForCheck();
     } catch (error) {

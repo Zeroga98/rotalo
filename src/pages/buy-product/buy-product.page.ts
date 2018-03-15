@@ -4,6 +4,7 @@ import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BuyService } from '../../services/buy.service';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: "buy-product",
@@ -22,6 +23,7 @@ export class BuyProductPage implements OnInit {
     private router: Router,
     private productsService: ProductsService,
     private buyService: BuyService,
+    private currentSessionSevice: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
@@ -69,12 +71,14 @@ export class BuyProductPage implements OnInit {
   }
 
   checkSufiBotton() {
-    if (this.product['type-vehicle'] && this.product['model']) {
-      const type =  this.product['type-vehicle'];
-      const currentYear = (new Date()).getFullYear() + 1;
-      const modelo = this.product['model'];
+    if (this.product["type-vehicle"] && this.product["model"]) {
+      const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
+      const countryId = currentUser["countryId"];
+      const type = this.product["type-vehicle"];
+      const currentYear = new Date().getFullYear() + 1;
+      const modelo = this.product["model"];
       const differenceYear = currentYear - modelo;
-      if (this.product.subcategory.id === "9" && differenceYear <= 10 && type === "Particular") {
+      if (this.product.subcategory.name === "Carros" && differenceYear <= 10 && type === "Particular" && countryId === "1") {
         return true;
       }
     }

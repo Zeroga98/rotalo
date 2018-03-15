@@ -39,13 +39,9 @@ export class SuccessActivationPage implements OnInit {
         }
       };
       console.log(params);
-      this.userService
-        .updateUser(params)
-        .then(response => {
+      this.userService.updateUser(params).then(response => {
           this.router.navigate([`${ROUTES.STEPS}`]);
-        })
-        .catch(httpErrorResponse => {
-          console.log(httpErrorResponse);
+        }).catch(httpErrorResponse => {
           if (httpErrorResponse.status === 403) {
           }
           if (httpErrorResponse.status === 422) {

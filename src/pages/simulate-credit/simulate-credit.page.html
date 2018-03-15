@@ -1,6 +1,7 @@
 <custom-spinner *ngIf="!isSpinnerShow()"></custom-spinner>
+<sufi-modal *ngIf="showModalCredit" (close)="closeModal()"></sufi-modal>
 <div *ngIf="isSpinnerShow()" class="container-form">
-  <div class="title-form">
+  <div *ngIf="showSimulator" class="title-form">
     <span>Sufi te presta</span>
     <span>Sufi es la marca creada por Grupo Bancolombia para que siempre puedas conseguir lo que quieres a tu medida y sin complicaciones.
       Sea cual sea tu elección, tenemos diferentes productos y planes de financiación para que sin duda encuentres el vehículo
@@ -60,7 +61,7 @@
       <div class="step-number">
         <span class="number">Tu crédito con Sufi te presta</span>
         <div class="step-number">
-          Para la simulación que acabas de realizar, utilizamos una tasa representativa del 1,05% nominal mes vencido, equivalente
+          Para la simulación que acabas de realizar, utilizamos una tasa representativa del {{interestRate}}% nominal mes vencido, equivalente
           a 13,35% efectivo anual.
           <br> Esta cuota incluye el valor del seguro de vida.
         </div>

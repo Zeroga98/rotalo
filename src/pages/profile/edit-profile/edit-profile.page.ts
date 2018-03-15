@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { PhotosService } from '../../../services/photos.service';
+import { UtilsService } from '../../../util/utils.service';
 
 @Component({
   selector: "edit-profile",
@@ -26,7 +27,8 @@ export class EditProfilePage implements OnInit {
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -130,6 +132,7 @@ export class EditProfilePage implements OnInit {
   onSubmit() {
     if (this.city['id']) {
       this.editUser();
+      this.utilsService.goToTopWindow(20, 600);
     }
   }
 }

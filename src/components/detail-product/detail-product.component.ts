@@ -1,21 +1,26 @@
-import { ChangeDetectorRef } from '@angular/core';
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CAROUSEL_CONFIG } from './carousel.config';
-import { NgxCarousel } from 'ngx-carousel';
-import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { ProductsService } from '../../services/products.service';
-import { ROUTES } from '../../router/routes';
-import { Router } from '@angular/router';
-import { ModalInterface } from '../../commons/interfaces/modal.interface';
-import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
-import { CurrentSessionService } from '../../services/current-session.service';
-import { UserService } from '../../services/user.service';
+import { ChangeDetectorRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy
+} from "@angular/core";
+import { CAROUSEL_CONFIG } from "./carousel.config";
+import { NgxCarousel } from "ngx-carousel";
+import { ProductInterface } from "./../../commons/interfaces/product.interface";
+import { ProductsService } from "../../services/products.service";
+import { ROUTES } from "../../router/routes";
+import { Router } from "@angular/router";
+import { ModalInterface } from "../../commons/interfaces/modal.interface";
+import { ConversationInterface } from "../../commons/interfaces/conversation.interface";
+import { CurrentSessionService } from "../../services/current-session.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
-	selector: "detail-product",
-	templateUrl: "./detail-product.component.html",
-	styleUrls: ["./detail-product.component.scss"],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "detail-product",
+  templateUrl: "./detail-product.component.html",
+  styleUrls: ["./detail-product.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;
@@ -25,19 +30,20 @@ export class DetailProductComponent implements OnInit {
   public productStatus: boolean;
   public productChecked: String;
   public configModal: ModalInterface;
-	public isSufiModalShowed: boolean = false;
-	public isOfferModalShowed: boolean = false;
-	public idUser: string = this.currentSessionSevice.getIdUser();
+  public isSufiModalShowed: boolean = false;
+  public isOfferModalShowed: boolean = false;
+  public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
   @Input() idProduct: number;
-	@Input() readOnly: boolean = false;
+  @Input() readOnly: boolean = false;
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
-    private userService: UserService ) {
+    private userService: UserService
+  ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
 
@@ -46,59 +52,69 @@ export class DetailProductComponent implements OnInit {
   }
 
   async loadProduct() {
-		try {
-			this.products = await this.productsService.getProductsById(this.idProduct)
-			if (this.products.photos !== undefined) {
-				this.productsPhotos = [].concat(this.products.photos);
-				this.products.photos = this.productsPhotos;
-			}
-			this.conversation = {
-				photo: this.products.photos[0].url,
-				name: this.products.user.name,
-			}
-			this.productChecked = this.products.status;
-			this.productStatus = this.products.status === 'active';
-			this.changeDetectorRef.markForCheck();
-		} catch (error) {
-			console.log("Error: ", error);
-		}
-	}
+    try {
+      this.products = await this.productsService.getProductsById(
+        this.idProduct
+      );
+      if (this.products.photos !== undefined) {
+        this.productsPhotos = [].concat(this.products.photos);
+        this.products.photos = this.productsPhotos;
+      }
+      this.conversation = {
+        photo: this.products.photos[0].url,
+        name: this.products.user.name
+      };
+      this.productChecked = this.products.status;
+      this.productStatus = this.products.status === "active";
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
 
-  saveCheck()  {
+  saveCheck() {
     this.productStatus = !this.productStatus;
-    this.productStatus ?  this.productChecked = 'active' : this.productChecked =  'inactive';
+    this.productStatus
+      ? (this.productChecked = "active")
+      : (this.productChecked = "inactive");
 
-    const  params = {
-      status: this.productStatus ? 'active' : 'inactive'
+    const params = {
+      status: this.productStatus ? "active" : "inactive"
     };
     const productRequest = {
-      'data': {
+      data: {
         id: this.products.id,
-        'type': 'products',
-        'attributes': params
+        type: "products",
+        attributes: params
       }
     };
 
-    this.productsService.updateProduct(this.products.id, productRequest).then(response => {
-    });
+    this.productsService
+      .updateProduct(this.products.id, productRequest)
+      .then(response => {});
   }
 
   checkSufiBotton() {
-    if (this.products['type-vehicle'] && this.products['model']) {
-      const type =  this.products['type-vehicle'];
-      const currentYear = (new Date()).getFullYear() + 1;
-      const modelo = this.products['model'];
+    if (this.products["type-vehicle"] && this.products["model"]) {
+      const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
+      const countryId = currentUser["countryId"];
+      const type = this.products["type-vehicle"];
+      const currentYear = new Date().getFullYear() + 1;
+      const modelo = this.products["model"];
       const differenceYear = currentYear - modelo;
-      if (this.products.subcategory.id === "9" && differenceYear <= 10 && type === "Particular") {
+      if (this.products.subcategory.name === "Carros" && differenceYear <= 10 && type === "Particular" && countryId === "1") {
         return true;
       }
     }
     return false;
   }
 
- changeDate() {
-    return new Date((this.products['publish-until'])) < new Date(new Date().toDateString())
-    || this.products.status === 'expired';
+  changeDate() {
+    return (
+      new Date(this.products["publish-until"]) <
+        new Date(new Date().toDateString()) ||
+      this.products.status === "expired"
+    );
   }
 
   isSpinnerShow() {
@@ -106,15 +122,19 @@ export class DetailProductComponent implements OnInit {
   }
 
   validateSession() {
-    return (this.products.user.id === this.idUser);
+    return this.products.user.id === this.idUser;
   }
 
   async deleteProduct(product: ProductInterface) {
     try {
-      const result = confirm('¿Seguro quieres borrar esta publicación?');
-			if (!result) { return; }
-			const response = await this.productsService.deleteProduct(product.id);
-			this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      if (!result) {
+        return;
+      }
+      const response = await this.productsService.deleteProduct(product.id);
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
     } catch (error) {}
   }
 
@@ -143,7 +163,9 @@ export class DetailProductComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SIMULATECREDIT}/${id}`;
+    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SIMULATECREDIT
+    }/${id}`;
     this.router.navigate([urlSimulateCredit]);
   }
 
