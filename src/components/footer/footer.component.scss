@@ -1,0 +1,29 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
+
+:host{
+    .container-footer{
+        background: $red;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        padding: 3rem 10rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+        .terms{
+            cursor: pointer;
+            a{
+                color: white;
+            }
+        }
+        .logo{
+            cursor: pointer;
+            width: 9rem;
+            img{
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}

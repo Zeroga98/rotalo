@@ -37,7 +37,9 @@ export class ProductsService {
 
     updateProduct(id: number | string , params): Promise<any> {
       const url = `${this.url}/${id}`;
-      return this.http.put(url , params).toPromise().then( (response: any) => response.data);
+      const request = this._buildParams(params);
+      request.data.id = `${id}`;
+      return this.http.put(url ,request).toPromise().then( (response: any) => response.data);
     }
 
     saveProducts(params): Promise<any> {

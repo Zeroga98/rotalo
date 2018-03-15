@@ -34,7 +34,8 @@ export class CategoriesMenuComponent implements OnInit {
     this.categorySelected.emit(category);
   }
 
-  selectSubCategory(subCategory: SubcategoryInterface) {
+  selectSubCategory(subCategory: SubcategoryInterface, category: CategoryInterface) {
+    subCategory.category = category;
     this.subCategorySelected.emit(subCategory);
   }
 }

@@ -33,24 +33,6 @@
                 font-weight: bold;
             }
         }
-        .modal__body{
-            color: black;
-            font-size: 1.6rem;
-            flex-shrink: 1;
-            overflow: auto;
-            padding: 1rem 2.5rem;
-            .title{
-                font-size: 3.2rem;
-                color: $red;
-                margin: 1rem 0;
-            }
-            .subtitle{
-                font-size: 2.4rem;
-                font-weight: 300;
-                color: $red;
-                margin: 1rem 0;
-            }
-        }
         .modal__footer{
             padding: 1rem 2.5rem;
         }

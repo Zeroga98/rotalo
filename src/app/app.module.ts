@@ -28,6 +28,7 @@ import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
 import { NotificationsSettingsPage } from '../pages/profile/notifications-settings/notifications-settings.page';
 import { GroupByPipe } from '../commons/pipes/groupBy.pipe';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
 
 import { ProductsFeedPage } from '../pages/products-feed/products-feed.page';
 import { BackTopComponent } from '../components/back-top/back-top.component';
@@ -93,6 +94,11 @@ import { RatingNotificationComponent } from '../components/notifications/rating-
 import { RatingService } from '../services/rating.service';
 import { PurchaseAcceptedComponent } from '../components/notifications/purchase-accepted/purchase-accepted.component';
 import { TypeDocumentsService } from '../services/type-documents.service';
+import { FooterComponent } from '../components/footer/footer.component';
+import { TermsComponent } from '../components/terms/terms.component';
+import { TermsPage } from '../pages/terms/terms.page';
+import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
+import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +121,7 @@ import { TypeDocumentsService } from '../services/type-documents.service';
     CategoriesMenuComponent,
     SpinnerComponent,
     FormProductComponent,
+    SubcategoryFilterComponent,
     ProductComponent,
     ToolbarComponent,
     SimpleFormComponent ,
@@ -138,6 +145,8 @@ import { TypeDocumentsService } from '../services/type-documents.service';
     GroupByPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
+    FooterComponent,
+    TermsComponent,
     ModalComponent,
     ModalSendMessageComponent,
     SufiTePrestaModalComponent,
@@ -147,6 +156,7 @@ import { TypeDocumentsService } from '../services/type-documents.service';
     DetailProductComponent,
     SoldPage,
     SellingPage,
+    TermsPage,
     SimulateCreditPage,
     NotificationsPage
   ],
@@ -158,6 +168,7 @@ import { TypeDocumentsService } from '../services/type-documents.service';
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
     CurrencyMaskModule
@@ -189,6 +200,11 @@ import { TypeDocumentsService } from '../services/type-documents.service';
     NotificationsService,
     NavigationService,
     TypeDocumentsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

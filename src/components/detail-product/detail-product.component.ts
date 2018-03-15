@@ -81,17 +81,9 @@ export class DetailProductComponent implements OnInit {
     const params = {
       status: this.productStatus ? "active" : "inactive"
     };
-    const productRequest = {
-      data: {
-        id: this.products.id,
-        type: "products",
-        attributes: params
-      }
-    };
 
-    this.productsService
-      .updateProduct(this.products.id, productRequest)
-      .then(response => {});
+    this.productsService.updateProduct(this.products.id, params).then(response => {
+    });
   }
 
   checkSufiBotton() {

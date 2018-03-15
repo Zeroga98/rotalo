@@ -16,7 +16,7 @@ export class ProductEditPage implements OnInit {
   constructor(
     private router: Router,
     private productsService: ProductsService,
-    private chnageDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -26,16 +26,17 @@ export class ProductEditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      this.chnageDetectorRef.markForCheck();
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 
-  async publishPhoto(event) {
+  async updatePhoto(event) {
     try {
-      const response = await this.productsService.saveProducts(event);
+      const response = await this.productsService.updateProduct(this.idProduct,event);
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
+      this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("Error: ", error);
     }

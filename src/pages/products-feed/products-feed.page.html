@@ -5,7 +5,8 @@
 (tagsChanged)="searchByTags($event)"
 (categorySelected)= "selectedCategory($event)" 
 (subCategorySelected)= "selectedSubCategory($event)"></toolbar>
-<ngx-carousel [inputs]="carouselConfig">
+<subcategory-filter *ngIf="configFiltersSubcategory" [config]="configFiltersSubcategory" (onFilterBySellType)="filteBySellType($event)"></subcategory-filter>
+<ngx-carousel *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner" [style.background]="'url(' + image + ')'">
       </div>
