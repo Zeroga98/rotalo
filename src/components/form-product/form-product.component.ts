@@ -113,7 +113,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   selectedComunity(idCategory: number) {
     this.subCategories = this.findCategory(idCategory).subcategories;
-    console.log( this.subCategories);
     this.currentSubcategory = "";
     this.subCategory = null;
   }
@@ -149,14 +148,14 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getInitialConfig(): ProductInterface {
     const product: ProductInterface = {
-      name: "",
-      price: "",
+      name: null,
+      price: null,
       currency: "COP",
-      "subcategory-id": "Escoge una subcategoria*",
-      used: "Estado del articulo*",
-      visible: "¿Quién puede verlo?",
-      "sell-type": "Tipo de venta*",
-      description: "",
+      "subcategory-id": "",
+      used: "",
+      visible: "",
+      "sell-type": "",
+      description: null,
       negotiable: true
     };
     return Object.assign({}, product, this.product) as ProductInterface;
@@ -216,6 +215,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid && this.photosUploaded.length > 0 ;
+    return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
   }
 }

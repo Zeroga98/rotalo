@@ -1,3 +1,4 @@
+import { CountryInterface } from './../select-country/country.interface';
 import { ChangeDetectorRef } from '@angular/core';
 import { NotificationsService } from './../../services/notifications.service';
 import { Router } from '@angular/router';
@@ -14,8 +15,10 @@ import { MessagesService } from '../../services/messages.service';
 export class NavigationTopComponent implements OnInit, OnDestroy {
 	@Output() countryChanged: EventEmitter<any> = new EventEmitter();
 	@Input() hideBackArrow: boolean = false;
+	@Input() defaultCountryValue: CountryInterface;
 	readonly notificationsRoute: string = `/${ROUTES.NOTIFICATIONS}`;
 	uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
+	isModalMessageShowed: boolean = false;
 	listenerNotifications: any;
 	listenerMessages: any;
 	messagesUnRead: number = 0;
@@ -34,6 +37,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 		this.listenerMessages = this.setListenerNotificationsUnread();
 	}
 	ngOnDestroy(): void {
+		console.log("destroy");
 		clearInterval(this.listenerMessages);
 		clearInterval(this.listenerNotifications);
 	}
@@ -45,6 +49,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 	goToHome() {
 		const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
 		this.router.navigate([url]);
+	}
+
+	openConversations(){
+		this.isModalMessageShowed = true;
+	}
+
+	closeModalMessage(){
+		this.isModalMessageShowed = false;
 	}
 
 	get messageAvailable(): boolean{

@@ -9,19 +9,32 @@
         padding: 5rem;
         .container-filters{
             text-align: center;
-            margin-bottom: 1.5rem;
-            .category-title{
-                font-size: 4rem;
-                color: $red;
-                font-weight: bold;
+            width: 100%;
+            .categories{
+                margin-bottom: 2rem;
+                .category-title{
+                    font-size: 4rem;
+                    color: $red;
+                    font-weight: bold;
+                }
+                .subcategory-title{
+                    font-size: 3rem;
+                    color: $red;
+                    &:before{
+                        content: '•';
+                        display: inline-block;
+                        margin: 0 1rem;
+                    }
+                }
             }
-            .subcategory-title{
-                font-size: 3rem;
-                color: $red;
-                &:before{
-                    content: '•';
-                    display: inline-block;
-                    margin: 0 1rem;
+            .container-selects{
+                margin-bottom: 2rem;
+                display: flex;
+                justify-content: center;
+                select, select-states, select-cities{
+                    margin-right: 1rem;
+                    width: auto;
+                    min-width: 16rem;
                 }
             }
             .actions{

@@ -1,5 +1,5 @@
 <div *ngIf="!showMessage">
-  <custom-modal>
+  <custom-modal (close)="closeModal()">
     <div modal-body>
       <div class="message-show-product" *ngFor="let conversation of conversations" (click)="sendIdConversation(conversation.id)">
         <div class="media">
@@ -16,4 +16,4 @@
   </custom-modal>
 </div>
 
-<modal-send-message *ngIf="showMessage" [idConversation]="idConversation"></modal-send-message>
+<modal-send-message *ngIf="showMessage" [idConversation]="idConversation" (close)="closeModalSendMessage()"></modal-send-message>

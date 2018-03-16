@@ -72,13 +72,13 @@ export class BuyProductPage implements OnInit {
 
   checkSufiBotton() {
     if (this.product["type-vehicle"] && this.product["model"]) {
-      const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
+      const currentUser = this.currentSessionSevice.currentUser();
       const countryId = currentUser["countryId"];
       const type = this.product["type-vehicle"];
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.product["model"];
       const differenceYear = currentYear - modelo;
-      if (this.product.subcategory.name === "Carros" && differenceYear <= 10 && type === "Particular" && countryId === "1") {
+      if (this.product.subcategory.name === "Carros" && differenceYear <= 10 && type === "Particular" && countryId === 1) {
         return true;
       }
     }

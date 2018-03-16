@@ -1,3 +1,4 @@
+<modal-message *ngIf="isModalMessageShowed" (close)="closeModalMessage()"></modal-message>
 <nav>
   <div class="container">
     <div class="navbar-header">
@@ -19,7 +20,7 @@
       <ul class="list-options">
         <li>
           <div class="select-country">
-            <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)"></select-country>
+            <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)" [initialValue]="defaultCountryValue"></select-country>
           </div>
         </li>
         <li class="country-mobile">
@@ -34,7 +35,7 @@
           </a>
         </li>
         <li>
-          <a ng-click="main.openConversations()">
+          <a (click)="openConversations()">
             <span class="icon-message">
               <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
             </span>

@@ -5,7 +5,14 @@
 (tagsChanged)="searchByTags($event)"
 (categorySelected)= "selectedCategory($event)" 
 (subCategorySelected)= "selectedSubCategory($event)"></toolbar>
-<subcategory-filter *ngIf="configFiltersSubcategory" [config]="configFiltersSubcategory" (onFilterBySellType)="filteBySellType($event)"></subcategory-filter>
+
+<subcategory-filter *ngIf="configFiltersSubcategory" 
+[config]="configFiltersSubcategory" 
+(onFilterBySellType)="filteBySellType($event)"
+(onFilterBySort)="filterBySort($event)" 
+(onFilterByCity)="filterByCity($event)"
+(onFilterByState)="filterByState($event)"></subcategory-filter>
+
 <ngx-carousel *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner" [style.background]="'url(' + image + ')'">
@@ -14,12 +21,19 @@
   <span NgxCarouselPrev class="arrow arrow-prev"></span>
   <span NgxCarouselNext class="arrow arrow-next"></span>
 </ngx-carousel>
-<div class="container-products">
-  <div class="container-spinner">
-      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+
+<div>
+  <div class="container-spinner" *ngIf="isSpinnerShow">
+      <custom-spinner></custom-spinner>
   </div>
   <div class="msg-no-products" *ngIf="noExistProducts">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <product *ngFor="let product of products" [product]="product" (selected)="selectProduct($event)"></product>
+  <div class="container-products" 
+  infiniteScroll 
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="scrolledInfinite()">
+      <product *ngFor="let product of products" [product]="product" (selected)="selectProduct($event)"></product>
+  </div>
 </div>

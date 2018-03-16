@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { Component, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MessagesService } from '../../services/messages.service';
 import { ConversationInterface } from '../../commons/interfaces/conversation.interface';
@@ -12,6 +13,7 @@ export class ModalMessageComponent implements OnInit {
   idConversation: string = "";
   public conversations: Array<ConversationInterface> = [];
   showMessage: boolean = false;
+  @Output() close: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private messagesService: MessagesService,
@@ -39,6 +41,14 @@ export class ModalMessageComponent implements OnInit {
 
   showModal(): boolean {
     return this.conversations.length > 0;
+  }
+
+  closeModal(){
+    this.close.emit();
+  }
+
+  closeModalSendMessage(){
+    this.showMessage = false;
   }
 
 }

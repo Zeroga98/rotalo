@@ -97,8 +97,10 @@ import { TypeDocumentsService } from '../services/type-documents.service';
 import { FooterComponent } from '../components/footer/footer.component';
 import { TermsComponent } from '../components/terms/terms.component';
 import { TermsPage } from '../pages/terms/terms.page';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
+import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
 
 @NgModule({
   declarations: [
@@ -168,6 +170,7 @@ import { SubcategoryFilterComponent } from '../components/subcategory-filter/sub
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    InfiniteScrollModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
@@ -203,6 +206,11 @@ import { SubcategoryFilterComponent } from '../components/subcategory-filter/sub
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ValidateSessionInterceptor,
       multi: true,
     },
     {

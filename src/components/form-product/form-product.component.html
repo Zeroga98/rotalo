@@ -32,28 +32,31 @@
         <div class="info-product">
           <div class="form-group">
             <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar?*" maxlength="100">
-            <span class="help-block">
-                <span *ngIf="photosForm.get('name').invalid && !photosForm.get('name').pristine">
-                    Este campo es obligatorio.
-                </span>
-            </span>
+            <span class="help-block error-msg"> Este campo es obligatorio. </span>
           </div>
-          <div class="form-group item-price">
-            <input
-            class="form-control input-price"
-            name="price"
-            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-            formControlName="price"
-            placeholder="¿Cuánto vale?*"
-            maxlength="100">
-            <select class="form-control currency-select" name="currency" formControlName="currency">
-              <option value="COP">COP</option>
-              <option value="'USD'">USD</option>
-            </select>
-            <div class="check-offer">
-              <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
-              <span>Recibo Ofertas</span>
-            </div>
+          <div class="form-group">
+            <div class=" item-price">
+                <input
+                class="form-control input-price"
+                name="price"
+                currencyMask
+                [options]="{align: 'left'}"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                formControlName="price"
+                placeholder="¿Cuánto vale?*"
+                maxlength="100">
+                <select class="form-control currency-select" name="currency" formControlName="currency">
+                  <option value="COP">COP</option>
+                  <option value="'USD'">USD</option>
+                </select>
+                <div class="check-offer">
+                  <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+                  <span>Recibo Ofertas</span>
+                </div>
+            </div>      
+            <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
+                Este campo es obligatorio.
+            </span>
           </div>
           <div class="form-group">
             <select class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
@@ -66,6 +69,7 @@
               <option value="" disabled>Escoge una subcategoria*</option>
               <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
             </select>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
               <select class="form-control" formControlName="model">
@@ -81,28 +85,32 @@
           </div>
           <div class="form-group">
             <select class="form-control" name="used" formControlName= "used">
-              <option value="Estado del articulo*" disabled>Estado del articulo*</option>
+              <option value="" disabled>Estado del articulo*</option>
               <option [ngValue]="true">Articulo Usado</option>
               <option [ngValue]="false">Articulo Nuevo</option>
             </select>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
             <select class="form-control" name="visible" formControlName= "visible">
-              <option value="¿Quién puede verlo?" disabled>¿Quién puede verlo?</option>
+              <option value="" disabled>¿Quién puede verlo?</option>
               <option [ngValue]="true">Todas las comunidades</option>
               <option [ngValue]="false">Solo mi comunidad</option>
             </select>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
             <select class="form-control" name="sell-type" formControlName= "sell-type">
-              <option value="Tipo de venta*" disabled>Tipo de venta*</option>
+              <option value="" disabled>Tipo de venta*</option>
               <option value="VENTA">Vendo</option>
               <option value="SUBASTA">Subasto</option>
               <option value="GRATIS">Regalo</option>
             </select>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group full">
             <textarea class="form-control" placeholder="Describe tu producto*" name="description" formControlName= "description" maxlength="500"></textarea>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
         </div>
       </div>
