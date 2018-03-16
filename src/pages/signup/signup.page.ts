@@ -127,8 +127,8 @@ export class SignUpPage implements OnInit {
        const idCountry = this.country.id;
        const idDocumentControl = this.registerForm.get('id-number');
        idDocumentControl.clearValidators();
-       const doc = this.findNameDocumentType();
-
+       const documentObject = this.findNameDocumentType();
+     //  console.log(documentObject['name-document']);
        /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
         switch (idCountry) {
           case '1': {
@@ -167,11 +167,8 @@ export class SignUpPage implements OnInit {
 
     findNameDocumentType() {
      const data =  this.typeDocuments.find(resource => {
-      console.log(resource.id, '---------------');
-      console.log(this.documentId, '---------------');
         return resource.id === this.documentId;
       });
-      console.log(data, "data");
       return data;
     }
 }

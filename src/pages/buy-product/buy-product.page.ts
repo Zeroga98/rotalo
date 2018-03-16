@@ -71,7 +71,7 @@ export class BuyProductPage implements OnInit {
   }
 
   checkSufiBotton() {
-    if (this.product["type-vehicle"] && this.product["model"]) {
+    if (this.product && this.product["type-vehicle"] && this.product["model"]) {
       const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
       const priceVehicle = this.product.price;
       const countryId = currentUser["countryId"];

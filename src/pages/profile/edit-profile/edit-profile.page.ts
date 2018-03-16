@@ -120,6 +120,7 @@ export class EditProfilePage implements OnInit {
       .then(response => {
         this.messageChange = "Su cuenta se ha actualizado.";
         this.errorChange = "";
+
         this.userService.updateInfoUser();
       })
       .catch(httpErrorResponse => {

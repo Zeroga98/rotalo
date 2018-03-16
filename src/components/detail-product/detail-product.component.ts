@@ -87,7 +87,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if (this.products["type-vehicle"] && this.products["model"]) {
+    if (this.products && this.products["type-vehicle"] && this.products["model"]) {
       console.log(this.products, 'product');
       const priceVehicle = this.products.price;
       const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
