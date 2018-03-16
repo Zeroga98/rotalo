@@ -3,6 +3,6 @@
   class="form-control"
   (change) = "onSelect($event)"
   name="cities">
-      <option value="" disabled>Selecciona Ciudad</option>
+      <option value="" disabled>Selecciona tu ciudad*</option>
       <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
 </select>

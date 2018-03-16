@@ -87,8 +87,9 @@
       </div>
       <div class="info-product">
         <div class="form-group">
+          <p class="text-label">¿Cuál es tu número de contacto?*</p>
           <input maxlength="10" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone-user"
-            placeholder="¿Cuál es tu número de contacto?*" [ngClass]="{'invalid': contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine}">
+            [ngClass]="{'invalid': contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine}">
           <span *ngIf="contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine" class="help-block">
             <span *ngIf="contactUser.get('phone-user').errors['required']">
               Este campo es obligatorio.
@@ -100,7 +101,7 @@
         </div>
         <div class="form-group">
           <select class="form-control" formControlName="hour-contact" required>
-            <option value="" disabled>¿A qué horas quieres que te contactemos?*</option>
+            <option value="" disabled>¿En que horario quieres que te contactemos?*</option>
             <option>Mañana</option>
             <option>Tarde</option>
             <option>Noche</option>
@@ -116,7 +117,7 @@
               </span>
             </label>
             <span class="text-info">Confirmo que autorizo consultar mi información para evaluar mis datos en crédito segun la
-              <a (click)="showMessageBank = true">politica de Bancolombia.</a>
+              <a (click)="showMessageBank = true">política de Bancolombia.</a>
             </span>
           </div>
         </div>

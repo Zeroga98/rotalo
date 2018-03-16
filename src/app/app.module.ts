@@ -98,7 +98,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 import { TermsComponent } from '../components/terms/terms.component';
 import { TermsPage } from '../pages/terms/terms.page';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
-import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
+
 
 @NgModule({
   declarations: [
@@ -121,7 +121,6 @@ import { SubcategoryFilterComponent } from '../components/subcategory-filter/sub
     CategoriesMenuComponent,
     SpinnerComponent,
     FormProductComponent,
-    SubcategoryFilterComponent,
     ProductComponent,
     ToolbarComponent,
     SimpleFormComponent ,

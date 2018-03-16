@@ -71,7 +71,6 @@ export class SignUpPage implements OnInit {
         const fullName = `${this.registerForm.get('first-name').value} ${this.registerForm.get('last-name').value}`;
         delete  this.registerForm.value['first-name'];
         delete  this.registerForm.value['last-name'];
-        //delete  this.registerForm.value['type-number'];
         const params = Object.assign({}, this.registerForm.value, {'name': fullName}, {'city-id': this.city.id});
         delete params.termsCheckbox;
         return params;
@@ -128,20 +127,22 @@ export class SignUpPage implements OnInit {
        const idCountry = this.country.id;
        const idDocumentControl = this.registerForm.get('id-number');
        idDocumentControl.clearValidators();
+       const doc = this.findNameDocumentType();
+
        /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
         switch (idCountry) {
           case '1': {
-            if (this.documentId === '1') {
+            if (this.documentId === 'Cédula de ciudadanía') {
               idDocumentControl.setValidators([Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
               Validators.required]);
               this.errorMessageId = "El campo no cumple con el formato de cédula.";
-            }else if (this.documentId === '4') {
+            }else if (this.documentId === 'Cédula de extranjería') {
               idDocumentControl.setValidators([Validators.minLength(3),
               Validators.maxLength(15),
               Validators.pattern('^[0-9]+$'),
               Validators.required]);
               this.errorMessageId = "El campo no cumple con el formato de cédula.";
-            }else if (this.documentId === '5') {
+            }else if (this.documentId === 'Pasaporte') {
               idDocumentControl.setValidators([Validators.minLength(5),
               Validators.maxLength(36),
               Validators.required]);
@@ -162,5 +163,15 @@ export class SignUpPage implements OnInit {
        }
        idDocumentControl.updateValueAndValidity();
       }
+    }
+
+    findNameDocumentType() {
+     const data =  this.typeDocuments.find(resource => {
+      console.log(resource.id, '---------------');
+      console.log(this.documentId, '---------------');
+        return resource.id === this.documentId;
+      });
+      console.log(data, "data");
+      return data;
     }
 }

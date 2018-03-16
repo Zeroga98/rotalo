@@ -13,6 +13,8 @@ import { ProductsService } from "../../services/products.service";
 import { SettingsService } from "../../services/settings.service";
 import { SimulateCreditService } from "../../services/simulate-credit.service";
 import { ROUTES } from "../../router/routes";
+import { UserService } from "../../services/user.service";
+import { UserInterface } from "../../commons/interfaces/user.interface";
 
 /**Validator**/
 function princeVehicleValidatorMax(
@@ -81,12 +83,14 @@ export class SimulateCreditPage implements OnInit {
   interestRate: number;
   resultCredit: number;
   showModalCredit: boolean;
+  currentUser;
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private fb: FormBuilder,
     private settingsService: SettingsService,
-    private simulateCreditService: SimulateCreditService
+    private simulateCreditService: SimulateCreditService,
+    private userService: UserService
   ) {
     this.showModalCredit = false;
   }
@@ -118,6 +122,7 @@ export class SimulateCreditPage implements OnInit {
     });
     this.loadProduct();
     this.loadInterestRate();
+    this.loadCurrentUser();
   }
 
   onSubmit() {
@@ -175,20 +180,34 @@ export class SimulateCreditPage implements OnInit {
     return this.contactUser.invalid;
   }
 
+
+  isSpinnerShow() {
+    return this.product;
+  }
+
   populatePreciVehicle(product): void {
     this.simulateForm.patchValue({
       "credit-value": product.price
     });
   }
 
-  isSpinnerShow() {
-    return this.product;
-  }
-
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       this.populatePreciVehicle(this.product);
+    } catch (error) {}
+  }
+
+  populatePhoneUser(phone): void {
+    this.contactUser.patchValue({
+      "phone-user": phone
+    });
+  }
+
+  async loadCurrentUser() {
+    try {
+      this.currentUser = await this.userService.getInfoUser();
+      this.populatePhoneUser(this.currentUser.cellphone);
     } catch (error) {}
   }
 

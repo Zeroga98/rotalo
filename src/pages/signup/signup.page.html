@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine}" name="first-name"
-        formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres">
+        formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres*">
         <span class="help-block">
           <span *ngIf="registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine">
             Este campo es obligatorio.
@@ -25,7 +25,7 @@
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine}" name="last-name"
-          formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos">
+          formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos*">
         <span class="help-block">
           <span *ngIf="registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine">
             Este campo es obligatorio.
@@ -43,7 +43,7 @@
       </div>
       <div *ngIf="selectedCountryColombia()" class="form-group">
         <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
-          <option value="" disabled>Selecciona tipo de documento</option>
+          <option value="" disabled>Selecciona tipo de documento*</option>
           <option *ngFor="let typeDocument of typeDocuments" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
         </select>
       </div>
@@ -54,7 +54,7 @@
         type="text"
         maxlength="40"
         class="form-control"
-        placeholder="Número de documento">
+        placeholder="Número de documento*">
         <span class="help-block">
             <span *ngIf="registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
                 Este campo es obligatorio.
@@ -66,7 +66,7 @@
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
-          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo">
+          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo*">
         <span class="help-block">
           <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
             El campo no cumple con el formato de correo.
@@ -76,7 +76,7 @@
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
-          maxlength="10" class="form-control" placeholder="Teléfono celular">
+          maxlength="10" class="form-control" placeholder="Teléfono celular*">
           <span class="help-block">
               <span *ngIf="registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
                   Este campo es obligatorio.
@@ -86,7 +86,7 @@
 
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
-          formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña">
+          formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña*">
           <span class="help-block">
               <span *ngIf="registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
                   Este campo es obligatorio.
@@ -100,7 +100,7 @@
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
           name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
-          placeholder="Confirmar Contraseña">
+          placeholder="Confirmar Contraseña*">
           <span class="help-block">
               <span *ngIf="registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
                   Este campo es obligatorio.

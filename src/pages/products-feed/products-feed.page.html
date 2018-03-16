@@ -1,11 +1,11 @@
 <back-top number="300" stepTime="10" #backTop></back-top>
 
-<toolbar 
-(selectedCommunity)="changeCommunity($event)" 
+<toolbar
+(selectedCommunity)="changeCommunity($event)"
 (tagsChanged)="searchByTags($event)"
-(categorySelected)= "selectedCategory($event)" 
+(categorySelected)= "selectedCategory($event)"
 (subCategorySelected)= "selectedSubCategory($event)"></toolbar>
-<subcategory-filter *ngIf="configFiltersSubcategory" [config]="configFiltersSubcategory" (onFilterBySellType)="filteBySellType($event)"></subcategory-filter>
+
 <ngx-carousel *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner" [style.background]="'url(' + image + ')'">
