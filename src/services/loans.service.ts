@@ -9,7 +9,6 @@ export class LoansService {
 
     loanWithSufi(amount: number | string):Promise<any>{
         const params = this.buildParams(amount);
-        console.log("params: ", params);
         return this.http.post(this.url, params).toPromise();
     }
 

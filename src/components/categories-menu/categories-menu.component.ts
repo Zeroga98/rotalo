@@ -24,7 +24,6 @@ export class CategoriesMenuComponent implements OnInit {
   async ngOnInit() {
     try {
       this.categories  = await this.categoriesService.getCategories();
-      console.log("categories: ", this.categories);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       

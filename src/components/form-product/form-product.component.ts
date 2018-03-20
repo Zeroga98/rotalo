@@ -70,7 +70,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
-      console.log("photos: ",this.photosUploaded);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("Error: ", error);
@@ -86,7 +85,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     try {
       const response = await this.photosService.deletePhotoById(id);
       this.removePhoto(id);
-      console.log("photos: ", this.photosUploaded);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("error: ", error);

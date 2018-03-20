@@ -63,7 +63,6 @@ export class SignUpPage implements OnInit {
     async loadTypeDocument() {
         try {
          this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-         console.log(this.typeDocuments);
         } catch (error) {}
     }
 

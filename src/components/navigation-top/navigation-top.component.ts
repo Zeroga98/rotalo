@@ -37,7 +37,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 		this.listenerMessages = this.setListenerNotificationsUnread();
 	}
 	ngOnDestroy(): void {
-		console.log("destroy");
 		clearInterval(this.listenerMessages);
 		clearInterval(this.listenerNotifications);
 	}
@@ -76,7 +75,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 										this.messagesUnRead += conversation['unread-count']
 									});
 									this.changeDetector.markForCheck();
-									console.log("messagesunread", this.messagesUnRead);
 								});
 		}, this.timeToCheckNotification);
 	}
@@ -87,7 +85,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 									.then((notifications:any)=>{
 										this.notificationsUnread = notifications['unread-notifications'];
 										this.changeDetector.markForCheck();
-										console.log("notifications unread: ", this.notificationsUnread)
 									})
 		}, this.timeToCheckNotification)
 	}
