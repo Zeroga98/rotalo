@@ -14,6 +14,12 @@
         -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     }
+    .form-control.ng-dirty.ng-invalid, select.ng-touched.ng-invalid{
+        border-bottom-color: $red;
+        & ~ .error-msg{
+            display: block;
+        }
+    }
     .form-control::-moz-placeholder {
         color: #536570;
         opacity: 1;
@@ -36,12 +42,16 @@
         border-bottom:1px solid $red;
     }
 
-    .help-block{
-      span{
+    .help-block, .error-msg{
+        padding-left: 12px;
         color:$red-dark;
         font-size: 1.4rem;
-      }
     }
+
+    .error-msg{
+        display: none;
+    }
+
 }
 
 

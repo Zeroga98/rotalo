@@ -62,7 +62,7 @@ export class CollectionSelectService {
         });
     }
 
-    private getCountryById(id: number): Promise <any> {
+    getCountryById(id: number): Promise <any> {
         return new Promise((resolve, reject) => {
             const country = this.collection.filter( value => {
                 return value.id == id;

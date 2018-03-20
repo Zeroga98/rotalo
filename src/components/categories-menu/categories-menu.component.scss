@@ -11,16 +11,18 @@
             margin-bottom: 1rem;
             .title-circle{
                 background: cadetblue;
-                display: inline-block;
+                display: inline-flex;
                 padding: .5rem 1rem;
                 border-radius: 2rem;
                 margin-bottom: 1rem;
                 cursor: pointer;
                 min-width: 10rem;
-                text-align: center;
+                justify-content: center;
+                align-items: center;
+                color:white;
                 label{
-                    color:white;
                     font-size: 1.7rem;
+                    margin-left: 1rem;
                 }
             }
             .sub-categories{

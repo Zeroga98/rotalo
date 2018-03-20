@@ -70,7 +70,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
-      console.log("photos: ",this.photosUploaded);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("Error: ", error);
@@ -86,7 +85,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     try {
       const response = await this.photosService.deletePhotoById(id);
       this.removePhoto(id);
-      console.log("photos: ", this.photosUploaded);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("error: ", error);
@@ -113,7 +111,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   selectedComunity(idCategory: number) {
     this.subCategories = this.findCategory(idCategory).subcategories;
-    console.log( this.subCategories);
     this.currentSubcategory = "";
     this.subCategory = null;
   }
@@ -149,14 +146,14 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getInitialConfig(): ProductInterface {
     const product: ProductInterface = {
-      name: "",
-      price: "",
+      name: null,
+      price: null,
       currency: "COP",
-      "subcategory-id": "Escoge una subcategoria*",
-      used: "Estado del articulo*",
-      visible: "¿Quién puede verlo?",
-      "sell-type": "Tipo de venta*",
-      description: "",
+      "subcategory-id": "",
+      used: "",
+      visible: "",
+      "sell-type": "",
+      description: null,
       negotiable: true
     };
     return Object.assign({}, product, this.product) as ProductInterface;
@@ -216,6 +213,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid && this.photosUploaded.length > 0 ;
+    return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
   }
 }

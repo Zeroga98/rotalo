@@ -15,7 +15,6 @@ export class DetalleProductoComponent implements OnInit {
 
   ngOnInit() {
     this.activedRoute.params.subscribe(params => {
-      console.log("params: ", params);
       this.isDetailReadOnly = params.readOnly || false;
     });
     this.isSpinnerShow = false;

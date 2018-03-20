@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="container-filters">
+		<div class="categories">
+			<span class="category-title">{{config?.category}}</span>
+			<span class="subcategory-title" *ngIf="config.subCategory">{{config?.subCategory}}</span>
+		</div>
+		<div class="container-selects form-theme">
+			<select class="form-control" (change)="changeSort($event)">
+				<option value="" disabled>Ordenar por</option>
+				<option selected value="-published-at">Public. recientes</option>
+				<option value="published-at">Public. antiguas</option>
+			</select>
+			<select-states [country]="country" (selected)="changeState($event)"></select-states>
+			<select-cities *ngIf="state" [state]="state" (selected)="changeCity($event)"></select-cities>
+		</div>
+		<div class="actions">
+			<button (click)="filterBySellType($event,'Venta')">Venta</button>
+			<button (click)="filterBySellType($event,'Subasta')">Subasta</button>
+			<button (click)="filterBySellType($event,'Gratis')">Gratis</button>
+		</div>
+	</div>
+</div>

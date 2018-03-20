@@ -88,10 +88,9 @@ export class DetailProductComponent implements OnInit {
 
   checkSufiBotton() {
     if (this.products && this.products["type-vehicle"] && this.products["model"]) {
-      console.log(this.products, 'product');
       const priceVehicle = this.products.price;
-      const currentUser = JSON.parse(this.currentSessionSevice.currentUser());
-      const countryId = currentUser["countryId"];
+      const currentUser = this.currentSessionSevice.currentUser();
+      const countryId = Number(currentUser["countryId"]);
       const type = this.products["type-vehicle"];
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products["model"];
@@ -99,7 +98,7 @@ export class DetailProductComponent implements OnInit {
       if (this.products.subcategory.name === "Carros" &&
       differenceYear <= 10 &&
       type === "Particular" &&
-      countryId === "1" &&
+      countryId === 1 &&
       priceVehicle > 9999999) {
         return true;
       }

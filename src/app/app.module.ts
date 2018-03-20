@@ -97,8 +97,10 @@ import { TypeDocumentsService } from '../services/type-documents.service';
 import { FooterComponent } from '../components/footer/footer.component';
 import { TermsComponent } from '../components/terms/terms.component';
 import { TermsPage } from '../pages/terms/terms.page';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
-
+import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
+import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
 
 @NgModule({
   declarations: [
@@ -157,7 +159,8 @@ import { LoaderInterceptor } from '../commons/interceptors/loading-bar.intercept
     SellingPage,
     TermsPage,
     SimulateCreditPage,
-    NotificationsPage
+    NotificationsPage,
+    SubcategoryFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -167,6 +170,7 @@ import { LoaderInterceptor } from '../commons/interceptors/loading-bar.intercept
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    InfiniteScrollModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
@@ -202,6 +206,11 @@ import { LoaderInterceptor } from '../commons/interceptors/loading-bar.intercept
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ValidateSessionInterceptor,
       multi: true,
     },
     {

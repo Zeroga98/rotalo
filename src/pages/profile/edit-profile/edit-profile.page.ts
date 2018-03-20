@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { PhotosService } from '../../../services/photos.service';
 import { UtilsService } from '../../../util/utils.service';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
+import { CurrentSessionService } from '../../../services/current-session.service';
 
 @Component({
   selector: "edit-profile",
@@ -34,7 +35,8 @@ export class EditProfilePage implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private utilsService: UtilsService,
-    private typeDocumentsService: TypeDocumentsService
+    private typeDocumentsService: TypeDocumentsService,
+    private currentSessionSevice: CurrentSessionService
   ) {}
 
   ngOnInit(): void {
@@ -120,7 +122,9 @@ export class EditProfilePage implements OnInit {
       .then(response => {
         this.messageChange = "Su cuenta se ha actualizado.";
         this.errorChange = "";
-
+        const updateCountry = this.currentSessionSevice.currentUser();
+        updateCountry['countryId'] = this.country['id'];
+        this.currentSessionSevice.setSession(updateCountry);
         this.userService.updateInfoUser();
       })
       .catch(httpErrorResponse => {

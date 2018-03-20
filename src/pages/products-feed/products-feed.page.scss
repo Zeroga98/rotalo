@@ -49,17 +49,23 @@
             width: 31%;
             overflow: hidden;
             margin: 0 1rem 2.5rem;
-        }
-        .container-spinner{
-            width: 100%;
-            text-align: center;
-        }
-        .msg-no-products{
-            width: 100%;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 400;
-            margin: 2rem 0;
-        }
+        } 
+    }
+    .container-spinner{
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        z-index: 999999;
+        bottom: 0;
+        left: 0;
+        background: rgba($color: #ffffff, $alpha: 0.5);
+        padding: 1rem 0;
+    }
+    .msg-no-products{
+        width: 100%;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400;
+        margin: 2rem 0;
     }
 }

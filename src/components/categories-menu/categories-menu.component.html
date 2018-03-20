@@ -1,6 +1,7 @@
 <div class="categories-container">
 	<div class="category" *ngFor="let category of categories">
-		<div class="title-circle">
+		<div class="title-circle" [ngClass]="category.color">
+			<span [ngClass]="category.icon"></span>
 			<a (click)= "selectCategory(category)">
 				<span></span>
 				<label>{{ category.name }}</label>

@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { SessionUserInterface } from "../commons/interfaces/session.interface";
 
 @Injectable()
 export class CurrentSessionService {
@@ -7,21 +8,25 @@ export class CurrentSessionService {
   setSession(currentUser: Object): void {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
   }
+
   clearSession(): void {
     localStorage.removeItem('currentUser');
   }
-  currentUser(): any {
-    return  localStorage.getItem('currentUser') || null;
+
+  currentUser():  SessionUserInterface {
+    const currentUser: SessionUserInterface = JSON.parse(localStorage.getItem('currentUser'));
+    return  currentUser || null;
   }
+
   authToken (): string {
     if (this.currentUser() !== null) {
-      return JSON.parse(this.currentUser())['auth-token'];
+      return this.currentUser()['auth-token'];
     }
     return '';
   }
   getIdUser (): string {
     if (this.currentUser() !== null) {
-      return JSON.parse(this.currentUser())['id'];
+      return `${this.currentUser()['id']}`;
     }
     return '';
   }

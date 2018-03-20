@@ -26,7 +26,7 @@ export class CategoriesMenuComponent implements OnInit {
       this.categories  = await this.categoriesService.getCategories();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      
+
     }
   }
 
