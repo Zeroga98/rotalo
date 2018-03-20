@@ -32,7 +32,6 @@
     "ng2-slim-loading-bar": "^4.0.0",
     "ngx-carousel": "^1.3.5",
     "ngx-infinite-scroll": "^0.8.3",
-    "ngx-masonry": "^1.0.7",
     "normalize.scss": "^0.1.0",
     "rxjs": "^5.5.2",
     "webpack-s3-plugin": "^1.0.0-rc.0",
