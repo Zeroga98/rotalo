@@ -2,9 +2,9 @@
 
 <div class="container">
   <modal-send-message [idProduct]="products.id" *ngIf="false" [idUserProduct]="products.user.id" [conversationDefault]="conversation"></modal-send-message>
-  
 
-  <div *ngIf="products" class="product">
+
+  <div  class="product">
     <div *ngIf="products?.photos" class="product-photos">
       <div class="panel-heading">
         <ngx-carousel [inputs]="carouselConfig">
@@ -29,7 +29,7 @@
             </div>
         </div>
       </div>
-    <div class="product-info">
+    <div *ngIf="products" class="product-info">
       <div class="title-product">{{products.name}}</div>
       <div class="valor-product">{{products.price | currency:"$":0}} {{ products.currency }}</div>
       <div class="capitalize">{{products['sell-type'].toLowerCase()}}</div>

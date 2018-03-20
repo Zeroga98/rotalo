@@ -72,7 +72,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       const products = await this.productsService.getProducts(params);
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(this.filterNoVisibleProducts(products));
-      console.log("products: ", this.products);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;

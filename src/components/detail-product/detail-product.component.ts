@@ -60,10 +60,14 @@ export class DetailProductComponent implements OnInit {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
       }
-      this.conversation = {
-        photo: this.products.photos[0].url,
-        name: this.products.user.name
-      };
+      console.log(this.products);
+      if (this.products.photos) {
+        this.conversation = {
+          photo: this.products.photos[0].url,
+          name: this.products.user.name
+        };
+      }
+
       this.productChecked = this.products.status;
       this.productStatus = this.products.status === "active";
       this.changeDetectorRef.markForCheck();
