@@ -20,7 +20,7 @@ export class PurchaseAcceptedComponent {
 			const response = await this.productsService.receiveProduct(id,{id});
 			this.notification.status = 'Has recibido el producto';
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			alert('Ha ocurrido un error: ' + error.error.errors[0]);
 		}
 	}

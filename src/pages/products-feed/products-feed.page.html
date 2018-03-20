@@ -29,11 +29,21 @@
   <div class="msg-no-products" *ngIf="noExistProducts">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div class="container-products"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="scrolledInfinite()">
-      <product *ngFor="let product of products" [product]="product" (selected)="selectProduct($event)"></product>
+  <div class="container-masonry">
+      <masonry class="masonry"
+      #masonryRef
+      [options]="masonryConfig" 
+      infiniteScroll 
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      [infiniteScrollDisabled]="isInfiniteScrollDisabled"
+      (scrolled)="scrolledInfinite()">
+    
+        <masonry-brick class="grid-item" *ngFor="let product of products">
+            <product [product]="product" (selected)="selectProduct($event)"></product>
+        </masonry-brick>
+    
+      </masonry>
   </div>
+  
 </div>

@@ -25,7 +25,6 @@ export class StarRatingComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit(){
-		console.log("rating: ", this.rating);
 		if(this.rating) this._drawCheckedStars(this.rating as number - 1);
 	}
 
@@ -35,9 +34,7 @@ export class StarRatingComponent implements OnInit, AfterViewInit {
 	}
 
 	private _drawCheckedStars(index: number){
-		console.log(this.containerStars);
 		const stars = Array.from(this.containerStars.nativeElement.children);
-		console.log("stars: ", stars);
 		stars.forEach((element,i: number) => {
 			index >= i ? this.render.addClass(element,'checked') : this.render.removeClass(element,'checked');
 		});

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { CollectionSelectService } from "../../services/collection-select.service";
 import { CountryInterface } from "./country.interface";
 @Component({
@@ -7,7 +7,7 @@ import { CountryInterface } from "./country.interface";
   styleUrls: ["./select-country.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectCountryComponent implements OnInit, OnChanges {
+export class SelectCountryComponent implements OnInit {
 
     @Output() selected: EventEmitter<Object> = new EventEmitter();
     @Output() loaded: EventEmitter<void> = new EventEmitter();
@@ -22,10 +22,6 @@ export class SelectCountryComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.getCountries();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log("changes: ", changes);
     }
 
     onSelected(ev) {

@@ -45,7 +45,6 @@ export class NotificationsPage implements OnInit {
     }
 
     openConversation(notification: NotificationsInterface) {
-        console.log(notification);
         if(notification.message){
             this.idConversation = `${notification.product.id}-${notification.message['author-id']}`;
         }else{

@@ -7,9 +7,7 @@ import { ConfigurationService } from "../services/configuration.service";
 export class PhotosService {
     readonly url: string = this.configurationService.getBaseUrl() + '/v1/photos';
 
-    constructor(private http: HttpClient, private configurationService: ConfigurationService) {
-
-    }
+    constructor(private http: HttpClient, private configurationService: ConfigurationService) {  }
 
     getUrlPhotos(): string {
         return this.url;

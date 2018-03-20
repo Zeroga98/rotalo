@@ -83,6 +83,8 @@ import { NotificationsService } from '../services/notifications.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { MasonryModule, AngularMasonry } from 'angular2-masonry';
+
 import { SettingsService } from '../services/settings.service';
 import { SimulateCreditService } from '../services/simulate-credit.service';
 import { NotificationsPage } from '../pages/notifications/notifications.page';
@@ -170,6 +172,7 @@ import { ValidateSessionInterceptor } from '../commons/interceptors/validate-ses
     HttpClientModule,
     RlTagInputModule,
     NgxCarouselModule,
+    MasonryModule,
     InfiniteScrollModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),

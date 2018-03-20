@@ -8,7 +8,6 @@ export class NavigationService {
     constructor() { }
 
     setCountry(country){
-        console.log("Entre a emitir");
         this.countryChanged.emit(country);
     }
 

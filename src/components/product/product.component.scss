@@ -9,7 +9,9 @@
         color:#9B9B9B;
 
         .container-photo{
-            margin-bottom: 10px;
+            margin-bottom: 1rem;
+            max-height: 50rem;
+            overflow: hidden;
             img{
                 width: 100%;
                 height: auto;

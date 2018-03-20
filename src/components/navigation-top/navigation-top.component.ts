@@ -70,32 +70,30 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return this.messagesUnRead > 0;
   }
 
-  get notificationsAvailable(): boolean {
-    return this.notificationsUnread > 0;
-  }
+	get notificationsAvailable(): boolean{
+		return this.notificationsUnread > 0;
+	}
 
-  private setListenerMessagesUnread() {
-    return setInterval(() => {
-      this.messagesService.getConversationsUnread().then(conversations => {
-        this.messagesUnRead = 0;
-        conversations.forEach(conversation => {
-          this.messagesUnRead += conversation["unread-count"];
-        });
-        this.changeDetector.markForCheck();
-        console.log("messagesunread", this.messagesUnRead);
-      });
-    }, this.timeToCheckNotification);
-  }
+	private setListenerMessagesUnread(){
+		return setInterval(() => {
+			this.messagesService.getConversationsUnread()
+								.then( conversations => {
+									this.messagesUnRead = 0;
+									conversations.forEach(conversation => {
+										this.messagesUnRead += conversation['unread-count']
+									});
+									this.changeDetector.markForCheck();
+								});
+		}, this.timeToCheckNotification);
+	}
 
-  private setListenerNotificationsUnread() {
-    return setInterval(() => {
-      this.notificationsService
-        .getUnreadNotifications()
-        .then((notifications: any) => {
-          this.notificationsUnread = notifications["unread-notifications"];
-          this.changeDetector.markForCheck();
-          console.log("notifications unread: ", this.notificationsUnread);
-        });
-    }, this.timeToCheckNotification);
-  }
+	private setListenerNotificationsUnread(){
+		return setInterval(() => {
+			this.notificationsService.getUnreadNotifications()
+									.then((notifications:any)=>{
+										this.notificationsUnread = notifications['unread-notifications'];
+										this.changeDetector.markForCheck();
+									})
+		}, this.timeToCheckNotification)
+	}
 }

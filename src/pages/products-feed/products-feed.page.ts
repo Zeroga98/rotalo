@@ -14,6 +14,7 @@ import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
 import { StatesRequestEnum } from '../../commons/states-request.enum';
 import { UtilsService } from '../../util/utils.service';
+import { MASONRY_CONFIG } from './masonry.config';
 
 
 @Component({
@@ -25,12 +26,14 @@ import { UtilsService } from '../../util/utils.service';
 export class ProductsFeedPage implements OnInit, OnDestroy {
 
   public carouselConfig: NgxCarousel;
+  public masonryConfig = MASONRY_CONFIG; 
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
   private _subscriptionCountryChanges: Subscription;
   private currentPage: number = 1;
   private waitNewPage: boolean = false;
+  isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
   private currentFilter: Object = {
@@ -40,24 +43,23 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     "page[size]": 8,
     "page[number]": 1
   };
-  @ViewChild("backTop", { read: ElementRef })
-  backTop: ElementRef;
-
+  @ViewChild("backTop", { read: ElementRef }) backTop: ElementRef;
+  @ViewChild("masonryRef") masonryRef: any;
+  
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
-    private changeDetectorRef:ChangeDetectorRef
-  ) {
+    private changeDetectorRef:ChangeDetectorRef) {
+
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
   }
 
   ngOnInit() {
     const params = this.getParamsToProducts();
-    this.loadProducts(params);
     this._subscribeCountryChanges();
     this.setScrollEvent();
   }
@@ -72,6 +74,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       const products = await this.productsService.getProducts(params);
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(this.filterNoVisibleProducts(products));
+      this.isInfiniteScrollDisabled = false;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
@@ -151,6 +154,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateProducts(newProducts: Array<ProductInterface>){
     this.waitNewPage ? this.addNewPage(newProducts) : this.products = [].concat(newProducts);
     this.waitNewPage = false;
+    this.updateMasonry();
   }
 
   addNewPage(newProducts){
@@ -158,6 +162,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   private routineUpdateProducts(filter: Object) {
+    this.isInfiniteScrollDisabled = true;
     const newFilter = this.updateCurrentFilter(filter);
     this.loadProducts(newFilter);
   }
@@ -173,6 +178,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   private filterNoVisibleProducts(products: Array<any>) {
     return products.filter((product: ProductInterface) => product.visible);
+  }
+
+  private updateMasonry(){
+    if(this.masonryRef.layout) this.masonryRef.layout();
   }
 
   private backTopToggle(ev) {
