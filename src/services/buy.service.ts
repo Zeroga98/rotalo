@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class BuyService {
-    private readonly url = "https://api.staging.rotalo.co/v1/purchases"
-    constructor(private httpClient: HttpClient) { }
+    private readonly url = this.configurationService.getBaseUrl() + '/v1/purchases';
+    constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
     buyProduct(params): Promise<any>{
         return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
@@ -13,7 +14,7 @@ export class BuyService {
     private buildParams(params){
         return {
             data: {
-                attributes:params,
+                attributes: params,
                 type: 'purchases'
             }
         }

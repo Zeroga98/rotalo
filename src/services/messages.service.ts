@@ -14,6 +14,7 @@ export class MessagesService {
 
     getConversation(): Promise<any> {
         const url = `${this.url}`;
+        console.log(url);
         return this.http.get(url).toPromise().then((response: any) => response.data);
     }
 
@@ -24,7 +25,7 @@ export class MessagesService {
 
     getConversationsUnread(): Promise<any> {
         return this.http.get(this.url)
-                    .map( (conversations:any) => conversations.data)
+                    .map( (conversations: any) => conversations.data)
                     .map( (conversations: any) => {
                         return conversations.filter( (conversation:any) => conversation['unread-count'] > 0);
                     })

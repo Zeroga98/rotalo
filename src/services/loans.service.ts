@@ -1,26 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class LoansService {
-    private readonly url: string = 'https://api.staging.rotalo.co/v1/loan_requests'
+  private readonly url = this.configurationService.getBaseUrl() + '/v1/loan_requests';
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
-    constructor(private http: HttpClient) { }
+  loanWithSufi(amount: number | string): Promise<any> {
+    const params = this.buildParams(amount);
+    return this.http.post(this.url, params).toPromise();
+  }
 
-    loanWithSufi(amount: number | string): Promise<any> {
-        const params = this.buildParams(amount);
-        return this.http.post(this.url, params).toPromise();
-    }
-
-    private buildParams(amount: number | string){
-		return {
-			data:{
-				attributes:{
-                    amount: amount
-				},
-				type: 'loan-requests'
-			}
-		}
-	}
-
+  private buildParams(amount: number | string) {
+    return {
+      data: {
+        attributes: {
+          amount: amount
+        },
+        type: "loan-requests"
+      }
+    };
+  }
 }

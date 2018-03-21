@@ -1,16 +1,16 @@
 import { NotificationsInterface } from './../commons/interfaces/notifications.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class NotificationsService {
     notifications: NotificationsInterface[];
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
     getUnreadNotifications(): Promise<any> {
-        const url: string = "https://api.staging.rotalo.co/v1/users/unread_notifications";
-
+        const url: string = this.configurationService.getBaseUrl() + '/v1/users/unread_notifications';
         return this.httpClient.get(url)
             .toPromise()
             .then((res: any) => res.data);
@@ -24,12 +24,12 @@ export class NotificationsService {
     }
 
     private getNotificationsFromServer(): Promise<any> {
-        const url = "https://api.staging.rotalo.co/v1/notifications"
+        const url: string = this.configurationService.getBaseUrl() + '/v1/notifications';
         return this.httpClient
             .get(url)
             .map((response: any) => {
-                let data = [].concat(response.data);
-                return data.map( (notificacion:NotificationsInterface) => {
+                const data = [].concat(response.data);
+                return data.map( (notificacion: NotificationsInterface) => {
                     notificacion.status = this.updateStatusNotification(notificacion);
                     return notificacion;
                 });
@@ -41,9 +41,27 @@ export class NotificationsService {
         let status;
         switch (notification['notification-type']) {
             case 'offer_accepted':
+                if (notification.offer) {
+                  switch (notification.offer.regretted) {
+                    case true:
+                      status = 'Compra no realizada';
+                      break;
+                    case false:
+                      status = 'Compra realizada';
+                      break;
+                  }
+                }
+            break;
             case 'new_offer':
                 if (notification.offer) {
-                    status = notification.offer.accepted ? 'Oferta aceptada' : 'Oferta rechazada';
+                  switch (notification.offer.accepted) {
+                    case true:
+                      status = 'Oferta aceptada';
+                      break;
+                    case false:
+                      status = 'Oferta rechazada';
+                      break;
+                  }
                 }
             break;
             case 'new_purchase':
@@ -56,29 +74,37 @@ export class NotificationsService {
                 }
             break;
             case 'purchase_accepted':
-                if (notification.product && notification.product.received) status = 'Has recibido el producto';
+                if (notification.product) {
+                  switch (notification.product.received) {
+                    case true:
+                      status =  'Has recibido el producto';
+                      break;
+                  }
+                }
             break;
         }
         return status;
     }
 
     private getStatusNewPurchase(purchase, product): string {
-        if (purchase) {
-            if (purchase.verified) {
-                if (product['sell-type'] === 'GRATIS') {
-                    return 'Lo has regalado';
-                } else {
-                    return 'Compra confirmada';
-                }
+      let result;
+      if (purchase) {
+        switch (purchase.verified) {
+          case true:
+            if (product['sell-type'] === 'GRATIS') {
+              result = 'Lo has regalado';
+            } else {
+              result = 'Compra confirmada';
             }
-            else {
-                if (product['sell-type'] === 'GRATIS') {
-                    return 'No lo has regalado';
-                } else {
-                    return 'Compra rechazada';
-                }
+            return result;
+          case false:
+            if (product['sell-type'] === 'GRATIS') {
+              result = 'No lo has regalado';
+            } else {
+              return 'Compra rechazada';
             }
+            return result;
         }
-        return '';
+      }
     }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/login/login.service';
 import { UserService } from '../../../services/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CountryInterface } from '../../../components/select-country/country.interface';
+import { CurrentSessionService } from '../../../services/current-session.service';
 
 @Component({
   selector: 'show-page',
@@ -15,7 +17,11 @@ export class ShowPage implements OnInit {
   photoUrl: String;
   photoProfile: any;
   userName: String;
-  constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService) { }
+  defaultCountry: CountryInterface;
+  constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService,
+    private currentSession: CurrentSessionService) {
+    this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
+   }
 
   ngOnInit() {
     this.getUserInfo();
