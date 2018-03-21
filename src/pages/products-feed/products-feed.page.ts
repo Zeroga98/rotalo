@@ -35,7 +35,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private waitNewPage: boolean = false;
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
-	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
+	stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
   private currentFilter: Object = {
     "filter[status]": "active",
     "filter[country]": 1,
@@ -60,6 +60,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     const params = this.getParamsToProducts();
+    this.loadProducts(params)
     this._subscribeCountryChanges();
     this.setScrollEvent();
   }
@@ -71,10 +72,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   async loadProducts(params: Object = {}) {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
+      this.isInfiniteScrollDisabled = true;
       const products = await this.productsService.getProducts(params);
       this.stateRequest = this.statesRequestEnum.success;
-      this.updateProducts(this.filterNoVisibleProducts(products));
-      this.isInfiniteScrollDisabled = false;
+      this.updateProducts(products);
+      this.validateStateScrollInfinite(products);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
@@ -109,7 +111,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   scrolledInfinite(){
     this.currentPage++;
     this.waitNewPage = true;
-    this.routineUpdateProducts({"page[number]":this.currentPage});
+    this.routineUpdateProducts({"page[number]":this.currentPage}, this.currentPage);
   }
 
   changeCommunity(community: any) {
@@ -161,11 +163,18 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     newProducts.forEach( product => this.products.push(product));
   }
 
-  private routineUpdateProducts(filter: Object) {
+  private routineUpdateProducts(filter: Object, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
+    filter = Object.assign({},filter, this.getPageFilter(numberPage));
     const newFilter = this.updateCurrentFilter(filter);
     this.loadProducts(newFilter);
   }
+
+  private getPageFilter(numberPage = 1){
+    this.currentPage = numberPage;
+    return {"page[number]": numberPage};
+  }
+
   private updateCurrentFilter(filter = {}) {
     this.currentFilter = Object.assign({}, this.currentFilter, filter);
     this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
@@ -176,12 +185,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     window.addEventListener("scroll", this.backTopToggle.bind(this));
   }
 
-  private filterNoVisibleProducts(products: Array<any>) {
-    return products.filter((product: ProductInterface) => product.visible);
-  }
-
   private updateMasonry(){
     if(this.masonryRef.layout) this.masonryRef.layout();
+  }
+
+  private validateStateScrollInfinite(products:ProductInterface){
+    this.isInfiniteScrollDisabled = this.products.length <= 0 || products.lastPage;
   }
 
   private backTopToggle(ev) {

@@ -21,4 +21,5 @@ export interface ProductInterface {
     'user'?: UserInterface;
     'visible': boolean | string;
     'subcategory-id'?: string | number;
+    lastPage?: boolean;
 }

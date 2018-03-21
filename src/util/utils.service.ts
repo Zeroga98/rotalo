@@ -20,7 +20,7 @@ export class UtilsService {
     removeEmptyValues(object: Object):Object {
         const keys = Object.keys(object);
         keys.forEach(key => {
-            (object[key] === undefined || object[key] === null) && delete object[key]
+            (object[key] === undefined || object[key] === null || object[key]==='') && delete object[key]
         }); 
         return object;
     }

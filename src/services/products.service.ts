@@ -14,7 +14,12 @@ export class ProductsService {
       private userService: UserService) { }
 
     getProducts(params): Promise<any>{
-        return this.http.get(this.url, {params: params}).toPromise().then( (response: any) => response.data);
+        return this.http.get(this.url, {params: params})
+                        .toPromise()
+                        .then( (response: any) => {
+                            response.data.lastPage = response.links.next === undefined;
+                            return response.data;
+                        });
     }
 
     getProductsById(id: number): Promise<any> {
