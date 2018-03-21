@@ -21,6 +21,7 @@ import { BuyService } from "../../services/buy.service";
 export class NotificationsPage implements OnInit {
   public notificationsList: Array<NotificationsInterface> = [];
   public conversation: ConversationInterface;
+  public idProduct: string;
   public configModalRate = {};
   public paymentTypes = {
     cash: "Efectivo",
@@ -30,8 +31,8 @@ export class NotificationsPage implements OnInit {
     na: "No aplica"
   };
   readonly defaultImage: string = "../assets/img/product-no-image.png";
-  idProductMessage: string;
-  idUserProductMessage: string;
+  public idProductMessage: string;
+  public idUserProductMessage: string;
   private _isModalRateShow: boolean = false;
   showMessage: boolean = false;
   idConversation;
@@ -129,13 +130,12 @@ export class NotificationsPage implements OnInit {
 
   openConversation(notification: NotificationsInterface) {
     if (notification.message) {
-      this.idConversation = `${notification.product.id}-${
-        notification.message["author-id"]
-      }`;
+      this.idConversation = `${notification.product.id}-${notification.message["author-id"]}`;
     } else {
       this.idConversation = undefined;
       this.conversation = this._getDefaultConversation(notification);
     }
+    this.idProduct = `${notification.product.id}`;
     this.showMessage = true;
   }
 

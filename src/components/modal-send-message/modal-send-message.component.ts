@@ -53,15 +53,11 @@ export class ModalSendMessageComponent implements OnInit {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
-      console.log(conver, "*************");
       this.conversations = [].concat(conver);
       if (this.conversation.length == 0) {
         this.conversation = [].concat(this.conversationDefault);
       }
       this.conversations.forEach(item => {
-        console.log(item.id);
-        console.log(this.idConversation);
-        console.log(item.id === this.idConversation);
         if (item.id === this.idConversation) {
           this.loadConversation(this.idConversation);
         } else if (item.id === this.idProduct + "-" + this.idUser) {
@@ -82,7 +78,7 @@ export class ModalSendMessageComponent implements OnInit {
     this.close.emit();
   }
 
-  onSubmit() {
+  async onSubmit() {
     let date = new Date();
     try {
       if (!this.idProduct) {
@@ -94,10 +90,8 @@ export class ModalSendMessageComponent implements OnInit {
         content: this.formMessage.controls["message"].value,
         "product-id": this.idProduct
       };
-
-      let params = Object.assign(data);
-
-      const response = this.messagesService.sendMessage(params);
+      
+      const response = await this.messagesService.sendMessage(data);
       this.loadMessage();
     } catch (error) {
       console.error("Error: ", error);
