@@ -41,7 +41,7 @@
   <div modal-footer>
     <div class="modal-footer">
       <form (ngSubmit)="onSubmit()" [formGroup]="formMessage">
-        <input type="text" class="message-show-input" placeholder="Message" formControlName="message" required />
+        <input type="text" class="message-show-input" placeholder="Mensaje" formControlName="message" required />
         <input type="submit" class="message-show-button" value="Enviar" [disabled]="formMessage.invalid"/>
       </form>
     </div>

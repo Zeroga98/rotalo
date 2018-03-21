@@ -36,7 +36,12 @@ export class ProductsService {
 
     receiveProduct(id: number,data): Promise<any>{
         const url = `${this.url}/${id}/deliver`;
-        const params =Object.assign(this._buildParams(data).data, {id});
+        const params = {
+            data: {
+                id,
+                type: 'products'
+            }
+        };
         return this.http.post(url,params).toPromise();
     }
 

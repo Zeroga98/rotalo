@@ -1,17 +1,20 @@
 <div *ngIf="!showMessage">
   <custom-modal (close)="closeModal()">
     <div modal-body>
-      <div class="message-show-product" *ngFor="let conversation of conversations" (click)="sendIdConversation(conversation.id)">
-        <div class="media">
-          <span>
-            <div class="avatar" [ngStyle]="{'background-image': getUrlImage(conversation.photo)}"></div>
-          </span>
-          <div>
-            <h2>{{conversation.name}}</h2>
-            <p>{{conversation.preview}}</p>
-          </div>
-        </div>
-      </div>
+		<div *ngIf="conversations.length <= 0">No hay Mensajes</div>
+	  <div *ngIf="conversations.length > 0">	
+		<div class="message-show-product" *ngFor="let conversation of conversations" (click)="sendIdConversation(conversation.id)">
+			<div class="media">
+			<span>
+				<div class="avatar" [ngStyle]="{'background-image': getUrlImage(conversation.photo)}"></div>
+			</span>
+			<div>
+				<h2>{{conversation.name}}</h2>
+				<p>{{conversation.preview}}</p>
+			</div>
+			</div>
+		</div>
+		</div>	
     </div>
   </custom-modal>
 </div>

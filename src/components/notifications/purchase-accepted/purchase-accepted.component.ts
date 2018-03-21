@@ -33,8 +33,8 @@ export class PurchaseAcceptedComponent {
 		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
 	}
 
-	contactSeller(){
-		this.onContactSeller.emit();
+	contactSeller(id: number){
+		this.onContactSeller.emit(id);
 	}
 
 }
