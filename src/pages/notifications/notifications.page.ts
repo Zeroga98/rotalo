@@ -39,6 +39,7 @@ export class NotificationsPage implements OnInit {
     async ngOnInit() {
         try {
             this.notificationsList = await this.notificationsService.getNotifications();
+            console.log(this.notificationsList);
             this.changeDetectorRef.markForCheck();
         } catch (error) {
         }

@@ -17,7 +17,7 @@ export class ModalSendMessageComponent implements OnInit {
   @Input() idProduct: string;
   @Input() idUserProduct: string;
   @Input() conversationDefault: ConversationInterface;
-	@Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<any> = new EventEmitter();
 
   public conversation: Array<ConversationInterface> = [];
   public conversations: Array<ConversationInterface> = [];
@@ -42,6 +42,7 @@ export class ModalSendMessageComponent implements OnInit {
 
   loadConversation(idMessage) {
     this.messagesService.getConversationByID(idMessage).then(conver => {
+      console.log(conver);
       this.conversation = [].concat(conver);
       this.messages = [].concat(this.conversation[0].messages);
       this.changeDetectorRef.markForCheck();
@@ -52,11 +53,15 @@ export class ModalSendMessageComponent implements OnInit {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
+      console.log(conver, "*************");
       this.conversations = [].concat(conver);
       if (this.conversation.length == 0) {
         this.conversation = [].concat(this.conversationDefault);
       }
       this.conversations.forEach(item => {
+        console.log(item.id);
+        console.log(this.idConversation);
+        console.log(item.id === this.idConversation);
         if (item.id === this.idConversation) {
           this.loadConversation(this.idConversation);
         } else if (item.id === this.idProduct + "-" + this.idUser) {
@@ -74,12 +79,16 @@ export class ModalSendMessageComponent implements OnInit {
   }
 
   closeModal() {
-		this.close.emit();
-	}
+    this.close.emit();
+  }
 
   onSubmit() {
     let date = new Date();
     try {
+      if (!this.idProduct) {
+        const idConversation = this.idConversation.split("-");
+        this.idProduct = idConversation[0];
+      }
       const data = {
         "user-id": parseInt(this.idUser),
         content: this.formMessage.controls["message"].value,
