@@ -44,7 +44,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.listenerMessages = this.setListenerMessagesUnread();
     this.listenerMessages = this.setListenerNotificationsUnread();
   }
+
   ngOnDestroy(): void {
+    console.log("destroy");
     clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
