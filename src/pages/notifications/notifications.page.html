@@ -2,7 +2,7 @@
 <modal-rate *ngIf="isModalRateShow" (close)="closeModalRate()" [config]="configModalRate"></modal-rate>
 <modal-send-message *ngIf="showMessage" (close)="closeModalSendMessage()" [idConversation]="idConversation" [conversationDefault]="conversation"></modal-send-message>
 
-<section id="section-notifications">
+<section  id="section-notifications">
     <header class="tittle-section-notifications">
         <h1>Notificaciones</h1>
     </header>
@@ -10,7 +10,7 @@
 
         <!-- Inicio Sección cuando hay notificaciones -->
         <aside *ngIf="notificationsList.length > 0" class="notifications">
-            
+
 
             <!-- Inicio ngFor para notificaciones -->
             <div *ngFor="let notification of notificationsList" class="notifications-theme">

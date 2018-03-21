@@ -1,6 +1,12 @@
 @import '../../styles/settings/_colors.scss';
 @import '../../styles/settings/_variables.scss';
 :host {
+  custom-spinner{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, 50%);
+  }
     back-top {
         position: fixed;
         z-index: 99999;

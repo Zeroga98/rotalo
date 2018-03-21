@@ -30,7 +30,7 @@ export class NotificationsPage implements OnInit {
     private _isModalRateShow: boolean = false;
     showMessage: boolean = false;
     idConversation;
-
+    public showSpinner = true;
     constructor(
         private notificationsService: NotificationsService,
         private changeDetectorRef: ChangeDetectorRef,
@@ -40,6 +40,7 @@ export class NotificationsPage implements OnInit {
         try {
             this.notificationsList = await this.notificationsService.getNotifications();
             console.log(this.notificationsList);
+            this.showSpinner = false;
             this.changeDetectorRef.markForCheck();
         } catch (error) {
         }

@@ -46,12 +46,9 @@
       <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
         <ul class="row-list__ul modal--offer">
           <li routerLink="/notifications/feed" class="row-list__item" *ngFor="let productPurchased of productsPurchased">
-            <div *ngIf="productPurchased.photos.url">
-              <img class="product-buy__thumbnail" [src]="productPurchased.photos?.url" [alt]="productPurchased.name">
-            </div>
-            <div *ngIf="!productPurchased.photos.url">
-              <img class="product-buy__thumbnail" src="../../../assets/img/product-no-image.png" alt="producto sin imagen">
-            </div>
+            <div *ngIf="productPurchased.photos.url" class="product-buy__thumbnail"  [style.background-image]="sanitizePhoto(productPurchased.photos?.url)  || sanitizePhoto(productPurchased.photos[0].url)"></div>
+            <div *ngIf="!productPurchased.photos.url" class="product-buy__thumbnail" style="background-image: url(../../../assets/img/product-no-image.png)"></div>
+
             <div class="product-buy__info">
               <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productPurchased.name}}</h1>
               <!-- sold -->

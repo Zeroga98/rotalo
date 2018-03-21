@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LoginService } from '../../services/login/login.service';
@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   private userCountry: any;
   constructor(private loginService: LoginService,
     private currentSessionService: CurrentSessionService,
+    private changeRef: ChangeDetectorRef,
     private router: Router,
     private userService: UserService) { }
 
@@ -61,6 +62,7 @@ export class LoginPage implements OnInit {
         if (httpErrorResponse.status === 0) {
           this.errorLogin = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
         }
+        this.changeRef.markForCheck();
     });
   }
 
