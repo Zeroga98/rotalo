@@ -1,7 +1,7 @@
 import { CountryInterface } from "./../select-country/country.interface";
 import { ChangeDetectorRef } from "@angular/core";
 import { NotificationsService } from "./../../services/notifications.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ROUTES } from "./../../router/routes";
 import {
   Component,
@@ -37,6 +37,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private router: Router,
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
+    private activeRoute: ActivatedRoute,
     private notificationsService: NotificationsService
   ) {}
 
@@ -58,7 +59,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     this.router.navigate([url]);
-    location.reload();
+    console.log(this.activeRoute.url);
+    //if(url === this.activeRoute.url) { location.reload(); }
   }
 
   openConversations() {
