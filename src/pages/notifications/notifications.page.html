@@ -54,7 +54,7 @@
                     <p class="notification-text">Tu oferta ha sido aceptada
                         <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
-                    <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>  
+                    <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
                 </div>
                 <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
 
@@ -94,13 +94,13 @@
                     <p class="notification-text" *ngIf="notification.status">{{notification.status}}</p>
                     <div class="notification-buttons" *ngIf="!notification.status">
                         <div class="button-item">
-                            <button class="button button-secondary">
+                            <button class="button button-secondary" (click)="acceptPurchase(notification)" >
                                 <span *ngIf="notification.product['sell-type'] === 'GRATIS'">Regalar</span>
                                 <span *ngIf="notification.product['sell-type'] !== 'GRATIS'">Recibí el dinero</span>
                             </button>
                         </div>
                         <div class="button-item">
-                            <button class="button button-primary">
+                            <button class="button button-primary" (click)="declinePurchase(notification)">
                                 <span *ngIf="notification.product['sell-type'] === 'GRATIS'">No Regalar</span>
                                 <span *ngIf="notification.product['sell-type'] !== 'GRATIS'">Cancelar Compra</span>
                             </button>

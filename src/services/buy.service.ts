@@ -14,11 +14,11 @@ export class BuyService {
     return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
   }
 
-  confirmOffer(id: number) {
+  confirmPurchase(id) {
     this.sendResponsePurchase(id, "confirm");
   }
 
-  declineOffer(id: number) {
+  declinePurchase(id) {
     this.sendResponsePurchase(id, "decline");
   }
 
