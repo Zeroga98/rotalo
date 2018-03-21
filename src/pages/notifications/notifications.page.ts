@@ -1,3 +1,4 @@
+import { OfferService } from './../../services/offer.service';
 import { Router } from '@angular/router';
 import { NotificationsInterface } from './../../commons/interfaces/notifications.interface';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
@@ -34,6 +35,7 @@ export class NotificationsPage implements OnInit {
     constructor(
         private notificationsService: NotificationsService,
         private changeDetectorRef: ChangeDetectorRef,
+        private offerService:OfferService,
         private router: Router) { }
 
     async ngOnInit() {
@@ -42,6 +44,28 @@ export class NotificationsPage implements OnInit {
             console.log(this.notificationsList);
             this.changeDetectorRef.markForCheck();
         } catch (error) {
+        }
+    }
+
+    async acceptOffer(notification: NotificationsInterface){
+        try {
+            if(!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
+            const response = await this.offerService.acceptOffer(notification.offer.id as number);
+            notification.status = 'Oferta aceptada';
+            this.changeDetectorRef.markForCheck();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async declineOffer(notification: NotificationsInterface){
+        try {
+            if(!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
+            const response = await this.offerService.declineOffer(notification.offer.id as number);
+            notification.status = 'Oferta rechazada';
+            this.changeDetectorRef.markForCheck();
+        } catch (error) {
+            console.error(error);
         }
     }
 

@@ -11,7 +11,25 @@ export class OfferService {
         return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
     }
 
-    private buildParams(params) {
+    acceptOffer(id: number){
+        this.sendResponseOffer(id, 'accept');
+    }
+
+    declineOffer(id: number){
+        this.sendResponseOffer(id, 'decline');
+    }
+
+    private sendResponseOffer(id: number, action:string){
+        const url = `${this.url}/${id}/${action}`;
+        return this.httpClient.post(url,{
+            data: {
+                id,
+                type: 'offers'
+            }
+        }).toPromise();
+    }
+
+    private buildParams(params): any {
         return {
             data: {
                 attributes: params,
