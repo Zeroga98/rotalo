@@ -39,10 +39,10 @@
                     <p class="notification-text" *ngIf="notification.status">{{notification.status}}</p>
                     <div class="notification-buttons" *ngIf="notification.product['sell-type'] !== 'SUBASTA' && !notification.status">
                         <div class="button-item">
-                            <button class="button button-secondary">Aceptar</button>
+                            <button class="button button-secondary" (click)="acceptOffer(notification)">Aceptar</button>
                         </div>
                         <div class="button-item">
-                            <button class="button button-primary">Rechazar</button>
+                            <button class="button button-primary" (click)="declineOffer(notification)">Rechazar</button>
                         </div>
                     </div>
                 </div>
@@ -54,16 +54,7 @@
                     <p class="notification-text">Tu oferta ha sido aceptada
                         <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
-                    <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
-                    <p class="notification-text" *ngIf="notification.status">{{notification.status}}</p>
-                    <div class="notification-buttons" *ngIf="!notification.status">
-                        <div class="button-item">
-                            <button class="button button-secondary">Comprar</button>
-                        </div>
-                        <div class="button-item">
-                            <button class="button button-primary">Cancelar</button>
-                        </div>
-                    </div>
+                    <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>  
                 </div>
                 <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
 
