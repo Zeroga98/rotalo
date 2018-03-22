@@ -7,6 +7,7 @@ import { CategoryInterface } from "../../commons/interfaces/category.interface";
 import { SubcategoryInterface } from "../../commons/interfaces/subcategory.interface";
 import { PhotosService } from "../../services/photos.service";
 import { CategoriesService } from "../../services/categories.service";
+import { IMAGE_LOAD_STYLES } from './image-load.constant';
 
 @Component({
   selector: "form-product",
@@ -27,6 +28,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   modelsVehicle: Array<any> = [];
   vehicleProperties: Array<any> = ["Particular", "Público"];
   currentSubcategory: String = "";
+  customStyleImageLoader = IMAGE_LOAD_STYLES;
   constructor(
     private photosService: PhotosService,
     private categoryService: CategoriesService,

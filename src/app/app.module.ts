@@ -103,6 +103,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
+import { ValidateSessionService } from '../router/guards/validate-session.service';
 
 @NgModule({
   declarations: [
@@ -206,6 +207,7 @@ import { ValidateSessionInterceptor } from '../commons/interceptors/validate-ses
     NotificationsService,
     NavigationService,
     TypeDocumentsService,
+    ValidateSessionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

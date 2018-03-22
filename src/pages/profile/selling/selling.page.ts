@@ -20,11 +20,10 @@ export class SellingPage implements OnInit {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    const productsNumber = this.userEdit.selling;
     this.filterProduct = {
       'filter[staged]': 'selling',
       'page[number]': '1',
-      'page[size]': productsNumber
+      'page[size]': '8'
     };
     this.getProducts(this.filterProduct);
   }

@@ -15,12 +15,13 @@
           </div>
         </div>
         <div>
-          <image-upload
+          <image-upload        
           [max]="6"
-          [extensions]="['jpg','png']"
+          [extensions]="['jpeg','png', 'jpg']"
           [buttonCaption]="'Selecciona una Imagen'"
           [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
           [clearButtonCaption]="'Limpiar'"
+          [style]="customStyleImageLoader"
           (uploadFinished)="onUploadImageFinished($event)"
           (removed)="onRemoveImage($event.file)"></image-upload>
         </div>
@@ -40,7 +41,7 @@
                 class="form-control input-price"
                 name="price"
                 currencyMask
-                [options]="{align: 'left'}"
+                [options]="{align: 'left', precision: 0}"
                 onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                 formControlName="price"
                 placeholder="¿Cuánto vale?*"
@@ -115,7 +116,7 @@
         </div>
       </div>
       <div class="actions-form">
-        <custom-button type="submit" text="Subir Oferta" [disabled]="formIsInValid"></custom-button>
+        <custom-button type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" [disabled]="formIsInValid"></custom-button>
       </div>
     </form>
   </div>

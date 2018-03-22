@@ -2,6 +2,12 @@
 @import '../../../styles/settings/_variables.scss';
 
 :host{
+  .msg-products-empty{
+    width: 100%;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 2rem;
+  }
   custom-spinner{
     position: absolute;
     left: 50%;

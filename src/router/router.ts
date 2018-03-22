@@ -26,11 +26,13 @@ import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 import { NotificationsPage } from '../pages/notifications/notifications.page';
+import { ValidateSessionService } from './guards/validate-session.service';
 
 export const appRouter: Routes = [
   {
     path: ROUTES.HOME,
-    component: HomePage
+    component: HomePage,
+    canActivate: [ValidateSessionService],
   },
   {
     path: ROUTES.SIGNUP,

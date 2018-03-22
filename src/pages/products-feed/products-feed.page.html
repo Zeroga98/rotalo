@@ -13,7 +13,7 @@
 (onFilterByCity)="filterByCity($event)"
 (onFilterByState)="filterByState($event)"></subcategory-filter>
 
-<ngx-carousel *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
+<ngx-carousel class="carousel-theme" *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner" [style.background]="'url(' + image + ')'">
       </div>

@@ -1,4 +1,5 @@
 <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
+<div class="msg-products-empty" *ngIf = "!isSpinnerShow && products.length <= 0">Actualmente usted no esta rotando productos</div>
 <div class="text" *ngFor="let product of products">
     <detail-product [idProduct] = "product.id"></detail-product>
 </div>

@@ -54,6 +54,7 @@ export class LoginPage implements OnInit {
       this.setUserCountry(response.data);
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
     }).catch((httpErrorResponse) => {
+        console.error(httpErrorResponse);
         if (httpErrorResponse.status === 403) {
         }
         if (httpErrorResponse.status ===  422) {
