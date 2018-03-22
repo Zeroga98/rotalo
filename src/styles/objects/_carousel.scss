@@ -1,0 +1,13 @@
+.carousel-theme{
+    .ngxcarouselPointDefault{
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        .ngxcarouselPoint{
+            li{
+                background: white !important;
+            }
+        }
+    }
+}

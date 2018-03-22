@@ -104,6 +104,7 @@ import { LoaderInterceptor } from '../commons/interceptors/loading-bar.intercept
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
 import { ChangePage } from '../pages/reset-password/change/change.page';
+import { ValidateSessionService } from '../router/guards/validate-session.service';
 
 @NgModule({
   declarations: [
@@ -208,6 +209,7 @@ import { ChangePage } from '../pages/reset-password/change/change.page';
     NotificationsService,
     NavigationService,
     TypeDocumentsService,
+    ValidateSessionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

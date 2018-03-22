@@ -28,7 +28,7 @@ export class EditProfilePage implements OnInit {
   public idImagenProfile: String;
   public nameDocument: String;
   private typeDocuments;
-  private typeDocument: String;
+  public typeDocument: String;
   public showSpinner = true;
   public showPhotoEdit = false;
   constructor(
