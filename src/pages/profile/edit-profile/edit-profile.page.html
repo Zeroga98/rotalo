@@ -20,8 +20,8 @@
     <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
     <div class="container-prev-photos" *ngIf="showPhotoEdit">
       <div class="prev-photos" >
-        <div class="remove-action"><span class="icon-close"></span></div>
-        <div class="container-img"><img></div>
+        <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
+        <div class="container-img"><img [src]="photo?.url"></div>
       </div>
     </div>
     <div>

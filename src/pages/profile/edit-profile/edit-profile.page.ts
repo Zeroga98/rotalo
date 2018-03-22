@@ -31,6 +31,7 @@ export class EditProfilePage implements OnInit {
   public typeDocument: String;
   public showSpinner = true;
   public showPhotoEdit = false;
+  public photo;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
@@ -53,28 +54,20 @@ export class EditProfilePage implements OnInit {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    this.photoExist(this.userEdit);
+    this.photo = this.userEdit.photo;
+    this.photoExist(this.photo);
     this.loadTypeDocuments();
     this.onInfoRetrieved(this.userEdit);
   }
 
-  photoExist(user){
-    if (user.photo) {
+  photoExist(photo) {
+    if (photo) {
       this.showPhotoEdit = true;
+    }else {
+      this.showPhotoEdit = false;
     }
-    this.showPhotoEdit = false;
   }
 
-  async onUploadImageFinished(event) {
-    try {
-      const response = await this.photosService.updatePhoto(event.file);
-      this.idImagenProfile = response.id;
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  }
 
   async onRemoveImage(event) {
     try {
@@ -85,6 +78,28 @@ export class EditProfilePage implements OnInit {
       console.error("error: ", error);
     }
   }
+
+  async removeImageFromServer(id: number) {
+    try {
+      const response = await this.photosService.deletePhotoById(id);
+      this.removePhoto(id);
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  }
+
+  async onUploadImageFinished(event) {
+    try {
+      const response = await this.photosService.updatePhoto(event.file);
+      this.idImagenProfile = response.id;
+      this.photo = response;
+      const photo = Object.assign({}, response, { file: event.file });
+      this.photosUploaded.push(photo);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
+
 
   private findPhoto(file: File) {
     return this.photosUploaded.find(photo => {

@@ -1,3 +1,4 @@
+<modal-tips *ngIf="isModalShowed" (close)="closeModal()" ></modal-tips>
 <div class="container-form">
     <div class="title-form">
       <span>Completa los siguientes datos</span>
@@ -7,6 +8,7 @@
       <div class="container-step">
         <div class="step-number">
           <span class="number">1. </span>Escoge las imágenes perfectas, mira algunos tips.
+          <span (click) ="openModal()" class="util-modal icon-light vertical-align--middle"></span>
         </div>
         <div class="container-prev-photos" *ngIf="product">
           <div class="prev-photos" *ngFor="let photo of photosUploaded">
@@ -15,7 +17,7 @@
           </div>
         </div>
         <div>
-          <image-upload        
+          <image-upload
           [max]="6"
           [extensions]="['jpeg','png', 'jpg']"
           [buttonCaption]="'Selecciona una Imagen'"

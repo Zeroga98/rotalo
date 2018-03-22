@@ -1,0 +1,67 @@
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_variables.scss";
+
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0;
+
+  .container-modal {
+    background: white;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    .modal__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      background: $red;
+      color: white;
+      padding: 1rem 2.5rem;
+      .icon-close {
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+    .modal__body {
+      overflow: auto;
+    }
+    .modal__footer {
+      padding: 1rem 2.5rem;
+    }
+  }
+  .modal__body {
+    padding: 16px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 80vh;
+  }
+  .text-xs-center {
+    text-align: center;
+  }
+  .text--grey-dark {
+    color: #4a4a4a;
+  }
+
+  .tips-list__item {
+    padding: 0px 40px;
+    display: inline-block;
+    max-width: 250px;
+    font-size: 17px;
+    text-align: left;
+  }
+  img {
+    max-width: 100%;
+    vertical-align: middle;
+  }
+}
