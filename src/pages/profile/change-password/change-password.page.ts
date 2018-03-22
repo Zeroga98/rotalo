@@ -5,11 +5,11 @@ import { ChangePasswordService } from '../../../services/profile/changePassword.
 function passwordMatcher(c: AbstractControl): {[key: string]: boolean} | null {
   let newPassword = c.get('newPassword');
   let confirmNewPassword = c.get('confirmNewPassword');
-
   if (newPassword.pristine || confirmNewPassword.pristine) {
     return null;
   }
-
+  console.log(newPassword.value);
+  console.log(confirmNewPassword.value);
   if (newPassword.value === confirmNewPassword.value) {
       return null;
   }
@@ -35,6 +35,7 @@ export class ChangePasswordPage implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmNewPassword: ['', [Validators.required, Validators.minLength(6)]]
       }, {validator: passwordMatcher});
+
   }
 
   onSubmit() {
@@ -58,8 +59,10 @@ export class ChangePasswordPage implements OnInit {
     this.changePasswordService.changePass(user).then(response => {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
       this.errorChange = '';
+     // this.changePasswordForm.reset();
       })
       .catch(httpErrorResponse => {
+      //  this.changePasswordForm.reset();
         this.messageChange = '';
         if (httpErrorResponse.status === 403) {
         }

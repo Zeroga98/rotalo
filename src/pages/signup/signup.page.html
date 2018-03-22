@@ -108,7 +108,7 @@
               <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
                   El campo no cumple la longitud mínima.
               </span>
-              <span *ngIf="registerForm.get('password-confirmation').errors?.notSame && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
+              <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
                   La contraseña de verificación no coincide.
               </span>
             </span>

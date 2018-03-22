@@ -100,7 +100,7 @@ export class SignUpPage implements OnInit {
 
 	validatePasswordConfirm(registerGroup: FormGroup): any {
 		if (this.registerForm) {
-			return registerGroup.value === this.registerForm.get("password").value? null: { notSame: true };
+			return registerGroup.value === this.registerForm.get("password").value ? null : { notSame: true };
 		}
 	}
 
