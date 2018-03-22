@@ -18,9 +18,15 @@
 
     <h1 class="zeta text--grey-dark">Editar cuenta</h1>
     <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
+    <div class="container-prev-photos" *ngIf="showPhotoEdit">
+      <div class="prev-photos" >
+        <div class="remove-action"><span class="icon-close"></span></div>
+        <div class="container-img"><img></div>
+      </div>
+    </div>
     <div>
         <image-upload
-        [max]="6"
+        [max]="1"
         [extensions]="['jpg','png']"
         [buttonCaption]="'Selecciona una Imagen'"
         [dropBoxMessage]="'Arrastra tus imagenes aquí!'"

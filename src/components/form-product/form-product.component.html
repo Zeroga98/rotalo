@@ -11,7 +11,7 @@
         <div class="container-prev-photos" *ngIf="product">
           <div class="prev-photos" *ngFor="let photo of photosUploaded">
             <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
-            <div class="container-img"><img [src]="photo.url"></div>
+            <div class="container-img"><img [src]="photo?.url"></div>
           </div>
         </div>
         <div>
@@ -53,7 +53,7 @@
                   <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
                   <span>Recibo Ofertas</span>
                 </div>
-            </div>      
+            </div>
             <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
                 Este campo es obligatorio.
             </span>

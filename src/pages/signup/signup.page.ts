@@ -58,6 +58,7 @@ export class SignUpPage implements OnInit {
             const response = await this.userService.saveUser(params);
             this.errorsSubmit = [];
             this.router.navigate([ROUTES.ACTIVACION]);
+        //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
           }
         } catch (error) {
             this.errorsSubmit = error.error.errors;

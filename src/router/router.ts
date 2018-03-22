@@ -26,6 +26,7 @@ import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 import { NotificationsPage } from '../pages/notifications/notifications.page';
+import { ChangePage } from '../pages/reset-password/change/change.page';
 
 export const appRouter: Routes = [
   {
@@ -110,6 +111,7 @@ export const appRouter: Routes = [
     children: [
       { path: ROUTES.RECOVER, component: RecoverPage },
       { path: ROUTES.CONFIRM, component: ConfirmPage },
+      { path: `${ROUTES.CHANGE}/:id`, component: ChangePage },
       {
         path: '',
         redirectTo: ROUTES.RECOVER,

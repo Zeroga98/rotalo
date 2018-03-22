@@ -32,6 +32,7 @@ export class DetailProductComponent implements OnInit {
   public configModal: ModalInterface;
   public isSufiModalShowed: boolean = false;
   public isOfferModalShowed: boolean = false;
+  public isModalSendMessageShowed: boolean = false;
   public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
   @Input() idProduct: number;

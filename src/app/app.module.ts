@@ -103,6 +103,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
+import { ChangePage } from '../pages/reset-password/change/change.page';
 
 @NgModule({
   declarations: [
@@ -162,7 +163,8 @@ import { ValidateSessionInterceptor } from '../commons/interceptors/validate-ses
     TermsPage,
     SimulateCreditPage,
     NotificationsPage,
-    SubcategoryFilterComponent
+    SubcategoryFilterComponent,
+    ChangePage
   ],
   imports: [
     BrowserModule,

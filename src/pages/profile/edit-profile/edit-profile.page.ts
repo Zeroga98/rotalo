@@ -30,6 +30,7 @@ export class EditProfilePage implements OnInit {
   private typeDocuments;
   private typeDocument: String;
   public showSpinner = true;
+  public showPhotoEdit = false;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
@@ -52,8 +53,16 @@ export class EditProfilePage implements OnInit {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.photoExist(this.userEdit);
     this.loadTypeDocuments();
     this.onInfoRetrieved(this.userEdit);
+  }
+
+  photoExist(user){
+    if (user.photo) {
+      this.showPhotoEdit = true;
+    }
+    this.showPhotoEdit = false;
   }
 
   async onUploadImageFinished(event) {

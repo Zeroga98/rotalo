@@ -15,4 +15,11 @@ constructor(private http: HttpClient,
     return this.http.put(url, currentUser, { headers: headers }).toPromise();
   }
 
+  changePassProfile(currentUser): Promise<any> {
+    const jsonApiHeaders = this.configurationService.getJsonApiHeaders();
+    const url =  this.configurationService. getBaseUrl() + '/v1/passwords/change';
+    const headers = new HttpHeaders(jsonApiHeaders);
+    return this.http.post(url, currentUser, { headers: headers }).toPromise();
+  }
+
 }
