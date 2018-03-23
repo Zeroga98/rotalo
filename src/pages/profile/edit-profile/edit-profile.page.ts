@@ -183,7 +183,7 @@ export class EditProfilePage implements OnInit {
   }
 
   onSubmit() {
-    if (this.city['id']) {
+    if (this.city['id'] && !this.editProfileForm.invalid) {
       this.editUser();
       this.utilsService.goToTopWindow(20, 600);
     }
