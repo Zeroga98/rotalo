@@ -25,3 +25,20 @@
     }
   }
 }
+
+@media screen and (max-width: 600px){
+  :host{
+    .container-terms {
+      font-size: 1.3rem;
+      .title {
+        font-size: 2.5rem;
+      }
+      .subtitle {
+        font-size: 2rem;
+      }
+      h5{
+        font-size: 1.7rem;
+      }
+    }
+  }
+}

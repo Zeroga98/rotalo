@@ -4,7 +4,14 @@
 	<div modal-body class="container-body" [ngSwitch]="stateRequest">
 		<div *ngSwitchCase="statesRequestEnum.initial" class="container-rating">
 			<div class="profile">
-				<span *ngIf="!config['seller-rate']">Califica a </span><span>{{config.name}}</span>
+				<div class="thumb"> 
+			        <img [src]="'/assets/img/profile-no-image.png'" width="64">
+				</div>
+				<p *ngIf="config['seller-rate']">Ya has calificado a <span class="semibold">{{config.name}}</span></p>
+				<p *ngIf="!config['seller-rate']">
+					<span class="bold block">¿Cómo te fue?</span>
+					<span *ngIf="!config['seller-rate']">Califica a </span><span class="bold">{{config.name}}</span> como {{type}}
+				</p>
 			</div>
 			<div class="rating">
 				<star-rating (checked)="rate($event)" [rating]="config['seller-rate']"></star-rating>
@@ -16,13 +23,13 @@
 		<div *ngSwitchCase="statesRequestEnum.loading">
 			<custom-spinner></custom-spinner>
 		</div>
-		<div *ngSwitchCase="statesRequestEnum.success">
-			<div class="container-text">
+		<div *ngSwitchCase="statesRequestEnum.success"  class="container-text container-text-success">
+			<div>
 				<span>{{msgRequest}}</span>
 			</div>
 		</div>
-		<div *ngSwitchCase="statesRequestEnum.error">
-			<div class="container-text">
+		<div *ngSwitchCase="statesRequestEnum.error" class="container-text container-text-error">
+			<div>
 				<span>{{msgRequest}}</span>
 			</div>
 		</div>

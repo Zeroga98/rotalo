@@ -41,3 +41,12 @@
         }
     }
 }
+
+@media screen and (max-width: 980px){
+    :host{
+        padding: 1rem 0;
+        .container-modal{
+            width: 90%;
+        }
+    }
+}

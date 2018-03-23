@@ -2,16 +2,18 @@
 <nav>
   <div class="container">
     <div class="navbar-header">
-      <div class="container-offer">
+      <div class="flexbox center-center">
         <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
-        <a class="upload-offer-button" routerLink="/products/form">
-          <div class="outside-circle">
-            <div class="inside-circle">
-              <span class="icon-tag"></span>
+        <div class="container-offer">
+          <a class="upload-offer-button" routerLink="/products/form">
+            <div class="outside-circle">
+              <div class="inside-circle">
+                <span class="icon-tag"></span>
+              </div>
+              <label>Sube tu oferta</label>
             </div>
-            <label>Sube tu oferta</label>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
       <a class="navbar-brand" (click)="goToHome()">
         <img src="./assets/img/logo-white.svg" alt="brand">

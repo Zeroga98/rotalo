@@ -1,3 +1,5 @@
+@import '../../styles/settings/_colors.scss';
+@import '../../styles/settings/_variables.scss';
 :host{
     .container-body{
         border-bottom:1px solid #D7D7D7;
@@ -11,6 +13,18 @@
         color: #9B9B9B;
         .container-rating{
             width: 100%;
+        }
+        .container-text{
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 2.6rem;
+        }
+        .container-text-success{
+            border: 1px solid $brand-success;
+        }
+        .container-text-error{
+            border: 1px solid $red;
         }
         .comments{
             width: 100%;
@@ -30,6 +44,18 @@
         .profile{
             text-align: center;
             margin-bottom: 4rem; 
+            .thumb{
+                margin-bottom: 1rem;
+                img{
+                    border-radius: 50%;
+                }
+            }
+            .bold{
+                font-weight: bold;
+            }
+            .block{
+                display: block;
+            }
         }
     }
 }
