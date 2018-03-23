@@ -106,7 +106,9 @@
         }
     }
 }
-
+select::-ms-expand {
+  display: none;
+}
 @media screen and (max-width: 930px){
     .top-select-country{
         display: flex;

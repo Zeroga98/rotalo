@@ -54,7 +54,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
-   /* const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
+  /*  const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     this.router.navigate([url]);*/
   }
 

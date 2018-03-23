@@ -32,7 +32,7 @@ export class ProductEditPage implements OnInit {
 
   async updatePhoto(event) {
     try {
-      const response = await this.productsService.updateProduct(this.idProduct,event);
+      const response = await this.productsService.updateProduct(this.idProduct, event);
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);

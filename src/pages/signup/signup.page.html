@@ -56,7 +56,7 @@
         class="form-control"
         placeholder="Número de documento*">
         <span class="help-block">
-            <span *ngIf="registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+            <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
                 Este campo es obligatorio.
             </span>
             <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
@@ -78,7 +78,7 @@
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
           maxlength="10" class="form-control" placeholder="Teléfono celular*">
           <span class="help-block">
-              <span *ngIf="registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
+              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
                   Este campo es obligatorio.
               </span>
             </span>
@@ -88,7 +88,7 @@
         <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
           formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña*">
           <span class="help-block">
-              <span *ngIf="registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
+              <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
                   Este campo es obligatorio.
               </span>
               <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
@@ -102,7 +102,7 @@
           name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
           placeholder="Confirmar Contraseña*">
           <span class="help-block">
-              <span *ngIf="registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
+              <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
                   Este campo es obligatorio.
               </span>
               <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">

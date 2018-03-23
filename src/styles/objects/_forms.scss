@@ -14,7 +14,7 @@
         -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     }
-    .form-control.ng-dirty.ng-invalid, select.ng-touched.ng-invalid{
+    .form-control.ng-touched.ng-dirty.ng-invalid, select.ng-touched.ng-invalid{
         border-bottom-color: $red;
         & ~ .error-msg{
             display: block;
@@ -38,7 +38,7 @@
         margin-bottom: 20px;
     }
 
-    input.invalid{
+    input.invalid.ng-touched{
         border-bottom:1px solid $red;
     }
 
@@ -51,7 +51,6 @@
     .error-msg{
         display: none;
     }
-
 }
 
 

@@ -30,11 +30,11 @@
       </div>
       <div class="container-step">
         <div class="step-number">
-          <span class="number">2. </span>Datos de tu producto.
+          <span class="number">2. </span>Datos de tu producto
         </div>
         <div class="info-product">
           <div class="form-group">
-            <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar?*" maxlength="100">
+            <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar? *" maxlength="100">
             <span class="help-block error-msg"> Este campo es obligatorio. </span>
           </div>
           <div class="form-group">
@@ -46,7 +46,7 @@
                 [options]="{align: 'left', precision: 0}"
                 onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                 formControlName="price"
-                placeholder="¿Cuánto vale?*"
+                placeholder="¿Cuánto vale? *"
                 maxlength="100">
                 <select class="form-control currency-select" name="currency" formControlName="currency">
                   <option value="COP">COP</option>
@@ -54,7 +54,7 @@
                 </select>
                 <div class="check-offer">
                   <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
-                  <span>Recibo Ofertas</span>
+                  <span>Recibo ofertas</span>
                 </div>
             </div>
             <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
@@ -63,20 +63,20 @@
           </div>
           <div class="form-group">
             <select class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
-              <option value="" disabled>Escoge una categoria*</option>
+              <option value="" disabled>Escoge una categoría *</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
           </div>
           <div class="form-group">
             <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()" name="subcategory-id" formControlName= "subcategory-id">
-              <option value="" disabled>Escoge una subcategoria*</option>
+              <option value="" disabled>Escoge una subcategoría *</option>
               <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
             </select>
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
               <select class="form-control" formControlName="model">
-                  <option value=""  disabled>Modelo de vehículo*</option>
+                  <option value=""  disabled>Modelo de vehículo *</option>
                   <option *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
               </select>
           </div>
@@ -88,23 +88,23 @@
           </div>
           <div class="form-group">
             <select class="form-control" name="used" formControlName= "used">
-              <option value="" disabled>Estado del articulo*</option>
-              <option [ngValue]="true">Articulo Usado</option>
-              <option [ngValue]="false">Articulo Nuevo</option>
+              <option value="" disabled>Estado del artículo *</option>
+              <option [ngValue]="true">Artículo Usado</option>
+              <option [ngValue]="false">Artículo Nuevo</option>
             </select>
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
             <select class="form-control" name="visible" formControlName= "visible">
-              <option value="" disabled>¿Quién puede verlo?</option>
+              <option value="" disabled>¿Quién puede verlo? *</option>
               <option [ngValue]="true">Todas las comunidades</option>
               <option [ngValue]="false">Solo mi comunidad</option>
             </select>
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
-            <select class="form-control" name="sell-type" formControlName= "sell-type">
-              <option value="" disabled>Tipo de venta*</option>
+            <select class="form-control" name="sell-type" formControlName= "sell-type" (change)="changeKindOfProduct($event.target.value)">
+              <option value="" disabled>Tipo de venta *</option>
               <option value="VENTA">Vendo</option>
               <option value="SUBASTA">Subasto</option>
               <option value="GRATIS">Regalo</option>
@@ -112,13 +112,13 @@
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group full">
-            <textarea class="form-control" placeholder="Describe tu producto*" name="description" formControlName= "description" maxlength="500"></textarea>
+            <textarea class="form-control" placeholder="Describe tu producto *" name="description" formControlName= "description" maxlength="500"></textarea>
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
         </div>
       </div>
       <div class="actions-form">
-        <custom-button type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" [disabled]="formIsInValid"></custom-button>
+        <custom-button type="submit" [text]="product ? 'Editar oferta' : 'Subir oferta'" [disabled]="formIsInValid"></custom-button>
       </div>
     </form>
   </div>
