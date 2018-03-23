@@ -5,6 +5,7 @@ import { PhotosService } from '../../../services/photos.service';
 import { UtilsService } from '../../../util/utils.service';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
+import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 
 @Component({
   selector: "edit-profile",
@@ -32,6 +33,7 @@ export class EditProfilePage implements OnInit {
   public showSpinner = true;
   public showPhotoEdit = false;
   public photo;
+  public customStyleImageLoader = IMAGE_LOAD_STYLES;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,

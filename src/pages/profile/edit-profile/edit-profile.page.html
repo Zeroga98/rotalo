@@ -28,9 +28,10 @@
         <image-upload
         [max]="1"
         [extensions]="['jpg','png']"
-        [buttonCaption]="'Selecciona una Imagen'"
+        [buttonCaption]="'Selecciona una imagen'"
         [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
         [clearButtonCaption]="'Limpiar'"
+        [style]="customStyleImageLoader"
         (uploadFinished)="onUploadImageFinished($event)"
         (removed)="onRemoveImage($event)"></image-upload>
     </div>
