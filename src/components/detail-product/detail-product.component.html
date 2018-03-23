@@ -48,20 +48,22 @@
         <span>{{products.used ? 'Usado' : 'Nuevo'}}</span>
       </div>
       <div class="product-info-user">
-        <div class="media-middle">
-          <div class="product-info-user--icon">
-            <span class="icon-account"></span>
+        <div>
+          <div class="media-middle">
+            <div class="product-info-user--icon">
+              <span class="icon-account"></span>
+            </div>
+            <div class="panel-product__owner">
+            </div>
           </div>
-          <div class="panel-product__owner">
-          </div>
-        </div>
 
-        <div class="media-middle product-info-user--data">
-          <p class="name-user">{{products.user.name}}</p>
-          <p class="panel-product">{{products.user.company.name}} -
-            <span>{{products.user.company.community.name}}</span>
-          </p>
-        </div>
+          <div class="media-middle product-info-user--data">
+            <p class="name-user">{{products.user.name}}</p>
+            <p class="panel-product">{{products.user.company.name}} -
+              <span>{{products.user.company.community.name}}</span>
+            </p>
+          </div>
+          </div>
         <div class="product-btn" *ngIf="!validateSession() || !readOnly">
           <div class="product-btns">
             <div class="cont-botons">

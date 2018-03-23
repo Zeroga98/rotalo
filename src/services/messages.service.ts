@@ -14,7 +14,6 @@ export class MessagesService {
 
     getConversation(): Promise<any> {
         const url = `${this.url}`;
-        console.log(url);
         return this.http.get(url).toPromise().then((response: any) => response.data);
     }
 

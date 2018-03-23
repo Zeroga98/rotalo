@@ -81,6 +81,10 @@ export class EditProfilePage implements OnInit {
     }
   }
 
+  get isFormInvalid(): boolean {
+    return this.editProfileForm.invalid;
+  }
+
   async removeImageFromServer(id: number) {
     try {
       const response = await this.photosService.deletePhotoById(id);

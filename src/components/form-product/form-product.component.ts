@@ -18,8 +18,7 @@ import { IMAGE_LOAD_STYLES } from './image-load.constant';
 export class FormProductComponent implements OnInit, OnChanges {
   @Input() product: ProductInterface;
   @Output() publish: EventEmitter<any> = new EventEmitter();
-  @ViewChild("categorySelect", { read: ElementRef })
-  categorySelectElem: ElementRef;
+  @ViewChild("categorySelect", { read: ElementRef }) categorySelectElem: ElementRef;
   photosForm: FormGroup;
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];

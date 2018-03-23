@@ -106,3 +106,31 @@
         }
     }
 }
+
+@media screen and (max-width: 930px){
+    .top-select-country{
+        display: flex;
+        select{
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            border-radius: 50%;
+            border: 2px solid white;
+            background-image: none;
+            overflow: hidden;
+            padding: 12px;
+            background: transparent;
+            color: black;
+        }
+    }
+}
+
+@media screen and (max-width: 400px){
+    .top-select-country{
+        display: flex;
+        select{
+            width: 15px;
+            height: 15px;
+        }
+    }
+}

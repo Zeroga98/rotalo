@@ -1,6 +1,8 @@
 <div class="toolbar">
 	<div class="toolbar-container" ng-class="{'toolbar--search-open': searchOpen}">
-		<img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
+		<div class="container-icon-search">
+			<img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
+		</div>
 		<rl-tag-input [(ngModel)]="tags" [addOnSpace]="true" placeholder="¿Qué estás buscando?" (addTag)="changeTags($event)" (removeTag)="changeTags($event)"></rl-tag-input>
 		<div class="container-categrias">
 			<span class="categ-text">Categorías</span>

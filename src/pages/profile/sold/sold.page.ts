@@ -1,3 +1,4 @@
+import { ROUTES } from './../../../router/routes';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ProductsService } from '../../../services/products.service';
@@ -10,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./sold.page.scss']
 })
 export class SoldPage implements OnInit {
+  public notificationsUrl: string = `/${ROUTES.NOTIFICATIONS}`;
   public currentTab: String;
   public productsSold: Array<ProductInterface> = [];
   public productsPurchased: Array<ProductInterface> = [];

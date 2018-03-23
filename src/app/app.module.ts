@@ -105,6 +105,7 @@ import { SubcategoryFilterComponent } from '../components/subcategory-filter/sub
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from '../router/guards/validate-session.service';
+import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
 import { ModalTipsComponent } from '../components/modal-tips/modal-tips.component';
 
 @NgModule({
@@ -149,6 +150,7 @@ import { ModalTipsComponent } from '../components/modal-tips/modal-tips.componen
     NotificationsSettingsPage,
     ActivacionCuentaPage,
     GroupByPipe,
+    RemoveDigitsPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
     FooterComponent,

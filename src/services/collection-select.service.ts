@@ -4,7 +4,7 @@ import { ConfigurationService } from "../services/configuration.service";
 
 @Injectable()
 export class CollectionSelectService {
-    collection: Array<any> = [];
+    collection: Array<any> = undefined;
     includes: Array<any> = [];
     states: Array<any> = [];
     constructor(private http: HttpClient, private configurationService: ConfigurationService) {}

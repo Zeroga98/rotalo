@@ -66,8 +66,54 @@
             transition: max-height 0.5s;
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
             &.opened{
-                max-height: 100rem;
+                max-height: 300rem;
                 transition: max-height 0.5s;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 750px){
+    :host{
+        .toolbar{
+            .toolbar-container{
+                background: transparent;
+                width: auto;
+                padding: .3rem .5rem;
+                .container-icon-search{
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 2rem;
+                    img{
+                        margin: 0;
+                        width: 2rem;
+                        height: 2rem;
+                    }
+                }
+                rl-tag-input{
+                    max-width: 0;
+                    overflow: hidden;
+                }
+                .container-categrias, .container-icon-search{
+                    background: white;
+                    border: 0;
+                    padding: 0;
+                    border-radius: 50%;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    display: inline-flex;
+                    justify-content: center;
+                    .categ-text{
+                        display: none;
+                    }
+                }
+                .toolbar__filters{
+                    select {
+                        padding: .5rem 4rem .5rem 1rem;
+                        font-size: 1.7rem;
+                    }
+                }
             }
         }
     }
