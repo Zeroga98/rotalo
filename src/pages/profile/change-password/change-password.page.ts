@@ -8,8 +8,7 @@ function passwordMatcher(c: AbstractControl): {[key: string]: boolean} | null {
   if (newPassword.pristine || confirmNewPassword.pristine) {
     return null;
   }
-  console.log(newPassword.value);
-  console.log(confirmNewPassword.value);
+
   if (newPassword.value === confirmNewPassword.value) {
       return null;
   }
@@ -59,10 +58,10 @@ export class ChangePasswordPage implements OnInit {
     this.changePasswordService.changePass(user).then(response => {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
       this.errorChange = '';
-     // this.changePasswordForm.reset();
+      this.changePasswordForm.reset();
       })
       .catch(httpErrorResponse => {
-      //  this.changePasswordForm.reset();
+        this.changePasswordForm.reset();
         this.messageChange = '';
         if (httpErrorResponse.status === 403) {
         }

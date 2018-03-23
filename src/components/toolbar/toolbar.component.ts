@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
   community: any;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private render: Renderer2,
     private changeDetectorRef: ChangeDetectorRef) {}
 
@@ -57,7 +57,7 @@ export class ToolbarComponent implements OnInit {
     this.subCategorySelected.emit(subCategory);
   }
 
-  private _closeMenu(){
+  private _closeMenu() {
     this.categoriesMenu.nativeElement.classList.remove("opened");
     this.closeMenu.nativeElement.classList.add("icon-menu");
   }

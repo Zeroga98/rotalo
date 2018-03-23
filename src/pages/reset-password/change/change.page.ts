@@ -32,8 +32,8 @@ export class ChangePage implements OnInit {
      private route: ActivatedRoute,
      private fb: FormBuilder,
      private changePasswordService: ChangePasswordService) {
-    this.route.params.subscribe( params => this.idPassword = params.id );
-  }
+      this.route.params.subscribe( params => this.idPassword = params.id );
+    }
 
   ngOnInit(): void {
     this.changePasswordForm =  this.fb.group({

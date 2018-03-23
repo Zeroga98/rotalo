@@ -26,13 +26,14 @@ import { MASONRY_CONFIG } from './masonry.config';
 export class ProductsFeedPage implements OnInit, OnDestroy {
 
   public carouselConfig: NgxCarousel;
-  public masonryConfig = MASONRY_CONFIG; 
+  public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
   private _subscriptionCountryChanges: Subscription;
   private currentPage: number = 1;
   private waitNewPage: boolean = false;
+  public showBanner = true;
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
@@ -45,7 +46,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   };
   @ViewChild("backTop", { read: ElementRef }) backTop: ElementRef;
   @ViewChild("masonryRef") masonryRef: any;
-  
+
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -60,7 +61,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     const params = this.getParamsToProducts();
-    this.loadProducts(params)
+    this.loadProducts(params);
     this._subscribeCountryChanges();
     this.setScrollEvent();
   }
@@ -88,8 +89,22 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   searchByTags(evt: Array<string>) {
-    const filterValue = evt.join("+");
-    this.routineUpdateProducts({ "filter[search]": filterValue });
+    if (evt.length > 0) {
+      const filterValue = evt.join("+");
+      this.routineUpdateProducts({ "filter[search]": filterValue });
+      this.showBanner = false;
+    }else {
+        const currentFilter: Object = {
+        "filter[status]": "active",
+        "filter[country]": 1,
+        "filter[community]": -1,
+        "page[size]": 8,
+        "page[number]": 1,
+        "filter[search]": null
+      };
+      this.routineUpdateProducts(currentFilter);
+      this.showBanner = true;
+    }
   }
 
   filteBySellType(sellType: string){
@@ -119,7 +134,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedCategory(category: CategoryInterface) {
-    this.configFiltersSubcategory = {category: category.name,subCategory: undefined};
+    this.configFiltersSubcategory = {category: category.name, subCategory: undefined};
     this.routineUpdateProducts({
       "filter[category]": category.id,
       "filter[subcategory_id]": undefined
@@ -165,7 +180,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   private routineUpdateProducts(filter: Object, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
-    filter = Object.assign({},filter, this.getPageFilter(numberPage));
+    filter = Object.assign({}, filter, this.getPageFilter(numberPage));
     const newFilter = this.updateCurrentFilter(filter);
     this.loadProducts(newFilter);
   }
@@ -186,7 +201,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   private updateMasonry(){
-    if(this.masonryRef.layout) this.masonryRef.layout();
+    if(this.masonryRef.layout) setTimeout(() => {
+      this.masonryRef.layout();
+    },0.5);
   }
 
   private validateStateScrollInfinite(products:ProductInterface){
