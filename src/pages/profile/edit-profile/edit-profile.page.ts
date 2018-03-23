@@ -77,6 +77,10 @@ export class EditProfilePage implements OnInit {
     }
   }
 
+  get isFormInvalid(): boolean {
+    return this.editProfileForm.invalid;
+  }
+
   private findPhoto(file: File) {
     return this.photosUploaded.find(photo => {
       return photo.file === file;

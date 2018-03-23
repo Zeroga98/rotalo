@@ -15,7 +15,10 @@
     ngx-carousel{
         position: relative;
         .item-banner{
-            height: 400px;
+            img{
+                width: 100%;
+                height: auto;
+            }
         }
        .arrow{
             display: inline-block !important;
@@ -39,7 +42,7 @@
         }
     }
     .container-masonry{
-        padding: 4rem 10rem;
+        padding: 4rem 5%;
         .masonry{
             width: 100%;
             max-width: 100%;
@@ -71,5 +74,22 @@
         font-size: 2rem;
         font-weight: 400;
         margin: 2rem 0;
+    }
+}
+
+@media screen and (max-width: 900px){
+    :host{
+        ngx-carousel{
+           .arrow{
+               display: none !important;
+           }
+        }
+        .container-masonry{
+            .masonry{
+                .grid-item{
+                    width: 48%;
+                }
+            }
+        }
     }
 }

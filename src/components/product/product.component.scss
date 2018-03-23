@@ -7,7 +7,6 @@
         flex-direction: column;
         line-height: 2.5rem;
         color:#9B9B9B;
-
         .container-photo{
             margin-bottom: 1rem;
             max-height: 50rem;
@@ -57,7 +56,6 @@
             }
             p{
                 font-size: 1.6rem;
-                font-size: 1.6rem;
                 line-height: 19px;
                 margin: 0;
                 span{
@@ -95,6 +93,51 @@
                 .comunidad-text{
                     font-size: 1.4rem;
                 }
+            }
+        }
+    }
+    .mini-card{
+        .container-name{
+            font-size: 2.0rem;
+        }
+        .container-status{
+            font-size: 1.4rem;
+        }
+        .container-price{
+            font-size: 1.4rem;
+        }
+        .container-location{
+            font-size: 1.3rem;
+            .icon-location{
+                font-size: 1.6rem;
+            }
+        }
+        .container-info-user{
+            .icon-container{
+                width: 3rem;
+                height: 3rem;
+                min-width: 3rem;
+                min-height: 3rem;
+                .icon-account{
+                    font-size: 1.5rem;
+                }
+            }
+            .name-text{
+                font-size: 1.2rem;
+            }
+            .company-text{
+                font-size: 1.4rem;
+                .comunidad-text{
+                    font-size: 1rem;
+                }
+            }
+        }
+        .container-date{
+            .icon-calendar{
+                font-size: 1.7rem;
+            }
+            p{
+                font-size: 1.3rem;
             }
         }
     }

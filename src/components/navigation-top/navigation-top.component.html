@@ -2,7 +2,7 @@
 <nav>
   <div class="container">
     <div class="navbar-header">
-      <div>
+      <div class="container-offer">
         <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
         <a class="upload-offer-button" routerLink="/products/form">
           <div class="outside-circle">
@@ -20,11 +20,7 @@
       <ul class="list-options">
         <li>
           <div class="select-country">
-            <select-country class="red-theme-select" (selected)="changeSelectorCounrty($event)" [initialValue]="defaultCountryValue"></select-country>
-          </div>
-        </li>
-        <li class="country-mobile">
-          <div class="circle-mobile" ng-click="main.openSelectCountryMobile = !main.openSelectCountryMobile">
+            <select-country class="red-theme-select top-select-country" (selected)="changeSelectorCounrty($event)" [initialValue]="defaultCountryValue"></select-country>
           </div>
         </li>
         <li>

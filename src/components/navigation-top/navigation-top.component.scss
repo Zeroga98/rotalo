@@ -36,13 +36,15 @@
                 width: 190px;
                 border-radius: 30px 30px 30px 30px;
                 .inside-circle {
-                    display: inline-block;
+                    display: inline-flex;
                     vertical-align: middle;
                     padding: 9px 6px;
-                    height: 40px;
-                    width: 40px;
+                    height: 4rem;
+                    width: 4rem;
                     background-color: $blue;
-                    border-radius: 20px 20px 20px 20px;
+                    border-radius: 50%;
+                    justify-content: center;
+                    align-items: center;
                     span {
                         font-size: 25px;
                     }
@@ -56,16 +58,13 @@
                     margin-bottom: 0px;
                 }
             }
-            @media #{$medium-max} {
-                display: none;
-            }
         }
         .navbar-brand {
             width: 130px;
             cursor: pointer;
             img{
                 height: auto;
-                width: 130px;
+                width: 100%;
             }            
         }
         .list-options{
@@ -102,5 +101,48 @@
             }
         }
     }
-    
 }
+
+@media screen and (max-width: 930px){
+    :host{
+        .navbar-header{
+            .list-options{
+                li:not(:last-child){
+                    margin-right: 3rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px){
+    :host{
+        .container-offer{
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            z-index: 99999;
+            .upload-offer-button{
+                .outside-circle{
+                    width: auto;
+                    background-color: transparent;
+                    .inside-circle {
+                        width: 5rem;
+                        height: 5rem;
+                    }
+                    label {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .navbar-header{
+            padding: 2rem 0;
+            .navbar-brand {
+                width: 20%; 
+                min-width: 8rem;
+            }
+        }
+    }
+}
+

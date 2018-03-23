@@ -134,7 +134,7 @@ custom-spinner{
 
 .product{
   margin-top: 4rem;
-
+  overflow: hidden;  
   .product-info{
       width: 50%;
       padding: 15px;
@@ -208,7 +208,10 @@ custom-spinner{
           border-bottom: 1px solid rgba(239, 239, 239, 0.98);
           width: 100%;
           position: relative;
-
+          display: flex;
+          justify-content: space-between; 
+          align-items: center;
+          flex-wrap: wrap; 
           .product-info-user--icon{
               width: 35px;
               height: 35px;
@@ -245,19 +248,20 @@ custom-spinner{
           }
 
           .product-btn{
-              position: absolute;
-              top: 0;
-              right: 0;
+              position: relative;
+              display: block;
+              width: auto;
               margin: 0;
-
+              margin-top: 1rem;
+              flex-grow: 1;
               .product-btns{
                   margin: 0;
-
                   .botons{
                       padding: 10px;
-                      position: absolute;
-                      right: 0;
                       margin-top: 14px;
+                      width: 100%;
+                      max-width: 17.3rem;
+                      margin: 0;
                   }
               }
           }
@@ -276,7 +280,7 @@ custom-spinner{
 
       .cont-botons{
           display: flex;
-
+          justify-content: flex-end;
           .botons{
               background-color: $red;
               padding: 15px;
@@ -390,4 +394,40 @@ input:checked+.switch-slider:before {
 }
 .post-status.active {
   color: #41BAD0;
+}
+
+@media screen and (max-width: 750px){
+    .product{
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        .product-info, .product-photos{
+            width: 100%;
+        }
+    }
+    .product-photos{
+        .panel-heading{
+            .container-product__image{
+                height: auto;
+            }
+        }
+    }
+
+    .product-btn{
+        width: 100%;
+        float: none;
+        display: block;
+        .product-btns{
+            .cont-botons{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                .botons{
+                    padding: 1rem 1.5rem;
+                    min-width: 17rem;
+                    width: auto;
+                }
+            }
+        }
+    }
 }

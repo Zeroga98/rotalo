@@ -15,7 +15,8 @@
 
 <ngx-carousel class="carousel-theme" *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
-      <div class="item-banner" [style.background]="'url(' + image + ')'">
+      <div class="item-banner">
+        <img [src]="image">
       </div>
   </ngx-item>
   <span NgxCarouselPrev class="arrow arrow-prev"></span>

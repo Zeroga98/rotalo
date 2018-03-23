@@ -104,6 +104,7 @@ import { LoaderInterceptor } from '../commons/interceptors/loading-bar.intercept
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
 import { ValidateSessionService } from '../router/guards/validate-session.service';
+import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
 
 @NgModule({
   declarations: [
@@ -147,6 +148,7 @@ import { ValidateSessionService } from '../router/guards/validate-session.servic
     NotificationsSettingsPage,
     ActivacionCuentaPage,
     GroupByPipe,
+    RemoveDigitsPipe,
     ProductsFeedPage,
     DetalleProductoComponent,
     FooterComponent,

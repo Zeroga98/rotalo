@@ -1,7 +1,10 @@
 <navigation-top [defaultCountryValue]="defaultCountry"></navigation-top>
   <div>
-    <div class="profile-header text-center p-b-0" style="background-image: url(../assets/img/banner.jpg); ">
-      <div class="container-fluid">
+    <div class="profile-header text-center p-b-0">
+      <div class="fondo-banner full-container-abs">
+        <img src="/assets/img/banner.jpg">
+      </div>
+      <div class="container-fluid full-container-abs">
         <div  class="container-inner">
           <div *ngIf="!photoProfile" class="img-circle media-object bg-img-fix" style="background-image: url(../assets/img/profile-no-image.png)"></div>
           <div *ngIf="photoProfile" class="img-circle media-object bg-img-fix" [style.background-image]="photoProfile" ></div>

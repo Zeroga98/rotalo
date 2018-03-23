@@ -1,4 +1,4 @@
-<div class="container-product" (click)="selectProduct()" *ngIf="product">
+<div class="container-product" (click)="selectProduct()" *ngIf="product" #containerProducts>
   <div class="container-photo">
     <!--<img [src]="product.photos.url" [alt]="product.name">-->
     <img *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
@@ -9,7 +9,7 @@
     <span class="name">{{product.name}}</span>
   </div>
   <div class="container-price">
-    <span class="name">{{product.price | currency:"$":0}} {{ product.currency }}</span>
+    <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
   </div>
   <div class="container-status">
     <span class="name">{{product['sell-type'].toLowerCase()}}</span>
