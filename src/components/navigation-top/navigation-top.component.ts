@@ -1,7 +1,7 @@
 import { CountryInterface } from "./../select-country/country.interface";
 import { ChangeDetectorRef } from "@angular/core";
 import { NotificationsService } from "./../../services/notifications.service";
-import { Router } from "@angular/router";
+import { Router} from "@angular/router";
 import { ROUTES } from "./../../router/routes";
 import {
   Component,
@@ -38,7 +38,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
     private notificationsService: NotificationsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.listenerMessages = this.setListenerMessagesUnread();
@@ -53,12 +54,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
+   /* const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
+    this.router.navigate([url]);*/
   }
 
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    this.router.navigate([url]);
-    location.reload();
+    if (`/${url}` === this.router.url) {
+      location.reload();
+    }else {
+      this.router.navigate([url]);
+    }
   }
 
   openConversations() {
@@ -83,7 +89,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 								.then( conversations => {
 									this.messagesUnRead = 0;
 									conversations.forEach(conversation => {
-										this.messagesUnRead += conversation['unread-count']
+										this.messagesUnRead += conversation['unread-count'];
 									});
 									this.changeDetector.markForCheck();
 								});

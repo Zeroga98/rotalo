@@ -5,6 +5,7 @@ import { PhotosService } from '../../../services/photos.service';
 import { UtilsService } from '../../../util/utils.service';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
+import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 
 @Component({
   selector: "edit-profile",
@@ -28,8 +29,11 @@ export class EditProfilePage implements OnInit {
   public idImagenProfile: String;
   public nameDocument: String;
   private typeDocuments;
-  private typeDocument: String;
+  public typeDocument: String;
   public showSpinner = true;
+  public showPhotoEdit = false;
+  public photo;
+  public customStyleImageLoader = IMAGE_LOAD_STYLES;
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
@@ -52,20 +56,20 @@ export class EditProfilePage implements OnInit {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.photo = this.userEdit.photo;
+    this.photoExist(this.photo);
     this.loadTypeDocuments();
     this.onInfoRetrieved(this.userEdit);
   }
 
-  async onUploadImageFinished(event) {
-    try {
-      const response = await this.photosService.updatePhoto(event.file);
-      this.idImagenProfile = response.id;
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-    } catch (error) {
-      console.error("Error: ", error);
+  photoExist(photo) {
+    if (photo) {
+      this.showPhotoEdit = true;
+    }else {
+      this.showPhotoEdit = false;
     }
   }
+
 
   async onRemoveImage(event) {
     try {
@@ -80,6 +84,28 @@ export class EditProfilePage implements OnInit {
   get isFormInvalid(): boolean {
     return this.editProfileForm.invalid;
   }
+
+  async removeImageFromServer(id: number) {
+    try {
+      const response = await this.photosService.deletePhotoById(id);
+      this.removePhoto(id);
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  }
+
+  async onUploadImageFinished(event) {
+    try {
+      const response = await this.photosService.updatePhoto(event.file);
+      this.idImagenProfile = response.id;
+      this.photo = response;
+      const photo = Object.assign({}, response, { file: event.file });
+      this.photosUploaded.push(photo);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
+
 
   private findPhoto(file: File) {
     return this.photosUploaded.find(photo => {
@@ -161,7 +187,7 @@ export class EditProfilePage implements OnInit {
   }
 
   onSubmit() {
-    if (this.city['id']) {
+    if (this.city['id'] && !this.editProfileForm.invalid) {
       this.editUser();
       this.utilsService.goToTopWindow(20, 600);
     }

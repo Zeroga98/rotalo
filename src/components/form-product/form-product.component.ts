@@ -28,6 +28,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   vehicleProperties: Array<any> = ["Particular", "Público"];
   currentSubcategory: String = "";
   customStyleImageLoader = IMAGE_LOAD_STYLES;
+  isModalShowed: boolean = false;
   constructor(
     private photosService: PhotosService,
     private categoryService: CategoriesService,
@@ -82,7 +83,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.removeImageFromServer(photo.id);
   }
 
-  async removeImageFromServer(id:number){
+  async removeImageFromServer(id: number) {
     try {
       const response = await this.photosService.deletePhotoById(id);
       this.removePhoto(id);
@@ -103,6 +104,14 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
+  }
+
+  closeModal() {
+    this.isModalShowed = false;
+  }
+
+  openModal() {
+    this.isModalShowed = true;
   }
 
   subcategoryIsVehicle(): boolean {

@@ -27,7 +27,7 @@ export class MessagesService {
                     .map( (conversations: any) => conversations.data)
                     .map( (conversations: any) => {
                         conversations = [].concat(conversations);
-                        return conversations.filter( (conversation:any) => conversation['unread-count'] > 0);
+                        return conversations.filter( (conversation: any) => conversation['unread-count'] > 0);
                     })
                     .toPromise();
     }

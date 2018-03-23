@@ -2,6 +2,14 @@
 @import '../../styles/settings/_variables.scss';
 
 :host{
+  .util-modal {
+    cursor: pointer;
+    color: #ED2F3C;
+  }
+  .util-modal:hover, .util-modal:focus {
+    color: #bf111c;
+    text-decoration: none;
+  }
     .container-form{
         padding: 66px 76px;
         .title-form{
@@ -52,7 +60,7 @@
                         width: 100%;
                         height: 100%;
                         z-index: 10;
-                        background: rgba(0, 0, 0, 0.35); 
+                        background: rgba(0, 0, 0, 0.35);
                         span{
                             color: white;
                             font-size: 1.5rem;

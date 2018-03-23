@@ -3,7 +3,8 @@
 
 :host{
     display: block;
-    background-color: #ED2F3C;
+    //background-color: #ED2F3C;
+    background-color: black;
     border-color: #d61320;
     .container {
         width: 98%;
@@ -22,7 +23,7 @@
             display: inline-block;
             margin-right: 1rem;
             vertical-align: middle;
-        } 
+        }
         .upload-offer-button{
             display: inline-block;
             vertical-align: middle;
@@ -69,8 +70,8 @@
         }
         .list-options{
             display: flex;
-            color: white;            
-            
+            color: white;
+
             li{
                 font-size: 2.5rem;
                 a{

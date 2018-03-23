@@ -18,21 +18,32 @@
 
     <h1 class="zeta text--grey-dark">Editar cuenta</h1>
     <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
+    <div class="container-prev-photos" *ngIf="showPhotoEdit">
+      <div class="prev-photos" >
+        <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
+        <div class="container-img"><img [src]="photo?.url"></div>
+      </div>
+    </div>
     <div>
         <image-upload
-        [max]="6"
+        [max]="1"
         [extensions]="['jpg','png']"
-        [buttonCaption]="'Selecciona una Imagen'"
+        [buttonCaption]="'Selecciona una imagen'"
         [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
         [clearButtonCaption]="'Limpiar'"
+        [style]="customStyleImageLoader"
         (uploadFinished)="onUploadImageFinished($event)"
         (removed)="onRemoveImage($event)"></image-upload>
     </div>
     <form class="form-theme" name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
 
-
       <div class="form-group">
-        <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="100" placeholder="Nombre">
+        <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="400" placeholder="Nombre*">
+        <span class="help-block">
+          <span *ngIf="editProfileForm.get('name').invalid && !editProfileForm.get('name').pristine">
+            Este campo es obligatorio.
+          </span>
+        </span>
       </div>
 
       <div *ngIf="typeDocument" class="form-group">
@@ -40,17 +51,27 @@
       </div>
 
       <div class="form-group">
-        <input  formControlName="idNumber" id="txt-idNumber" type="text" class="form-control" placeholder="Cédula" maxlength="20"
+        <input  formControlName="idNumber" id="txt-idNumber" type="text" class="form-control" placeholder="Cédula*" maxlength="20"
           onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
       </div>
 
       <div class="form-group">
-        <input formControlName="email" id="txt-email" type="email" class="form-control" placeholder="E-mail" maxlength="50">
+        <input formControlName="email" id="txt-email" type="email" class="form-control" placeholder="E-mail*" maxlength="50">
+        <span class="help-block">
+          <span *ngIf="editProfileForm.get('email').invalid && !editProfileForm.get('email').pristine">
+            El campo no cumple con el formato de correo.
+          </span>
+        </span>
       </div>
 
       <div class="form-group">
-        <input formControlName="cellphone" id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular"
-          onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="20">
+        <input formControlName="cellphone" id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular*"
+          onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="15">
+          <span class="help-block">
+            <span *ngIf="editProfileForm.get('cellphone').invalid && !editProfileForm.get('cellphone').pristine">
+                Este campo es obligatorio.
+            </span>
+          </span>
       </div>
 
       <div class="form-group location">

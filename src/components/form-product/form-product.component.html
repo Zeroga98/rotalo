@@ -1,3 +1,4 @@
+<modal-tips *ngIf="isModalShowed" (close)="closeModal()" ></modal-tips>
 <div class="container-form">
     <div class="title-form">
       <span>Completa los siguientes datos</span>
@@ -7,15 +8,16 @@
       <div class="container-step">
         <div class="step-number">
           <span class="number">1. </span>Escoge las imágenes perfectas, mira algunos tips.
+          <span (click) ="openModal()" class="util-modal icon-light vertical-align--middle"></span>
         </div>
         <div class="container-prev-photos" *ngIf="product">
           <div class="prev-photos" *ngFor="let photo of photosUploaded">
             <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
-            <div class="container-img"><img [src]="photo.url"></div>
+            <div class="container-img"><img [src]="photo?.url"></div>
           </div>
         </div>
         <div>
-          <image-upload        
+          <image-upload
           [max]="6"
           [extensions]="['jpeg','png', 'jpg']"
           [buttonCaption]="'Selecciona una Imagen'"
@@ -54,7 +56,7 @@
                   <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
                   <span>Recibo Ofertas</span>
                 </div>
-            </div>      
+            </div>
             <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
                 Este campo es obligatorio.
             </span>

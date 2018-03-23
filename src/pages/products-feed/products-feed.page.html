@@ -6,14 +6,14 @@
 (categorySelected)= "selectedCategory($event)"
 (subCategorySelected)= "selectedSubCategory($event)"></toolbar>
 
-<subcategory-filter *ngIf="configFiltersSubcategory"
+<subcategory-filter *ngIf="!showBanner || configFiltersSubcategory"
 [config]="configFiltersSubcategory"
 (onFilterBySellType)="filteBySellType($event)"
 (onFilterBySort)="filterBySort($event)"
 (onFilterByCity)="filterByCity($event)"
 (onFilterByState)="filterByState($event)"></subcategory-filter>
 
-<ngx-carousel class="carousel-theme" *ngIf="!configFiltersSubcategory" [inputs]="carouselConfig">
+<ngx-carousel class="carousel-theme" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner">
         <img [src]="image">
@@ -33,17 +33,17 @@
   <div class="container-masonry">
       <masonry class="masonry"
       #masonryRef
-      [options]="masonryConfig" 
-      infiniteScroll 
+      [options]="masonryConfig"
+      infiniteScroll
       [infiniteScrollDistance]="0.5"
       [infiniteScrollDisabled]="isInfiniteScrollDisabled"
       (scrolled)="scrolledInfinite()">
-    
+
         <masonry-brick class="grid-item" *ngFor="let product of products">
             <product [product]="product" (selected)="selectProduct($event)"></product>
         </masonry-brick>
-    
+
       </masonry>
   </div>
-  
+
 </div>

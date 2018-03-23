@@ -58,6 +58,7 @@ export class SignUpPage implements OnInit {
             const response = await this.userService.saveUser(params);
             this.errorsSubmit = [];
             this.router.navigate([ROUTES.ACTIVACION]);
+        //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
           }
         } catch (error) {
             this.errorsSubmit = error.error.errors;
@@ -99,7 +100,7 @@ export class SignUpPage implements OnInit {
 
 	validatePasswordConfirm(registerGroup: FormGroup): any {
 		if (this.registerForm) {
-			return registerGroup.value === this.registerForm.get("password").value? null: { notSame: true };
+			return registerGroup.value === this.registerForm.get("password").value ? null : { notSame: true };
 		}
 	}
 

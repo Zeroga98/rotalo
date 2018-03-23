@@ -103,8 +103,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoaderInterceptor } from '../commons/interceptors/loading-bar.interceptos';
 import { SubcategoryFilterComponent } from '../components/subcategory-filter/subcategory-filter.component';
 import { ValidateSessionInterceptor } from '../commons/interceptors/validate-session.interceptor';
+import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from '../router/guards/validate-session.service';
 import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
+import { ModalTipsComponent } from '../components/modal-tips/modal-tips.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +167,9 @@ import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
     TermsPage,
     SimulateCreditPage,
     NotificationsPage,
-    SubcategoryFilterComponent
+    SubcategoryFilterComponent,
+    ChangePage,
+    ModalTipsComponent
   ],
   imports: [
     BrowserModule,
