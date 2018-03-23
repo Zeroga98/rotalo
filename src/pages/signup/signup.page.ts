@@ -91,7 +91,7 @@ export class SignUpPage implements OnInit {
     }
 
 	selectedCountryColombia(): boolean {
-		return this.country &&this.country.id === "1" &&this.country.name === "Colombia"
+		return this.country &&this.country.id === "1" && this.country.name === "Colombia"
 	}
 
 	checkBoxRequired(checkBox: FormGroup): any {
@@ -131,7 +131,9 @@ export class SignUpPage implements OnInit {
       const idDocumentControl = this.registerForm.get("id-number");
       idDocumentControl.clearValidators();
       const documentObject = this.findNameDocumentType();
-      const documentName = documentObject["name-document"];
+      let documentName;
+      if (documentObject) { documentName = documentObject["name-document"]; }
+
       /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
       switch (idCountry) {
         case "1": {

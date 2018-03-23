@@ -1,10 +1,19 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CollectionSelectService } from '../../services/collection-select.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
+import { CollectionSelectService } from "../../services/collection-select.service";
 
 @Component({
-  selector: 'select-states',
-  templateUrl: './select-states.component.html',
-  styleUrls: ['./select-states.component.scss'],
+  selector: "select-states",
+  templateUrl: "./select-states.component.html",
+  styleUrls: ["./select-states.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectStatesComponent implements OnChanges {
@@ -12,9 +21,11 @@ export class SelectStatesComponent implements OnChanges {
   @Input() initialValue;
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   states: Array<any> = [];
-  currentState: String = '';
-  constructor(private collectionService: CollectionSelectService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+  currentState: String = "";
+  constructor(
+    private collectionService: CollectionSelectService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnChanges() {
     this.getStates();
@@ -22,24 +33,29 @@ export class SelectStatesComponent implements OnChanges {
 
   async getStates() {
     if (this.country && this.country.id) {
-        this.currentState = '';
-        this.states = await this.collectionService.getStatesById(this.country.id);
-        if (this.initialValue) {
-          if (this.country.id === this.initialValue.country.id) {
-            const name  = this.initialValue.name;
-            const id = this.initialValue.id;
-            this.currentState = id;
-            this.selected.emit({name, id});
-          }
+      this.currentState = "";
+      this.states = await this.collectionService.getStatesById(this.country.id);
+      if (this.initialValue) {
+        if (this.country.id === this.initialValue.country.id) {
+          const name = this.initialValue.name;
+          const id = this.initialValue.id;
+          this.currentState = id;
+          this.selected.emit({ name, id });
         }
-        this.changeDetectorRef.markForCheck();
+      }
+      this.changeDetectorRef.markForCheck();
     }
   }
 
   onSelect(ev) {
-    const name = ev.target.selectedOptions[0].text;
+    let name;
+    if (ev.target.selectedOptions) {
+      name = ev.target.selectedOptions[0].text;
+    } else {
+      name = ev.target.options[ev.target.selectedIndex].text;
+    }
     const id = ev.target.value;
-    this.selected.emit({name, id});
+    console.log({ name, id });
+    this.selected.emit({ name, id });
   }
-
 }

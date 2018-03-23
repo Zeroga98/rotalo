@@ -38,8 +38,14 @@ export class SelectCitiesComponent implements OnChanges {
   }
 
   onSelect(ev) {
-    const name = ev.target.selectedOptions[0].text;
+    let name;
+    if (ev.target.selectedOptions) {
+      name = ev.target.selectedOptions[0].text;
+    } else {
+      name = ev.target.options[ev.target.selectedIndex].text;
+    }
     const id = ev.target.value;
+    console.log({ name, id });
     this.selected.emit({name, id});
   }
 
