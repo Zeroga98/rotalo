@@ -8,46 +8,53 @@ import { CountryInterface } from "./country.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectCountryComponent implements OnInit {
+  @Output() selected: EventEmitter<Object> = new EventEmitter();
+  @Output() loaded: EventEmitter<void> = new EventEmitter();
+  @Input() initialValue: CountryInterface;
+  countries: Array<any> = [];
+  currentCountryId: number | string = "";
 
-    @Output() selected: EventEmitter<Object> = new EventEmitter();
-    @Output() loaded: EventEmitter<void> = new EventEmitter();
-    @Input() initialValue: CountryInterface;
-    countries: Array < any > = [];
-    currentCountryId: number | string = '';
+  constructor(
+    private collectionService: CollectionSelectService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
-    constructor(
-        private collectionService: CollectionSelectService,
-        private changeDetectorRef: ChangeDetectorRef) {
+  ngOnInit() {
+    this.getCountries();
+  }
+
+  onSelected(ev) {
+    let name;
+    if (ev.target.selectedOptions) {
+      name = ev.target.selectedOptions[0].text;
+    } else {
+      name = ev.target.options[ev.target.selectedIndex].text;
     }
+    const id = ev.target.value;
+    console.log({ name, id });
+    this.selected.emit({ name, id });
+  }
 
-    ngOnInit() {
-        this.getCountries();
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.countries = await this.collectionService.getCountries();
+      this.loaded.emit();
+      this.routineToInitialValue();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    onSelected(ev) {
-        const name = ev.target.selectedOptions[0].text;
-        const id = ev.target.value;
-        this.selected.emit({name, id});
+  private async routineToInitialValue() {
+    if (this.initialValue && this.initialValue.id) {
+      this.currentCountryId = this.initialValue.id;
+      const country = this.countries.find(
+        (country: any) => country.id == this.initialValue.id
+      );
+      this.selected.emit(country);
     }
-
-    async getCountries() {
-        try {
-            await this.collectionService.isReady();
-            this.countries = await this.collectionService.getCountries();
-            this.loaded.emit();
-            this.routineToInitialValue();
-            this.changeDetectorRef.markForCheck();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    private async routineToInitialValue(){
-        if (this.initialValue && this.initialValue.id) {
-            this.currentCountryId = this.initialValue.id;
-            const country = this.countries.find( (country:any) => country.id == this.initialValue.id);
-            this.selected.emit(country);
-        }
-    }
+  }
 }
 
