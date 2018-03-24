@@ -1,3 +1,4 @@
+import { CountryInterface } from './../../components/select-country/country.interface';
 import { CityInterface } from './../../commons/interfaces/city.interface';
 import { NavigationService } from './../products/navigation.service';
 import { Router } from '@angular/router';
@@ -34,6 +35,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private currentPage: number = 1;
   private waitNewPage: boolean = false;
   public showBanner = true;
+  public countrySelected: CountryInterface;
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
@@ -59,7 +61,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.navigationService.getCurrentCountryId());  
+    this.countrySelected = {id: this.navigationService.getCurrentCountryId()}
     this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId()});  
     const params = this.getParamsToProducts();
     this.loadProducts(params);
@@ -92,10 +94,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   searchByTags(evt: Array<string>) {
     if (evt.length > 0) {
       const filterValue = evt.join("+");
-      this.routineUpdateProducts({ "filter[search]": filterValue });
+      this.configFiltersSubcategory = null;
+      this.routineUpdateProducts({ 
+      "filter[search]": filterValue,
+      "filter[subcategory_id]": undefined,
+      "filter[category]": undefined });
       this.showBanner = false;
     }else {
-        const currentFilter: Object = {
+        this.currentFilter = {
         "filter[status]": "active",
         "filter[country]": 1,
         "filter[community]": -1,
@@ -103,7 +109,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         "page[number]": 1,
         "filter[search]": null
       };
-      this.routineUpdateProducts(currentFilter);
+      this.routineUpdateProducts({});
       this.showBanner = true;
     }
   }
@@ -135,7 +141,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedCategory(category: CategoryInterface) {
-    this.configFiltersSubcategory = {category: category.name, subCategory: undefined};
+    this.configFiltersSubcategory = {category: category.name, subCategory: undefined, color : category.color, icon: category.icon};
     this.routineUpdateProducts({
       "filter[category]": category.id,
       "filter[subcategory_id]": undefined
@@ -150,7 +156,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
-    this.configFiltersSubcategory = {category: subCategory.category.name, subCategory: subCategory.name};
+    this.configFiltersSubcategory = {category: subCategory.category.name, subCategory: subCategory.name, color : subCategory.category.icon, icon:subCategory.category.icon};
     this.routineUpdateProducts({
       "filter[subcategory_id]": subCategory.id,
       "filter[category]": undefined
@@ -166,7 +172,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   private _subscribeCountryChanges(){
-    this._subscriptionCountryChanges = this.navigationService.countryChanged.subscribe( (country:any) => this.routineUpdateProducts({ "filter[country]": country.id }));
+    this._subscriptionCountryChanges = this.navigationService.countryChanged.subscribe( (country:any) => {
+      this.countrySelected = { id: country.id};
+      this.routineUpdateProducts({ "filter[country]": country.id });
+    });
   }
 
   private updateProducts(newProducts: Array<ProductInterface>){
@@ -179,7 +188,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     newProducts.forEach( product => this.products.push(product));
   }
 
-  private routineUpdateProducts(filter: Object, numberPage = 1) {
+  private routineUpdateProducts(filter: Object = {}, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
     filter = Object.assign({}, filter, this.getPageFilter(numberPage));
     const newFilter = this.updateCurrentFilter(filter);

@@ -8,6 +8,7 @@ import { SubcategoryInterface } from "../../commons/interfaces/subcategory.inter
 import { PhotosService } from "../../services/photos.service";
 import { CategoriesService } from "../../services/categories.service";
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
+import * as moment from 'moment';
 
 @Component({
   selector: "form-product",
@@ -30,11 +31,16 @@ export class FormProductComponent implements OnInit, OnChanges {
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
   disabledField = false;
+  minDate: string;
+  maxDate: string;
   constructor(
     private photosService: PhotosService,
     private categoryService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+    this.defineSubastaTimes();
+    this.changeDetectorRef.markForCheck();
+  }
 
   async ngOnInit() {
     try {
@@ -47,11 +53,13 @@ export class FormProductComponent implements OnInit, OnChanges {
 
 
   changeKindOfProduct(evt) {
+    this.photosForm.controls['negotiable'].enable();
     if (evt === "GRATIS") {
-      this.photosForm.patchValue({
-        price: 0
-      });
+      this.photosForm.patchValue({price: 0});
       this.disabledField = true;
+    }else if(evt === "SUBASTA"){
+      document.getElementById("checkTerms").checked = true;
+      this.photosForm.controls['negotiable'].disable();
     }else {
       this.disabledField = false;
     }
@@ -72,11 +80,22 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
+    let date: any = moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD');
+    let dataAdditional;
+    if(date.isValid() && this.photosForm.get('sell-type').value == 'SUBASTA'){
+      dataAdditional = {
+        'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
+        'negotiable': true
+      }
+    }else{
+      dataAdditional = {
+        'publish-until': this.getPublishUntilDate(),
+      }
+    }
     const publishDate = {
-      "publish-until": this.getPublishUntilDate(),
       "published-at": new Date()
     };
-    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate);
+    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
     this.publish.emit(params);
   }
 
@@ -167,14 +186,13 @@ export class FormProductComponent implements OnInit, OnChanges {
       name: new FormControl(config.name, [Validators.required]),
       price: new FormControl(config.price, [Validators.required]),
       currency: new FormControl(config.currency, [Validators.required]),
-      "subcategory-id": new FormControl(config["subcategory-id"], [
-        Validators.required
-      ]),
+      "subcategory-id": new FormControl(config["subcategory-id"], [Validators.required]),
       used: new FormControl(config.used, [Validators.required]),
       visible: new FormControl(config.visible, [Validators.required]),
       "sell-type": new FormControl(config["sell-type"], [Validators.required]),
       description: new FormControl(config.description, [Validators.required]),
-      negotiable: new FormControl(config.negotiable, []),
+      negotiable: new FormControl({value:config.negotiable, disabled: false}, []),
+      'publish-until': new FormControl(config['publish-until'], []),
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
@@ -190,6 +208,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: "",
       "sell-type": "",
       description: null,
+      'publish-until': null,
       negotiable: true
     };
     return Object.assign({}, product, this.product) as ProductInterface;
@@ -246,6 +265,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private removePhoto(id: number) {
     this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
+  }
+
+  private defineSubastaTimes(){
+    this.minDate = moment().format('YYYY-MM-DD');
+    this.maxDate = moment().add(30, 'days').format('YYYY-MM-DD');
   }
 
   get formIsInValid() {

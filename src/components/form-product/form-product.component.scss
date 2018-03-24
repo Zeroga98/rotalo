@@ -141,6 +141,10 @@
                   transform: rotate(45deg);
                 }
               }
+              input:disabled ~ .checkmark{
+                cursor: not-allowed;
+                opacity: 0.5;
+              }
               input:checked ~ .checkmark:after {
                 display: block;
               }
