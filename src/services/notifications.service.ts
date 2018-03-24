@@ -31,6 +31,7 @@ export class NotificationsService {
                 const data = [].concat(response.data);
                 return data.map( (notificacion: NotificationsInterface) => {
                     notificacion.status = this.updateStatusNotification(notificacion);
+                    console.log("notificacion: ", notificacion);
                     return notificacion;
                 });
             })
@@ -69,7 +70,7 @@ export class NotificationsService {
             break;
             case 'rate_seller':
             case 'rate_buyer':
-                if (notification.purchase && notification.purchase['seller-rate']) {
+                if (notification.purchase && (notification.purchase['seller-rate'] || notification.purchase['buyer-rate'])) {
                     status = 'Evaluación enviada';
                 }
             break;

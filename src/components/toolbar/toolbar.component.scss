@@ -8,6 +8,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        flex-wrap: wrap;
         .toolbar-container{
             background: white;
             display: inline-flex;
@@ -84,7 +85,8 @@
                     display: inline-flex;
                     justify-content: center;
                     align-items: center;
-                    margin-right: 2rem;
+                    margin-right: 1rem;
+                    cursor: pointer;
                     img{
                         margin: 0;
                         width: 2rem;
@@ -94,6 +96,10 @@
                 rl-tag-input{
                     max-width: 0;
                     overflow: hidden;
+                }
+                rl-tag-input.full{
+                    max-width: 100rem;
+                    transition: all 0.5s;
                 }
                 .container-categrias, .container-icon-search{
                     background: white;
@@ -112,6 +118,17 @@
                     select {
                         padding: .5rem 4rem .5rem 1rem;
                         font-size: 1.7rem;
+                    }
+                }
+            }
+            .toolbar-container.search-show{
+                background: white;
+                margin-right: 0;
+                & ~ .toolbar__filters{
+                    width: 100%;
+                    margin-top: 2rem;
+                    select{
+                        width: 100%;
                     }
                 }
             }

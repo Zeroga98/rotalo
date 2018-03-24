@@ -45,12 +45,8 @@ export class NotificationsPage implements OnInit {
     private router: Router
   ) {}
 
-  async ngOnInit() {
-    try {
-      this.notificationsList = await this.notificationsService.getNotifications();
-      this.showSpinner = false;
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+  ngOnInit() {
+    this.loadNotifications();
   }
 
   productIsFree(notification: NotificationsInterface) {
@@ -103,6 +99,17 @@ export class NotificationsPage implements OnInit {
     }
   }
 
+  async regretOffer(notification:NotificationsInterface){
+    try {
+      if (!confirm("¿Estás seguro que deseas cancelar la compra?")) return;
+      const response = await this.offerService.regretOffer(notification.offer.id as number);
+      notification.status = "Compra cancelada";
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async acceptOffer(notification: NotificationsInterface) {
     try {
       if (!confirm("¿Estás seguro que deseas aceptar la oferta?")) return;
@@ -127,6 +134,11 @@ export class NotificationsPage implements OnInit {
     }
   }
 
+  buyProduct(notification: NotificationsInterface){
+    const id = notification.product.id;
+    this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.BUY}/${id}`]);
+  }
+
   openConversation(notification: NotificationsInterface) {
     if (notification.message) {
       this.idConversation = `${notification.product.id}-${notification.message["author-id"]}`;
@@ -140,6 +152,7 @@ export class NotificationsPage implements OnInit {
 
   closeModalRate() {
     this._isModalRateShow = false;
+    this.loadNotifications();
   }
 
   closeModalSendMessage() {
@@ -147,18 +160,7 @@ export class NotificationsPage implements OnInit {
   }
 
   showModalRate(notification) {
-    this.configModalRate = {
-      name: notification.product.user.name,
-      "purchase-id": notification.purchase.id,
-      "seller-rate":
-        notification.status && notification.purchase
-          ? notification.purchase["seller-rate"].value
-          : false,
-      comment:
-        notification.status && notification.purchase
-          ? notification.purchase["seller-rate"].comment
-          : undefined
-    };
+    this.configModalRate = this.buildRateObject(notification);
     this._isModalRateShow = true;
   }
 
@@ -171,6 +173,36 @@ export class NotificationsPage implements OnInit {
 
   get isModalRateShow() {
     return this._isModalRateShow;
+  }
+
+  private buildRateObject(notification){
+    let rate, comment;
+    const options = ["seller-rate", "buyer-rate"];
+    if(notification.purchase){
+      options.forEach( option => {
+        if(notification.purchase[option]){
+          rate = notification.purchase[option].value;
+          comment = notification.purchase[option].comment;
+        }
+      });
+    }
+    return {
+      type: notification['notification-type'],
+      productId: notification.product.id,
+      name: notification.product.user.name,
+      "purchase-id": notification.purchase.id, 
+      "seller-rate": rate,
+      comment 
+    }
+  }
+
+  private async loadNotifications(){
+    try {
+      this.notificationsList = await this.notificationsService.getNotifications();
+      console.log("List: ", this.notificationsList);
+      this.showSpinner = false;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {}
   }
 
   private _getDefaultConversation(notification: NotificationsInterface) {

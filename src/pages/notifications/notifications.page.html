@@ -55,6 +55,15 @@
                         <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
+                    <p class="notification-text" *ngIf="notification.status">{{notification.status}}</p>
+                    <div class="notification-buttons" *ngIf="!notification.status">
+                        <div class="button-item">
+                            <button class="button button-secondary" (click)="buyProduct(notification)">Comprar</button>
+                        </div>
+                        <div class="button-item">
+                            <button class="button button-primary" (click)="regretOffer(notification)">Cancelar</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
 

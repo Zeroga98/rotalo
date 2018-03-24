@@ -20,7 +20,7 @@
           <image-upload
           [max]="6"
           [extensions]="['jpeg','png', 'jpg']"
-          [buttonCaption]="'Selecciona una Imagen'"
+          [buttonCaption]="'Selecciona una imagen'"
           [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
           [clearButtonCaption]="'Limpiar'"
           [style]="customStyleImageLoader"
@@ -33,12 +33,12 @@
           <span class="number">2. </span>Datos de tu producto
         </div>
         <div class="info-product">
-          <div class="form-group">
+          <div class="form-group" data-input="name">
             <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar? *" maxlength="100">
             <span class="help-block error-msg"> Este campo es obligatorio. </span>
           </div>
-          <div class="form-group">
-            <div class=" item-price">
+          <div class="form-group" data-input="price">
+            <div class="item-price">
                 <input
                 class="form-control input-price"
                 name="price"
@@ -53,7 +53,10 @@
                   <option value="'USD'">USD</option>
                 </select>
                 <div class="check-offer">
-                  <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+                  <label for="checkTerms" class="container-check">
+                      <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+                      <span class="checkmark"></span>
+                  </label>
                   <span>Recibo ofertas</span>
                 </div>
             </div>

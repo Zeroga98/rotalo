@@ -16,6 +16,7 @@ export class ModalRateComponent implements OnInit {
 	@Output() close: EventEmitter<any> = new EventEmitter();
 	@Input() config;
 	title: string = "Califica al vendedor";
+	type: string = 'Comprador';
 	msgRequest: string = 'Su calificación ha sido enviada';
 	statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.initial;
@@ -25,20 +26,24 @@ export class ModalRateComponent implements OnInit {
 	constructor(private ratingService: RatingService, private changeDetectorRef: ChangeDetectorRef) { }
 
 	ngOnInit() {
+		if(this.config.type == 'rate_seller') this.type = "Vendedor";
+		
 	}
 
 	async ratePurchase() {
 		try {
 			this.stateRequest = this.statesRequestEnum.loading;
 			const response = await this.ratingService.rate(this._rating, this._comment, this.config['purchase-id']);
+			console.log(response);
 			this.stateRequest = StatesRequestEnum.success;
 			this.msgRequest = "Su calificación ha sido enviada";
 			this.changeDetectorRef.markForCheck();
 		} catch (error) {
+			console.error(error);
 			this.stateRequest = StatesRequestEnum.error;
 			this.msgRequest = error.data.messages;
 			this.changeDetectorRef.markForCheck();
-    }
+    	}
 	}
 
 	closeModal() {
@@ -50,8 +55,8 @@ export class ModalRateComponent implements OnInit {
 	}
 
 	onBlurText(event) {
-    this._comment = event.currentTarget.value;
-  }
+    	this._comment = event.currentTarget.value;
+  	}
 
 	get isRateButtonAvailable() {
 		return this._rating > 0 && this._comment != '';

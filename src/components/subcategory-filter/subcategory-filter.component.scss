@@ -30,11 +30,13 @@
             .container-selects{
                 margin-bottom: 2rem;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: center;
                 select, select-states, select-cities{
                     margin-right: 1rem;
                     width: auto;
                     min-width: 16rem;
+                    margin-bottom: 1rem;
                 }
             }
             .actions{
@@ -53,6 +55,32 @@
                 
                 button:not(:last-child){
                     margin-right: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 550px){
+    :host{
+        .container{
+            display: flex;
+            justify-content: center;
+            background-color: #F1F1F1;
+            padding: 2rem 5%;
+            .container-filters{
+                .categories{
+                    margin-bottom: 1.5rem;
+                    .category-title{
+                        font-size: 3rem;
+                    }
+                }
+                .actions{
+                    display: flex;
+                    justify-content: center;
+                    button{
+                        font-size: 1.6rem;
+                    }
                 }
             }
         }

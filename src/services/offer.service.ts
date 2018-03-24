@@ -19,6 +19,10 @@ export class OfferService {
         this.sendResponseOffer(id, 'decline');
     }
 
+    regretOffer(id: number){
+        this.sendResponseOffer(id,'regret');
+    }
+
     private sendResponseOffer(id: number, action:string){
         const url = `${this.url}/${id}/${action}`;
         return this.httpClient.post(url,{

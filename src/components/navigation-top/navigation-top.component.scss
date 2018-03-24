@@ -20,9 +20,7 @@
         align-items: center;
         padding: 20px;
         back-arrow{
-            display: inline-block;
             margin-right: 1rem;
-            vertical-align: middle;
         }
         .upload-offer-button{
             display: inline-block;
@@ -142,6 +140,30 @@
             .navbar-brand {
                 width: 20%;
                 min-width: 8rem;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 400px){
+    :host{
+        .container{
+            width:95%;
+        }
+        .navbar-header{
+            back-arrow{
+                width: 3rem;
+                height: 3rem;
+            }
+            .list-options{
+                padding-left: 10px;
+                li{
+                    font-size: 2rem;
+                }
+                li:not(:last-child){
+                    margin-right: 2rem;
+                }
             }
         }
     }

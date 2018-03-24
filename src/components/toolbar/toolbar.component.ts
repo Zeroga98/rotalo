@@ -38,6 +38,11 @@ export class ToolbarComponent implements OnInit {
     this.selectedCommunity.emit({ name, id });
   }
 
+  showSearchBar(evt){
+    evt.currentTarget.parentElement.classList.add("search-show");
+    evt.currentTarget.nextElementSibling.classList.add('full');
+  }
+
   changeTags(evt) {
     this.tagsChanged.emit(this.tags);
   }
