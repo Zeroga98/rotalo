@@ -54,7 +54,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private utilService: UtilsService,
     private navigationService: NavigationService,
     private changeDetectorRef:ChangeDetectorRef) {
-
+      
+    this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId()});  
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
   }

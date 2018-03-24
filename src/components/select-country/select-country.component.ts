@@ -11,6 +11,7 @@ export class SelectCountryComponent implements OnInit {
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   @Output() loaded: EventEmitter<void> = new EventEmitter();
   @Input() initialValue: CountryInterface;
+  @Input() turnOffInitialEvent: boolean = false;
   countries: Array<any> = [];
   currentCountryId: number | string = "";
 
@@ -25,13 +26,8 @@ export class SelectCountryComponent implements OnInit {
 
   onSelected(ev) {
     let name;
-    if (ev.target.selectedOptions) {
-      name = ev.target.selectedOptions[0].text;
-    } else {
-      name = ev.target.options[ev.target.selectedIndex].text;
-    }
+    name = ev.target.selectedOptions ? ev.target.selectedOptions[0].text :  ev.target.options[ev.target.selectedIndex].text;
     const id = ev.target.value;
-    console.log({ name, id });
     this.selected.emit({ name, id });
   }
 
@@ -50,10 +46,8 @@ export class SelectCountryComponent implements OnInit {
   private async routineToInitialValue() {
     if (this.initialValue && this.initialValue.id) {
       this.currentCountryId = this.initialValue.id;
-      const country = this.countries.find(
-        (country: any) => country.id == this.initialValue.id
-      );
-      this.selected.emit(country);
+      const country = this.countries.find((country: any) => country.id == this.initialValue.id );
+      if(!this.turnOffInitialEvent) this.selected.emit(country);
     }
   }
 }
