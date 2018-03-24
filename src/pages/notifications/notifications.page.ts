@@ -164,11 +164,17 @@ export class NotificationsPage implements OnInit {
     this._isModalRateShow = true;
   }
 
-  goToDetail(id: number) {
+  goToDetail(notification) {
+    console.log(notification);
+    const id = notification.product.id;
+    this.router.navigate([
+      `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+    ]);
+   /*
     this.router.navigate([
       `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`,
       { readOnly: true }
-    ]);
+    ]);*/
   }
 
   get isModalRateShow() {
@@ -199,7 +205,6 @@ export class NotificationsPage implements OnInit {
   private async loadNotifications(){
     try {
       this.notificationsList = await this.notificationsService.getNotifications();
-      console.log("List: ", this.notificationsList);
       this.showSpinner = false;
       this.changeDetectorRef.markForCheck();
     } catch (error) {}

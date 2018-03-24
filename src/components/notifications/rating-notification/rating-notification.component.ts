@@ -13,7 +13,6 @@ export class RatingNotificationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.notification);
   }
 
   rate(){

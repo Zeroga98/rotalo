@@ -120,6 +120,10 @@ export class DetailProductComponent implements OnInit {
     return this.products && this.products.user.id === this.idUser;
   }
 
+  isSold() {
+    return this.products && this.products.status === "sold";
+  }
+
   async deleteProduct(product: ProductInterface) {
     try {
       const result = confirm("¿Seguro quieres borrar esta publicación?");

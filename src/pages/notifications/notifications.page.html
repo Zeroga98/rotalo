@@ -31,7 +31,7 @@
                         <span class="highlight bold clickable" (click)="openConversation(notification)">{{notification.offer.user.name}}</span> ha hecho una oferta
                         <span *ngIf="notification.product['sell-type'] !== 'SUBASTA'">para tu</span>
                         <span *ngIf="notification.product['sell-type'] === 'SUBASTA'">en subasta</span>
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name )+ ': ' + (notification.offer.amount | currency:'$':0 ) + ' pesos.'}}
                         </span>
                     </p>
@@ -52,7 +52,7 @@
                 <div *ngIf="notification['notification-type'] == 'offer_accepted'" class="notifications-item">
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">Tu oferta ha sido aceptada
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
                     <p class="notification-text" *ngIf="notification.status">{{notification.status}}</p>
@@ -71,7 +71,7 @@
                 <div *ngIf="notification['notification-type'] == 'offer_declined'" class="notifications-item">
                     <span class="icon icon-warning notification-icon"></span>
                     <p class="notification-text">Tu oferta ha sido rechazada
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ' ' +(notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ' ' +(notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
                 </div>
@@ -83,7 +83,7 @@
                     <p class="notification-text">
                         <span class="highlight bold">{{notification.offer.user.name}}</span> ha cancelado su oferta
                         <span *ngIf="notification.product['sell-type'] === 'SUBASTA'">en tu subasta</span>
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}</span>
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
                 </div>
@@ -96,7 +96,7 @@
                         <span class="highlight bold clickable" (click)="openConversation(notification)">{{notification.purchase.user.name}}</span>
                         <span *ngIf="notification.product['sell-type'] === 'GRATIS'">te ha pedido </span>
                         <span *ngIf="notification.product['sell-type'] !== 'GRATIS'">ha comprado</span>
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}</span>
                         - Pago: {{paymentTypes[notification.purchase['payment-type']]}}
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
@@ -129,7 +129,7 @@
                     <p class="notification-text" *ngIf="notification.product['sell-type'] !== 'GRATIS'">
                         <span class="highlight bold">{{notification.product.user.name}}</span>
                         <span>ha cancelado tu compra</span>
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}
                         </span>
                     </p>
@@ -162,7 +162,7 @@
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">
                         Tu producto
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos.'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos.'}}</span>
                         ha sido recibido.
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
@@ -181,7 +181,7 @@
                     <p class="notification-text">
                         <span class="highlight bold">{{notification['sufi-loan'].user.name}}</span>
                         quiere comprar
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">{{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos'}}</span>
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">{{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos'}}</span>
                         y para ello ha solicitado un crédito Sufi.
                     </p>
                     <small class="notification-date">{{notification.at | amLocale:'es' | amTimeAgo}}</small>
@@ -193,7 +193,7 @@
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">
                         Felicitaciones! Tu crédito con Sufi para la compra del producto
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos '}}
                         </span>
                         ha sido aprobada.
@@ -207,7 +207,7 @@
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">
                         Tu solicitud de crédito Sufi para la compra del producto
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos '}}
                         </span>
                         no fue aprobada.
@@ -220,7 +220,7 @@
                 <div *ngIf="notification['notification-type'] == 'auction_assigned'" class="notifications-item">
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">Has ganado la subasta
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' + (notification.offer.amount | currency:'$':0) + ' pesos.'}}
                         </span>
                     </p>
@@ -241,7 +241,7 @@
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">
                         <span class="highlight bold">{{notification.offer.user.name}}</span> ha ganado tu subasta
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' + (notification.product.price | currency:'$':0) + ' pesos.'}}
                         </span>
                     </p>
@@ -253,7 +253,7 @@
                 <div *ngIf="notification['notification-type'] == 'auction_overtaken'" class="notifications-item">
                     <span class="icon icon-flag notification-icon"></span>
                     <p class="notification-text">Han superado tu oferta en la subasta del producto
-                        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
+                        <span class="highlight bold clickable" (click)="goToDetail(notification)">
                             {{(notification.product.name) + ': ' (notification.product.price | currency:'$':0) + ' pesos.'}}
                         </span>
                     </p>

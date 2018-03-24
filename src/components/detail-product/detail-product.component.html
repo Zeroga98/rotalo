@@ -91,7 +91,7 @@
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
         </div>
-        <div class="media" *ngIf="validateSession()">
+        <div class="media" *ngIf="validateSession() && !isSold()">
             <div class="media-left media-middle">
               <label class="switch">
                   <input type="checkbox" [checked]="productStatus"  (change)="saveCheck()" >
@@ -101,9 +101,9 @@
             <div class="media-body">
               <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
             </div>
-          </div>
+        </div>
       </div>
-      <div class="product-btns" *ngIf="validateSession()" >
+      <div class="product-btns" *ngIf="validateSession() && !isSold()" >
         <div class="cont-botons">
           <div class="botons" (click)="editProduct(products)">
             <span class="icon icon-edit"></span>

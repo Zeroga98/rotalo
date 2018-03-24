@@ -31,7 +31,6 @@ export class NotificationsService {
                 const data = [].concat(response.data);
                 return data.map( (notificacion: NotificationsInterface) => {
                     notificacion.status = this.updateStatusNotification(notificacion);
-                    console.log("notificacion: ", notificacion);
                     return notificacion;
                 });
             })
