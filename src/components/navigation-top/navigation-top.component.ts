@@ -13,6 +13,7 @@ import {
   ChangeDetectionStrategy
 } from "@angular/core";
 import { MessagesService } from "../../services/messages.service";
+import { NavigationService } from "../../pages/products/navigation.service";
 
 @Component({
   selector: "navigation-top",
@@ -37,11 +38,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private router: Router,
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
+    private navigationService: NavigationService,
     private notificationsService: NotificationsService
   ) {
   }
 
   ngOnInit() {
+    this.defaultCountryValue = { id: this.navigationService.getCurrentCountryId() };
     this.listenerMessages = this.setListenerMessagesUnread();
     this.listenerMessages = this.setListenerNotificationsUnread();
   }
@@ -54,17 +57,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
-  /*  const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    this.router.navigate([url]);*/
+    this.navigationService.setCurrentCountryId(evt.id);  
+    this.goToFeed(evt.id);
   }
 
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    if (`/${url}` === this.router.url) {
-      location.reload();
-    }else {
-      this.router.navigate([url]);
-    }
+    `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
   }
 
   openConversations() {
@@ -104,5 +103,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 										this.changeDetector.markForCheck();
 									})
 		}, this.timeToCheckNotification)
+  }
+  
+  private goToFeed(id: number){
+		const currentUrl = window.location.pathname;
+		const feedUrl = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
+		if(currentUrl !== feedUrl ){
+			this.router.navigate([`${feedUrl}`]);
+		}
 	}
 }

@@ -10,6 +10,7 @@ export class CollectionSelectService {
     constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
     async isReady() {
+        if(this.collection) return this.collection;
         try {
             const response = await this.getCollection();
             this.collection = response.data;

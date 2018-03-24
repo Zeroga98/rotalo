@@ -17,19 +17,18 @@ export class ProductsPage implements OnInit {
 	defaultCountry: CountryInterface;
 
 	constructor(
-		private navigationServce: NavigationService, 
+		private navigationService: NavigationService, 
 		public router:Router,
 		private _changeDetector: ChangeDetectorRef,
 		private currentSession: CurrentSessionService) { 	
 	}
 
 	ngOnInit(): void {
-		this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
 		this._changeDetector.markForCheck();
 	}
 
 	onCountryChanged(evt) {
-		this.navigationServce.setCountry(evt);
+		this.navigationService.setCountry(evt);
 	}
 
 	get isHideBackArrow(){

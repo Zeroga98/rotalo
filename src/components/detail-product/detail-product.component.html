@@ -50,8 +50,9 @@
       <div class="product-info-user">
         <div>
           <div class="media-middle">
-            <div class="product-info-user--icon">
-              <span class="icon-account"></span>
+            <div *ngIf="products.user.photo" class="photo-user"><img [src]="products.user.photo.url"></div>
+            <div *ngIf="!products.user.photo" class="product-info-user--icon">
+              <span  class="icon-account"></span>
             </div>
             <div class="panel-product__owner">
             </div>
@@ -68,7 +69,7 @@
           <div class="product-btns">
             <div class="cont-botons">
               <div class="botons" (click)="isModalSendMessageShowed = true">
-                <span class="icon icon-edit"></span>
+                <span class="icon icon-custom icon-custom--mail"></span>
                 Enviar Mensaje
               </div>
             </div>

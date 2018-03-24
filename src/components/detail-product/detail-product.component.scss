@@ -200,7 +200,6 @@ custom-spinner{
           display: table-cell;
           padding-right: 10px;
       }
-
       .product-info-user{
           margin: 3rem 0;
           padding: 1.6rem 0;
@@ -212,6 +211,19 @@ custom-spinner{
           justify-content: space-between; 
           align-items: center;
           flex-wrap: wrap; 
+          .photo-user{
+              width: 35px;
+              height: 35px;
+              min-width: 35px;
+              min-height: 35px;
+              overflow: hidden;
+              img{
+                  width: 100%;
+                  height: auto;
+                  min-height: 100%;
+                  border-radius: 100%;
+              }
+          }
           .product-info-user--icon{
               width: 35px;
               height: 35px;
@@ -262,6 +274,10 @@ custom-spinner{
                       width: 100%;
                       max-width: 17.3rem;
                       margin: 0;
+                      .icon-custom--mail{
+                          color: white;
+                          font-size: 1.4rem;
+                      }
                   }
               }
           }
