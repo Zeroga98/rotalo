@@ -40,6 +40,7 @@
           <div class="form-group" data-input="price">
             <div class="item-price">
                 <input
+                [attr.disabled]="disabledField ? '' : null"
                 class="form-control input-price"
                 name="price"
                 currencyMask

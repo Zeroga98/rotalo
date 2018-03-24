@@ -1,19 +1,19 @@
 import { NgxCarousel } from "ngx-carousel";
 
 export const CAROUSEL_CONFIG: NgxCarousel = {
-    grid: {
-        xs: 1,
-        sm: 1,
-        md: 1,
-        lg: 1,
-        all: 0
-    },
-    slide: 1,
-    speed: 400,
-    interval: 4000,
-    point: {
-        visible: true,
-        pointStyles: `
+  grid: {
+      xs: 1,
+      sm: 1,
+      md: 1,
+      lg: 1,
+      all: 0
+  },
+  slide: 1,
+  speed: 400,
+  interval: 4000,
+  point: {
+      visible: true,
+      pointStyles: `
         .ngxcarouselPoint{
             position: absolute;
             bottom: 18px;
@@ -44,11 +44,10 @@ export const CAROUSEL_CONFIG: NgxCarousel = {
             height: 8px;
             margin: 0 4px;
             width: 8px;
-        }
-        `
-    },
-    load: 2,
-    touch: true,
-    loop: true,
-    custom: 'banner'
+        }`
+  },
+  load: 2,
+  touch: true,
+  loop: true,
+  custom: 'banner'
 };

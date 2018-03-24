@@ -164,6 +164,10 @@
       .form-group {
         position: relative;
       }
+      .form-control[disabled] {
+        background-color: #d4dbe0;
+        opacity: 1;
+      }
     }
   }
 }
@@ -173,7 +177,7 @@
 		.container-form {
 			form {
 				.info-product {
-					.form-group[data-input= 'price'], 
+					.form-group[data-input= 'price'],
 					.form-group[data-input= 'name']{
 						width: 100%;
 					}

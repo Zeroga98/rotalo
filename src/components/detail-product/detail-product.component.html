@@ -5,7 +5,7 @@
   <div  class="product">
     <div *ngIf="products?.photos" class="product-photos">
       <div class="panel-heading">
-        <ngx-carousel [inputs]="carouselConfig">
+        <ngx-carousel  [inputs]="carouselConfig">
           <ngx-item NgxCarouselItem *ngFor="let productImage of productsPhotos">
             <div class="container-product__image">
               <img src="{{productImage?.url}}">

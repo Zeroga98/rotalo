@@ -190,9 +190,9 @@ export class NotificationsPage implements OnInit {
       type: notification['notification-type'],
       productId: notification.product.id,
       name: notification.product.user.name,
-      "purchase-id": notification.purchase.id, 
+      "purchase-id": notification.purchase.id,
       "seller-rate": rate,
-      comment 
+      comment
     }
   }
 

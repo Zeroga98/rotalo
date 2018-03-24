@@ -29,6 +29,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   currentSubcategory: String = "";
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
+  disabledField = false;
   constructor(
     private photosService: PhotosService,
     private categoryService: CategoriesService,
@@ -50,9 +51,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.photosForm.patchValue({
         price: 0
       });
+      this.disabledField = true;
+    }else {
+      this.disabledField = false;
     }
-
-    console.log(evt);
   }
 
   ngOnChanges(): void {
