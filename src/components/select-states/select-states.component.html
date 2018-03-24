@@ -3,6 +3,6 @@
   class="form-control"
   (change) = "onSelect($event)"
   name="states">
-      <option value="" disabled>Selecciona tu estado*</option>
+      <option value="" disabled>{{defaultOption}}</option>
       <option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</option>
 </select>

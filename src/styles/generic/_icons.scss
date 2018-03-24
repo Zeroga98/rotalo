@@ -40,6 +40,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .toolkit-entypo{
+    font-family: "toolkit-entypo" !important;
+  }
+
   .icon-custom {
 	/* use !important to prevent issues with browser extensions that change fonts */
 	font-family: 'icon-family' !important;
