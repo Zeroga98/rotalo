@@ -44,6 +44,17 @@ export class FormProductComponent implements OnInit, OnChanges {
     } catch (error) {}
   }
 
+
+  changeKindOfProduct(evt) {
+    if (evt === "GRATIS") {
+      this.photosForm.patchValue({
+        price: 0
+      });
+    }
+
+    console.log(evt);
+  }
+
   ngOnChanges(): void {
     if (this.product) {
       this.setInitialForm(this.getInitialConfig());
@@ -116,7 +127,14 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   subcategoryIsVehicle(): boolean {
     /**No quemar 'Carros' */
-    return this.subCategory && this.subCategory.name === "Carros";
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Carros') {
+        return true;
+      }
+    }
+    return false;
   }
 
   selectedComunity(idCategory: number) {
@@ -137,6 +155,12 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private setInitialForm(config: ProductInterface) {
+    let typeVehicle = "";
+    let model = "";
+    if (config["type-vehicle"] && config["model"]){
+      typeVehicle = config["type-vehicle"];
+      model = config["model"];
+    }
     this.photosForm = new FormGroup({
       name: new FormControl(config.name, [Validators.required]),
       price: new FormControl(config.price, [Validators.required]),
@@ -149,8 +173,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       "sell-type": new FormControl(config["sell-type"], [Validators.required]),
       description: new FormControl(config.description, [Validators.required]),
       negotiable: new FormControl(config.negotiable, []),
-      "type-vehicle": new FormControl('', []),
-      "model": new FormControl('', []),
+      "type-vehicle": new FormControl(typeVehicle, []),
+      "model": new FormControl(model, []),
     });
   }
 

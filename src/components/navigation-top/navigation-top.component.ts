@@ -63,11 +63,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    if (`/${url}` === this.router.url) {
-      location.reload();
-    }else {
-      this.router.navigate([url]);
-    }
+    `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
   }
 
   openConversations() {

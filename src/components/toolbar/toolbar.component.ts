@@ -49,7 +49,7 @@ export class ToolbarComponent implements OnInit {
 
   openCategories(evt) {
     this.categoriesMenu.nativeElement.classList.toggle("opened");
-    evt.target.classList.toggle("icon-menu");
+    this.closeMenu.nativeElement.classList.toggle("icon-menu");
   }
 
   selectedCategory(category: CategoryInterface) {
