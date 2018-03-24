@@ -16,8 +16,9 @@
                 <div class="form-group" class="select-medium">
                     <select class="form-control" #selectMedium (change)="selectedMedium()">
                         <option selected disabled>--Seleccionar--</option>
-                        <option value="cash">Efectivo</option>
-                        <option value="bank_account_transfer">Transferencia Bancolombia</option>
+                        <option  [attr.disabled]="!vaproductIsFree() ? null : ''" value="cash">Efectivo</option>
+                        <option  [attr.disabled]="!vaproductIsFree() ? null : ''" value="bank_account_transfer">Transferencia Bancolombia</option>
+                        <option  [attr.disabled]="vaproductIsFree() ? null : ''" value="na">No aplica</option>
                     </select>
                 </div>
                 <div  *ngIf="payWithBank"  class="info-message-bank">

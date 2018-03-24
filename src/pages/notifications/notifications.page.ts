@@ -165,7 +165,6 @@ export class NotificationsPage implements OnInit {
   }
 
   goToDetail(notification) {
-    console.log(notification);
     const id = notification.product.id;
     this.router.navigate([
       `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`

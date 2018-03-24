@@ -35,6 +35,8 @@ export class DetailProductComponent implements OnInit {
   public isModalSendMessageShowed: boolean = false;
   public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
+  private minVehicleValue = 10000000;
+  private maxVehicleValue = 5000000000;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
 
@@ -101,7 +103,7 @@ export class DetailProductComponent implements OnInit {
       differenceYear <= 10 &&
       type === "Particular" &&
       countryId === 1 &&
-      priceVehicle > 9999999) {
+      priceVehicle >=  this.minVehicleValue && priceVehicle <= this.maxVehicleValue ) {
         return true;
       }
     }

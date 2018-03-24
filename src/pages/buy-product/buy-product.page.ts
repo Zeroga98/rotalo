@@ -18,7 +18,8 @@ export class BuyProductPage implements OnInit {
   transactionSuccess: boolean = false;
   product: ProductInterface;
   payWithBank: boolean;
-
+  private minVehicleValue = 10000000;
+  private maxVehicleValue = 5000000000;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -33,6 +34,11 @@ export class BuyProductPage implements OnInit {
   goToUrlBank(): void {
     window.open('https://sucursalpersonas.transaccionesbancolombia.com', '_blank');
   }
+
+  vaproductIsFree() {
+   return this.product && this.product['sell-type'] === 'GRATIS';
+  }
+
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
@@ -83,7 +89,7 @@ export class BuyProductPage implements OnInit {
        differenceYear <= 10 &&
        type === "Particular" &&
        countryId === 1 &&
-       priceVehicle > 9999999) {
+       priceVehicle >=  this.minVehicleValue && priceVehicle <= this.maxVehicleValue) {
         return true;
       }
     }
