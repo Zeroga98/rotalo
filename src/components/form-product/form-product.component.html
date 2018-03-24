@@ -81,7 +81,7 @@
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
               <select class="form-control" formControlName="model">
                   <option value=""  disabled>Modelo de vehículo *</option>
-                  <option *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
+                  <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
               </select>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
@@ -107,7 +107,7 @@
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
-            <select class="form-control" name="sell-type" formControlName= "sell-type" (change)="changeKindOfProduct($event.target.value)">
+            <select  [attr.disabled]="disabledFieldType ? '' : null" class="form-control" name="sell-type" formControlName= "sell-type" (change)="changeKindOfProduct($event.target.value)">
               <option value="" disabled>Tipo de venta *</option>
               <option value="VENTA">Vendo</option>
               <option value="SUBASTA">Subasto</option>

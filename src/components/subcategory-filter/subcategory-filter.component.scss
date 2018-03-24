@@ -65,10 +65,16 @@
                         background: $blue;
                     }
                 }
-                
+
                 button:not(:last-child){
                     margin-right: 1rem;
                 }
+            }
+            .pub-form{
+              select{
+                border: 0;
+                border-radius: 25px;
+              }
             }
         }
     }

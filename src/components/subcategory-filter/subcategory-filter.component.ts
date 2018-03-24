@@ -35,7 +35,7 @@ export class SubcategoryFilterComponent implements OnInit {
     this.onFilterBySort.emit(evt.currentTarget.value);
   }
 
-  changeState(evt){
+  changeState(evt) {
     this.state = evt;
     this.onFilterByState.emit(evt);
   }

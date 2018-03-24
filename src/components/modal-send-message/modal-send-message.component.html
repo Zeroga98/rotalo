@@ -1,7 +1,7 @@
 <custom-modal (close)="closeModal()">
   <div modal-header>
     <div class="message-show-product">
-      <div class="media" *ngIf="conversation.length > 0">
+      <div class="media" *ngIf="conversation[0]">
         <span>
           <div class="avatar" [ngStyle]="{'background-image': getUrlImage()}"></div>
         </span>

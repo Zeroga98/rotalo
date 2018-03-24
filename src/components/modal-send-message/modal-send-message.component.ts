@@ -80,17 +80,20 @@ export class ModalSendMessageComponent implements OnInit {
 
   async onSubmit() {
     let date = new Date();
+
     try {
       if (!this.idProduct) {
         const idConversation = this.idConversation.split("-");
         this.idProduct = idConversation[0];
+        this.idUser = idConversation[1];
       }
       const data = {
         "user-id": parseInt(this.idUser),
         content: this.formMessage.controls["message"].value,
         "product-id": this.idProduct
       };
-      
+      console.log(this.idConversation);
+      console.log(this.idProduct, this.idUser);
       const response = await this.messagesService.sendMessage(data);
       this.loadMessage();
     } catch (error) {
@@ -99,6 +102,10 @@ export class ModalSendMessageComponent implements OnInit {
   }
 
   getUrlImage() {
-    return `url('${this.conversation[0].photo}')`;
+    console.log(this.conversation);
+    if (this.conversation[0]) {
+      return `url('${this.conversation[0].photo}')`;
+    }
+    return (`url('')`);
   }
 }

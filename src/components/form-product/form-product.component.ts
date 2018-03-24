@@ -31,6 +31,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
   disabledField = false;
+  disabledFieldType = false;
   minDate: string;
   maxDate: string;
   constructor(
@@ -57,8 +58,10 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (evt === "GRATIS") {
       this.photosForm.patchValue({price: 0});
       this.disabledField = true;
-    }else if(evt === "SUBASTA"){
-      document.getElementById("checkTerms").checked = true;
+    }else if(evt === "SUBASTA") {
+      const elem = document.getElementById("checkTerms") as any;
+      elem.checked = true;
+      this.disabledField = false;
       this.photosForm.controls['negotiable'].disable();
     }else {
       this.disabledField = false;
@@ -80,23 +83,26 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    let date: any = moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD');
+    let dateMoment: any = moment(this.photosForm.value['publish-until']);
+    let date  = new Date();
+    console.log(date);
+
     let dataAdditional;
-    if(date.isValid() && this.photosForm.get('sell-type').value == 'SUBASTA'){
+    if (dateMoment.isValid() && this.photosForm.get('sell-type').value === 'SUBASTA') {
       dataAdditional = {
         'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
         'negotiable': true
-      }
-    }else{
+      };
+    }else {
       dataAdditional = {
         'publish-until': this.getPublishUntilDate(),
-      }
+      };
     }
     const publishDate = {
       "published-at": new Date()
     };
-    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
-    this.publish.emit(params);
+   /* const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+    this.publish.emit(params);*/
   }
 
   async onUploadImageFinished(event) {
@@ -178,10 +184,21 @@ export class FormProductComponent implements OnInit, OnChanges {
   private setInitialForm(config: ProductInterface) {
     let typeVehicle = "";
     let model = "";
+
     if (config["type-vehicle"] && config["model"]){
       typeVehicle = config["type-vehicle"];
       model = config["model"];
     }
+
+    if (config["sell-type"] === "GRATIS") {
+      this.disabledField = true;
+    }
+
+    if (config["sell-type"] === "SUBASTA") {
+      this.disabledField = true;
+      this.disabledFieldType = true;
+    }
+
     this.photosForm = new FormGroup({
       name: new FormControl(config.name, [Validators.required]),
       price: new FormControl(config.price, [Validators.required]),
@@ -191,11 +208,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: new FormControl(config.visible, [Validators.required]),
       "sell-type": new FormControl(config["sell-type"], [Validators.required]),
       description: new FormControl(config.description, [Validators.required]),
-      negotiable: new FormControl({value:config.negotiable, disabled: false}, []),
+      negotiable: new FormControl({value: config.negotiable, disabled: false}, []),
       'publish-until': new FormControl(config['publish-until'], []),
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
+
   }
 
   private getInitialConfig(): ProductInterface {
