@@ -23,7 +23,6 @@ export class SubcategoryFilterComponent implements OnInit {
   constructor(private currenSession: CurrentSessionService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.country = {id: this.currenSession.currentUser()['countryId']};
   }
 
   filterBySellType(evt, type:string){

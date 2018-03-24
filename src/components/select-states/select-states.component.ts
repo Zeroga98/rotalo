@@ -1,3 +1,4 @@
+import { NavigationService } from './../../pages/products/navigation.service';
 import {
   Component,
   OnInit,
@@ -16,22 +17,30 @@ import { CollectionSelectService } from "../../services/collection-select.servic
   styleUrls: ["./select-states.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectStatesComponent implements OnChanges {
+export class SelectStatesComponent implements OnChanges, OnInit {
   @Input() country: any = {};
   @Input() initialValue;
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   states: Array<any> = [];
-  currentState: String = "";
+  currentState: string = "";
+  defaultOption: string = "Estado/Provincia*";
+
   constructor(
     private collectionService: CollectionSelectService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private navigationService:NavigationService
   ) {}
+
+  ngOnInit(){
+    this.updateDefaultOption();
+  }
 
   ngOnChanges() {
     this.getStates();
   }
 
   async getStates() {
+    this.updateDefaultOption();
     if (this.country && this.country.id) {
       this.currentState = "";
       this.states = await this.collectionService.getStatesById(this.country.id);
@@ -57,5 +66,11 @@ export class SelectStatesComponent implements OnChanges {
     const id = ev.target.value;
     console.log({ name, id });
     this.selected.emit({ name, id });
+  }
+
+  updateDefaultOption(){
+    const options =  ["Estado/Provincia", "Departamento", "Provincia"]
+    this.defaultOption = options[this.navigationService.getCurrentCountryId()];
+    if (this.country && this.country.id) this.defaultOption = options[this.country.id];
   }
 }

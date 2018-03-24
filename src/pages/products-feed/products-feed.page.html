@@ -8,6 +8,7 @@
 
 <subcategory-filter *ngIf="!showBanner || configFiltersSubcategory"
 [config]="configFiltersSubcategory"
+[country]="countrySelected"
 (onFilterBySellType)="filteBySellType($event)"
 (onFilterBySort)="filterBySort($event)"
 (onFilterByCity)="filterByCity($event)"
