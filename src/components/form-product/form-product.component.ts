@@ -84,15 +84,25 @@ export class FormProductComponent implements OnInit, OnChanges {
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
     let dateMoment: any = moment(this.photosForm.value['publish-until']);
-    let date  = new Date();
+    let date  = dateMoment.toDate();
+    console.log(this.photosForm.value['publish-until']);
     console.log(date);
-
+    console.log(new Date());
+    console.log(new Date() < date);
     let dataAdditional;
-    if (dateMoment.isValid() && this.photosForm.get('sell-type').value === 'SUBASTA') {
-      dataAdditional = {
-        'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
-        'negotiable': true
-      };
+    if (this.photosForm.get('sell-type').value === 'SUBASTA') {
+        //***AQUI SE DEBE VALIDAR QUE LA FECHA NO SEA MENOR A LA ACTUAL O MAYOR QUE LOS 30 DIAS****/
+        //***EN caso de explorer validar que no se ingrese cualquier valor*/
+      ///isValid no funciona si se le agrega el formato 'YYYY-MM-DD'
+      if (dateMoment.isValid()) {
+        dataAdditional = {
+          'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
+          'negotiable': true
+        };
+      }else {
+        //Se deberia mostrar mensaje de error en el Campo
+        console.log('Mostrar mensaje de error');
+      }
     }else {
       dataAdditional = {
         'publish-until': this.getPublishUntilDate(),
@@ -101,8 +111,8 @@ export class FormProductComponent implements OnInit, OnChanges {
     const publishDate = {
       "published-at": new Date()
     };
-   /* const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
-    this.publish.emit(params);*/
+    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+    this.publish.emit(params);
   }
 
   async onUploadImageFinished(event) {
