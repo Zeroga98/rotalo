@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MomentModule } from 'angular2-moment';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {RlTagInputModule} from 'angular2-tag-input';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { ImageUploadModule } from 'angular2-image-upload';
 import 'hammerjs';
@@ -108,6 +107,8 @@ import { ValidateSessionService } from '../router/guards/validate-session.servic
 import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
 import { ModalTipsComponent } from '../components/modal-tips/modal-tips.component';
 import { FeedService } from '../pages/products-feed/feed.service';
+import { ToolbarService } from '../components/toolbar/toolbar.service';
+import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 
 @NgModule({
   declarations: [
@@ -200,6 +201,7 @@ import { FeedService } from '../pages/products-feed/feed.service';
     BuyService,
     LoansService,
     FeedService,
+    ToolbarService,
     OfferService,
     RecoverService,
     ChangePasswordService,

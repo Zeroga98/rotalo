@@ -169,11 +169,6 @@ export class NotificationsPage implements OnInit {
     this.router.navigate([
       `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
     ]);
-   /*
-    this.router.navigate([
-      `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`,
-      { readOnly: true }
-    ]);*/
   }
 
   get isModalRateShow() {
@@ -191,10 +186,12 @@ export class NotificationsPage implements OnInit {
         }
       });
     }
+    console.log("notificacion: ",notification);
     return {
       type: notification['notification-type'],
       productId: notification.product.id,
       name: notification.product.user.name,
+      purchase: notification.purchase,
       "purchase-id": notification.purchase.id,
       "seller-rate": rate,
       comment

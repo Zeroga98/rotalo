@@ -12,6 +12,7 @@
         .toolbar-container{
             background: white;
             display: inline-flex;
+            position: relative;
             justify-content: space-between;
             align-items: center;
             margin-right: 2rem;
@@ -28,6 +29,32 @@
                 flex-grow: 1;
                 text-align: left;
                 padding: 0;
+            }
+            .container-options-autocomplete{
+                position: absolute;
+                width: 100%;
+                top: 113%;
+                left: 0;
+                z-index: 9999999;
+                background: white;
+                overflow: hidden;
+                color: black;
+                min-height: 0;
+                max-height: 0;
+                padding: 0;
+                font-size: 2.2rem;
+                border-radius: .8rem;
+                box-shadow: 0 0 5px rgba(0,0,0,0.3);
+                transition: all 0.25s;
+                &.showed{
+                    min-height: 15rem;
+                    max-height: 100rem;
+                    padding: 2rem;
+                    transition: all 0.25s;
+                }
+                li{
+                    cursor: pointer;
+                }
             }
             .container-categrias{
                 border-left: 1px solid #9B9B9B;

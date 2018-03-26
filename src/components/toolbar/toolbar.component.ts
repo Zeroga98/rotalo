@@ -1,9 +1,11 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef} from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { ToolbarService } from './toolbar.service';
+import { read } from 'fs';
 
 @Component({
   selector: "toolbar",
@@ -18,16 +20,20 @@ export class ToolbarComponent implements OnInit {
   @Output() subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
   @ViewChild("closeMenu",{ read: ElementRef }) closeMenu: ElementRef;
   @ViewChild("categoriesMenu", { read: ElementRef }) categoriesMenu: ElementRef;
-
+  @ViewChild("autoCompleteBox", { read: ElementRef }) autoCompleteBox: ElementRef;
+  
+  autoCompleteOptions: Array<string> = []
   tags: Array<string> = [];
   community: any;
 
   constructor(
     private userService: UserService,
     private render: Renderer2,
+    private toolbarService:ToolbarService,
     private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    this.autoCompleteOptions = this.toolbarService.getAutoCompleteOptions();
     this.community = await this.userService.getCommunityUser();
     this.changeDetectorRef.markForCheck();
   }
@@ -43,7 +49,9 @@ export class ToolbarComponent implements OnInit {
     evt.currentTarget.nextElementSibling.classList.add('full');
   }
 
-  changeTags(evt) {
+  changeTags() {
+    this.autoCompleteOptions = this.toolbarService.addOptions(this.tags.join('+'));
+    console.log("tags: ",this.tags);
     this.tagsChanged.emit(this.tags);
   }
 
@@ -60,6 +68,21 @@ export class ToolbarComponent implements OnInit {
   selectedSubCategory(subCategory: SubcategoryInterface) {
     this._closeMenu();
     this.subCategorySelected.emit(subCategory);
+  }
+
+  showAutocomplateOptions(){
+    if(this.autoCompleteOptions.length > 0){
+      this.render.addClass(this.autoCompleteBox.nativeElement,'showed');
+    }
+  }
+
+  hideAutocomplateOptions(){
+    this.render.removeClass(this.autoCompleteBox.nativeElement,'showed');
+  }
+
+  clickOptionAutocomplete(option: string){
+    this.tags = option.split('+');
+    this.changeTags();
   }
 
   private _closeMenu() {

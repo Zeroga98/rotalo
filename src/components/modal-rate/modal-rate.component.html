@@ -1,4 +1,4 @@
-<custom-modal title="{{title}}" class="modal-theme" (close)="closeModal()">
+<custom-modal [title]="title" class="modal-theme" (close)="closeModal()">
 	<div modal-header class="container-header">
 	</div>
 	<div modal-body class="container-body" [ngSwitch]="stateRequest">
@@ -7,17 +7,17 @@
 				<div class="thumb"> 
 			        <img [src]="'/assets/img/profile-no-image.png'" width="64">
 				</div>
-				<p *ngIf="config['seller-rate']">Ya has calificado a <span class="semibold">{{config.name}}</span></p>
-				<p *ngIf="!config['seller-rate']">
+				<p *ngIf="rateSent">Ya has calificado a <span class="semibold">{{userName}}</span></p>
+				<p *ngIf="!rateSent">
 					<span class="bold block">¿Cómo te fue?</span>
-					<span *ngIf="!config['seller-rate']">Califica a </span><span class="bold">{{config.name}}</span> como {{type}}
+					<span *ngIf="!rateSent">Califica a </span><span class="bold">{{userName}}</span> como {{type}}
 				</p>
 			</div>
 			<div class="rating">
-				<star-rating (checked)="rate($event)" [rating]="config['seller-rate']"></star-rating>
+				<star-rating (checked)="rate($event)" [rating]="rateValue"></star-rating>
 			</div>
 			<div class="comments">
-				<textarea placeholder="Agregar un comentario..." (blur)="onBlurText($event)" [readonly]="config.comment">{{config.comment || '' }}</textarea>
+				<textarea placeholder="Agregar un comentario..." (blur)="onBlurText($event)" [readonly]="config.comment">{{comment || '' }}</textarea>
 			</div>
 		</div>
 		<div *ngSwitchCase="statesRequestEnum.loading">

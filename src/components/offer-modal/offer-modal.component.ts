@@ -17,13 +17,16 @@ export class OfferModalComponent implements OnInit {
   errorInForm: boolean = false;
   msgError: string = '';
   isReadyResponse: boolean = false;
+  minValue: number;
 
   constructor(
     private offerService: OfferService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.minValue = this.config.price as number + (this.config.price as number * 0.05);
+  }
 
   async sendOffer() {
     const price = this.priceInput.nativeElement.value;
@@ -46,9 +49,8 @@ export class OfferModalComponent implements OnInit {
       return false;
     }
     if(this.config.type === "SUBASTA"){
-      const minValue = this.config.price as number + (this.config.price as number * 0.05);
-      if(price < minValue){
-        this.setErrorForm(true, 'La oferta debe ser igual o mayor al 5%');
+      if(price < this.minValue){
+        this.setErrorForm(true, `La oferta debe ser mayor o igual a ${this.minValue}`);
         return false;
       };
     }
