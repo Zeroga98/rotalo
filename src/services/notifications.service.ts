@@ -17,9 +17,7 @@ export class NotificationsService {
     }
 
     async getNotifications(): Promise<NotificationsInterface[]> {
-        if (!this.notifications) {
-            this.notifications = await this.getNotificationsFromServer();
-        }
+        this.notifications = await this.getNotificationsFromServer();
         return this.notifications;
     }
 

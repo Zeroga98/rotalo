@@ -30,6 +30,7 @@ export class EditProfilePage implements OnInit {
   public nameDocument: String;
   private typeDocuments;
   public typeDocument: String;
+  public loadImage: boolean = false;
   public showSpinner = true;
   public showPhotoEdit = false;
   public photo;
@@ -96,12 +97,15 @@ export class EditProfilePage implements OnInit {
 
   async onUploadImageFinished(event) {
     try {
+      this.loadImage = true;
       const response = await this.photosService.updatePhoto(event.file);
       this.idImagenProfile = response.id;
       this.photo = response;
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
+      this.loadImage = false;
     } catch (error) {
+      this.loadImage = false;
       console.error("Error: ", error);
     }
   }
@@ -140,6 +144,7 @@ export class EditProfilePage implements OnInit {
     }else {
       infoUser = Object.assign({}, this.editProfileForm.value,  {'city-id': this.city['id']});
     }
+    console.log("info user: ", infoUser);
     const currentUser = {
       data: {
         id: this.userEdit.id,

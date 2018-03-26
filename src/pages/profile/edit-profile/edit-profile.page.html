@@ -2,6 +2,9 @@
 <custom-spinner *ngIf="showSpinner"></custom-spinner>
 <div  *ngIf="!showSpinner">
   <div class="container">
+    <div *ngIf="loadImage" class="container-spinner-image">
+      <custom-spinner></custom-spinner>
+    </div>
     <div id="flashMessage" class="flashMessage">
       <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
         <p>
@@ -27,7 +30,7 @@
     <div>
         <image-upload
         [max]="1"
-        [extensions]="['jpg','png']"
+        [extensions]="['jpeg','png', 'jpg']"
         [buttonCaption]="'Selecciona una imagen'"
         [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
         [clearButtonCaption]="'Limpiar'"

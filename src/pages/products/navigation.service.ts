@@ -8,7 +8,7 @@ export class NavigationService {
     private currentCountryId: number = 0;
 
     constructor(private currentSession: CurrentSessionService) {
-        this.currentCountryId = this.currentSession.currentUser()['countryId'];
+        this.currentCountryId = this.currentSession.currentUser() ? this.currentSession.currentUser()['countryId'] : null;
     }
 
     setCountry(country){

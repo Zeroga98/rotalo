@@ -18,6 +18,7 @@
 					placeholder="Precio"
 					#priceInput
 					onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+					<span *ngIf="errorInForm" class="help-block"> {{msgError}} </span>
 				</div>
 			</form>
 		</div>
@@ -28,6 +29,6 @@
 	</div>
 	<div modal-footer class="container-actions" *ngIf="!isReadyResponse">
   <!--<custom-button text="Confirmar Oferta" (click)="sendOffer()" [disabled]="!isPriceCorrect"></custom-button>-->
-  <custom-button text="Confirmar Oferta" (click)="sendOffer()"></custom-button>
+  		<custom-button text="Confirmar Oferta" (click)="sendOffer()"></custom-button>
 	</div>
 </custom-modal>

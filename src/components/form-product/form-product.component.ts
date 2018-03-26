@@ -85,10 +85,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     const photosIds = { "photo-ids": this.getPhotosIds() };
     let dateMoment: any = moment(this.photosForm.value['publish-until']);
     let date  = dateMoment.toDate();
-    console.log(this.photosForm.value['publish-until']);
-    console.log(date);
-    console.log(new Date());
-    console.log(new Date() < date);
     let dataAdditional;
     if (this.photosForm.get('sell-type').value === 'SUBASTA') {
         //***AQUI SE DEBE VALIDAR QUE LA FECHA NO SEA MENOR A LA ACTUAL O MAYOR QUE LOS 30 DIAS****/
@@ -207,6 +203,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (config["sell-type"] === "SUBASTA") {
       this.disabledField = true;
       this.disabledFieldType = true;
+      this.photosForm.controls['negotiable'].disable();
     }
 
     this.photosForm = new FormGroup({

@@ -1,3 +1,4 @@
+import { FeedService } from './feed.service';
 import { CountryInterface } from './../../components/select-country/country.interface';
 import { CityInterface } from './../../commons/interfaces/city.interface';
 import { NavigationService } from './../products/navigation.service';
@@ -39,13 +40,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
 	stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
-  private currentFilter: Object = {
-    "filter[status]": "active",
-    "filter[country]": 1,
-    "filter[community]": -1,
-    "page[size]": 8,
-    "page[number]": 1
-  };
+  private currentFilter: Object;
   @ViewChild("backTop", { read: ElementRef }) backTop: ElementRef;
   @ViewChild("masonryRef") masonryRef: any;
 
@@ -55,14 +50,20 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
+    private feedService: FeedService,
     private changeDetectorRef:ChangeDetectorRef) {
-   this.carouselConfig = CAROUSEL_CONFIG;
+    
+    this.currentFilter =  this.feedService.getCurrentFilter();
+    this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+    this.showBanner = this.configFiltersSubcategory == undefined;
+    this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
   }
 
   ngOnInit() {
     this.countrySelected = {id: this.navigationService.getCurrentCountryId()}
     this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId()});  
+    this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
     this._subscribeCountryChanges();
@@ -94,7 +95,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   searchByTags(evt: Array<string>) {
     if (evt.length > 0) {
       const filterValue = evt.join("+");
-      this.configFiltersSubcategory = null;
+      this.setconfigFiltersSubcategory(null);
       this.routineUpdateProducts({ 
       "filter[search]": filterValue,
       "filter[subcategory_id]": undefined,
@@ -141,7 +142,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedCategory(category: CategoryInterface) {
-    this.configFiltersSubcategory = {category: category.name, subCategory: undefined, color : category.color, icon: category.icon};
+    this.setconfigFiltersSubcategory({category: category.name, subCategory: undefined, color : category.color, icon: category.icon});
     this.routineUpdateProducts({
       "filter[category]": category.id,
       "filter[subcategory_id]": undefined
@@ -156,7 +157,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
-    this.configFiltersSubcategory = {category: subCategory.category.name, subCategory: subCategory.name, color : subCategory.category.icon, icon:subCategory.category.icon};
+    this.setconfigFiltersSubcategory({category: subCategory.category.name, subCategory: subCategory.name, color : subCategory.category.icon, icon:subCategory.category.icon});
     this.routineUpdateProducts({
       "filter[subcategory_id]": subCategory.id,
       "filter[category]": undefined
@@ -174,6 +175,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private _subscribeCountryChanges(){
     this._subscriptionCountryChanges = this.navigationService.countryChanged.subscribe( (country:any) => {
       this.countrySelected = { id: country.id};
+      this.setconfigFiltersSubcategory(null);
+      this.showBanner = true;
+      this.currentFilter = this.feedService.getInitialFilter();
+      this.feedService.setConfigFiltersSubcategory(this.currentFilter);
       this.routineUpdateProducts({ "filter[country]": country.id });
     });
   }
@@ -203,6 +208,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateCurrentFilter(filter = {}) {
     this.currentFilter = Object.assign({}, this.currentFilter, filter);
     this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
+    this.feedService.setCurrentFilter(this.currentFilter);
     return this.currentFilter;
   }
 
@@ -219,6 +225,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private validateStateScrollInfinite(products:ProductInterface){
     this.isInfiniteScrollDisabled = this.products.length <= 0 || products.lastPage;
   }
+
+  private setconfigFiltersSubcategory(filter){
+    this.configFiltersSubcategory = filter;
+    this.feedService.setConfigFiltersSubcategory(this.configFiltersSubcategory);
+  } 
 
   private backTopToggle(ev) {
     const doc = document.documentElement;

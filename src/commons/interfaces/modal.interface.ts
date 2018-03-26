@@ -3,4 +3,5 @@ export interface ModalInterface {
     title: string;
     price: string | number;
     'product-id' ?: string | number;
+    type ?: string;
 }

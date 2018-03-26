@@ -69,7 +69,8 @@ export class SelectStatesComponent implements OnChanges, OnInit {
   }
 
   updateDefaultOption(){
-    const options =  ["Estado/Provincia", "Departamento", "Provincia"]
+    const options =  ["Estado/Provincia", "Departamento", "Provincia"];
+    const currentCountryId = this.navigationService.getCurrentCountryId() ? this.navigationService.getCurrentCountryId() : 0;
     this.defaultOption = options[this.navigationService.getCurrentCountryId()];
     if (this.country && this.country.id) this.defaultOption = options[this.country.id];
   }

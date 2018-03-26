@@ -107,6 +107,7 @@ import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from '../router/guards/validate-session.service';
 import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
 import { ModalTipsComponent } from '../components/modal-tips/modal-tips.component';
+import { FeedService } from '../pages/products-feed/feed.service';
 
 @NgModule({
   declarations: [
@@ -198,6 +199,7 @@ import { ModalTipsComponent } from '../components/modal-tips/modal-tips.componen
     CurrentSessionService,
     BuyService,
     LoansService,
+    FeedService,
     OfferService,
     RecoverService,
     ChangePasswordService,

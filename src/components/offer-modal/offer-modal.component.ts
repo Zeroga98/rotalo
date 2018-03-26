@@ -10,11 +10,12 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OfferModalComponent implements OnInit {
-  @ViewChild("priceInput", { read: ElementRef })
-  priceInput: ElementRef;
+  @ViewChild("priceInput", { read: ElementRef }) priceInput: ElementRef;
   @Input() config: ModalInterface;
   @Output() close: EventEmitter<any> = new EventEmitter();
   title: string = "¿Cuánto quieres ofertar?";
+  errorInForm: boolean = false;
+  msgError: string = '';
   isReadyResponse: boolean = false;
 
   constructor(
@@ -26,7 +27,7 @@ export class OfferModalComponent implements OnInit {
 
   async sendOffer() {
     const price = this.priceInput.nativeElement.value;
-    if (price) {
+    if(this.validForm(price)){
       try {
         const response = await this.offerService.sendOffer({
           amount: price,
@@ -36,6 +37,30 @@ export class OfferModalComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
       } catch (error) {}
     }
+    
+  }
+
+  validForm(price: number): boolean{
+    if(price.toString() == '' || price == null){
+      this.setErrorForm(true, 'Debes ingresar una oferta');
+      return false;
+    }
+    if(this.config.type === "SUBASTA"){
+      const minValue = this.config.price as number + (this.config.price as number * 0.05);
+      if(price < minValue){
+        this.setErrorForm(true, 'La oferta debe ser igual o mayor al 5%');
+        return false;
+      };
+    }
+    this.setErrorForm(false);
+    this.changeDetectorRef.markForCheck();
+    return true;
+  }
+
+  setErrorForm(isError:boolean, msg: string = ''){
+    this.errorInForm = isError;
+    this.msgError = msg;
+    this.changeDetectorRef.markForCheck();
   }
 
   closeModal() {

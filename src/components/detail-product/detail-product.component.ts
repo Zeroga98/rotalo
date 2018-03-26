@@ -180,7 +180,8 @@ export class DetailProductComponent implements OnInit {
       photo: product.photos[0].url,
       title: product.name,
       price: product.price,
-      "product-id": product.id
+      "product-id": product.id,
+      type: product['sell-type']
     };
   }
 }

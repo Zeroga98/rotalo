@@ -4,11 +4,28 @@
   display: block;
   .container {
     width: 50%;
+    position: relative;
     margin: 5rem auto 0;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 15px;
     padding-right: 15px;
+    .container-spinner-image{
+      position: absolute;
+      display: flex;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 9;
+      align-items: center;
+      justify-content: center;
+      custom-spinner{
+        color: black;
+        font-size: 1.6rem;
+      }
+    }
   }
   .zeta,
   p {
@@ -137,7 +154,7 @@
     background-repeat: no-repeat;
   }
 
-  custom-spinner {
+  & > custom-spinner {
     position: absolute;
     left: 50%;
     top: 45%;

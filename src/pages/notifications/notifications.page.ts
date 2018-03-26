@@ -206,7 +206,9 @@ export class NotificationsPage implements OnInit {
       this.notificationsList = await this.notificationsService.getNotifications();
       this.showSpinner = false;
       this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error: ", error);
+    }
   }
 
   private _getDefaultConversation(notification: NotificationsInterface) {
