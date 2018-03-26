@@ -62,7 +62,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.countrySelected = {id: this.navigationService.getCurrentCountryId()}
-    this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId()});  
+    this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId(),"page[size]": 8,"page[number]": 1});  
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);

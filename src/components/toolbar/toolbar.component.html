@@ -11,7 +11,7 @@
 		(addTag)="changeTags()"
 		(focusBar)="showAutocomplateOptions()"
 		(blurBar)="hideAutocomplateOptions()"
-		(removeTag)="changeTags($event)"></rl-tag-input>
+		(removeTag)="changeTags()"></rl-tag-input>
 		<div class="container-options-autocomplete" #autoCompleteBox>
 			<ul>
 				<li *ngFor="let option of autoCompleteOptions" (click)="clickOptionAutocomplete(option)">{{option}}</li>
