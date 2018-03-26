@@ -87,17 +87,13 @@ export class FormProductComponent implements OnInit, OnChanges {
     let date  = dateMoment.toDate();
     let dataAdditional;
     if (this.photosForm.get('sell-type').value === 'SUBASTA') {
-        //***AQUI SE DEBE VALIDAR QUE LA FECHA NO SEA MENOR A LA ACTUAL O MAYOR QUE LOS 30 DIAS****/
-        //***EN caso de explorer validar que no se ingrese cualquier valor*/
-      ///isValid no funciona si se le agrega el formato 'YYYY-MM-DD'
       if (dateMoment.isValid()) {
         dataAdditional = {
           'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
           'negotiable': true
         };
       }else {
-        //Se deberia mostrar mensaje de error en el Campo
-        console.log('Mostrar mensaje de error');
+        console.log('error');
       }
     }else {
       dataAdditional = {

@@ -23,7 +23,7 @@ export class SellingPage implements OnInit {
     this.filterProduct = {
       'filter[staged]': 'selling',
       'page[number]': '1',
-      'page[size]': '8'
+      'page[size]': '100'
     };
     this.getProducts(this.filterProduct);
   }

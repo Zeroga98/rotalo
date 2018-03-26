@@ -2,7 +2,7 @@
 @import "../../../styles/settings/_variables.scss";
 :host {
   .bg--red {
-    background-color: #ed2f3c;
+    background-color: #ed2f3c !important;
   }
   .sold-header-nav {
     line-height: 0;

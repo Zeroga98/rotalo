@@ -1,5 +1,4 @@
 <navigation-top></navigation-top>
-<custom-spinner *ngIf="showSpinner"></custom-spinner>
 <div  *ngIf="!showSpinner">
   <div class="container">
     <div *ngIf="loadImage" class="container-spinner-image">
@@ -97,4 +96,5 @@
     </form>
   </div>
 </div>
+<custom-spinner *ngIf="showSpinner"></custom-spinner>
 <custom-footer></custom-footer>
