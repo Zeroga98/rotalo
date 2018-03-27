@@ -3,11 +3,11 @@
 		<div class="container-icon-search" (click)="showSearchBar($event)">
 			<img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
 		</div>
-		<rl-tag-input 
-		[(ngModel)]="tags" 
-		[addOnSpace]="true" 
+		<rl-tag-input
+		[(ngModel)]="tags"
+		[addOnSpace]="true"
 		[autocomplete]="true"
-		placeholder="¿Qué estás buscando?" 
+		placeholder="¿Qué estás buscando?"
 		(addTag)="changeTags()"
 		(focusBar)="showAutocomplateOptions()"
 		(blurBar)="hideAutocomplateOptions()"
@@ -17,7 +17,7 @@
 				<li *ngFor="let option of autoCompleteOptions" (click)="clickOptionAutocomplete(option)">{{option}}</li>
 			</ul>
 		</div>
-		<div class="container-categrias">
+		<div class="gtmCategorias container-categrias">
 			<span class="categ-text pointer" (click)="openCategories($event)">Categorías</span>
 			<span class="icon-width icon-close icon-menu pointer" #closeMenu (click)="openCategories($event)"></span>
 		</div>

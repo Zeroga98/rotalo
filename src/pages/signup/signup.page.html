@@ -118,10 +118,10 @@
           <input type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
         </label>
         Acepto
-        <a (click)="openTermsModal()">términos y condiciones</a>
+        <a class="gtmSignUpAcepTermYCond" (click)="openTermsModal()">términos y condiciones</a>
       </div>
       <div>
-        <custom-button type="submit" text="Crear cuenta" [disabled]="formIsInValid"></custom-button>
+        <custom-button class="gtmSignUpValidCrearCuenta" type="submit" text="Crear cuenta" [disabled]="formIsInValid"></custom-button>
       </div>
 
       <footer class="text-center">

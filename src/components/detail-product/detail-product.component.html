@@ -68,7 +68,7 @@
         <div class="product-btn" *ngIf="!validateSession()">
           <div class="product-btns">
             <div class="cont-botons">
-              <div class="botons" (click)="isModalSendMessageShowed = true">
+              <div class="gtmEnviarMensaje botons" (click)="isModalSendMessageShowed = true">
                 <span class="icon icon-custom icon-custom--mail"></span>
                 Enviar Mensaje
               </div>
@@ -81,10 +81,10 @@
     <div class="product-btn" *ngIf="!readOnly">
       <div class="product-btns">
         <div class="cont-botons" *ngIf="!validateSession()">
-          <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSimulateCreditSufi(products.id)">
+          <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSimulateCreditSufi(products.id)">
             <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
           </button>
-          <button class="botons" *ngIf="products && products.negotiable"  (click)="openOfferModal(products)">
+          <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable"  (click)="openOfferModal(products)">
             <span class="icon-offer"></span> Hacer oferta
           </button>
           <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">

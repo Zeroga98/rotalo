@@ -4,7 +4,7 @@
     <div class="navbar-header">
       <div class="flexbox center-center">
         <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
-        <div class="container-offer">
+        <div class="gtmSubeTuOferta container-offer">
           <a class="upload-offer-button" routerLink="/products/form">
             <div class="outside-circle">
               <div class="inside-circle">
@@ -15,7 +15,7 @@
           </a>
         </div>
       </div>
-      <a class="navbar-brand" (click)="goToHome()">
+      <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
         <img src="./assets/img/logo-white.svg" alt="brand">
         <h1 class="sr-only">rótalo</h1>
       </a>
@@ -25,21 +25,21 @@
             <select-country class="red-theme-select top-select-country" (selected)="changeSelectorCounrty($event)" [initialValue]="defaultCountryValue" [turnOffInitialEvent]="true"></select-country>
           </div>
         </li>
-        <li>
+        <li class="gtmNotificaciones">
           <a [routerLink]="notificationsRoute">
             <span class="icon-ring">
               <span *ngIf="notificationsAvailable" class="noti-circle">{{notificationsUnread}}</span>
             </span>
           </a>
         </li>
-        <li>
+        <li class="gtmMensajes">
           <a (click)="openConversations()">
             <span class="icon-message">
               <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
             </span>
           </a>
         </li>
-        <li routerLink="/profile/show">
+        <li class="gtmPerfil" routerLink="/profile/show">
           <a ui-sref="profile.show">
             <span class="icon-account"></span>
           </a>
