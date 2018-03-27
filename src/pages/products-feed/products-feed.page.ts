@@ -186,7 +186,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateProducts(newProducts: Array<ProductInterface>){
     this.waitNewPage ? this.addNewPage(newProducts) : this.products = [].concat(newProducts);
     this.waitNewPage = false;
-    //this.updateMasonry();
+    this.updateMasonry();
   }
 
   addNewPage(newProducts){
@@ -219,7 +219,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateMasonry(){
     if(this.masonryRef.layout) setTimeout(() => {
       this.masonryRef.layout();
-    },0.5);
+    }, 1);
   }
 
   private validateStateScrollInfinite(products:ProductInterface){
