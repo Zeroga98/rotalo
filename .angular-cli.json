@@ -22,7 +22,7 @@
       "styles.scss"
     ],
     "scripts": [
-      "lib/imagesloaded.pkgd.min.js"
+      "lib/analytics.js"
     ],
     "environmentSource": "environments/environment.ts",
     "environments": {

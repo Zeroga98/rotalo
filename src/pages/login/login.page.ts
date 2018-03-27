@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
       }
     };
     this.loginService.loginUser(user).then((response) => {
+    // window._gaq.push('send', 'event', 'Home', 'ClicDestacado', 'Consultorio');
       this.currentSessionService.setSession(response.data);
       this.setUserCountry(response.data);
     }).catch((httpErrorResponse) => {
