@@ -52,7 +52,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private feedService: FeedService,
     private changeDetectorRef:ChangeDetectorRef) {
-    
+
     this.currentFilter =  this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory == undefined;
@@ -62,7 +62,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.countrySelected = {id: this.navigationService.getCurrentCountryId()}
-    this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId(),"page[size]": 8,"page[number]": 1});  
+    this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId(),"page[size]": 8,"page[number]": 1});
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
@@ -96,7 +96,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     if (evt.length > 0) {
       const filterValue = evt.join("+");
       this.setconfigFiltersSubcategory(null);
-      this.routineUpdateProducts({ 
+      this.routineUpdateProducts({
       "filter[search]": filterValue,
       "filter[subcategory_id]": undefined,
       "filter[category]": undefined });
@@ -186,7 +186,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateProducts(newProducts: Array<ProductInterface>){
     this.waitNewPage ? this.addNewPage(newProducts) : this.products = [].concat(newProducts);
     this.waitNewPage = false;
-    //this.updateMasonry();
+    this.updateMasonry();
   }
 
   addNewPage(newProducts){
@@ -229,7 +229,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private setconfigFiltersSubcategory(filter){
     this.configFiltersSubcategory = filter;
     this.feedService.setConfigFiltersSubcategory(this.configFiltersSubcategory);
-  } 
+  }
 
   private backTopToggle(ev) {
     const doc = document.documentElement;
