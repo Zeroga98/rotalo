@@ -1,3 +1,4 @@
+import { OfferInterface } from './../../commons/interfaces/offer.interface';
 import { ElementRef, AfterViewChecked, AfterViewInit, Renderer2 } from '@angular/core';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
@@ -37,12 +38,10 @@ export class ProductComponent implements AfterViewInit {
 	}
 
 	private checkSizeCard(){
-		setTimeout(() => {
-			const elem = this.containerProducts.nativeElement
-			if(elem.offsetWidth <= this.limitSize){
-				this.render.addClass(elem,'mini-card');
-			};
-		});
+		const elem = this.containerProducts.nativeElement;
+		if(elem.offsetWidth <= this.limitSize){
+			this.render.addClass(elem,'mini-card');
+		};
 	}
 
 }

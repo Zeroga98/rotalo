@@ -1,3 +1,4 @@
+import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
 import { PhotoInterface } from './../../commons/interfaces/photo.interface';
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
 import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
@@ -9,6 +10,7 @@ import { PhotosService } from "../../services/photos.service";
 import { CategoriesService } from "../../services/categories.service";
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
 import * as moment from 'moment';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: "form-product",
@@ -32,6 +34,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   isModalShowed: boolean = false;
   disabledField = false;
   disabledFieldType = false;
+  datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
   constructor(
@@ -83,18 +86,13 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    let dateMoment: any = moment(this.photosForm.value['publish-until']);
-    let date  = dateMoment.toDate();
+    let dateMoment: any = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
     let dataAdditional;
     if (this.photosForm.get('sell-type').value === 'SUBASTA') {
-      if (dateMoment.isValid()) {
         dataAdditional = {
-          'publish-until': moment(this.photosForm.value['publish-until'], 'YYYY-MM-DD').toDate(),
+          'publish-until': dateMoment.toDate(),
           'negotiable': true
         };
-      }else {
-        console.log('error');
-      }
     }else {
       dataAdditional = {
         'publish-until': this.getPublishUntilDate(),
@@ -220,6 +218,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private getInitialConfig(): ProductInterface {
+    const date = new Date();
     const product: ProductInterface = {
       name: null,
       price: null,
@@ -229,7 +228,13 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: "",
       "sell-type": "",
       description: null,
-      'publish-until': null,
+      'publish-until': {
+        date: {
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            day: date.getDate()
+          }
+        },
       negotiable: true
     };
     return Object.assign({}, product, this.product) as ProductInterface;

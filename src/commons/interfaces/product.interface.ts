@@ -10,7 +10,7 @@ export interface ProductInterface {
     'negotiable': boolean | string;
     'photos'?: PhotoInterface;
     'price': number | string;
-    'publish-until'?: string;
+    'publish-until'?: any;
     'published-at'?: string;
     'received'?: boolean
     'received-at'?: null | boolean;

@@ -109,6 +109,8 @@ import { ModalTipsComponent } from '../components/modal-tips/modal-tips.componen
 import { FeedService } from '../pages/products-feed/feed.service';
 import { ToolbarService } from '../components/toolbar/toolbar.service';
 import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
+import { MyDatePickerModule } from 'mydatepicker';
+
 
 @NgModule({
   declarations: [
@@ -183,6 +185,7 @@ import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
     NgxCarouselModule,
     MasonryModule,
     InfiniteScrollModule,
+    MyDatePickerModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
