@@ -219,7 +219,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private updateMasonry(){
     if(this.masonryRef.layout) setTimeout(() => {
       this.masonryRef.layout();
-    },0.5);
+    }, 1);
   }
 
   private validateStateScrollInfinite(products:ProductInterface){
