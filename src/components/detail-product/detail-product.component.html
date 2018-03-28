@@ -87,7 +87,7 @@
           <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable"  (click)="openOfferModal(products)">
             <span class="icon-offer"></span> Hacer oferta
           </button>
-          <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+          <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
         </div>

@@ -114,11 +114,11 @@
             </span>
       </div>
       <div class="text-center form-group terms">
-        <label for="checkTerms">
-          <input type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
+        <label class="gtmSignUpAcepTermYCond" for="checkTerms">
+          <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
         </label>
         Acepto
-        <a class="gtmSignUpAcepTermYCond" (click)="openTermsModal()">términos y condiciones</a>
+        <a (click)="openTermsModal()">términos y condiciones</a>
       </div>
       <div>
         <custom-button class="gtmSignUpValidCrearCuenta" type="submit" text="Crear cuenta" [disabled]="formIsInValid"></custom-button>

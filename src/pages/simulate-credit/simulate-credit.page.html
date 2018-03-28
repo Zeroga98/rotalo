@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
+      <custom-button class="gtmSufiTePrestaSimular" [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
     </div>
   </form>
   <form *ngIf="!showSimulator" role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">

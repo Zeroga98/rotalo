@@ -4,19 +4,19 @@
     <div class="navbar-header">
       <div class="flexbox center-center">
         <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
-        <div class="gtmSubeTuOferta container-offer">
+        <div class="container-offer">
           <a class="upload-offer-button" routerLink="/products/form">
-            <div class="outside-circle">
-              <div class="inside-circle">
-                <span class="icon-tag"></span>
+            <div class="gtmSubeTuOferta outside-circle">
+              <div class="gtmSubeTuOferta inside-circle">
+                <span class="gtmSubeTuOferta icon-tag"></span>
               </div>
-              <label>Sube tu oferta</label>
+              <label class="gtmSubeTuOferta">Sube tu oferta</label>
             </div>
           </a>
         </div>
       </div>
       <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
-        <img src="./assets/img/logo-white.svg" alt="brand">
+        <img class="gtmLogoRotalo" src="./assets/img/logo-white.svg" alt="brand">
         <h1 class="sr-only">rótalo</h1>
       </a>
       <ul class="list-options">
@@ -27,21 +27,21 @@
         </li>
         <li class="gtmNotificaciones">
           <a [routerLink]="notificationsRoute">
-            <span class="icon-ring">
+            <span class="gtmNotificaciones icon-ring">
               <span *ngIf="notificationsAvailable" class="noti-circle">{{notificationsUnread}}</span>
             </span>
           </a>
         </li>
         <li class="gtmMensajes">
           <a (click)="openConversations()">
-            <span class="icon-message">
+            <span class="gtmMensajes icon-message">
               <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
             </span>
           </a>
         </li>
         <li class="gtmPerfil" routerLink="/profile/show">
           <a ui-sref="profile.show">
-            <span class="icon-account"></span>
+            <span class="gtmPerfil icon-account"></span>
           </a>
         </li>
       </ul>
