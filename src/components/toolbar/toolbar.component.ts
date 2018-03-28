@@ -21,7 +21,7 @@ export class ToolbarComponent implements OnInit {
   @ViewChild("closeMenu",{ read: ElementRef }) closeMenu: ElementRef;
   @ViewChild("categoriesMenu", { read: ElementRef }) categoriesMenu: ElementRef;
   @ViewChild("autoCompleteBox", { read: ElementRef }) autoCompleteBox: ElementRef;
-  
+
   autoCompleteOptions: Array<string> = []
   tags: Array<string> = [];
   community: any;
@@ -51,7 +51,6 @@ export class ToolbarComponent implements OnInit {
 
   changeTags() {
     this.autoCompleteOptions = this.toolbarService.addOptions(this.tags.join('+'));
-    console.log("tags: ",this.tags);
     this.tagsChanged.emit(this.tags);
   }
 

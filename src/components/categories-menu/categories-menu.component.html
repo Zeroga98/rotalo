@@ -1,6 +1,6 @@
 <div class="categories-container">
 	<div class="category" *ngFor="let category of categories">
-		<div class="title-circle" [ngClass]="category.color">
+		<div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.color">
 			<span [ngClass]="category.icon"></span>
 			<a (click)= "selectCategory(category)">
 				<span></span>
@@ -9,7 +9,7 @@
 		</div>
 		<div class="sub-categories">
 			<ul>
-				<li *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
+				<li class="gtmMegaMeCateg{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
 					<a> {{ subcategory.name }} </a>
 				</li>
 			</ul>

@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
         Validators.minLength(6)
       ])
     });
+
   }
   onSubmit() {
     if (this.loginForm.valid) {

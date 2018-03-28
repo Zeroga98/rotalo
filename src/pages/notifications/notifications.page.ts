@@ -186,7 +186,7 @@ export class NotificationsPage implements OnInit {
         }
       });
     }
-    console.log("notificacion: ",notification);
+
     return {
       type: notification['notification-type'],
       productId: notification.product.id,

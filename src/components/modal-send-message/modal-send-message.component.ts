@@ -99,7 +99,6 @@ export class ModalSendMessageComponent implements OnInit {
   }
 
   getUrlImage() {
-    console.log(this.conversation);
     if (this.conversation[0]) {
       return `url('${this.conversation[0].photo}')`;
     }
