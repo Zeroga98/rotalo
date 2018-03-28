@@ -48,7 +48,6 @@ export class SignUpPage implements OnInit {
               this.validatePasswordConfirm.bind(this)]),
             termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
         });
-        console.log(this.registerForm.get('id-number'));
 
         this.loadTypeDocument();
     }

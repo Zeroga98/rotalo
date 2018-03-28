@@ -144,7 +144,7 @@ export class EditProfilePage implements OnInit {
     }else {
       infoUser = Object.assign({}, this.editProfileForm.value,  {'city-id': this.city['id']});
     }
-    console.log("info user: ", infoUser);
+
     const currentUser = {
       data: {
         id: this.userEdit.id,

@@ -50,14 +50,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("destroy");
     clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
 
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
-    this.navigationService.setCurrentCountryId(evt.id);  
+    this.navigationService.setCurrentCountryId(evt.id);
     this.goToFeed(evt.id);
   }
 
@@ -104,7 +103,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 									})
 		}, this.timeToCheckNotification)
   }
-  
+
   private goToFeed(id: number){
 		const currentUrl = window.location.pathname;
 		const feedUrl = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;

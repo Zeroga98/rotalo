@@ -64,7 +64,6 @@ export class SelectStatesComponent implements OnChanges, OnInit {
       name = ev.target.options[ev.target.selectedIndex].text;
     }
     const id = ev.target.value;
-    console.log({ name, id });
     this.selected.emit({ name, id });
   }
 
