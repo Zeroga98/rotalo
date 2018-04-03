@@ -17,6 +17,7 @@ export class SimpleFormComponent implements OnInit {
   @Input() actionText: string = 'Continuar';
   @Input() textArea: boolean = false;
   @Input() placeholder:string = '';
+  @Input() gtmClass:string = 'primary';
   form: FormGroup;
 
   constructor() { }

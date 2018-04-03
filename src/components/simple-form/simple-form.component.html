@@ -14,7 +14,7 @@
           <textarea *ngIf="textArea" class="form-control" name="field" formControlName="field" placeholder="{{placeholder}}"></textarea>
         </div>
         <div>
-          <custom-button class="gtmContinGustos" type="submit" text="{{actionText}}" [disabled]="formIsInValid"></custom-button>
+          <custom-button buttonClass="{{gtmClass}} primary" type="submit" text="{{actionText}}" [disabled]="formIsInValid"></custom-button>
         </div>
       </form>
     </div>

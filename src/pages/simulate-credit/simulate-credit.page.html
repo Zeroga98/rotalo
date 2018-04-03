@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button class="gtmSufiTePrestaSimular" [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
+      <custom-button buttonClass="gtmSufiTePrestaSimular primary"  [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
     </div>
   </form>
   <form *ngIf="!showSimulator" role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">
@@ -132,7 +132,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button class="gtmSufiTePrestaEnvSolic" [disabled]="formContactValid" type="submit" text="Solicíta ya"></custom-button>
+      <custom-button buttonClass="gtmSufiTePrestaEnvSolic primary"  [disabled]="formContactValid" type="submit" text="Solicíta ya"></custom-button>
     </div>
     <div class="actions-form">
       <span (click)="showSimulator = !showSimulator; showMessageBank = false" class="text-info">

@@ -67,7 +67,7 @@ export class DetailProductComponent implements OnInit {
           name: this.products.user.name
         };
       }
-
+      console.log(this.products);
       this.productChecked = this.products.status;
       this.productStatus = this.products.status === "active";
       this.changeDetectorRef.markForCheck();
