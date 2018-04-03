@@ -34,13 +34,13 @@ export class ProductsUploadPage implements OnInit {
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
+      event: 'pushEventGA',
       method: method,
       type: type,
-      category: category,
-      action: action,
-      label: label
+      categoria: category,
+      accion: action,
+      etiqueta: label
     };
     window['dataLayer'].push(paramsGa);
-    console.log(window);
   }
 }
