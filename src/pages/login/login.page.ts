@@ -33,6 +33,19 @@ export class LoginPage implements OnInit {
     });
 
   }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      method: method,
+      type: type,
+      category: category,
+      action: action,
+      label: label
+    };
+    window['dataLayer'].push(paramsGa);
+    console.log(window);
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email').value;
@@ -52,6 +65,7 @@ export class LoginPage implements OnInit {
     };
     this.loginService.loginUser(user).then((response) => {
     // window._gaq.push('send', 'event', 'Home', 'ClicDestacado', 'Consultorio');
+      this.gapush('send', 'event', 'Ingreso', 'ClicLogin', 'IngresarExitosamente');
       this.currentSessionService.setSession(response.data);
       this.setUserCountry(response.data);
     }).catch((httpErrorResponse) => {

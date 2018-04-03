@@ -17,8 +17,8 @@
 				<li *ngFor="let option of autoCompleteOptions" (click)="clickOptionAutocomplete(option)">{{option}}</li>
 			</ul>
 		</div>
-		<div class="gtmCategorias container-categrias">
-			<span class="gtmCategorias categ-text pointer" (click)="openCategories($event)">Categorías</span>
+		<div class="container-categrias">
+			<span class="gtmCategorias categ-text pointer" (click)="openCategories($event)" #closeMenuLabel>Categorías</span>
 			<span class="gtmCategorias icon-width icon-close icon-menu pointer" #closeMenu (click)="openCategories($event)"></span>
 		</div>
 	</div>

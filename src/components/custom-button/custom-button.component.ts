@@ -13,3 +13,4 @@ export class CustomButtonComponent {
     @Input() disabled: boolean = false;
     @Input() link: string;
 }
+

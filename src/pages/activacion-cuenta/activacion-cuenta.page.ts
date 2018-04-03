@@ -29,10 +29,24 @@ export class ActivacionCuentaPage implements OnInit {
     try {
       const response = await this.activationService.ejecuteActivation(evt.value.field);
       const userInfo = Object.assign({}, response, { id: response.id });
+      this.gapush('send', 'event', 'Ingreso', 'ClicSignUp', 'CreacionCuentaExitosa');
       this.routineActivateSuccess(userInfo);
     } catch (error) {
       this.errorRequest = error.error.errors;
     }
+  }
+
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      method: method,
+      type: type,
+      category: category,
+      action: action,
+      label: label
+    };
+    window['dataLayer'].push(paramsGa);
+    console.log(window);
   }
 
   private routineActivateSuccess(userInfo) {

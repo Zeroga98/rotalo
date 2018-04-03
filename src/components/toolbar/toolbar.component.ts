@@ -18,7 +18,8 @@ export class ToolbarComponent implements OnInit {
   @Output() tagsChanged: EventEmitter<Array<string>> = new EventEmitter();
   @Output() categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
   @Output() subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
-  @ViewChild("closeMenu",{ read: ElementRef }) closeMenu: ElementRef;
+  @ViewChild("closeMenu", { read: ElementRef }) closeMenu: ElementRef;
+  @ViewChild("closeMenuLabel", { read: ElementRef }) closeMenuLabel: ElementRef;
   @ViewChild("categoriesMenu", { read: ElementRef }) categoriesMenu: ElementRef;
   @ViewChild("autoCompleteBox", { read: ElementRef }) autoCompleteBox: ElementRef;
 
@@ -57,6 +58,8 @@ export class ToolbarComponent implements OnInit {
   openCategories(evt) {
     this.categoriesMenu.nativeElement.classList.toggle("opened");
     this.closeMenu.nativeElement.classList.toggle("icon-menu");
+    this.closeMenu.nativeElement.classList.toggle("gtmCategorias");
+    this.closeMenuLabel.nativeElement.classList.toggle("gtmCategorias");
   }
 
   selectedCategory(category: CategoryInterface) {
