@@ -66,7 +66,7 @@
             </span>
           </div>
           <div class="form-group">
-            <select class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
+            <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
               <option value="" disabled>Escoge una categoría *</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
@@ -118,9 +118,9 @@
           <div class="form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'">
             <my-date-picker
             class="data-picker-theme"
-            name="publish-until" 
+            name="publish-until"
             placeholder="Select a date"
-            formControlName="publish-until" 
+            formControlName="publish-until"
             [options]="datePickerOptions"></my-date-picker>
             <span class="help-block error-msg"> Este campo es obligatorio. </span>
           </div>

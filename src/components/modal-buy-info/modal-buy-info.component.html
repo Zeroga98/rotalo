@@ -1,0 +1,25 @@
+<div class="container-modal">
+    <div class="modal__body modal--offer">
+      <div  class="text-xs-center">
+          <img src="/assets/img/icono_chat.svg" alt="Chat con vendedor">
+      </div>
+      <div  class="text-xs-center">
+        <h3>¡Un segundo!</h3>
+      </div>
+      <div  class="text-xs-center">
+        <p>
+          Antes de continuar con tu compra, asegúrate de haber hablado con el vendedor para que confirmes la disponibilidad del producto y acuerden la forma de pago y entrega. Recuerda que podrás necesitar información adicional dependiendo de la forma de pago que pactes con el vendedor.
+        </p>
+      </div>
+      <div  class="text-xs-center">
+          <label>
+            ¿Ya lo contactaste?
+          </label>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <div class="button-modal button-modal-space"><custom-button text="No" ></custom-button></div>
+      <div class="button-modal" ><custom-button text="Si" (click)="buyProduct()"></custom-button></div>
+      <div class="buy-continue"><a (click)="buyProduct()">No, pero quiero continuar con la compra</a></div>
+    </div>
+  </div>

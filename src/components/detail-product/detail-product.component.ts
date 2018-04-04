@@ -33,6 +33,7 @@ export class DetailProductComponent implements OnInit {
   public isSufiModalShowed: boolean = false;
   public isOfferModalShowed: boolean = false;
   public isModalSendMessageShowed: boolean = false;
+  public isModalBuyShowed: boolean = false;
   public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
   private minVehicleValue = 10000000;
@@ -57,6 +58,7 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -155,6 +157,10 @@ export class DetailProductComponent implements OnInit {
       ROUTES.PRODUCTS.BUY
     }/${id}`;
     this.router.navigate([urlBuyProduct]);
+  }
+
+  showBuyModal() {
+    this.isModalBuyShowed = true;
   }
 
   openSufiModal(product: ProductInterface) {

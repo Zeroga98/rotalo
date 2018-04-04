@@ -1,5 +1,5 @@
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
-
+<modal-buy-info [idProduct]="products.id" *ngIf="isModalBuyShowed" (close)="isModalBuyShowed = false" ></modal-buy-info>
 <div class="container">
   <modal-send-message [idProduct]="products.id" *ngIf="isModalSendMessageShowed" [idUserProduct]="products.user.id" [conversationDefault]="conversation" (close)="isModalSendMessageShowed = false"></modal-send-message>
   <div  class="product">
@@ -87,7 +87,7 @@
           <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable"  (click)="openOfferModal(products)">
             <span class="icon-offer"></span> Hacer oferta
           </button>
-          <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+          <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="showBuyModal()">
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
         </div>

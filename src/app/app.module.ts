@@ -110,6 +110,7 @@ import { FeedService } from '../pages/products-feed/feed.service';
 import { ToolbarService } from '../components/toolbar/toolbar.service';
 import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-info.component';
 
 
 @NgModule({
@@ -173,7 +174,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     NotificationsPage,
     SubcategoryFilterComponent,
     ChangePage,
-    ModalTipsComponent
+    ModalTipsComponent,
+    ModalBuyInfoComponent
   ],
   imports: [
     BrowserModule,
