@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { EventEmitter, Component, OnInit, Input, Output } from '@angular/core';
 import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ModalBuyInfoComponent implements OnInit {
   @Input() idProduct: string;
+  @Output() closeModal: EventEmitter<any> = new EventEmitter();
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -18,5 +19,9 @@ export class ModalBuyInfoComponent implements OnInit {
       ROUTES.PRODUCTS.BUY
     }/${this.idProduct}`;
     this.router.navigate([urlBuyProduct]);
+  }
+
+  closeModalBuy() {
+    this.closeModal.emit({isModalBuyShowed: false, isModalSendMessageShowed: true});
   }
 }

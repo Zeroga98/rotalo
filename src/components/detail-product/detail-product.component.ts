@@ -163,6 +163,11 @@ export class DetailProductComponent implements OnInit {
     this.isModalBuyShowed = true;
   }
 
+  showMessageModal(evt) {
+    this.isModalBuyShowed = evt.isModalBuyShowed;
+    this.isModalSendMessageShowed = evt.isModalSendMessageShowed;
+  }
+
   openSufiModal(product: ProductInterface) {
     this.isSufiModalShowed = true;
     this.configurarModal(product);

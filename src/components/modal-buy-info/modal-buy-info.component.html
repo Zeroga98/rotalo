@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="modal__footer">
-      <div class="button-modal button-modal-space"><custom-button text="No" ></custom-button></div>
+      <div class="button-modal button-modal-space"><custom-button text="No" (click)="closeModalBuy()" ></custom-button></div>
       <div class="button-modal" ><custom-button text="Si" (click)="buyProduct()"></custom-button></div>
       <div class="buy-continue"><a (click)="buyProduct()">No, pero quiero continuar con la compra</a></div>
     </div>

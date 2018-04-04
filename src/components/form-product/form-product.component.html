@@ -79,13 +79,13 @@
             <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select class="form-control" formControlName="model">
+              <select name="model"  class="form-control" formControlName="model">
                   <option value=""  disabled>Modelo de vehículo *</option>
                   <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
               </select>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select class="form-control" formControlName="type-vehicle">
+              <select name="type-vehicle"  class="form-control" formControlName="type-vehicle">
                   <option value="" disabled>Tipo de vehículo*</option>
                   <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
               </select>
