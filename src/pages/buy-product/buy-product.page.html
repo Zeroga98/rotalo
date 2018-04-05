@@ -1,15 +1,43 @@
+<div class="container-bar-offer">
+    <div class="container">
+      <h1 class="offer-head-title">Comprar</h1>
+    </div>
+  </div>
 <div class="container-offer">
     <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
     <div class="container" *ngIf="!transactionSuccess">
-        <div class="container-header" *ngIf="product">
-            <div class="image">
-                <img [src]="product.photos.url || product.photos[0].url">
-            </div>
-            <div>
-                <div class="title">{{product.name}}</div>
-                <div class="price">Total a pagar: {{product.price | currency }}</div>
-            </div>
+        <div class="buy-detail">
+          <p>Revisa el detalle de tu compra.</p>
+          <p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p>
         </div>
+        <ol class="steps-buy-product">
+          <li>
+            <span>¿Qué vas a comprar?</span>
+            <div class="container-header" *ngIf="product">
+                <div class="image">
+                    <img [src]="photoProduct">
+                </div>
+                <div>
+                    <div class="title">{{product.name}}</div>
+                    <div class="category"><span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
+                    <div class="used"><span>Condición:</span> {{usedProduct}}</div>
+                </div>
+                <div class="price">
+                    <div>{{product.price | currency }}</div>
+                </div>
+            </div>
+          </li>
+          <li>
+            <span>¿Cómo lo vas a pagar?</span>
+            <div class="buy-detail">
+              <p>¿Cómo lo vas a pagar? Selecciona una de las formas de pago disponible. Ten en cuenta lo pactado con el vendedor</p>
+            </div>
+          </li>
+          <li>
+            <span>¿Cómo es la entrega del producto?</span>
+          </li>
+        </ol>
+
         <div class="container-form">
             <div class="title-form">1. Cuéntale ¿Cómo le vas a pagar?</div>
             <form class="form-theme" (ngSubmit)="buyProduct()">

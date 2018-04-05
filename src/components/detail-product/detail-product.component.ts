@@ -77,9 +77,7 @@ export class DetailProductComponent implements OnInit {
 
   saveCheck() {
     this.productStatus = !this.productStatus;
-    this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
+    this.productStatus ? (this.productChecked = "active") : (this.productChecked = "inactive");
 
     const params = {
       status: this.productStatus ? "active" : "inactive"

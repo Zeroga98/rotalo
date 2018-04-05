@@ -8,30 +8,50 @@
     align-items: center;
     padding: 4rem 2rem;
     .container {
-      width: 57rem;
+      width: 100rem;
       min-width: 40rem;
       .container-header {
+        position: relative;
+        right: 5%;
         font-size: 1.4rem;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #d3e0e9;
-        padding: 1.5rem;
-        margin-bottom: 5rem;
+        margin: 1.5rem;
+        padding-right: 4%;
+        margin-bottom: 2rem;
+        background-color: #F7F7F7;
         .image {
-          width: 5rem;
+          width: 21.637rem;
           margin-right: 2rem;
           img {
             width: 100%;
             height: auto;
-            max-height: 8rem;
+            max-height: 15rem;
           }
         }
         .title {
+          font-size: 1.8rem;
           font-weight: bold;
-          color: #4a4a4a;
+          color: #FF2334;
+        }
+        .category{
+          font-size: 1.5rem;
+          color: #777777;
+          span{
+            font-weight: bold;
+          }
+        }
+        .used{
+          font-size: 1.4rem;
+          color: #077777;
+          span{
+            color: #FF2334;
+          }
         }
         .price {
-          color: $red;
+          margin-left: auto;
+          font-size: 2.4rem;
+          color: #777777;
           font-weight: 500;
           line-height: 2.5rem;
         }
@@ -48,7 +68,7 @@
         }
         .info-message-bank {
           margin-bottom: 30px;
-          p:first-child{
+          p:first-child {
             font-size: 1.6rem;
           }
           p {
@@ -68,6 +88,52 @@
         }
         .action {
         }
+      }
+    }
+  }
+  .container-bar-offer {
+    background: url("/assets/img/image_bw.jpg") no-repeat center;
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      .inside-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 4rem;
+        width: 4rem;
+        background-color: #41b5cb;
+        border-radius: 50%;
+        margin-right: 2rem;
+        .icon-tag {
+          font-size: 2.5rem;
+          color: white;
+        }
+      }
+      .offer-head-title {
+        color: white;
+        margin: 0;
+        font-size: 5.5rem;
+      }
+    }
+  }
+
+  .buy-detail {
+    p{
+      font-size: 20px;
+      color: #777777;
+      margin-bottom: 10px;
+    }
+  }
+
+  .steps-buy-product{
+    li{
+      font-size: 20px;
+      color: #E72F3C;
+      span{
+        color: #777777;
       }
     }
   }

@@ -20,6 +20,10 @@ export class BuyProductPage implements OnInit {
   payWithBank: boolean;
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
+  categoryProduct: String;
+  subCategoryProduct: String;
+  usedProduct: String;
+  photoProduct: String;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -42,6 +46,11 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.product);
+      this.categoryProduct = this.product.subcategory.category.name;
+      this.subCategoryProduct = this.product.subcategory.name;
+      this.product.used ? (this.usedProduct = "Usado") : (this.usedProduct = "Nuevo");
+      this.photoProduct = this.product.photos.url || this.product.photos[0].url;
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
