@@ -1,11 +1,16 @@
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
-<modal-buy-info [idProduct]="products.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)" ></modal-buy-info>
+<modal-buy-info [idProduct]="products.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)"></modal-buy-info>
 <div class="container">
-  <modal-send-message [idProduct]="products.id" *ngIf="isModalSendMessageShowed" [idUserProduct]="products.user.id" [conversationDefault]="conversation" (close)="isModalSendMessageShowed = false"></modal-send-message>
-  <div  class="product">
+  <modal-send-message [idProduct]="products.id" *ngIf="isModalSendMessageShowed" [idUserProduct]="products.user.id" [conversationDefault]="conversation"
+    (close)="isModalSendMessageShowed = false"></modal-send-message>
+  <div class="product">
     <div *ngIf="products?.photos" class="product-photos">
-      <div class="panel-heading">
-        <ngx-carousel  [inputs]="carouselConfig">
+      <div *ngIf="isSellProcess()" class="lable-sell-process">
+        <div class="icon-clock label-sell--center"></div>
+        <label class="label-sell--center">Venta en proceso</label>
+      </div>
+      <div [ngClass]="isSellProcess() ? 'deactivated-photo' : ''" class="panel-heading">
+        <ngx-carousel [inputs]="carouselConfig">
           <ngx-item NgxCarouselItem *ngFor="let productImage of productsPhotos">
             <div class="container-product__image">
               <img src="{{productImage?.url}}">
@@ -21,12 +26,12 @@
       </div>
     </div>
     <div *ngIf="!products?.photos" class="product-photos">
-        <div class="panel-heading">
-            <div class="container-product__image">
-                <img src="./assets/img/product-no-image.png">
-            </div>
+      <div class="panel-heading">
+        <div class="container-product__image">
+          <img src="./assets/img/product-no-image.png">
         </div>
       </div>
+    </div>
     <div *ngIf="products" class="product-info">
       <div class="title-product">{{products.name}}</div>
       <div class="valor-product">{{products.price | currency:"$":0}} {{ products.currency }}</div>
@@ -50,9 +55,11 @@
       <div class="product-info-user">
         <div>
           <div class="media-middle">
-            <div *ngIf="products.user.photo" class="photo-user"><img [src]="products.user.photo.url"></div>
+            <div *ngIf="products.user.photo" class="photo-user">
+              <img [src]="products.user.photo.url">
+            </div>
             <div *ngIf="!products.user.photo" class="product-info-user--icon">
-              <span  class="icon-account"></span>
+              <span class="icon-account"></span>
             </div>
             <div class="panel-product__owner">
             </div>
@@ -64,7 +71,7 @@
               <span>{{products.user.company.community.name}}</span>
             </p>
           </div>
-          </div>
+        </div>
         <div class="product-btn" *ngIf="!validateSession()">
           <div class="product-btns">
             <div class="cont-botons">
@@ -80,11 +87,14 @@
     </div>
     <div class="product-btn" *ngIf="!readOnly">
       <div class="product-btns">
-        <div class="cont-botons" *ngIf="!validateSession()">
+        <div class="info-center" *ngIf="isSellProcess() && !validateSession()">
+          <label>Producto en proceso de venta</label>
+        </div>
+        <div class="cont-botons" *ngIf="!isSellProcess() && !validateSession()">
           <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSimulateCreditSufi(products.id)">
             <span class="icon-custom icon-custom--sufi-logo"></span> Te presta
           </button>
-          <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable"  (click)="openOfferModal(products)">
+          <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable" (click)="openOfferModal(products)">
             <span class="icon-offer"></span> Hacer oferta
           </button>
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="showBuyModal()">
@@ -92,18 +102,18 @@
           </button>
         </div>
         <div class="media" *ngIf="validateSession() && !isSold()">
-            <div class="media-left media-middle">
-              <label class="switch">
-                  <input type="checkbox" [checked]="productStatus"  (change)="saveCheck()" >
-                  <div class="switch-slider round"></div>
-                </label>
-            </div>
-            <div class="media-body">
-              <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
-            </div>
+          <div class="media-left media-middle">
+            <label class="switch">
+              <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
+              <div class="switch-slider round"></div>
+            </label>
+          </div>
+          <div class="media-body">
+            <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+          </div>
         </div>
       </div>
-      <div class="product-btns" *ngIf="validateSession() && !isSold()" >
+      <div class="product-btns" *ngIf="validateSession() && !isSold()">
         <div class="cont-botons">
           <div class="botons" (click)="editProduct(products)">
             <span class="icon icon-edit"></span>

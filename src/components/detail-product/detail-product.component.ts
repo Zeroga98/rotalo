@@ -79,14 +79,18 @@ export class DetailProductComponent implements OnInit {
 
   saveCheck() {
     this.productStatus = !this.productStatus;
-    this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
-
+    this.productStatus ? (this.productChecked = "active"): (this.productChecked = "inactive");
     const params = {
       status: this.productStatus ? "active" : "inactive"
     };
+    this.productsService.updateProduct(this.products.id, params).then(response => {
+    });
+  }
 
+  changeStatusBuy() {
+    const params = {
+      status: "buying"
+    };
     this.productsService.updateProduct(this.products.id, params).then(response => {
     });
   }
@@ -121,6 +125,10 @@ export class DetailProductComponent implements OnInit {
 
   validateSession() {
     return this.products && this.products.user.id === this.idUser;
+  }
+
+  isSellProcess() {
+    return this.products && this.products.status === "sell_process";
   }
 
   isSold() {
