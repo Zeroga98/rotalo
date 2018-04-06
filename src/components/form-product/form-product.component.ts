@@ -61,7 +61,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (evt === "GRATIS") {
       this.photosForm.patchValue({price: 0});
       this.disabledField = true;
-    }else if(evt === "SUBASTA") {
+    }else if (evt === "SUBASTA") {
       const elem = document.getElementById("checkTerms") as any;
       elem.checked = true;
       this.disabledField = false;

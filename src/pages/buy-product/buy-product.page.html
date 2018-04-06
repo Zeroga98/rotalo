@@ -1,70 +1,131 @@
 <div class="container-bar-offer">
-    <div class="container">
-      <h1 class="offer-head-title">Comprar</h1>
-    </div>
+  <div class="container">
+    <h1 class="offer-head-title">Comprar</h1>
   </div>
-<div class="container-offer">
-    <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
-    <div class="container" *ngIf="!transactionSuccess">
-        <div class="buy-detail">
-          <p>Revisa el detalle de tu compra.</p>
-          <p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p>
-        </div>
-        <ol class="steps-buy-product">
-          <li>
-            <span>¿Qué vas a comprar?</span>
-            <div class="container-header" *ngIf="product">
+</div>
+<form (ngSubmit)="sendBuyInfo()"
+[formGroup]="buyForm">
+    <div class="container-offer">
+        <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
+        <div class="container" *ngIf="!transactionSuccess">
+          <div class="buy-detail">
+            <p>Revisa el detalle de tu compra.</p>
+            <p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p>
+          </div>
+          <ol class="steps-buy-product">
+            <li>
+              <span>¿Qué vas a comprar?</span>
+              <div class="container-header" *ngIf="product">
                 <div class="image">
-                    <img [src]="photoProduct">
+                  <img [src]="photoProduct">
                 </div>
                 <div>
-                    <div class="title">{{product.name}}</div>
-                    <div class="category"><span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
-                    <div class="used"><span>Condición:</span> {{usedProduct}}</div>
+                  <div class="title">{{product.name}}</div>
+                  <div class="category">
+                    <span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
+                  <div class="used">
+                    <span>Condición:</span> {{usedProduct}}</div>
                 </div>
                 <div class="price">
+                  <div>{{product.price | currency }}</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <span>¿Cómo lo vas a pagar?</span>
+              <div class="buy-detail buy-">
+                <p>Selecciona una de las formas de pago disponible. Ten en cuenta lo pactado con el vendedor.</p>
+              </div>
+              <div class="container-header" *ngIf="product">
+                <div class="cc-selector-2">
+                  <div class="option">
+                    <label class="container-radio">
+                      <input
+                      checked="checked"
+                      id="bank2"
+                      type="radio"
+                      name="payment-type"
+                      value="bank_account_transfer"
+                      formControlName = "payment-type"
+                      />
+                      <div class="thumb">
+                        <label class="bancolombia thumb-cc" for="bank2"></label>
+                      </div>
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="description">
+                      <label for="bank2">Transferencia Bancolombia</label>
+                    </div>
+                  </div>
+                  <div class="option">
+                    <label class="container-radio">
+                      <input
+                      id="nequi2"
+                      type="radio"
+                      name="payment-type"
+                      value="nequi"
+                      formControlName = "payment-type"
+                      />
+                      <div class="thumb">
+                        <label class="nequi thumb-cc" for="nequi2"></label>
+                      </div>
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="description">
+                      <label for="nequi2">Transferencia Nequi</label>
+                    </div>
+                  </div>
+                  <div class="option">
+                    <label class="container-radio">
+                      <input
+                      id="cash2"
+                      type="radio"
+                      name="payment-type"
+                      value="cash"
+                      formControlName = "payment-type"
+                      />
+                      <div class="thumb">
+                        <label class="cash thumb-cc" for="cash2"></label>
+                      </div>
+                      <span class="checkmark"></span>
+                    </label>
+                    <div class="description">
+                      <label for="cash2">Efectivo Contraentrega</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="price">
+                  <div>{{product.price | currency }}</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <span>¿Cómo es la entrega del producto?</span>
+              <div class="buy-detail buy-">
+                <p>Selecciona la forma de entrega del producto. Recuerda seleccionar lo pactado con el vendedor.</p>
+              </div>
+              <div class="container-header" *ngIf="product">
+                  <div class="cc-selector-2">
+                    <div class="option">
+                      <label class="container-radio">
+                        <input checked="checked" id="person2" type="radio" name="delivery" value="person" />
+                        <div class="thumb">
+                          <label class="person thumb-cc" for="person2"></label>
+                        </div>
+                        <span class="checkmark"></span>
+                      </label>
+                      <div class="description">
+                        <label for="person2">Personalmente</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="price">
                     <div>{{product.price | currency }}</div>
+                  </div>
                 </div>
-            </div>
-          </li>
-          <li>
-            <span>¿Cómo lo vas a pagar?</span>
-            <div class="buy-detail">
-              <p>Selecciona una de las formas de pago disponible. Ten en cuenta lo pactado con el vendedor</p>
-            </div>
-          </li>
-          <li>
-            <span>¿Cómo es la entrega del producto?</span>
-          </li>
-        </ol>
+            </li>
+          </ol>
+        </div>
+      </div>
+</form>
 
-        <div class="container-form">
-            <div class="title-form">1. Cuéntale ¿Cómo le vas a pagar?</div>
-            <form class="form-theme" (ngSubmit)="buyProduct()">
-                <div class="form-group" class="select-medium">
-                    <select class="form-control" #selectMedium (change)="selectedMedium()">
-                        <option selected disabled>--Seleccionar--</option>
-                        <option  [attr.disabled]="!vaproductIsFree() ? null : ''" value="cash">Efectivo</option>
-                        <option  [attr.disabled]="!vaproductIsFree() ? null : ''" value="bank_account_transfer">Transferencia Bancolombia</option>
-                        <option  [attr.disabled]="vaproductIsFree() ? null : ''" value="na">No aplica</option>
-                    </select>
-                </div>
-                <div  *ngIf="payWithBank"  class="info-message-bank">
-                  <p>¡Un segundo!</p>
-                  <p> Antes de continuar con tu compra, asegúrate de tener a la mano la información de la
-                      cuenta de destino del vendedor para realizar la trasnferencia. Si no lo tienes contacta al
-                      vendedor.</p>
-                </div>
-                <div class="form-group">
-                    <custom-button buttonClass="gtmCompConfirmComp primary"  type="submit" text="Confirmar Compra"></custom-button>
-                </div>
-            </form>
-        </div>
-        <div *ngIf="checkSufiBotton()" class="container-sufi">
-            <div class="title">¿Necesitas plata para comprarlo?</div>
-            <div class="action">
-                <custom-button buttonClass="gtmCompSufiTePresta primary" text="Te presta"></custom-button>
-            </div>
-        </div>
-    </div>
-</div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: "buy-product",
@@ -24,16 +25,23 @@ export class BuyProductPage implements OnInit {
   subCategoryProduct: String;
   usedProduct: String;
   photoProduct: String;
+
+  buyForm: FormGroup;
+
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private buyService: BuyService,
     private currentSessionSevice: CurrentSessionService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.loadProduct();
+    this.buyForm = this.fb.group({
+      'payment-type': ['', Validators.required],
+    });
   }
   goToUrlBank(): void {
     window.open('https://sucursalpersonas.transaccionesbancolombia.com', '_blank');
@@ -46,7 +54,7 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.product);
+
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
       this.product.used ? (this.usedProduct = "Usado") : (this.usedProduct = "Nuevo");
@@ -83,6 +91,10 @@ export class BuyProductPage implements OnInit {
     }else {
       this.payWithBank =  false;
     }
+  }
+
+  sendBuyInfo() {
+
   }
 
   checkSufiBotton() {
