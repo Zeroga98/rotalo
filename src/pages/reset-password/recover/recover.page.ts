@@ -35,6 +35,7 @@ export class RecoverPage implements OnInit {
         }
       }
     };
+    console.log(user);
     this.recoverService.recoverUser(user).then((response) => {
       this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
     }).catch((httpErrorResponse) => {
