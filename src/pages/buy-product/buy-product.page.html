@@ -1,10 +1,11 @@
 <div class="container-bar-offer">
   <div class="container">
-    <h1 class="offer-head-title">Comprar</h1>
+    <h1 class="offer-head-title">{{titlePurchase}}</h1>
   </div>
 </div>
 
-<div class="buy-product-container">
+<confirm-purchase ></confirm-purchase>
+<div *ngIf="!confirmPurchase" class="buy-product-container">
 <form (ngSubmit)="buyProduct()" [formGroup]="buyForm">
     <div class="container-offer">
       <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>

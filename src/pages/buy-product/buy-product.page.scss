@@ -13,7 +13,7 @@
     padding-bottom: 10rem;
     .container {
       width: 100rem;
-      min-width: 40rem;
+      min-width: 310px;
       .container-header {
         position: relative;
         right: 3%;
@@ -24,6 +24,7 @@
         padding-right: 4%;
         margin-bottom: 2rem;
         background-color: #f7f7f7;
+        flex-wrap: wrap;
         .image {
           width: 21.637rem;
           margin-right: 2rem;
@@ -172,6 +173,7 @@
   }
 
   .cc-selector-2 {
+    flex-wrap: wrap;
     width: 40%;
     display: flex;
     justify-content: space-between;
@@ -284,6 +286,12 @@
       .button {
         width: 210px;
       }
+    }
+  }
+  @media (max-width: 700px) {
+    .container-gallery {
+      align-items: center;
+      justify-content: center;
     }
   }
 }

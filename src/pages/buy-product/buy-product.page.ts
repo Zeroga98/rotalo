@@ -5,12 +5,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
-<<<<<<< HEAD
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-=======
 import { ROUTES } from '../../router/routes';
->>>>>>> 036811dfb8cb0eaf3650ee73680a01f32312af2a
 
 @Component({
   selector: "buy-product",
@@ -37,6 +34,9 @@ export class BuyProductPage implements OnInit {
   private currentUser;
   private cellphoneUser;
   buyForm: FormGroup;
+  payMethod: String = 'bank_account_transfer';
+  confirmPurchase: boolean = false;
+  titlePurchase: String = 'Comprar';
 
   constructor(
     private router: Router,
@@ -52,7 +52,10 @@ export class BuyProductPage implements OnInit {
     this.buyForm = this.fb.group({
       'payment-type': ['bank_account_transfer', Validators.required],
     });
-    this.buyForm.get('payment-type').valueChanges.subscribe(value => this.selectedMedium(value));
+    this.buyForm.get('payment-type').valueChanges.subscribe(value => {
+      this.payMethod = value;
+      this.selectedMedium(value);
+    });
     this.loadProduct();
   }
   goToUrlBank(): void {
@@ -94,18 +97,24 @@ export class BuyProductPage implements OnInit {
 
   async buyProduct() {
     try {
-      const response = await this.buyService.buyProduct(this.buildParams());
-      this.transactionSuccess = true;
-      if (this.payWithBank) {
-        this.goToUrlBank();
-       }
-       this.changeDetectorRef.markForCheck();
+      if (this.payMethod !== "nequi") {
+        const response = await this.buyService.buyProduct(this.buildParams());
+        this.transactionSuccess = true;
+        if (this.payWithBank) {
+          this.goToUrlBank();
+         }
+         this.changeDetectorRef.markForCheck();
+      }else {
+        this.buyWithNequi();
+      }
     } catch (error) {}
   }
 
   async buyWithNequi() {
     try {
-      const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
+      this.confirmPurchase = true;
+      this.titlePurchase = 'Confirmar tu compra';
+      //const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
        this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }

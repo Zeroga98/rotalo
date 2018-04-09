@@ -6,7 +6,7 @@
     padding: 4rem 2rem;
     .container {
       width: 100rem;
-      min-width: 40rem;
+      min-width: 310px;
       .container-header {
         position: relative;
         right: 3%;
@@ -67,14 +67,12 @@
       width: 325px;
       text-align: center;
     }
-
     .container-img {
-      img {
-        width: 276.63px;
-        height: 215.63px;
-      }
+      padding-bottom: 30px;
     }
-
+    .container-img--big {
+      padding-bottom: 15px;
+    }
     .desc {
       font-size: 1.8rem;
       color: #777777;
@@ -87,6 +85,7 @@
       margin-left: 10%;
       text-align: justify;
       margin-top: 20px;
+      margin-bottom: 30px;
       span {
         color: #ff2334;
         position: absolute;

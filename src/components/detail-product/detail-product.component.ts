@@ -58,7 +58,6 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -79,12 +78,7 @@ export class DetailProductComponent implements OnInit {
 
   saveCheck() {
     this.productStatus = !this.productStatus;
-<<<<<<< HEAD
     this.productStatus ? (this.productChecked = "active") : (this.productChecked = "inactive");
-
-=======
-    this.productStatus ? (this.productChecked = "active"): (this.productChecked = "inactive");
->>>>>>> 036811dfb8cb0eaf3650ee73680a01f32312af2a
     const params = {
       status: this.productStatus ? "active" : "inactive"
     };
