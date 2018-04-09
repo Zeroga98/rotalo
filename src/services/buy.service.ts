@@ -14,6 +14,10 @@ export class BuyService {
     return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
   }
 
+  buyProductNequi(params): Promise<any> {
+    return this.httpClient.post(this.url, params).toPromise();
+  }
+
   confirmPurchase(id) {
     this.sendResponsePurchase(id, "confirm");
   }

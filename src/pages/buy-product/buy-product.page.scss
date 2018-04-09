@@ -60,6 +60,27 @@
           line-height: 2.5rem;
         }
       }
+      .container-header[disabled]{
+        opacity: 0.5;
+        .thumb-cc{
+          cursor: inherit;
+        }
+        .cc-selector-2 input {
+          cursor: inherit;
+        }
+      }
+
+      .info-message-bank {
+        margin-bottom: 30px;
+        p:first-child {
+          font-size: 1.6rem;
+        }
+        p {
+          color: #4a4a4a;
+          font-weight: bold;
+          font-size: 1.4rem;
+        }
+      }
       .container-form {
         .title-form {
           font-size: 1.8rem;
@@ -70,17 +91,7 @@
         .select-medium {
           margin-bottom: 3rem;
         }
-        .info-message-bank {
-          margin-bottom: 30px;
-          p:first-child {
-            font-size: 1.6rem;
-          }
-          p {
-            color: #4a4a4a;
-            font-weight: bold;
-            font-size: 1.4rem;
-          }
-        }
+
       }
       .container-sufi {
         .title {

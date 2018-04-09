@@ -6,6 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } fro
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: "buy-product",
@@ -28,12 +29,15 @@ export class BuyProductPage implements OnInit {
   priceProduct;
   pricePayment = 0;
   priceDelivery = 0;
-
+  private idNumberSeller;
+  private currentUser;
+  private cellphoneUser;
   buyForm: FormGroup;
 
   constructor(
     private router: Router,
     private productsService: ProductsService,
+    private userService: UserService,
     private buyService: BuyService,
     private currentSessionSevice: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -41,63 +45,89 @@ export class BuyProductPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadProduct();
     this.buyForm = this.fb.group({
       'payment-type': ['bank_account_transfer', Validators.required],
     });
+    this.buyForm.get('payment-type').valueChanges.subscribe(value => this.selectedMedium(value));
+    this.loadProduct();
   }
   goToUrlBank(): void {
     window.open('https://sucursalpersonas.transaccionesbancolombia.com', '_blank');
   }
 
   vaproductIsFree() {
-   return this.product && this.product['sell-type'] === 'GRATIS';
+   return this.product && this.product['sell-type'] === 'GRATIS' || this.product.price === 0;
+  }
+
+  initFormBuy() {
+    if (this.vaproductIsFree()) {
+      this.buyForm.patchValue({
+        'payment-type': 'na'
+      });
+    }else {
+      this.buyForm.patchValue({
+        'payment-type': 'bank_account_transfer'
+      });
+      this.payWithBank = true;
+    }
   }
 
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      this.currentUser = await this.userService.getInfoUser();
+      this.cellphoneUser =  this.currentUser.cellphone;
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
       this.priceProduct = this.product.price;
       this.product.used ? (this.usedProduct = "Usado") : (this.usedProduct = "Nuevo");
       this.photoProduct = this.product.photos.url || this.product.photos[0].url;
+      this.idNumberSeller = this.product.user['id-number'];
+      this.initFormBuy();
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 
   async buyProduct() {
     try {
-      if (!this.payWithBank) {
-        const response = await this.buyService.buyProduct(this.buildParams());
-        this.transactionSuccess = true;
-        this.changeDetectorRef.markForCheck();
-       } else {
-        const response = await this.buyService.buyProduct(this.buildParams());
+      const response = await this.buyService.buyProduct(this.buildParams());
+      this.transactionSuccess = true;
+      if (this.payWithBank) {
         this.goToUrlBank();
-        this.transactionSuccess = true;
-        this.changeDetectorRef.markForCheck();
        }
+       this.changeDetectorRef.markForCheck();
     } catch (error) {}
+  }
+
+  async buyWithNequi() {
+    try {
+      const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
+       this.changeDetectorRef.markForCheck();
+    } catch (error) {}
+  }
+
+  private buildParamsNequi() {
+    return {
+      numeroCelular: this.cellphoneUser,
+      idVendedor: this.idNumberSeller,
+      valorPagar: this.priceProduct,
+      idProducto: this.idProduct
+      };
   }
 
   private buildParams() {
     return {
       "product-id": this.idProduct,
-      "payment-type": this.selectMedium.nativeElement.value
+      "payment-type": this.buyForm.get('payment-type').value
     };
   }
 
-  selectedMedium(): void {
-    if (this.selectMedium.nativeElement.value === "bank_account_transfer") {
+  selectedMedium(valueMedium): void {
+    if (valueMedium === "bank_account_transfer") {
       this.payWithBank = true;
     }else {
       this.payWithBank =  false;
     }
-  }
-
-  sendBuyInfo() {
-
   }
 
   goBack(): void {

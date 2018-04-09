@@ -19,6 +19,13 @@ export class ConfigurationService {
     'Accept': "application/vnd.api+json",
     "Content-Type": "application/vnd.api+json"
   };
+
+
+  jsonHeaders = {
+    'Accept': "application/json",
+    "Content-Type": "application/json"
+  };
+
   constructor() {}
 
   getBaseUrl(): string {
