@@ -25,6 +25,9 @@ export class BuyProductPage implements OnInit {
   subCategoryProduct: String;
   usedProduct: String;
   photoProduct: String;
+  priceProduct;
+  pricePayment = 0;
+  priceDelivery = 0;
 
   buyForm: FormGroup;
 
@@ -40,7 +43,7 @@ export class BuyProductPage implements OnInit {
   ngOnInit() {
     this.loadProduct();
     this.buyForm = this.fb.group({
-      'payment-type': ['', Validators.required],
+      'payment-type': ['bank_account_transfer', Validators.required],
     });
   }
   goToUrlBank(): void {
@@ -54,9 +57,9 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
+      this.priceProduct = this.product.price;
       this.product.used ? (this.usedProduct = "Usado") : (this.usedProduct = "Nuevo");
       this.photoProduct = this.product.photos.url || this.product.photos[0].url;
       this.changeDetectorRef.markForCheck();
@@ -95,6 +98,10 @@ export class BuyProductPage implements OnInit {
 
   sendBuyInfo() {
 
+  }
+
+  goBack(): void {
+        window.history.back();
   }
 
   checkSufiBotton() {

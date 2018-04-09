@@ -2,11 +2,15 @@
 @import "../../styles/settings/_variables.scss";
 
 :host {
+  .buy-product-container{
+    position: relative;
+  }
   .container-offer {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4rem 2rem;
+    padding-bottom: 10rem;
     .container {
       width: 100rem;
       min-width: 40rem;
@@ -86,8 +90,6 @@
           margin: 3rem 0;
           text-align: center;
         }
-        .action {
-        }
       }
     }
   }
@@ -138,6 +140,7 @@
       }
     }
   }
+
 }
 /**Estilos para opciones de pago**/
 :host {
@@ -186,7 +189,7 @@
     position: relative;
     width: 94px;
     border-radius: 15px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 
   .thumb-cc {
@@ -214,11 +217,11 @@
     height: 20px;
     width: 20px;
     background-color: #eee;
-    border: 1px solid #BABABA;
+    border: 1px solid #bababa;
   }
 
   .container input:checked ~ .checkmark {
-    background-color: #FF2334;
+    background-color: #ff2334;
     border: none;
   }
 
@@ -231,7 +234,6 @@
     position: absolute;
     display: none;
   }
-
 
   .container input:checked ~ .checkmark:after {
     display: block;
@@ -247,5 +249,30 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+  }
+
+  .container-total-price {
+    .total-price {
+      padding-left: 40px;
+      text-align: right;
+      padding-right: 8%;
+      font-size: 2.4rem;
+      span {
+        font-size: 3.5rem;
+        color: #ff2334;
+      }
+    }
+  }
+
+  .button-form {
+    margin: 20px auto;
+    .container-button {
+      width: 70%;
+      margin: 0 auto;
+      text-align: center;
+      .button {
+        width: 210px;
+      }
+    }
   }
 }
