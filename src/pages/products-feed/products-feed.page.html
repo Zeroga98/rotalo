@@ -40,12 +40,13 @@
       [infiniteScrollDistance]="0.5"
       [infiniteScrollDisabled]="isInfiniteScrollDisabled"
       (scrolled)="scrolledInfinite()">
-
         <masonry-brick class="grid-item" *ngFor="let product of products">
-            <product [product]="product" (selected)="selectProduct($event)"></product>
+            <div *ngIf="product && product.status === 'sell_process'" class="lable-sell-process">
+                <div class="icon-clock label-sell--center"></div>
+                <label class="label-sell--center">Venta en proceso</label>
+            </div>
+            <product [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''" [product]="product" (selected)="selectProduct($event)"></product>
         </masonry-brick>
-
       </masonry>
   </div>
-
 </div>

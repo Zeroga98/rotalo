@@ -6,9 +6,9 @@ export class ConfigurationService {
     // protocol: 'http',
     'protocol': "https",
     'server': "api.staging.rotalo.co",
-    // server: 'api.rotalo.dev.localhost:3000',
     'inactivityLimit': 86400 // seconds
   };
+
   /*api = {
       'protocol': "https",
       'server': "api.rotalo.co",

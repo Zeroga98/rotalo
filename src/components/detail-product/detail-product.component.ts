@@ -33,6 +33,7 @@ export class DetailProductComponent implements OnInit {
   public isSufiModalShowed: boolean = false;
   public isOfferModalShowed: boolean = false;
   public isModalSendMessageShowed: boolean = false;
+  public isModalBuyShowed: boolean = false;
   public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
   private minVehicleValue = 10000000;
@@ -57,6 +58,7 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -77,12 +79,23 @@ export class DetailProductComponent implements OnInit {
 
   saveCheck() {
     this.productStatus = !this.productStatus;
+<<<<<<< HEAD
     this.productStatus ? (this.productChecked = "active") : (this.productChecked = "inactive");
 
+=======
+    this.productStatus ? (this.productChecked = "active"): (this.productChecked = "inactive");
+>>>>>>> 036811dfb8cb0eaf3650ee73680a01f32312af2a
     const params = {
       status: this.productStatus ? "active" : "inactive"
     };
+    this.productsService.updateProduct(this.products.id, params).then(response => {
+    });
+  }
 
+  changeStatusBuy() {
+    const params = {
+      status: "buying"
+    };
     this.productsService.updateProduct(this.products.id, params).then(response => {
     });
   }
@@ -119,6 +132,10 @@ export class DetailProductComponent implements OnInit {
     return this.products && this.products.user.id === this.idUser;
   }
 
+  isSellProcess() {
+    return this.products && this.products.status === "sell_process";
+  }
+
   isSold() {
     return this.products && this.products.status === "sold";
   }
@@ -153,6 +170,15 @@ export class DetailProductComponent implements OnInit {
       ROUTES.PRODUCTS.BUY
     }/${id}`;
     this.router.navigate([urlBuyProduct]);
+  }
+
+  showBuyModal() {
+    this.isModalBuyShowed = true;
+  }
+
+  showMessageModal(evt) {
+    this.isModalBuyShowed = evt.isModalBuyShowed;
+    this.isModalSendMessageShowed = evt.isModalSendMessageShowed;
   }
 
   openSufiModal(product: ProductInterface) {

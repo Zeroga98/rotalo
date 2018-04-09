@@ -112,6 +112,7 @@ import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ConfirmPurchaseComponent } from '../components/confirm-purchase/confirm-purchase.component';
 import { InfoPageComponent } from '../components/info-page/info-page.component';
+import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-info.component';
 
 
 @NgModule({
@@ -177,7 +178,8 @@ import { InfoPageComponent } from '../components/info-page/info-page.component';
     ChangePage,
     ModalTipsComponent,
     ConfirmPurchaseComponent,
-    InfoPageComponent
+    InfoPageComponent,
+    ModalBuyInfoComponent
   ],
   imports: [
     BrowserModule,

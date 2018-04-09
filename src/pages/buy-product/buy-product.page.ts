@@ -5,8 +5,12 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+<<<<<<< HEAD
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+=======
+import { ROUTES } from '../../router/routes';
+>>>>>>> 036811dfb8cb0eaf3650ee73680a01f32312af2a
 
 @Component({
   selector: "buy-product",
@@ -152,6 +156,13 @@ export class BuyProductPage implements OnInit {
       }
     }
     return false;
+  }
+
+  openSimulateCreditSufi(id: number | string) {
+    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SIMULATECREDIT
+    }/${id}`;
+    this.router.navigate([urlSimulateCredit]);
   }
 
 }
