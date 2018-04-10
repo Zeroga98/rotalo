@@ -140,7 +140,7 @@ export class SimulateCreditPage implements OnInit {
     const rangeTimeToPay = Number(this.rangeTimeToPay);
     const operation_one = (requestedAmount *  interestRate );
     const operation_two = (1 + interestRate);
-    const operation_three = Math.pow(operation_two ,  -rangeTimeToPay);
+    const operation_three = Math.pow(operation_two , -rangeTimeToPay);
     this.resultCredit = (operation_one / (1 - operation_three)) + ((requestedAmount / 1000000) * 1200);
   }
 

@@ -55,13 +55,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
     this.currentFilter =  this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
-    this.showBanner = this.configFiltersSubcategory == undefined;
+    this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
   }
 
   ngOnInit() {
-    this.countrySelected = {id: this.navigationService.getCurrentCountryId()}
+    this.countrySelected = {id: this.navigationService.getCurrentCountryId()};
     this.currentFilter = Object.assign({},this.currentFilter,{"filter[country]": this.navigationService.getCurrentCountryId(),"page[size]": 8,"page[number]": 1});
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();

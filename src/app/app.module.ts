@@ -113,7 +113,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { ConfirmPurchaseComponent } from '../components/confirm-purchase/confirm-purchase.component';
 import { InfoPageComponent } from '../components/info-page/info-page.component';
 import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-info.component';
-
+import { LottieAnimationViewModule } from 'ng-lottie';
+import { ClockAnimationComponent } from '../components/clock-animation/clock-animation.component';
 
 @NgModule({
   declarations: [
@@ -179,7 +180,8 @@ import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-in
     ModalTipsComponent,
     ConfirmPurchaseComponent,
     InfoPageComponent,
-    ModalBuyInfoComponent
+    ModalBuyInfoComponent,
+    ClockAnimationComponent
   ],
   imports: [
     BrowserModule,
@@ -195,6 +197,7 @@ import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-in
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
+    LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule
   ],
   providers: [
