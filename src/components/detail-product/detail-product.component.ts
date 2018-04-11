@@ -166,8 +166,14 @@ export class DetailProductComponent implements OnInit {
     this.router.navigate([urlBuyProduct]);
   }
 
-  showBuyModal() {
-    this.isModalBuyShowed = true;
+  async showBuyModal() {
+    try {
+      this.products = await this.productsService.getProductsById(this.idProduct);
+      this.isModalBuyShowed = true;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   }
 
   showMessageModal(evt) {
