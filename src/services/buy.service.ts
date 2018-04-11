@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConfigurationService } from "./configuration.service";
 
 @Injectable()
 export class BuyService {
   private readonly url = this.configurationService.getBaseUrl() + "/v1/purchases";
+  private readonly urlNequi = this.configurationService.getBaseUrlNequi() + "/api/v1/pagos/nequi/notificaciones";
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService
@@ -15,7 +16,19 @@ export class BuyService {
   }
 
   buyProductNequi(params): Promise<any> {
-    return this.httpClient.post(this.url, params).toPromise();
+    const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.httpClient.post(this.urlNequi, params, { headers: headers }).toPromise();
+  }
+
+  validateStateNequi(params) {
+    const url = this.configurationService.getBaseUrlNequi() +
+    `/api/v1/pagos/nequi/estado-pago-reactivo?` +
+    `numeroCelular=${params.numeroCelular}&idTransaccion=${params.idTransaccion}&idProducto=${params.idProducto}`;
+
+    const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.httpClient.get(url, { headers: headers }).map( (response: any) => response.data);
   }
 
   confirmPurchase(id) {

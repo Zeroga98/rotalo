@@ -32,8 +32,8 @@ import { MASONRY_CONFIG } from "./masonry.config";
 @Component({
   selector: "products-feed",
   templateUrl: "products-feed.page.html",
-  styleUrls: ["products-feed.page.scss"]
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ["products-feed.page.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsFeedPage implements OnInit, OnDestroy {
   public carouselConfig: NgxCarousel;
@@ -83,16 +83,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.loadProducts(params);
     this._subscribeCountryChanges();
     this.setScrollEvent();
-
   }
-
-
- /*ngAfterViewInit() {
-    this.masonryRef._msnry.reloadItems();
-    this.masonryRef._msnry._isLayoutInited = false;
-    this.masonryRef.layout();
- }*/
-
 
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
@@ -103,8 +94,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       const products = await this.productsService.getProducts(params);
-      console.log(products);
-
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(products);
       this.validateStateScrollInfinite(products);

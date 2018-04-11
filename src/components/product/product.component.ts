@@ -4,6 +4,8 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Renderer2
+ // Inject,
+ // forwardRef
 } from "@angular/core";
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
 import {
@@ -14,7 +16,7 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
-
+//import {  AngularMasonry } from 'angular2-masonry';
 @Component({
   selector: "product",
   templateUrl: "./product.component.html",
@@ -23,16 +25,22 @@ import {
 })
 export class ProductComponent implements AfterViewInit {
   @Input() product: ProductInterface;
+  @Input() masonryInfo;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private readonly limitSize: number = 220;
 
+ // constructor(@Inject(forwardRef(() => AngularMasonry)) private masonryContainer: AngularMasonry, private render: Renderer2) {}
   constructor(private render: Renderer2) {}
-
   ngAfterViewInit(): void {
     this.checkSizeCard();
+  }
+
+  triggerMasonryLayout() {
+    this.masonryInfo._msnry.reloadItems();
+    this.masonryInfo.layout();
   }
 
   getLocation(product): string {

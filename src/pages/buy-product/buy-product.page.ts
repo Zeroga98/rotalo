@@ -1,7 +1,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { ProductsService } from './../../services/products.service';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd  } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -36,7 +36,9 @@ export class BuyProductPage implements OnInit {
   buyForm: FormGroup;
   payMethod: String = 'bank_account_transfer';
   confirmPurchase: boolean = false;
+  showInfoPage: boolean = false;
   titlePurchase: String = 'Comprar';
+  selectOptionsPageInfo: String = 'success';
 
   constructor(
     private router: Router,
@@ -49,6 +51,8 @@ export class BuyProductPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
     this.buyForm = this.fb.group({
       'payment-type': ['bank_account_transfer', Validators.required],
     });
@@ -97,6 +101,7 @@ export class BuyProductPage implements OnInit {
 
   async buyProduct() {
     try {
+      window.scrollTo(0, 0);
       if (this.payMethod !== "nequi") {
         const response = await this.buyService.buyProduct(this.buildParams());
         this.transactionSuccess = true;
@@ -112,17 +117,35 @@ export class BuyProductPage implements OnInit {
 
   async buyWithNequi() {
     try {
-      this.confirmPurchase = true;
-      this.titlePurchase = 'Confirmar tu compra';
-      //const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
-       this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+      const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
+      if (response.status === '0') {
+        this.confirmPurchase = true;
+        this.titlePurchase = 'Confirmar tu compra';
+        const params = {
+          'numeroCelular': this.cellphoneUser,
+          'idTransaccion': response.body.idTransaccion ,
+          'idProducto': this.idProduct
+        };
+        console.log(params);
+        this.buyService.validateStateNequi(params).subscribe(
+          (state) =>  console.log(state),
+          (error) => console.log(error)
+        );
+      } else {
+        this.titlePurchase = 'Resumen de compra';
+        this.selectOptionsPageInfo = 'error';
+        this.showInfoPage = true;
+      }
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+    }
   }
 
   private buildParamsNequi() {
-    return {
+   return {
       numeroCelular: this.cellphoneUser,
-      idVendedor: this.idNumberSeller,
+      "idVendedor": "1",
+     // idVendedor: this.idNumberSeller,
       valorPagar: this.priceProduct,
       idProducto: this.idProduct
       };

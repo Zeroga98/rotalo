@@ -6,3 +6,4 @@ export const MASONRY_CONFIG = {
     itemSelector: '.grid-item',
     percentPosition: true,
 }
+;

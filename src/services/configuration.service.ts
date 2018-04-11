@@ -9,6 +9,13 @@ export class ConfigurationService {
     'inactivityLimit': 86400 // seconds
   };
 
+
+  apiNequi = {
+    'protocol': 'http',
+    'server': "10.43.1.10:2020",
+    'inactivityLimit': 86400 // seconds
+  };
+
   /*api = {
       'protocol': "https",
       'server': "api.rotalo.co",
@@ -21,7 +28,7 @@ export class ConfigurationService {
   };
 
 
-  jsonHeaders = {
+  jsonNequiHeaders = {
     'Accept': "application/json",
     "Content-Type": "application/json"
   };
@@ -31,7 +38,16 @@ export class ConfigurationService {
   getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;
   }
+
+  getBaseUrlNequi(): string {
+    return this.apiNequi.protocol + '://' + this.apiNequi.server;
+  }
+
   getJsonApiHeaders() {
     return this.jsonApiHeaders;
+  }
+
+  getJsonNequiHeaders() {
+    return this.jsonNequiHeaders;
   }
 }

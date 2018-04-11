@@ -34,7 +34,7 @@
   <div class="container-masonry">
       <masonry class="masonry"
       #masonryRef
-      [useImagesLoaded]="true"
+      [useImagesLoaded]="false"
       [options]="masonryConfig"
       infiniteScroll
       [infiniteScrollDistance]="0.5"
@@ -45,7 +45,7 @@
                 <div class="icon-clock label-sell--center"></div>
                 <label class="label-sell--center">Venta en proceso</label>
             </div>
-            <product [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''" [product]="product" (selected)="selectProduct($event)"></product>
+            <product [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''" [product]="product" [masonryInfo]="masonryRef" (selected)="selectProduct($event)"></product>
         </masonry-brick>
       </masonry>
   </div>
