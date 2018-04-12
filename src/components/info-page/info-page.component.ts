@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ROUTES } from '../../router/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'info-page',
@@ -6,18 +8,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./info-page.component.scss']
 })
 export class InfoPageComponent implements OnInit {
+  [x: string]: any;
   imgName: String;
   titleInfo: String;
   descriptionInfo: String;
   @Input() selectValue: String;
-  constructor() { }
+  @Input() idProduct: String;
+
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.selectInformation(this.selectValue);
   }
 
   selectInformation(key) {
-
     switch (key) {
       case 'success':
         this.imgName = 'icono_check';
@@ -46,12 +52,35 @@ export class InfoPageComponent implements OnInit {
         ponte en contacto con el equipo de Rótalo al
         correo: info@rótalo.co`;
         break;
+      default:
+        break;
+    }
+  }
 
-        case 4:
+  redirectPage() {
+    switch (this.selectValue) {
+      case 'success':
+        this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        ]);
+        break;
 
+        case 'expire':
+        this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
+          ROUTES.PRODUCTS.SHOW
+        }/${this.idProduct}`]);
+        break;
+
+        case 'error':
+        this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
+          ROUTES.PRODUCTS.SHOW
+        }/${this.idProduct}`]);
         break;
 
       default:
+        this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        ]);
         break;
     }
   }

@@ -32,11 +32,16 @@ export class ModalBuyInfoComponent implements OnInit {
 
   changeModalSellProcess() {
     if (this.isSellProcess()) {
-      this.titleModal = "¡Alguien más está comprando!";
-      this.descriptionModal = 'Actualmente esto producto está en proceso de venta y se ha deshabilitado la opción de compra hasta que finalice el proceso. Vuelve más tarde o comunícate con el vendedor para comprobar si el producto aún está disponible';
+      this.titleModal = '¡Alguien más está comprando!';
+      this.descriptionModal = `Actualmente esto producto está en proceso de venta y se ha
+      deshabilitado la opción de compra hasta que finalice el proceso.
+      Vuelve más tarde o comunícate con el vendedor para comprobar si
+      el producto aún está disponible.`;
     }else {
-      this.titleModal = "¡Un segundo!";
-      this.descriptionModal = 'Antes de continuar con tu compra, asegúrate de haber hablado con el vendedor para que confirmes la disponibilidad del producto y acuerden la forma de pago y entrega. Recuerda que podrás necesitar información adicional dependiendo de la forma de pago que pactes con el vendedor.';
+      this.titleModal =  '¡Un segundo!';
+      this.descriptionModal = `Antes de continuar con tu compra,
+      asegúrate de haber hablado con el vendedor para que confirmes la disponibilidad del producto y acuerden la forma de pago y entrega.
+      Recuerda que podrás necesitar información adicional dependiendo de la forma de pago que pactes con el vendedor.`;
     }
   }
 

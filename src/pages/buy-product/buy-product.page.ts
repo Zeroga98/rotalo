@@ -1,8 +1,14 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { ProductsService } from './../../services/products.service';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Router, NavigationEnd  } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { BuyService } from '../../services/buy.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,13 +16,14 @@ import { UserService } from '../../services/user.service';
 import { ROUTES } from '../../router/routes';
 
 @Component({
-  selector: "buy-product",
-  templateUrl: "./buy-product.page.html",
-  styleUrls: ["./buy-product.page.scss"],
+  selector: 'buy-product',
+  templateUrl: './buy-product.page.html',
+  styleUrls: ['./buy-product.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BuyProductPage implements OnInit {
-  @ViewChild('selectMedium', {read: ElementRef}) selectMedium: ElementRef;
+  @ViewChild('selectMedium', { read: ElementRef })
+  selectMedium: ElementRef;
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
   transactionSuccess: boolean = false;
   product: ProductInterface;
@@ -38,8 +45,8 @@ export class BuyProductPage implements OnInit {
   confirmPurchase: boolean = false;
   showInfoPage: boolean = false;
   titlePurchase: String = 'Comprar';
-  selectOptionsPageInfo: String = 'success';
-
+  selectOptionsPageInfo: String = 'error';
+  public isModalBuyShowed: boolean = false;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -54,7 +61,7 @@ export class BuyProductPage implements OnInit {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
     this.buyForm = this.fb.group({
-      'payment-type': ['bank_account_transfer', Validators.required],
+      'payment-type': ['bank_account_transfer', Validators.required]
     });
     this.buyForm.get('payment-type').valueChanges.subscribe(value => {
       this.payMethod = value;
@@ -63,11 +70,17 @@ export class BuyProductPage implements OnInit {
     this.loadProduct();
   }
   goToUrlBank(): void {
-    window.open('https://sucursalpersonas.transaccionesbancolombia.com', '_blank');
+    window.open(
+      'https://sucursalpersonas.transaccionesbancolombia.com',
+      '_blank'
+    );
   }
 
   vaproductIsFree() {
-   return this.product && this.product['sell-type'] === 'GRATIS' || this.product.price === 0;
+    return (
+      (this.product && this.product['sell-type'] === 'GRATIS') ||
+      this.product.price === 0
+    );
   }
 
   initFormBuy() {
@@ -75,7 +88,7 @@ export class BuyProductPage implements OnInit {
       this.buyForm.patchValue({
         'payment-type': 'na'
       });
-    }else {
+    } else {
       this.buyForm.patchValue({
         'payment-type': 'bank_account_transfer'
       });
@@ -87,11 +100,13 @@ export class BuyProductPage implements OnInit {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       this.currentUser = await this.userService.getInfoUser();
-      this.cellphoneUser =  this.currentUser.cellphone;
+      this.cellphoneUser = this.currentUser.cellphone;
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
       this.priceProduct = this.product.price;
-      this.product.used ? (this.usedProduct = "Usado") : (this.usedProduct = "Nuevo");
+      this.product.used
+        ? (this.usedProduct = 'Usado')
+        : (this.usedProduct = 'Nuevo');
       this.photoProduct = this.product.photos.url || this.product.photos[0].url;
       this.idNumberSeller = this.product.user['id-number'];
       this.initFormBuy();
@@ -102,34 +117,52 @@ export class BuyProductPage implements OnInit {
   async buyProduct() {
     try {
       window.scrollTo(0, 0);
-      if (this.payMethod !== "nequi") {
-        const response = await this.buyService.buyProduct(this.buildParams());
-        this.transactionSuccess = true;
-        if (this.payWithBank) {
-          this.goToUrlBank();
-         }
-         this.changeDetectorRef.markForCheck();
+      this.product = await this.productsService.getProductsById(this.idProduct);
+      if (this.product.status !== 'sell_process') {
+        if (this.payMethod !== 'nequi') {
+          const response = await this.buyService.buyProduct(this.buildParams());
+          this.transactionSuccess = true;
+          if (this.payWithBank) {
+            this.goToUrlBank();
+          }
+          this.changeDetectorRef.markForCheck();
+        } else {
+          this.buyWithNequi();
+        }
       }else {
-        this.buyWithNequi();
+        this.isModalBuyShowed = true;
+        this.changeDetectorRef.markForCheck();
       }
     } catch (error) {}
   }
 
+  showMessageModal(evt) {
+    this.isModalBuyShowed = evt.isModalBuyShowed;
+  }
+
   async buyWithNequi() {
     try {
-      const response = await this.buyService.buyProductNequi(this.buildParamsNequi());
+      const response = await this.buyService.buyProductNequi(
+        this.buildParamsNequi()
+      );
       if (response.status === '0') {
         this.confirmPurchase = true;
         this.titlePurchase = 'Confirmar tu compra';
         const params = {
-          'numeroCelular': this.cellphoneUser,
-          'idTransaccion': response.body.idTransaccion ,
-          'idProducto': this.idProduct
+          numeroCelular: this.cellphoneUser,
+          idTransaccion: response.body.idTransaccion,
+          idProducto: this.idProduct
         };
-        console.log(params);
-        this.buyService.validateStateNequi(params).subscribe(
-          (state) =>  console.log(state),
-          (error) => console.log(error)
+
+        this.buyService.validateStateNequi(params, 1).subscribe(
+          state => {
+            if (state.status === '0') {
+              this.selectInfoPage(state.body.estadoPago);
+            } else {
+              this.selectInfoPage(-1);
+            }
+          },
+          error => console.log(error)
         );
       } else {
         this.titlePurchase = 'Resumen de compra';
@@ -137,53 +170,74 @@ export class BuyProductPage implements OnInit {
         this.showInfoPage = true;
       }
       this.changeDetectorRef.markForCheck();
-    } catch (error) {
+    } catch (error) {}
+  }
+
+  private selectInfoPage(option) {
+    switch (option) {
+      case 1:
+        this.selectOptionsPageInfo = 'success';
+        break;
+      case -1:
+        this.selectOptionsPageInfo = 'error';
+        break;
+      case -2:
+        this.selectOptionsPageInfo = 'expire';
+        break;
+      default:
+        this.selectOptionsPageInfo = 'error';
+        break;
     }
+    this.confirmPurchase = false;
+    this.showInfoPage = true;
   }
 
   private buildParamsNequi() {
-   return {
+    return {
       numeroCelular: this.cellphoneUser,
-      "idVendedor": "1",
-     // idVendedor: this.idNumberSeller,
+      idVendedor: '1',
+      // idVendedor: this.idNumberSeller,
       valorPagar: this.priceProduct,
       idProducto: this.idProduct
-      };
+    };
   }
 
   private buildParams() {
     return {
-      "product-id": this.idProduct,
-      "payment-type": this.buyForm.get('payment-type').value
+      'product-id': this.idProduct,
+      'payment-type': this.buyForm.get('payment-type').value
     };
   }
 
   selectedMedium(valueMedium): void {
-    if (valueMedium === "bank_account_transfer") {
+    if (valueMedium === 'bank_account_transfer') {
       this.payWithBank = true;
-    }else {
-      this.payWithBank =  false;
+    } else {
+      this.payWithBank = false;
     }
   }
 
   goBack(): void {
-        window.history.back();
+    window.history.back();
   }
 
   checkSufiBotton() {
-    if (this.product && this.product["type-vehicle"] && this.product["model"]) {
+    if (this.product && this.product['type-vehicle'] && this.product['model']) {
       const currentUser = this.currentSessionSevice.currentUser();
       const priceVehicle = this.product.price;
-      const countryId = Number(currentUser["countryId"]);
-      const type = this.product["type-vehicle"];
+      const countryId = Number(currentUser['countryId']);
+      const type = this.product['type-vehicle'];
       const currentYear = new Date().getFullYear() + 1;
-      const modelo = this.product["model"];
+      const modelo = this.product['model'];
       const differenceYear = currentYear - modelo;
-      if (this.product.subcategory.name === "Carros" &&
-       differenceYear <= 10 &&
-       type === "Particular" &&
-       countryId === 1 &&
-       priceVehicle >=  this.minVehicleValue && priceVehicle <= this.maxVehicleValue) {
+      if (
+        this.product.subcategory.name === 'Carros' &&
+        differenceYear <= 10 &&
+        type === 'Particular' &&
+        countryId === 1 &&
+        priceVehicle >= this.minVehicleValue &&
+        priceVehicle <= this.maxVehicleValue
+      ) {
         return true;
       }
     }
@@ -196,5 +250,4 @@ export class BuyProductPage implements OnInit {
     }/${id}`;
     this.router.navigate([urlSimulateCredit]);
   }
-
 }
