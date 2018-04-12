@@ -68,7 +68,6 @@ export class LoginPage implements OnInit {
       this.currentSessionService.setSession(response.data);
       this.setUserCountry(response.data);
     }).catch((httpErrorResponse) => {
-        console.error(httpErrorResponse);
         if (httpErrorResponse.status === 403) {
         }
         if (httpErrorResponse.status ===  422) {
