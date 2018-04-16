@@ -14,6 +14,7 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ROUTES } from '../../router/routes';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'buy-product',
@@ -38,6 +39,8 @@ export class BuyProductPage implements OnInit {
   pricePayment = 0;
   priceDelivery = 0;
   private idNumberSeller;
+  private idUserSellerDb;
+  private currencyProduct;
   private currentUser;
   private cellphoneUser;
   buyForm: FormGroup;
@@ -47,6 +50,8 @@ export class BuyProductPage implements OnInit {
   titlePurchase: String = 'Comprar';
   selectOptionsPageInfo: String = 'error';
   public isModalBuyShowed: boolean = false;
+  private observableCheckState;
+  private timeToWaitPay = 4;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -109,6 +114,9 @@ export class BuyProductPage implements OnInit {
         : (this.usedProduct = 'Nuevo');
       this.photoProduct = this.product.photos.url || this.product.photos[0].url;
       this.idNumberSeller = this.product.user['id-number'];
+      this.idUserSellerDb = this.product.user['id'];
+      this.currencyProduct = this.product.currency;
+      console.log(this.product);
       this.initFormBuy();
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
@@ -140,37 +148,45 @@ export class BuyProductPage implements OnInit {
     this.isModalBuyShowed = evt.isModalBuyShowed;
   }
 
-  async buyWithNequi() {
-    try {
-      const response = await this.buyService.buyProductNequi(
+  buyWithNequi() {
+      this.buyService.buyProductNequi(
         this.buildParamsNequi()
-      );
-      if (response.status === '0') {
-        this.confirmPurchase = true;
-        this.titlePurchase = 'Confirmar tu compra';
-        const params = {
-          numeroCelular: this.cellphoneUser,
-          idTransaccion: response.body.idTransaccion,
-          idProducto: this.idProduct
-        };
+      ).subscribe(
+         response => {
+          if (response.status === "0") {
+            this.confirmPurchase = true;
+            this.titlePurchase = "Confirmar tu compra";
 
-        this.buyService.validateStateNequi(params, 1).subscribe(
-          state => {
-            if (state.status === '0') {
-              this.selectInfoPage(state.body.estadoPago);
-            } else {
-              this.selectInfoPage(-1);
-            }
-          },
-          error => console.log(error)
-        );
-      } else {
-        this.titlePurchase = 'Resumen de compra';
-        this.selectOptionsPageInfo = 'error';
-        this.showInfoPage = true;
-      }
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+            const params = { numeroCelular: this.cellphoneUser, idTransaccion: response.body.idTransaccion, idProducto: this.idProduct };
+
+            this.observableCheckState = this.buyService
+              .validateStateNequi(params)
+              .subscribe(
+                state => {
+                  if (state.status === "0") {
+                    this.selectInfoPage(state.body.estadoPago);
+                  } else {
+                    this.selectInfoPage(-1);
+                  }
+                },
+                error => console.log(error)
+              );
+              let timeOut = this.timeToWaitPay;
+              timeOut = timeOut * 60 * 1000;
+              setTimeout(() => {
+                this.observableCheckState.unsubscribe();
+                this.selectInfoPage(-2);
+              }, timeOut);
+
+          } else {
+            this.titlePurchase = "Resumen de compra";
+            this.selectOptionsPageInfo = "error";
+            this.showInfoPage = true;
+          }
+          this.changeDetectorRef.markForCheck();
+         },
+        error => console.log(error)
+      );
   }
 
   private selectInfoPage(option) {
@@ -195,8 +211,11 @@ export class BuyProductPage implements OnInit {
   private buildParamsNequi() {
     return {
       numeroCelular: this.cellphoneUser,
+      idUsuarioVendedor: this.idUserSellerDb,
+      tipoIdVendedor: "cc",
       idVendedor: '1',
       // idVendedor: this.idNumberSeller,
+      tipoMoneda: this.currencyProduct,
       valorPagar: this.priceProduct,
       idProducto: this.idProduct
     };

@@ -10,7 +10,7 @@
         <div class="container-offer">
           <confirm-purchase *ngIf="confirmPurchase" ></confirm-purchase>
           <info-page [idProduct] = "idProduct"  [selectValue] = "selectOptionsPageInfo" *ngIf="showInfoPage" ></info-page>
-          <div *ngIf="!showInfoPage  && !confirmPurchase">
+          <div class="purchaseProduct" *ngIf="!showInfoPage  && !confirmPurchase">
               <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
               <div class="container" *ngIf="!transactionSuccess">
                 <div class="buy-detail">
@@ -128,7 +128,7 @@
                             <span class="checkmark"></span>
                           </label>
                           <div class="description">
-                            <label for="person2">Personalmente</label>
+                            <label for="person2">Entrega presencial</label>
                           </div>
                         </div>
                       </div>

@@ -12,7 +12,7 @@ export class ConfigurationService {
 
   apiNequi = {
     'protocol': 'http',
-    'server': "10.43.1.10:2020",
+    'server': '10.43.1.10:2020',
     'inactivityLimit': 86400 // seconds
   };
 
@@ -29,8 +29,11 @@ export class ConfigurationService {
 
 
   jsonNequiHeaders = {
-    'Accept': "application/json",
-    "Content-Type": "application/json"
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
   };
 
   constructor() {}

@@ -16,23 +16,23 @@ export class BuyService {
     return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
   }
 
-  buyProductNequi(params): Promise<any> {
+  buyProductNequi(params) {
     const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.post(this.urlNequi, params, { headers: headers }).toPromise();
+    return this.httpClient.post(this.urlNequi, params, { headers: headers }).map( (response: any) =>
+      response
+    );
   }
 
-  validateStateNequi(params, timeOut) {
-    timeOut = timeOut * 60 * 60 * 1000;
+  validateStateNequi(params) {
     const url = this.configurationService.getBaseUrlNequi() +
     `/api/v1/pagos/nequi/estado-pago-reactivo?` +
     `numeroCelular=${params.numeroCelular}&idTransaccion=${params.idTransaccion}&idProducto=${params.idProducto}`;
-
     const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.get(url, { headers: headers })
-   // .timeout(timeOut)
-    .map( (response: any) => response);
+    return this.httpClient.get(url, { headers: headers }).map( (response: any) =>
+      response
+    );
   }
 
   confirmPurchase(id) {

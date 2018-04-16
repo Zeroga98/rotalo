@@ -58,6 +58,7 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;

@@ -2,8 +2,10 @@
 @import "../../styles/settings/_variables.scss";
 
 :host {
-  .buy-product-container{
+  .buy-product-container {
     position: relative;
+    margin: 0 auto;
+    width: 70%;
   }
   .container-offer {
     display: flex;
@@ -11,9 +13,10 @@
     align-items: center;
     padding: 4rem 2rem;
     padding-bottom: 10rem;
+
     .container {
-      width: 100rem;
-      min-width: 310px;
+      width: 100%;
+
       .container-header {
         position: relative;
         right: 3%;
@@ -26,7 +29,7 @@
         background-color: #f7f7f7;
         flex-wrap: wrap;
         .image {
-          width: 21.637rem;
+          width: auto;
           margin-right: 2rem;
           img {
             width: auto;
@@ -61,9 +64,9 @@
           line-height: 2.5rem;
         }
       }
-      .container-header[disabled]{
+      .container-header[disabled] {
         opacity: 0.5;
-        .thumb-cc{
+        .thumb-cc {
           cursor: inherit;
         }
         .cc-selector-2 input {
@@ -92,7 +95,6 @@
         .select-medium {
           margin-bottom: 3rem;
         }
-
       }
       .container-sufi {
         .title {
@@ -152,7 +154,9 @@
       }
     }
   }
-
+  .purchaseProduct {
+    width: 100%;
+  }
 }
 /**Estilos para opciones de pago**/
 :host {
@@ -174,7 +178,7 @@
 
   .cc-selector-2 {
     flex-wrap: wrap;
-    width: 40%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
   }
@@ -292,6 +296,15 @@
     .container-gallery {
       align-items: center;
       justify-content: center;
+    }
+  }
+  @media (max-width: 400px) {
+    .buy-product-container{
+      margin: 0 auto;
+      width: 100%;
+    }
+    .container-offer .container .container-header .image img {
+      width: 100%;
     }
   }
 }

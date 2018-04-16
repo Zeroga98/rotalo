@@ -12,6 +12,9 @@ export class InfoPageComponent implements OnInit {
   imgName: String;
   titleInfo: String;
   descriptionInfo: String;
+  descriptionInfo2: String;
+  descriptionInfo3: String;
+
   @Input() selectValue: String;
   @Input() idProduct: String;
 
@@ -34,7 +37,7 @@ export class InfoPageComponent implements OnInit {
         break;
 
         case 'expire':
-        this.imgName = 'icono_check';
+        this.imgName = 'icono_error';
         this.titleInfo = '¡Te estábamos esperando! El pago ha caducado.';
         this.descriptionInfo = `El pago ha caducado. El servicio de pago a través de
         Nequi debe completarse antes de 15 minutos.
