@@ -25,6 +25,7 @@ export const ROUTES = {
         SOLD: 'sold',
         SELLING: 'selling',
         BUY: 'buy',
-        SIMULATECREDIT: 'simulate-credit'
+        SIMULATECREDIT: 'simulate-credit',
+        ERROR: 'error'
     }
 };

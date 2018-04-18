@@ -17,7 +17,27 @@ export class LoginService {
   }
 
   logout(): void {
-    this.currentSessionService.clearSession();
+    this.logOutService(this.currentSessionService.authToken()) .subscribe(
+      resonse => {
+        this.currentSessionService.clearSession();
+        location.reload();
+        console.log(resonse);
+      },
+      error => {
+        this.currentSessionService.clearSession();
+        location.reload();
+        console.log(error);
+      }
+    );
+  }
+
+  logOutService (token) {
+    const url = this.configurationService.getBaseUrlSapi() + `/gateway/sapi/v1/logout` + `?token=${token}`;
+    const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.http.get(url, { headers: headers}).map( (response: any) =>
+      response
+    );
   }
 
   loginUser(currentUser): Promise<any> {

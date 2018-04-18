@@ -28,6 +28,7 @@ import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.pag
 import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from './guards/validate-session.service';
+import { ErrorPageComponent } from '../components/error-page/error-page.component';
 
 export const appRouter: Routes = [
   {
@@ -91,6 +92,10 @@ export const appRouter: Routes = [
         {
           path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
           component: SimulateCreditPage,
+        },
+        {
+          path: ROUTES.PRODUCTS.ERROR,
+          component: ErrorPageComponent,
         },
         {
             path: '',

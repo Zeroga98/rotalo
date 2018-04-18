@@ -119,7 +119,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.showBanner = false;
     } else {
       this.currentFilter = {
-       // "filter[status]": "active",
+        "filter[status]": "active",
         "filter[country]": 1,
         "filter[community]": -1,
         "page[size]": 8,

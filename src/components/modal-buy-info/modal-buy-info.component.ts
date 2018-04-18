@@ -26,6 +26,13 @@ export class ModalBuyInfoComponent implements OnInit {
     this.router.navigate([urlBuyProduct]);
   }
 
+  goToProduct() {
+    const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+    }/${this.idProduct}`;
+    this.router.navigate([urlBuyProduct]);
+  }
+
   isSellProcess() {
    return this.statusProduct === "sell_process";
   }
@@ -51,5 +58,6 @@ export class ModalBuyInfoComponent implements OnInit {
 
   onlyCloseModal() {
     this.closeModal.emit({isModalBuyShowed: false});
+    this.goToProduct();
   }
 }

@@ -27,6 +27,6 @@ export class HeadersInterceptor implements HttpInterceptor {
       const ablesMethods = ['post', 'put'];
       const method = req.method.toLocaleLowerCase();
           /**Valida si el request es de la API de nequi---en este caso no se debe aplicar el interceptor**/
-      return ablesMethods.includes(method) && !req.url.includes('photos') && !req.url.includes('nequi');
+      return ablesMethods.includes(method) && !req.url.includes('photos') && !req.url.includes('nequi') && !req.url.includes('sapi') ;
     }
 }

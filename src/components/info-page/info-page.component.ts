@@ -12,8 +12,6 @@ export class InfoPageComponent implements OnInit {
   imgName: String;
   titleInfo: String;
   descriptionInfo: String;
-  descriptionInfo2: String;
-  descriptionInfo3: String;
 
   @Input() selectValue: String;
   @Input() idProduct: String;

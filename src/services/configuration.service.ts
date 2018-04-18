@@ -11,8 +11,15 @@ export class ConfigurationService {
 
 
   apiNequi = {
-    'protocol': 'http',
+    'protocol': 'https',
     'server': '10.43.1.10:2020',
+    'inactivityLimit': 86400 // seconds
+  };
+
+
+  apiSapi = {
+    'protocol': 'https',
+    'server': '10.43.1.10:1443',
     'inactivityLimit': 86400 // seconds
   };
 
@@ -31,7 +38,8 @@ export class ConfigurationService {
   jsonNequiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Request-With',
+    'Access-Control-Allow-Credentials': 'true',
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
@@ -44,6 +52,10 @@ export class ConfigurationService {
 
   getBaseUrlNequi(): string {
     return this.apiNequi.protocol + '://' + this.apiNequi.server;
+  }
+
+  getBaseUrlSapi(): string {
+    return this.apiSapi.protocol + '://' + this.apiSapi.server;
   }
 
   getJsonApiHeaders() {

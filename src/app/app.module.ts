@@ -115,6 +115,7 @@ import { InfoPageComponent } from '../components/info-page/info-page.component';
 import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-info.component';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { ClockAnimationComponent } from '../components/clock-animation/clock-animation.component';
+import { ErrorPageComponent } from '../components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -181,7 +182,8 @@ import { ClockAnimationComponent } from '../components/clock-animation/clock-ani
     ConfirmPurchaseComponent,
     InfoPageComponent,
     ModalBuyInfoComponent,
-    ClockAnimationComponent
+    ClockAnimationComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

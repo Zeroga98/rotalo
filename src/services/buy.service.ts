@@ -19,7 +19,7 @@ export class BuyService {
   buyProductNequi(params) {
     const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.post(this.urlNequi, params, { headers: headers }).map( (response: any) =>
+    return this.httpClient.post(this.urlNequi, params, { headers: headers}).map( (response: any) =>
       response
     );
   }
@@ -30,7 +30,16 @@ export class BuyService {
     `numeroCelular=${params.numeroCelular}&idTransaccion=${params.idTransaccion}&idProducto=${params.idProducto}`;
     const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.get(url, { headers: headers }).map( (response: any) =>
+    return this.httpClient.get(url, { headers: headers}).map( (response: any) =>
+      response
+    );
+  }
+
+  changeStatusProduct(params) {
+    const url = this.configurationService.getBaseUrlNequi() + '/api/v1/pagos/nequi/estado-producto';
+    const jsonNequiHeaders = this.configurationService.getJsonNequiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.httpClient.put(url, params, {headers: headers}).map( (response: any) =>
       response
     );
   }

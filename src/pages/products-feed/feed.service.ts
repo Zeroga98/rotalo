@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FeedService{
     private readonly initialFilter: Object = {
-       // "filter[status]": "active",
+       //"filter[status]": "active",
        // "filter[status]": "sell_process",
         "filter[country]": 1,
         "filter[community]": -1,

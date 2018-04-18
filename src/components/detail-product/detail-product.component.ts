@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, EventEmitter, Output } from "@angular/core";
 import {
   Component,
   OnInit,
@@ -40,6 +40,7 @@ export class DetailProductComponent implements OnInit {
   private maxVehicleValue = 5000000000;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private productsService: ProductsService,
@@ -58,7 +59,7 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.products);
+      this.onLoadProduct(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -73,8 +74,20 @@ export class DetailProductComponent implements OnInit {
       this.productStatus = this.products.status === "active";
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.status === 404) {
+        this.redirectErrorPage();
+      }
     }
+  }
+
+  redirectErrorPage() {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`
+      ]);
+  }
+
+  onLoadProduct(product) {
+    this.notify.emit(product);
   }
 
   saveCheck() {
