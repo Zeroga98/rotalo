@@ -20,22 +20,10 @@
         <h1 class="sr-only">rótalo</h1>
       </a>
       <ul class="list-options">
-        <li>
-          <div class="select-country">
-            <select-country class="red-theme-select top-select-country" (selected)="changeSelectorCounrty($event)" [initialValue]="defaultCountryValue" [turnOffInitialEvent]="true"></select-country>
-          </div>
-        </li>
         <li class="gtmNotificaciones">
           <a [routerLink]="notificationsRoute">
             <span class="gtmNotificaciones icon-ring">
               <span *ngIf="notificationsAvailable" class="noti-circle">{{notificationsUnread}}</span>
-            </span>
-          </a>
-        </li>
-        <li class="gtmMensajes">
-          <a (click)="openConversations()">
-            <span class="gtmMensajes icon-message">
-              <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
             </span>
           </a>
         </li>

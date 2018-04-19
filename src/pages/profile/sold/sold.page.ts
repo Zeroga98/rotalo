@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./sold.page.scss']
 })
 export class SoldPage implements OnInit {
-  public notificationsUrl: string = `/${ROUTES.NOTIFICATIONS}`;
+  public notificationsUrl: string = `/${ROUTES.ROTALOCENTER}`;
   public currentTab: String;
   public productsSold: Array<ProductInterface> = [];
   public productsPurchased: Array<ProductInterface> = [];

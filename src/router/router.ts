@@ -28,6 +28,7 @@ import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.pag
 import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from './guards/validate-session.service';
+import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 
 export const appRouter: Routes = [
   {
@@ -40,8 +41,8 @@ export const appRouter: Routes = [
     component: SignUpPage
   },
   {
-    path: ROUTES.NOTIFICATIONS,
-    component: NotificationsPage
+    path: ROUTES.ROTALOCENTER,
+    component: RotaloCenterPage
   },
   {
     path: ROUTES.ACTIVACION,

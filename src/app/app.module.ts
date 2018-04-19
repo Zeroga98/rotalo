@@ -110,6 +110,7 @@ import { FeedService } from '../pages/products-feed/feed.service';
 import { ToolbarService } from '../components/toolbar/toolbar.service';
 import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 
 
 @NgModule({
@@ -173,7 +174,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     NotificationsPage,
     SubcategoryFilterComponent,
     ChangePage,
-    ModalTipsComponent
+    ModalTipsComponent,
+    RotaloCenterPage
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ export const ROUTES = {
     HOME: 'home',
     SIGNUP: 'signup',
     LOGIN: 'login',
-    NOTIFICATIONS: 'notifications',
+    ROTALOCENTER: 'rotalo-center',
     RESETPASS: 'reset-password',
     RECOVER: 'recover',
     CONFIRM: 'confirm',
