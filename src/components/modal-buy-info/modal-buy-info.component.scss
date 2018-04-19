@@ -13,29 +13,31 @@
   display: flex;
   justify-content: center;
   padding: 5rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   .container-modal {
     background: #FFFFFF;
     width: 53%;
-    display: flex;
-    flex-direction: column;
+    height: fit-content;
+    min-height: 460px;
+    max-height: 500px;
+    //display: flex;
+    //flex-direction: column;
     border-radius: 15px;
     .modal__body {
-      //overflow: auto;
       overflow: hidden;
     }
-    .modal__footer {
+    .modal__button {
       text-align: center;
-      padding: 0rem 2.5rem;
-      padding-bottom: 20px;
+      padding: 20px 2.5rem;
     }
   }
   .modal__body {
     padding: 60px 4% 30px 4%;
-
     overflow-x: hidden;
     overflow-y: scroll;
-    max-height: 80vh;
+  //  max-height: 80vh;
   }
   .text-xs-center {
     text-align: center;
@@ -77,12 +79,13 @@
   }
   h3{
     padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 35px;
     color: #FF2334;
   }
   p{
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 16px;
     color: #777777;
   }

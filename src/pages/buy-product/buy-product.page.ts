@@ -228,7 +228,6 @@ export class BuyProductPage implements OnInit {
       idUsuarioVendedor: this.idUserSellerDb,
       tipoIdVendedor: "cc",
       idVendedor: "1",
-      token : this.tokenUser,
       // idVendedor: this.idNumberSeller,
       tipoMoneda: this.currencyProduct,
       valorPagar: this.priceProduct,
