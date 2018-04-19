@@ -17,7 +17,7 @@
   overflow-y: auto;
 
   .container-modal {
-    background: #FFFFFF;
+    background: #ffffff;
     width: 53%;
     height: fit-content;
     min-height: 460px;
@@ -38,7 +38,7 @@
     padding: 60px 4% 30px 4%;
     overflow-x: hidden;
     overflow-y: scroll;
-  //  max-height: 80vh;
+    //  max-height: 80vh;
   }
   .text-xs-center {
     text-align: center;
@@ -55,20 +55,20 @@
     text-align: left;
   }
 
-  .button-modal{
+  .button-modal {
     width: 25%;
     display: inline-block;
   }
 
-  .button-modal-space{
+  .button-modal-space {
     margin-right: 2%;
   }
 
-  .buy-continue{
+  .buy-continue {
     cursor: pointer;
     padding-top: 30px;
     font-size: 18px;
-    color: #FF2334;
+    color: #ff2334;
     text-decoration: underline;
   }
 
@@ -78,21 +78,45 @@
     max-width: 100%;
     vertical-align: middle;
   }
-  h3{
+  h3 {
     padding-top: 30px;
     padding-bottom: 30px;
     font-size: 35px;
-    color: #FF2334;
+    color: #ff2334;
   }
-  p{
+  p {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 16px;
     color: #777777;
   }
-  label{
+  label {
     font-weight: bold;
     font-size: 16px;
     color: #777777;
+  }
+
+  @media (max-width: 890px) {
+    .container-modal {
+      width: 90%;
+      max-height: 580px;
+      .modal__body {
+        padding: 25px 4% 30px 4%;
+      }
+      img {
+        width: 85px;
+        height: auto;
+      }
+      h3 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .button-modal{
+        width: 50%;
+      }
+      .button-modal-space{
+        margin-bottom: 15px;
+      }
+    }
   }
 }
