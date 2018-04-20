@@ -43,6 +43,7 @@ export class BuyProductPage implements OnInit {
   private currencyProduct;
   private currentUser;
   private cellphoneUser;
+  private idNumberBuyer;
   buyForm: FormGroup;
   payMethod: String = "bank_account_transfer";
   confirmPurchase: boolean = false;
@@ -76,6 +77,8 @@ export class BuyProductPage implements OnInit {
     this.tokenUser = this.currentSessionSevice.authToken();
     this.loadProduct();
   }
+
+
   goToUrlBank(): void {
     window.open(
       "https://sucursalpersonas.transaccionesbancolombia.com",
@@ -107,7 +110,9 @@ export class BuyProductPage implements OnInit {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       this.currentUser = await this.userService.getInfoUser();
+
       this.cellphoneUser = this.currentUser.cellphone;
+      this.idNumberBuyer = this.currentUser['id-number'];
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
       this.priceProduct = this.product.price;
@@ -119,6 +124,7 @@ export class BuyProductPage implements OnInit {
       this.idUserSellerDb = this.product.user["id"];
       this.currencyProduct = this.product.currency;
       this.initFormBuy();
+
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
@@ -228,6 +234,7 @@ export class BuyProductPage implements OnInit {
       idUsuarioVendedor: this.idUserSellerDb,
       tipoIdVendedor: "cc",
       idVendedor: "1",
+      idComprador: this.idNumberBuyer,
       // idVendedor: this.idNumberSeller,
       tipoMoneda: this.currencyProduct,
       valorPagar: this.priceProduct,
