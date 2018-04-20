@@ -11,6 +11,7 @@ import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output, ViewCh
 })
 export class ProductComponent implements AfterViewInit {
   @Input() product: ProductInterface;
+  @Input() masonryInfo;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
@@ -21,6 +22,11 @@ export class ProductComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.checkSizeCard();
+  }
+
+  triggerMasonryLayout() {
+    //this.masonryInfo._msnry.reloadItems();
+    this.masonryInfo.layout();
   }
 
   getLocation(product): string {
