@@ -1,20 +1,7 @@
-import { OfferInterface } from "./../../commons/interfaces/offer.interface";
-import {
-  ElementRef,
-  AfterViewChecked,
-  AfterViewInit,
-  Renderer2
-} from "@angular/core";
-import { ProductInterface } from "./../../commons/interfaces/product.interface";
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy,
-  EventEmitter,
-  Output,
-  ViewChild
-} from "@angular/core";
-
+import { OfferInterface } from './../../commons/interfaces/offer.interface';
+import { ElementRef, AfterViewChecked, AfterViewInit, Renderer2 } from '@angular/core';
+import { ProductInterface } from './../../commons/interfaces/product.interface';
+import { Component, Input, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
 @Component({
   selector: "product",
   templateUrl: "./product.component.html",
@@ -28,27 +15,21 @@ export class ProductComponent implements AfterViewInit {
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private readonly limitSize: number = 220;
-
   constructor(private render: Renderer2) {}
-
   ngAfterViewInit(): void {
     this.checkSizeCard();
   }
-
   getLocation(product): string {
     const city = product.user.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
   }
-
   selectProduct() {
     this.selected.emit(this.product);
   }
-
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
-
   private checkSizeCard() {
     setTimeout(() => {
       const elem = this.containerProducts.nativeElement;
