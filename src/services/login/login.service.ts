@@ -24,4 +24,12 @@ export class LoginService {
     const url =  this.configurationService. getBaseUrl() + '/v1/sessions';
     return this.http.post(url, currentUser).toPromise();
   }
+
+  loginSapiUser(currentUser): Promise<any> {
+    const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const url =  this.configurationService.getBaseUrl() + '/gateway/sapi/v1/auth' ;
+    const headers = new HttpHeaders(jsonApiSapiHeaders);
+    return this.http.post(url, currentUser, { headers: headers }).toPromise();
+  }
+
 }

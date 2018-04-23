@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
     }
   }
   login(userEmail: string, password: string) {
-    const user = {
+    /*const user = {
       'data': {
         'type': 'sessions',
         'attributes': {
@@ -62,8 +62,13 @@ export class LoginPage implements OnInit {
           'password': password
         }
       }
+    };*/
+    const user = {
+        "user": "carlos.cardona@pragma.com.co",
+        "password": "abc",
+        "ipAddress": "127.0.0.0"
     };
-    this.loginService.loginUser(user).then((response) => {
+    this.loginService.loginSapiUser(user).then((response) => {
       this.gapush('send', 'event', 'Ingreso', 'ClicLogin', 'IngresarExitosamente');
       this.currentSessionService.setSession(response.data);
       this.setUserCountry(response.data);
