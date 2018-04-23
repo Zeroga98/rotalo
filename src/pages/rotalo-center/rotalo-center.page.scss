@@ -26,12 +26,13 @@
         border-radius: 2px;
         background-color: #f7f7f7;
         color: #9B9B9B;
-        padding-left: 30%;
+        padding-left: 15%;
       }
       .menu-options a {
         display: block;
         padding: 12px;
         text-decoration: none;
+        padding-left: 1.3em;
       }
       .menu-options a.active {
         color: #ED2F3C;
@@ -70,6 +71,13 @@
         }
       }
     }
+
+    .menu{
+      .menu-options{
+
+      }
+    }
+
   }
 
   .footer {
