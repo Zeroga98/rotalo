@@ -1,0 +1,87 @@
+
+
+:host {
+  .main {
+    flex: 1 0 auto;
+    display: flex;
+    height: 100vh;
+    .content {
+      flex: 1 0 auto;
+      background: lightgreen;
+    }
+
+    .menu {
+      width: 32%;
+      padding-left: 8%;
+      list-style: none;
+      text-align: left;
+      order: -1;
+      margin: 0;
+      background-color: #f7f7f7;
+    }
+
+    .menu {
+      .menu-options{
+        font-size: 2.0rem;
+        border-radius: 2px;
+        background-color: #f7f7f7;
+        color: #9B9B9B;
+      }
+      .menu-options a {
+        background-color: #eee;
+        display: block;
+        padding: 12px;
+        text-decoration: none;
+      }
+      .menu-options a.active {
+        color: #ED2F3C;
+      }
+    }
+
+    .menu {
+      .logo-container {
+        border-radius: 2px;
+        margin-bottom: 5px;
+        padding: 20px 0;
+        background-color: #f7f7f7;
+        .logo-circle {
+          position: relative;
+          background: #ffffff;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          border: 5px solid #eae9e8;
+          text-align: center;
+          line-height: 100px;
+          vertical-align: middle;
+          padding: 30px 15px;
+          margin: 0 auto;
+          .logo-rotalo {
+            position: absolute;
+            display: block;
+            top: 47%;
+            transform: translateY(-50%);
+            width: 110px;
+            height: 50px;
+          //  background: url(../../assets/img/logo_rotalo.svg);
+            background-size: 110px 50px;
+
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .main {
+      flex-direction: column;
+      .menu {
+        width: 100%;
+      }
+    }
+  }
+}

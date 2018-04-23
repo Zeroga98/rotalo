@@ -1,9 +1,18 @@
 <navigation-top [hideBackArrow]="isHideBackArrow"></navigation-top>
-<div>
-
+<div class="main">
+  <router-outlet class="content"></router-outlet>
+  <div class="menu">
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img class="logo-rotalo" src="../../assets/img/logo_rotalo.svg" alt="logo rotalo">
+      </div>
+    </div>
+    <div class="menu-options">
+      <a  class="active">Mensajes</a>
+      <a>Artículos rotando</a>
+      <a>Artículos rotados</a>
+      <a>Configuración</a>
+    </div>
+  </div>
 </div>
-<p>
-  rotalo-center works!
-</p>
-<router-outlet></router-outlet>
-<custom-footer></custom-footer>
+<custom-footer class="footer"></custom-footer>

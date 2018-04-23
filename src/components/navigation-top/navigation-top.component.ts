@@ -14,7 +14,6 @@ import {
 } from "@angular/core";
 import { MessagesService } from "../../services/messages.service";
 import { NavigationService } from "../../pages/products/navigation.service";
-
 @Component({
   selector: "navigation-top",
   templateUrl: "./navigation-top.component.html",
@@ -25,7 +24,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Output() countryChanged: EventEmitter<any> = new EventEmitter();
   @Input() hideBackArrow: boolean = false;
   @Input() defaultCountryValue: CountryInterface;
-  readonly notificationsRoute: string = `/${ROUTES.ROTALOCENTER}`;
+  readonly rotaloCenter: string = `/${ROUTES.ROTALOCENTER}`;
   uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
   isModalMessageShowed: boolean = false;
   listenerNotifications: any;
@@ -33,7 +32,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   messagesUnRead: number = 0;
   notificationsUnread: number = 0;
   private readonly timeToCheckNotification: number = 5000;
-
   constructor(
     private router: Router,
     private messagesService: MessagesService,
@@ -41,7 +39,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private notificationsService: NotificationsService
   ) {}
-
   ngOnInit() {
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
@@ -49,41 +46,33 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.listenerMessages = this.setListenerMessagesUnread();
     this.listenerMessages = this.setListenerNotificationsUnread();
   }
-
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
-
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
     this.navigationService.setCurrentCountryId(evt.id);
     this.goToFeed(evt.id);
   }
-
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     `/${url}` === this.router.url
       ? location.reload()
       : this.router.navigate([url]);
   }
-
   openConversations() {
     this.isModalMessageShowed = true;
   }
-
   closeModalMessage() {
     this.isModalMessageShowed = false;
   }
-
   get messageAvailable(): boolean {
     return this.messagesUnRead > 0;
   }
-
   get notificationsAvailable(): boolean {
     return this.notificationsUnread > 0;
   }
-
   private setListenerMessagesUnread() {
     return setInterval(() => {
       this.messagesService.getConversationsUnread().then(conversations => {
@@ -95,7 +84,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       });
     }, this.timeToCheckNotification);
   }
-
   private setListenerNotificationsUnread() {
     return setInterval(() => {
       this.notificationsService
@@ -106,7 +94,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         });
     }, this.timeToCheckNotification);
   }
-
   private goToFeed(id: number) {
     const currentUrl = window.location.pathname;
     const feedUrl = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
