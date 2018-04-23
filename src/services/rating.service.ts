@@ -4,8 +4,8 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class RatingService {
-    private readonly _url: string = this.configurationService.getBaseUrl() + '/v1/rates';
-    
+    private readonly _url: string = this.configurationService.getBaseUrl() + '/rates';
+
     constructor(private httpClient: HttpClient,private configurationService: ConfigurationService) { }
 
     rate(rate: number, comment: string, id: number):Promise<any>{

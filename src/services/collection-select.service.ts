@@ -73,7 +73,7 @@ export class CollectionSelectService {
     }
 
     private getCollection(filterActive: string = 'true'): Promise<any> {
-        const url = this.configurationService.getBaseUrl() + '/v1/locations/';
+        const url = this.configurationService.getBaseUrl() + '/locations/';
         return this.http.get(url, {
             params: {
                 'filter[active]': filterActive

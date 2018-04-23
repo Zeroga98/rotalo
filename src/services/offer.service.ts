@@ -4,7 +4,7 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class OfferService {
-    private readonly url = this.configurationService.getBaseUrl() + '/v1/offers';
+    private readonly url = this.configurationService.getBaseUrl() + '/offers';
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
     sendOffer(params): Promise<any> {

@@ -5,7 +5,7 @@ import { ConfigurationService } from "../services/configuration.service";
 
 @Injectable()
 export class PhotosService {
-    readonly url: string = this.configurationService.getBaseUrl() + '/v1/photos';
+    readonly url: string = this.configurationService.getBaseUrl() + '/photos';
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) {  }
 

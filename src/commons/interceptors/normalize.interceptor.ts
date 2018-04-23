@@ -10,13 +10,19 @@ export class NormalizeInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).map( (evt:HttpEvent<any> ) => {
-            let newResponse:HttpEvent<any> ;
-            if(evt instanceof HttpResponse && evt.body){
+            let newResponse: HttpEvent<any> ;
+            if (this.isNecessaryNormalize(req)) {
+              if (evt instanceof HttpResponse && evt.body) {
                 this.normalizeResponse(evt.clone());
                 this.cleanAttributes(evt.clone());
+              }
             }
             return evt;
         });
+    }
+    /**Valida si el request es de la API de nequi---en este caso no se debe aplicar el interceptor**/
+    private isNecessaryNormalize(req: HttpRequest<any>): boolean {
+      return !req.url.includes('auth');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {

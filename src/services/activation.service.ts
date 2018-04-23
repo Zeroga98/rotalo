@@ -5,7 +5,7 @@ import { ConfigurationService } from '../services/configuration.service';
 @Injectable()
 export class ActivationService {
 
-    readonly url = this.configurationService.getBaseUrl() + '/v1/users/activate';
+    readonly url = this.configurationService.getBaseUrl() + '/users/activate';
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 

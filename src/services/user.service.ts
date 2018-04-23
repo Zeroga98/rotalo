@@ -7,7 +7,7 @@ import { UserRequestInterface } from "../commons/interfaces/user-request.interfa
 
 @Injectable()
 export class UserService {
-  readonly url: string = `${this.configurationService.getBaseUrl()}/v1/users`;
+  readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
   currentUser: UserInterface;
   idUser: string;
 

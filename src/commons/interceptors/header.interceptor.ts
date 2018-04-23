@@ -26,6 +26,6 @@ export class HeadersInterceptor implements HttpInterceptor {
     private isNecessaryHeader(req: HttpRequest<any>): boolean{
       const ablesMethods = ['post', 'put'];
       const method = req.method.toLocaleLowerCase();
-      return ablesMethods.includes(method) && !req.url.includes('photos');
+      return ablesMethods.includes(method) && !req.url.includes('photos') && !req.url.includes('auth');
     }
 }

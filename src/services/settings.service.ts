@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SettingsService {
-  readonly url = this.configurationService.getBaseUrl() + '/v1/settings';
+  readonly url = this.configurationService.getBaseUrl() + '/settings';
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
   getSettings(): Promise<any> {

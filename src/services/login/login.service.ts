@@ -21,13 +21,13 @@ export class LoginService {
   }
 
   loginUser(currentUser): Promise<any> {
-    const url =  this.configurationService. getBaseUrl() + '/v1/sessions';
+    const url =  this.configurationService. getBaseUrl() + '/sessions';
     return this.http.post(url, currentUser).toPromise();
   }
 
   loginSapiUser(currentUser): Promise<any> {
     const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const url =  this.configurationService.getBaseUrl() + '/gateway/sapi/v1/auth' ;
+    const url =  this.configurationService.getBaseUrl() + '/sapi/v1/auth' ;
     const headers = new HttpHeaders(jsonApiSapiHeaders);
     return this.http.post(url, currentUser, { headers: headers }).toPromise();
   }

@@ -4,7 +4,7 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class LoansService {
-  private readonly url = this.configurationService.getBaseUrl() + '/v1/loan_requests';
+  private readonly url = this.configurationService.getBaseUrl() + '/loan_requests';
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
   loanWithSufi(amount: number | string): Promise<any> {

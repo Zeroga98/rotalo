@@ -11,7 +11,7 @@ constructor(private http: HttpClient,
 
   recoverUser(user): Promise<any> {
     const jsonApiHeaders = this.configurationService.getJsonApiHeaders();
-    const url =  this.configurationService. getBaseUrl() + '/v1/passwords/recover';
+    const url =  this.configurationService. getBaseUrl() + '/passwords/recover';
     const headers = new HttpHeaders(jsonApiHeaders);
     return this.http.post(url, user, { headers: headers }).toPromise();
   }

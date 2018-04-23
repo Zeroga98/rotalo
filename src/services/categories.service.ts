@@ -20,7 +20,7 @@ export class CategoriesService {
 
     private getCategoriesFromServer(): Promise<any> {
 
-        const url = this.configurationService.getBaseUrl() + '/v1/categories';
+        const url = this.configurationService.getBaseUrl() + '/categories';
         return this.httpClient
                     .get(url)
                     .map( (response: any) => response.data)
@@ -29,6 +29,6 @@ export class CategoriesService {
 
     private _asociateIcon(categories:Array<CategoryInterface>): Array<CategoryInterface>{
         return categories.map( (category: CategoryInterface, index: number) => Object.assign(category, CATEGORIES_ICONS[index]));
-    }   
+    }
 
 }

@@ -10,7 +10,7 @@ export class NotificationsService {
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
     getUnreadNotifications(): Promise<any> {
-        const url: string = this.configurationService.getBaseUrl() + '/v1/users/unread_notifications';
+        const url: string = this.configurationService.getBaseUrl() + '/users/unread_notifications';
         return this.httpClient.get(url)
             .toPromise()
             .then((res: any) => res.data);
@@ -22,7 +22,7 @@ export class NotificationsService {
     }
 
     private getNotificationsFromServer(): Promise<any> {
-        const url: string = this.configurationService.getBaseUrl() + '/v1/notifications';
+        const url: string = this.configurationService.getBaseUrl() + '/notifications';
         return this.httpClient
             .get(url)
             .map((response: any) => {

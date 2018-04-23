@@ -9,7 +9,7 @@ constructor(private http: HttpClient,
   private configurationService: ConfigurationService) { }
 
   simulateCredit(infoVehicle): Promise<any> {
-    const url =  this.configurationService. getBaseUrl() + '/v1/simulate_credits';
+    const url =  this.configurationService. getBaseUrl() + '/simulate_credits';
     return this.http.post(url, infoVehicle).toPromise();
   }
 

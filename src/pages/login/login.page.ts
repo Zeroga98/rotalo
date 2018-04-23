@@ -1,55 +1,60 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { LoginService } from '../../services/login/login.service';
-import { CurrentSessionService } from '../../services/current-session.service';
-import { Router } from '@angular/router';
-import { ROUTES } from '../../router/routes';
-import { UserService } from '../../services/user.service';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { LoginService } from "../../services/login/login.service";
+import { CurrentSessionService } from "../../services/current-session.service";
+import { Router } from "@angular/router";
+import { ROUTES } from "../../router/routes";
+import { UserService } from "../../services/user.service";
 
 @Component({
-  selector: 'login-page',
-  templateUrl: 'login.page.html',
-  styleUrls: ['login.page.scss'],
+  selector: "login-page",
+  templateUrl: "login.page.html",
+  styleUrls: ["login.page.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
-  constructor(private loginService: LoginService,
+  constructor(
+    private loginService: LoginService,
     private currentSessionService: CurrentSessionService,
     private changeRef: ChangeDetectorRef,
     private router: Router,
-    private userService: UserService) { }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [
         Validators.required,
         Validators.minLength(6)
       ])
     });
-
   }
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
-      event: 'pushEventGA',
+      event: "pushEventGA",
       method: method,
       type: type,
       categoria: category,
       accion: action,
       etiqueta: label
     };
-    window['dataLayer'].push(paramsGa);
+    window["dataLayer"].push(paramsGa);
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email').value;
-      const password = this.loginForm.get('password').value;
+      const email = this.loginForm.get("email").value;
+      const password = this.loginForm.get("password").value;
       this.login(email, password);
     }
   }
@@ -64,35 +69,65 @@ export class LoginPage implements OnInit {
       }
     };*/
     const user = {
-        "user": "carlos.cardona@pragma.com.co",
-        "password": "abc",
-        "ipAddress": "127.0.0.0"
+      user: "carlos.cardona@pragma.com.co",
+      password: "abc",
+      ipAddress: "127.0.0.0"
     };
-    this.loginService.loginSapiUser(user).then((response) => {
-      this.gapush('send', 'event', 'Ingreso', 'ClicLogin', 'IngresarExitosamente');
-      this.currentSessionService.setSession(response.data);
-      this.setUserCountry(response.data);
-    }).catch((httpErrorResponse) => {
+    this.loginService
+      .loginSapiUser(user)
+      .then(response => {
+        if (response.status === 200) {
+          this.gapush("send", "event", "Ingreso", "ClicLogin", "IngresarExitosamente");
+          console.log(response.data.token);
+          console.log(response.data);
+          const saveInfo = {
+            'auth-token' : response.data.token,
+            'email': response.data.userProperties.email,
+            'id': '4512',
+            'id-number':  response.data.userProperties.identification,
+            'name': 'Mario',
+            'photo': {
+              'id': '12509',
+              'url': 'https://rotalo-app-imagenes.s3.amazonaws.com/uploads/photo/file/12509/nada-logo.jpg'
+            }
+          };
+          this.currentSessionService.setSession(saveInfo);
+          this.setUserCountry(saveInfo);
+        }
+        if (response.status === 401) {
+          this.errorLogin = "No puedes tener mas de una sesion activa";
+        }
+        this.changeRef.markForCheck();
+      })
+      .catch(httpErrorResponse => {
         console.error(httpErrorResponse);
+        if (httpErrorResponse.status === 401) {
+          this.errorLogin = "No puede tener mas de 1 sesiones activas";
+        }
         if (httpErrorResponse.status === 403) {
         }
-        if (httpErrorResponse.status ===  422) {
+        if (httpErrorResponse.status === 422) {
           this.errorLogin = httpErrorResponse.error.errors[0].title;
         }
         if (httpErrorResponse.status === 0) {
-          this.errorLogin = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+          this.errorLogin =
+            "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
         }
         this.changeRef.markForCheck();
-    });
+      });
   }
 
   async setUserCountry(userInfo) {
     try {
       const user = await this.userService.getInfoUser();
       this.userCountry = user.city.state.country.id;
-      const userLogin = Object.assign({}, userInfo, { countryId: this.userCountry });
+      const userLogin = Object.assign({}, userInfo, {
+        countryId: this.userCountry
+      });
       this.currentSessionService.setSession(userLogin);
-      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
     } catch (error) {
       console.error(error);
     }

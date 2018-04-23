@@ -8,7 +8,7 @@ import { ConfigurationService } from '../services/configuration.service';
 @Injectable()
 export class MessagesService {
     currentUser: UserInterface;
-    readonly url = this.configurationService.getBaseUrl() + '/v1/conversations';
+    readonly url = this.configurationService.getBaseUrl() + '/conversations';
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
@@ -33,7 +33,7 @@ export class MessagesService {
     }
 
     sendMessage(params): Promise<any> {
-      const url = this.configurationService.getBaseUrl() + '/v1/messages';
+      const url = this.configurationService.getBaseUrl() + '/messages';
         return this.http.post(url,
             {
                 data: {
