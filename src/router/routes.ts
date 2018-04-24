@@ -13,7 +13,6 @@ export const ROUTES = {
     PROFILEPASS: 'change-password',
     HOBBIES: 'hobbies',
     EDITPROFILE: 'edit',
-    NOTIFICATIONSSETTINGS: 'notifications-settings',
     ACTIVACION: 'activation',
     SUCCESS: 'success-activation',
     STEPS: 'steps',
@@ -27,7 +26,8 @@ export const ROUTES = {
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit'
     },
-    MENUROTALOCENTER:{
-        INFOROTALOCENTER: 'info-rotalo-center'
+    MENUROTALOCENTER: {
+        INFOROTALOCENTER: 'info-rotalo-center',
+        NOTIFICATIONSSETTINGS: 'notifications-settings',
     }
 };

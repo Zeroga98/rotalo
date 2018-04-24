@@ -47,6 +47,7 @@ export const appRouter: Routes = [
     canActivate: [AuthGuardService],
     children: [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
+      { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       {
         path: '',
         redirectTo: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER,
@@ -140,7 +141,6 @@ export const appRouter: Routes = [
       { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.HOBBIES, component: HobbiesPage },
       { path: ROUTES.EDITPROFILE, component: EditProfilePage },
-      { path: ROUTES.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       {
         path: '',
         redirectTo: ROUTES.SHOW,

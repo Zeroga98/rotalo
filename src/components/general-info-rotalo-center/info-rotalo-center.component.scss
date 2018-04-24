@@ -1,58 +1,105 @@
-:host{
-    width: 100%;
-    padding: 0 5%;
-    .number-messages{
-        position: relative;
-        padding: 0 5%;
-        .ico{
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-        }
-        .ico-message-open{
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/mensaje.svg);
-          background-size: 30px 30px;
-        }
-        .messages{
-            color: #ED2F3C;
-            font-size: 2.5rem;
-        }
+:host {
+  width: 100%;
+  padding: 0 5%;
+  .tittle {
+    position: relative;
+    padding: 0 35px;
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
     }
-    .ranking-container{
-        position: relative;
-        border: 2px solid #9B9B9B;
-        border-radius: 10px;
-        margin: 20px 0;
-        padding: 8px 2%;
-        .ranking{
-          position: absolute;
-          top: 8px;
-          right: 2%;
-          display: flex;
-            .ico-star{
-                width: 25px;
-                height: 25px;
-                background: url(../../assets/img/estrella_linea.svg);
-                background-size: 25px 25px;
-                margin-left: 5px;
-            }
-        }
-        p{
-            font-size: 2rem;
-        }
+    .ico-message-open {
+      width: 30px;
+      height: 30px;
+      background: url(../../assets/img/mensaje.svg);
+      background-size: 30px 30px;
     }
-    .ranking-elements{
+    .ico-product {
+      width: 30px;
+      height: 30px;
+      background: url(../../assets/img/articulos_rotando.svg);
+      background-size: 30px 30px;
+    }
+    .text {
+      color: #ed2f3c;
+      font-size: 2.5rem;
+    }
+  }
+  .ranking-container {
+    position: relative;
+    border: 2px solid #9b9b9b;
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 8px 2%;
+    margin-bottom: 40px;
+    .ranking {
+      position: absolute;
+      top: 8px;
+      right: 2%;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin: 50px 0;
+      .ico-star {
+        width: 25px;
+        height: 25px;
+        background: url(../../assets/img/estrella_linea.svg);
+        background-size: 25px 25px;
+        margin-left: 5px;
+      }
     }
-    .ranking-elements > .element {
-      width: 250px;
-      height: 100px;
-      border: 2px dashed red;
+    p {
+      font-size: 2rem;
     }
+  }
+  .elements-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px 0;
+    p {
+      color: white;
+      font-size: 2.5rem;
+    }
+    .element-process {
+      background-color: #33d7c7;
+    }
+    .element-product {
+      background-color: #41b4ca;
+    }
+    .element-attention {
+      background-color: #f3a643;
+    }
+  }
+  .elements-container > .element {
+    width: 250px;
+    height: 130px;
+    border-radius: 5px;
+    padding: 25px 15px;
+    margin-bottom: 15px;
+  }
+  .elements-container > .product-number {
+    border: 2px solid #c7c7c7;
+    padding: 20px 15px;
+  }
+  .elements-container {
+    .container-circle {
+      text-align: center;
+      .circle {
+        position: relative;
+        background: #ffffff;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border: 1px solid #A2A2A2;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 2.4rem;
+        line-height: 55px;
+      }
+      .info{
+        font-size: 2.4rem;
+      }
+    }
+  }
 }

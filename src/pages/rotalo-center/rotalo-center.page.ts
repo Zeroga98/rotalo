@@ -8,10 +8,9 @@ import { ROUTES } from '../../router/routes';
   styleUrls: ['./rotalo-center.page.scss']
 })
 export class RotaloCenterPage implements OnInit {
+  public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
 
-  constructor(
-    public router: Router
-  ) { }
+  constructor(public router: Router) {}
 
   ngOnInit() {
   }

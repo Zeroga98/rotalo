@@ -4,8 +4,9 @@
   .main {
     flex: 1 0 auto;
     display: flex;
-    height: 100vh;
+    height: auto;
     padding-top: 70px;
+    padding-bottom: 70px;
     /*.content {
       flex: 1 0 auto;
       background: lightgreen;
@@ -33,7 +34,7 @@
         text-decoration: none;
         padding-left: 2.5em;
       }
-      .menu-options a.active {
+      .menu-options .active {
         color: #ED2F3C;
       }
     }
