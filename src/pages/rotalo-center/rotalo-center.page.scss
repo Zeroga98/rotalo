@@ -25,14 +25,13 @@
         font-size: 2.2rem;
         border-radius: 2px;
         background-color: #f7f7f7;
-        color: #9B9B9B;
-        padding-left: 15%;
+        padding-left: 20%;
       }
       .menu-options a {
         display: block;
-        padding: 12px;
+        padding: 15px;
         text-decoration: none;
-        padding-left: 1.3em;
+        padding-left: 2em;
       }
       .menu-options a.active {
         color: #ED2F3C;
@@ -74,7 +73,21 @@
 
     .menu{
       .menu-options{
-
+        .option{
+          cursor: pointer;
+          position: relative;
+        }
+        .ico{
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        .message-icon{
+          width: 20px;
+          height: 20px;
+          background: url(../../assets/img/mensaje_menu.svg);
+          background-size: 20px 20px;
+        }
       }
     }
 
