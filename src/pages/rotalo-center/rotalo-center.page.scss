@@ -29,9 +29,9 @@
       }
       .menu-options a {
         display: block;
-        padding: 15px;
+        padding: 15px 0;
         text-decoration: none;
-        padding-left: 2em;
+        padding-left: 2.5em;
       }
       .menu-options a.active {
         color: #ED2F3C;
@@ -83,10 +83,29 @@
           transform: translateY(-50%);
         }
         .message-icon{
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height:30px;
           background: url(../../assets/img/mensaje_menu.svg);
-          background-size: 20px 20px;
+          background-size: 30px 30px;
+        }
+        .rotando-icon{
+          width: 30px;
+          height:30px;
+          background: url(../../assets/img/articulos_rotando.svg);
+          background-size: 30px 30px;
+        }
+        .rotados-icon{
+          left: -9px;
+          width: 50px;
+          height:50px;
+          background: url(../../assets/img/articulos_rotados.svg);
+          background-size: 50px 50px;
+        }
+        .configuration-icon{
+          width: 30px;
+          height:30px;
+          background: url(../../assets/img/configuracion.svg);
+          background-size: 30px 30px;
         }
       }
     }

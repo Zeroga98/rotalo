@@ -10,17 +10,17 @@
             left: 0;
             transform: translateY(-50%);
         }
-        .ico-message{
-            width: 25px;
-            height: 25px;
-            background: url(../../assets/img/mensaje_menu.svg);
-            background-size: 25px 25px; 
+        .ico-message-open{
+          width: 30px;
+          height: 30px;
+          background: url(../../assets/img/mensaje.svg);
+          background-size: 30px 30px;
         }
-        .messages{    
+        .messages{
             color: #ED2F3C;
-            font-size: 2.5rem; 
+            font-size: 2.5rem;
         }
-    } 
+    }
     .ranking-container{
         position: relative;
         border: 2px solid #9B9B9B;
@@ -28,18 +28,31 @@
         margin: 20px 0;
         padding: 8px 2%;
         .ranking{
-            position: absolute;
-            top: 8px;
-            right: 5%;
-            .ico{
+          position: absolute;
+          top: 8px;
+          right: 2%;
+          display: flex;
+            .ico-star{
                 width: 25px;
                 height: 25px;
-                background: url(../../assets/img/mensaje_menu.svg);
+                background: url(../../assets/img/estrella_linea.svg);
                 background-size: 25px 25px;
+                margin-left: 5px;
             }
         }
         p{
             font-size: 2rem;
-        }  
+        }
+    }
+    .ranking-elements{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 50px 0;
+    }
+    .ranking-elements > .element {
+      width: 250px;
+      height: 100px;
+      border: 2px dashed red;
     }
 }
