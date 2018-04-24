@@ -18,7 +18,13 @@ export class ConfigurationService {
 
   api = {
     'protocol': "https",
-    'server': "10.43.1.10:1443/gateway",
+    'server': "api.dev.rotalo.co:1443/gateway/v1",
+     'inactivityLimit': 86400 // seconds
+  };
+
+  sapi = {
+    'protocol': "https",
+    'server': "api.dev.rotalo.co:1443/gateway",
      'inactivityLimit': 86400 // seconds
   };
 
@@ -36,6 +42,10 @@ export class ConfigurationService {
 
   getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;
+  }
+
+  getBaseSapiUrl(): string {
+    return this.api.protocol + '://' + this.sapi.server;
   }
 
   getJsonApiHeaders() {

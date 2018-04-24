@@ -13,6 +13,7 @@ export class LoginService {
   }
 
   isLoggedIn(): boolean {
+    console.log(this.currentSessionService.currentUser());
     return !!(this.currentSessionService.currentUser());
   }
 
@@ -27,7 +28,7 @@ export class LoginService {
 
   loginSapiUser(currentUser): Promise<any> {
     const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const url =  this.configurationService.getBaseUrl() + '/sapi/v1/auth' ;
+    const url =  this.configurationService.getBaseSapiUrl() + '/sapi/v1/auth' ;
     const headers = new HttpHeaders(jsonApiSapiHeaders);
     return this.http.post(url, currentUser, { headers: headers }).toPromise();
   }

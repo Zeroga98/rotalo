@@ -78,26 +78,24 @@ export class LoginPage implements OnInit {
       .then(response => {
         if (response.status === 200) {
           this.gapush("send", "event", "Ingreso", "ClicLogin", "IngresarExitosamente");
-          console.log(response.data.token);
-          console.log(response.data);
           const saveInfo = {
-            'auth-token' : response.data.token,
-            'email': response.data.userProperties.email,
-            'id': '4512',
-            'id-number':  response.data.userProperties.identification,
-            'name': 'Mario',
+            'auth-token' : response.body.data.token,
+            'email': response.body.data.userProperties.email,
+            'id': response.body.data.userProperties.id,
+            'id-number':  response.body.data.userProperties.identification,
+            'name': response.body.data.userProperties.fullname,
             'photo': {
               'id': '12509',
               'url': 'https://rotalo-app-imagenes.s3.amazonaws.com/uploads/photo/file/12509/nada-logo.jpg'
             }
           };
           this.currentSessionService.setSession(saveInfo);
-          this.setUserCountry(saveInfo);
+          //this.setUserCountry(saveInfo);
         }
         if (response.status === 401) {
           this.errorLogin = "No puedes tener mas de una sesion activa";
+          this.changeRef.markForCheck();
         }
-        this.changeRef.markForCheck();
       })
       .catch(httpErrorResponse => {
         console.error(httpErrorResponse);
