@@ -5,19 +5,19 @@
     flex: 1 0 auto;
     display: flex;
     height: 100vh;
-    .content {
+    padding-top: 70px;
+    /*.content {
       flex: 1 0 auto;
       background: lightgreen;
-    }
+    }*/
 
     .menu {
-      width: 32%;
+      width: 40%;
       padding-left: 8%;
       list-style: none;
       text-align: left;
       order: -1;
       margin: 0;
-      background-color: #f7f7f7;
     }
 
     .menu {

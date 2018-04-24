@@ -1,0 +1,45 @@
+:host{
+    width: 100%;
+    padding: 0 5%;
+    .number-messages{
+        position: relative;
+        padding: 0 5%;
+        .ico{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        .ico-message{
+            width: 25px;
+            height: 25px;
+            background: url(../../assets/img/mensaje_menu.svg);
+            background-size: 25px 25px; 
+        }
+        .messages{    
+            color: #ED2F3C;
+            font-size: 2.5rem; 
+        }
+    } 
+    .ranking-container{
+        position: relative;
+        border: 2px solid #9B9B9B;
+        border-radius: 10px;
+        margin: 20px 0;
+        padding: 8px 2%;
+        .ranking{
+            position: absolute;
+            top: 8px;
+            right: 5%;
+            .ico{
+                width: 25px;
+                height: 25px;
+                background: url(../../assets/img/mensaje_menu.svg);
+                background-size: 25px 25px;
+            }
+        }
+        p{
+            font-size: 2rem;
+        }  
+    }
+}

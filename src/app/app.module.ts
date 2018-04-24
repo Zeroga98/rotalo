@@ -111,6 +111,7 @@ import { ToolbarService } from '../components/toolbar/toolbar.service';
 import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
+import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
 
 
 @NgModule({
@@ -175,7 +176,8 @@ import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
     SubcategoryFilterComponent,
     ChangePage,
     ModalTipsComponent,
-    RotaloCenterPage
+    RotaloCenterPage,
+    RotaloCenterComponent
   ],
   imports: [
     BrowserModule,

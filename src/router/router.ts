@@ -29,6 +29,7 @@ import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from './guards/validate-session.service';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
+import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
 
 export const appRouter: Routes = [
   {
@@ -42,7 +43,16 @@ export const appRouter: Routes = [
   },
   {
     path: ROUTES.ROTALOCENTER,
-    component: RotaloCenterPage
+    component: RotaloCenterPage,
+    canActivate: [AuthGuardService],
+    children: [
+      { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
+      {
+        path: '',
+        redirectTo: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER,
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: ROUTES.ACTIVACION,

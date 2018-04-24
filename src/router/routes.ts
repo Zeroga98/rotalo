@@ -26,5 +26,8 @@ export const ROUTES = {
         SELLING: 'selling',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit'
+    },
+    MENUROTALOCENTER:{
+        INFOROTALOCENTER: 'info-rotalo-center'
     }
 };
