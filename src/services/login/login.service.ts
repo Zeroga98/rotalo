@@ -13,12 +13,31 @@ export class LoginService {
   }
 
   isLoggedIn(): boolean {
-    console.log(this.currentSessionService.currentUser());
     return !!(this.currentSessionService.currentUser());
   }
 
   logout(): void {
-    this.currentSessionService.clearSession();
+    this.logOutService(this.currentSessionService.authToken()) .subscribe(
+      resonse => {
+        this.currentSessionService.clearSession();
+        location.reload();
+        console.log(resonse);
+      },
+      error => {
+        this.currentSessionService.clearSession();
+        location.reload();
+        console.log(error);
+      }
+    );
+  }
+
+  logOutService (token) {
+    const url = this.configurationService.getBaseSapiUrl + `/gateway/sapi/v1/logout` + `?token=${token}`;
+    const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.http.get(url, { headers: headers}).map( (response: any) =>
+      response
+    );
   }
 
   loginUser(currentUser): Promise<any> {

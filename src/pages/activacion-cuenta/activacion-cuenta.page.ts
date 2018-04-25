@@ -36,7 +36,6 @@ export class ActivacionCuentaPage implements OnInit {
     }
   }
 
-
   gapush(method, type, category, action, label) {
     const paramsGa = {
       event: 'pushEventGA',

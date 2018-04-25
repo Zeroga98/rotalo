@@ -59,18 +59,9 @@ export class LoginPage implements OnInit {
     }
   }
   login(userEmail: string, password: string) {
-    /*const user = {
-      'data': {
-        'type': 'sessions',
-        'attributes': {
-          'email': userEmail,
-          'password': password
-        }
-      }
-    };*/
     const user = {
-      user: "carlos.cardona@pragma.com.co",
-      password: "abc",
+      user: userEmail,
+      password: password,
       ipAddress: "127.0.0.0"
     };
     this.loginService
@@ -90,7 +81,7 @@ export class LoginPage implements OnInit {
             }
           };
           this.currentSessionService.setSession(saveInfo);
-          //this.setUserCountry(saveInfo);
+          this.setUserCountry(saveInfo);
         }
         if (response.status === 401) {
           this.errorLogin = "No puedes tener mas de una sesion activa";
