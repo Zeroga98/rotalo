@@ -1,13 +1,17 @@
-<div>
-  <nav class="sold-header-nav bg--red">
-    <ul class="nav nav-tabs">
-      <li [ngClass]="{ active:  currentTab == 'sold' }">
-        <a (click)="currentTab = 'sold'" class="link uppercase">({{productsSold.length}}) Rotados</a>
-      </li>
-      <li [ngClass]="{ active:  currentTab == 'purchased' }">
-        <a (click)="currentTab = 'purchased'" class="link uppercase">({{productsPurchased.length}}) Adquiridos</a>
-      </li>
-    </ul>
+<div  class="info-container">
+  <div class="tittle">
+    <div class="ico ico-product"></div>
+    <p class="text">Artículos rotados</p>
+  </div>
+  <nav class="sold-header-nav">
+    <div class="nav nav-tabs">
+      <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'sold' }">
+        <div class="option"><a (click)="currentTab = 'sold'" class="link uppercase">Vendiste</a></div>
+      </div>
+      <div class="tab tab-right" [ngClass]="{ active:  currentTab == 'purchased' }">
+        <div class="option"><a (click)="currentTab = 'purchased'" class="link uppercase">Compraste</a></div>
+      </div>
+    </div>
   </nav>
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'sold'">

@@ -42,7 +42,7 @@
       (scrolled)="scrolledInfinite()">
 
         <masonry-brick class="grid-item" *ngFor="let product of products">
-            <product [product]="product" (selected)="selectProduct($event)"></product>
+            <product [showField] = "true"  [product]="product" (selected)="selectProduct($event)"></product>
         </masonry-brick>
 
       </masonry>

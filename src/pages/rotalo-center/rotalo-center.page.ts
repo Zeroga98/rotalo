@@ -10,6 +10,7 @@ import { ROUTES } from '../../router/routes';
 export class RotaloCenterPage implements OnInit {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
+  public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   constructor(public router: Router) {}
 
   ngOnInit() {

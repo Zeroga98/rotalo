@@ -48,6 +48,7 @@ export const appRouter: Routes = [
     children: [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
       { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
+      { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
       {
         path: ROUTES.MENUROTALOCENTER.SELLING,
         component: SellingPage,
@@ -91,10 +92,6 @@ export const appRouter: Routes = [
         {
           path: `${ROUTES.PRODUCTS.SHOW}/:id`,
           component: DetalleProductoComponent,
-        },
-        {
-          path: ROUTES.PRODUCTS.SOLD,
-          component: SoldPage,
         },
         {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,

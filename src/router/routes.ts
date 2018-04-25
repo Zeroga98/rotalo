@@ -21,13 +21,13 @@ export const ROUTES = {
         SHOW: 'show',
         FEED: 'feed',
         UPLOAD: 'form',
-        SOLD: 'sold',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit'
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',
         NOTIFICATIONSSETTINGS: 'notifications-settings',
-        SELLING: 'selling'
+        SELLING: 'selling',
+        SOLD: 'sold'
     }
 };

@@ -3,7 +3,8 @@ import {
   ElementRef,
   AfterViewChecked,
   AfterViewInit,
-  Renderer2
+  Renderer2,
+  ChangeDetectorRef
 } from "@angular/core";
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
 import {
@@ -14,6 +15,7 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
+import { ProductsService } from "../../services/products.service";
 
 @Component({
   selector: "product",
@@ -23,16 +25,37 @@ import {
 })
 export class ProductComponent implements AfterViewInit {
   @Input() product: ProductInterface;
+  @Input() showField: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private readonly limitSize: number = 220;
+  public productStatus: boolean;
+  public productChecked: String;
 
-  constructor(private render: Renderer2) {}
+  constructor(private render: Renderer2,
+    private productsService: ProductsService,
+    private changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.checkSizeCard();
+    this.productChecked = this.product.status;
+    this.productStatus = this.product.status === "active";
+    this.changeDetectorRef.markForCheck();
+  }
+
+  saveCheck() {
+    this.productStatus = !this.productStatus;
+    this.productStatus
+      ? (this.productChecked = "active")
+      : (this.productChecked = "inactive");
+    const params = {
+      status: this.productStatus ? "active" : "inactive"
+    };
+    this.changeDetectorRef.markForCheck();
+    this.productsService.updateProduct(this.product.id, params).then(response => {
+    });
   }
 
   getLocation(product): string {
