@@ -13,6 +13,7 @@ import {
 } from "@angular/forms";
 import { UserRequestInterface } from "../../commons/interfaces/user-request.interface";
 import { TypeDocumentsService } from "../../services/type-documents.service";
+import { SavePasswordService } from "./save-password.service";
 
 @Component({
   selector: "signup-page",
@@ -20,111 +21,133 @@ import { TypeDocumentsService } from "../../services/type-documents.service";
   styleUrls: ["signup.page.scss"]
 })
 export class SignUpPage implements OnInit {
-    public errorsSubmit: Array<any> = [];
-    public modalTermsIsOpen: boolean = false;
-    public registerForm: FormGroup;
-    public country;
-    public city;
-    public state;
-    public documentId;
-    public errorMessageId;
-    public typeDocuments;
-    constructor(
-        private userService: UserService,
-        private router: Router,
-        private utilsService: UtilsService,
-        private typeDocumentsService: TypeDocumentsService) {}
+  public errorsSubmit: Array<any> = [];
+  public modalTermsIsOpen: boolean = false;
+  public registerForm: FormGroup;
+  public country;
+  public city;
+  public state;
+  public documentId;
+  public errorMessageId;
+  public typeDocuments;
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private utilsService: UtilsService,
+    private typeDocumentsService: TypeDocumentsService,
+    private savePassword: SavePasswordService
+  ) {}
 
-    ngOnInit(): void {
-        this.registerForm = new FormGroup({
-            'first-name': new FormControl('', [Validators.required]),
-            'last-name': new FormControl('', [Validators.required]),
-            'type-document-id': new FormControl('', null),
-            'id-number': new FormControl('', [Validators.required]),
-            email: new FormControl('', [ Validators.required, Validators.email]),
-            cellphone: new FormControl('', [Validators.required]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            'password-confirmation': new FormControl('', [Validators.required, Validators.minLength(6),
-              this.validatePasswordConfirm.bind(this)]),
-            termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
-        });
+  ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      "first-name": new FormControl("", [Validators.required]),
+      "last-name": new FormControl("", [Validators.required]),
+      "type-document-id": new FormControl("", null),
+      "id-number": new FormControl("", [Validators.required]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      cellphone: new FormControl("", [Validators.required]),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(6)
+      ]),
+      "password-confirmation": new FormControl("", [
+        Validators.required,
+        Validators.minLength(6),
+        this.validatePasswordConfirm.bind(this)
+      ]),
+      termsCheckbox: new FormControl("", [this.checkBoxRequired.bind(this)])
+    });
 
-        this.loadTypeDocument();
-    }
+    this.loadTypeDocument();
+  }
 
-    async onSubmit() {
-        try {
-          if (this.registerForm.valid) {
-            const params: UserRequestInterface = this.buildParamsUserRequest();
-            const response = await this.userService.saveUser(params);
-            this.errorsSubmit = [];
-            this.router.navigate([ROUTES.ACTIVACION]);
+  async onSubmit() {
+    try {
+      if (this.registerForm.valid) {
+        const params: UserRequestInterface = this.buildParamsUserRequest();
+        const response = await this.userService.saveUser(params);
+        this.savePassword.setPassword(this.registerForm.get("password").value);
+        this.errorsSubmit = [];
+        this.router.navigate([ROUTES.ACTIVACION]);
         //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
-          }
-        } catch (error) {
-            this.errorsSubmit = error.error.errors;
-            this.utilsService.goToTopWindow(20, 600);
-        }
+      }
+    } catch (error) {
+      this.errorsSubmit = error.error.errors;
+      this.utilsService.goToTopWindow(20, 600);
     }
+  }
 
-    async loadTypeDocument() {
-        try {
-         this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-        } catch (error) {}
+  async loadTypeDocument() {
+    try {
+      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+    } catch (error) {}
+  }
+
+  buildParamsUserRequest(): UserRequestInterface {
+    const fullName = `${this.registerForm.get("first-name").value} ${
+      this.registerForm.get("last-name").value
+    }`;
+    delete this.registerForm.value["first-name"];
+    delete this.registerForm.value["last-name"];
+    //delete  this.registerForm.value['type-number'];
+    const params = Object.assign(
+      {},
+      this.registerForm.value,
+      { name: fullName },
+      { "city-id": this.city.id }
+    );
+    delete params.termsCheckbox;
+    return params;
+  }
+
+  selectedCountry(ev) {
+    this.country = ev;
+  }
+
+  selectedStates(ev) {
+    this.state = ev;
+  }
+
+  selectedCountryColombia(): boolean {
+    return (
+      this.country &&
+      this.country.id === "1" &&
+      this.country.name === "Colombia"
+    );
+  }
+
+  checkBoxRequired(checkBox: FormGroup): any {
+    return checkBox.value ? null : { noSelected: true };
+  }
+
+  validatePasswordConfirm(registerGroup: FormGroup): any {
+    if (this.registerForm) {
+      return registerGroup.value === this.registerForm.get("password").value
+        ? null
+        : { notSame: true };
     }
+  }
 
-    buildParamsUserRequest(): UserRequestInterface {
-        const fullName = `${this.registerForm.get('first-name').value} ${this.registerForm.get('last-name').value}`;
-        delete  this.registerForm.value['first-name'];
-        delete  this.registerForm.value['last-name'];
-        //delete  this.registerForm.value['type-number'];
-        const params = Object.assign({}, this.registerForm.value, {'name': fullName}, {'city-id': this.city.id});
-        delete params.termsCheckbox;
-        return params;
-    }
-
-    selectedCountry(ev) {
-        this.country = ev;
-    }
-
-    selectedStates(ev) {
-        this.state = ev;
-    }
-
-	selectedCountryColombia(): boolean {
-		return this.country &&this.country.id === "1" && this.country.name === "Colombia"
-	}
-
-	checkBoxRequired(checkBox: FormGroup): any {
-		return checkBox.value ? null : { noSelected: true };
-	}
-
-	validatePasswordConfirm(registerGroup: FormGroup): any {
-		if (this.registerForm) {
-			return registerGroup.value === this.registerForm.get("password").value ? null : { notSame: true };
-		}
-	}
-
-	get formIsInValid(): boolean {
-		return this.registerForm.invalid || !this.selectIsCompleted();
-	}
+  get formIsInValid(): boolean {
+    return this.registerForm.invalid || !this.selectIsCompleted();
+  }
 
   private selectIsCompleted(): boolean {
     return this.country && this.state && this.city;
   }
 
-	openTermsModal(): void {
-		this.modalTermsIsOpen = true;
-	}
+  openTermsModal(): void {
+    this.modalTermsIsOpen = true;
+  }
 
-	closeModal() {
-		this.modalTermsIsOpen = false;
-	}
+  closeModal() {
+    this.modalTermsIsOpen = false;
+  }
 
-	acceptTerms(checkbox) {
-		checkbox.checked = true;
-		this.closeModal();
-	}
+  acceptTerms(checkbox) {
+    checkbox.checked = true;
+    this.closeModal();
+  }
 
   setValidationId(): void {
     if (this.country) {
@@ -133,7 +156,9 @@ export class SignUpPage implements OnInit {
       idDocumentControl.clearValidators();
       const documentObject = this.findNameDocumentType();
       let documentName;
-      if (documentObject) { documentName = documentObject["name-document"]; }
+      if (documentObject) {
+        documentName = documentObject["name-document"];
+      }
 
       /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
       switch (idCountry) {

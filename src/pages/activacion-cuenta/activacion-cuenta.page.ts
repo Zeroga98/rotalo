@@ -4,6 +4,7 @@ import { CurrentSessionService } from "./../../services/current-session.service"
 import { ActivationService } from "./../../services/activation.service";
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { UserService } from "../../services/user.service";
+import { SavePasswordService } from "../signup/save-password.service";
 
 @Component({
   selector: 'app-activacion-cuenta',
@@ -19,7 +20,8 @@ export class ActivacionCuentaPage implements OnInit {
     private activationService: ActivationService,
     private currenSession: CurrentSessionService,
     private userService: UserService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private savePassword: SavePasswordService
   ) {}
 
   ngOnInit() {

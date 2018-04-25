@@ -110,6 +110,7 @@ import { FeedService } from '../pages/products-feed/feed.service';
 import { ToolbarService } from '../components/toolbar/toolbar.service';
 import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { SavePasswordService } from '../pages/signup/save-password.service';
 
 
 @NgModule({
@@ -221,6 +222,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     NavigationService,
     TypeDocumentsService,
     ValidateSessionService,
+    SavePasswordService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
