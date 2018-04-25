@@ -31,6 +31,7 @@ export class SellingPage implements OnInit {
   async getProducts(filter) {
     this.productsService.getProducts(filter).then(products => {
         this.products = [].concat(products);
+        console.log(this.products);
         this.isSpinnerShow = false;
     });
   }

@@ -22,12 +22,12 @@ export const ROUTES = {
         FEED: 'feed',
         UPLOAD: 'form',
         SOLD: 'sold',
-        SELLING: 'selling',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit'
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',
         NOTIFICATIONSSETTINGS: 'notifications-settings',
+        SELLING: 'selling'
     }
 };

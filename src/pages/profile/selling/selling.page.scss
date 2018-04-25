@@ -1,17 +1,100 @@
-@import '../../../styles/settings/_colors.scss';
-@import '../../../styles/settings/_variables.scss';
-
-:host{
-  .msg-products-empty{
-    width: 100%;
+:host {
+  width: 100%;
+  height: auto;
+  padding: 0 5%;
+  .tittle {
+    position: relative;
+    padding: 0 35px;
+    margin-bottom: 40px;
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .ico-product {
+      width: 30px;
+      height: 30px;
+      background: url(../../../assets/img/articulos_rotando.svg);
+      background-size: 30px 30px;
+    }
+    .text {
+      color: #ed2f3c;
+      font-size: 2.5rem;
+    }
+  }
+  .products-empty{
     text-align: center;
-    padding: 2rem 1rem;
-    font-size: 2rem;
+    padding: 20px 10px;
+    .ico-no-product{
+      margin: 0 auto;
+      width: 100px;
+      height: 100px;
+      background: url(../../../assets/img/articulos_rotando.svg);
+      background-size: 100px 100px;
+    }
+    p{
+      padding: 10px 0;
+      margin: 10px 0;
+      font-size: 2rem;
+    }
+    .container-offer{
+      margin: 25px 0;
+      .upload-offer-button{
+        display: inline-block;
+        vertical-align: middle;
+        .outside-circle{
+          padding: 5px;
+          display: table-cell;
+          vertical-align: middle;
+          border: 2px dashed #9B9B9B;
+          color: #4A4A4A;
+          height: 75px;
+          width: 300px;
+            .inside-circle {
+                color: white;
+                display: inline-flex;
+                vertical-align: middle;
+                padding: 9px 6px;
+                height: 4rem;
+                width: 4rem;
+                background-color: #41B5CB;
+                border-radius: 50%;
+                justify-content: center;
+                align-items: center;
+                span {
+                    font-size: 25px;
+                }
+            }
+            label {
+                vertical-align: middle;
+                margin-left: 16px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 3.5rem;
+                margin-bottom: 0px;
+            }
+        }
+    }
+    .navbar-brand {
+        width: 130px;
+        cursor: pointer;
+        img{
+            height: auto;
+            width: 100%;
+        }
+    }
+    }
+      
   }
-  custom-spinner{
-    position: absolute;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, 50%);
+.product-container{
+  .row{
+    display: flex;
+    flex-wrap: wrap;
   }
+  .column{
+    width: 50%;
+    padding: 10px 5px;
+  }
+}
 }

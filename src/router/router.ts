@@ -49,6 +49,10 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
       { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       {
+        path: ROUTES.MENUROTALOCENTER.SELLING,
+        component: SellingPage,
+      },
+      {
         path: '',
         redirectTo: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER,
         pathMatch: 'full'
@@ -93,10 +97,6 @@ export const appRouter: Routes = [
           component: SoldPage,
         },
         {
-          path: ROUTES.PRODUCTS.SELLING,
-          component: SellingPage,
-        }
-        , {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,
           component: BuyProductPage,
         },

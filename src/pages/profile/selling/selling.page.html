@@ -1,6 +1,31 @@
-<custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
-<div class="msg-products-empty" *ngIf = "!isSpinnerShow && products.length <= 0">Actualmente usted no esta rotando productos</div>
-<div class="text" *ngFor="let product of products">
-    <detail-product [idProduct] = "product.id"></detail-product>
+<div class="info-container">
+    <div class="tittle">
+      <div class="ico ico-product"></div>
+      <p class="text">Artículos rotando</p>
+    </div>
+    <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
+    <div *ngIf = "!isSpinnerShow && products.length <= 0" class="products-empty">
+        <div class="ico ico-no-product"></div>
+        <p class="text">Aún no tienes ningun artículo rotando.</p>
+        <div class="container-offer">
+            <a class="upload-offer-button" routerLink="/products/form">
+              <div class="gtmSubeTuOferta outside-circle">
+                <div class="gtmSubeTuOferta inside-circle">
+                  <span class="gtmSubeTuOferta icon-tag"></span>
+                </div>
+                <label class="gtmSubeTuOferta">Sube tu oferta</label>
+              </div>
+            </a>
+          </div>
+    </div>
+    <div class="product-container">
+        <div class="row">
+            <div class="column" *ngFor="let product of products">
+                <product [product]="product" (selected)="selectProduct($event)"></product>
+            </div>
+        </div>
+    </div>
+
 </div>
+  
 
