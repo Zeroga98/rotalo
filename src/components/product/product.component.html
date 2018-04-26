@@ -12,7 +12,7 @@
   <div class="container-name">
     <span class="name">{{product.name}}</span>
   </div>
-  <div class="container-price">
+  <div  [ngClass]="showField ? '' : 'border-price'" class="container-price">
     <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
   </div>
   <div *ngIf="showField" class="container-status">

@@ -3,7 +3,8 @@
 :host {
   width: 100%;
   height: auto;
-  padding: 0 7%;
+  padding: 0 5%;
+  padding-left: 2%;
   .container {
     width: 100%;
     margin: 0;
@@ -179,9 +180,6 @@
     cursor: pointer;
   }
 
-  .flashMessage{
-    padding-bottom: 20px;
-  }
 
   .alert-success {
     padding: 15px;
@@ -213,25 +211,20 @@
   }
 
   .tittle {
-    position: relative;
-    padding: 0 35px;
-    margin-bottom: 40px;
-    .ico {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-    }
-    .configuration-icon {
-      width: 30px;
-      height: 30px;
-      background: url(../../../assets/img/configuracion.svg);
-      background-size: 30px 30px;
-    }
-    .text {
+    .text{
       color: #ed2f3c;
-      font-size: 2.5rem;
     }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
   }
 
   @media (max-width: 780px) {

@@ -7,11 +7,6 @@
     height: auto;
     padding-top: 70px;
     padding-bottom: 70px;
-    /*.content {
-      flex: 1 0 auto;
-      background: lightgreen;
-    }*/
-
     .menu {
       width: 40%;
       padding-left: 7%;
@@ -26,7 +21,6 @@
       .menu-options{
         font-size: 2.2rem;
         border-radius: 2px;
-        background-color: #f7f7f7;
         padding-left: 20%;
       }
       .menu-options a {
@@ -45,7 +39,7 @@
         border-radius: 2px;
         margin-bottom: 5px;
         padding: 20px 0;
-        background-color: #f7f7f7;
+
         .logo-circle {
           position: relative;
           background: #ffffff;

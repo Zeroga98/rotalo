@@ -1,7 +1,8 @@
 :host {
   width: 100%;
   height: auto;
-  padding: 0 7%;
+  padding: 0 5%;
+  padding-left: 2%;
   custom-spinner {
     position: absolute;
     left: 65%;
@@ -10,25 +11,20 @@
     transform: translate(-50%, 50%);
   }
   .tittle {
-    position: relative;
-    padding: 0 35px;
-    margin-bottom: 40px;
-    .ico {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-    }
-    .ico-product {
-      width: 30px;
-      height: 30px;
-      background: url(../../../assets/img/articulos_rotando.svg);
-      background-size: 30px 30px;
-    }
-    .text {
+    .text{
       color: #ed2f3c;
-      font-size: 2.5rem;
     }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
   }
   .products-empty {
     text-align: center;
@@ -64,31 +60,20 @@
         border-bottom: 3px solid #00aac7;
       }
     }
-    .tab-left {
-      padding-right: 2%;
-      .option {
-        float: right;
-      }
-    }
-    .tab-right {
-      padding-left: 2%;
-      .option {
-        float: left;
-      }
-    }
     .option {
       cursor: pointer;
       font-size: 2rem;
       text-align: center;
-      width: 16rem;
+      width: 100%;
       padding: 5px 0;
+      border-bottom: 3px solid #eae9e8;
     }
   }
 
   .container-masonry {
     .masonry {
       .grid-item {
-        width: 48%;
+        width: 32%;
       }
     }
   }

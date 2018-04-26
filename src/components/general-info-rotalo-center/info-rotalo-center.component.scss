@@ -1,31 +1,36 @@
 :host {
   width: 100%;
   padding: 0 5%;
+  padding-left: 2%;
+  .info-container{
+    .content{
+      padding-right: 2%;
+    }
+  }
   .tittle {
     position: relative;
-    padding: 0 35px;
     .ico {
       position: absolute;
       top: 50%;
       left: 0;
       transform: translateY(-50%);
     }
-    .ico-message-open {
-      width: 30px;
-      height: 30px;
-      background: url(../../assets/img/mensaje.svg);
-      background-size: 30px 30px;
-    }
-    .ico-product {
-      width: 30px;
-      height: 30px;
-      background: url(../../assets/img/articulos_rotando.svg);
-      background-size: 30px 30px;
-    }
-    .text {
+    .text{
       color: #ed2f3c;
+    }
+    p.text {
       font-size: 2.5rem;
     }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+  .main-title{
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
   }
   .ranking-container {
     position: relative;
