@@ -24,7 +24,7 @@
             <div class="checkbox custom-control custom-checkbox" *ngFor="let preference of categories.value; let i = index">
               <div>
                 <label>
-                  <input [(ngModel)]="preferencesArray[preference.key]" name="{{preference.key}}" type="checkbox">
+                  <input (click) = "activateButton()" [(ngModel)]="preferencesArray[preference.key]" name="{{preference.key}}" type="checkbox">
                   <span class="custom-control-indicator custom-control-indicator--top">
                   </span>
                   {{preference.label}}
@@ -35,7 +35,7 @@
         </li>
       </ul>
       <div class="btn-notificationes">
-        <custom-button type="submit" text="Guardar Cambios"></custom-button>
+        <custom-button [disabled]="disableButton" type="submit" text="Guardar Cambios"></custom-button>
       </div>
     </form>
   </div>
