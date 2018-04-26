@@ -32,7 +32,27 @@
       font-size: 2.5rem;
     }
   }
-
+  .products-empty {
+    text-align: center;
+    padding: 20px 10px;
+    .ico-sold {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/producto_rotados.svg);
+      background-size: 200px 200px;
+    }
+    .ico-no-product {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/productos_rotando.svg);
+      background-size: 200px 200px;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
   .sold-header-nav{
     .nav-tabs{
       display: flex;

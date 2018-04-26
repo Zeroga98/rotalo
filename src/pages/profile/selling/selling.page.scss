@@ -33,16 +33,21 @@
   .products-empty {
     text-align: center;
     padding: 20px 10px;
+    .ico-expired {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/productos_vencidos.svg);
+      background-size: 200px 200px;
+    }
     .ico-no-product {
       margin: 0 auto;
-      width: 100px;
-      height: 100px;
-      background: url(../../../assets/img/articulos_rotando.svg);
-      background-size: 100px 100px;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/productos_rotando.svg);
+      background-size: 200px 200px;
     }
     p {
-      padding: 10px 0;
-      margin: 10px 0;
       font-size: 2rem;
     }
   }
@@ -180,4 +185,41 @@
       }
     }
   }
+
+  .opacity-product{
+    position: relative;
+  }
+
+  .options-container{
+    position: absolute;
+    .delete{
+      margin: 0 auto;
+      width: 20px;
+      height: 20px;
+      background: url(../../../assets/img/eliminar.svg);
+      background-size: 20px 20px;
+    }
+    .edit{
+      margin: 0 auto;
+      width: 20px;
+      height: 20px;
+      background: url(../../../assets/img/lapiz.svg);
+      background-size: 20px 20px;
+    }
+  }
+
+  .grid-item:hover{
+    .opacity-product:after{
+      content: "";
+      background: rgba(0, 0, 0, 0.09);
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+
 }

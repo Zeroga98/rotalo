@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-252 1724 22.8 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #707070;
+      }
+    </style>
+  </defs>
+  <g id="Group_845" data-name="Group 845" transform="translate(-252 1724)">
+    <g id="Group_838" data-name="Group 838">
+      <path id="Path_460" data-name="Path 460" class="cls-1" d="M21.8,4.7H1a.945.945,0,0,1-1-1,.945.945,0,0,1,1-1H21.8a.945.945,0,0,1,1,1,1,1,0,0,1-1,1Z"/>
+    </g>
+    <g id="Group_839" data-name="Group 839">
+      <path id="Path_461" data-name="Path 461" class="cls-1" d="M14,4.1A2.765,2.765,0,0,0,11.4,2,2.6,2.6,0,0,0,8.8,4.1l-2-.4A4.806,4.806,0,0,1,11.4,0a4.61,4.61,0,0,1,4.5,3.7L14,4.1Z"/>
+    </g>
+    <g id="Group_840" data-name="Group 840">
+      <path id="Path_462" data-name="Path 462" class="cls-1" d="M4.6,24a2.059,2.059,0,0,1-2-1.9L1.6,4.8a1.088,1.088,0,0,1,.9-1.1,1.088,1.088,0,0,1,1.1.9l1,17.3,13.5.1,1-17.4a.9.9,0,0,1,1.1-.9.9.9,0,0,1,.9,1.1l-1,17.3a1.985,1.985,0,0,1-2,1.9H4.6Z"/>
+    </g>
+    <g id="Group_843" data-name="Group 843">
+      <g id="Group_841" data-name="Group 841">
+        <path id="Path_463" data-name="Path 463" class="cls-1" d="M7.6,20.3a.987.987,0,0,1-1-.9l-.7-12a1.088,1.088,0,0,1,.9-1.1,1.172,1.172,0,0,1,1.1.9l.7,11.9c0,.7-.4,1.2-1,1.2Z"/>
+      </g>
+      <g id="Group_842" data-name="Group 842">
+        <path id="Path_464" data-name="Path 464" class="cls-1" d="M15.2,20.3h0a1.028,1.028,0,0,1-1-1.1l.7-11.9A.9.9,0,0,1,16,6.4a.9.9,0,0,1,.9,1.1l-.7,11.9a1.063,1.063,0,0,1-1,.9Z"/>
+      </g>
+    </g>
+    <g id="Group_844" data-name="Group 844">
+      <path id="Path_465" data-name="Path 465" class="cls-1" d="M11.4,20.3a.945.945,0,0,1-1-1V7.4a1,1,0,0,1,2,0V19.3a1,1,0,0,1-1,1Z"/>
+    </g>
+  </g>
+</svg>

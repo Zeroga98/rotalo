@@ -40,7 +40,13 @@
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
-              <product [showField]="false" [product]="productSelling"></product>
+              <div class="opacity-product">
+                  <div class="options-container">
+                    <div class="delete"></div>
+                    <div class="edit"></div>
+                  </div>
+                  <product [showField]="false" [product]="productSelling"></product>
+              </div>
             </masonry-brick>
           </masonry>
         </div>
@@ -49,8 +55,8 @@
     <div id="purchased" *ngIf="currentTab === 'expired'">
       <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
       <div *ngIf="!isSpinnerShow && productsExpired.length <= 0" class="products-empty">
-        <div class="ico ico-no-product"></div>
-        <p class="text">Aún no tienes ningun artículo rotando.</p>
+        <div class="ico ico-expired"></div>
+        <p class="text">No tienes productos vencidos.</p>
       </div>
       <div class="row-list__wrapper" *ngIf="productsExpired.length  > 0">
         <div class="container-masonry">

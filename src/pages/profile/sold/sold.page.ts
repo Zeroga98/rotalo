@@ -28,6 +28,7 @@ export class SoldPage implements OnInit {
   constructor(private sanitizer: DomSanitizer, private userService: UserService, private productsService: ProductsService) {
     this.loadProductsSold();
     this.loadProductsPurchased();
+    this.isSpinnerShow = false;
   }
 
   async loadProductsSold() {

@@ -22,7 +22,7 @@
     <span class="icon-calendar"></span>
     <p>
       <span>Fecha de Publicación</span>
-      {{product['published-at'] | amTimeAgo}}</p>
+      {{product['published-at'] | date}}</p>
   </div>
   <div  *ngIf="!showField" class="container-date">
       <span class="icon-calendar"></span>

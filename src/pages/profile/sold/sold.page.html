@@ -17,8 +17,8 @@
     <div id="sold" *ngIf="currentTab === 'sold'">
         <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
         <div *ngIf = "!isSpinnerShow && productsSold.length <= 0" class="products-empty">
-            <div class="ico ico-no-product"></div>
-            <p class="text">Aún no tienes ningun artículo rotando.</p>
+            <div class="ico ico-sold"></div>
+            <p class="text">Aún no has vendido ningún producto.</p>
         </div>
       <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
           <div class="container-masonry">
@@ -39,7 +39,7 @@
         <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
         <div *ngIf = "!isSpinnerShow && productsPurchased.length <= 0" class="products-empty">
             <div class="ico ico-no-product"></div>
-            <p class="text">Aún no tienes ningun artículo rotando.</p>
+            <p class="text">Aún no tienes ningun artículo comprando.</p>
         </div>
       <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
         <div class="container-masonry">
