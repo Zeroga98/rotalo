@@ -1,5 +1,9 @@
 <div class="container-product" (click)="selectProduct()" *ngIf="product" #containerProducts>
-  <div class="container-photo">
+  <div [ngClass]="showField ? '' : 'opacity-container'" class="container-photo">
+    <div *ngIf="!showField" class="options-container">
+        <div class="delete" (click)="deleteProduct(product)"></div>
+        <div class="edit" (click)="editProduct(product)"></div>
+    </div>
     <!--<img [src]="product.photos.url" [alt]="product.name">-->
     <img *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
     <img *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name" (error)="updateSrc($event)">

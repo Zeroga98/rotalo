@@ -40,13 +40,7 @@
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
-              <div class="opacity-product">
-                  <div class="options-container">
-                    <div class="delete"></div>
-                    <div class="edit"></div>
-                  </div>
-                  <product [showField]="false" [product]="productSelling"></product>
-              </div>
+                <product [showField]="false" [product]="productSelling"></product>
             </masonry-brick>
           </masonry>
         </div>

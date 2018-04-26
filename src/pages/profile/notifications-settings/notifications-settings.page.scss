@@ -1,13 +1,12 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 :host {
-  display: block;
-  margin-bottom: 4rem;
   width: 100%;
+  height: auto;
+  padding: 0 7%;
   .container {
     width: 100%;
     margin: 0;
-    padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 5%;
     padding-right: 15px;
@@ -212,6 +211,29 @@
     width: 20rem;
     margin: 0 auto;
   }
+
+  .tittle {
+    position: relative;
+    padding: 0 35px;
+    margin-bottom: 40px;
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .configuration-icon {
+      width: 30px;
+      height: 30px;
+      background: url(../../../assets/img/configuracion.svg);
+      background-size: 30px 30px;
+    }
+    .text {
+      color: #ed2f3c;
+      font-size: 2.5rem;
+    }
+  }
+
   @media (max-width: 780px) {
     .container {
       width: 100%;

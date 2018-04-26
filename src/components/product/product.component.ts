@@ -17,7 +17,8 @@ import {
   ViewChild
 } from "@angular/core";
 import { ProductsService } from "../../services/products.service";
-
+import { ROUTES } from "../../router/routes";
+import { Router } from "@angular/router";
 @Component({
   selector: "product",
   templateUrl: "./product.component.html",
@@ -37,7 +38,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   constructor(private render: Renderer2,
     private productsService: ProductsService,
-    private changeDetectorRef: ChangeDetectorRef) {
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router) {
     }
 
     ngAfterContentInit(){
@@ -75,6 +77,25 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
+  }
+
+  async deleteProduct(product: ProductInterface) {
+    try {
+      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      if (!result) {
+        return;
+      }
+      const response = await this.productsService.deleteProduct(product.id);
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
+    } catch (error) {}
+  }
+
+  editProduct(product: ProductInterface) {
+    this.router.navigate([
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+    ]);
   }
 
   private checkSizeCard() {

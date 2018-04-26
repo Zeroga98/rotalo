@@ -18,7 +18,7 @@
         <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
         <div *ngIf = "!isSpinnerShow && productsSold.length <= 0" class="products-empty">
             <div class="ico ico-sold"></div>
-            <p class="text">Aún no has vendido ningún producto.</p>
+            <p class="text">No tienes artículos vendidos.</p>
         </div>
       <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
           <div class="container-masonry">
