@@ -2,6 +2,7 @@ import { OfferInterface } from "./../../commons/interfaces/offer.interface";
 import {
   ElementRef,
   AfterViewChecked,
+  AfterContentInit,
   AfterViewInit,
   Renderer2,
   ChangeDetectorRef
@@ -23,7 +24,7 @@ import { ProductsService } from "../../services/products.service";
   styleUrls: ["./product.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements AfterViewInit {
+export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() product: ProductInterface;
   @Input() showField: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
@@ -31,18 +32,22 @@ export class ProductComponent implements AfterViewInit {
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private readonly limitSize: number = 220;
-  public productStatus: boolean;
-  public productChecked: String;
+  public productStatus: boolean = false;
+  public productChecked: String = "active";
 
   constructor(private render: Renderer2,
     private productsService: ProductsService,
-    private changeDetectorRef: ChangeDetectorRef) {}
+    private changeDetectorRef: ChangeDetectorRef) {
+    }
+
+    ngAfterContentInit(){
+      this.productChecked = this.product.status;
+      this.productStatus = this.product.status === "active";
+      this.changeDetectorRef.markForCheck();
+    }
 
   ngAfterViewInit(): void {
     this.checkSizeCard();
-    this.productChecked = this.product.status;
-    this.productStatus = this.product.status === "active";
-    this.changeDetectorRef.markForCheck();
   }
 
   saveCheck() {

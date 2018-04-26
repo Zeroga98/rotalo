@@ -6,72 +6,54 @@
   <nav class="sold-header-nav">
     <div class="nav nav-tabs">
       <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'sold' }">
-        <div class="option"><a (click)="currentTab = 'sold'" class="link uppercase">Vendiste</a></div>
+        <div (click)="currentTab = 'sold'" class="option"><a class="link">Vendiste</a></div>
       </div>
       <div class="tab tab-right" [ngClass]="{ active:  currentTab == 'purchased' }">
-        <div class="option"><a (click)="currentTab = 'purchased'" class="link uppercase">Compraste</a></div>
+        <div (click)="currentTab = 'purchased'" class="option"><a class="link">Compraste</a></div>
       </div>
     </div>
   </nav>
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'sold'">
-      <p class="text-center m-y-lg" *ngIf="productsSold.length <= 0">No has vendido ningún producto.</p>
+        <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
+        <div *ngIf = "!isSpinnerShow && productsSold.length <= 0" class="products-empty">
+            <div class="ico ico-no-product"></div>
+            <p class="text">Aún no tienes ningun artículo rotando.</p>
+        </div>
       <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
-        <ul class="row-list__ul modal--offer">
-          <li [routerLink]="notificationsUrl" class="row-list__item" *ngFor="let productSold of productsSold">
-
-            <div *ngIf="productSold?.photos?.url" class="product-buy__thumbnail"  [style.background-image]="sanitizePhoto(productSold.photos?.url)  || sanitizePhoto(productSold.photos[0].url)"></div>
-            <div *ngIf="!productSold?.photos?.url" class="product-buy__thumbnail" style="background-image: url(../../../assets/img/product-no-image.png)"></div>
-
-
-            <div class="product-buy__info">
-              <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productSold.name}}</h1>
-              <!-- sold -->
-              <p class="text--small text--red m-b-0" *ngIf="productSold.status==='sold'">Vendido en:
-                <strong>{{productSold.price | currency:"$":0}}</strong>
-              </p>
-              <div>
-                <!-- purchased -->
-                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='purchased'">Venta por confirmar</p>
-                <!-- auctioned -->
-                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='auctioned'">Subasta asignada</p>
-                <!-- negotiated -->
-                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='negotiated'">Oferta aceptada</p>
-                <!-- sufi -->
-                <p class="text--small text--red m-b-0" *ngIf="productSold.status==='sufi'">Esperando crédito SUFI</p>
-              </div>
-            </div>
-          </li>
-        </ul>
+          <div class="container-masonry">
+              <masonry class="masonry"
+              #masonryRef
+              [useImagesLoaded]="false"
+              [options]="masonryConfig"
+              infiniteScroll
+              [infiniteScrollDistance]="0.5">
+              <masonry-brick class="grid-item" *ngFor="let productSold of productsSold">
+                    <product [showField] = "false"  [product]="productSold"></product>
+              </masonry-brick>
+              </masonry>
+          </div>
       </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'purchased'">
-      <p class="text-center m-y-lg" *ngIf="productsPurchased.length <= 0">No has comprado ningún producto.</p>
+        <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
+        <div *ngIf = "!isSpinnerShow && productsPurchased.length <= 0" class="products-empty">
+            <div class="ico ico-no-product"></div>
+            <p class="text">Aún no tienes ningun artículo rotando.</p>
+        </div>
       <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
-        <ul class="row-list__ul modal--offer">
-          <li [routerLink]="notificationsUrl" class="row-list__item" *ngFor="let productPurchased of productsPurchased">
-            <div *ngIf="productPurchased.photos.url" class="product-buy__thumbnail"  [style.background-image]="sanitizePhoto(productPurchased.photos?.url)  || sanitizePhoto(productPurchased.photos[0].url)"></div>
-            <div *ngIf="!productPurchased.photos.url" class="product-buy__thumbnail" style="background-image: url(../../../assets/img/product-no-image.png)"></div>
-
-            <div class="product-buy__info">
-              <h1 class="text--small m-t-0 text--grey-dark bold product-buy__title">{{productPurchased.name}}</h1>
-              <!-- sold -->
-              <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='sold'">Comprado en:
-                <strong>{{productPurchased.price | currency:"$":0}}</strong>
-              </p>
-              <div ui-sref="notifications.feed">
-                <!-- purchased -->
-                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='purchased'">Compra por confirmar</p>
-                <!-- auctioned -->
-                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='auctioned'">Subasta asignada</p>
-                <!-- negotiated -->
-                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='negotiated'">Oferta aceptada</p>
-                <!-- sufi -->
-                <p class="text--small text--red m-b-0" *ngIf="productPurchased.status==='sufi'">Esperando crédito SUFI</p>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <div class="container-masonry">
+            <masonry class="masonry"
+            #masonryRef
+            [useImagesLoaded]="false"
+            [options]="masonryConfig"
+            infiniteScroll
+            [infiniteScrollDistance]="0.5">
+            <masonry-brick class="grid-item" *ngFor="let productPurchased of productsPurchased">
+                  <product [showField] = "false"  [product]="productPurchased"></product>
+            </masonry-brick>
+            </masonry>
+        </div>
       </div>
     </div>
   </div>

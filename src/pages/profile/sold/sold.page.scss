@@ -4,6 +4,13 @@
   width: 100%;
   height: auto;
   padding: 0 7%;
+  custom-spinner {
+    position: absolute;
+    left: 65%;
+    top: 50%;
+    -webkit-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%);
+  }
   .tittle {
     position: relative;
     padding: 0 55px;
@@ -26,7 +33,6 @@
     }
   }
 
-
   .sold-header-nav{
     .nav-tabs{
       display: flex;
@@ -34,28 +40,47 @@
     }
     .tab{
       width: 50%;
+
+    }
+    .tab.active{
+      .option{
+        border-bottom: 3px solid #00AAC7;
+      }
     }
     .tab-left{
       padding-right: 2%;
+      .option{
+        float: right;
+      }
     }
     .tab-right{
       padding-left: 2%;
+      .option{
+        float: left;
+      }
+    }
+    .option{
+      cursor: pointer;
+      font-size: 2rem;
+      text-align: center;
+      width: 16rem;
+      padding: 5px 0;
     }
   }
 
+  .container-masonry {
+    .masonry {
+      .grid-item {
+        width: 48%;
+      }
+    }
+  }
 
   .container--app {
-    width: 44%;
-    min-width: 30rem;
-    margin: 0 auto;
-    margin-top: 2em;
-    margin-right: 20px;
-    margin-left: 20px;
+    width: 100%;
   }
   .row-list__wrapper {
     margin: 20px 0;
-    border: 1px solid #d7d7d7;
-    border-radius: 4px;
   }
   .row-list__ul {
     padding: 0;
@@ -67,8 +92,7 @@
     overflow-y: visible;
   }
   .row-list__item {
-    width: 100%;
-    border-bottom: 1px solid #d7d7d7;
+    width: 50%;
     overflow: hidden;
     list-style-type: none;
     padding: 15px;

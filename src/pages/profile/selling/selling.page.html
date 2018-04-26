@@ -1,13 +1,30 @@
 <div class="info-container">
-    <div class="tittle">
-      <div class="ico ico-product"></div>
-      <p class="text">Artículos rotando</p>
+  <div class="tittle">
+    <div class="ico ico-product"></div>
+    <p class="text">Artículos rotados</p>
+  </div>
+  <nav class="sold-header-nav">
+    <div class="nav nav-tabs">
+      <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'selling' }">
+        <div (click)="currentTab = 'selling'" class="option">
+          <a class="link">Rotando</a>
+        </div>
+      </div>
+      <div class="tab tab-right" [ngClass]="{ active:  currentTab == 'expired' }">
+        <div (click)="currentTab = 'expired'" class="option">
+          <a class="link">Vencidos</a>
+        </div>
+      </div>
     </div>
-    <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
-    <div *ngIf = "!isSpinnerShow && products.length <= 0" class="products-empty">
-        <div class="ico ico-no-product"></div>
-        <p class="text">Aún no tienes ningun artículo rotando.</p>
-        <div class="container-offer">
+  </nav>
+  <div class="container--app">
+    <div id="sold" *ngIf="currentTab === 'selling'">
+      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+      <div *ngIf="!isSpinnerShow" class="products-empty">
+        <div *ngIf="products && products.length <= 0">
+          <div class="ico ico-no-product"></div>
+          <p class="text">Aún no tienes ningun artículo rotando.</p>
+          <div class="container-offer">
             <a class="upload-offer-button" routerLink="/products/form">
               <div class="gtmSubeTuOferta outside-circle">
                 <div class="gtmSubeTuOferta inside-circle">
@@ -17,14 +34,33 @@
               </div>
             </a>
           </div>
-    </div>
-    <div class="product-container">
-        <div class="row">
-            <div class="column" *ngFor="let product of products">
-                <product [showField] = "false" [product]="product" ></product>
-            </div>
         </div>
+      </div>
+      <div class="row-list__wrapper" *ngIf="products.length  > 0">
+        <div class="container-masonry">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
+            <masonry-brick class="grid-item" *ngFor="let productSelling of products">
+              <product [showField]="false" [product]="productSelling"></product>
+            </masonry-brick>
+          </masonry>
+        </div>
+      </div>
     </div>
+    <div id="purchased" *ngIf="currentTab === 'expired'">
+      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+      <div *ngIf="!isSpinnerShow && productsExpired.length <= 0" class="products-empty">
+        <div class="ico ico-no-product"></div>
+        <p class="text">Aún no tienes ningun artículo rotando.</p>
+      </div>
+      <div class="row-list__wrapper" *ngIf="productsExpired.length  > 0">
+        <div class="container-masonry">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
+            <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">
+              <product [showField]="false" [product]="productExpired"></product>
+            </masonry-brick>
+          </masonry>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
