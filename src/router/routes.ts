@@ -28,6 +28,7 @@ export const ROUTES = {
         INFOROTALOCENTER: 'info-rotalo-center',
         NOTIFICATIONSSETTINGS: 'notifications-settings',
         SELLING: 'selling',
-        SOLD: 'sold'
+        SOLD: 'sold',
+        MESSAGES: 'messages'
     }
 };

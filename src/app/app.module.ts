@@ -112,6 +112,10 @@ import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
+import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
+import { ChatThreadsComponent } from '../components/chat-threads/chat-threads.component';
+import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
+import { ChatThreadComponent } from '../components/chat-thread/chat-thread.component';
 
 
 @NgModule({
@@ -177,7 +181,11 @@ import { RotaloCenterComponent } from '../components/general-info-rotalo-center/
     ChangePage,
     ModalTipsComponent,
     RotaloCenterPage,
-    RotaloCenterComponent
+    RotaloCenterComponent,
+    ChatPageComponent,
+    ChatThreadComponent,
+    ChatThreadsComponent,
+    ChatWindowComponent
   ],
   imports: [
     BrowserModule,
