@@ -28,6 +28,9 @@ import { Router } from "@angular/router";
 export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() product: ProductInterface;
   @Input() showField: boolean;
+  @Input() isProductSelling: boolean;
+  @Input() isProductSold: boolean;
+  @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;

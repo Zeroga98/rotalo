@@ -1,8 +1,8 @@
 <div class="container-product" (click)="selectProduct()" *ngIf="product" #containerProducts>
-  <div [ngClass]="showField ? '' : 'opacity-container'" class="container-photo">
-    <div *ngIf="!showField" class="options-container">
-        <div class="delete" (click)="deleteProduct(product)"></div>
-        <div class="edit" (click)="editProduct(product)"></div>
+  <div [ngClass]="isProductSelling ? 'opacity-container' : ''" class="container-photo">
+    <div *ngIf="isProductSelling" class="options-container">
+      <div class="delete" (click)="deleteProduct(product)"></div>
+      <div class="edit" (click)="editProduct(product)"></div>
     </div>
     <!--<img [src]="product.photos.url" [alt]="product.name">-->
     <img *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
@@ -12,7 +12,7 @@
   <div class="container-name">
     <span class="name">{{product.name}}</span>
   </div>
-  <div  [ngClass]="showField ? '' : 'border-price'" class="container-price">
+  <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
     <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
   </div>
   <div *ngIf="showField" class="container-status">
@@ -28,12 +28,24 @@
       <span>Fecha de Publicación</span>
       {{product['published-at'] | date}}</p>
   </div>
-  <div  *ngIf="!showField" class="container-date">
-      <span class="icon-calendar"></span>
-      <p>
-        <span>Fecha de Caducación</span>
-        {{product['publish-until'] | date}}</p>
-    </div>
+  <div *ngIf="isProductSelling" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de Caducación</span>
+      {{product['publish-until'] | date}}</p>
+  </div>
+  <div *ngIf="isProductSold" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de venta</span>
+      {{product['received-at'] | date}}</p>
+  </div>
+  <div *ngIf="isProductPurchased" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de compra</span>
+      {{product['received-at'] | date}}</p>
+  </div>
   <div *ngIf="showField" class="container-info-user">
     <div class="icon-container">
       <span class="icon-account"></span>
@@ -46,15 +58,15 @@
       </p>
     </div>
   </div>
-  <div *ngIf="!showField" class="media">
-      <div class="media-left media-middle">
-        <label class="switch">
-            <input type="checkbox" [checked]="productStatus"  (change)="saveCheck()">
-            <div class="switch-slider round"></div>
-          </label>
-      </div>
-      <div class="media-body">
-        <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
-      </div>
+  <div *ngIf="isProductSelling" class="media">
+    <div class="media-left media-middle">
+      <label class="switch">
+        <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
+        <div class="switch-slider round"></div>
+      </label>
+    </div>
+    <div class="media-body">
+      <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+    </div>
   </div>
 </div>

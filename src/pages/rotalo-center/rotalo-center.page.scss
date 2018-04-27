@@ -21,7 +21,7 @@
       .menu-options{
         font-size: 2.2rem;
         border-radius: 2px;
-        padding-left: 20%;
+        padding-left: 15%;
       }
       .menu-options a {
         display: block;
@@ -31,6 +31,7 @@
       }
       .menu-options .active {
         color: #ED2F3C;
+        background: #EAE9E8;
       }
     }
 
@@ -59,7 +60,6 @@
             transform: translateY(-50%);
             width: 110px;
             height: 50px;
-          //  background: url(../../assets/img/logo_rotalo.svg);
             background-size: 110px 50px;
 
           }
@@ -72,6 +72,7 @@
         .option{
           cursor: pointer;
           position: relative;
+          padding-left: 5%;
         }
         .ico{
           position: absolute;
@@ -91,7 +92,7 @@
           background-size: 30px 30px;
         }
         .rotados-icon{
-          left: -9px;
+          left: 3px;
           width: 50px;
           height:50px;
           background: url(../../assets/img/articulos_rotados.svg);

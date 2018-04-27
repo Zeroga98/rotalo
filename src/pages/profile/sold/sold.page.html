@@ -1,57 +1,55 @@
-<div  class="info-container">
+<div class="info-container">
   <div class="tittle main-title">
-    <p class="text">Artículos rotados</p>
+    <h1 class="text">Artículos rotados</h1>
   </div>
   <nav class="sold-header-nav">
     <div class="nav nav-tabs">
       <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'sold' }">
-        <div (click)="currentTab = 'sold'" class="option"><a class="link">Vendiste</a></div>
+        <div (click)="currentTab = 'sold'" class="option">
+          <a class="link">Vendiste</a>
+        </div>
       </div>
       <div class="tab tab-right" [ngClass]="{ active:  currentTab == 'purchased' }">
-        <div (click)="currentTab = 'purchased'" class="option"><a class="link">Compraste</a></div>
+        <div (click)="currentTab = 'purchased'" class="option">
+          <a class="link">Compraste</a>
+        </div>
       </div>
     </div>
   </nav>
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'sold'">
-        <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
-        <div *ngIf = "!isSpinnerShow && productsSold.length <= 0" class="products-empty">
-            <div class="ico ico-sold"></div>
-            <p class="text">No tienes artículos vendidos.</p>
-        </div>
+      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+      <div *ngIf="!isSpinnerShow && productsSold.length <= 0" class="products-empty">
+        <div class="ico ico-sold"></div>
+        <p class="text">No tienes artículos vendidos.</p>
+      </div>
       <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
-          <div class="container-masonry">
-              <masonry class="masonry"
-              #masonryRef
-              [useImagesLoaded]="false"
-              [options]="masonryConfig"
-              infiniteScroll
-              [infiniteScrollDistance]="0.5">
-              <masonry-brick class="grid-item" *ngFor="let productSold of productsSold">
-                    <product [showField] = "false"  [product]="productSold"></product>
-              </masonry-brick>
-              </masonry>
-          </div>
+        <div class="container-masonry">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
+            <masonry-brick class="grid-item" *ngFor="let productSold of productsSold">
+              <div class="product-container">
+                <product [isProductSold]="true" [isProductSelling]="false" [showField]="false" [product]="productSold"></product>
+              </div>
+            </masonry-brick>
+          </masonry>
+        </div>
       </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'purchased'">
-        <custom-spinner *ngIf = "isSpinnerShow"></custom-spinner>
-        <div *ngIf = "!isSpinnerShow && productsPurchased.length <= 0" class="products-empty">
-            <div class="ico ico-no-product"></div>
-            <p class="text">Aún no tienes ningun artículo comprando.</p>
-        </div>
+      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+      <div *ngIf="!isSpinnerShow && productsPurchased.length <= 0" class="products-empty">
+        <div class="ico ico-no-product"></div>
+        <p class="text">Aún no tienes ningun artículo comprando.</p>
+      </div>
       <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
         <div class="container-masonry">
-            <masonry class="masonry"
-            #masonryRef
-            [useImagesLoaded]="false"
-            [options]="masonryConfig"
-            infiniteScroll
-            [infiniteScrollDistance]="0.5">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productPurchased of productsPurchased">
-                  <product [showField] = "false"  [product]="productPurchased"></product>
+              <div class="product-container">
+                <product [isProductPurchased]="true" [isProductSelling]="false" [showField]="false" [product]="productPurchased"></product>
+              </div>
             </masonry-brick>
-            </masonry>
+          </masonry>
         </div>
       </div>
     </div>

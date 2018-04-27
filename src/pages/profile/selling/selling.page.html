@@ -39,7 +39,9 @@
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
-                <product [showField]="false" [product]="productSelling"></product>
+              <div class="product-container">
+                  <product [isProductSelling]="true" [showField]="false" [product]="productSelling"></product>
+              </div>
             </masonry-brick>
           </masonry>
         </div>
@@ -55,7 +57,9 @@
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">
-              <product [showField]="false" [product]="productExpired"></product>
+                <div class="product-container">
+                    <product [isProductSelling]="true" [showField]="false" [product]="productExpired"></product>
+                </div>
             </masonry-brick>
           </masonry>
         </div>
