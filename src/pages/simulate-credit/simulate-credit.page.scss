@@ -2,15 +2,42 @@
 @import "../../styles/settings/_variables.scss";
 
 :host {
+  .container-bar-offer {
+    background: url("/assets/img/image_bw.jpg") no-repeat center;
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      .inside-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 4rem;
+        width: 4rem;
+        background-color: #41b5cb;
+        border-radius: 50%;
+        margin-right: 2rem;
+        .icon-tag {
+          font-size: 2.5rem;
+          color: white;
+        }
+      }
+      .offer-head-title {
+        color: white;
+        margin: 0;
+        font-size: 5.5rem;
+      }
+    }
+  }
   custom-spinner {
     position: absolute;
     left: 50%;
     top: 45%;
     transform: translate(-50%, 50%);
   }
-
   .container-form {
-    padding: 66px 76px;
+    padding: 66px 7%;
     .title-form {
       font-size: 2.5rem;
       color: $red;
