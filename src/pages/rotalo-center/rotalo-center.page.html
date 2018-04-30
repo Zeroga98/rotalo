@@ -1,0 +1,33 @@
+<navigation-top [hideBackArrow]="isHideBackArrow"></navigation-top>
+<div class="main">
+
+  <div class="menu">
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img class="logo-rotalo" src="../../assets/img/logo_rotalo.svg" alt="logo rotalo">
+      </div>
+    </div>
+    <div class="menu-options">
+      <div class="menu-container">
+        <div [routerLink]="messages" class="option" routerLinkActive="active">
+          <div class="ico message-icon"></div>
+          <a>Mensajes</a>
+        </div>
+        <div [routerLink]="selling" class="option" routerLinkActive="active">
+          <div class="ico rotando-icon"></div>
+          <a>Artículos rotando</a>
+        </div>
+        <div [routerLink]="sold" class="option" routerLinkActive="active">
+          <div class="ico rotados-icon"></div>
+          <a>Artículos rotados</a>
+        </div>
+        <div [routerLink]="notificationsSettings" class="option" routerLinkActive="active">
+          <div class="ico configuration-icon"></div>
+          <a>Configuración</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet class="content"></router-outlet>
+</div>
+<custom-footer class="footer"></custom-footer>

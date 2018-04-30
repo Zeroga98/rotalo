@@ -1,7 +1,8 @@
-import { ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, ViewChild } from "@angular/core";
 import {
   Component,
   OnInit,
+  AfterViewInit,
   Input,
   ChangeDetectionStrategy
 } from "@angular/core";
@@ -40,6 +41,7 @@ export class DetailProductComponent implements OnInit {
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
 
+
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -52,6 +54,10 @@ export class DetailProductComponent implements OnInit {
 
   ngOnInit() {
     this.loadProduct();
+  }
+
+  clickArrow() {
+    this.changeDetectorRef.markForCheck();
   }
 
   async loadProduct() {

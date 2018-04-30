@@ -2,7 +2,7 @@ export const ROUTES = {
     HOME: 'home',
     SIGNUP: 'signup',
     LOGIN: 'login',
-    NOTIFICATIONS: 'notifications',
+    ROTALOCENTER: 'rotalo-center',
     RESETPASS: 'reset-password',
     RECOVER: 'recover',
     CONFIRM: 'confirm',
@@ -13,7 +13,6 @@ export const ROUTES = {
     PROFILEPASS: 'change-password',
     HOBBIES: 'hobbies',
     EDITPROFILE: 'edit',
-    NOTIFICATIONSSETTINGS: 'notifications-settings',
     ACTIVACION: 'activation',
     SUCCESS: 'success-activation',
     STEPS: 'steps',
@@ -22,9 +21,14 @@ export const ROUTES = {
         SHOW: 'show',
         FEED: 'feed',
         UPLOAD: 'form',
-        SOLD: 'sold',
-        SELLING: 'selling',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit'
+    },
+    MENUROTALOCENTER: {
+        INFOROTALOCENTER: 'info-rotalo-center',
+        NOTIFICATIONSSETTINGS: 'notifications-settings',
+        SELLING: 'selling',
+        SOLD: 'sold',
+        MESSAGES: 'messages'
     }
 };

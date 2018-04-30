@@ -1,90 +1,93 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 :host {
-  .bg--red {
-    background-color: #ed2f3c !important;
+  width: 100%;
+  height: auto;
+  padding: 0 5%;
+  padding-left: 2%;
+  custom-spinner {
+    position: absolute;
+    left: 65%;
+    top: 50%;
+    -webkit-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%);
+  }
+  .tittle {
+    .text {
+      color: #ed2f3c;
+    }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+  .product-container {
+    padding: 10px;
+  }
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
+  }
+  .products-empty {
+    text-align: center;
+    padding: 20px 10px;
+    .ico-sold {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/producto_rotados.svg);
+      background-size: 200px 200px;
+    }
+    .ico-no-product {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: url(../../../assets/img/productos_rotando.svg);
+      background-size: 200px 200px;
+    }
+    p {
+      font-size: 2rem;
+    }
   }
   .sold-header-nav {
-    line-height: 0;
-    padding-top: 5px;
-    .nav {
-      display: inline-block;
-      border-bottom: 0;
-      display: table;
-      margin-bottom: 0;
-      padding-left: 0;
-      list-style: none;
-    }
     .nav-tabs {
+      display: flex;
       width: 100%;
-      li,
-      .item {
-        display: table-cell;
-        float: none;
-        text-align: center;
-        .link {
-          cursor: pointer;
-          position: relative;
-          display: block;
-          font-size: 1.2rem;
-          padding: 19px 10px 30px;
-          background: none;
-          border: none;
-          &:hover,
-          &:focus {
-            color: #fff;
-          }
-        }
-        &.active > .link {
-          color: #fff;
-          &:hover {
-            background: none;
-            border: none;
-          }
-          &:after {
-            position: absolute;
-            bottom: -1px;
-            left: 50%;
-            content: "";
-            margin-left: -7px;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-bottom: 7px solid #fff;
-          }
-        }
-        & > * {
-          background: none;
-          border: none;
-          color: $unactive-link;
-          font-weight: bold;
-        }
+    }
+    .tab {
+      width: 50%;
+    }
+    .tab.active {
+      .option {
+        border-bottom: 3px solid #00aac7;
+      }
+    }
+
+    .option {
+      cursor: pointer;
+      font-size: 2.5rem;
+      text-align: center;
+      width: 100%;
+      padding: 5px 0;
+      border-bottom: 3px solid #eae9e8;
+    }
+  }
+
+  .container-masonry {
+    .masonry {
+      .grid-item {
+        width: 32%;
       }
     }
   }
-  .sold-header-nav .nav-tabs li.active > .link:after,
-  .sold-header-nav .nav-tabs .item.active > .link:after {
-    position: absolute;
-    bottom: -1px;
-    left: 50%;
-    content: "";
-    margin-left: -7px;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 7px solid #fff;
-    box-sizing: border-box;
-  }
+
   .container--app {
-    width: 44%;
-    min-width: 30rem;
-    margin: 0 auto;
-    margin-top: 2em;
-    margin-right: 20px;
-    margin-left: 20px;
+    width: 100%;
   }
   .row-list__wrapper {
     margin: 20px 0;
-    border: 1px solid #d7d7d7;
-    border-radius: 4px;
   }
   .row-list__ul {
     padding: 0;
@@ -96,8 +99,7 @@
     overflow-y: visible;
   }
   .row-list__item {
-    width: 100%;
-    border-bottom: 1px solid #d7d7d7;
+    width: 50%;
     overflow: hidden;
     list-style-type: none;
     padding: 15px;
@@ -128,8 +130,8 @@
   }
 }
 
-@media screen and (max-width: 450px){
-  :host{
+@media screen and (max-width: 450px) {
+  :host {
     .container--app {
       width: 100%;
       margin: 0;

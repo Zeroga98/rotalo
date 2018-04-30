@@ -1,0 +1,27 @@
+:host {
+  width: 100%;
+  height: auto;
+  padding: 0 5%;
+  padding-left: 2%;
+  .container{
+    display: flex;
+    chat-threads{
+      width: 35%;
+    }
+  }
+  .tittle {
+    .text {
+      color: #ed2f3c;
+    }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
+  }
+}

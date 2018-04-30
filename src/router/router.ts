@@ -28,6 +28,9 @@ import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.pag
 import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from './guards/validate-session.service';
+import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
+import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
+import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
 
 export const appRouter: Routes = [
   {
@@ -40,8 +43,24 @@ export const appRouter: Routes = [
     component: SignUpPage
   },
   {
-    path: ROUTES.NOTIFICATIONS,
-    component: NotificationsPage
+    path: ROUTES.ROTALOCENTER,
+    component: RotaloCenterPage,
+    canActivate: [AuthGuardService],
+    children: [
+      { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
+      { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
+      { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
+      { path: ROUTES.MENUROTALOCENTER.MESSAGES, component: ChatPageComponent },
+      {
+        path: ROUTES.MENUROTALOCENTER.SELLING,
+        component: SellingPage,
+      },
+      {
+        path: '',
+        redirectTo: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER,
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: ROUTES.ACTIVACION,
@@ -77,14 +96,6 @@ export const appRouter: Routes = [
           component: DetalleProductoComponent,
         },
         {
-          path: ROUTES.PRODUCTS.SOLD,
-          component: SoldPage,
-        },
-        {
-          path: ROUTES.PRODUCTS.SELLING,
-          component: SellingPage,
-        }
-        , {
           path: `${ROUTES.PRODUCTS.BUY}/:id`,
           component: BuyProductPage,
         },
@@ -129,7 +140,6 @@ export const appRouter: Routes = [
       { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.HOBBIES, component: HobbiesPage },
       { path: ROUTES.EDITPROFILE, component: EditProfilePage },
-      { path: ROUTES.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       {
         path: '',
         redirectTo: ROUTES.SHOW,

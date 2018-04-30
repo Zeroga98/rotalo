@@ -11,6 +11,7 @@ import { UtilsService } from '../../../util/utils.service';
 })
 export class NotificationsSettingsPage implements OnInit {
   @ViewChild('f') preferenceForm: NgForm;
+  public disableButton;
   preferenceOptions = [{
     category: 'Publicaciones',
     label: 'Notifícame cuando una publicación expire.',
@@ -89,6 +90,11 @@ public userId: string;
 
   ngOnInit(): void {
     this.initPreference();
+    this.disableButton = true;
+  }
+
+   activateButton () {
+      this.disableButton = false;
   }
 
   initPreference() {

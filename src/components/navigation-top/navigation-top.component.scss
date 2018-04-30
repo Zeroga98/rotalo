@@ -60,6 +60,7 @@
         .navbar-brand {
             width: 130px;
             cursor: pointer;
+            margin-right: 8%;
             img{
                 height: auto;
                 width: 100%;
@@ -75,8 +76,15 @@
                     cursor: pointer;
                     color: white;
                 }
-                .icon-message, .icon-ring{
+                .icon-message, .icon-rotalo{
                     position: relative;
+                }
+                .icon-rotalo{
+                  display: block;
+                  width: 27px;
+                  height: 27px;
+                  background-image: url(../../assets/img/rotalo-center.svg);
+                  background-size: 27px 27px;
                 }
                 .noti-circle{
                     position: absolute;

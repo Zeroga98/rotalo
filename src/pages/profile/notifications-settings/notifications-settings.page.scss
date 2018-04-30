@@ -1,14 +1,15 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 :host {
-  display: block;
-  margin-bottom: 4rem;
+  width: 100%;
+  height: auto;
+  padding: 0 5%;
+  padding-left: 2%;
   .container {
-    width: 50%;
-    margin: 5rem auto 0;
-    padding-top: 20px;
+    width: 100%;
+    margin: 0;
     padding-bottom: 20px;
-    padding-left: 15px;
+    padding-left: 5%;
     padding-right: 15px;
   }
   .zeta,
@@ -179,9 +180,6 @@
     cursor: pointer;
   }
 
-  .flashMessage{
-    padding-bottom: 20px;
-  }
 
   .alert-success {
     padding: 15px;
@@ -207,6 +205,28 @@
     text-align: center;
     font-size: 1.6rem;
   }
+  .btn-notificationes{
+    width: 20rem;
+    margin: 0 auto;
+  }
+
+  .tittle {
+    .text{
+      color: #ed2f3c;
+    }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
+  }
+
   @media (max-width: 780px) {
     .container {
       width: 100%;

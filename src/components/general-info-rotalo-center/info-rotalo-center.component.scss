@@ -1,0 +1,110 @@
+:host {
+  width: 100%;
+  padding: 0 5%;
+  padding-left: 2%;
+  .info-container{
+    .content{
+      padding-right: 2%;
+    }
+  }
+  .tittle {
+    position: relative;
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .text{
+      color: #ed2f3c;
+    }
+    p.text {
+      font-size: 2.5rem;
+    }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+  .main-title{
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
+  }
+  .ranking-container {
+    position: relative;
+    border: 2px solid #9b9b9b;
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 8px 2%;
+    margin-bottom: 40px;
+    .ranking {
+      position: absolute;
+      top: 8px;
+      right: 2%;
+      display: flex;
+      .ico-star {
+        width: 25px;
+        height: 25px;
+        background: url(../../assets/img/estrella_linea.svg);
+        background-size: 25px 25px;
+        margin-left: 5px;
+      }
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
+  .elements-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px 0;
+    p {
+      color: white;
+      font-size: 2.5rem;
+    }
+    .element-process {
+      background-color: #33d7c7;
+    }
+    .element-product {
+      background-color: #41b4ca;
+    }
+    .element-attention {
+      background-color: #f3a643;
+    }
+  }
+  .elements-container > .element {
+    width: 250px;
+    height: 130px;
+    border-radius: 5px;
+    padding: 25px 15px;
+    margin-bottom: 15px;
+  }
+  .elements-container > .product-number {
+    border: 2px solid #c7c7c7;
+    padding: 20px 15px;
+  }
+  .elements-container {
+    .container-circle {
+      text-align: center;
+      .circle {
+        position: relative;
+        background: #ffffff;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border: 1px solid #A2A2A2;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 2.4rem;
+        line-height: 55px;
+      }
+      .info{
+        font-size: 2.4rem;
+      }
+    }
+  }
+}

@@ -1,28 +1,55 @@
-<div class="container-product" (click)="selectProduct()" *ngIf="product && product.user" #containerProducts>
-    <div class="container-photo">
-      <!--<img [src]="product.photos.url" [alt]="product.name">-->
-      <img (load)="triggerMasonryLayout()"  *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
-      <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name" (error)="updateSrc($event)">
-      <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
+<div class="container-product" (click)="selectProduct()" *ngIf="product" #containerProducts>
+  <div [ngClass]="isProductSelling ? 'opacity-container' : ''" class="container-photo">
+    <div *ngIf="isProductSelling" class="options-container">
+      <div class="delete" (click)="deleteProduct(product)"></div>
+      <div class="edit" (click)="editProduct(product)"></div>
     </div>
-    <div class="container-name">
-      <span class="name">{{product.name}}</span>
-    </div>
-    <div class="container-price">
-      <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
-    </div>
-    <div class="container-status">
-      <span class="name">{{product['sell-type'].toLowerCase()}}</span>
-    </div>
-    <div class="container-location">
-      <span class="icon-location"></span>
-      <span>{{getLocation(product)}}</span>
-    </div>
-    <div class="container-date">
-      <span class="icon-calendar"></span>
-      <p>
-        <span>Fecha de Publicación</span>
-        {{product['published-at'] | amTimeAgo}}</p>
+    <!--<img [src]="product.photos.url" [alt]="product.name">-->
+    <img (load)="triggerMasonryLayout()" *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
+    <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"
+      (error)="updateSrc($event)">
+    <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
+  </div>
+  <div class="container-name">
+    <span class="name">{{product.name}}</span>
+  </div>
+  <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
+    <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
+  </div>
+  <div *ngIf="showField" class="container-status">
+    <span class="name">{{product['sell-type'].toLowerCase()}}</span>
+  </div>
+  <div *ngIf="showField" class="container-location">
+    <span class="icon-location"></span>
+    <span>{{getLocation(product)}}</span>
+  </div>
+  <div class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de Publicación</span>
+      {{product['published-at'] | date}}</p>
+  </div>
+  <div *ngIf="isProductSelling" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de Caducación</span>
+      {{product['publish-until'] | date}}</p>
+  </div>
+  <div *ngIf="isProductSold" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de venta</span>
+      {{product['received-at'] | date}}</p>
+  </div>
+  <div *ngIf="isProductPurchased" class="container-date">
+    <span class="icon-calendar"></span>
+    <p>
+      <span>Fecha de compra</span>
+      {{product['received-at'] | date}}</p>
+  </div>
+  <div *ngIf="showField" class="container-info-user">
+    <div class="icon-container">
+      <span class="icon-account"></span>
     </div>
     <div class="container-info-user">
       <div class="icon-container">
@@ -37,3 +64,15 @@
       </div>
     </div>
   </div>
+  <div *ngIf="isProductSelling" class="media">
+    <div class="media-left media-middle">
+      <label class="switch">
+        <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
+        <div class="switch-slider round"></div>
+      </label>
+    </div>
+    <div class="media-body">
+      <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+    </div>
+  </div>
+</div>
