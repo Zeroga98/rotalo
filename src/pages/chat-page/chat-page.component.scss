@@ -3,6 +3,12 @@
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
+  .container{
+    display: flex;
+    chat-threads{
+      width: 35%;
+    }
+  }
   .tittle {
     .text {
       color: #ed2f3c;

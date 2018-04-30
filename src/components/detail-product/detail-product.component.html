@@ -5,16 +5,16 @@
   <div  class="product">
     <div *ngIf="products?.photos" class="product-photos">
       <div class="panel-heading">
-        <ngx-carousel  [inputs]="carouselConfig">
+        <ngx-carousel [inputs]="carouselConfig">
           <ngx-item NgxCarouselItem *ngFor="let productImage of productsPhotos">
             <div class="container-product__image">
               <img src="{{productImage?.url}}">
             </div>
           </ngx-item>
-          <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+          <span (click) = "clickArrow()" NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
             <span class="icon icon-chevron-thin-left"></span>
           </span>
-          <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+          <span (click) = "clickArrow()" NgxCarouselNext class="carousel-arrow carousel-arrow__next">
             <span class="icon icon-chevron-thin-right"></span>
           </span>
         </ngx-carousel>
