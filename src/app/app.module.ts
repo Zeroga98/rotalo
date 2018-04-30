@@ -123,6 +123,7 @@ import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-in
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { ClockAnimationComponent } from '../components/clock-animation/clock-animation.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
+import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.service';
 
 @NgModule({
   declarations: [
@@ -246,6 +247,7 @@ import { ErrorPageComponent } from '../components/error-page/error-page.componen
     TypeDocumentsService,
     ValidateSessionService,
     SavePasswordService,
+    ResumeRotaloCenterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

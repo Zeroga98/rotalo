@@ -1,24 +1,45 @@
 <div class="info-container">
   <div class="tittle main-title">
-    <h1 class="text">Tienes 10 mensajes pendientes</h1>
+    <h1 class="text">Tienes {{numberMessages}} mensajes pendientes</h1>
   </div>
   <div class="content">
     <div class="ranking-container">
       <p>Mi ranking general</p>
       <div class="ranking">
-        <p>3</p>
+        <p>{{mainRanking}}</p>
         <div class="ico ico-star"></div>
       </div>
     </div>
     <div class="elements-container">
       <div class="element element-process">
         <p>Rapidez en el proceso</p>
+        <div class="ranking-star">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
       </div>
       <div class="element element-product">
         <p>Calidad del producto</p>
+        <div class="ranking-star">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
       </div>
       <div class="element element-attention">
         <p>Amabilidad y atención</p>
+        <div class="ranking-star">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </div>
       </div>
     </div>
 
@@ -28,19 +49,19 @@
     <div class="elements-container">
       <div class="element product-number">
         <div class="container-circle">
-          <div class="circle">4</div>
+          <div class="circle">{{productsRotando}}</div>
           <div class="info">Artículos rotando</div>
         </div>
       </div>
       <div class="element product-number">
         <div class="container-circle">
-          <div class="circle">4</div>
+          <div class="circle">{{productsRotados}}</div>
           <div class="info">Artículos rotados</div>
         </div>
       </div>
       <div class="element product-number">
         <div class="container-circle">
-          <div class="circle">4</div>
+          <div class="circle">{{productExpire}}</div>
           <div class="info">Artículos vencidos</div>
         </div>
       </div>

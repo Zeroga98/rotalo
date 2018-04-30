@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { ChangeDetectorRef, ViewChild, Output, EventEmitter } from "@angular/core";
-=======
-import { ChangeDetectorRef, EventEmitter, Output } from "@angular/core";
->>>>>>> 6e18bd1ac3fee4258faf98d0d350aacfb9e87f44
 import {
   Component,
   OnInit,

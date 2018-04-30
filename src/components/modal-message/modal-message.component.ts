@@ -20,15 +20,15 @@ export class ModalMessageComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.loadMessage();
+   // this.loadMessage();
   }
 
-  loadMessage() {
+ /* loadMessage() {
     this.messagesService.getConversation().then(conver => {
       this.conversations = [].concat(conver);
       this.changeDetectorRef.markForCheck();
     });
-  }
+  }*/
 
   getUrlImage(name: string) {
     return `url('${name}')`;

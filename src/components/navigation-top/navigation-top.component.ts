@@ -12,7 +12,7 @@ import {
   Input,
   ChangeDetectionStrategy
 } from "@angular/core";
-import { MessagesService } from "../../services/messages.service";
+//import { MessagesService } from "../../services/messages.service";
 import { NavigationService } from "../../pages/products/navigation.service";
 @Component({
   selector: "navigation-top",
@@ -34,7 +34,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   private readonly timeToCheckNotification: number = 5000;
   constructor(
     private router: Router,
-    private messagesService: MessagesService,
+   // private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
     private navigationService: NavigationService,
     private notificationsService: NotificationsService
@@ -43,8 +43,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
     };
-    this.listenerMessages = this.setListenerMessagesUnread();
-    this.listenerMessages = this.setListenerNotificationsUnread();
+   // this.listenerMessages = this.setListenerMessagesUnread();
+  // this.listenerMessages = this.setListenerNotificationsUnread();
   }
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
@@ -73,7 +73,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   get notificationsAvailable(): boolean {
     return this.notificationsUnread > 0;
   }
-  private setListenerMessagesUnread() {
+
+ /* private setListenerMessagesUnread() {
     return setInterval(() => {
       this.messagesService.getConversationsUnread().then(conversations => {
         this.messagesUnRead = 0;
@@ -84,6 +85,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       });
     }, this.timeToCheckNotification);
   }
+
   private setListenerNotificationsUnread() {
     return setInterval(() => {
       this.notificationsService
@@ -93,7 +95,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
           this.changeDetector.markForCheck();
         });
     }, this.timeToCheckNotification);
-  }
+  }*/
   private goToFeed(id: number) {
     const currentUrl = window.location.pathname;
     const feedUrl = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;

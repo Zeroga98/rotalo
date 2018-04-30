@@ -7,7 +7,7 @@ import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class MessagesService {
-    currentUser: UserInterface;
+    /*currentUser: UserInterface;
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
@@ -42,5 +42,5 @@ export class MessagesService {
                 },
             })
             .toPromise();
-    }
+    }*/
 }

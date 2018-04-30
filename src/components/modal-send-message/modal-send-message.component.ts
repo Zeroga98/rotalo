@@ -31,7 +31,7 @@ export class ModalSendMessageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadMessage();
+    // this.loadMessage();
   }
 
   validateForm() {
@@ -40,15 +40,15 @@ export class ModalSendMessageComponent implements OnInit {
     });
   }
 
-  loadConversation(idMessage) {
+ /* loadConversation(idMessage) {
     this.messagesService.getConversationByID(idMessage).then(conver => {
       this.conversation = [].concat(conver);
       this.messages = [].concat(this.conversation[0].messages);
       this.changeDetectorRef.markForCheck();
     });
-  }
+  }*/
 
-  async loadMessage() {
+ /* async loadMessage() {
     this.validateForm();
     try {
       const conver = await this.messagesService.getConversation();
@@ -67,7 +67,7 @@ export class ModalSendMessageComponent implements OnInit {
       });
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
-  }
+  }*/
 
   showModal(): boolean {
     return this.conversation.length > 0;
@@ -91,8 +91,8 @@ export class ModalSendMessageComponent implements OnInit {
         content: this.formMessage.controls["message"].value,
         "product-id": this.idProduct
       };
-      const response = await this.messagesService.sendMessage(data);
-      this.loadMessage();
+     // const response = await this.messagesService.sendMessage(data);
+    //  this.loadMessage();
     } catch (error) {
       console.error("Error: ", error);
     }

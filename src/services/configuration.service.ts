@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConfigurationService {
- /* api = {
-    // protocol: 'http',
-    'protocol': "https",
-    'server': "api.staging.rotalo.co",
-    'inactivityLimit': 86400 // seconds
-  };*/
 
  /*
   apiNequi = {
@@ -15,7 +9,6 @@ export class ConfigurationService {
     'server': '10.43.1.10:2020',
     'inactivityLimit': 86400 // seconds
   };
-
 
   apiSapi = {
     'protocol': 'https',
@@ -34,6 +27,12 @@ export class ConfigurationService {
     'server': "api.dev.rotalo.co:1443/gateway/v1",
      'inactivityLimit': 86400 // seconds
   };
+
+ /* api = {
+    'protocol': "https",
+    'server': "api.rotalo.co",
+     'inactivityLimit': 86400 // seconds
+  };*/
 
   sapi = {
     'protocol': "https",
