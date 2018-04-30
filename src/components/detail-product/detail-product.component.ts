@@ -20,8 +20,7 @@ import { UserService } from "../../services/user.service";
 @Component({
   selector: "detail-product",
   templateUrl: "./detail-product.component.html",
-  styleUrls: ["./detail-product.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ["./detail-product.component.scss"]
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;

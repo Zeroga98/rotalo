@@ -11,10 +11,10 @@
               <img src="{{productImage?.url}}">
             </div>
           </ngx-item>
-          <span (click) = "clickArrow()" NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+          <span (click) = "clickArrow()" NgxCarouselPrev class="gtmFlechasProductos carousel-arrow carousel-arrow__prev">
             <span class="icon icon-chevron-thin-left"></span>
           </span>
-          <span (click) = "clickArrow()" NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+          <span (click) = "clickArrow()" NgxCarouselNext class="gtmFlechasProductos carousel-arrow carousel-arrow__next">
             <span class="icon icon-chevron-thin-right"></span>
           </span>
         </ngx-carousel>
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <div class="media-middle product-info-user--data">
+          <div *ngIf="products.user.company" class="media-middle product-info-user--data">
             <p class="name-user">{{products.user.name}}</p>
             <p class="panel-product">{{products.user.company.name}} -
               <span>{{products.user.company.community.name}}</span>

@@ -4,8 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 @Component({
   selector: "detalle-producto",
   templateUrl: "./detalle-producto.component.html",
-  styleUrls: ["./detalle-producto.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ["./detalle-producto.component.scss"]
 })
 export class DetalleProductoComponent implements OnInit {
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
