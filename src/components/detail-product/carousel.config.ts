@@ -50,4 +50,5 @@ width: 8px;
     touch: true,
     loop: true,
     custom: 'banner'
-};
+}
+;
