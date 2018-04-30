@@ -30,8 +30,8 @@ export class PhotosService {
                     }).toPromise();
     }
 
-    private buildFormData(file: File): FormData{
-        let formData= new FormData();
+    private buildFormData(file: File): FormData {
+        const formData = new FormData();
         formData.append('data[attributes][file]', file, file.name);
         formData.append('data[type]', 'photos');
         return formData;

@@ -41,7 +41,12 @@
       [infiniteScrollDisabled]="isInfiniteScrollDisabled"
       (scrolled)="scrolledInfinite()">
         <masonry-brick class="grid-item" *ngFor="let product of products">
+            <div *ngIf="product && product.status === 'sell_process'" class="lable-sell-process">
+                <div class="icon-clock label-sell--center"></div>
+                <label class="label-sell--center">Venta en proceso</label>
+            </div>
             <product
+            [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
             [isProductSelling]="false"
             [showField] = "true"
             [product]="product"
@@ -51,5 +56,4 @@
         </masonry-brick>
       </masonry>
   </div>
-
 </div>

@@ -6,8 +6,7 @@
     </div>
     <!--<img [src]="product.photos.url" [alt]="product.name">-->
     <img (load)="triggerMasonryLayout()" *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
-    <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"
-      (error)="updateSrc($event)">
+    <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"  (error)="updateSrc($event)">
     <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
   </div>
   <div class="container-name">

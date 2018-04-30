@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 94">
+  <defs>
+    <style>
+      .cls-1, .cls-6, .cls-7 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-5, .cls-7 {
+        stroke: #ae1631;
+      }
+
+      .cls-3, .cls-5, .cls-6, .cls-7 {
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-4 {
+        fill: #e9eaeb;
+      }
+
+      .cls-5 {
+        fill: #e72f3c;
+      }
+
+      .cls-6 {
+        stroke: #2a5082;
+      }
+    </style>
+  </defs>
+  <g id="icono_efectivo" transform="translate(-867 -1509)">
+    <rect id="Rectangle_80" data-name="Rectangle 80" class="cls-1" width="94" height="94" rx="15" transform="translate(867 1509)"/>
+    <g id="Group_390" data-name="Group 390" transform="translate(886 1531)">
+      <path id="Path_152" data-name="Path 152" class="cls-2" d="M16,25V41H35V36a6.359,6.359,0,0,0,4-6V25Z"/>
+      <path id="Path_153" data-name="Path 153" class="cls-3" d="M35,41V36a6.359,6.359,0,0,0,4-6V25H16V41"/>
+      <rect id="Rectangle_49" data-name="Rectangle 49" class="cls-4" width="23" height="7" transform="translate(14 41)"/>
+      <path id="Path_154" data-name="Path 154" class="cls-5" d="M14,48V41H37v7"/>
+      <rect id="Rectangle_50" data-name="Rectangle 50" class="cls-3" width="53" height="26" transform="translate(1 1)"/>
+      <path id="Path_155" data-name="Path 155" class="cls-5" d="M46,22H9a2.946,2.946,0,0,0-3-3H6V9H6A2.946,2.946,0,0,0,9,6H46a2.946,2.946,0,0,0,3,3V19h0a2.946,2.946,0,0,0-3,3Z"/>
+      <line id="Line_3" data-name="Line 3" class="cls-6" x2="2" transform="translate(15 14)"/>
+      <path id="Path_156" data-name="Path 156" class="cls-3" d="M23,14a4.736,4.736,0,0,1,4.5-5A4.736,4.736,0,0,1,32,14a4.736,4.736,0,0,1-4.5,5A4.736,4.736,0,0,1,23,14Z"/>
+      <path id="Path_157" data-name="Path 157" class="cls-2" d="M27,33s-.3-8-8-8V18c0-4.6-7-6.5-7-3V29.5c0,3.7,4,6.5,4,6.5v4Z"/>
+      <path id="Path_158" data-name="Path 158" class="cls-7" d="M27,33s-.3-8-8-8V18c0-4.6-7-6.5-7-3V29.5c0,3.7,4,6.5,4,6.5v4"/>
+    </g>
+  </g>
+</svg>

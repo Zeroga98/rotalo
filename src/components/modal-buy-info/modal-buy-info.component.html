@@ -1,0 +1,32 @@
+<div class="container-modal">
+    <div class="modal__body modal--offer">
+      <div  class="text-xs-center">
+          <img src="/assets/img/icono_chat.svg" alt="Chat con vendedor">
+      </div>
+      <div  class="text-xs-center">
+        <h3>{{titleModal}}</h3>
+      </div>
+      <div  class="text-xs-center">
+        <p>
+          {{descriptionModal}}
+        </p>
+      </div>
+      <div *ngIf="!isSellProcess()" class="text-xs-center">
+          <label>
+            ¿Ya lo contactaste?
+          </label>
+      </div>
+      <div class="modal__button">
+          <div *ngIf="!isSellProcess()">
+              <div class="button-modal button-modal-space"><custom-button text="No" (click)="closeModalBuy()" ></custom-button></div>
+              <div class="button-modal" ><custom-button text="Sí" (click)="buyProduct()"></custom-button></div>
+              <div class="buy-continue"><a (click)="buyProduct()">No, pero quiero continuar con la compra</a></div>
+          </div>
+          <div *ngIf="isSellProcess()">
+              <div class="button-modal button-modal-space"><custom-button text="Aceptar" (click)="onlyCloseModal()" ></custom-button></div>
+          </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+    </div>
+  </div>

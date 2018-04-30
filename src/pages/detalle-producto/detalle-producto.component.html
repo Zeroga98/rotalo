@@ -1,3 +1,7 @@
-<custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-<detail-product *ngIf="!isSpinnerShow" [idProduct]="idProduct" ></detail-product>
-<custom-footer></custom-footer>
+<div class="container">
+  <detail-product (notify)='onNotify($event)' *ngIf="!isSpinnerShow" [idProduct]="idProduct" ></detail-product>
+</div>
+<custom-footer *ngIf="isFooterShow"></custom-footer>
+
+
+

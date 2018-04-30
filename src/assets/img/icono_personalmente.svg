@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 94">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke: #ae1631;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        fill: #e72f3c;
+      }
+    </style>
+  </defs>
+  <g id="icono_personalmente" transform="translate(-1251 -1509)">
+    <rect id="Rectangle_77" data-name="Rectangle 77" class="cls-1" width="94" height="94" rx="15" transform="translate(1251 1509)"/>
+    <g id="Group_387" data-name="Group 387" transform="translate(1274 1531)">
+      <path id="Path_159" data-name="Path 159" class="cls-2" d="M26,21s1.5-2.1,2-3c.8-1.3,2.9-4,6-4h7a6.072,6.072,0,0,1,6,6v8a4.3,4.3,0,0,1-4,4H42V48.343"/>
+      <path id="Path_160" data-name="Path 160" class="cls-2" d="M31,48V22l-3,4"/>
+      <line id="Line_4" data-name="Line 4" class="cls-2" y2="27" transform="translate(42 21)"/>
+      <line id="Line_5" data-name="Line 5" class="cls-2" y2="16" transform="translate(37 32)"/>
+      <path id="Path_161" data-name="Path 161" class="cls-3" d="M16,48V22l6.2,6.5a2.534,2.534,0,0,0,3.6,0l1.1-1.1S23.3,21.8,22,20s-3.8-6-8-6H7a6.072,6.072,0,0,0-6,6v8a4.3,4.3,0,0,0,4,4V48"/>
+      <line id="Line_6" data-name="Line 6" class="cls-4" y2="27" transform="translate(5 21)"/>
+      <line id="Line_7" data-name="Line 7" class="cls-4" y2="16" transform="translate(11 32)"/>
+      <path id="Path_162" data-name="Path 162" class="cls-2" d="M11,11a3.833,3.833,0,0,0,4-4V5a3.833,3.833,0,0,0-4-4A3.833,3.833,0,0,0,7,5V7A3.833,3.833,0,0,0,11,11Z"/>
+      <path id="Path_163" data-name="Path 163" class="cls-2" d="M37,11a3.833,3.833,0,0,0,4-4V5a4,4,0,0,0-8,0V7A3.833,3.833,0,0,0,37,11Z"/>
+    </g>
+  </g>
+</svg>

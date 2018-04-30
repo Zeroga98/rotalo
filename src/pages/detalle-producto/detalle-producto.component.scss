@@ -1,8 +1,5 @@
 @import '../../styles/settings/_colors.scss';
 @import '../../styles/settings/_variables.scss';
-
-
-
 custom-spinner{
     position: absolute;
     left: 50%;
@@ -10,8 +7,8 @@ custom-spinner{
     transform: translate(-50%, 50%);
 }
 
-.container{
-    max-width: 1230px;
-    width: 100%;
-    margin: 0 auto;
+
+:host(){
+
+
 }

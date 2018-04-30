@@ -31,6 +31,7 @@ import { ValidateSessionService } from './guards/validate-session.service';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
 import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
+import { ErrorPageComponent } from '../components/error-page/error-page.component';
 
 export const appRouter: Routes = [
   {
@@ -102,6 +103,10 @@ export const appRouter: Routes = [
         {
           path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
           component: SimulateCreditPage,
+        },
+        {
+          path: ROUTES.PRODUCTS.ERROR,
+          component: ErrorPageComponent,
         },
         {
             path: '',

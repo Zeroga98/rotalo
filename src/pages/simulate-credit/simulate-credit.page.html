@@ -20,30 +20,35 @@
       <div class="info-product">
         <div class="form-group">
           <p class="text-label">¿Cuál es el valor del carro?*</p>
-          <input currencyMask [ngClass]="{'invalid': simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine}"
-            class="form-control" formControlName="credit-value" maxlength="18">
+          <input currencyMask
+          [options]="{align: 'left', precision: 0}"
+          [ngClass]="{'invalid': simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine}"
+          class="form-control" formControlName="credit-value" maxlength="18">
           <span class="help-block" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
             <span *ngIf="simulateForm.get('credit-value').errors['required']">
               Este campo es obligatorio.
             </span>
             <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
-              El campo no cumple con el valor mínimo $10,000,000.00
+              El campo no cumple con el valor mínimo $10,000,000
             </span>
             <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
-              El campo no cumple con el valor máximo $5,000,000,000.00
+              El campo no cumple con el valor máximo $5,000,000,000
             </span>
           </span>
         </div>
         <div class="form-group">
           <p class="text-label">¿Cuánto dinero tienes para la cuota inicial?*</p>
-          <input currencyMask [ngClass]="{'invalid': simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine}"
-            class="form-control" formControlName="initial-quota" maxlength="18">
+          <input currencyMask
+          [options]="{align: 'left', precision: 0}"
+          [ngClass]="{'invalid': simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine}"
+          class="form-control"
+          formControlName="initial-quota"  maxlength="18">
           <span class="help-block">
             <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
               Este campo es obligatorio.
             </span>
             <span *ngIf="simulateForm.errors">
-              El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency}}
+              El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$":0 | removeDigits}}
             </span>
           </span>
         </div>
@@ -51,7 +56,12 @@
       <div class="form-group">
         <p class="text-label range">¿En cuánto tiempo quieres pagarlo?*</p>
         <div class="slidecontainer">
-          <input [(ngModel)]="rangeTimeToPay" formControlName="term-months" type="range" min="1" max="72" class="slider">
+          <input
+          id= "rangeTimetoPay"
+          [(ngModel)]="rangeTimeToPay"
+          formControlName="term-months"
+          type="range" min="1" max="72"
+          class="slider">
           <p>{{rangeTimeToPay}} mes
             <span *ngIf="rangeTimeToPay > '1'">es</span>
           </p>
@@ -73,7 +83,7 @@
         </div>
       </div>
       <div class="form-group">
-        <p class="result-simulation">{{rangeTimeToPay}} cuotas mensuales: {{resultCredit | currency}}</p>
+        <p class="result-simulation">{{rangeTimeToPay}} cuotas mensuales: {{resultCredit  | currency:"$":0 | removeDigits}}</p>
       </div>
       <div class="form-group">
         <p class="info-simulation">Esta información es suministrada en atención a la solicitud que el cliente ha efectuado a Bancolombia S.A., la misma

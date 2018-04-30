@@ -22,7 +22,8 @@ export const ROUTES = {
         FEED: 'feed',
         UPLOAD: 'form',
         BUY: 'buy',
-        SIMULATECREDIT: 'simulate-credit'
+        SIMULATECREDIT: 'simulate-credit',
+        ERROR: 'error'
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',

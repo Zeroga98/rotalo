@@ -1,4 +1,8 @@
-import { ChangeDetectorRef, ViewChild } from "@angular/core";
+<<<<<<< HEAD
+import { ChangeDetectorRef, ViewChild, Output, EventEmitter } from "@angular/core";
+=======
+import { ChangeDetectorRef, EventEmitter, Output } from "@angular/core";
+>>>>>>> 6e18bd1ac3fee4258faf98d0d350aacfb9e87f44
 import {
   Component,
   OnInit,
@@ -33,12 +37,14 @@ export class DetailProductComponent implements OnInit {
   public isSufiModalShowed: boolean = false;
   public isOfferModalShowed: boolean = false;
   public isModalSendMessageShowed: boolean = false;
+  public isModalBuyShowed: boolean = false;
   public idUser: string = this.currentSessionSevice.getIdUser();
   public conversation: ConversationInterface;
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
 
   constructor(
@@ -62,6 +68,7 @@ export class DetailProductComponent implements OnInit {
   async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(this.idProduct);
+      this.onLoadProduct(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -76,20 +83,36 @@ export class DetailProductComponent implements OnInit {
       this.productStatus = this.products.status === "active";
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      console.log("Error: ", error);
+      if (error.status === 404) {
+        this.redirectErrorPage();
+      }
     }
+  }
+
+  redirectErrorPage() {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`
+      ]);
+  }
+
+  onLoadProduct(product) {
+    this.notify.emit(product);
   }
 
   saveCheck() {
     this.productStatus = !this.productStatus;
-    this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
-
+    this.productStatus ? (this.productChecked = "active") : (this.productChecked = "inactive");
     const params = {
       status: this.productStatus ? "active" : "inactive"
     };
+    this.productsService.updateProduct(this.products.id, params).then(response => {
+    });
+  }
 
+  changeStatusBuy() {
+    const params = {
+      status: "buying"
+    };
     this.productsService.updateProduct(this.products.id, params).then(response => {
     });
   }
@@ -126,6 +149,10 @@ export class DetailProductComponent implements OnInit {
     return this.products && this.products.user.id === this.idUser;
   }
 
+  isSellProcess() {
+    return this.products && this.products.status === "sell_process";
+  }
+
   isSold() {
     return this.products && this.products.status === "sold";
   }
@@ -160,6 +187,21 @@ export class DetailProductComponent implements OnInit {
       ROUTES.PRODUCTS.BUY
     }/${id}`;
     this.router.navigate([urlBuyProduct]);
+  }
+
+  async showBuyModal() {
+    try {
+      this.products = await this.productsService.getProductsById(this.idProduct);
+      this.isModalBuyShowed = true;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
+  showMessageModal(evt) {
+    this.isModalBuyShowed = evt.isModalBuyShowed;
+    this.isModalSendMessageShowed = evt.isModalSendMessageShowed;
   }
 
   openSufiModal(product: ProductInterface) {

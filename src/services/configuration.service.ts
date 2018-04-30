@@ -6,11 +6,24 @@ export class ConfigurationService {
     // protocol: 'http',
     'protocol': "https",
     'server': "api.staging.rotalo.co",
-    // server: 'api.rotalo.dev.localhost:3000',
     'inactivityLimit': 86400 // seconds
   };*/
 
-   /*api = {
+ /*
+  apiNequi = {
+    'protocol': 'https',
+    'server': '10.43.1.10:2020',
+    'inactivityLimit': 86400 // seconds
+  };
+
+
+  apiSapi = {
+    'protocol': 'https',
+    'server': '10.43.1.10:1443',
+    'inactivityLimit': 86400 // seconds
+  };
+
+  api = {
       'protocol': "https",
       'server': "api.rotalo.co",
        'inactivityLimit': 86400 // seconds
@@ -38,6 +51,15 @@ export class ConfigurationService {
     "Content-Type": "application/vnd.api+json"
   };
 
+  jsonNequiHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Request-With',
+    'Access-Control-Allow-Credentials': 'true',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+
   constructor() {}
 
   getBaseUrl(): string {
@@ -45,7 +67,7 @@ export class ConfigurationService {
   }
 
   getBaseSapiUrl(): string {
-    return this.api.protocol + '://' + this.sapi.server;
+    return this.sapi.protocol + '://' + this.sapi.server;
   }
 
   getJsonApiHeaders() {

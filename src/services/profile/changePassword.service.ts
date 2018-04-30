@@ -21,5 +21,4 @@ constructor(private http: HttpClient,
     const headers = new HttpHeaders(jsonApiHeaders);
     return this.http.post(url, currentUser, { headers: headers }).toPromise();
   }
-
 }

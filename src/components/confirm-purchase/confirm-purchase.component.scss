@@ -1,0 +1,97 @@
+:host {
+  .container-offer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    .container {
+      width: 100rem;
+      min-width: 310px;
+      .container-header {
+        position: relative;
+        right: 3%;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        margin: 1.5rem;
+        padding-right: 4%;
+        margin-bottom: 2rem;
+        background-color: #f7f7f7;
+      }
+      .buy-detail {
+        margin-bottom: 40px;
+        p {
+          font-size: 2.0rem;
+          color: #ff2334;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
+      .gif-container {
+        text-align: center;
+        img {
+          width: 147.72px;
+          height: 89.96px;
+        }
+        .title-gif {
+          font-size: 1.8rem;
+          color: #ff2334;
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+      }
+      .note-info {
+        font-size: 1.8rem;
+        color: #777777;
+        border: 1px solid #b9b9b9;
+        padding: 22px 90px 22px 90px;
+        border-radius: 10px;
+        position: relative;
+        span {
+          position: absolute;
+          left: 5%;
+          color: #ff2334;
+        }
+      }
+    }
+  }
+
+  .container-gallery {
+    margin-top: 70px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .gallery {
+      width: 325px;
+      text-align: center;
+    }
+    .container-img {
+      padding-bottom: 30px;
+    }
+    .container-img--big {
+      padding-bottom: 15px;
+    }
+    .desc {
+      font-size: 1.8rem;
+      color: #777777;
+    }
+
+    .desc--small {
+      font-size: 1.4rem;
+      color: #777777;
+      position: relative;
+      margin-left: 10%;
+      text-align: justify;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      span {
+        color: #ff2334;
+        position: absolute;
+        left: -25px;
+        font-size: 2rem;
+      }
+    }
+  }
+}

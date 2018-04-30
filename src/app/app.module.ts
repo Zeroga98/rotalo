@@ -117,7 +117,12 @@ import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
 import { ChatThreadsComponent } from '../components/chat-threads/chat-threads.component';
 import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
 import { ChatThreadComponent } from '../components/chat-thread/chat-thread.component';
-
+import { ConfirmPurchaseComponent } from '../components/confirm-purchase/confirm-purchase.component';
+import { InfoPageComponent } from '../components/info-page/info-page.component';
+import { ModalBuyInfoComponent } from '../components/modal-buy-info/modal-buy-info.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
+import { ClockAnimationComponent } from '../components/clock-animation/clock-animation.component';
+import { ErrorPageComponent } from '../components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -186,7 +191,12 @@ import { ChatThreadComponent } from '../components/chat-thread/chat-thread.compo
     ChatPageComponent,
     ChatThreadComponent,
     ChatThreadsComponent,
-    ChatWindowComponent
+    ChatWindowComponent,
+    ConfirmPurchaseComponent,
+    InfoPageComponent,
+    ModalBuyInfoComponent,
+    ClockAnimationComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -202,6 +212,7 @@ import { ChatThreadComponent } from '../components/chat-thread/chat-thread.compo
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
+    LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule
   ],
   providers: [

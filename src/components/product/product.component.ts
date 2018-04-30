@@ -19,6 +19,7 @@ import {
 import { ProductsService } from "../../services/products.service";
 import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
+//import {  AngularMasonry } from 'angular2-masonry';
 @Component({
   selector: "product",
   templateUrl: "./product.component.html",
@@ -52,9 +53,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.changeDetectorRef.markForCheck();
     }
 
-  ngAfterViewInit(): void {
-    this.checkSizeCard();
-  }
+    ngAfterViewInit(): void {
+      this.checkSizeCard();
+    }
 
   triggerMasonryLayout() {
     //this.masonryInfo._msnry.reloadItems();

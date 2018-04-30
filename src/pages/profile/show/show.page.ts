@@ -47,7 +47,6 @@ export class ShowPage implements OnInit {
   }
 
   onLogout() {
-    location.reload();
     this.loginService.logout();
   }
 

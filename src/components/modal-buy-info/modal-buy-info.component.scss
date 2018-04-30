@@ -1,0 +1,122 @@
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_variables.scss";
+
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .container-modal {
+    background: #ffffff;
+    width: 53%;
+    height: fit-content;
+    min-height: 460px;
+    max-height: 500px;
+    max-width: 703px;
+    //display: flex;
+    //flex-direction: column;
+    border-radius: 15px;
+    .modal__body {
+      overflow: hidden;
+    }
+    .modal__button {
+      text-align: center;
+      padding: 20px 2.5rem;
+    }
+  }
+  .modal__body {
+    padding: 60px 4% 30px 4%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    //  max-height: 80vh;
+  }
+  .text-xs-center {
+    text-align: center;
+  }
+  .text--grey-dark {
+    color: #4a4a4a;
+  }
+
+  .tips-list__item {
+    padding: 0px 40px;
+    display: inline-block;
+    max-width: 250px;
+    font-size: 17px;
+    text-align: left;
+  }
+
+  .button-modal {
+    width: 25%;
+    display: inline-block;
+  }
+
+  .button-modal-space {
+    margin-right: 2%;
+  }
+
+  .buy-continue {
+    cursor: pointer;
+    padding-top: 30px;
+    font-size: 18px;
+    color: #ff2334;
+    text-decoration: underline;
+  }
+
+  img {
+    width: 22%;
+    height: 89.96px;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  h3 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 35px;
+    color: #ff2334;
+  }
+  p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #777777;
+  }
+  label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #777777;
+  }
+
+  @media (max-width: 890px) {
+    .container-modal {
+      width: 90%;
+      max-height: 580px;
+      .modal__body {
+        padding: 25px 4% 30px 4%;
+      }
+      img {
+        width: 85px;
+        height: auto;
+      }
+      h3 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .button-modal{
+        width: 50%;
+      }
+      .button-modal-space{
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

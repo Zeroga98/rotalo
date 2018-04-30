@@ -18,8 +18,18 @@ export class ValidateSessionInterceptor implements HttpInterceptor {
                 this.currentSession.clearSession();
                 this.router.navigate([`/`]);
                 location.reload();
+            }else if (this.isConversationsOrUnread(req)) {
+              if (error.status === 500) {
+                this.currentSession.clearSession();
+                this.router.navigate([`/`]);
+                location.reload();
+              }
             }
             return Observable.throw(error);
         });
+    }
+
+    private isConversationsOrUnread (req: HttpRequest<any>): boolean {
+      return req.url.includes('unread_notifications') || req.url.includes('conversations');
     }
 }
