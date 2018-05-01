@@ -111,6 +111,9 @@
     .edit{
       background: url(../../assets/img/lapiz.svg);
     }
+    .republish{
+      background: url(../../assets/img/actualizar.svg);
+    }
     .opacity-container:after{
       content: "";
       background: rgba(0, 0, 0, 0.22);
@@ -131,7 +134,7 @@
       right: 0;
       display: flex;
       padding: 5px;
-      .delete, .edit{
+      .delete, .edit, .republish{
         cursor: pointer;
         padding: 2px;
         margin: 3px;

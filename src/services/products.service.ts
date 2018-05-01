@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 @Injectable()
 export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/products';
+    readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/centro/rotalo/republicaciones';
 
     constructor(private http: HttpClient,
       private configurationService: ConfigurationService,
@@ -49,7 +50,7 @@ export class ProductsService {
       const url = `${this.url}/${id}`;
       const request = this._buildParams(params);
       request.data.id = `${id}`;
-      return this.http.put(url ,request).toPromise().then( (response: any) => response.data);
+      return this.http.put(url , request).toPromise().then( (response: any) => response.data);
     }
 
     saveProducts(params): Promise<any> {
@@ -62,6 +63,12 @@ export class ProductsService {
                 attributes: params,
                 type: 'products'
             },
-        }
+        };
+    }
+
+    republishService(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      return this.http.put(this.urlSapi, params, { headers: headers });
     }
 }

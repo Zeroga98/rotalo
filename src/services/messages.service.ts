@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
 import { UserInterface } from '../commons/interfaces/user.interface';
@@ -7,8 +7,9 @@ import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class MessagesService {
-    /*currentUser: UserInterface;
+    currentUser: UserInterface;
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
+    readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/centro/rotalo/notificaciones-sin-leer';
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
@@ -32,6 +33,15 @@ export class MessagesService {
                     .toPromise();
     }
 
+    getMessagesUnred(idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      return this.http
+        .get(this.urlSapi, { headers: headers })
+        .map((response: any) => response);
+    }
+
     sendMessage(params): Promise<any> {
       const url = this.configurationService.getBaseUrl() + '/messages';
         return this.http.post(url,
@@ -42,5 +52,5 @@ export class MessagesService {
                 },
             })
             .toPromise();
-    }*/
+    }
 }

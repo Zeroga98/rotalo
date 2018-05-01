@@ -31,6 +31,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() masonryInfo;
   @Input() showField: boolean;
   @Input() isProductSelling: boolean;
+  @Input() expiredProduct: boolean;
   @Input() isProductSold: boolean;
   @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
@@ -58,8 +59,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
 
   triggerMasonryLayout() {
-    //this.masonryInfo._msnry.reloadItems();
-    console.log('********', this.masonryInfo);
     this.masonryInfo.layout();
   }
   saveCheck() {
@@ -104,6 +103,20 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.router.navigate([
       `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
     ]);
+  }
+
+  republish(product: ProductInterface) {
+    const param = {
+        "idProducto": product.id
+    };
+    this.productsService.republishService(param).subscribe(
+      state => {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+        ]);
+      },
+      error => console.log(error)
+    );
   }
 
   private checkSizeCard() {

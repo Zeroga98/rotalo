@@ -12,8 +12,9 @@ import {
   Input,
   ChangeDetectionStrategy
 } from "@angular/core";
-//import { MessagesService } from "../../services/messages.service";
+import { MessagesService } from "../../services/messages.service";
 import { NavigationService } from "../../pages/products/navigation.service";
+import { CurrentSessionService } from "../../services/current-session.service";
 @Component({
   selector: "navigation-top",
   templateUrl: "./navigation-top.component.html",
@@ -31,20 +32,22 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   listenerMessages: any;
   messagesUnRead: number = 0;
   notificationsUnread: number = 0;
+  userId;
   private readonly timeToCheckNotification: number = 5000;
   constructor(
     private router: Router,
-   // private messagesService: MessagesService,
+    private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
     private navigationService: NavigationService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private currentSessionService: CurrentSessionService
   ) {}
   ngOnInit() {
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
     };
-   // this.listenerMessages = this.setListenerMessagesUnread();
-  // this.listenerMessages = this.setListenerNotificationsUnread();
+    this.userId = this.currentSessionService.getIdUser();
+    this.listenerMessages = this.setListenerMessagesUnread(this.userId);
   }
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
@@ -61,41 +64,24 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       ? location.reload()
       : this.router.navigate([url]);
   }
-  openConversations() {
-    this.isModalMessageShowed = true;
-  }
-  closeModalMessage() {
-    this.isModalMessageShowed = false;
-  }
+
   get messageAvailable(): boolean {
     return this.messagesUnRead > 0;
   }
-  get notificationsAvailable(): boolean {
-    return this.notificationsUnread > 0;
-  }
 
- /* private setListenerMessagesUnread() {
+  private  setListenerMessagesUnread(userId) {
     return setInterval(() => {
-      this.messagesService.getConversationsUnread().then(conversations => {
-        this.messagesUnRead = 0;
-        conversations.forEach(conversation => {
-          this.messagesUnRead += conversation["unread-count"];
-        });
-        this.changeDetector.markForCheck();
-      });
-    }, this.timeToCheckNotification);
-  }
-
-  private setListenerNotificationsUnread() {
-    return setInterval(() => {
-      this.notificationsService
-        .getUnreadNotifications()
-        .then((notifications: any) => {
-          this.notificationsUnread = notifications["unread-notifications"];
+      this.messagesService.getMessagesUnred("41").subscribe(
+        state => {
+          console.log(state);
+          this.messagesUnRead = state.body.cantidadNotificaciones;
           this.changeDetector.markForCheck();
-        });
+        },
+        error => console.log(error)
+      );
     }, this.timeToCheckNotification);
-  }*/
+  }
+
   private goToFeed(id: number) {
     const currentUrl = window.location.pathname;
     const feedUrl = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;

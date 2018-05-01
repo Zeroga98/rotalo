@@ -4,19 +4,18 @@ import { ConfigurationService } from "./configuration.service";
 
 @Injectable()
 export class ResumeRotaloCenterService {
+  readonly url = this.configurationService.getBaseSapiUrl() + `/centro/rotalo/resumenes`;
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService
   ) {}
 
   resumeRotaloCenter(idUser) {
-    const url = this.configurationService.getBaseSapiUrl() + `/centro/rotalo/resumenes`;
     let jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonNequiHeaders = Object.assign(jsonNequiHeaders, {userid: idUser} );
-    console.log(jsonNequiHeaders);
     const headers = new HttpHeaders(jsonNequiHeaders);
     return this.httpClient
-      .get(url, { headers: headers })
+      .get(this.url, { headers: headers })
       .map((response: any) => response);
   }
 }
