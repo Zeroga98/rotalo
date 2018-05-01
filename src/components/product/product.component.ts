@@ -59,6 +59,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   triggerMasonryLayout() {
     //this.masonryInfo._msnry.reloadItems();
+    console.log('********', this.masonryInfo);
     this.masonryInfo.layout();
   }
   saveCheck() {

@@ -32,7 +32,7 @@ export class LoginService {
   }
 
   logOutService (token) {
-    const url = this.configurationService.getBaseSapiUrl + '/logout' + '?token=' + token;
+    const url = this.configurationService.getBaseSapiUrl() + '/logout' + '?token=' + token;
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
     return this.http.get(url, { headers: headers}).map( (response: any) =>
