@@ -73,7 +73,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return setInterval(() => {
       this.messagesService.getMessagesUnred("41").subscribe(
         state => {
-          console.log(state);
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.changeDetector.markForCheck();
         },
