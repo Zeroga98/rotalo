@@ -11,12 +11,13 @@ export class RotaloCenterComponent implements OnInit {
   private userId;
   public numberMessages;
   public mainRanking;
-  public speedRanking;
-  public qualityRanking;
-  public attentionRanking;
+  public speedRanking = 0;
+  public qualityRanking = 0;
+  public attentionRanking = 0;
   public productsRotando;
   public productsRotados;
   public productExpire;
+
   constructor(
     private resumeRotaloCenterService: ResumeRotaloCenterService,
     private currentSessionService: CurrentSessionService
@@ -41,7 +42,6 @@ export class RotaloCenterComponent implements OnInit {
         this.mainRanking = this.speedRanking + this.qualityRanking + this.attentionRanking;
         this.mainRanking =  this.mainRanking / 3 ;
         this.mainRanking = Math.round(this.mainRanking);
-
       },
       error => console.log(error)
     );

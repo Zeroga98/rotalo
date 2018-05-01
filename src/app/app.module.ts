@@ -124,6 +124,8 @@ import { LottieAnimationViewModule } from 'ng-lottie';
 import { ClockAnimationComponent } from '../components/clock-animation/clock-animation.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
 import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.service';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { ShowStarComponent } from '../components/show-star/show-star.component';
 
 @NgModule({
   declarations: [
@@ -197,7 +199,8 @@ import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.serv
     InfoPageComponent,
     ModalBuyInfoComponent,
     ClockAnimationComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ShowStarComponent
   ],
   imports: [
     BrowserModule,
@@ -214,7 +217,8 @@ import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.serv
     ImageUploadModule.forRoot(),
     RouterModule.forRoot(appRouter),
     LottieAnimationViewModule.forRoot(),
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    BarRatingModule
   ],
   providers: [
     UserService,

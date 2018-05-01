@@ -1,0 +1,18 @@
+:host {
+  .group{
+    padding: 10px 0 10px 0;
+    width: 100%;
+  }
+  .star {
+    margin: 1px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: url(../../assets/img/estrella_blanca_linea.svg);
+    background-size: 25px 25px;
+  }
+  .star-full {
+    background: url(../../assets/img/estrella_blanca.svg);
+    background-size: 25px 25px;
+  }
+}
