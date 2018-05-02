@@ -109,8 +109,8 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.product);
       this.currentUser = await this.userService.getInfoUser();
-
       this.cellphoneUser = this.currentUser.cellphone;
       this.idNumberBuyer = this.currentUser['id-number'];
       this.categoryProduct = this.product.subcategory.category.name;
@@ -157,6 +157,18 @@ export class BuyProductPage implements OnInit {
         this.changeDetectorRef.markForCheck();
       }
     } catch (error) {
+      if (error.status === 404) {
+        this.redirectErrorPage();
+      }
+    }
+  }
+
+  async buyProductCash() {
+    try {
+      const response = await this.buyService.buyProduct(this.buildParams());
+      this.transactionSuccess = true;
+      this.changeDetectorRef.markForCheck();
+    }catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
@@ -245,7 +257,8 @@ export class BuyProductPage implements OnInit {
   private buildParams() {
     return {
       "product-id": this.idProduct,
-      "payment-type": this.buyForm.get("payment-type").value
+      "payment-type": "cash"
+     // "payment-type": this.buyForm.get("payment-type").value
     };
   }
 
