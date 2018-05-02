@@ -32,6 +32,7 @@ import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
 import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
+import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
 
 export const appRouter: Routes = [
   {
@@ -51,7 +52,15 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
       { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
-      { path: ROUTES.MENUROTALOCENTER.MESSAGES, component: ChatPageComponent },
+      { path: ROUTES.MENUROTALOCENTER.MESSAGES,
+        component: ChatPageComponent,
+        children: [
+          {
+            path: `${ROUTES.MENUROTALOCENTER.CONVERSATION}/:id`,
+            component: ChatWindowComponent,
+          },
+        ]
+      },
       {
         path: ROUTES.MENUROTALOCENTER.SELLING,
         component: SellingPage,

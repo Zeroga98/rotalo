@@ -47,7 +47,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       id: this.navigationService.getCurrentCountryId()
     };
     this.userId = this.currentSessionService.getIdUser();
-    this.listenerMessages = this.setListenerMessagesUnread(this.userId);
+    this.listenerMessages = this.setListenerMessagesUnread('41');
+    //this.listenerMessages = this.setListenerMessagesUnread(this.userId);
   }
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
@@ -71,7 +72,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   private  setListenerMessagesUnread(userId) {
     return setInterval(() => {
-      this.messagesService.getMessagesUnred("41").subscribe(
+      this.messagesService.getMessagesUnred(userId).subscribe(
         state => {
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.changeDetector.markForCheck();

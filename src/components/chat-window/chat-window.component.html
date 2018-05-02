@@ -21,42 +21,11 @@
               </div>
               <div class="conversation">
                 <div class="conversation-container">
-                  <div class="message sent">
-                    Has cambiado tu contraseña con éxito.
+                  <div *ngFor="let message of  this.messages"
+                  [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'"
+                  class="message">
+                   {{message.mensaje}}
                   </div>
-                  <div class="message received">
-                    No entiendo cómo cambiar un artículo vencido activo.
-                  </div>
-                  <div class="message sent">
-                      Has cambiado tu contraseña con éxito.
-                    </div>
-                    <div class="message received">
-                      No entiendo cómo cambiar un artículo vencido activo.
-                    </div>
-                    <div class="message sent">
-                        Has cambiado tu contraseña con éxito.
-                      </div>
-                      <div class="message received">
-                        No entiendo cómo cambiar un artículo vencido activo.
-                      </div>
-                      <div class="message sent">
-                          Has cambiado tu contraseña con éxito.
-                        </div>
-                        <div class="message received">
-                          No entiendo cómo cambiar un artículo vencido activo.
-                        </div>
-                        <div class="message sent">
-                            Has cambiado tu contraseña con éxito.
-                          </div>
-                          <div class="message received">
-                            No entiendo cómo cambiar un artículo vencido activo.
-                          </div>
-                          <div class="message sent">
-                              Has cambiado tu contraseña con éxito.
-                            </div>
-                            <div class="message received">
-                              No entiendo cómo cambiar un artículo vencido activo.
-                            </div>
                 </div>
               </div>
             </div>

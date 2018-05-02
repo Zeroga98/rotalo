@@ -30,6 +30,7 @@ export const ROUTES = {
         NOTIFICATIONSSETTINGS: 'notifications-settings',
         SELLING: 'selling',
         SOLD: 'sold',
-        MESSAGES: 'messages'
+        MESSAGES: 'messages',
+        CONVERSATION: 'conversation'
     }
 };

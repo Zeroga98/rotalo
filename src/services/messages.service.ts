@@ -9,7 +9,7 @@ import { ConfigurationService } from '../services/configuration.service';
 export class MessagesService {
     currentUser: UserInterface;
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
-    readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/centro/rotalo/notificaciones-sin-leer';
+    readonly urlSapi = this.configurationService.getBaseSapiUrl();
 
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
@@ -37,8 +37,29 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/notificaciones-sin-leer';
       return this.http
-        .get(this.urlSapi, { headers: headers })
+        .get(url, { headers: headers })
+        .map((response: any) => response);
+    }
+
+    getMessages(idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/mensajes';
+      return this.http
+        .get(url, { headers: headers })
+        .map((response: any) => response);
+    }
+
+    getConversationMessages(idUser, idUserEmit) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/mensajes/' + idUserEmit;
+      return this.http
+        .get(url, { headers: headers })
         .map((response: any) => response);
     }
 
