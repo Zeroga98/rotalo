@@ -6,5 +6,5 @@ export interface CategoryInterface {
     color?: string;
     url: string;
     name:string;
-    subcategories?:Array<SubcategoryInterface>;
+    subcategories?: Array<SubcategoryInterface>;
 }

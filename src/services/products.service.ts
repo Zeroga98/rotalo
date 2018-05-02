@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 @Injectable()
 export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/products';
-    readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/centro/rotalo/republicaciones';
+    readonly urlSapi = this.configurationService.getBaseSapiUrl();
 
     constructor(private http: HttpClient,
       private configurationService: ConfigurationService,
@@ -69,6 +69,14 @@ export class ProductsService {
     republishService(params) {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
-      return this.http.put(this.urlSapi, params, { headers: headers });
+      const url = this.urlSapi + '/centro/rotalo/republicaciones';
+      return this.http.put(url, params, { headers: headers });
+    }
+
+    republishNewProduct(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/centro/rotalo/productos';
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
 }

@@ -109,6 +109,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     try {
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
+      console.log(photo);
       this.photosUploaded.push(photo);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -241,7 +242,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private getPhotosIds(): Array<string> {
-    return this.photosUploaded.map(photo => photo.id.toString());
+    return this.photosUploaded.map(photo =>  photo.id.toString());
   }
 
   private setCategoryDefault(subCategory: SubcategoryInterface) {

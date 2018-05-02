@@ -119,6 +119,23 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     );
   }
 
+  republishSold(product: ProductInterface) {
+    const param = {
+        "idProducto": product.id
+    };
+    this.productsService.republishNewProduct(param).subscribe(
+      state => {
+        console.log(state);
+        const idNew = state.body.idNuevoProducto;
+        console.log(idNew);
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${idNew}`
+        ]);
+      },
+      error => console.log(error)
+    );
+  }
+
   private checkSizeCard() {
     setTimeout(() => {
       const elem = this.containerProducts.nativeElement;

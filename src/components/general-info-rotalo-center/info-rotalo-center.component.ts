@@ -30,7 +30,7 @@ export class RotaloCenterComponent implements OnInit {
 
   loadResume(userId) {
     /**valor id usuario quemado */
-    this.resumeRotaloCenterService.resumeRotaloCenter("41").subscribe(
+    this.resumeRotaloCenterService.resumeRotaloCenter(userId).subscribe(
       state => {
         this.numberMessages = state.body.notificacionesPendientes;
         this.speedRanking = state.body.rapidezProceso;
@@ -39,9 +39,7 @@ export class RotaloCenterComponent implements OnInit {
         this.productsRotando = state.body.articulosRotando;
         this.productsRotados = state.body.articulosRotados;
         this.productExpire = state.body.articulosVencidos;
-        this.mainRanking = this.speedRanking + this.qualityRanking + this.attentionRanking;
-        this.mainRanking =  this.mainRanking / 3 ;
-        this.mainRanking = Math.round(this.mainRanking);
+        this.mainRanking = state.body.calificacionGeneral;
       },
       error => console.log(error)
     );
