@@ -190,6 +190,29 @@
       }
     }
   }
+  .container-date{
+    .icon-account{
+      font-size: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+  .circle-rating{
+    position: absolute;
+    background: #3BBACE;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    bottom: 0;
+    right: 0;
+    .rating{
+      display: table;
+      margin: 0 auto;
+      margin-top: 7px;
+      font-size: 1.6rem;
+      color: white;
+    }
+  }
 }
 
 :host {

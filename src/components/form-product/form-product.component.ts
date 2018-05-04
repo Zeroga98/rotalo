@@ -11,6 +11,8 @@ import { CategoriesService } from "../../services/categories.service";
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
 import * as moment from 'moment';
 import { IMyDpOptions } from 'mydatepicker';
+import { ROUTES } from '../../router/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "form-product",
@@ -38,6 +40,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   minDate: string;
   maxDate: string;
   constructor(
+    private router: Router,
     private photosService: PhotosService,
     private categoryService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef
@@ -103,6 +106,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     };
     const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
     this.publish.emit(params);
+
   }
 
   async onUploadImageFinished(event) {

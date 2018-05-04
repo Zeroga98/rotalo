@@ -11,7 +11,7 @@
       </h5>
       <small class="message-preview">{{thread.ultimoMensaje.mensaje | slice:0:25}}...</small>
     </div>
-    <a class="div-link">Select</a>
+    <a (click)="sendThread()" class="div-link">Select</a>
 </div>
 
 

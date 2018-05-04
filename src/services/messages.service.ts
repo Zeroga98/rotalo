@@ -63,15 +63,23 @@ export class MessagesService {
         .map((response: any) => response);
     }
 
-    sendMessage(params): Promise<any> {
-      const url = this.configurationService.getBaseUrl() + '/messages';
-        return this.http.post(url,
-            {
-                data: {
-                    attributes: params,
-                    type: 'messages'
-                },
-            })
-            .toPromise();
+    sendMessage(params, idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/mensajes/';
+      return this.http
+        .post(url, params ,{ headers: headers })
+        .map((response: any) => response);
+    }
+
+    updateMessage(params, idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/mensajes/';
+      return this.http
+        .put(url, params ,{ headers: headers })
+        .map((response: any) => response);
     }
 }

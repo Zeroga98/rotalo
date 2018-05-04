@@ -29,11 +29,10 @@
                 </div>
               </div>
             </div>
-            <form class="conversation-compose">
-                <input class="input-msg" name="input" placeholder="Escribe un mensaje">
-                <button class="send">
+            <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
+                <input formControlName="message" required type="text"  class="input-msg" name="input" placeholder="Escribe un mensaje">
+                <button [disabled]="formMessage.invalid" type="submit" class="send">
                   <div class="circle">
-
                     <p>Enviar</p>
                   </div>
                 </button>

@@ -79,4 +79,12 @@ export class ProductsService {
       const url = this.urlSapi + '/centro/rotalo/productos';
       return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
+
+    getInfoAdditional(idUser) {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, {userid: idUser} );
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/centro/rotalo/vendidos-comprados';
+      return this.http.get(url, { headers: headers }).map((response: any) => response);
+    }
 }

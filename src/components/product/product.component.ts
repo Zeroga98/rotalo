@@ -42,21 +42,22 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public productStatus: boolean = false;
   public productChecked: String = "active";
 
-  constructor(private render: Renderer2,
+  constructor(
+    private render: Renderer2,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router) {
-    }
+    private router: Router
+  ) {}
 
-    ngAfterContentInit(){
-      this.productChecked = this.product.status;
-      this.productStatus = this.product.status === "active";
-      this.changeDetectorRef.markForCheck();
-    }
+  ngAfterContentInit() {
+    this.productChecked = this.product.status;
+    this.productStatus = this.product.status === "active";
+    this.changeDetectorRef.markForCheck();
+  }
 
-    ngAfterViewInit(): void {
-      this.checkSizeCard();
-    }
+  ngAfterViewInit(): void {
+    this.checkSizeCard();
+  }
 
   triggerMasonryLayout() {
     this.masonryInfo.layout();
@@ -70,8 +71,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       status: this.productStatus ? "active" : "inactive"
     };
     this.changeDetectorRef.markForCheck();
-    this.productsService.updateProduct(this.product.id, params).then(response => {
-    });
+    this.productsService
+      .updateProduct(this.product.id, params)
+      .then(response => {});
   }
 
   getLocation(product): string {
@@ -107,7 +109,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   republish(product: ProductInterface) {
     const param = {
-        "idProducto": product.id
+      idProducto: product.id
     };
     this.productsService.republishService(param).subscribe(
       state => {
@@ -121,13 +123,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   republishSold(product: ProductInterface) {
     const param = {
-        "idProducto": product.id
+      idProducto: product.id
     };
     this.productsService.republishNewProduct(param).subscribe(
       state => {
-        console.log(state);
         const idNew = state.body.idNuevoProducto;
-        console.log(idNew);
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${idNew}`
         ]);

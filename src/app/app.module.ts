@@ -126,6 +126,7 @@ import { ErrorPageComponent } from '../components/error-page/error-page.componen
 import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.service';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { ShowStarComponent } from '../components/show-star/show-star.component';
+import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.service';
 
 @NgModule({
   declarations: [
@@ -252,6 +253,7 @@ import { ShowStarComponent } from '../components/show-star/show-star.component';
     ValidateSessionService,
     SavePasswordService,
     ResumeRotaloCenterService,
+    ShareInfoChatService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

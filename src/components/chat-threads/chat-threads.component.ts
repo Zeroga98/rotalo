@@ -28,10 +28,10 @@ export class ChatThreadsComponent implements OnInit , OnDestroy {
 
   private  getMessages(userId) {
     // return setInterval(() => {
-      this.messagesService.getMessages("41").subscribe(
+      this.messagesService.getMessages(userId).subscribe(
         state => {
           this.threads = state.body.emisarios;
-          console.log(state);
+         console.log(state);
           this.changeDetector.markForCheck();
         },
         error => console.log(error)
