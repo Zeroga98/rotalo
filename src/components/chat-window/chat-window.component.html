@@ -10,10 +10,13 @@
                   <i class="zmdi zmdi-arrow-left"></i>
                 </div>
                 <div class="avatar">
-                  <img src="https://rotalo-app-imagenes.s3.amazonaws.com/uploads/photo/file/12508/bicicleta_Blanca.jpg" alt="Avatar">
+                  <img *ngIf="!imagenChat" class="avatar"
+                  [src]="defaultImage" [alt]="nameUser" (error)="updateSrc($event)">
+                  <img *ngIf="imagenChat" class="avatar"
+                    [src]="imagenChat" [alt]="nameUser" (error)="updateSrc($event)">
                 </div>
                 <div class="name">
-                  <span>Rótalo</span>
+                  <span>{{nameUser}}</span>
                 </div>
                 <div class="actions">
                   <i class="zmdi zmdi-delete"></i>
@@ -21,10 +24,9 @@
               </div>
               <div class="conversation">
                 <div class="conversation-container">
-                  <div *ngFor="let message of  this.messages"
-                  [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'"
-                  class="message">
-                   {{message.mensaje}}
+                  <div *ngFor="let message of  messages">
+                  <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'"
+                  class="message">{{message.mensaje}}</div>
                   </div>
                 </div>
               </div>

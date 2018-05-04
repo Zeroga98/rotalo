@@ -4,6 +4,7 @@ import { MessagesService } from "../../services/messages.service";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ShareInfoChatService } from "../chat-thread/shareInfoChat.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: "chat-window",
@@ -12,6 +13,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class ChatWindowComponent implements OnInit, OnDestroy {
   idUserMessage: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+  readonly defaultImage: string = "../assets/img/user_sin_foto.svg";
   private idUserConversation;
   private userId;
   private readonly timeToCheckNotification: number = 5000;
@@ -19,22 +21,30 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
   messages: any;
   subscriptionMessages: any;
   imagenChat;
-  conversationInfo;
+  nameUser;
   formMessage: FormGroup;
   constructor(
     private router: Router,
     private messagesService: MessagesService,
     private currentSessionService: CurrentSessionService,
     private route: ActivatedRoute,
-    private shareInfoChatService: ShareInfoChatService
+    private shareInfoChatService: ShareInfoChatService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.formMessage = new FormGroup({
       message: new FormControl("", [Validators.required])
     });
+    this.userService.getInfomationUser(this.idUserMessage).then(response => {
+      if (response.photo) {
+        this.imagenChat = response.photo.url;
+      }
+      this.nameUser = response.name;
+    });
+
     this.userId = this.currentSessionService.getIdUser();
-    this.updateConversationStatus(this.userId);
+    //this.updateConversationStatus(this.idUserMessage);
     this.route.params.subscribe(params => {
       this.messages = [];
       this.idUserConversation = params.id;
@@ -42,12 +52,22 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
         this.userId,
         this.idUserConversation
       );
-
+      this.userService.getInfomationUser(this.idUserConversation).then(response => {
+        if (response.photo) {
+          this.imagenChat = response.photo.url;
+        }
+        this.nameUser = response.name;
+      });
+     // this.updateConversationStatus(this.idUserConversation);
     });
   }
 
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
+  }
+
+  updateSrc(evt) {
+    evt.currentTarget.src = this.defaultImage;
   }
 
   onSubmit() {
@@ -58,20 +78,20 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
       this.subscriptionMessages = this.messagesService.sendMessage(params, this.userId)
       .subscribe(
         state => {
-          console.log(state)
+          this.formMessage.reset();
         },
         error => console.log(error)
       );
   }
 
-  private updateConversationStatus(userId){
+  private updateConversationStatus(userId) {
     const params = {
       idEmisor: userId,
     };
-    this.subscriptionMessages = this.messagesService.updateMessage(params, userId)
+    this.subscriptionMessages = this.messagesService.updateMessage(params,  this.userId)
     .subscribe(
       state => {
-        console.log(state)
+        console.log(state);
       },
       error => console.log(error)
     );

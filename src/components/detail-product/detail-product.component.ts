@@ -16,6 +16,7 @@ import { ModalInterface } from "../../commons/interfaces/modal.interface";
 import { ConversationInterface } from "../../commons/interfaces/conversation.interface";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
+import { MessagesService } from "../../services/messages.service";
 
 @Component({
   selector: "detail-product",
@@ -48,7 +49,8 @@ export class DetailProductComponent implements OnInit {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
-    private userService: UserService
+    private userService: UserService,
+    private messagesService: MessagesService,
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
@@ -60,6 +62,25 @@ export class DetailProductComponent implements OnInit {
   clickArrow() {
     this.changeDetectorRef.markForCheck();
   }
+
+
+  sendMessage() {
+    let idUserMessage = this.products.user.id;
+    const params = {
+      idUsuarioDestinatario: idUserMessage,
+      mensaje: ' ',
+    };
+    this.messagesService.sendMessage(params, this.idUser)
+    .subscribe(
+      state => {
+       this.router.navigate
+       ([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.CONVERSATION}/${idUserMessage}`]);
+        console.log(state);
+        console.log(`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${idUserMessage}`);
+      },
+      error => console.log(error)
+    );
+}
 
   async loadProduct() {
     try {

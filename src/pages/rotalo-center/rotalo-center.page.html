@@ -7,7 +7,7 @@
 <div class="main">
   <div class="menu">
     <div class="logo-container">
-      <div class="logo-circle">
+      <div [routerLink]="infoRotalo" class="logo-circle">
         <img class="logo-rotalo" src="../../assets/img/logo_rotalo.svg" alt="logo rotalo">
       </div>
     </div>
@@ -27,7 +27,7 @@
         </div>
         <div [routerLink]="notificationsSettings" class="option" routerLinkActive="active">
           <div class="ico configuration-icon"></div>
-          <a>Configuración</a>
+          <a>Configuraciones</a>
         </div>
       </div>
     </div>

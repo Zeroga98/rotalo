@@ -66,4 +66,12 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
+  getInfomationUser(idUser) {
+    const url = `${this.url}/${idUser}`;
+    return this.httpClient
+      .get(url)
+      .map((response: any) => response.data)
+      .toPromise()
+      .catch(err => console.error(err));
+  }
 }

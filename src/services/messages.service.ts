@@ -67,7 +67,7 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/mensajes/';
+      const url = this.urlSapi + '/centro/rotalo/mensajes';
       return this.http
         .post(url, params ,{ headers: headers })
         .map((response: any) => response);
@@ -77,7 +77,7 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/mensajes/';
+      const url = this.urlSapi + '/centro/rotalo/mensajes';
       return this.http
         .put(url, params ,{ headers: headers })
         .map((response: any) => response);

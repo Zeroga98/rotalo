@@ -72,6 +72,7 @@
     font-size: 24px;
     position: relative;
     z-index: 1;
+    margin-bottom: 4rem;
   }
 
   .user-bar:after {
@@ -108,7 +109,7 @@
   .user-bar .avatar {
     margin: 0 0 0 5px;
     width: 80px;
-    height: 36px;
+    height: 80px;
   }
 
   .user-bar .avatar img {
@@ -126,7 +127,7 @@
     margin: 0 0 0 16px;
     overflow: hidden;
     white-space: nowrap;
-    width: 110px;
+    width: 50%;
   }
 
   /* Conversation */

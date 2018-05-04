@@ -78,8 +78,6 @@ export class ModalSendMessageComponent implements OnInit {
   }
 
   async onSubmit() {
-    let date = new Date();
-
     try {
       if (!this.idProduct) {
         const idConversation = this.idConversation.split("-");
