@@ -17,6 +17,7 @@ import { ConversationInterface } from "../../commons/interfaces/conversation.int
 import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
 import { MessagesService } from "../../services/messages.service";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 
 @Component({
   selector: "detail-product",
@@ -39,6 +40,8 @@ export class DetailProductComponent implements OnInit {
   public conversation: ConversationInterface;
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
+  public sendInfoProduct;
+  public showInputShare: boolean;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
@@ -56,6 +59,9 @@ export class DetailProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sendInfoProduct = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email])
+    });
     this.loadProduct();
   }
 
@@ -63,6 +69,10 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+
+  shareProduct() {
+    alert('---');
+  }
 
   sendMessage() {
     let idUserMessage = this.products.user.id;

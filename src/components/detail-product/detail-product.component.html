@@ -103,6 +103,27 @@
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
         </div>
+        <div  *ngIf="!isSellProcess() && !validateSession()" class="share-product-container">
+            <a (click)="showInputShare=true" class="share-product">Compartir este producto</a>
+            <div *ngIf="showInputShare" class="input-container">
+              <form  (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
+                  <div class="form-group">
+                      <input [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}" formControlName="email"
+                      maxlength="50" id="txt-email" type="email" class="form-control"  placeholder="Escribe aquí el correo de tu amigo">
+                      <div class="icon-container">
+                        <button class="button-share" type="submit">
+                            <span class="icon-email"></span>
+                        </button>
+                      </div>
+                  </div>
+                  <span  *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine" class="help-block">
+                      <span>
+                        El campo no cumple con el formato de correo.
+                      </span>
+                    </span>
+              </form>
+            </div>
+        </div>
         <div class="media" *ngIf="validateSession() && !isSold()">
           <div class="media-left media-middle">
             <label class="switch">

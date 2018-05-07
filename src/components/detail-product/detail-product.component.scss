@@ -327,6 +327,44 @@
     text-align: center;
     vertical-align: middle;
   }
+  .share-product-container {
+    padding: 10px;
+    padding-left: 2%;
+    .share-product {
+      cursor: pointer;
+      padding-left: 12px;
+      font-size: 2rem;
+      color: #ff3646;
+      text-decoration: underline;
+    }
+    .icon-container {
+      .button-share {
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        padding-top: 5px;
+        background-color: #ff3646;
+        border-radius: 50%;
+      }
+    }
+  }
+  .form-theme {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .form-group {
+      margin-bottom: 0px;
+      position: relative;
+      .form-control {
+        height: 50px;
+      }
+      .icon-container {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+      }
+    }
+  }
 }
 
 .product-btn {
