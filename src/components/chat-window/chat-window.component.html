@@ -19,8 +19,31 @@
               </div>
               <div class="conversation">
                 <div #scrollMe class="conversation-container">
+
+                  <!-- Inicio ngFor para notificaciones -->
                   <div *ngFor="let message of  messages">
-                    <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">{{message.mensaje}}</div>
+
+
+
+  <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
+  <div *ngIf="message['tipoNotificacion'] == 'new_message'">
+      <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">{{message.mensaje}}</div>
+      <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}</small>
+  </div>
+  <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
+
+
+
+
+
+
+
+
+
+
+
+
+
                   </div>
                 </div>
               </div>

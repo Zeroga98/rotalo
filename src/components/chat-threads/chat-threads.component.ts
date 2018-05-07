@@ -46,7 +46,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     return setInterval(() => {
    this.subscriptionConversation = this.messagesService.getMessages(userId).subscribe(
       state => {
-        if (state.body.emisarios) {
+        if (state.body && state.body.emisarios) {
 
           if (!this.threads) {
             this.threads = state.body.emisarios;
@@ -66,7 +66,6 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
             }
           }
         }
-
         this.changeDetector.markForCheck();
       },
       error => console.log(error)
