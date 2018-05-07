@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MessagesService } from "../../services/messages.service";
 import { CurrentSessionService } from "../../services/current-session.service";
@@ -11,68 +11,70 @@ import { UserService } from "../../services/user.service";
   templateUrl: "./chat-window.component.html",
   styleUrls: ["./chat-window.component.scss"]
 })
-export class ChatWindowComponent implements OnInit, OnDestroy {
-  idUserMessage: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked {
   readonly defaultImage: string = "../assets/img/user_sin_foto.svg";
   private idUserConversation;
   private userId;
   private readonly timeToCheckNotification: number = 5000;
   listenerMessages: any;
-  messages: any;
   subscriptionMessages: any;
+  private idReceptorUser: number;
   imagenChat;
   nameUser;
+  messages: any;
   formMessage: FormGroup;
+  private currentInfoSubscribe;
+  @ViewChild('scrollMe') private ScrollContainer: ElementRef;
+
   constructor(
-    private router: Router,
     private messagesService: MessagesService,
     private currentSessionService: CurrentSessionService,
-    private route: ActivatedRoute,
-    private shareInfoChatService: ShareInfoChatService,
-    private userService: UserService
+    private shareInfoChatService: ShareInfoChatService
   ) {}
 
   ngOnInit() {
+    this.userId = this.currentSessionService.getIdUser();
     this.formMessage = new FormGroup({
       message: new FormControl("", [Validators.required])
     });
-    this.userService.getInfomationUser(this.idUserMessage).then(response => {
-      if (response.photo) {
-        this.imagenChat = response.photo.url;
-      }
-      this.nameUser = response.name;
-    });
+    this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(currentConversation => {
+      if (currentConversation) {
+          this.imagenChat = currentConversation.fotoEmisario;
+          this.nameUser = currentConversation.nombreEmisario;
+          this.messages = currentConversation.mensajes;
+          this.idReceptorUser = currentConversation.idEmisario;
 
-    this.userId = this.currentSessionService.getIdUser();
-    //this.updateConversationStatus(this.idUserMessage);
-    this.route.params.subscribe(params => {
-      this.messages = [];
-      this.idUserConversation = params.id;
-      this.listenerMessages = this.getConversationMessages(
-        this.userId,
-        this.idUserConversation
-      );
-      this.userService.getInfomationUser(this.idUserConversation).then(response => {
-        if (response.photo) {
-          this.imagenChat = response.photo.url;
-        }
-        this.nameUser = response.name;
-      });
-     // this.updateConversationStatus(this.idUserConversation);
+      }
     });
+  }
+
+  ngAfterViewChecked() {
+   // this.scrollToBottom();
   }
 
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
+    this.currentInfoSubscribe.unsubscribe();
+    if (this.subscriptionMessages) { this.subscriptionMessages.unsubscribe(); }
+  }
+
+  scrollToBottom(): void {
+    try {
+        this.ScrollContainer.nativeElement.scrollTop = this.ScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { console.log(err); }
   }
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
 
+  isSender(id): boolean {
+    return this.userId == id;
+  }
+
   onSubmit() {
       const params = {
-        idUsuarioDestinatario: this.idUserMessage,
+        idUsuarioDestinatario: this.idReceptorUser,
         mensaje: this.formMessage.controls["message"].value,
       };
       this.subscriptionMessages = this.messagesService.sendMessage(params, this.userId)
@@ -97,24 +99,4 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getConversationMessages(currentUser, userIdEmit) {
-    if (this.subscriptionMessages) {
-      this.subscriptionMessages.unsubscribe();
-      clearInterval(this.listenerMessages);
-    }
-    return setInterval(() => {
-      this.subscriptionMessages = this.messagesService
-        .getConversationMessages(currentUser, userIdEmit)
-        .subscribe(
-          state => {
-            this.messages = state.body.mensajes;
-          },
-          error => console.log(error)
-        );
-    }, this.timeToCheckNotification);
-  }
-
-  public isSender(id): boolean {
-    return this.userId == id;
-  }
 }

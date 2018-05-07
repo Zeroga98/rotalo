@@ -6,14 +6,9 @@
           <div class="chat">
             <div class="chat-container">
               <div class="user-bar">
-                <div class="back">
-                  <i class="zmdi zmdi-arrow-left"></i>
-                </div>
                 <div class="avatar">
-                  <img *ngIf="!imagenChat" class="avatar"
-                  [src]="defaultImage" [alt]="nameUser" (error)="updateSrc($event)">
-                  <img *ngIf="imagenChat" class="avatar"
-                    [src]="imagenChat" [alt]="nameUser" (error)="updateSrc($event)">
+                  <img *ngIf="!imagenChat" class="avatar" [src]="defaultImage" [alt]="nameUser" (error)="updateSrc($event)">
+                  <img *ngIf="imagenChat" class="avatar" [src]="imagenChat" [alt]="nameUser" (error)="updateSrc($event)">
                 </div>
                 <div class="name">
                   <span>{{nameUser}}</span>
@@ -23,22 +18,21 @@
                 </div>
               </div>
               <div class="conversation">
-                <div class="conversation-container">
+                <div #scrollMe class="conversation-container">
                   <div *ngFor="let message of  messages">
-                  <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'"
-                  class="message">{{message.mensaje}}</div>
+                    <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">{{message.mensaje}}</div>
                   </div>
                 </div>
               </div>
             </div>
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
-                <input formControlName="message" required type="text"  class="input-msg" name="input" placeholder="Escribe un mensaje">
-                <button [disabled]="formMessage.invalid" type="submit" class="send">
-                  <div class="circle">
-                    <p>Enviar</p>
-                  </div>
-                </button>
-              </form>
+              <input formControlName="message" required type="text" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              <button [disabled]="formMessage.invalid" type="submit" class="send">
+                <div class="circle">
+                  <p>Enviar</p>
+                </div>
+              </button>
+            </form>
           </div>
         </div>
       </div>

@@ -47,7 +47,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       id: this.navigationService.getCurrentCountryId()
     };
     this.userId = this.currentSessionService.getIdUser();
-    this.listenerMessages = this.setListenerMessagesUnread(this.userId);
+  //  this.listenerMessages = this.setListenerMessagesUnread(this.userId);
     //this.listenerMessages = this.setListenerMessagesUnread(this.userId);
   }
   ngOnDestroy(): void {

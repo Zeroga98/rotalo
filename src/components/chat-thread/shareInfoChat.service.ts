@@ -1,16 +1,26 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 export class ShareInfoChatService {
-  private thread;
+
+  private messageInfoSource = new BehaviorSubject<any>(null);
+  currentInfoMessage = this.messageInfoSource.asObservable();
+
+  private idConversation;
+
   constructor() {}
 
-  setThread(thread) {
-    this.thread = thread;
+  changeMessage(messageInfo) {
+    this.messageInfoSource.next(messageInfo);
   }
 
-  getThread() {
-    console.log( this.thread, ' this.thread');
-    return this.thread;
+  setIdConversation(id){
+    this.idConversation = id;
   }
+
+  getIdConversation() {
+    return this.idConversation;
+  }
+
 }

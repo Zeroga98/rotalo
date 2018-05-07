@@ -54,12 +54,6 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
       { path: ROUTES.MENUROTALOCENTER.MESSAGES,
         component: ChatPageComponent,
-        children: [
-          {
-            path: `${ROUTES.MENUROTALOCENTER.CONVERSATION}/:id`,
-            component: ChatWindowComponent,
-          },
-        ]
       },
       {
         path: ROUTES.MENUROTALOCENTER.SELLING,

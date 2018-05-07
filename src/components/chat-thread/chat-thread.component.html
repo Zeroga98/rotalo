@@ -1,4 +1,4 @@
-<div [routerLink]="selectConversation(thread.idEmisario)" routerLinkActive="active" class="media conversation">
+<div [ngClass]="{'active': isSelected()}" class="media conversation">
     <div class="pull-left">
       <img *ngIf="!thread.fotoEmisario" class="media-object avatar"
       [src]="defaultImage" [alt]="thread.nombreEmisario" (error)="updateSrc($event)">
@@ -11,7 +11,6 @@
       </h5>
       <small class="message-preview">{{thread.ultimoMensaje.mensaje | slice:0:25}}...</small>
     </div>
-    <a (click)="sendThread()" class="div-link">Select</a>
+    <a (click)="selectInfoConversation()" class="div-link">Select</a>
 </div>
-
 

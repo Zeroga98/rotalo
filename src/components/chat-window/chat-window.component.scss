@@ -72,7 +72,6 @@
     font-size: 24px;
     position: relative;
     z-index: 1;
-    margin-bottom: 4rem;
   }
 
   .user-bar:after {
@@ -84,7 +83,7 @@
   .user-bar div {
     float: left;
     transform: translateY(-50%);
-    position: relative;
+    position: absolute;
     top: 50%;
   }
 
@@ -114,6 +113,7 @@
 
   .user-bar .avatar img {
     border-radius: 50%;
+    background: #EAE9E8;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     display: block;
     width: 100%;
@@ -124,17 +124,18 @@
     font-weight: 600;
     text-overflow: ellipsis;
     letter-spacing: 0.3px;
-    margin: 0 0 0 16px;
+    margin: 0 0 0 20%;
     overflow: hidden;
     white-space: nowrap;
-    width: 50%;
+    width: 71%;
   }
 
   /* Conversation */
 
   .conversation {
-    height: 32rem;
     position: relative;
+    padding-bottom: 2rem;
+    height: 32.6rem;
     background: #ffffff;
     z-index: 0;
   }

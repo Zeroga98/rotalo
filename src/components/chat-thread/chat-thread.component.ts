@@ -10,28 +10,29 @@ import { ShareInfoChatService } from "./shareInfoChat.service";
 })
 export class ChatThreadComponent implements OnInit {
   @Input() thread;
-  @Input() first;
-  selected = false;
   readonly defaultImage: string = "../assets/img/user_sin_foto.svg";
   constructor(private router: Router, private shareInfoChatService: ShareInfoChatService) {}
 
   ngOnInit() {
-    if (this.first === 0) {
-      this.shareInfoChatService.setThread(this.thread);
+
+    if(this.shareInfoChatService.getIdConversation() == this.thread.idEmisario){
+      this.shareInfoChatService.changeMessage(this.thread);
     }
+
   }
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
 
-  sendThread() {
-    this.shareInfoChatService.setThread(this.thread);
+  selectInfoConversation() {
+    this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
+    this.shareInfoChatService.changeMessage(this.thread);
   }
 
-  selectConversation(idConversation) {
-    const routeConversation =
-    `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.CONVERSATION}/${idConversation}`;
-    return routeConversation;
+  isSelected() {
+    const currentId = this.shareInfoChatService.getIdConversation();
+    return currentId == this.thread.idEmisario;
   }
+
 }
