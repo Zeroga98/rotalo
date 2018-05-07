@@ -108,11 +108,11 @@
             <div *ngIf="showInputShare" class="input-container">
               <form  (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
                   <div class="form-group">
-                      <input [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}" formControlName="email"
+                      <input (click)="messageSuccess=false" [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}" formControlName="email"
                       maxlength="50" id="txt-email" type="email" class="form-control"  placeholder="Escribe aquí el correo de tu amigo">
                       <div class="icon-container">
                         <button class="button-share" type="submit">
-                            <span class="icon-email"></span>
+                            <div class="icon-email"></div>
                         </button>
                       </div>
                   </div>
@@ -120,7 +120,12 @@
                       <span>
                         El campo no cumple con el formato de correo.
                       </span>
-                    </span>
+                  </span>
+                  <span *ngIf="messageSuccess" class="help-block success-text">
+                      <span>
+                          ¡Hemos enviado el correo con éxito!
+                      </span>
+                  </span>
               </form>
             </div>
         </div>

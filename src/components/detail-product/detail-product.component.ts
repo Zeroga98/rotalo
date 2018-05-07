@@ -42,6 +42,7 @@ export class DetailProductComponent implements OnInit {
   private maxVehicleValue = 5000000000;
   public sendInfoProduct;
   public showInputShare: boolean;
+  public messageSuccess: boolean;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
@@ -71,7 +72,7 @@ export class DetailProductComponent implements OnInit {
 
 
   shareProduct() {
-    alert('---');
+    this.messageSuccess = true;
   }
 
   sendMessage() {
