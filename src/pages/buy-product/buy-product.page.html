@@ -38,18 +38,42 @@
                   </li>
                   <li>
                       <span>Información del vendedor</span>
-                      <div class="container-header">
+                      <div class="container-header info-seller-container">
                         <div class="info-seller">
-                          <div class="first-text">{{product.user.name}}</div>
-                          <div class="second-text">{{product.user.company.name}}</div>
+                          <div class="media-middle">
+                              <div *ngIf="!product.user.photo" class="product-info-user--icon">
+                                  <span class="icon-account"></span>
+                              </div>
+                              <div *ngIf="product?.user.photo" class="product-info-user--icon">
+                                  <img src="product?.user.photo">
+                              </div>
+                          </div>
+                          <div *ngIf="product.user.company" class="media-middle product-info-user--data">
+                              <p class="first-text bold">{{product.user.name}}</p>
+                              <p class="second-text">{{product.user.company.name}}</p>
+                          </div>
                         </div>
                         <div class="info-seller">
-                          <div class="first-text">Celular</div>
-                          <div class="second-text">{{product.user.cellphone}}</div>
+                            <div class="media-middle">
+                                <div class="product-info-user--icon">
+                                    <span class="icon-cellphone"></span>
+                                </div>
+                            </div>
+                            <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
+                                <p class="first-text">Celular</p>
+                                <p class="second-text bold">{{product.user.cellphone}}</p>
+                            </div>
                         </div>
                         <div class="info-seller">
-                          <div class="first-text">Correo electrónico</div>
-                          <div class="second-text">{{product.user.email}}</div>
+                            <div class="media-middle">
+                                <div class="product-info-user--icon">
+                                    <span class="icon-cellphone"></span>
+                                </div>
+                            </div>
+                            <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
+                                <p class="first-text">Correo electrónico</p>
+                                <p class="second-text bold">{{product.user.email}}</p>
+                            </div>
                         </div>
                       </div>
                   </li>

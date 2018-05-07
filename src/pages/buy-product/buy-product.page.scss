@@ -158,6 +158,31 @@
   .purchaseProduct {
     width: 100%;
   }
+  .info-seller-container{
+    background: white;
+    .info-seller{
+      width: 33%;
+      .media-middle{
+        vertical-align: middle;
+        display: table-cell;
+        padding-right: 10px;
+        color: #707070;
+        font-size: 2.0rem;
+        .product-info-user--icon{
+          width: 35px;
+          height: 35px;
+          text-align: center;
+          padding-top: 5px;
+          background-color: #D6D5D5;
+          border-radius: 50%;
+          span{
+            color:white;
+          }
+        }
+      }
+    }
+  }
+
 }
 /**Estilos para opciones de pago**/
 :host {
