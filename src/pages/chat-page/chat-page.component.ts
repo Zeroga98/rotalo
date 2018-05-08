@@ -7,7 +7,7 @@ import { ShareInfoChatService } from '../../components/chat-thread/shareInfoChat
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent implements OnInit, OnDestroy {
-
+  showSpinner:boolean = true;
   constructor( private shareInfoChatService: ShareInfoChatService) { }
 
   ngOnInit() {
@@ -16,6 +16,10 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.shareInfoChatService.setIdConversation(undefined);
     this.shareInfoChatService.changeMessage(undefined);
+    this.shareInfoChatService.setNewConversation(undefined);
   }
 
+  onNotify(ev): void {
+    this.showSpinner = ev;
+  }
 }

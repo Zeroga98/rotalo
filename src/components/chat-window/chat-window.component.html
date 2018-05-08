@@ -3,7 +3,7 @@
     <div class="marvel-device">
       <div class="screen">
         <div class="screen-container">
-          <div class="chat">
+          <div *ngIf="!showSpinner" class="chat">
             <div class="chat-container">
               <div class="user-bar">
                 <div class="avatar">
@@ -19,37 +19,94 @@
               </div>
               <div class="conversation">
                 <div #scrollMe class="conversation-container">
+                  <div class="notifications-theme" *ngIf="messages">
 
-                  <!-- Inicio ngFor para notificaciones -->
-                  <div *ngFor="let message of  messages">
+                    <!-- Inicio ngFor para notificaciones -->
+                    <div *ngFor="let message of  messages">
+                      <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
+                      <div *ngIf="message.tipoNotificacion == 'new_message'">
+                        <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">
+                          {{message.mensaje}}
+                          <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
+
+                      <!-- INICIO NOTIFICACIÓN NUEVA OFERTA -->
+                      <div *ngIf="message.tipoNotificacion == 'new_offer'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <a class="notification-text">
+                          <span class="highlight bold clickable">{{message.oferta.nombreUsuario}}</span> ha hecho una oferta
+                          <div *ngIf="message.producto">
+                            <span *ngIf="message.producto.tipoVenta !== 'SUBASTA'">para tu</span>
+                            <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en subasta</span>
+                            <span class="highlight bold clickable" (click)="goToDetail(message)">
+                              {{(message.producto.nombreProducto )+ ': ' + (message.oferta.monto | currency:'$':0 ) + ' pesos.'}}
+                            </span>
+                          </div>
+                        </a>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
+                        <div class="notification-buttons" *ngIf="message.producto && message.producto.tipoVenta !== 'SUBASTA' && !message.status">
+                          <div class="button-item">
+                            <button class="button button-secondary" (click)="acceptOffer(message)">Aceptar</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN NUEVA OFERTA -->
 
 
+                      <!-- INICIO NOTIFICACIÓN OFERTA ACEPTADA -->
+                      <div *ngIf="message.tipoNotificacion == 'offer_accepted'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">Tu oferta ha sido aceptada
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
+                        <div class="notification-buttons" *ngIf="!message.status">
+                          <div class="button-item">
+                            <button class="button button-secondary" (click)="buyProduct(message)">Comprar</button>
+                          </div>
+                          <div class="button-item">
+                            <button class="button button-primary" (click)="regretOffer(message)">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
 
-  <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
-  <div *ngIf="message['tipoNotificacion'] == 'new_message'">
-      <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">{{message.mensaje}}</div>
-      <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}</small>
-  </div>
-  <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
 
+                      <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
+                      <div *ngIf="message.tipoNotificacion == 'offer_declined'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text">Tu oferta ha sido rechazada
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ' ' +(message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
 
+                      <!-- INICIO NOTIFICACIÓN OFERTA CANCELADA -->
+                      <div *ngIf="message.tipoNotificacion ==  'offer_regretted'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text">
+                          <span class="highlight bold">{{message.oferta.nombreUsuario}}</span> ha cancelado su oferta
+                          <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en tu subasta</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN OFERTA CANCELADA -->
 
-
-
-
-
-
-
-
-
-
-
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
-              <input formControlName="message" required type="text" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              <textarea formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              </textarea>
               <button [disabled]="formMessage.invalid" type="submit" class="send">
                 <div class="circle">
                   <p>Enviar</p>

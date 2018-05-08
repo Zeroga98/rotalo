@@ -30,6 +30,7 @@ export class NotificationsService {
                 return data.map( (notificacion: NotificationsInterface) => {
                     notificacion.status = this.updateStatusNotification(notificacion);
                     return notificacion;
+
                 });
             })
             .toPromise();

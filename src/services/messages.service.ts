@@ -50,8 +50,87 @@ export class MessagesService {
       const url = this.urlSapi + '/centro/rotalo/notificaciones';
       return this.http
         .get(url, { headers: headers })
-        .map((response: any) => response);
+        .map((response: any) => {
+            response.body.emisarios.map((emisario) => {
+            emisario.mensajes.map((mensaje) => {
+            mensaje.status = this.updateStatusNotification(mensaje);
+            });
+          });
+          return response;
+        } );
     }
+
+
+    private updateStatusNotification(notification) {
+      let status;
+      switch (notification['tipoNotificacion']) {
+          case 'offer_accepted':
+              if (notification.oferta) {
+                switch (notification.oferta.arrepentido) {
+                  case true:
+                    status = 'Compra no realizada';
+                    break;
+                  case false:
+                    status = 'Compra realizada';
+                    break;
+                }
+              }
+          break;
+          case 'new_offer':
+              if (notification.oferta) {
+                switch (notification.oferta.aceptado) {
+                  case true:
+                    status = 'Oferta aceptada';
+                    break;
+                  case false:
+                    status = 'Oferta rechazada';
+                    break;
+                }
+              }
+          break;
+          case 'new_purchase':
+              status = this.getStatusNewPurchase(notification.compra, notification.producto);
+          break;
+          case 'rate_seller':
+          case 'rate_buyer':
+              if (notification.compra && (notification.compra.sellerRate || notification.compra.buyerRate)) {
+                  status = 'Evaluación enviada';
+              }
+          break;
+          case 'purchase_accepted':
+              if (notification.producto && notification.producto.received) {
+                switch (notification.producto.received) {
+                  case true:
+                    status =  'Has recibido el producto';
+                    break;
+                }
+              }
+          break;
+      }
+      return status;
+  }
+
+  private getStatusNewPurchase(purchase, product): string {
+    let result;
+    if (purchase && purchase.verified) {
+      switch (purchase.verified) {
+        case true:
+          if (product.tipoVenta === 'GRATIS') {
+            result = 'Lo has regalado';
+          } else {
+            result = 'Compra confirmada';
+          }
+          return result;
+        case false:
+          if (product.tipoVenta === 'GRATIS') {
+            result = 'No lo has regalado';
+          } else {
+            return 'Compra rechazada';
+          }
+          return result;
+      }
+    }
+  }
 
     getConversationMessages(idUser, idUserEmit) {
       let headersSapi = this.configurationService.getJsonSapiHeaders();

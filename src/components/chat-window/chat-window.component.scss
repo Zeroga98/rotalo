@@ -1,10 +1,13 @@
 :host {
   width: 65%;
+
   .container {
     padding: 10px;
     padding-top: 0;
     width: 100%;
+    height: 491px;
   }
+
   .page {
     width: 100%;
     height: 100%;
@@ -27,7 +30,6 @@
   }
 
   /* Status Bar */
-
   .status-bar {
     height: 25px;
     background: #004e45;
@@ -52,7 +54,6 @@
   }
 
   /* Chat */
-
   .chat {
     height: calc(100% - 69px);
   }
@@ -63,7 +64,6 @@
   }
 
   /* User Bar */
-
   .user-bar {
     height: 55px;
     background: #f4f4f4;
@@ -131,7 +131,6 @@
   }
 
   /* Conversation */
-
   .conversation {
     position: relative;
     padding-bottom: 2rem;
@@ -170,7 +169,6 @@
   }
 
   /* Messages */
-
   .message {
     color: #000;
     clear: both;
@@ -235,7 +233,6 @@
   }
 
   /* Compose */
-
   .conversation-compose {
     position: relative;
     display: flex;
@@ -324,6 +321,21 @@
   .conversation-compose .send .circle i {
     font-size: 24px;
     margin-left: 5px;
+  }
+
+  .notifications-theme .notifications-item{
+    width: 100%;
+  }
+
+
+  small{
+    display: block;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+  }
+
+  textarea {
+    resize: none;
   }
 
   @media (max-width: 768px) {

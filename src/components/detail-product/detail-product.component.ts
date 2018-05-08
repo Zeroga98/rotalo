@@ -18,6 +18,7 @@ import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
 import { MessagesService } from "../../services/messages.service";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { ShareInfoChatService } from "../chat-thread/shareInfoChat.service";
 
 @Component({
   selector: "detail-product",
@@ -55,6 +56,7 @@ export class DetailProductComponent implements OnInit {
     private currentSessionSevice: CurrentSessionService,
     private userService: UserService,
     private messagesService: MessagesService,
+    private shareInfoChatService: ShareInfoChatService
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
@@ -76,22 +78,19 @@ export class DetailProductComponent implements OnInit {
   }
 
   sendMessage() {
-    let idUserMessage = this.products.user.id;
-    const params = {
-      idUsuarioDestinatario: idUserMessage,
-      mensaje: ' ',
-    };
-    this.messagesService.sendMessage(params, this.idUser)
-    .subscribe(
-      state => {
-       this.router.navigate
-       ([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.CONVERSATION}/${idUserMessage}`]);
-        console.log(state);
-        console.log(`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${idUserMessage}`);
-      },
-      error => console.log(error)
-    );
-}
+    this.shareInfoChatService.setIdConversation(this.products.user.id);
+    if (!this.products.user.photo) {this.products.user.photo = undefined; }
+    const newUser = {
+      fotoEmisario: this.products.user.photo,
+      idEmisario: this.products.user.id,
+      messages: [],
+      nombreEmisario: this.products.user.name
+
+    }
+    this.shareInfoChatService.setNewConversation(newUser);
+    this.router.navigate
+       ([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`]);
+  }
 
   async loadProduct() {
     try {

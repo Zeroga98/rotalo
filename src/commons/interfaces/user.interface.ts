@@ -5,7 +5,7 @@ export interface UserInterface {
     'cellphone': string;
     'city': CityInterface;
     'city-id': number;
-    'company': CompanyInterface; 
+    'company': CompanyInterface;
     'email': string;
     'hobbies': string;
     'id': string;
@@ -17,4 +17,5 @@ export interface UserInterface {
     'sufi-credit-amount': string;
     'sufi-credit-available': string;
     'unread-notifications': number;
+    'photo': string;
 };
