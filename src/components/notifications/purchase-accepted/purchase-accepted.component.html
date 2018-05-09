@@ -1,34 +1,34 @@
 <div class="notifications-item">
     <span class="icon icon-warning notification-icon"></span>
-    <p class="notification-text" *ngIf="notification.product['sell-type'] !== 'GRATIS'">
+    <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
         <span class="highlight bold clickable"(click)="clickUser()">
-            {{notification.product.user.name}}
+            {{notification.producto.nombreUsuario}}
         </span>
         <span>ha confirmado tu compra</span>
-        <span class="highlight bold clickable" (click)="goToDetail(notification.product.id)">
-            {{ notification.product.name + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}
+        <span class="highlight bold clickable" (click)="goToDetail(notification.producto.idProducto)">
+            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto  | currency:'$':0) + ' pesos.'}}
         </span>
     </p>
-    <p class="notification-text" *ngIf="notification.product['sell-type'] === 'GRATIS'">
+    <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
         <span>Has pedido a</span>
-        <span class="highlight bold clickable">{{notification.product.user.name}}</span>
+        <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
         <span>el artículo</span>
         <span class="highlight bold clickable">
-            {{ notification.product.name + ': ' + (notification.purchase.amount | currency:'$':0) + ' pesos.'}}
+            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0) + ' pesos.'}}
         </span>
     </p>
     <small class="notification-date">
-        {{notification.at | amLocale:'es' | amTimeAgo}}
+        {{notification.fechaHora | date:'yyyy-MM-dd HH:mm a'}}
     </small>
     <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
     <div class="notification-buttons" *ngIf="!notification.status">
         <div class="button-item">
-            <button class="button button-secondary" (click)="productReceived(notification.product.id)">
+            <button class="button button-secondary" (click)="productReceived(notification.producto.idProducto)">
                 <span>Recibí el artículo</span>
             </button>
         </div>
         <div class="button-item">
-            <button class="button button-primary" (click)="contactSeller(notification.product.id)">
+            <button class="button button-primary" (click)="contactSeller(notification.producto.idProducto)">
                 <span>Contactar al vendedor</span>
             </button>
         </div>

@@ -3,23 +3,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConfigurationService {
 
- /*
-  apiNequi = {
-    'protocol': 'https',
-    'server': '10.43.1.10:2020',
-    'inactivityLimit': 86400 // seconds
+  /*api = {
+    'protocol': "https",
+    'server': "api.stg.rotalo.co:1443/gateway/v1",
+     'inactivityLimit': 86400 // seconds
   };
 
-  apiSapi = {
-    'protocol': 'https',
-    'server': '10.43.1.10:1443',
-    'inactivityLimit': 86400 // seconds
-  };
-
-  api = {
-      'protocol': "https",
-      'server': "api.rotalo.co",
-       'inactivityLimit': 86400 // seconds
+  sapi = {
+    'protocol': "https",
+    'server': "api.stg.rotalo.co:1443/gateway",
+     'inactivityLimit': 86400 // seconds
   };*/
 
   api = {
@@ -27,12 +20,6 @@ export class ConfigurationService {
     'server': "api.dev.rotalo.co:1443/gateway/v1",
      'inactivityLimit': 86400 // seconds
   };
-
- /* api = {
-    'protocol': "https",
-    'server': "api.rotalo.co",
-     'inactivityLimit': 86400 // seconds
-  };*/
 
   sapi = {
     'protocol': "https",

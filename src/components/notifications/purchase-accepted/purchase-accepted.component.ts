@@ -10,7 +10,7 @@ import { ProductsService } from '../../../services/products.service';
 	styleUrls: ['./purchase-accepted.component.scss']
 })
 export class PurchaseAcceptedComponent {
-	@Input() notification: NotificationsInterface;
+	@Input() notification;
 	@Output() userClicked: EventEmitter<any> = new EventEmitter();
 	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
 	constructor(private productsService: ProductsService, private router: Router) { }

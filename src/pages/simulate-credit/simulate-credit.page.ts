@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 
 import {
   FormControl,
@@ -84,13 +84,15 @@ export class SimulateCreditPage implements OnInit {
   resultCredit: number;
   showModalCredit: boolean;
   currentUser;
+  showPage: boolean;
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private fb: FormBuilder,
     private settingsService: SettingsService,
     private simulateCreditService: SimulateCreditService,
-    private userService: UserService
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.showModalCredit = false;
   }
@@ -194,7 +196,9 @@ export class SimulateCreditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      this.showPage = true;
       this.populatePreciVehicle(this.product);
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 

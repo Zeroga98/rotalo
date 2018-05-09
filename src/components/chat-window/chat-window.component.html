@@ -51,6 +51,9 @@
                           <div class="button-item">
                             <button class="button button-secondary" (click)="acceptOffer(message)">Aceptar</button>
                           </div>
+                          <div class="button-item">
+                              <button class="button button-primary" (click)="declineOffer(message)">Rechazar</button>
+                          </div>
                         </div>
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVA OFERTA -->
@@ -99,13 +102,196 @@
                       </div>
                       <!-- FIN NOTIFICACIÓN OFERTA CANCELADA -->
 
+
+                      <!-- INICIO NOTIFICACIÓN NUEVA COMPRA -->
+                      <div *ngIf="message.tipoNotificacion == 'new_purchase'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          <span class="highlight bold clickable">{{message.compra.nombreUsuario}}</span>
+                          <span *ngIf="message.producto.tipoVenta === 'GRATIS'">te ha pedido </span>
+                          <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0) + ' pesos.'}}</span>
+                          - Pago: {{paymentTypes[message.compra.tipoPago]}}
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
+                        <div class="notification-buttons" *ngIf="!message.status">
+                          <div class="button-item">
+                            <button class="button button-secondary" (click)="acceptPurchase(message)">
+                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">Regalar</span>
+                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Recibí el dinero</span>
+                            </button>
+                          </div>
+                          <div class="button-item">
+                            <button class="button button-primary" (click)="declinePurchase(message)">
+                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">No Regalar</span>
+                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Cancelar Compra</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
+
+                      <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
+                      <purchase-accepted *ngIf="message.tipoNotificacion == 'purchase_accepted'" [notification]="message">
+                      </purchase-accepted>
+                      <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
+
+
+                      <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
+                      <div *ngIf="message.tipoNotificacion == 'purchase_declined'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text" *ngIf="message.producto.tipoVenta !== 'GRATIS'">
+                          <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
+                          <span>ha cancelado tu compra</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0) + ' pesos.'}}
+                          </span>
+                        </p>
+                        <p class="notification-text" *ngIf="message.producto.tipoVenta === 'GRATIS'">
+                          <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
+                          <span>No te ha regalado el artículo</span>
+                          <span class="highlight bold">
+                            {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0) + ' pesos.'}}
+                          </span>
+                        </p>
+                        <small class="notification-date">
+                          {{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}
+                        </small>
+                      </div>
+                      <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
+
+
+
+                      <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
+                      <div *ngIf="message.tipoNotificacion == 'product_expired'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text">Tu publicación
+                          <span class="highlight bold">{{message.producto.nombreProducto}}</span>
+                          se ha vencido.
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
+
+                      <!--INICIO NOTIFICACIÓN PRODUCTO RECIBIDO -->
+                      <div *ngIf="message.tipoNotificacion == 'product_received'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          Tu producto
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos.'}}</span>
+                          ha sido recibido.
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
+
+                      <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+                      <!--  <div *ngIf="message.tipoNotificacion == 'rate_seller' || message.tipoNotificacion == 'rate_buyer'" class="notifications-item">
+                        <rating-notification class="notifications-theme" [notification]="notification" (rated)="showModalRate(notification)"></rating-notification>
+                      </div>-->
+                      <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+
+                      <!-- INICIO NOTIFICACIÓN NUEVO SUFI -->
+                      <div *ngIf="message.tipoNotificacion == 'new_sufi'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          <span class="highlight bold">{{message['sufi-loan'].nombreUsuario}}</span>
+                          quiere comprar
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos'}}</span>
+                          y para ello ha solicitado un crédito Sufi.
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
+
+                      <!-- INICIO NOTIFICACIÓN SUFI APROVADO -->
+                      <div *ngIf="message.tipoNotificacion == 'sufi_approved'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          Felicitaciones! Tu crédito con Sufi para la compra del producto
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos '}}
+                          </span>
+                          ha sido aprobada.
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN SUFI APROVADO -->
+
+                      <!-- INICIO NOTIFICACIÓN SUFI RECHAZADO -->
+                      <div *ngIf="message.tipoNotificacion == 'sufi_declined'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          Tu solicitud de crédito Sufi para la compra del producto
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos '}}
+                          </span>
+                          no fue aprobada.
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN SUFI RECHAZADO -->
+
+                      <!-- INICIO NOTIFICACIÓN SUBASTA GANADA -->
+                      <div *ngIf="message.tipoNotificacion == 'auction_assigned'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">Has ganado la subasta
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}
+                          </span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <div class="notification-buttons" *ngIf="!message.status">
+                          <div class="button-item">
+                            <button class="button button-secondary">Comprar</button>
+                          </div>
+                          <div class="button-item">
+                            <button class="button button-primary">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN SUBASTA GANADA -->
+
+                      <!-- INICIO NOTIFICACIÓN SUBASTA FINALIZADA -->
+                      <div *ngIf="message.tipoNotificacion == 'auction_finished'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">
+                          <span class="highlight bold">{{message.oferta.nombreUsuario}}</span> ha ganado tu subasta
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos.'}}
+                          </span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN SUBASTA FINALIZADA -->
+
+                      <!-- INICIO NOTIFICACIÓN SUBASTA SOBREPASADA -->
+                      <div *ngIf="message.tipoNotificacion == 'auction_overtaken'" class="notifications-item">
+                        <span class="icon icon-flag notification-icon"></span>
+                        <p class="notification-text">Han superado tu oferta en la subasta del producto
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">
+                            {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$':0) + ' pesos.'}}
+                          </span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
+
+                      <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+                      <div class="notifications-item">
+                        <rating-notification class="notifications-theme" [notification]="message" ></rating-notification>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
-              <textarea formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              <textarea style="overflow:hidden;"  formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
               </textarea>
               <button [disabled]="formMessage.invalid" type="submit" class="send">
                 <div class="circle">

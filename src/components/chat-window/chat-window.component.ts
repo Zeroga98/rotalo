@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked, Output, EventEmitter, OnChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MessagesService } from "../../services/messages.service";
 import { CurrentSessionService } from "../../services/current-session.service";
@@ -14,11 +14,11 @@ import { ROUTES } from "../../router/routes";
   templateUrl: "./chat-window.component.html",
   styleUrls: ["./chat-window.component.scss"]
 })
-export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
   readonly defaultImage: string = "../assets/img/user_sin_foto.svg";
   private idUserConversation;
   private userId;
-  private readonly timeToCheckNotification: number = 5000;
+  private readonly timeToCheckNotification: number = 3000;
   private idReceptorUser: number;
   private currentInfoSubscribe;
   listenerMessages: any;
@@ -28,6 +28,14 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
   messages: any;
   formMessage: FormGroup;
   showSpinner: boolean = true;
+  isScroollBottom: boolean = true;
+  public paymentTypes = {
+    cash: "Efectivo",
+    bank_account_transfer: "Transferencia bancaria",
+    qr_code_transfer: "Código QR",
+    sufi_credit: "Crédito SUFI",
+    na: "No aplica"
+  };
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('scrollMe') private ScrollContainer: ElementRef;
@@ -53,7 +61,9 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
           this.messages = currentConversation.mensajes;
           this.idReceptorUser = currentConversation.idEmisario;
           this.showSpinner = false;
+          this.updateConversationStatus(this.idReceptorUser);
           this.onLoadWindow(this.showSpinner);
+          this.isScroollBottom = true;
       }
     });
   }
@@ -63,7 +73,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
   }
 
   ngAfterViewChecked() {
-   // this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   ngOnDestroy(): void {
@@ -74,7 +84,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
 
   scrollToBottom(): void {
     try {
-        this.ScrollContainer.nativeElement.scrollTop = this.ScrollContainer.nativeElement.scrollHeight;
+      if (this.ScrollContainer) {
+        if (this.isScroollBottom) {
+          this.ScrollContainer.nativeElement.scrollTop = this.ScrollContainer.nativeElement.scrollHeight;
+          this.isScroollBottom = false;
+        }
+      }
     } catch (err) { console.log(err); }
   }
 
@@ -107,12 +122,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.subscriptionMessages = this.messagesService.updateMessage(params,  this.userId)
     .subscribe(
       state => {
-        console.log(state);
       },
       error => console.log(error)
     );
   }
-
 
   goToDetail(notification) {
     const id = notification.producto.idProducto;
@@ -121,11 +134,60 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
     ]);
   }
 
+  productIsFree(notification) {
+    return notification.producto.tipoVenta === "GRATIS";
+  }
+
+  async acceptPurchase(notification) {
+    let confirmMessage;
+    if (this.productIsFree(notification)) {
+      confirmMessage = '¿Estás seguro que deseas regalar tu producto?';
+    } else {
+      confirmMessage = '¿Estás seguro que deseas confirmar la compra?';
+    }
+    try {
+      if (!confirm(confirmMessage)) {
+        return;
+      }
+      const response = await this.buyService.confirmPurchase(notification.compra.idCompra.toString());
+      if (this.productIsFree(notification)) {
+        notification.status = 'Lo has regalado';
+      } else {
+        notification.status = 'Compra confirmada';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async declinePurchase(notification) {
+    let confirmMessage;
+    if (this.productIsFree(notification)) {
+      confirmMessage = '¿Estás seguro que no deseas regalar el producto?';
+    } else {
+      confirmMessage = '¿Estás seguro que deseas cancelar la compra?';
+    }
+    try {
+      if (!confirm(confirmMessage)) {
+        return;
+      }
+      const response = await this.buyService.declinePurchase(notification.compra.idCompra.toString());
+      if (this.productIsFree(notification)) {
+        notification.status = 'No lo has regalado';
+      } else {
+        notification.status = 'Compra rechazada';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   async acceptOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
       const response = await this.offerService.acceptOffer(notification.oferta
-        .idOferta as number);
+        .idOferta.toString());
       notification.status = 'Oferta aceptada';
     } catch (error) {
       console.error(error);
@@ -136,7 +198,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
     try {
       if (!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
       const response = await this.offerService.declineOffer(notification.oferta
-        .idOferta as number);
+        .idOferta.toString());
       notification.status = 'Oferta rechazada';
     } catch (error) {
       console.error(error);
@@ -151,7 +213,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked 
   async regretOffer(notification){
     try {
       if (!confirm("¿Estás seguro que deseas cancelar la compra?")) return;
-      const response = await this.offerService.regretOffer(notification.oferta.idOferta as number);
+      const response = await this.offerService.regretOffer(notification.oferta.idOferta.toString());
       notification.status = "Compra cancelada";
     } catch (error) {
       console.error(error);

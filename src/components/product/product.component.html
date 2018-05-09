@@ -39,7 +39,7 @@
       <span>Fecha de Publicación</span>
       {{product['published-at'] | date}}</p>
   </div>
-  <div *ngIf="isProductSelling && product.status ==='active'" class="container-date">
+  <div *ngIf="isProductSelling" class="container-date">
     <span class="icon-calendar"></span>
     <p>
       <span>Fecha de Caducación</span>
@@ -91,7 +91,7 @@
       </label>
     </div>
     <div class="media-body">
-      <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+      <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' : 'inactivo' }}</p>
     </div>
   </div>
 </div>

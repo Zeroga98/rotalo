@@ -1,3 +1,12 @@
 :host{
-    
+    .rate{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    p.notification-text {
+      margin: 0;
+      margin-bottom: -20px;
+      font-weight: 600;
+    }
 }

@@ -1,10 +1,20 @@
 <div class="notifications-item">
-    <span class="icon icon-flag notification-icon"></span>
-    <p class="notification-text" [innerHTML]="'¿Cómo te fue con la compra de ' + notification.product.name + '?'"></p>
-    <small class="notification-date" [innerHTML]="notification.at | amLocale:'es' | amTimeAgo"></small>
-    <div class="notification-buttons">
-        <div class="button-item">
-            <button class="button button-secondary" [innerHTML]="notification.status ? 'Ver Calificación' : 'Calificar'" (click)="rate()"></button>
-        </div>
-    </div>
+  <div class="rate">
+    <p class="notification-text" [innerHTML]="'¿Cómo te pareció la rapidez del proceso?'"></p>
+    <bar-rating [(rate)]="speed" [max]="5"></bar-rating>
+  </div>
+  <div class="rate">
+    <p class="notification-text" [innerHTML]="'¿Y que tal la calidad del producto?'"></p>
+    <bar-rating [(rate)]="quality" [max]="5"></bar-rating>
+  </div>
+  <div class="rate">
+    <p class="notification-text" [innerHTML]="'¿Fui amable y servicial?'"></p>
+    <bar-rating [(rate)]="attention" [max]="5"></bar-rating>
+  </div>
+  <small class="notification-date"></small>
+  <div class="notification-buttons">
+      <div class="button-item">
+          <button [disabled]="disableButton" [innerHTML]="'Calificar'"  class="button button-secondary" (click)="rate()"></button>
+      </div>
+  </div>
 </div>

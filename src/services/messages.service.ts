@@ -51,11 +51,14 @@ export class MessagesService {
       return this.http
         .get(url, { headers: headers })
         .map((response: any) => {
+
+          if(response.body.emisarios){
             response.body.emisarios.map((emisario) => {
-            emisario.mensajes.map((mensaje) => {
-            mensaje.status = this.updateStatusNotification(mensaje);
+              emisario.mensajes.map((mensaje) => {
+              mensaje.status = this.updateStatusNotification(mensaje);
+              });
             });
-          });
+          }
           return response;
         } );
     }
@@ -136,7 +139,7 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/mensajes/' + idUserEmit;
+      const url = this.urlSapi + '/centro/rotalo/notificaciones/' + idUserEmit;
       return this.http
         .get(url, { headers: headers })
         .map((response: any) => response);
@@ -156,9 +159,20 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/mensajes';
+      const url = this.urlSapi + '/centro/rotalo/notificaciones';
       return this.http
-        .put(url, params ,{ headers: headers })
+        .put(url, params , { headers: headers })
         .map((response: any) => response);
     }
+
+    rateSeller(params, idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/calificaciones';
+      return this.http
+        .put(url, params , { headers: headers })
+        .map((response: any) => response);
+    }
+
 }
