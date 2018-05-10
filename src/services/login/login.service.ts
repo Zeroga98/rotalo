@@ -21,7 +21,6 @@ export class LoginService {
       resonse => {
         this.currentSessionService.clearSession();
         location.reload();
-        console.log(resonse);
       },
       error => {
         this.currentSessionService.clearSession();
