@@ -175,6 +175,7 @@
           padding-top: 5px;
           background-color: #D6D5D5;
           border-radius: 50%;
+          position: relative;
           span{
             color:white;
           }
@@ -318,6 +319,29 @@
       }
     }
   }
+
+  .icon-cellphone{
+    margin: 0 auto;
+    width: 45px;
+    height: 45px;
+    background: url(../../assets/img/celular.svg);
+    background-size: 45px 45px;
+    position: absolute;
+    top: -4px;
+    left: -4px;
+  }
+
+  .icon-email{
+    margin: 0 auto;
+    width: 45px;
+    height: 45px;
+    background: url(../../assets/img/email.svg);
+    background-size: 45px 45px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+  }
+
   @media (max-width: 700px) {
     .container-gallery {
       align-items: center;
