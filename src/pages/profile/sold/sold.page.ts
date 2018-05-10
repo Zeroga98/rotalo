@@ -26,14 +26,14 @@ export class SoldPage implements OnInit {
   };
   public masonryConfig = MASONRY_CONFIG;
   private userId;
+  public showEmptySold = false;
+  public showEmptyPurchase = false;
   constructor(private sanitizer: DomSanitizer,
     private userService: UserService,
     private productsService: ProductsService,
     private currentSessionService: CurrentSessionService) {
-
     this.userId = this.currentSessionService.getIdUser();
     this.getInfoAdditional(this.userId);
-    this.isSpinnerShow = false;
   }
 
   async loadProductsSold(solProduct) {
@@ -55,9 +55,28 @@ export class SoldPage implements OnInit {
           }
         }
         this.productsSold = newArray;
+        this.thereIsSold(this.productsSold);
         this.isSpinnerShow = false;
     });
   }
+
+
+  async loadProductSold() {
+    this.productsService.getProducts(this.currentFilterSold).then(products => {
+        this.productsSold = [].concat(products);
+        this.thereIsSold(this.productsSold);
+        this.isSpinnerShow = false;
+    });
+  }
+
+  async loadProductPurchased() {
+    this.productsService.getProducts(this.currentFilterPurchased).then(products => {
+        this.productsPurchased = [].concat(products);
+        this.thereIsPurchased(this.productsPurchased);
+        this.isSpinnerShow = false;
+    });
+  }
+
   async loadProductsPurchased(purchasedProduct) {
     this.productsService.getProducts(this.currentFilterPurchased).then(products => {
         this.productsPurchased = [].concat(products);
@@ -75,10 +94,30 @@ export class SoldPage implements OnInit {
           }
         }
         this.productsPurchased = newArray;*/
+        this.thereIsPurchased(this.productsPurchased);
         this.isSpinnerShow = false;
     });
   }
 
+  thereIsSold(product) {
+    if (product) {
+      if (product.length <= 0) {
+        this.showEmptySold = true;
+      }else {
+        this.showEmptySold = false;
+      }
+    }
+  }
+
+  thereIsPurchased(product) {
+    if (product) {
+      if (product.length <= 0) {
+        this.showEmptyPurchase = true;
+      }else {
+        this.showEmptyPurchase = false;
+      }
+    }
+  }
 
   ngOnInit() {
     this.currentTab = 'sold';
@@ -96,6 +135,9 @@ export class SoldPage implements OnInit {
         if (state.status === '0') {
           this.loadProductsSold(state.body.articulosVendidos);
           this.loadProductsPurchased(state.body.articulosComprados);
+        }else{
+          this.loadProductSold();
+          this.loadProductPurchased();
         }
       },
       error => console.log(error)

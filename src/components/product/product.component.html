@@ -12,7 +12,7 @@
     <img (load)="triggerMasonryLayout()" *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
     <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"  (error)="updateSrc($event)">
     <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
-    <div  *ngIf="isProductSold" class="circle-rating">
+    <div  *ngIf="isProductSold && product.calificacionGeneral > 0" class="circle-rating">
       <div class="rating">
           {{product.calificacionGeneral}}
       </div>

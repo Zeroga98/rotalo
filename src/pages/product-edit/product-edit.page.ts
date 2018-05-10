@@ -34,7 +34,7 @@ export class ProductEditPage implements OnInit {
     try {
       const response = await this.productsService.updateProduct(this.idProduct, event);
       this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
       this.changeDetectorRef.markForCheck();
     } catch (error) {

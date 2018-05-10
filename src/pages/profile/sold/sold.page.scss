@@ -5,12 +5,15 @@
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
+  min-height: 60rem;
+  .spinner{
+    position: relative;
+    height: 60rem;
+  }
   custom-spinner {
     position: absolute;
-    left: 65%;
-    top: 50%;
-    -webkit-transform: translate(-50%, 50%);
-    transform: translate(-50%, 50%);
+    left: 48%;
+    top: 40%;
   }
   .tittle {
     .text {

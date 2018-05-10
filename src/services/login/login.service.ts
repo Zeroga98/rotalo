@@ -32,10 +32,23 @@ export class LoginService {
   }
 
   logOutService (token) {
-    const url = this.configurationService.getBaseSapiUrl() + '/logout' + '?token=' + token;
+    const url = this.configurationService.getBaseSapiUrl() + '/sapi/v1/logout' + '?token=' + token;
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
     return this.http.get(url, { headers: headers}).map( (response: any) =>
+      response
+    );
+  }
+
+
+  logOutClearSession (email) {
+    const param = {
+      user: email
+    };
+    const url = this.configurationService.getBaseSapiUrl() + '/sapi/v1/logout';
+    const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    return this.http.post(url, param, { headers: headers}).map( (response: any) =>
       response
     );
   }

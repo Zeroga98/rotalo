@@ -14,11 +14,13 @@ export class ValidateSessionInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).catch ((error, caught) => {
+          console.log(error);
+            console.log(error.status);
             if (error.status === 401) {
                 this.currentSession.clearSession();
                 this.router.navigate([`/`]);
                 location.reload();
-            }else if (this.isConversationsOrUnread(req)) {
+            }else /*if (this.isConversationsOrUnread(req))*/{
               if (error.status === 500) {
                 this.currentSession.clearSession();
                 this.router.navigate([`/`]);

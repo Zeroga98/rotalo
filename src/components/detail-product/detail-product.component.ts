@@ -72,9 +72,16 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-
   shareProduct() {
-    this.messageSuccess = true;
+    if (!this.sendInfoProduct.invalid) {
+      const params = {
+        product_id: this.products.id,
+        email: this.sendInfoProduct.get('email').value,
+      };
+      this.productsService.shareProduct(params).then((response) => {
+        this.messageSuccess = true;
+      });
+    }
   }
 
   sendMessage() {

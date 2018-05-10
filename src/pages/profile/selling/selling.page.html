@@ -18,8 +18,10 @@
   </nav>
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'selling'">
-      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-      <div *ngIf="!isSpinnerShow && products && products.length <= 0" class="products-empty">
+      <div *ngIf="isSpinnerShow" class="spinner">
+          <custom-spinner ></custom-spinner>
+      </div>
+      <div *ngIf="showEmptyProduct" class="products-empty">
         <div>
           <div class="ico ico-no-product"></div>
           <p class="text">Aún no tienes ningun artículo rotando.</p>
@@ -35,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="row-list__wrapper" *ngIf="products.length  > 0">
+      <div class="row-list__wrapper" *ngIf="!showEmptyProduct">
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
@@ -48,12 +50,14 @@
       </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'expired'">
-      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-      <div *ngIf="!isSpinnerShow && productsExpired &&productsExpired.length <= 0" class="products-empty">
+        <div *ngIf="isSpinnerShow" class="spinner">
+            <custom-spinner ></custom-spinner>
+        </div>
+      <div *ngIf="showEmptyExpired" class="products-empty">
         <div class="ico ico-expired"></div>
         <p class="text">No tienes productos vencidos.</p>
       </div>
-      <div class="row-list__wrapper" *ngIf="productsExpired.length  > 0">
+      <div class="row-list__wrapper" *ngIf="!showEmptyExpired">
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">

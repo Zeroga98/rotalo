@@ -18,12 +18,14 @@
   </nav>
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'sold'">
-      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-      <div *ngIf="!isSpinnerShow && productsSold.length <= 0" class="products-empty">
+        <div *ngIf="isSpinnerShow" class="spinner">
+            <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+        </div>
+      <div *ngIf="showEmptySold" class="products-empty">
         <div class="ico ico-sold"></div>
         <p class="text">No tienes artículos vendidos.</p>
       </div>
-      <div class="row-list__wrapper" *ngIf="productsSold.length  > 0">
+      <div class="row-list__wrapper" *ngIf="!showEmptySold">
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSold of productsSold">
@@ -36,12 +38,14 @@
       </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'purchased'">
-      <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
-      <div *ngIf="!isSpinnerShow && productsPurchased.length <= 0" class="products-empty">
+        <div *ngIf="isSpinnerShow" class="spinner">
+            <custom-spinner *ngIf="isSpinnerShow"></custom-spinner>
+        </div>
+      <div *ngIf="showEmptyPurchase"  class="products-empty">
         <div class="ico ico-no-product"></div>
         <p class="text">Aún no tienes ningun artículo comprando.</p>
       </div>
-      <div class="row-list__wrapper" *ngIf="productsPurchased.length  > 0">
+      <div class="row-list__wrapper" *ngIf="!showEmptyPurchase">
         <div class="container-masonry">
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productPurchased of productsPurchased">

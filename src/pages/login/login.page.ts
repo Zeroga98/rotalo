@@ -58,52 +58,69 @@ export class LoginPage implements OnInit {
       this.login(email, password);
     }
   }
+
   login(userEmail: string, password: string) {
     const user = {
       user: userEmail,
       password: password,
       ipAddress: "127.0.0.0"
     };
-    this.loginService
-      .loginSapiUser(user)
-      .then(response => {
-        if (response.status === 200) {
-          this.gapush("send", "event", "Ingreso", "ClicLogin", "IngresarExitosamente");
-          const saveInfo = {
-            'auth-token' : response.body.data.token,
-            'email': response.body.data.userProperties.email,
-            'id': response.body.data.userProperties.id,
-            'id-number':  response.body.data.userProperties.identification,
-            'name': response.body.data.userProperties.fullname,
-            'photo': {
-              'id': '12509',
-              'url': 'https://rotalo-app-imagenes.s3.amazonaws.com/uploads/photo/file/12509/nada-logo.jpg'
+    this.loginService.logOutClearSession(user.user).subscribe(data => {
+      if (data.status === 200) {
+        this.loginService
+          .loginSapiUser(user)
+          .then(response => {
+            if (response.status === 200) {
+              this.gapush(
+                "send",
+                "event",
+                "Ingreso",
+                "ClicLogin",
+                "IngresarExitosamente"
+              );
+              const saveInfo = {
+                "auth-token": response.body.data.token,
+                email: response.body.data.userProperties.email,
+                id: response.body.data.userProperties.id,
+                "id-number": response.body.data.userProperties.identification,
+                name: response.body.data.userProperties.fullname,
+                photo: {
+                  id: " ",
+                  url: " "
+                }
+              };
+
+              this.currentSessionService.setSession(saveInfo);
+              this.setUserCountry(saveInfo);
             }
-          };
-          this.currentSessionService.setSession(saveInfo);
-          this.setUserCountry(saveInfo);
-        }
-        if (response.status === 401) {
-          this.errorLogin = "No puedes tener mas de una sesion activa";
-          this.changeRef.markForCheck();
-        }
-      })
-      .catch(httpErrorResponse => {
-        console.error(httpErrorResponse);
-        if (httpErrorResponse.status === 401) {
-          this.errorLogin = "No puede tener mas de 1 sesiones activas";
-        }
-        if (httpErrorResponse.status === 403) {
-        }
-        if (httpErrorResponse.status === 422) {
-          this.errorLogin = httpErrorResponse.error.errors[0].title;
-        }
-        if (httpErrorResponse.status === 0) {
-          this.errorLogin =
-            "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
-        }
-        this.changeRef.markForCheck();
-      });
+            if (response.status === 401) {
+              this.errorLogin = "No puedes tener mas de una sesion activa";
+              this.changeRef.markForCheck();
+            }
+            if (response.status === 500) {
+              this.errorLogin =
+                "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
+              this.changeRef.markForCheck();
+            }
+          })
+          .catch(httpErrorResponse => {
+            console.error(httpErrorResponse);
+            if (httpErrorResponse.status === 401) {
+              this.errorLogin = "No puede tener mas de 1 sesiones activas";
+            }
+            if (httpErrorResponse.status === 403) {
+            }
+            if (httpErrorResponse.status === 422) {
+              this.errorLogin = httpErrorResponse.error.errors[0].title;
+            }
+            if (httpErrorResponse.status === 0) {
+              this.errorLogin =
+                "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
+            }
+            this.changeRef.markForCheck();
+          });
+      }
+    });
   }
 
   async setUserCountry(userInfo) {

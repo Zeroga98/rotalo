@@ -24,6 +24,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
     private isNecessaryNormalize(req: HttpRequest<any>): boolean {
       return !req.url.includes('auth')
       && !req.url.includes('nequi')
+      && !req.url.includes('logout')
       && !req.url.includes('centro');
     }
     private normalizeResponse(response: HttpResponse<any>) {

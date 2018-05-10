@@ -25,7 +25,7 @@ export class ProductsUploadPage implements OnInit {
       this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
       this.userService.updateInfoUser();
       this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
     } catch (error) {
       console.error("Error: ", error);
