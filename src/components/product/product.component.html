@@ -73,8 +73,9 @@
   </div>
   <div *ngIf="showField" class="container-info-user">
     <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
-      <span class="icon-account"></span>
-    </div>
+      <span class="icon-account" *ngIf="!product.user.photo"></span>
+      <img  *ngIf="product.user.photo" [src]="product.user.photo.url">
+    </div>      
       <div>
         <p class="name-text">{{product.user.name}}</p>
         <p *ngIf="product.user.company" class="company-text" [ngStyle]="{'color' : colourCompany}">

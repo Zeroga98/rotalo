@@ -214,6 +214,7 @@
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+
         .photo-user {
           width: 35px;
           height: 35px;
@@ -230,8 +231,9 @@
         .product-info-user--icon {
           width: 35px;
           height: 35px;
-          text-align: center;
-          padding-top: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: rgb(254, 120, 46); /*asd*/
           border-radius: 50%;
 
@@ -239,19 +241,6 @@
             font-size: 20px;
             color: white;
           }
-        }
-      }
-      .product-info-user--icon {
-        width: 35px;
-        height: 35px;
-        text-align: center;
-        padding-top: 5px;
-        background-color: rgb(254, 120, 46); /*asd*/
-        border-radius: 50%;
-
-        span {
-          font-size: 20px;
-          color: white;
         }
       }
 

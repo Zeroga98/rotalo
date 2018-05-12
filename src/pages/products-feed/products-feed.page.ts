@@ -107,8 +107,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.stateRequest = this.statesRequestEnum.error;
     }
 
-    console.log(this.products);
-
     if (this.productsService.products.length > 0) {
       this.products = this.productsService.products;
       this.productsService.products = [];
@@ -119,10 +117,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   setScroll(event) {
-    console.log(event);
     this.productsService.setProductLocation(this.products, event.id);
-    console.log(this.products);
-    console.log("dio click");
   }
 
   getParamsToProducts() {

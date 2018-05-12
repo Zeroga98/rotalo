@@ -11,6 +11,8 @@ export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/products';
 
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
+    private scroll;
+    public products: Array<ProductInterface> = [];
 
     constructor(private http: HttpClient,
       private configurationService: ConfigurationService,
@@ -96,13 +98,9 @@ export class ProductsService {
       return this.http.post(url, params).toPromise().then( (response: any) => response.data);
     }
 
-    private scroll;
-    public products: Array<ProductInterface> = [];;
     setProductLocation(products, name){
-        console.log(name);
         this.scroll = this.getOffset(document.getElementById(name)).top;
         this.products = products;
-        console.log("Entro");
     }
 
     getOffset(el) {
