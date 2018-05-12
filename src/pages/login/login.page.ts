@@ -70,6 +70,7 @@ export class LoginPage implements OnInit {
         this.loginService
           .loginSapiUser(user)
           .then(response => {
+            console.log(response, 'response');
             if (response.status === 200) {
               this.gapush(
                 "send",
@@ -125,10 +126,10 @@ export class LoginPage implements OnInit {
 
   async setUserCountry(userInfo) {
     try {
-      const user = await this.userService.getInfoUser();
-      this.userCountry = user.city.state.country.id;
+      //const user = await this.userService.getInfoUser();
+      //this.userCountry = user.city.state.country.id;
       const userLogin = Object.assign({}, userInfo, {
-        countryId: this.userCountry
+        countryId: "1"
       });
       this.currentSessionService.setSession(userLogin);
       this.router.navigate([

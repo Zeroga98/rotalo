@@ -52,7 +52,7 @@ export class MessagesService {
         .get(url, { headers: headers })
         .map((response: any) => {
 
-          if(response.body.emisarios){
+          if (response.body.emisarios){
             response.body.emisarios.map((emisario) => {
               emisario.mensajes.map((mensaje) => {
               mensaje.status = this.updateStatusNotification(mensaje);

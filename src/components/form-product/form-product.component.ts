@@ -76,6 +76,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.product) {
+      console.log(this.product);
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
         if (this.categories.length > 0) {

@@ -118,7 +118,9 @@ export class EditProfilePage implements OnInit {
   }
 
   private removePhoto(id: number) {
-    this.photosUploaded = this.photosUploaded.filter(photo => photo.id !== id);
+    this.photosUploaded = this.photosUploaded.filter(photo =>
+      photo.id !== id
+    );
   }
 
   onInfoRetrieved(user): void {
