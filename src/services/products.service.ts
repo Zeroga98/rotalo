@@ -4,12 +4,15 @@ import { Injectable } from '@angular/core';
 import { ConfigurationService } from "../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 import { UserService } from './user.service';
+import { ProductInterface } from '../commons/interfaces/product.interface';
 
 @Injectable()
 export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/products';
 
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
+    private scroll;
+    public products: Array<ProductInterface> = [];
 
     constructor(private http: HttpClient,
       private configurationService: ConfigurationService,
@@ -92,5 +95,22 @@ export class ProductsService {
     shareProduct(params) {
       const url = this.url + '/refer';
       return this.http.post(url, params).toPromise().then( (response: any) => response);
+    }
+
+    setProductLocation(products, name){
+        this.scroll = this.getOffset(document.getElementById(name)).top;
+        this.products = products;
+    }
+
+    getOffset(el) {
+        el = el.getBoundingClientRect();
+        return {
+          left: el.left + window.scrollX,
+          top: el.top + window.scrollY
+        }
+      }
+
+    getProductLocation(){
+        return this.scroll;
     }
 }

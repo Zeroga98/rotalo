@@ -59,17 +59,18 @@
       <div class="product-info-user">
         <div>
           <div class="media-middle">
-            <div *ngIf="!products.user.photo" class="product-info-user--icon">
-              <span class="icon-account"></span>
+            <div *ngIf="!products.user.photo" class="product-info-user--icon"  [ngStyle]="{'background-color':products.user.company.colour}">
+              <span class="icon-account" ></span>
             </div>
-            <div class="panel-product__owner">
+            <div *ngIf="products.user.photo" class="photo-user">
+              <img [src]="products.user.photo.url">
             </div>
           </div>
 
           <div *ngIf="products.user.company" class="media-middle product-info-user--data">
             <p class="name-user">{{products.user.name}}</p>
-            <p class="panel-product">{{products.user.company.name}} -
-              <span>{{products.user.company.community.name}}</span>
+            <p class="panel-product"[ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}} -
+              <span [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
             </p>
           </div>
         </div>

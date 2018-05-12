@@ -72,12 +72,13 @@
       {{product.user.name}}
   </div>
   <div *ngIf="showField" class="container-info-user">
-    <div class="icon-container">
-      <span class="icon-account"></span>
-    </div>
+    <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
+      <span class="icon-account" *ngIf="!product.user.photo"></span>
+      <img  *ngIf="product.user.photo" [src]="product.user.photo.url">
+    </div>      
       <div>
         <p class="name-text">{{product.user.name}}</p>
-        <p *ngIf="product.user.company" class="company-text">
+        <p *ngIf="product.user.company" class="company-text" [ngStyle]="{'color' : colourCompany}">
           {{product.user?.company.name}}
           <span class="comunidad-text"> - {{product.user?.company.community.name}}</span>
         </p>
