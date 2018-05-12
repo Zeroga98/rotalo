@@ -80,7 +80,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
-          this.saveInitialPhotos(this.product.photos);
+          console.log(this.product.photos);
+          if (this.product.photos) {
+            this.saveInitialPhotos(this.product.photos);
+          }
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
         }
@@ -123,7 +126,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
-    this.removeImageFromServer(photo.id);
+    if (photo) {this.removeImageFromServer(photo.id); }
   }
 
   async removeImageFromServer(id: number) {
@@ -246,7 +249,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private getPhotosIds(): Array<string> {
-    return this.photosUploaded.map(photo =>  photo.id.toString());
+    return this.photosUploaded.map(photo => {
+      console.log(photo, 'photo');
+      return photo.id.toString()});
   }
 
   private setCategoryDefault(subCategory: SubcategoryInterface) {

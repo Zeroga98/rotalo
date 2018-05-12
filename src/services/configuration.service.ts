@@ -6,13 +6,13 @@ export class ConfigurationService {
     'protocol': 'https',
     'server': 'apistg.rotalo.co:1443/gateway/v1',
      'inactivityLimit': 86400 // seconds
-  };*/
+  };
 
   sapi = {
     'protocol': 'https',
     'server': 'apistg.rotalo.co:1443/gateway',
     'inactivityLimit': 86400 // seconds
-  };
+  };*/
 
 api = {
     protocol: 'https',
@@ -20,11 +20,11 @@ api = {
     inactivityLimit: 86400 // seconds
   };
 
-  /*sapi = {
+  sapi = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
-  };*/
+  };
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
