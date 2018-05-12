@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ConfigurationService } from "../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 import { UserService } from './user.service';
+import { ProductInterface } from '../commons/interfaces/product.interface';
 
 @Injectable()
 export class ProductsService {
@@ -93,5 +94,26 @@ export class ProductsService {
       const url ="https://api.dev.rotalo.co:3000/v1/products/refer"
      // const url = this.url + '/refer';
       return this.http.post(url, params).toPromise().then( (response: any) => response.data);
+    }
+
+    private scroll;
+    public products: Array<ProductInterface> = [];;
+    setProductLocation(products, name){
+        console.log(name);
+        this.scroll = this.getOffset(document.getElementById(name)).top;
+        this.products = products;
+        console.log("Entro");
+    }
+
+    getOffset(el) {
+        el = el.getBoundingClientRect();
+        return {
+          left: el.left + window.scrollX,
+          top: el.top + window.scrollY
+        }
+      }
+
+    getProductLocation(){
+        return this.scroll;
     }
 }

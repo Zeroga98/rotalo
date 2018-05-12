@@ -28,6 +28,7 @@ import { Subscription } from "rxjs";
 import { StatesRequestEnum } from "../../commons/states-request.enum";
 import { UtilsService } from "../../util/utils.service";
 import { MASONRY_CONFIG } from "./masonry.config";
+import { setTimeout } from "timers";
 
 @Component({
   selector: "products-feed",
@@ -81,8 +82,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
+
     this._subscribeCountryChanges();
     this.setScrollEvent();
+
+
+
   }
 
   ngOnDestroy(): void {
@@ -101,6 +106,23 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
     }
+
+    console.log(this.products);
+
+    if (this.productsService.products.length > 0) {
+      this.products = this.productsService.products;
+      this.productsService.products = [];
+      setTimeout(() => {
+        window.scrollTo(0, this.productsService.getProductLocation());
+      }, 500);
+    }
+  }
+
+  setScroll(event) {
+    console.log(event);
+    this.productsService.setProductLocation(this.products, event.id);
+    console.log(this.products);
+    console.log("dio click");
   }
 
   getParamsToProducts() {
@@ -179,7 +201,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-    }/${product.id}`;
+      }/${product.id}`;
     this.router.navigate([routeDetailProduct]);
   }
 

@@ -31,7 +31,7 @@
   <div class="msg-no-products" *ngIf="noExistProducts">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div class="container-masonry">
+  <div class="container-masonry" id="hola">
       <masonry class="masonry"
       #masonryRef
       [useImagesLoaded]="false"
@@ -45,13 +45,15 @@
                 <div class="icon-clock label-sell--center"></div>
                 <label class="label-sell--center">Venta en proceso</label>
             </div>
-            <product
+            <product id="{{product.id}}"
             [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
             [isProductSelling]="false"
             [showField] = "true"
             [product]="product"
             [masonryInfo]="masonryRef"
-            (selected)="selectProduct($event)">
+            (selected)="selectProduct($event); setScroll($event)" [colourCompany]="product.user.company.colour">
+
+
             </product>
         </masonry-brick>
       </masonry>

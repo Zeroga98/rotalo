@@ -35,6 +35,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() isProductSold: boolean;
   @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
+  @Input() colourCompany: string;
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
@@ -53,6 +54,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.productChecked = this.product.status;
     this.productStatus = this.product.status === "active";
     this.changeDetectorRef.markForCheck();
+    console.log(this.colourCompany);
   }
 
   ngAfterViewInit(): void {
