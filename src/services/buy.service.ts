@@ -6,6 +6,7 @@ import { ConfigurationService } from "./configuration.service";
 @Injectable()
 export class BuyService {
   private readonly url = this.configurationService.getBaseUrl() + "/purchases";
+  private readonly urlNewPurchase = this.configurationService.getBaseUrl() + "/purchases/create_and_confirm";
   private readonly urlNequi = this.configurationService.getBaseSapiUrl() + "/pagos/nequi/notificaciones";
   constructor(
     private httpClient: HttpClient,
@@ -13,7 +14,7 @@ export class BuyService {
   ) {}
 
   buyProduct(params): Promise<any> {
-    return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
+    return this.httpClient.post(this.urlNewPurchase, this.buildParams(params)).toPromise();
   }
 
   buyProductNequi(params) {

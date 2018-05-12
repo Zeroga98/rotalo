@@ -25,6 +25,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
       return !req.url.includes('auth')
       && !req.url.includes('nequi')
       && !req.url.includes('logout')
+      && !req.url.includes('refer')
       && !req.url.includes('centro');
     }
     private normalizeResponse(response: HttpResponse<any>) {

@@ -20,8 +20,8 @@
           <image-upload
           [max]="6"
           [extensions]="['jpeg','png', 'jpg']"
-          [buttonCaption]="'Selecciona una imagen'"
-          [dropBoxMessage]="'Arrastra tus imagenes aquí!'"
+          [buttonCaption]="'Seleccionar Imágenes'"
+          [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
           [clearButtonCaption]="'Limpiar'"
           [style]="customStyleImageLoader"
           (uploadFinished)="onUploadImageFinished($event)"
@@ -131,7 +131,7 @@
         </div>
       </div>
       <div class="actions-form">
-        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar oferta' : 'Sube oferta'" [disabled]="formIsInValid"></custom-button>
+        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" [disabled]="formIsInValid"></custom-button>
       </div>
     </form>
   </div>

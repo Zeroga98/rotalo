@@ -348,6 +348,13 @@
       justify-content: center;
     }
   }
+
+  @media (max-width: 800px) {
+    .info-seller-container .info-seller {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 400px) {
     .buy-product-container{
       margin: 0 auto;

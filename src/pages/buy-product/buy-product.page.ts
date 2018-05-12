@@ -100,16 +100,18 @@ export class BuyProductPage implements OnInit {
       });
     } else {
       this.buyForm.patchValue({
+        "payment-type": "cash"
+      });
+     /* this.buyForm.patchValue({
         "payment-type": "bank_account_transfer"
       });
-      this.payWithBank = true;
+      this.payWithBank = true;*/
     }
   }
 
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.product);
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;
       this.idNumberBuyer = this.currentUser['id-number'];
@@ -257,8 +259,7 @@ export class BuyProductPage implements OnInit {
   private buildParams() {
     return {
       "product-id": this.idProduct,
-      "payment-type": "cash"
-     // "payment-type": this.buyForm.get("payment-type").value
+      "payment-type": this.buyForm.get("payment-type").value
     };
   }
 

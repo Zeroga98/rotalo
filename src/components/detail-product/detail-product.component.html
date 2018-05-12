@@ -2,8 +2,6 @@
 <modal-buy-info [statusProduct]="products.status" [idProduct]="products.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)"></modal-buy-info>
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
-  <modal-send-message [idProduct]="products.id" *ngIf="isModalSendMessageShowed" [idUserProduct]="products.user.id" [conversationDefault]="conversation"
-    (close)="isModalSendMessageShowed = false"></modal-send-message>
   <div class="product">
     <div *ngIf="!products?.photos" class="product-photos">
       <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -94,10 +92,10 @@
         </div>
         <div class="cont-botons" *ngIf="!isSellProcess() && !validateSession()">
           <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && checkSufiBotton()" (click)="openSimulateCreditSufi(products.id)">
-            <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar crédito
+            <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar Crédito
           </button>
           <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable" (click)="openOfferModal(products)">
-            <span class="icon-offer"></span> Hacer oferta
+            <span class="icon-offer"></span> Hacer Oferta
           </button>
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
@@ -108,7 +106,7 @@
             <div *ngIf="showInputShare" class="input-container">
               <form  (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
                   <div class="form-group">
-                      <input (click)="messageSuccess=false" [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}" formControlName="email"
+                      <input (click)="messageSuccess=false; messageError= false" [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}" formControlName="email"
                       maxlength="100" id="txt-email" type="email" class="form-control"  placeholder="Escribe aquí el correo de tu amigo">
                       <div class="icon-container">
                         <button class="button-share" type="submit">
@@ -126,6 +124,11 @@
                           ¡Hemos enviado el correo con éxito!
                       </span>
                   </span>
+                  <span *ngIf="messageError" class="help-block">
+                    <span>
+                        {{textError}}
+                    </span>
+                </span>
               </form>
             </div>
         </div>

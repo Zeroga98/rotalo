@@ -106,14 +106,14 @@
             color: #536570;
             display: flex;
             align-items: center;
-            .container-check{
+            .container-check {
               margin-right: .7rem;
               display: inline-block;
               position: relative;
               cursor: pointer;
               font-size: 22px;
               user-select: none;
-              input{
+              input {
                 position: absolute;
                 opacity: 0;
                 cursor: pointer;
@@ -128,7 +128,7 @@
                 border: 2px solid $red;
                 border-radius: 50%;
                 background: white;
-                &:after{
+                &:after {
                   content: "";
                   position: absolute;
                   display: none;
@@ -141,11 +141,11 @@
                   transform: rotate(45deg);
                 }
               }
-              input:disabled ~ .checkmark{
+              input:disabled~.checkmark {
                 cursor: not-allowed;
                 opacity: 0.5;
               }
-              input:checked ~ .checkmark:after {
+              input:checked~.checkmark:after {
                 display: block;
               }
             }
@@ -177,56 +177,59 @@
 }
 
 @media screen and (max-width: 850px) {
-  	:host {
-		.container-form {
-			form {
-				.info-product {
-					.form-group[data-input= 'price'],
-					.form-group[data-input= 'name']{
-						width: 100%;
-					}
-				}
-			}
-	  	}
-	}
+  .img-ul-drag-box-msg{
+    display: none;
+  }
+  :host {
+    .container-form {
+      form {
+        .info-product {
+          .form-group[data-input='price'],
+          .form-group[data-input='name'] {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 600px) {
-	:host {
-	  	.container-form {
-			padding: 6.6rem 5%;
-			form {
-				.info-product {
-					.form-group{
-						width: 100%;
-					}
-				}
-			}
-		}
-  	}
+  :host {
+    .container-form {
+      padding: 6.6rem 5%;
+      form {
+        .info-product {
+          .form-group {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 450px) {
-	:host {
-	  	.container-form {
-			padding: 6.6rem 5%;
-			form {
-				.info-product {
-					.form-group[data-input= 'price']{
-						.item-price{
-							flex-wrap: wrap;
-							& > input{
-								width: 100%;
-								margin-bottom: 1rem;
-							}
-							.check-offer{
-								flex-grow: 1;
-								margin-left: 2rem;
-							}
-						}
-					}
-				}
-			}
-		}
-  	}
+  :host {
+    .container-form {
+      padding: 6.6rem 5%;
+      form {
+        .info-product {
+          .form-group[data-input='price'] {
+            .item-price {
+              flex-wrap: wrap;
+              &>input {
+                width: 100%;
+                margin-bottom: 1rem;
+              }
+              .check-offer {
+                flex-grow: 1;
+                margin-left: 2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

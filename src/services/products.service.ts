@@ -90,8 +90,7 @@ export class ProductsService {
     }
 
     shareProduct(params) {
-      const url ="https://api.dev.rotalo.co:3000/v1/products/refer"
-     // const url = this.url + '/refer';
-      return this.http.post(url, params).toPromise().then( (response: any) => response.data);
+      const url = this.url + '/refer';
+      return this.http.post(url, params).toPromise().then( (response: any) => response);
     }
 }

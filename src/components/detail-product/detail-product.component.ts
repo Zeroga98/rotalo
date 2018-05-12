@@ -44,6 +44,8 @@ export class DetailProductComponent implements OnInit {
   public sendInfoProduct;
   public showInputShare: boolean;
   public messageSuccess: boolean;
+  public messageError:boolean;
+  public textError:boolean;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
@@ -80,6 +82,11 @@ export class DetailProductComponent implements OnInit {
       };
       this.productsService.shareProduct(params).then((response) => {
         this.messageSuccess = true;
+      }) .catch(httpErrorResponse => {
+        if (httpErrorResponse.status === 422) {
+          this.textError = httpErrorResponse.error.errors[0].detail;
+          this.messageError = true;
+        }
       });
     }
   }
@@ -93,7 +100,7 @@ export class DetailProductComponent implements OnInit {
       messages: [],
       nombreEmisario: this.products.user.name
 
-    }
+    };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate
        ([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`]);
