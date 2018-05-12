@@ -94,7 +94,7 @@ export class LoginPage implements OnInit {
               this.setUserCountry(saveInfo);
             }
             if (response.status === 401) {
-              this.errorLogin = "No puedes tener mas de una sesion activa";
+              this.errorLogin = "Usuario o contraseña incorrecto.";
               this.changeRef.markForCheck();
             }
             if (response.status === 500) {
@@ -106,7 +106,7 @@ export class LoginPage implements OnInit {
           .catch(httpErrorResponse => {
             console.error(httpErrorResponse);
             if (httpErrorResponse.status === 401) {
-              this.errorLogin = "No puede tener mas de 1 sesiones activas";
+              this.errorLogin = "No puede tener más de 1 sesión activas.";
             }
             if (httpErrorResponse.status === 403) {
             }

@@ -54,7 +54,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.productChecked = this.product.status;
     this.productStatus = this.product.status === "active";
     this.changeDetectorRef.markForCheck();
-    console.log(this.colourCompany);
   }
 
   ngAfterViewInit(): void {

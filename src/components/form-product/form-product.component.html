@@ -67,7 +67,7 @@
           </div>
           <div class="form-group">
             <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
-              <option value="" disabled>Escoge una categoría *</option>
+              <option value="" selected="true" disabled>Escoge una categoría *</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
           </div>
