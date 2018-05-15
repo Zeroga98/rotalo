@@ -74,7 +74,9 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
+
   ngOnChanges(): void {
+
     if (this.product) {
       console.log(this.product);
       this.setInitialForm(this.getInitialConfig());
@@ -89,6 +91,7 @@ export class FormProductComponent implements OnInit, OnChanges {
         }
       }, 20);
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   async publishPhoto(form) {

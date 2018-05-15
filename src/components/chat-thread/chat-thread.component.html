@@ -9,6 +9,9 @@
       <h5 class="media-heading contact-name">
           {{thread.nombreEmisario}}
       </h5>
+      <h5 class="media-heading contact-name">
+          {{thread.comunidad}}
+      </h5>
       <small *ngIf="thread.ultimaNotificacion" class="message-preview">{{thread.ultimaNotificacion.mensaje | slice:0:25}}...</small>
     </div>
     <a (click)="selectInfoConversation()" class="div-link">Select</a>

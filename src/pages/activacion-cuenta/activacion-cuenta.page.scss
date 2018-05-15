@@ -1,26 +1,41 @@
 @import '../../styles/settings/_colors.scss';
 @import '../../styles/settings/_variables.scss';
-
-:host{
+:host {
+  display: block;
+  width: 100%;
+  back-arrow {
     display: block;
-    width: 100%;
-    back-arrow{
-        display: block;
-        padding: 2rem;
-        margin-bottom: 4rem;
-    }
-    .container-form{
-        display: block;
-        margin: 0 auto;
-        .container-errors{
-            margin-bottom: 2rem;
-            .list-errors{
-                .error{
-                    color: $red;
-                    font-size: 1.6rem;
-                    text-align: center;
-                }
-            }
+    padding: 2rem;
+    margin-bottom: 4rem;
+  }
+  .container-form {
+    display: block;
+    margin: 0 auto;
+    .container-errors {
+      margin-bottom: 2rem;
+      .list-errors {
+        .error {
+          color: $red;
+          font-size: 1.6rem;
+          text-align: center;
         }
+      }
     }
+  }
+  .alert-danger {
+    color: #ED2F3C;
+    text-align: center;
+    background-color: #F2F2F2;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 20%;
+    span {
+      font-size: 1.6rem;
+    }
+  }
 }

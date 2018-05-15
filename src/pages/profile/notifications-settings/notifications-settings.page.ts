@@ -99,12 +99,10 @@ public userId: string;
 
   initPreference() {
     this.preferenceService.getPreference().then(response => {
-      this.preferencesArray = response.data;
-      this.userId = this.preferencesArray['id'];
-      /**Se elimina atributo id del request**/
-      this.preferencesArray['id'] = null;
-      delete this.preferencesArray['id'];
-      /**Se crea el request**/
+
+      this.preferencesArray = response.data.attributes;
+      console.log(this.preferencesArray);
+      this.userId = response.data.id;
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';

@@ -35,6 +35,7 @@ export class ActivacionCuentaPage implements OnInit {
       this.routineActivateSuccess(userInfo);
     } catch (error) {
       this.errorRequest = error.error.errors;
+      this.changeDetectorRef.markForCheck();
     }
   }
 
