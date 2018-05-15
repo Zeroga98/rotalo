@@ -85,13 +85,17 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
     this._subscribeCountryChanges();
     this.setScrollEvent();
-
-
-
   }
 
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
+  }
+
+  LeerDatos(): Observable<Response> {
+    // Se declara cómo va a ser la llamada 
+    // ocultando los pormenores a los consumidores   
+    return 
+    // En este momento aún no se efectuó la llamada
   }
 
   async loadProducts(params: Object = {}) {
@@ -111,8 +115,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.products = this.productsService.products;
       this.productsService.products = [];
       setTimeout(() => {
-        window.scrollTo(0, this.productsService.getProductLocation());
-      }, 500);
+        this.productsService.getProductLocation();
+        this.productsService.scroll = 0;
+      }, 2500);
     }
   }
 
