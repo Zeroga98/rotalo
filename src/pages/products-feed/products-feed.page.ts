@@ -79,7 +79,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       const products = await this.productsService.getProducts(params);
-      console.log(products);
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(products);
       this.validateStateScrollInfinite(products);
@@ -87,6 +86,19 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
     }
+    if (this.productsService.products.length > 0) {
+      this.products = this.productsService.products;
+      this.productsService.products = [];
+
+      setTimeout(() => {
+        this.productsService.getProductLocation();
+        this.productsService.scroll = 0;
+      }, 2500);
+    }
+  }
+
+  setScroll(event) {
+    this.productsService.setProductLocation(this.products, event.id);
   }
 
   getParamsToProducts() {
