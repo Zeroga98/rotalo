@@ -12,6 +12,8 @@ export class ProductComponent implements AfterViewInit {
   @Input() product: ProductInterface;
   @Input() masonryInfo;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
+  @Input() colourCompany: string;
+
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
