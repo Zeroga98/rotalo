@@ -11,7 +11,7 @@ export class ProductsService {
   readonly url = this.configurationService.getBaseUrl() + "/v1/products";
   public scroll: any;
   public products: Array<ProductInterface> = [];
-
+  public currentPage = 0;
 
   constructor(
     private http: HttpClient,
@@ -81,9 +81,10 @@ export class ProductsService {
     };
   }
 
-  setProductLocation(products, name) {
+  setProductLocation(products, name, currentPage) {
     this.scroll = name;
     this.products = products;
+    this.currentPage = currentPage;
   }
   getProductLocation() {
     if (document) {

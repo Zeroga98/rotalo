@@ -11,6 +11,7 @@ import { CategoriesService } from "../../services/categories.service";
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
 import * as moment from 'moment';
 import { IMyDpOptions } from 'mydatepicker';
+import { UtilsService } from '../../util/utils.service';
 
 @Component({
   selector: "form-product",
@@ -37,10 +38,12 @@ export class FormProductComponent implements OnInit, OnChanges {
   datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
+
   constructor(
     private photosService: PhotosService,
     private categoryService: CategoriesService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private utilsService: UtilsService
   ) {
     this.defineSubastaTimes();
     this.changeDetectorRef.markForCheck();
@@ -109,6 +112,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async onUploadImageFinished(event) {
     try {
+      this.utilsService.getOrientation(event.file, function(orientation) {
+        this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
+          event.src = resetBase64Image;
+        });
+     }.bind(this));
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
@@ -120,7 +128,9 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
-    this.removeImageFromServer(photo.id);
+    if (photo) {
+      this.removeImageFromServer(photo.id);
+    }
   }
 
   async removeImageFromServer(id: number) {

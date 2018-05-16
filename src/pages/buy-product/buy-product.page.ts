@@ -51,11 +51,13 @@ export class BuyProductPage implements OnInit {
       if (!this.payWithBank) {
         const response = await this.buyService.buyProduct(this.buildParams());
         this.transactionSuccess = true;
+        this.productsService.products = [];
         this.changeDetectorRef.markForCheck();
        } else {
         const response = await this.buyService.buyProduct(this.buildParams());
         this.goToUrlBank();
         this.transactionSuccess = true;
+        this.productsService.products = [];
         this.changeDetectorRef.markForCheck();
        }
     } catch (error) {}

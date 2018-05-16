@@ -97,7 +97,9 @@ export class DetailProductComponent implements OnInit {
 
     this.productsService
       .updateProduct(this.products.id, params)
-      .then(response => {});
+      .then(response => {
+        this.productsService.products = [];
+      });
   }
 
   checkSufiBotton() {
@@ -150,6 +152,7 @@ export class DetailProductComponent implements OnInit {
         return;
       }
       const response = await this.productsService.deleteProduct(product.id);
+      this.productsService.products = [];
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);

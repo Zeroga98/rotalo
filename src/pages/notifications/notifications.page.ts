@@ -201,7 +201,7 @@ export class NotificationsPage implements OnInit {
   private async loadNotifications(){
     try {
       this.notificationsList = await this.notificationsService.getNotifications();
-      console.log(this.notificationsList);
+
       this.showSpinner = false;
       this.changeDetectorRef.markForCheck();
     } catch (error) {

@@ -86,19 +86,20 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
     }
+
     if (this.productsService.products.length > 0) {
       this.products = this.productsService.products;
       this.productsService.products = [];
-
       setTimeout(() => {
         this.productsService.getProductLocation();
+        this.currentPage = this.productsService.currentPage;
         this.productsService.scroll = 0;
       }, 2500);
     }
   }
 
   setScroll(event) {
-    this.productsService.setProductLocation(this.products, event.id);
+    this.productsService.setProductLocation(this.products, event.id, this.currentPage);
   }
 
   getParamsToProducts() {

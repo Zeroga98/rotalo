@@ -36,6 +36,7 @@ export class ProductEditPage implements OnInit {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
+      this.productsService.products = [];
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error("Error: ", error);
