@@ -29,7 +29,6 @@ export class ConfigurationService {
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
     Accept: 'application/json',
     'Content-Type': 'application/json'
@@ -37,7 +36,6 @@ export class ConfigurationService {
 
   jsonApiHeaders = {
     'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
     Accept: 'application/vnd.api+json',
     'Content-Type': 'application/vnd.api+json'
@@ -45,7 +43,6 @@ export class ConfigurationService {
 
   jsonNequiHeaders = {
     'Access-Control-Allow-Origin': '*',
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
     Accept: 'application/json',
     'Content-Type': 'application/json'

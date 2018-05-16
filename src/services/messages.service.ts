@@ -101,8 +101,8 @@ export class MessagesService {
               }
           break;
           case 'purchase_accepted':
-              if (notification.producto && notification.producto.received) {
-                switch (notification.producto.received) {
+              if (notification.producto && notification.producto.recibido) {
+                switch (notification.producto.recibido) {
                   case true:
                     status =  'Has recibido el producto';
                     break;
@@ -116,8 +116,8 @@ export class MessagesService {
   private getStatusNewPurchase(purchase, product): string {
     let result;
 
-    if (purchase && purchase.verified) {
-      switch (purchase.verified) {
+    if (purchase && purchase.verificado) {
+      switch (purchase.verificado) {
         case true:
           if (product.tipoVenta === 'GRATIS') {
             result = 'Lo has regalado';

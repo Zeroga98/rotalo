@@ -21,7 +21,7 @@ export class UtilsService {
         const keys = Object.keys(object);
         keys.forEach(key => {
             (object[key] === undefined || object[key] === null || object[key]==='') && delete object[key]
-        }); 
+        });
         return object;
     }
 
@@ -32,5 +32,7 @@ export class UtilsService {
     private getOffsetScrollWindow() {
         return window.pageYOffset || document.documentElement.scrollTop;
     }
+
+
 
 }
