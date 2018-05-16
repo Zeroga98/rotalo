@@ -76,7 +76,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
-          this.saveInitialPhotos(this.product.photos);
+          if (this.product.photos) {
+            this.saveInitialPhotos(this.product.photos);
+          }
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
         }

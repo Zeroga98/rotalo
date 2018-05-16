@@ -24,7 +24,7 @@ import { UserService } from "../../services/user.service";
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;
-  public products: ProductInterface;
+  public products;
   public nameProducto: String;
   public productsPhotos: any;
   public productStatus: boolean;
@@ -54,9 +54,15 @@ export class DetailProductComponent implements OnInit {
     this.loadProduct();
   }
 
+  clickArrow() {
+    this.changeDetectorRef.markForCheck();
+  }
+
   async loadProduct() {
     try {
-      this.products = await this.productsService.getProductsById(this.idProduct);
+      this.products = await this.productsService.getProductsById(
+        this.idProduct
+      );
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -75,6 +81,10 @@ export class DetailProductComponent implements OnInit {
     }
   }
 
+  getUrlImge() {
+    return 'url(' + this.products.user.photo.url + ')';
+  }
+
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
@@ -85,12 +95,17 @@ export class DetailProductComponent implements OnInit {
       status: this.productStatus ? "active" : "inactive"
     };
 
-    this.productsService.updateProduct(this.products.id, params).then(response => {
-    });
+    this.productsService
+      .updateProduct(this.products.id, params)
+      .then(response => {});
   }
 
   checkSufiBotton() {
-    if (this.products && this.products["type-vehicle"] && this.products["model"]) {
+    if (
+      this.products &&
+      this.products["type-vehicle"] &&
+      this.products["model"]
+    ) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser["countryId"]);
@@ -98,11 +113,14 @@ export class DetailProductComponent implements OnInit {
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products["model"];
       const differenceYear = currentYear - modelo;
-      if (this.products.subcategory.name === "Carros" &&
-      differenceYear <= 10 &&
-      type === "Particular" &&
-      countryId === 1 &&
-      priceVehicle >=  this.minVehicleValue && priceVehicle <= this.maxVehicleValue ) {
+      if (
+        this.products.subcategory.name === "Carros" &&
+        differenceYear <= 10 &&
+        type === "Particular" &&
+        countryId === 1 &&
+        priceVehicle >= this.minVehicleValue &&
+        priceVehicle <= this.maxVehicleValue
+      ) {
         return true;
       }
     }
@@ -180,7 +198,7 @@ export class DetailProductComponent implements OnInit {
       title: product.name,
       price: product.price,
       "product-id": product.id,
-      type: product['sell-type']
+      type: product["sell-type"]
     };
   }
 }

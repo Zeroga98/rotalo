@@ -185,9 +185,12 @@ export class SignUpPage implements OnInit {
   }
 
   findNameDocumentType() {
-    const data = this.typeDocuments.find(resource => {
-      return resource.id === this.documentId;
-    });
+    let data;
+    if (this.typeDocuments) {
+      data = this.typeDocuments.find(resource => {
+        return resource.id === this.documentId;
+      });
+    }
     return data;
   }
 }

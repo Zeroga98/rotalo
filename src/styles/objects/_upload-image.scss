@@ -34,3 +34,9 @@ image-upload{
         }
     }
 }
+
+@media screen and (max-width: 850px) {
+  .img-ul-drag-box-msg{
+    display: none !important;
+  }
+}

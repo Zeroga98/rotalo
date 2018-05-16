@@ -16,7 +16,7 @@ export class StepsPage implements OnInit {
 	carouselConfig:NgxCarousel;
 	@ViewChild('nextCarousel',{ read: ElementRef}) nextCarouselElem: ElementRef;
 
-	constructor(private router:Router) { 
+	constructor(private router:Router) {
 		this.carouselConfig = CONFIG.CAROUSEL;
 	}
 
@@ -24,7 +24,8 @@ export class StepsPage implements OnInit {
 	}
 
 	skipSteps(){
-		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`])
+    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+    location.reload();
 	}
 
 	continueSlide(index: number){
