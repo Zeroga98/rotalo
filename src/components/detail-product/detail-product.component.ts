@@ -82,6 +82,7 @@ export class DetailProductComponent implements OnInit {
       };
       this.productsService.shareProduct(params).then((response) => {
         this.messageSuccess = true;
+        this.sendInfoProduct.reset();
       }) .catch(httpErrorResponse => {
         if (httpErrorResponse.status === 422) {
           this.textError = httpErrorResponse.error.errors[0].detail;
@@ -94,12 +95,13 @@ export class DetailProductComponent implements OnInit {
   sendMessage() {
     this.shareInfoChatService.setIdConversation(this.products.user.id);
     if (!this.products.user.photo) {this.products.user.photo = undefined; }
+    console.log( this.products.user);
     const newUser = {
       fotoEmisario: this.products.user.photo,
-      idEmisario: this.products.user.id,
+      idEmisario: Number(this.products.user.id),
       messages: [],
-      nombreEmisario: this.products.user.name
-
+      nombreEmisario: this.products.user.name,
+      inicioConversacion: true
     };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate

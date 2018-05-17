@@ -23,7 +23,7 @@
           <input currencyMask
           [options]="{align: 'left', precision: 0}"
           [ngClass]="{'invalid': simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine}"
-          class="form-control" formControlName="credit-value" maxlength="18">
+          class="form-control margin-text" formControlName="credit-value" maxlength="18">
           <span class="help-block" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
             <span *ngIf="simulateForm.get('credit-value').errors['required']">
               Este campo es obligatorio.
@@ -41,7 +41,7 @@
           <input currencyMask
           [options]="{align: 'left', precision: 0}"
           [ngClass]="{'invalid': simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine}"
-          class="form-control"
+          class="form-control margin-text"
           formControlName="initial-quota"  maxlength="18">
           <span class="help-block">
             <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">

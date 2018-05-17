@@ -144,3 +144,16 @@
     }
   }
 }
+
+@media screen and (max-width: 780px) {
+  :host {
+    padding: 0 2%;
+    .container-masonry {
+      .masonry {
+        .grid-item {
+          width: 48%;
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@
                     <div *ngFor="let message of  messages">
                       <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
                       <div *ngIf="message.tipoNotificacion == 'new_message'">
-                        <div *ngIf="message.mensaje != ' '" [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">
+                        <div *ngIf="message.mensaje != ' ' && message.mensaje != '' " [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">
                           {{message.mensaje}}
                           <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
                         </div>

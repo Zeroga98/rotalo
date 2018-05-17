@@ -29,6 +29,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
   formMessage: FormGroup;
   showSpinner: boolean = true;
   isScroollBottom: boolean = true;
+  inicioConversacion: boolean = false;
   public paymentTypes = {
     cash: "Efectivo",
     bank_account_transfer: "Transferencia bancaria",
@@ -61,6 +62,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
           this.messages = currentConversation.mensajes;
           this.idReceptorUser = currentConversation.idEmisario;
           this.showSpinner = false;
+          if (currentConversation.inicioConversacion) { this.inicioConversacion = currentConversation.inicioConversacion;}
           this.updateConversationStatus(this.idReceptorUser);
           this.onLoadWindow(this.showSpinner);
           this.isScroollBottom = true;
@@ -105,6 +107,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
       const params = {
         idUsuarioDestinatario: this.idReceptorUser,
         mensaje: this.formMessage.controls["message"].value,
+        inicioConversacion: this.inicioConversacion
       };
       this.subscriptionMessages = this.messagesService.sendMessage(params, this.userId)
       .subscribe(

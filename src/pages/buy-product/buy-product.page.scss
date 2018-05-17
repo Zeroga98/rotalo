@@ -1,6 +1,5 @@
 @import "../../styles/settings/_colors.scss";
 @import "../../styles/settings/_variables.scss";
-
 :host {
   .buy-product-container {
     position: relative;
@@ -13,10 +12,8 @@
     align-items: center;
     padding: 4rem 2rem;
     padding-bottom: 10rem;
-
     .container {
       width: 100%;
-
       .container-header {
         position: relative;
         right: 3%;
@@ -73,7 +70,6 @@
           cursor: inherit;
         }
       }
-
       .info-message-bank {
         margin-bottom: 30px;
         p:first-child {
@@ -135,7 +131,6 @@
       }
     }
   }
-
   .buy-detail {
     p {
       font-size: 2.0rem;
@@ -145,7 +140,6 @@
       padding-left: 20px;
     }
   }
-
   .steps-buy-product {
     li {
       font-size: 20px;
@@ -158,17 +152,17 @@
   .purchaseProduct {
     width: 100%;
   }
-  .info-seller-container{
+  .info-seller-container {
     background: white;
-    .info-seller{
+    .info-seller {
       width: 33%;
-      .media-middle{
+      .media-middle {
         vertical-align: middle;
         display: table-cell;
         padding-right: 10px;
         color: #707070;
         font-size: 2.0rem;
-        .product-info-user--icon{
+        .product-info-user--icon {
           width: 35px;
           height: 35px;
           text-align: center;
@@ -176,40 +170,42 @@
           background-color: #D6D5D5;
           border-radius: 50%;
           position: relative;
-          span{
-            color:white;
+          span {
+            color: white;
+          }
+          .user-photo {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            border-radius: 100%;
           }
         }
       }
     }
   }
-
 }
+
 /**Estilos para opciones de pago**/
+
 :host {
   .cash {
     background-image: url("/assets/img/icono_efectivo.svg");
   }
-
   .bancolombia {
     background-image: url("/assets/img/logo_bancolombia.svg");
   }
-
   .nequi {
     background-image: url("/assets/img/logo_nequi.svg");
   }
-
   .person {
     background-image: url("/assets/img/icono_personalmente.svg");
   }
-
   .cc-selector-2 {
     flex-wrap: wrap;
     width: 50%;
     display: flex;
     justify-content: space-between;
   }
-
   .cc-selector-2 input {
     position: absolute;
     cursor: pointer;
@@ -218,7 +214,6 @@
     top: 5px;
     opacity: 0;
   }
-
   .option {
     width: 98px;
     text-align: center;
@@ -228,21 +223,18 @@
       color: #777777;
     }
   }
-
   .thumb {
     position: relative;
     width: 94px;
     border-radius: 15px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
-
   .thumb-cc {
     cursor: pointer;
     display: inline-block;
     width: 94px;
     height: 94px;
   }
-
   .container-radio {
     display: block;
     position: relative;
@@ -252,7 +244,6 @@
     -ms-user-select: none;
     user-select: none;
   }
-
   .checkmark {
     position: absolute;
     border-radius: 5px;
@@ -263,26 +254,21 @@
     background-color: #eee;
     border: 1px solid #bababa;
   }
-
-  .container input:checked ~ .checkmark {
+  .container input:checked~.checkmark {
     background-color: #ff2334;
     border: none;
   }
-
-  .container input:checked ~ .thumb {
+  .container input:checked~.thumb {
     border: 1px solid #ff2334;
   }
-
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   }
-
-  .container input:checked ~ .checkmark:after {
+  .container input:checked~.checkmark:after {
     display: block;
   }
-
   .container .checkmark:after {
     left: 6px;
     top: 2px;
@@ -294,7 +280,6 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
-
   .container-total-price {
     .total-price {
       padding-left: 40px;
@@ -307,7 +292,6 @@
       }
     }
   }
-
   .button-form {
     margin: 20px auto;
     .container-button {
@@ -319,8 +303,7 @@
       }
     }
   }
-
-  .icon-cellphone{
+  .icon-cellphone {
     margin: 0 auto;
     width: 45px;
     height: 45px;
@@ -330,8 +313,7 @@
     top: -4px;
     left: -4px;
   }
-
-  .icon-email{
+  .icon-email {
     margin: 0 auto;
     width: 45px;
     height: 45px;
@@ -341,22 +323,19 @@
     top: -5px;
     left: -5px;
   }
-
   @media (max-width: 700px) {
     .container-gallery {
       align-items: center;
       justify-content: center;
     }
   }
-
   @media (max-width: 800px) {
     .info-seller-container .info-seller {
       width: 100%;
     }
   }
-
   @media (max-width: 400px) {
-    .buy-product-container{
+    .buy-product-container {
       margin: 0 auto;
       width: 100%;
     }

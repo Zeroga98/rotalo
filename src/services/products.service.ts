@@ -103,6 +103,6 @@ export class ProductsService {
     }
 
     getProductLocation(){
-      if (document && this.scroll) { document.getElementById(this.scroll).scrollIntoView();}
+      if (document && this.scroll) { document.getElementById(this.scroll).scrollIntoView(); }
     }
 }

@@ -44,8 +44,8 @@
                               <div *ngIf="!product.user.photo" class="product-info-user--icon">
                                   <span class="icon-account"></span>
                               </div>
-                              <div *ngIf="product?.user.photo" class="product-info-user--icon">
-                                  <img src="product?.user.photo">
+                              <div *ngIf="product?.user.photo && product?.user.photo.url" class="product-info-user--icon">
+                                  <img class="user-photo" [src]="product?.user.photo.url">
                               </div>
                           </div>
                           <div *ngIf="product.user.company" class="media-middle product-info-user--data">
