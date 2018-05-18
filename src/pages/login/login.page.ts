@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
         this.loginService
           .loginSapiUser(user)
           .then(response => {
-            console.log(response, 'response');
+
             if (response.status === 200) {
               this.gapush(
                 "send",

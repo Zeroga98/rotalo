@@ -1,20 +1,31 @@
 <div class="notifications-item">
-  <div class="rate">
-    <p class="notification-text" [innerHTML]="'¿Cómo te pareció la rapidez del proceso?'"></p>
-    <bar-rating [(rate)]="speed" [max]="5"></bar-rating>
+  <div class="rate main-text">
+    <p class="notification-text">
+      <span>¿Cómo te fue? Califica a </span>
+      <span class="highlight bold clickable">
+        {{notification.producto.nombreUsuario}}
+      </span>
+      <span>como vendedor</span>
+    </p>
   </div>
-  <div class="rate">
-    <p class="notification-text" [innerHTML]="'¿Y que tal la calidad del producto?'"></p>
-    <bar-rating [(rate)]="quality" [max]="5"></bar-rating>
-  </div>
-  <div class="rate">
-    <p class="notification-text" [innerHTML]="'¿Fui amable y servicial?'"></p>
-    <bar-rating [(rate)]="attention" [max]="5"></bar-rating>
-  </div>
-  <small class="notification-date"></small>
-  <div class="notification-buttons">
+  <form  (ngSubmit)="rate()" [formGroup]="rateSeller">
+    <div class="rate">
+      <p class="notification-text" [innerHTML]="'¿Cómo te pareció la rapidez del proceso?'"></p>
+      <bar-rating formControlName="speed"  [(rate)]="speed" [max]="5"></bar-rating>
+    </div>
+    <div class="rate">
+      <p class="notification-text" [innerHTML]="'¿Y que tal la calidad del producto?'"></p>
+      <bar-rating formControlName="quality"  [(rate)]="quality" [max]="5"></bar-rating>
+    </div>
+    <div class="rate">
+      <p class="notification-text" [innerHTML]="'¿Fui amable y servicial?'"></p>
+      <bar-rating formControlName="attention"  [(rate)]="attention" [max]="5"></bar-rating>
+    </div>
+    <small class="notification-date"></small>
+    <div class="notification-buttons">
       <div class="button-item">
-          <button [disabled]="disableButton" [innerHTML]="'Calificar'"  class="button button-secondary" (click)="rate()"></button>
+        <button type="submit"  *ngIf="!hideButton" [disabled]="rateSeller.invalid" [innerHTML]="'Calificar'" class="button button-secondary"></button>
       </div>
-  </div>
+    </div>
+  </form>
 </div>

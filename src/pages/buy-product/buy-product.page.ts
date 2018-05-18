@@ -76,6 +76,7 @@ export class BuyProductPage implements OnInit {
     });
     this.tokenUser = this.currentSessionSevice.authToken();
     this.loadProduct();
+    this.changeDetectorRef.markForCheck();
   }
 
   goToUrlBank(): void {
@@ -114,9 +115,11 @@ export class BuyProductPage implements OnInit {
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;
       this.idNumberBuyer = this.currentUser["id-number"];
-      this.categoryProduct = this.product.subcategory.category.name;
-      this.subCategoryProduct = this.product.subcategory.name;
-      this.priceProduct = this.product.price;
+      if (this.product.subcategory && this.product.subcategory.category) {
+        this.subCategoryProduct = this.product.subcategory.name;
+        this.categoryProduct = this.product.subcategory.category.name;
+      }
+      this.priceProduct = this.product.price
       this.product.used
         ? (this.usedProduct = "Usado")
         : (this.usedProduct = "Nuevo");
@@ -127,12 +130,12 @@ export class BuyProductPage implements OnInit {
       this.idUserSellerDb = this.product.user["id"];
       this.currencyProduct = this.product.currency;
       this.initFormBuy();
-      this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   redirectErrorPage() {
