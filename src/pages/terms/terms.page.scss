@@ -26,8 +26,16 @@
           .offer-head-title{
               color:white;
               margin: 0;
-              font-size: 5.5rem;
+              font-size: 4rem;
           }
       }
   }
+}
+
+@media screen and (max-width: 600px){
+    :host{
+        .container-terms{
+            padding: 2rem;
+        }
+    }
 }
