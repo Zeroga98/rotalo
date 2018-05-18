@@ -28,7 +28,8 @@ export class SuccessActivationPage implements OnInit {
   }
 
   save(evt) {
-    try {
+    this.router.navigate([`${ROUTES.STEPS}`]);
+   /* try {
       this.loadIdUser();
       const hobbies = evt.value.field;
       const params = {
@@ -51,6 +52,6 @@ export class SuccessActivationPage implements OnInit {
               "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
           }
         });
-    } catch (error) {}
+    } catch (error) {}*/
   }
 }

@@ -27,7 +27,7 @@ import { ShareInfoChatService } from "../chat-thread/shareInfoChat.service";
 })
 export class DetailProductComponent implements OnInit {
   public carouselConfig: NgxCarousel;
-  public products: ProductInterface;
+  public products;
   public nameProducto: String;
   public productsPhotos: any;
   public productStatus: boolean;
@@ -94,14 +94,30 @@ export class DetailProductComponent implements OnInit {
 
   sendMessage() {
     this.shareInfoChatService.setIdConversation(this.products.user.id);
-    if (!this.products.user.photo) {this.products.user.photo = undefined; }
-    console.log( this.products.user);
+    let photoUser;
+    let company;
+    if (this.products.user.photo) {
+      if (!this.products.user.photo.url){
+        photoUser  = undefined;
+      }else {
+        photoUser = this.products.user.photo.url;
+      }
+    }
+    if (this.products.user.company) {
+      if (!this.products.user.company.name) {
+        company  = undefined;
+      }else {
+        company = this.products.user.company.name;
+      }
+    }
+
     const newUser = {
-      fotoEmisario: this.products.user.photo,
+      fotoEmisario: photoUser,
       idEmisario: Number(this.products.user.id),
       messages: [],
       nombreEmisario: this.products.user.name,
-      inicioConversacion: true
+      inicioConversacion: true,
+      comunidad: company
     };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate

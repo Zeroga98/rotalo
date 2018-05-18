@@ -27,6 +27,19 @@ api = {
     inactivityLimit: 86400 // seconds
   };
 
+
+  /*api = {
+    protocol: 'https',
+    server: 'apirtl.rotalo.co/gateway/v1',
+    inactivityLimit: 86400 // seconds
+  };
+
+  sapi = {
+    protocol: 'https',
+    server: 'apirtl.rotalo.co/gateway',
+    inactivityLimit: 86400 // seconds
+  };*/
+
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",

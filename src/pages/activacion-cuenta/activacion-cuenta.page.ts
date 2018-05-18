@@ -53,8 +53,9 @@ export class ActivacionCuentaPage implements OnInit {
 
   private routineActivateSuccess(userInfo) {
     this.errorRequest = [];
-    this.currenSession.setSession(userInfo);
-    this.setUserCountry(userInfo);
+    //this.currenSession.setSession(userInfo);
+    //this.setUserCountry(userInfo);
+    this.router.navigate([ROUTES.SUCCESS]);
     this.changeDetectorRef.markForCheck();
   }
 

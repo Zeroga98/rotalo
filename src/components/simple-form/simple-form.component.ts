@@ -33,6 +33,9 @@ export class SimpleFormComponent implements OnInit {
   }
 
   get formIsInValid(): boolean{
+    if(this.textArea == true) {
+      return false;
+    }
     return this.form.invalid;
   }
 

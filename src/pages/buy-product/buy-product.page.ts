@@ -78,7 +78,6 @@ export class BuyProductPage implements OnInit {
     this.loadProduct();
   }
 
-
   goToUrlBank(): void {
     window.open(
       "https://sucursalpersonas.transaccionesbancolombia.com",
@@ -102,7 +101,7 @@ export class BuyProductPage implements OnInit {
       this.buyForm.patchValue({
         "payment-type": "cash"
       });
-     /* this.buyForm.patchValue({
+      /* this.buyForm.patchValue({
         "payment-type": "bank_account_transfer"
       });
       this.payWithBank = true;*/
@@ -112,22 +111,22 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.product);
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;
-      this.idNumberBuyer = this.currentUser['id-number'];
+      this.idNumberBuyer = this.currentUser["id-number"];
       this.categoryProduct = this.product.subcategory.category.name;
       this.subCategoryProduct = this.product.subcategory.name;
       this.priceProduct = this.product.price;
       this.product.used
         ? (this.usedProduct = "Usado")
         : (this.usedProduct = "Nuevo");
-      this.photoProduct = this.product.photos.url || this.product.photos[0].url;
+      if (this.product.photos) {
+        this.photoProduct = this.product.photos.url || this.product.photos[0].url;
+      }
       this.idNumberSeller = this.product.user["id-number"];
       this.idUserSellerDb = this.product.user["id"];
       this.currencyProduct = this.product.currency;
       this.initFormBuy();
-
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
@@ -171,7 +170,7 @@ export class BuyProductPage implements OnInit {
       const response = await this.buyService.buyProduct(this.buildParams());
       this.transactionSuccess = true;
       this.changeDetectorRef.markForCheck();
-    }catch (error) {
+    } catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
@@ -231,7 +230,7 @@ export class BuyProductPage implements OnInit {
         this.selectOptionsPageInfo = "error";
         break;
       case -2:
-      this.selectOptionsPageInfo = "expire";
+        this.selectOptionsPageInfo = "expire";
         break;
       default:
         this.selectOptionsPageInfo = "error";
@@ -240,7 +239,6 @@ export class BuyProductPage implements OnInit {
     this.confirmPurchase = false;
     this.showInfoPage = true;
   }
-
 
   /**CONSULTAR TIPO DE DOCUMENTO**/
   private buildParamsNequi() {

@@ -40,7 +40,7 @@ export class ProductsService {
     }
 
     receiveProduct(id: number, data): Promise<any> {
-        const url = `${this.url}/${id}/deliver`;
+        const url = `${this.url}/deliver`;
         const params = {
             data: {
                 id,

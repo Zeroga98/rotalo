@@ -11,7 +11,7 @@
       <form role="form" (ngSubmit)="continue()" novalidate [formGroup]="form" name="activacionForm" class="form-theme">
         <div class="form-froup input-code">
           <input *ngIf="!textArea" class="form-control" name="field" formControlName="field" placeholder="{{placeholder}}">
-          <textarea *ngIf="textArea" class="form-control" name="field" formControlName="field" placeholder="{{placeholder}}"></textarea>
+         <!-- <textarea *ngIf="textArea" class="form-control" name="field" formControlName="field" placeholder="{{placeholder}}"></textarea>-->
         </div>
         <div>
           <custom-button buttonClass="{{gtmClass}} primary" type="submit" text="{{actionText}}" [disabled]="formIsInValid"></custom-button>
