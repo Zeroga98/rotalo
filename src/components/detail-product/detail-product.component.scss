@@ -493,6 +493,9 @@ input:checked+.switch-slider:before {
         flex-direction: column;
         display: flex;
         align-items: center;
+        .title-product{
+          font-size: 2.5rem;
+        }
         .product-info,
         .product-photos {
           width: 100%;
