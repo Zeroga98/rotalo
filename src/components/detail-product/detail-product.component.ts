@@ -158,6 +158,10 @@ export class DetailProductComponent implements OnInit {
     this.notify.emit(product);
   }
 
+  getUrlImge() {
+    return 'url(' + this.products.user.photo.url + ')';
+  }
+
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus ? (this.productChecked = "active") : (this.productChecked = "inactive");
@@ -172,12 +176,19 @@ export class DetailProductComponent implements OnInit {
     const params = {
       status: "buying"
     };
-    this.productsService.updateProduct(this.products.id, params).then(response => {
+    this.productsService
+    .updateProduct(this.products.id, params)
+    .then(response => {
+      this.productsService.products = [];
     });
   }
 
   checkSufiBotton() {
-    if (this.products && this.products["type-vehicle"] && this.products["model"]) {
+    if (
+      this.products &&
+      this.products["type-vehicle"] &&
+      this.products["model"]
+    ) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser["countryId"]);
@@ -185,11 +196,14 @@ export class DetailProductComponent implements OnInit {
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products["model"];
       const differenceYear = currentYear - modelo;
-      if (this.products.subcategory.name === "Carros" &&
-      differenceYear <= 10 &&
-      type === "Particular" &&
-      countryId === 1 &&
-      priceVehicle >=  this.minVehicleValue && priceVehicle <= this.maxVehicleValue ) {
+      if (
+        this.products.subcategory.name === "Carros" &&
+        differenceYear <= 10 &&
+        type === "Particular" &&
+        countryId === 1 &&
+        priceVehicle >= this.minVehicleValue &&
+        priceVehicle <= this.maxVehicleValue
+      ) {
         return true;
       }
     }
@@ -223,6 +237,7 @@ export class DetailProductComponent implements OnInit {
         return;
       }
       const response = await this.productsService.deleteProduct(product.id);
+      this.productsService.products = [];
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
@@ -286,7 +301,7 @@ export class DetailProductComponent implements OnInit {
       title: product.name,
       price: product.price,
       "product-id": product.id,
-      type: product['sell-type']
+      type: product["sell-type"]
     };
   }
 }

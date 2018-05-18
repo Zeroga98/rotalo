@@ -92,9 +92,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   LeerDatos(): Observable<Response> {
-    // Se declara cómo va a ser la llamada 
-    // ocultando los pormenores a los consumidores   
-    return 
+    // Se declara cómo va a ser la llamada
+    // ocultando los pormenores a los consumidores
+    return
     // En este momento aún no se efectuó la llamada
   }
 
@@ -116,13 +116,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.productsService.products = [];
       setTimeout(() => {
         this.productsService.getProductLocation();
+        this.currentPage = this.productsService.currentPage;
         this.productsService.scroll = 0;
       }, 2500);
     }
   }
 
   setScroll(event) {
-    this.productsService.setProductLocation(this.products, event.id);
+    this.productsService.setProductLocation(this.products, event.id, this.currentPage);
   }
 
   getParamsToProducts() {

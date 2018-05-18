@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { IMyDpOptions } from 'mydatepicker';
 import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
+import { UtilsService } from '../../util/utils.service';
 
 @Component({
   selector: "form-product",
@@ -39,11 +40,13 @@ export class FormProductComponent implements OnInit, OnChanges {
   datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
+
   constructor(
     private router: Router,
     private photosService: PhotosService,
     private categoryService: CategoriesService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private utilsService: UtilsService
   ) {
     this.defineSubastaTimes();
     this.changeDetectorRef.markForCheck();
@@ -82,7 +85,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
-          console.log(this.product.photos);
           if (this.product.photos) {
             this.saveInitialPhotos(this.product.photos);
           }
@@ -118,6 +120,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async onUploadImageFinished(event) {
     try {
+      this.utilsService.getOrientation(event.file, function(orientation) {
+        this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
+          event.src = resetBase64Image;
+        });
+     }.bind(this));
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);

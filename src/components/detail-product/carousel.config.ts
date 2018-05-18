@@ -8,6 +8,7 @@ export const CAROUSEL_CONFIG : NgxCarousel = {
         lg: 1,
         all: 0
     },
+    slide: 1,
     point: {
         visible: true,
         pointStyles: `
@@ -47,5 +48,9 @@ width: 8px;
     touch: true,
     loop: true,
     custom: 'banner'
+<<<<<<< HEAD
 }
 ;
+=======
+};
+>>>>>>> cb41f35a4e1346723d2f83a5d13b1e1e1bead144

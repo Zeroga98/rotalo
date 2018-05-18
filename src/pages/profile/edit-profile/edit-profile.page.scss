@@ -10,7 +10,7 @@
     padding-bottom: 20px;
     padding-left: 15px;
     padding-right: 15px;
-    .container-spinner-image{
+    .container-spinner-image {
       position: absolute;
       display: flex;
       top: 0;
@@ -21,7 +21,7 @@
       z-index: 9;
       align-items: center;
       justify-content: center;
-      custom-spinner{
+      custom-spinner {
         color: black;
         font-size: 1.6rem;
       }
@@ -41,22 +41,18 @@
       font-size: 1.4rem;
     }
   }
-
   .file-uploader {
     overflow: hidden;
   }
-
   .file-uploader__label {
     display: block;
     width: 100%;
     height: 100%;
   }
-
   .bg-img-fix {
     background-size: cover;
     background-position: center;
   }
-
   .input-file--circle {
     border-radius: 100px;
     padding-top: 30px;
@@ -64,7 +60,6 @@
     width: 110px;
     background-size: cover;
   }
-
   .input-file {
     background-color: #d7d7d7;
     color: #fff;
@@ -73,12 +68,10 @@
     width: 100%;
     height: 150px;
   }
-
   .form-control[disabled] {
     background-color: #d4dbe0;
     opacity: 1;
   }
-
   .alert-success {
     padding: 15px;
     background-color: #f2f2f2;
@@ -95,7 +88,6 @@
     color: #8dba02;
     margin-right: 10px;
   }
-
   .alert-danger {
     padding: 15px;
     color: #ed2f3c;
@@ -103,11 +95,9 @@
     text-align: center;
     font-size: 1.6rem;
   }
-
   .flashMessage {
     padding-bottom: 20px;
   }
-
   .container-prev-photos {
     margin-bottom: 3rem;
     .prev-photos {
@@ -147,21 +137,18 @@
       }
     }
   }
-
   select.form-control {
     background-position: 95% center;
     background-size: 15px;
     background-repeat: no-repeat;
   }
-
-  & > custom-spinner {
+  &>custom-spinner {
     position: absolute;
     left: 50%;
     top: 45%;
     -webkit-transform: translate(-50%, 50%);
     transform: translate(-50%, 50%);
   }
-
   @media (max-width: 780px) {
     .container {
       width: 100%;

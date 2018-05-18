@@ -45,15 +45,14 @@
                 <div class="icon-clock label-sell--center"></div>
                 <label class="label-sell--center">Venta en proceso</label>
             </div>
-            <product id="{{product.id}}"
+            <product *ngIf="product.user.company" id="{{product.id}}"
             [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
             [isProductSelling]="false"
             [showField] = "true"
             [product]="product"
             [masonryInfo]="masonryRef"
-            (selected)="selectProduct($event); setScroll($event)" [colourCompany]="product.user.company.colour">
-
-
+            (selected)="selectProduct($event); setScroll($event)"
+            [colourCompany]="product.user.company.colour">
             </product>
         </masonry-brick>
       </masonry>

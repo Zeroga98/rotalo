@@ -1,5 +1,4 @@
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
-<modal-buy-info [statusProduct]="products.status" [idProduct]="products.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)"></modal-buy-info>
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
   <div class="product">
@@ -35,7 +34,6 @@
         </ngx-carousel>
       </div>
     </div>
-
     <div *ngIf="products" class="product-info">
       <div class="title-product">{{products.name}}</div>
       <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
@@ -59,17 +57,17 @@
       <div class="product-info-user">
         <div>
           <div class="media-middle">
-            <div *ngIf="!products.user.photo" class="product-info-user--icon"  [ngStyle]="{'background-color':products.user.company.colour}">
-              <span class="icon-account" ></span>
+            <div *ngIf="!products.user.photo && products.user.company" class="product-info-user--icon"
+            [ngStyle]="{'background-color':products.user.company.colour}">
+              <span class="icon-account"></span>
             </div>
             <div *ngIf="products.user.photo" class="photo-user">
-              <img [src]="products.user.photo.url">
+                <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
             </div>
           </div>
-
           <div *ngIf="products.user.company" class="media-middle product-info-user--data">
             <p class="name-user">{{products.user.name}}</p>
-            <p class="panel-product"[ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}} -
+            <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}} -
               <span [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
             </p>
           </div>
@@ -96,7 +94,7 @@
             <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar Crédito
           </button>
           <button class="gtmProdHacerOferta botons" *ngIf="products && products.negotiable" (click)="openOfferModal(products)">
-            <span class="icon-offer"></span> Hacer Oferta
+          <span class="icon-offer"></span> Hacer Oferta
           </button>
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
             <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
