@@ -23,6 +23,7 @@ export class SubcategoryFilterComponent implements OnInit {
   constructor(private currenSession: CurrentSessionService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
+
   }
 
   filterBySellType(evt, type:string){

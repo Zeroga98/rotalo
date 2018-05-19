@@ -117,6 +117,7 @@ export class DetailProductComponent implements OnInit {
       messages: [],
       nombreEmisario: this.products.user.name,
       inicioConversacion: true,
+      numeroNotificacionesNoLeidas: 0,
       comunidad: company
     };
     this.shareInfoChatService.setNewConversation(newUser);

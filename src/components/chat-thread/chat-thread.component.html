@@ -1,4 +1,4 @@
-<div [ngClass]="{'active': isSelected()}" class="media conversation">
+<div [ngClass]="{'active': isSelected(), 'unread' : thread.numeroNotificacionesNoLeidas}" class="media conversation">
     <div class="pull-left">
       <img *ngIf="!thread.fotoEmisario" class="media-object avatar"
       [src]="defaultImage" [alt]="thread.nombreEmisario" (error)="updateSrc($event)">

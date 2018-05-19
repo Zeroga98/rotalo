@@ -101,7 +101,6 @@ public userId: string;
     this.preferenceService.getPreference().then(response => {
 
       this.preferencesArray = response.data.attributes;
-      console.log(this.preferencesArray);
       this.userId = response.data.id;
       })
       .catch(httpErrorResponse => {

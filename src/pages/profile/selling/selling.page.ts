@@ -79,4 +79,11 @@ export class SellingPage implements OnInit {
         this.isSpinnerShow = false;
       });
   }
+
+  updateInfoSelling($event) {
+    if ($event) {
+      this.getInfoUser();
+      this.loadProductsExpired();
+    }
+  }
 }

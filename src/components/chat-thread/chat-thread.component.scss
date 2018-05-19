@@ -46,6 +46,10 @@
     filter: alpha(opacity=100);
   }
 
+  .media.unread{
+    background-color: rgba(0, 0, 0, 0.07);
+  }
+
   .message-preview {
     font-size: 1.6rem;
   }

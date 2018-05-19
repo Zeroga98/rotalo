@@ -35,6 +35,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() isProductSold: boolean;
   @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
+  @Output() updateProducts:  EventEmitter<any> = new EventEmitter();
   @Input() colourCompany: string;
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
@@ -96,9 +97,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         return;
       }
       const response = await this.productsService.deleteProduct(product.id);
+      this.updateProducts.emit(true);
       this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
+     /* this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);*/
     } catch (error) {}
   }
 

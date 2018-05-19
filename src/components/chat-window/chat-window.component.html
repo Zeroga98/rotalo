@@ -35,7 +35,7 @@
                       <!-- INICIO NOTIFICACIÓN NUEVA OFERTA -->
                       <div *ngIf="message.tipoNotificacion == 'new_offer'" class="notifications-item">
                         <span class="icon icon-flag notification-icon"></span>
-                        <a class="notification-text">
+                        <a class="notification-text offer-text">
                           <span class="highlight bold clickable">{{message.oferta.nombreUsuario}}</span> ha hecho una oferta
                           <div *ngIf="message.producto">
                             <span *ngIf="message.producto.tipoVenta !== 'SUBASTA'">para tu</span>

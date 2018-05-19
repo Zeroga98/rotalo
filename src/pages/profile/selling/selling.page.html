@@ -42,7 +42,7 @@
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
               <div class="product-container">
-                  <product  [masonryInfo]="masonryRef" [isProductSelling]="true" [showField]="false" [product]="productSelling"></product>
+                  <product (updateProducts)= "updateInfoSelling($event)"  [masonryInfo]="masonryRef" [isProductSelling]="true" [showField]="false" [product]="productSelling"></product>
               </div>
             </masonry-brick>
           </masonry>

@@ -31,7 +31,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
     private navigationService:NavigationService
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.updateDefaultOption();
   }
 
@@ -42,7 +42,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
   async getStates() {
     this.updateDefaultOption();
     if (this.country && this.country.id) {
-      this.currentState = "";
+      this.currentState = '';
       this.states = await this.collectionService.getStatesById(this.country.id);
       if (this.initialValue) {
         if (this.country.id === this.initialValue.country.id) {

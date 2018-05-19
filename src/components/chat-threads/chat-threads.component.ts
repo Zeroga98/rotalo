@@ -83,7 +83,6 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
             }
           }
         }
-        console.log(this.threads);
         this.changeDetector.markForCheck();
       },
       error => console.log(error)

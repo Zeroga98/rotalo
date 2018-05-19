@@ -16,6 +16,7 @@ import { MessagesService } from "../../services/messages.service";
 import { NavigationService } from "../../pages/products/navigation.service";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
+import { CollectionSelectService } from "../../services/collection-select.service";
 @Component({
   selector: "navigation-top",
   templateUrl: "./navigation-top.component.html",
@@ -42,16 +43,27 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private notificationsService: NotificationsService,
     private currentSessionService: CurrentSessionService,
-    private userService: UserService
+    private userService: UserService,
+    private collectionService: CollectionSelectService,
   ) {}
+
   ngOnInit() {
+    this.getCountries();
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
     };
     this.userId = this.currentSessionService.getIdUser();
     this.listenerMessages = this.setListenerMessagesUnread(this.userId);
-    //this.listenerMessages = this.setListenerMessagesUnread(this.userId);
   }
+
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);

@@ -15,7 +15,7 @@ export class ChatThreadComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.shareInfoChatService.getIdConversation() == this.thread.idEmisario){
+    if (this.shareInfoChatService.getIdConversation() == this.thread.idEmisario) {
       this.shareInfoChatService.changeMessage(this.thread);
     }
 
