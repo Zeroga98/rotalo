@@ -27,7 +27,7 @@
                       <div *ngIf="message.tipoNotificacion == 'new_message'">
                         <div *ngIf="message.mensaje != ' ' && message.mensaje != '' " [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">
                           {{message.mensaje}}
-                          <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                          <small class="notification-date">{{message.fechaHora}}</small>
                         </div>
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVO MENSAJE -->
@@ -45,7 +45,7 @@
                             </span>
                           </div>
                         </a>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                         <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
                         <div class="notification-buttons" *ngIf="message.producto && message.producto.tipoVenta !== 'SUBASTA' && !message.status">
                           <div class="button-item">
@@ -66,7 +66,7 @@
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
                             {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                         <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
@@ -86,7 +86,7 @@
                         <p class="notification-text">Tu oferta ha sido rechazada
                           <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ' ' +(message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
 
@@ -98,7 +98,7 @@
                           <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en tu subasta</span>
                           <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}</span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN OFERTA CANCELADA -->
 
@@ -113,7 +113,7 @@
                           <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0) + ' pesos.'}}</span>
                           - Pago: {{paymentTypes[message.compra.tipoPago]}}
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                         <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
@@ -156,7 +156,7 @@
                           </span>
                         </p>
                         <small class="notification-date">
-                          {{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}
+                          {{message.fechaHora }}
                         </small>
                       </div>
                       <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
@@ -170,7 +170,7 @@
                           <span class="highlight bold">{{message.producto.nombreProducto}}</span>
                           se ha vencido.
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
 
@@ -182,7 +182,7 @@
                           <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos.'}}</span>
                           ha sido recibido.
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
 
@@ -201,7 +201,7 @@
                           <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos'}}</span>
                           y para ello ha solicitado un crédito Sufi.
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
 
@@ -215,7 +215,7 @@
                           </span>
                           ha sido aprobada.
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN SUFI APROVADO -->
 
@@ -229,7 +229,7 @@
                           </span>
                           no fue aprobada.
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN SUFI RECHAZADO -->
 
@@ -241,7 +241,7 @@
                             {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}
                           </span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
                             <button class="button button-secondary">Comprar</button>
@@ -262,7 +262,7 @@
                             {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0) + ' pesos.'}}
                           </span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN SUBASTA FINALIZADA -->
 
@@ -274,7 +274,7 @@
                             {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$':0) + ' pesos.'}}
                           </span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora | date:'yyyy-MM-dd HH:mm a'}}</small>
+                        <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
                       <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
 

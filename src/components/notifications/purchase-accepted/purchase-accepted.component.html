@@ -18,7 +18,7 @@
         </span>
     </p>
     <small class="notification-date">
-        {{notification.fechaHora | date:'yyyy-MM-dd HH:mm a'}}
+        {{notification.fechaHora}}
     </small>
     <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
     <div class="notification-buttons" *ngIf="!notification.status">

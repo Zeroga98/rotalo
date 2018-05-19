@@ -53,7 +53,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
     this.formMessage = new FormGroup({
-      message: new FormControl("", [Validators.required])
+      message: new FormControl('', [Validators.required])
     });
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(currentConversation => {
       if (currentConversation) {

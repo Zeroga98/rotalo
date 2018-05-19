@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/mergeMap';
 import { UserInterface } from '../commons/interfaces/user.interface';
 import { ConfigurationService } from '../services/configuration.service';
-
+import * as moment from 'moment';
 @Injectable()
 export class MessagesService {
     currentUser: UserInterface;
@@ -51,11 +51,12 @@ export class MessagesService {
       return this.http
         .get(url, { headers: headers })
         .map((response: any) => {
-
           if (response.body.emisarios) {
             response.body.emisarios.map((emisario) => {
               emisario.mensajes.map((mensaje) => {
               mensaje.status = this.updateStatusNotification(mensaje);
+              const dateMoment: any = moment(mensaje.fechaHora);
+              mensaje.fechaHora = dateMoment.format('MMMM Do YYYY, h:mm:ss a');
               });
             });
           }
