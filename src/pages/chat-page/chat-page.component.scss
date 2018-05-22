@@ -35,4 +35,27 @@
     transform: translate(-50%, 50%);
     z-index: 1;
   }
+  @media (max-width: 780px) {
+    .tittle h1.text {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    padding: 0 2%;
+    .container{
+      flex-direction: column;
+      chat-threads{
+        width: 100%;
+        min-height: 491px;
+      }
+      chat-window{
+        width: 100%;
+      }
+    }
+  }
+
+
 }
+

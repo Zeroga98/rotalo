@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTES } from '../../router/routes';
 import { ResumeRotaloCenterService } from '../../services/resume-rotalo-center.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'rotalo-center',
@@ -15,8 +16,39 @@ export class RotaloCenterPage implements OnInit  {
   public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   public messages = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
   public infoRotalo = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
+  public screenHeight;
+  public screenWidth;
+  public showMenu: boolean = true;
 
-  constructor(public router: Router) {}
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    const currentPage = this.router.url;
+    this.validateMobileMenu();
+  }
+
+
+  constructor(public router: Router, private activatedRoute: ActivatedRoute) {
+    this.onResize();
+    this.router.events.subscribe((val) => {
+      this.validateMobileMenu();
+    });
+  }
+
+
+  validateMobileMenu() {
+    const currentPage = this.router.url;
+    if (this.screenWidth <= 700) {
+      if (currentPage === `/${ROUTES.ROTALOCENTER}`) {
+        this.showMenu = true;
+      }else {
+        this.showMenu = false;
+      }
+    }else{
+      this.showMenu = true;
+    }
+  }
 
   ngOnInit() {
   }

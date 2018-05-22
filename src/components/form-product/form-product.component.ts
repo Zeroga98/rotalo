@@ -113,6 +113,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       "published-at": new Date()
     };
     const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+    this.photosUploaded.length = 0;
     this.publish.emit(params);
 
   }

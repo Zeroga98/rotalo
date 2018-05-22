@@ -19,10 +19,14 @@ export class SoldPage implements OnInit {
   public productsSold: Array<ProductInterface> = [];
   public productsPurchased: Array<ProductInterface> = [];
   private currentFilterSold: any = {
-    "filter[staged]": "sold"
+    "filter[staged]": "sold",
+    "page[number]": "1",
+    "page[size]": "100"
   };
   private currentFilterPurchased: any = {
-    "filter[staged]": "purchased"
+    "filter[staged]": "purchased",
+    "page[number]": "1",
+    "page[size]": "100"
   };
   public masonryConfig = MASONRY_CONFIG;
   private userId;

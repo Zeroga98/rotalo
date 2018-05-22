@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="conversation-wrap">
-        <chat-thread *ngFor="let thread of threads" [thread]="thread">
+        <chat-thread (selectOption)="receiveOption()" *ngFor="let thread of threads" [thread]="thread">
         </chat-thread>
     </div>
   </div>

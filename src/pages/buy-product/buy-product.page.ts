@@ -54,6 +54,7 @@ export class BuyProductPage implements OnInit {
   private observableCheckState;
   private tokenUser;
   private timeToWaitPay = 4;
+  public disableButton = false;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -170,11 +171,13 @@ export class BuyProductPage implements OnInit {
 
   async buyProductCash() {
     try {
+      this.disableButton = true;
       const response = await this.buyService.buyProduct(this.buildParams());
       this.transactionSuccess = true;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
+        this.disableButton = false;
         this.redirectErrorPage();
       }
     }

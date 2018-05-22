@@ -19,7 +19,9 @@ export class SellingPage implements OnInit {
   public masonryConfig = MASONRY_CONFIG;
   public productsExpired: Array<ProductInterface> = [];
   private currentFilterExpired: any = {
-    "filter[staged]": "expired"
+    "filter[staged]": "expired",
+    "page[number]": "1",
+    "page[size]": "100"
   };
   constructor(
     private productsService: ProductsService,

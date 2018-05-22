@@ -107,4 +107,13 @@
       }
     }
   }
+
+  @media (max-width: 780px) {
+    padding: 0 3%;
+    .elements-container{
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
 }

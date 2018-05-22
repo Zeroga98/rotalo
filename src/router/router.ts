@@ -61,7 +61,7 @@ export const appRouter: Routes = [
       },
       {
         path: '',
-        redirectTo: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER,
+        redirectTo: ROUTES.ROTALOCENTER,
         pathMatch: 'full'
       }
     ]

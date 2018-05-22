@@ -4,7 +4,7 @@
   </div>
   <custom-spinner *ngIf="showSpinner"></custom-spinner>
   <div class="container">
-    <chat-threads></chat-threads>
-    <chat-window (notify)='onNotify($event)' ></chat-window>
+    <chat-threads (selectOption)="receiveOption()" [ngStyle]="{'display': showChatThreads}" ></chat-threads>
+    <chat-window  (close) ="closeWindowChat()"  [ngStyle]="{'display': showChatWindow}" (notify)='onNotify($event)' ></chat-window>
   </div>
 </div>

@@ -38,7 +38,7 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
     na: "No aplica"
   };
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-
+  @Output() close: EventEmitter<any> = new EventEmitter();
   @ViewChild('scrollMe') private ScrollContainer: ElementRef;
 
   constructor(
@@ -72,6 +72,10 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
 
   onLoadWindow(ev) {
     this.notify.emit(ev);
+  }
+
+  closeChatWindow() {
+    this.close.emit();
   }
 
   ngAfterViewChecked() {

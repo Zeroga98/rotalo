@@ -3,7 +3,9 @@ import {
   OnInit,
   OnDestroy,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import { MessagesService } from "../../services/messages.service";
 import { CurrentSessionService } from "../../services/current-session.service";
@@ -22,7 +24,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
   userId: any;
   intervalConversation:any;
   subscriptionConversation: any;
-
+  @Output() selectOption: EventEmitter<any> = new EventEmitter();
   constructor(
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
@@ -41,6 +43,10 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     if (this.subscriptionConversation){
       this.subscriptionConversation.unsubscribe();
     }
+  }
+
+  receiveOption() {
+    this.selectOption.emit();
   }
 
   private getMessages(userId) {

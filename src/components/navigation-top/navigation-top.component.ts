@@ -1,5 +1,5 @@
 import { CountryInterface } from "./../select-country/country.interface";
-import { ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, HostListener } from "@angular/core";
 import { NotificationsService } from "./../../services/notifications.service";
 import { Router } from "@angular/router";
 import { ROUTES } from "./../../router/routes";
@@ -27,7 +27,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Output() countryChanged: EventEmitter<any> = new EventEmitter();
   @Input() hideBackArrow: boolean = false;
   @Input() defaultCountryValue: CountryInterface;
-  readonly rotaloCenter: string = `/${ROUTES.ROTALOCENTER}`;
+  rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
   isModalMessageShowed: boolean = false;
   listenerNotifications: any;
@@ -35,7 +35,22 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   messagesUnRead: number = 0;
   notificationsUnread: number = 0;
   userId;
+  public screenHeight;
+  public screenWidth;
   private readonly timeToCheckNotification: number = 5000;
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    const currentPage = this.router.url;
+    if (this.screenWidth <= 700) {
+      this.rotaloCenter = `/${ROUTES.ROTALOCENTER}`;
+    }
+  }
+
+
   constructor(
     private router: Router,
     private messagesService: MessagesService,
@@ -45,7 +60,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private currentSessionService: CurrentSessionService,
     private userService: UserService,
     private collectionService: CollectionSelectService,
-  ) {}
+  ) {
+    this.onResize();
+  }
 
   ngOnInit() {
     this.getCountries();
