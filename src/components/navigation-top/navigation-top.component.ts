@@ -17,6 +17,7 @@ import { NavigationService } from "../../pages/products/navigation.service";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
 import { CollectionSelectService } from "../../services/collection-select.service";
+import { LoginService } from "../../services/login/login.service";
 @Component({
   selector: "navigation-top",
   templateUrl: "./navigation-top.component.html",
@@ -38,7 +39,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public screenHeight;
   public screenWidth;
   private readonly timeToCheckNotification: number = 5000;
-
+  showDropdownMenu = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -50,7 +51,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
   }
 
-
   constructor(
     private router: Router,
     private messagesService: MessagesService,
@@ -60,6 +60,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private currentSessionService: CurrentSessionService,
     private userService: UserService,
     private collectionService: CollectionSelectService,
+    private loginService: LoginService,
   ) {
     this.onResize();
   }
@@ -85,11 +86,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
+
   changeSelectorCounrty(evt) {
     this.countryChanged.emit(evt);
     this.navigationService.setCurrentCountryId(evt.id);
     this.goToFeed(evt.id);
   }
+
+  onActivateMenu() {
+    this.showDropdownMenu = !this.showDropdownMenu;
+  }
+
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     `/${url}` === this.router.url
@@ -119,5 +126,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     if (currentUrl !== feedUrl) {
       this.router.navigate([`${feedUrl}`]);
     }
+  }
+
+  onLogout() {
+    this.loginService.logout();
   }
 }

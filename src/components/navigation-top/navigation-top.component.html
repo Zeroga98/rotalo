@@ -1,4 +1,3 @@
-<modal-message *ngIf="isModalMessageShowed" (close)="closeModalMessage()"></modal-message>
 <nav>
   <div class="container">
     <div class="navbar-header">
@@ -27,10 +26,14 @@
             </span>
           </a>
         </li>
-        <li class="gtmPerfil" routerLink="/profile/show">
-          <a ui-sref="profile.show">
+        <li class="perfil-container gtmPerfil">
+          <div (click)="onActivateMenu()">
             <span class="gtmPerfil icon-account"></span>
-          </a>
+          </div>
+          <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
+              <button (click)="onActivateMenu()" routerLink="/profile/show" class="dropdown-item">Perfil</button>
+              <button (click)="onLogout()" routerLink="/home" class="dropdown-item">Cerrar sesión</button>
+          </div>
         </li>
       </ul>
     </div>
