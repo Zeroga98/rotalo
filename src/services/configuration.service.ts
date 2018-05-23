@@ -12,7 +12,7 @@ export class ConfigurationService {
     'protocol': 'https',
     'server': 'apistg.rotalo.co:1443/gateway',
     'inactivityLimit': 86400 // seconds
-  };*/
+  };
 /*
   api = {
     protocol: "https",
@@ -26,7 +26,7 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 */
-  api = {
+api = {
     protocol: "https",
     server: "apirtl.rotalo.co/gateway/v1",
     inactivityLimit: 86400 // seconds
