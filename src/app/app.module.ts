@@ -21,7 +21,6 @@ import { SignUpPage } from '../pages/signup/signup.page';
 import { LoginPage } from '../pages/login/login.page';
 import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
 import { RecoverPage } from '../pages/reset-password/recover/recover.page';
-import { ShowPage } from '../pages/profile/show/show.page';
 import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
@@ -127,6 +126,8 @@ import { ResumeRotaloCenterService } from '../services/resume-rotalo-center.serv
 import { BarRatingModule } from 'ngx-bar-rating';
 import { ShowStarComponent } from '../components/show-star/show-star.component';
 import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.service';
+import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
+import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
 
 @NgModule({
   declarations: [
@@ -163,7 +164,6 @@ import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.se
     RecoverPage,
     ConfirmPage,
     BuyProductPage,
-    ShowPage,
     HobbiesPage,
     EditProfilePage,
     ChangePasswordPage,
@@ -201,7 +201,9 @@ import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.se
     ModalBuyInfoComponent,
     ClockAnimationComponent,
     ErrorPageComponent,
-    ShowStarComponent
+    ShowStarComponent,
+    ProfileMenu,
+    ShowInfoProfileComponent
   ],
   imports: [
     BrowserModule,

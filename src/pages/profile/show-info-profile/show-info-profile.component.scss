@@ -1,0 +1,163 @@
+:host {
+  width: 100%;
+  padding: 0 5%;
+  padding-left: 2%;
+  .info-container {
+    .content {
+      padding-right: 2%;
+    }
+  }
+  .tittle {
+    position: relative;
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .text {
+      margin-left: 35px;
+      color: #ed2f3c;
+    }
+    p.text {
+      font-size: 2.5rem;
+    }
+    h1.text {
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+  .email {
+    p {
+      font-size: 2.5rem;
+      width: 100%;
+      word-wrap: break-word;
+    }
+  }
+  .main-title {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eae9e8;
+    margin-bottom: 25px;
+  }
+  .elements-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px 0;
+    p {
+      color: white;
+      font-size: 2.5rem;
+    }
+    .element-process {
+      background-color: #33d7c7;
+    }
+    .element-product {
+      background-color: #41b4ca;
+    }
+    .element-attention {
+      background-color: #f3a643;
+    }
+  }
+  .elements-container>.element {
+    width: 48%;
+    height: 220px;
+    border-radius: 5px;
+    padding: 25px 15px;
+    margin-bottom: 15px;
+  }
+  .elements-container>.product-number {
+    border: 2px solid #c7c7c7;
+    padding: 20px 15px;
+  }
+  .elements-container {
+    .container-circle {
+      text-align: center;
+      .circle {
+        position: relative;
+        background: #ffffff;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 2.4rem;
+        line-height: 55px;
+        color: #41b4ca;
+        font-weight: bold;
+      }
+    }
+  }
+  .center-icon {
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    margin: 0 auto;
+    .icon-account {
+      position: relative;
+      width: 55px;
+      height: 55px;
+      font-size: 5rem;
+      line-height: 55px;
+      color: white;
+    }
+  }
+  .info {
+    text-align: center;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .ico-star {
+    background: url(../../../assets/img/estrella_blanca.svg);
+    background-size: 55px 55px;
+    margin-left: 5px;
+    width: 55px;
+    height: 55px;
+  }
+  .hobbies-icon {
+    width: 30px;
+    height: 30px;
+    background: url(../../../assets/img/mis_intereses.svg);
+    background-size: 30px 30px;
+  }
+  .tag-wrapper {
+    width: 100%;
+  }
+  .tag {
+    display: inline-block;
+    position: relative;
+    margin: 5px 10px 5px 0px;
+  }
+  .tag label {
+    padding: 7px 18px;
+    position: relative;
+    z-index: 200;
+    color: white;
+    display: block;
+    border-radius: 20px;
+    background: #ed2f3c;
+    font-size: 2rem;
+  }
+  @media (max-width: 780px) {
+    padding: 0 3%;
+    .elements-container {
+      align-items: center;
+      justify-content: center;
+      .element {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  :host {
+    .tittle h1.text {
+      text-align: center;
+      margin-top: 5px;
+    }
+  }
+}

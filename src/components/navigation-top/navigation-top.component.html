@@ -31,8 +31,8 @@
             <span class="gtmPerfil icon-account"></span>
           </div>
           <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu()" routerLink="/profile/show" class="dropdown-item">Perfil</button>
-              <button (click)="onLogout()" routerLink="/home" class="dropdown-item">Cerrar sesión</button>
+              <button (click)="onActivateMenu()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
+              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar sesión</button>
           </div>
         </li>
       </ul>

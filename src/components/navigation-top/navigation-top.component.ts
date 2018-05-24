@@ -29,6 +29,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Input() hideBackArrow: boolean = false;
   @Input() defaultCountryValue: CountryInterface;
   rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
+  rotaloProfile: string = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
   isModalMessageShowed: boolean = false;
   listenerNotifications: any;
@@ -48,6 +49,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     const currentPage = this.router.url;
     if (this.screenWidth <= 700) {
       this.rotaloCenter = `/${ROUTES.ROTALOCENTER}`;
+      this.rotaloProfile = `/${ROUTES.PROFILE}`;
     }
   }
 

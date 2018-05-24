@@ -1,0 +1,51 @@
+<navigation-top [defaultCountryValue]="defaultCountry"></navigation-top>
+<div class="container-bar-offer">
+  <div class="container">
+    <h1 class="offer-head-title">Mi Perfil</h1>
+  </div>
+</div>
+<div class="main">
+  <div *ngIf="userInfo"  class="menu">
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img *ngIf="!userInfo.photo" class="logo-rotalo" [src]="defaultImage" [alt]="userName" (error)="updateSrc($event)">
+        <img *ngIf="userInfo.photo" class="logo-rotalo" [src]="photoUrl" [alt]="userName" (error)="updateSrc($event)">
+      </div>
+      <div class="container-info-user">
+        <div class="title">
+          <p class="name-text">{{userName}}</p>
+        </div>
+        <div class="flexbox">
+          <div *ngIf="userInfo.company" class="icon-container" [ngStyle]="{'background-color':userInfo.company.colour}">
+            <span class="icon-account"></span>
+          </div>
+          <p *ngIf="userInfo.company" class="company-text" [ngStyle]="{'color':userInfo.company.colour}">
+            {{userInfo.company.name}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showMenu" class="menu-options">
+      <div class="menu-container">
+        <div [routerLink]="edit" class="option" routerLinkActive="active">
+          <div class="ico datos-icon"></div>
+          <a>Mis datos</a>
+        </div>
+        <div [routerLink]="security" class="option" routerLinkActive="active">
+          <div class="ico security-icon"></div>
+          <a>Seguridad</a>
+        </div>
+        <div [routerLink]="hobbies" class="option" routerLinkActive="active">
+          <div class="ico hobbies-icon"></div>
+          <a>Mis intereses</a>
+        </div>
+        <div routerLink="/login" (click)="onLogout()" class="option">
+          <div class="ico close-icon"></div>
+          <a>Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet class="content"></router-outlet>
+</div>
+<custom-footer></custom-footer>
