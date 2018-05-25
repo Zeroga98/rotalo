@@ -34,7 +34,7 @@
     flex: 1 0 auto;
     display: flex;
     height: auto;
-    min-height: 70rem;
+    min-height: 45rem;
     padding-top: 45px;
     padding-bottom: 70px;
     .menu {
@@ -178,7 +178,8 @@
       padding-top:0px;
       .menu {
         width: 100%;
-        padding-left: 2%;
+        padding-left: 10%;
+        padding-top: 10px;
         padding-right: 2%;
         .menu-options{
           padding-left: 0;
@@ -203,7 +204,6 @@
     }
     .main .menu .logo-container {
       padding: 10px 0;
-      padding-left: 12%;
     }
   }
 }
