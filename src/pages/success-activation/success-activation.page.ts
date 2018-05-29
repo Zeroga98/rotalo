@@ -134,31 +134,7 @@ export class SuccessActivationPage implements OnInit {
         }
       );
     }
-    /*  const infoUser = Object.assign({}, this.hobbiesForm.value);
-      const currentUser = {
-        'data': {
-          'id': this.userHobbie.id,
-          'type': 'users',
-          'attributes': infoUser
-        }
-      };
 
-      this.userService.updateUser(currentUser).then(response => {
-        this.messageChange = 'Su cuenta se ha actualizado.';
-        this.errorChange = '';
-        this.userService.updateInfoUser();
-        })
-        .catch(httpErrorResponse => {
-          this.messageChange = '';
-          if (httpErrorResponse.status === 403) {
-          }
-          if (httpErrorResponse.status === 422) {
-            this.errorChange = httpErrorResponse.error.errors[0].title;
-          }
-          if (httpErrorResponse.status === 0) {
-            this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
-          }
-        });*/
     }
 
 }

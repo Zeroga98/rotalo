@@ -52,10 +52,12 @@ export class HobbiesPage implements OnInit {
 
   loadMaxMinNumHobbies() {
     this.settingsService.getSettings().then(response => {
-      const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
-      const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
-      this.maxHobbies = Number(maxObJ.value);
-      this.minHobbies = Number(minObj.value);
+      if (response) {
+        const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
+        const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
+        this.maxHobbies = Number(maxObJ.value);
+        this.minHobbies = Number(minObj.value);
+      }
     })
     .catch(httpErrorResponse => {});
   }
@@ -64,9 +66,6 @@ export class HobbiesPage implements OnInit {
     this.userId = this.currentSessionService.getIdUser();
   }
 
-  activateButton () {
-    this.disableButton = false;
-  }
 
   loadHobbies() {
     this.hobbiesService.getHobbies(this.userId).subscribe(
@@ -84,6 +83,7 @@ export class HobbiesPage implements OnInit {
     } else {
       this.numberHobbies--;
     }
+    this.disableButton = false;
   }
 
   countHobbies() {
@@ -141,30 +141,5 @@ export class HobbiesPage implements OnInit {
       );
     }
     this.utilsService.goToTopWindow(20, 600);
-    /*  const infoUser = Object.assign({}, this.hobbiesForm.value);
-    const currentUser = {
-      'data': {
-        'id': this.userHobbie.id,
-        'type': 'users',
-        'attributes': infoUser
-      }
-    };
-
-    this.userService.updateUser(currentUser).then(response => {
-      this.messageChange = 'Su cuenta se ha actualizado.';
-      this.errorChange = '';
-      this.userService.updateInfoUser();
-      })
-      .catch(httpErrorResponse => {
-        this.messageChange = '';
-        if (httpErrorResponse.status === 403) {
-        }
-        if (httpErrorResponse.status === 422) {
-          this.errorChange = httpErrorResponse.error.errors[0].title;
-        }
-        if (httpErrorResponse.status === 0) {
-          this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
-        }
-      });*/
   }
 }
