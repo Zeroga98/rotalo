@@ -1,57 +1,164 @@
-import { ROUTES } from "./../../router/routes";
-import { Router } from "@angular/router";
-import { UserService } from "./../../services/user.service";
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { CurrentSessionService } from "../../services/current-session.service";
+import { ROUTES } from './../../router/routes';
+import { Router } from '@angular/router';
+import { UserService } from './../../services/user.service';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { HobbiesService } from '../../services/hobbies.service';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
-  selector: "success-activation",
-  templateUrl: "./success-activation.page.html",
-  styleUrls: ["./success-activation.page.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'success-activation',
+  templateUrl: './success-activation.page.html',
+  styleUrls: ['./success-activation.page.scss']
 })
 export class SuccessActivationPage implements OnInit {
   errorLogin: String;
   userId: String;
+  public messageChange: String;
+  public errorChange: String;
+  public hobbies2: Array<any> = [
+    { name: 'Bebés', id: 1, checked: true },
+    { name: 'Camping y actividades al aire libre', id: 2, checked: false },
+    { name: 'Carpinteria y manualidades', id: 3, checked: true },
+    { name: 'Carros', id: 4, checked: false },
+    { name: 'Cine', id: 5, checked: false },
+    { name: 'Cocina', id: 6, checked: false },
+    { name: 'Coleccionar', id: 7, checked: false },
+    { name: 'Deporte', id: 8, checked: false },
+    { name: 'Eventos y espectáculos', id: 9, checked: false },
+    { name: 'Hogar', id: 11, checked: false },
+    { name: 'Jardineria', id: 12, checked: false }
+  ];
+  public hobbies: Array<any> = [];
+  private numberHobbies = 0;
+  public maxHobbies: number = 5;
+  public minHobbies: number = 1;
   constructor(
     private userService: UserService,
     private currentSessionService: CurrentSessionService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private hobbiesService: HobbiesService,
+    private settingsService: SettingsService
+  ) {
+    this.loadMaxMinNumHobbies();
+  }
 
   ngOnInit() {
     this.loadIdUser();
+    this.loadHobbies();
+  }
+
+  loadMaxMinNumHobbies() {
+    this.settingsService.getSettings().then(response => {
+      const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
+      const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
+      this.maxHobbies = Number(maxObJ.value);
+      this.minHobbies = Number(minObj.value);
+    })
+    .catch(httpErrorResponse => {});
   }
 
   loadIdUser() {
     this.userId = this.currentSessionService.getIdUser();
   }
 
-  save(evt) {
-    this.router.navigate([`${ROUTES.STEPS}`]);
-   /* try {
-      this.loadIdUser();
-      const hobbies = evt.value.field;
-      const params = {
-        data: {
-          id: this.userId,
-          attributes: { hobbies },
-          type: "users"
+  loadHobbies() {
+    this.hobbiesService.getHobbies(this.userId).subscribe(
+      state => {
+        this.hobbies = state.body.intereses;
+        this.countHobbies();
+      },
+      error => console.log(error)
+    );
+  }
+
+  countCheck(event) {
+    if (event.target.checked) {
+      this.numberHobbies++;
+    } else {
+      this.numberHobbies--;
+    }
+  }
+
+  countHobbies() {
+    let numberHobbies = 0;
+    for (const hobby of this.hobbies) {
+      if (hobby.seleccionado) {
+        numberHobbies++;
+      }
+    }
+    this.numberHobbies = numberHobbies;
+  }
+
+  checkMaxNumberHobbies(): boolean {
+    if (this.numberHobbies < this.maxHobbies) {
+      return false;
+    }
+    return true;
+  }
+
+  isValidateNumberHobbies(): boolean {
+    if (
+      this.numberHobbies <= this.maxHobbies &&
+      this.numberHobbies >= this.minHobbies
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  saveHobbies(): void {
+    if (this.isValidateNumberHobbies()) {
+      let arrayHobbies = [];
+      for (const hobby of this.hobbies) {
+        if (hobby.seleccionado) {
+          arrayHobbies.push(hobby.id);
+        }
+      }
+      const params = Object.assign({},{intereses: arrayHobbies });
+      this.hobbiesService.sendHobbies(params, this.userId).subscribe(
+        state => {
+          this.router.navigate([`${ROUTES.STEPS}`]);
+        },
+        error =>{
+          console.log(error);
+          this.messageChange = '';
+          if (error.status === 403) {
+          }
+          if (error.status === 422) {
+            this.errorChange = error.error.errors[0].title;
+          }
+          if (error.status === 0) {
+            this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+          }
+        }
+      );
+    }
+    /*  const infoUser = Object.assign({}, this.hobbiesForm.value);
+      const currentUser = {
+        'data': {
+          'id': this.userHobbie.id,
+          'type': 'users',
+          'attributes': infoUser
         }
       };
-      this.userService.updateUser(params).then(response => {
-          this.router.navigate([`${ROUTES.STEPS}`]);
-        }).catch(httpErrorResponse => {
+
+      this.userService.updateUser(currentUser).then(response => {
+        this.messageChange = 'Su cuenta se ha actualizado.';
+        this.errorChange = '';
+        this.userService.updateInfoUser();
+        })
+        .catch(httpErrorResponse => {
+          this.messageChange = '';
           if (httpErrorResponse.status === 403) {
           }
           if (httpErrorResponse.status === 422) {
-            this.errorLogin = httpErrorResponse.error.errors[0].title;
+            this.errorChange = httpErrorResponse.error.errors[0].title;
           }
           if (httpErrorResponse.status === 0) {
-            this.errorLogin =
-              "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
+            this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
           }
-        });
-    } catch (error) {}*/
-  }
+        });*/
+    }
+
 }

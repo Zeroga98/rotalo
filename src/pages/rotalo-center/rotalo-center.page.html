@@ -16,6 +16,7 @@
         <div [routerLink]="messages" class="option" routerLinkActive="active">
           <div class="ico message-icon"></div>
           <a>Mensajes</a>
+          <span *ngIf="messageAvailable" class="noti-circle">{{getMessagesUnRead}}</span>
         </div>
         <div [routerLink]="selling" class="option" routerLinkActive="active">
           <div class="ico rotando-icon"></div>

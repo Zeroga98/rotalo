@@ -3,7 +3,7 @@
     <h1 class="text">Perfil</h1>
   </div>
   <div class="email">
-    <p>PcballosPcballosPcballos@bancolombia.com.co</p>
+    <p>{{email}}</p>
   </div>
   <div class="content">
     <div class="elements-container">
@@ -11,7 +11,7 @@
         <div class="center-icon">
           <span class="icon-account"></span>
         </div>
-        <div class="info">Mi ranking general</div>
+        <div class="info">Miembro Rótalo</div>
         <div class="info bold">4 Abril 2018</div>
       </div>
       <div class="element element-product">
@@ -20,7 +20,7 @@
             <div class="ico-star"></div>
           </div>
           <div class="info">Mi ranking general</div>
-          <div class="circle">3</div>
+          <div class="circle">{{mainRanking}}</div>
         </div>
       </div>
     </div>
@@ -30,35 +30,10 @@
     </div>
     <div class="elements-container">
       <div class="tag-wrapper">
-        <div class="tag">
-          <label>Deportes y entretenimiento</label>
-        </div>
-        <div class="tag">
-          <label>Moda</label>
-        </div>
-        <div class="tag">
-          <label>Deportes y entretenimiento</label>
-        </div>
-        <div class="tag">
-          <label>Moda</label>
-        </div>
-        <div class="tag">
-          <label>Deportes y entretenimiento</label>
-        </div>
-        <div class="tag">
-          <label>Moda</label>
-        </div>
-        <div class="tag">
-          <label>Deportes y entretenimiento</label>
-        </div>
-        <div class="tag">
-          <label>Moda</label>
-        </div>
-        <div class="tag">
-          <label>Deportes y entretenimiento</label>
-        </div>
-        <div class="tag">
-          <label>Moda</label>
+        <div class="tag-container" *ngFor="let hobby of hobbies">
+            <div class="tag" *ngIf="hobby.seleccionado">
+              <label>{{hobby.nombre}}</label>
+            </div>
         </div>
       </div>
     </div>

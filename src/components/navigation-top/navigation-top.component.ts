@@ -74,6 +74,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     };
     this.userId = this.currentSessionService.getIdUser();
     this.listenerMessages = this.setListenerMessagesUnread(this.userId);
+    if (this.navigationService.getMessagesUnRead()) {
+      this.messagesUnRead = this.navigationService.getMessagesUnRead();
+    }
   }
 
   async getCountries() {
@@ -115,6 +118,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.messagesService.getMessagesUnred(userId).subscribe(
         state => {
           this.messagesUnRead = state.body.cantidadNotificaciones;
+          this.navigationService.setMessagesUnRead(this.messagesUnRead);
           this.changeDetector.markForCheck();
         },
         error => console.log(error)

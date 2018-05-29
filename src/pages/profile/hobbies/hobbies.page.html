@@ -19,20 +19,23 @@
           </ul>
         </div>
     </div>
-    <form  role="form">
+    <form  #formHobbies="ngForm" role="form">
       <div class="subtitle">
         <p>Me interesa</p>
       </div>
       <div class="form-group user-checked">
           <div class="tag-wrapper">
               <div class="tag-container" *ngFor="let hobby of hobbies">
-                <div  *ngIf="hobby.checked"  class="tag">
+                <div  *ngIf="hobby.seleccionado"  class="tag">
                     <input
+                    (click) = "activateButton()"
                     value="{{hobby.id}}"
-                    name ="{{hobby.name}}"
-                    [(ngModel)]="hobby.checked"
-                    type="checkbox"/>
-                    <label for="{{hobby.id}}">{{hobby.name}}</label>
+                    name ="{{hobby.nombre}}"
+                    [(ngModel)]="hobby.seleccionado"
+                    type="checkbox"
+                    (change)="countCheck($event)"
+                    />
+                    <label for="{{hobby.id}}">{{hobby.nombre}}</label>
                     <i class="fa fa-plus"></i>
                     <i class="fa fa-check"></i>
                 </div>
@@ -45,24 +48,26 @@
       <div class="form-group user-nochecked">
           <div class="tag-wrapper">
               <div class="tag-container" *ngFor="let hobby of hobbies">
-                  <div *ngIf="!hobby.checked" class="tag">
+                  <div *ngIf="!hobby.seleccionado" class="tag">
                       <input
+                      (click) = "activateButton()"
                       [disabled]="checkMaxNumberHobbies()"
                       value="{{hobby.id}}"
-                      name ="{{hobby.name}}"
-                      [(ngModel)]="hobby.checked"
-                      type="checkbox"/>
-                      <label for="{{hobby.id}}">{{hobby.name}}</label>
+                      name ="{{hobby.nombre}}"
+                      [(ngModel)]="hobby.seleccionado"
+                      type="checkbox"
+                      (change)="countCheck($event)"
+                      />
+                      <label for="{{hobby.id}}">{{hobby.nombre}}</label>
                       <i class="fa fa-plus"></i>
                       <i class="fa fa-check"></i>
                   </div>
                 </div>
           </div>
-
       </div>
       <footer>
         <div class="btn-container">
-          <custom-button  (click) = "saveHobbies()" class="btn--square" type="submit" text="Guardar Cambios"></custom-button>
+          <custom-button  [disabled]="!isValidateNumberHobbies()"  (click) = "saveHobbies()" class="btn--square" type="submit" text="Guardar Cambios"></custom-button>
         </div>
       </footer>
     </form>

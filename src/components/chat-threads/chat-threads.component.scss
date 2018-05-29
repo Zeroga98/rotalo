@@ -1,8 +1,7 @@
 :host{
   .row {
     position: relative;
-    padding-bottom: 2rem;
-    height: 32.6rem;
+    height: 48rem;
     background: #ffffff;
     z-index: 0;
   }
@@ -20,14 +19,20 @@
   }
   .row .conversation-wrap {
     overflow-x: auto;
-    padding: 0 16px;
     margin-bottom: 5px;
     height: 100%;
-    padding-top: 2rem;
   }
   .row .conversation-wrap:after {
     content: "";
     display: table;
     clear: both;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  :host {
+    .row {
+      height: auto;
+    }
   }
 }

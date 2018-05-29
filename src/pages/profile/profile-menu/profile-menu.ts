@@ -62,12 +62,13 @@ export class ProfileMenu implements OnInit {
   async getUserInfo() {
     try {
       this.userInfo = await this.userService.getInfoUser();
-      console.log(this.userInfo);
+
       this.setUserinfo();
     } catch (error) {
       console.error(error);
     }
   }
+
 
   setUserinfo() {
     this.userName =   this.userInfo.name;

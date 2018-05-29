@@ -125,6 +125,9 @@
   }
   .tag-wrapper {
     width: 100%;
+    .tag-container{
+      display: inline-block;
+    }
   }
   .tag {
     display: inline-block;

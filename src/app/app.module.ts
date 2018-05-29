@@ -128,6 +128,7 @@ import { ShowStarComponent } from '../components/show-star/show-star.component';
 import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.service';
 import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
 import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
+import { HobbiesService } from '../services/hobbies.service';
 
 @NgModule({
   declarations: [
@@ -256,6 +257,7 @@ import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/sho
     SavePasswordService,
     ResumeRotaloCenterService,
     ShareInfoChatService,
+    HobbiesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
