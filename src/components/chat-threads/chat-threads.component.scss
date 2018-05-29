@@ -1,3 +1,38 @@
 :host{
+  .row {
+    position: relative;
+    height: 48rem;
+    background: #ffffff;
+    z-index: 0;
+  }
+  .row ::-webkit-scrollbar {
+    transition: all 0.5s;
+    width: 5px;
+    height: 1px;
+    z-index: 10;
+  }
+  .row ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .row ::-webkit-scrollbar-thumb {
+    background: #b3ada7;
+  }
+  .row .conversation-wrap {
+    overflow-x: auto;
+    margin-bottom: 5px;
+    height: 100%;
+  }
+  .row .conversation-wrap:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
 
+@media screen and (max-width: 700px) {
+  :host {
+    .row {
+      height: auto;
+    }
+  }
 }

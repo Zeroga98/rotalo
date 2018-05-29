@@ -120,7 +120,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async onUploadImageFinished(event) {
     try {
-      this.utilsService.getOrientation(event.file, function(orientation) {
+     this.utilsService.getOrientation(event.file, function(orientation) {
         this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
           event.src = resetBase64Image;
         });
