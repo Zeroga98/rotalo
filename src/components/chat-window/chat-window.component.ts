@@ -141,6 +141,12 @@ export class ChatWindowComponent implements OnInit, OnDestroy, AfterViewChecked{
     ]);
   }
 
+  goToHobbies() {
+    this.router.navigate([
+      `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`
+    ]);
+  }
+
   productIsFree(notification) {
     return notification.producto.tipoVenta === "GRATIS";
   }

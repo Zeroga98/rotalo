@@ -28,7 +28,9 @@
         </li>
         <li class="perfil-container gtmPerfil">
           <div (click)="onActivateMenu()">
-            <span class="gtmPerfil icon-account"></span>
+            <span class="gtmPerfil icon-account">
+              <span class="noti-circle">1</span>
+            </span>
           </div>
           <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
               <button (click)="onActivateMenu()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>

@@ -66,7 +66,6 @@ export class HobbiesPage implements OnInit {
     this.userId = this.currentSessionService.getIdUser();
   }
 
-
   loadHobbies() {
     this.hobbiesService.getHobbies(this.userId).subscribe(
       state => {
@@ -125,9 +124,9 @@ export class HobbiesPage implements OnInit {
       this.hobbiesService.sendHobbies(params, this.userId).subscribe(
         state => {
           this.messageChange = 'Sus intereses se han guardado correctamente.';
+          this.utilsService.goToTopWindow(20, 600);
         },
-        error =>{
-          console.log(error);
+        error => {
           this.messageChange = '';
           if (error.status === 403) {
           }
@@ -137,9 +136,10 @@ export class HobbiesPage implements OnInit {
           if (error.status === 0) {
             this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
           }
+          this.utilsService.goToTopWindow(20, 600);
         }
       );
     }
-    this.utilsService.goToTopWindow(20, 600);
+
   }
 }

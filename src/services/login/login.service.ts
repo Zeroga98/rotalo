@@ -17,6 +17,7 @@ export class LoginService {
   }
 
   logout(): void {
+    this.currentSessionService.clearSession();
     this.logOutService(this.currentSessionService.authToken()) .subscribe(
       resonse => {
         this.currentSessionService.clearSession();

@@ -284,7 +284,17 @@
                         <rating-notification class="notifications-theme" [notification]="message" ></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-
+                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
+                       <div *ngIf="message.tipoNotificacion == 'first_interests_association'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y
+                          encontrar usuarios que comparten tus intereses. ¡Sigue rotando!
+                          <br>
+                          <span class="highlight bold clickable" (click)="goToHobbies()">Ir a mis intereses.</span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora }}</small>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
                     </div>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class ConfigurationService {
- /* api = {
+/*api = {
     'protocol': 'https',
     'server': 'apistg.rotalo.co:1443/gateway/v1',
      'inactivityLimit': 86400 // seconds
@@ -14,6 +14,7 @@ export class ConfigurationService {
     'inactivityLimit': 86400 // seconds
   };
 */
+
 api = {
     protocol: "https",
     server: "api.dev.rotalo.co:1443/gateway/v1",

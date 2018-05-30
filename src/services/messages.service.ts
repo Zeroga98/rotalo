@@ -157,6 +157,16 @@ export class MessagesService {
         .map((response: any) => response);
     }
 
+    checkNotificationHobbies(idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/notificaciones-intereses';
+      return this.http
+        .post(url , { headers: headers })
+        .map((response: any) => response);
+    }
+
     updateMessage(params, idUser) {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );

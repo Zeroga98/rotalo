@@ -101,7 +101,7 @@
           </button>
         </div>
         <div  *ngIf="!isSellProcess() && !validateSession()" class="share-product-container">
-            <a (click)="showInputShare=true" class="share-product">Compartir este producto</a>
+            <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Compartir este producto</a>
             <div *ngIf="showInputShare" class="input-container">
               <form  (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
                   <div class="form-group">

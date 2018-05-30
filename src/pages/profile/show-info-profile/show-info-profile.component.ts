@@ -33,8 +33,6 @@ export class ShowInfoProfileComponent implements OnInit {
     this.loadHobbies();
   }
 
-
-
   loadHobbies() {
     this.hobbiesService.getHobbies(this.userId).subscribe(
       state => {
@@ -43,7 +41,6 @@ export class ShowInfoProfileComponent implements OnInit {
       error => console.log(error)
     );
   }
-
 
   loadResume(userId) {
     this.userService.getInfomationUser(userId).then((response) => {

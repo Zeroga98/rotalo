@@ -1,7 +1,6 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 :host {
-
   .container-bar-offer {
     background: url("/assets/img/image_bw.jpg") no-repeat center;
     .container {
@@ -170,6 +169,23 @@
         font-size: 1.4rem;
       }
     }
+  }
+
+  .noti-circle {
+    position: absolute;
+    background-color: #ED2F3C;
+    color: white;
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+    font-size: 13px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: bold;
+    align-items: center;
   }
 
   @media (max-width: 700px) {
