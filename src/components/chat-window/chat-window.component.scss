@@ -107,6 +107,7 @@
     overflow: hidden;
     white-space: nowrap;
     width: 71%;
+    padding-right: 25%;
   }
   /* Conversation */
   .conversation {
@@ -294,6 +295,21 @@
   .modal__close {
     display: none;
   }
+  .delete-container{
+    display: block;
+    cursor: pointer;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 50px;
+  }
+  .icon-delete {
+    width: 30px;
+    height: 30px;
+    background: url(../../assets/img/eliminar_chat.svg);
+    background-size: 30px 30px;
+  }
   @media (max-width: 700px) {
     .user-bar .name {
       width: 50%;
@@ -305,6 +321,12 @@
       position: absolute;
       top: 50%;
       right: 10px;
+    }
+    .delete-container{
+      right: 60px;
+    }
+    .user-bar .name {
+      padding-right: 10%;
     }
   }
 }

@@ -38,7 +38,7 @@
         <div [routerLink]="hobbies" class="option" routerLinkActive="active">
           <div class="ico hobbies-icon"></div>
           <a>Mis intereses</a>
-          <span class="noti-circle">1</span>
+          <span *ngIf="notificationHobbies" class="noti-circle">1</span>
         </div>
         <div routerLink="/login" (click)="onLogout()" class="option">
           <div class="ico close-icon"></div>

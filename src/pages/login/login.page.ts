@@ -66,7 +66,6 @@ export class LoginPage implements OnInit {
    this.messagesService.checkNotificationHobbies(idUser)
     .subscribe(
       state => {
-          console.log(state);
       },
       error => console.log(error)
     );
@@ -80,8 +79,7 @@ export class LoginPage implements OnInit {
     };
     this.loginService.logOutClearSession(user.user).subscribe(data => {
       if (data.status === 200) {
-        this.loginService
-          .loginSapiUser(user)
+        this.loginService.loginSapiUser(user)
           .then(response => {
             if (response.status === 200) {
               this.gapush(
@@ -94,7 +92,7 @@ export class LoginPage implements OnInit {
               const saveInfo = {
                 "auth-token": response.body.data.token,
                 email: response.body.data.userProperties.email,
-                id: response.body.data.userProperties.id,
+                id: response.body.data.userProperties.roles[0],
                 "id-number": response.body.data.userProperties.identification,
                 name: response.body.data.userProperties.fullname,
                 photo: {
@@ -104,7 +102,6 @@ export class LoginPage implements OnInit {
               };
 
               this.currentSessionService.setSession(saveInfo);
-
               this.currentSessionService.getIdUser();
               this.setUserCountry(saveInfo);
               this.checkNotificationHobbies(saveInfo.id);
@@ -141,10 +138,10 @@ export class LoginPage implements OnInit {
 
   async setUserCountry(userInfo) {
     try {
-      //const user = await this.userService.getInfoUser();
-      //this.userCountry = user.city.state.country.id;
+      const user = await this.userService.getInfoUser();
+      this.userCountry = user.city.state.country.id;
       const userLogin = Object.assign({}, userInfo, {
-        countryId: "1"
+        countryId: this.userCountry
       });
       this.currentSessionService.setSession(userLogin);
       this.router.navigate([

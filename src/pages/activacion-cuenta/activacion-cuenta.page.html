@@ -1,9 +1,9 @@
 <back-arrow></back-arrow>
 <div class="container-form">
-  <div class="container--app">
-    <div *ngFor="let error of errorRequest">
-      <div class="alert-danger" *ngIf="error">
-        <span>{{error.title}}</span>
+  <div *ngIf="errorLogin" class="container--app">
+    <div>
+      <div class="alert-danger">
+        <span>{{errorLogin}}</span>
       </div>
     </div>
   </div>

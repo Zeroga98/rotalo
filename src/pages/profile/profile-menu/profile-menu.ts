@@ -6,6 +6,7 @@ import { CountryInterface } from '../../../components/select-country/country.int
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { ROUTES } from '../../../router/routes';
 import { Router } from '@angular/router';
+import { NavigationService } from '../../products/navigation.service';
 
 @Component({
   selector: 'show-page',
@@ -25,6 +26,7 @@ export class ProfileMenu implements OnInit {
   public screenHeight;
   public screenWidth;
   public showMenu: boolean = true;
+  public notificationHobby = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -34,7 +36,7 @@ export class ProfileMenu implements OnInit {
   }
 
   constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService,
-    private currentSession: CurrentSessionService, public router: Router) {
+    private currentSession: CurrentSessionService, public router: Router, private navigationService: NavigationService) {
     this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
    }
 
@@ -84,6 +86,11 @@ export class ProfileMenu implements OnInit {
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
+  }
+
+  get notificationHobbies(): boolean {
+    this.notificationHobby = this.navigationService.getNotificationHobbies();
+    return this.notificationHobby;
   }
 
 }

@@ -24,10 +24,11 @@ export class StepsPage implements OnInit {
   ngOnInit() {}
 
   skipSteps() {
-    this.router.navigate([`/${ROUTES.LOGIN}`]);
-    location.reload();
-    this.changeRef.markForCheck();
-   // this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+   // this.router.navigate([`/${ROUTES.LOGIN}`]);
+   // location.reload();
+   this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+   location.reload();
+   this.changeRef.markForCheck();
   }
 
   continueSlide(index: number) {

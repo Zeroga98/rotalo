@@ -49,13 +49,19 @@ export class SuccessActivationPage implements OnInit {
   }
 
   loadMaxMinNumHobbies() {
-    this.settingsService.getSettings().then(response => {
-      const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
-      const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
-      this.maxHobbies = Number(maxObJ.value);
-      this.minHobbies = Number(minObj.value);
-    })
-    .catch(httpErrorResponse => {});
+    this.settingsService
+      .getSettings()
+      .then(response => {
+        const minObj = response.find(function(setting) {
+          return setting.name === 'min_interests_to_add';
+        });
+        const maxObJ = response.find(function(setting) {
+          return setting.name === 'max_interests_to_add';
+        });
+        this.maxHobbies = Number(maxObJ.value);
+        this.minHobbies = Number(minObj.value);
+      })
+      .catch(httpErrorResponse => {});
   }
 
   loadIdUser() {
@@ -115,12 +121,12 @@ export class SuccessActivationPage implements OnInit {
           arrayHobbies.push(hobby.id);
         }
       }
-      const params = Object.assign({},{intereses: arrayHobbies });
+      const params = Object.assign({}, { intereses: arrayHobbies });
       this.hobbiesService.sendHobbies(params, this.userId).subscribe(
         state => {
           this.router.navigate([`${ROUTES.STEPS}`]);
         },
-        error =>{
+        error => {
           console.log(error);
           this.messageChange = '';
           if (error.status === 403) {
@@ -129,12 +135,11 @@ export class SuccessActivationPage implements OnInit {
             this.errorChange = error.error.errors[0].title;
           }
           if (error.status === 0) {
-            this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+            this.errorChange =
+              '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
           }
         }
       );
     }
-
-    }
-
+  }
 }

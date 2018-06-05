@@ -56,6 +56,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
         if (state.body && state.body.emisarios) {
           if (!this.threads) {
             this.threads = state.body.emisarios;
+            this.shareInfoChatService.setFirstConversation(this.threads[0]);
             if (!this.shareInfoChatService.getIdConversation()) {
               this.firstThread = this.threads[0];
               this.shareInfoChatService.setIdConversation(this.firstThread.idEmisario);

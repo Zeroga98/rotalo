@@ -35,6 +35,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   listenerNotifications: any;
   listenerMessages: any;
   messagesUnRead: number = 0;
+  notificationHobby = false;
   notificationsUnread: number = 0;
   userId;
   public screenHeight;
@@ -77,6 +78,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     if (this.navigationService.getMessagesUnRead()) {
       this.messagesUnRead = this.navigationService.getMessagesUnRead();
     }
+    if (this.navigationService.getNotificationHobbies()) {
+      this.notificationHobby = this.navigationService.getNotificationHobbies();
+    }
   }
 
   async getCountries() {
@@ -113,11 +117,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return this.messagesUnRead > 0;
   }
 
+  get hobbyNotification(): boolean {
+    return this.notificationHobby;
+  }
+
   private  setListenerMessagesUnread(userId) {
     return setInterval(() => {
       this.messagesService.getMessagesUnred(userId).subscribe(
         state => {
           this.messagesUnRead = state.body.cantidadNotificaciones;
+          this.notificationHobby = state.body.notificacionActIntereses;
+          this.navigationService.setNotificationHobbies(this.notificationHobby);
           this.navigationService.setMessagesUnRead(this.messagesUnRead);
           this.changeDetector.markForCheck();
         },

@@ -177,6 +177,15 @@ export class MessagesService {
         .map((response: any) => response);
     }
 
+    deleteMessage(idConversation, idUser) {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/conversaciones/' + idConversation;
+      return this.http .delete (url , { headers: headers })
+        .map((response: any) => response);
+    }
+
     rateSeller(params, idUser) {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
