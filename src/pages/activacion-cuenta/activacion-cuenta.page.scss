@@ -11,6 +11,9 @@
   .container-form {
     display: block;
     margin: 0 auto;
+    min-height: calc(100vh - 140px);
+    padding-bottom: 7rem;
+    padding-top: 2rem;
     .container-errors {
       margin-bottom: 2rem;
       .list-errors {

@@ -2,7 +2,6 @@
 @import "../../../styles/settings/_variables.scss";
 :host {
   display: block;
-  margin-bottom: 4rem;
   .container {
     width: 50%;
     margin: 5rem auto 0;
@@ -47,4 +46,11 @@
   footer{
     margin-top: 30px;
   }
+
+  .container-fluid{
+    min-height: calc(100vh - 100px);
+    padding-bottom: 7rem;
+    padding-top: 2rem;
+  }
+
 }

@@ -3,7 +3,6 @@
 
 :host {
   display: block;
-  margin-bottom: 4rem;
   back-arrow {
     display: block;
     padding: 2rem 1.5rem;
@@ -51,4 +50,11 @@
       font-size: 1.6rem;
     }
   }
+
+  .container-fluid{
+    min-height: calc(100vh - 140px);
+    padding-bottom: 7rem;
+    padding-top: 2rem;
+  }
+
 }

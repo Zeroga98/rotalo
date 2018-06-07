@@ -1,7 +1,6 @@
-<div>
+<div class="container-fluid">
   <div class="container container--app">
     <div id="top"></div>
-
     <div id="flashMessage" class="container--app p-b">
       <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success" >
         <p><span class="icon-check alert-icon"></span>{{messageChange}}</p>
@@ -14,10 +13,8 @@
         </ul>
       </div>
     </div>
-
     <h1 class="zeta text--grey-dark bold">Nueva Contraseña</h1>
     <p class="text--grey-dark">Ingresa tu nueva contraseña.</p>
-
     <form role="form" [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" class="form-theme">
       <div class="form-group">
         <input
@@ -47,3 +44,4 @@
     </form>
   </div>
 </div>
+<custom-footer></custom-footer>

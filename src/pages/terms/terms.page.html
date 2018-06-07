@@ -1,11 +1,11 @@
-<navigation-top></navigation-top>
-<div class="container-bar-offer">
+<navigation-top *ngIf="showHeader"></navigation-top>
+<back-arrow *ngIf="!showHeader"></back-arrow>
+<div *ngIf="showHeader" class="container-bar-offer">
 	<div class="container">
 		<h1 class="offer-head-title">Términos y condiciones</h1>
 	</div>
 </div>
-<div class="container-terms">
-        <terms></terms>
+<div class="container-">
+    <terms></terms>
 </div>
-
 <custom-footer></custom-footer>

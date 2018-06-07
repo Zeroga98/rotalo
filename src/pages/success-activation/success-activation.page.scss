@@ -4,6 +4,11 @@
         padding: 2rem;
         margin-bottom: 4rem;
     }
+    .container-fluid{
+      min-height: calc(100vh - 140px);
+      padding-bottom: 7rem;
+      padding-top: 2rem;
+    }
 }
 :host {
   .container{
