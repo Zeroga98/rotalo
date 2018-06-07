@@ -1,4 +1,4 @@
-:host{    
+:host{
     .container{
         position: absolute;
         top: 0;
@@ -30,4 +30,14 @@
         left: 1%;
         bottom: 1%;
     }
+    .link-info{
+      position: absolute;
+      bottom: 60px;
+      a{
+        color: white;
+        font-size: 1.2rem;
+      }
+    }
 }
+
+

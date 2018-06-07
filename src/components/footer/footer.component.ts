@@ -10,8 +10,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
   public readonly termsLink: string = `/${ROUTES.TERMS}`;
+  public readonly faqLink: string = `/${ROUTES.FAQ}`;
   private readonly _homeRoute: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-  
+
   constructor(private _router:Router) { }
 
   ngOnInit() {

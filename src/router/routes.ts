@@ -16,6 +16,7 @@ export const ROUTES = {
     ACTIVACION: 'activation',
     SUCCESS: 'success-activation',
     STEPS: 'steps',
+    FAQ: 'faq',
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

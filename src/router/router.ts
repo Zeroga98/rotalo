@@ -34,6 +34,7 @@ import { ErrorPageComponent } from '../components/error-page/error-page.componen
 import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
 import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
 import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
+import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
 
 export const appRouter: Routes = [
   {
@@ -156,6 +157,10 @@ export const appRouter: Routes = [
         pathMatch: 'full'
       }
     ]
+  },
+  {
+    path: ROUTES.FAQ,
+    component: FrequentlyAskedQuestionsComponent
   },
   {
     path: '',

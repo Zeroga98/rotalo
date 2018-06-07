@@ -10,6 +10,8 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
 })
 
 export class HomePage {
+    public readonly termsLink: string = `/${ROUTES.TERMS}`;
+    public readonly faqLink: string = `/${ROUTES.FAQ}`;
     singupLink: string = `/${ROUTES.SIGNUP}`;
     loginLink: string = `/${ROUTES.LOGIN}`;
 }

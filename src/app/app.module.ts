@@ -129,6 +129,8 @@ import { ShareInfoChatService } from '../components/chat-thread/shareInfoChat.se
 import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
 import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
 import { HobbiesService } from '../services/hobbies.service';
+import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
+import { AccordionComponent } from '../components/accordion/accordion.component';
 
 @NgModule({
   declarations: [
@@ -204,7 +206,9 @@ import { HobbiesService } from '../services/hobbies.service';
     ErrorPageComponent,
     ShowStarComponent,
     ProfileMenu,
-    ShowInfoProfileComponent
+    ShowInfoProfileComponent,
+    FrequentlyAskedQuestionsComponent,
+    AccordionComponent
   ],
   imports: [
     BrowserModule,
