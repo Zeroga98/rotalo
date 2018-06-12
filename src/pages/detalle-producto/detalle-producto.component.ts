@@ -1,14 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: "detalle-producto",
-  templateUrl: "./detalle-producto.component.html",
-  styleUrls: ["./detalle-producto.component.scss"]
+  selector: 'detalle-producto',
+  templateUrl: './detalle-producto.component.html',
+  styleUrls: ['./detalle-producto.component.scss']
 })
 export class DetalleProductoComponent implements OnInit {
-  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+  idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^\d]/g, ''));
   isDetailReadOnly: boolean = false;
   isSpinnerShow = true;
   isFooterShow = false;
