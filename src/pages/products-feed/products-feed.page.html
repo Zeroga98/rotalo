@@ -45,7 +45,7 @@
                 <div class="icon-clock label-sell--center"></div>
                 <label class="label-sell--center">Venta en proceso</label>
             </div>
-            <product *ngIf="product.user.company" id="{{product.id}}"
+            <product *ngIf="product.user && product.user.company" id="{{product.id}}"
             [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
             [isProductSelling]="false"
             [showField] = "true"

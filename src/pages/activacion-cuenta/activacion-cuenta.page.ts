@@ -6,6 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { UserService } from '../../services/user.service';
 import { SavePasswordService } from '../signup/save-password.service';
 import { MessagesService } from '../../services/messages.service';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-activacion-cuenta',
@@ -41,6 +42,7 @@ export class ActivacionCuentaPage implements OnInit {
             'auth-token': response.body.data.token,
             email: response.body.data.userProperties.email,
             id: response.body.data.userProperties.roles[0],
+            rol: response.body.data.userProperties.roles[1],
             'id-number': response.body.data.userProperties.identification,
             name: response.body.data.userProperties.fullname,
             photo: {

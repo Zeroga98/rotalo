@@ -93,6 +93,7 @@ export class LoginPage implements OnInit {
                 "auth-token": response.body.data.token,
                 email: response.body.data.userProperties.email,
                 id: response.body.data.userProperties.roles[0],
+                rol: response.body.data.userProperties.roles[1],
                 "id-number": response.body.data.userProperties.identification,
                 name: response.body.data.userProperties.fullname,
                 photo: {

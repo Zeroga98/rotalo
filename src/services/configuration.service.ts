@@ -14,7 +14,7 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 */
-/*
+
 api = {
     protocol: "https",
     server: "api.dev.rotalo.co:1443/gateway/v1",
@@ -26,8 +26,8 @@ api = {
     server: "api.dev.rotalo.co:1443/gateway",
     inactivityLimit: 86400 // seconds
   };
-*/
-  api = {
+
+ /* api = {
     protocol: "https",
     server: "apirtl.rotalo.co/gateway/v1",
     inactivityLimit: 86400 // seconds
@@ -37,7 +37,7 @@ api = {
     protocol: "https",
     server: "apirtl.rotalo.co/gateway",
     inactivityLimit: 86400 // seconds
-  };
+  };*/
 
   jsonApiSapiHeaders = {
     "Access-Control-Allow-Origin": "*",

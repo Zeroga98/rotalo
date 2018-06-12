@@ -30,6 +30,8 @@ import { UtilsService } from '../../util/utils.service';
 import { MASONRY_CONFIG } from './masonry.config';
 import { setTimeout } from 'timers';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { LoginService } from '../../services/login/login.service';
+
 
 @Component({
   selector: 'products-feed',
@@ -55,7 +57,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   @ViewChild('backTop', { read: ElementRef })
   backTop: ElementRef;
   @ViewChild('masonryRef') masonryRef: any;
-
+  private userId = this.currentSession.getIdUser();
 
   constructor(
     private productsService: ProductsService,
@@ -65,7 +67,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private navigationService: NavigationService,
     private feedService: FeedService,
     private changeDetectorRef: ChangeDetectorRef,
-    private currentSession: CurrentSessionService
+    private currentSession: CurrentSessionService,
+    private loginService: LoginService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -81,22 +84,45 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-    this.countrySelected = { id: countryId };
-    this.currentFilter = Object.assign({}, this.currentFilter, {
-      'filter[country]': countryId,
-      'page[size]': 8,
-      'page[number]': 1
-    });
-    this.feedService.setCurrentFilter(this.currentFilter);
-    const params = this.getParamsToProducts();
-    this.loadProducts(params);
-
+    this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.setScrollEvent();
   }
 
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
+  }
+
+  isSuperUser() {
+    if (this.currentSession.currentUser()['rol']) {
+      if (this.currentSession.currentUser()['rol'] === 'superuser') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  loadProductsUser(countryId) {
+    this.countrySelected = { id: countryId };
+    if (this.isSuperUser()) {
+      this.currentFilter = {
+        'pais': countryId,
+        'comunidad': -1,
+        'cantidad': 3,
+        'pagina': 1
+      };
+    }else {
+      this.currentFilter = Object.assign({}, this.currentFilter, {
+        'filter[country]': countryId,
+        'page[size]': 8,
+        'page[number]': 1
+      });
+    }
+    this.feedService.setCurrentFilter(this.currentFilter);
+    const params = this.getParamsToProducts();
+    this.loadProducts(params);
   }
 
   LeerDatos(): Observable<Response> {
@@ -110,7 +136,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-      const products = await this.productsService.getProducts(params);
+      let products;
+      if ( this.isSuperUser()) {
+        products = await this.productsService.getProductsSuper(this.userId, params);
+      }else {
+        products = await this.productsService.getProducts(params);
+      }
+
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(products);
       this.validateStateScrollInfinite(products);
@@ -186,14 +218,25 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   scrolledInfinite() {
     this.currentPage++;
     this.waitNewPage = true;
-    this.routineUpdateProducts(
-      { 'page[number]': this.currentPage },
-      this.currentPage
-    );
+    if ( this.isSuperUser()) {
+      this.routineUpdateProducts(
+        { 'pagina': this.currentPage },
+        this.currentPage
+      );
+    }else {
+      this.routineUpdateProducts(
+        { 'page[number]': this.currentPage },
+        this.currentPage
+      );
+    }
   }
 
   changeCommunity(community: any) {
-    this.routineUpdateProducts({ 'filter[community]': community.id });
+    if (this.isSuperUser()) {
+      this.routineUpdateProducts({ 'comunidad': community.id });
+    }else {
+      this.routineUpdateProducts({ 'filter[community]': community.id });
+    }
   }
 
   selectedCategory(category: CategoryInterface) {
@@ -271,6 +314,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
+    if (this.isSuperUser()) {
+      return {'pagina': numberPage };
+    }
     return { 'page[number]': numberPage };
   }
 

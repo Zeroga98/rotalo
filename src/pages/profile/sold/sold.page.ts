@@ -55,7 +55,7 @@ export class SoldPage implements OnInit {
         const settingObject = solProduct.find(function(sold) {
           return sold.idProducto == arraySolds[i].id;
         }, arraySolds[i]);
-        if (settingObject) {
+        if (settingObject && settingObject.comprador) {
           this.productsSold[i]["received-at"] = settingObject.fechaVenta;
           this.productsSold[i] = Object.assign(
             this.productsSold[i],

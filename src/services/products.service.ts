@@ -31,6 +31,17 @@ export class ProductsService {
         });
     }
 
+    getProductsSuper(idUser, params) {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/productos';
+      return this.http.get(url, { headers: headers,  params: params }).toPromise()
+      .then((response: any) => {
+      return response.body.productos;
+      });
+    }
+
     getProductsById(id: number): Promise<any> {
       const url = `${this.url}/${id}`;
       return this.http
