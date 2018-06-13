@@ -1,4 +1,8 @@
 :host{
+  back-arrow{
+    margin-top: 20px;
+    margin-left: 20px;
+  }
   .container-accordion{
     width: 65%;
     margin: 60px auto;
@@ -8,6 +12,19 @@
    margin: 40px auto;
    color: #777777;
    font-size: 1.6rem;
+  }
+  .container-accordion.large{
+    width: 92%;
+    margin-top: 20px;
+    p{
+      margin: 0;
+      margin-bottom: 30px;
+    }
+  }
+  .title{
+    font-size: 3.2rem;
+    color: #ED2F3C;
+    margin: 1rem 0;
   }
   .container-bar-offer {
     background: url("/assets/img/image_bw.jpg") no-repeat center;

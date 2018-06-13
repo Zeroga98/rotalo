@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: 'app-frequently-asked-questions',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./frequently-asked-questions.component.scss']
 })
 export class FrequentlyAskedQuestionsComponent implements OnInit {
-
-  constructor() { }
-
+  public showHeader = false;
+  constructor(private currentSessionService: CurrentSessionService) {
+    if (this.currentSessionService.currentUser()) {
+      this.showHeader = true;
+    }
+  }
   ngOnInit() {
   }
 

@@ -142,7 +142,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       }else {
         products = await this.productsService.getProducts(params);
       }
-
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(products);
       this.validateStateScrollInfinite(products);

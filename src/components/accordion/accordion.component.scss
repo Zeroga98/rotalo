@@ -46,6 +46,11 @@
       bottom: 6.5px;
       transform: rotate(90deg);
     }
+
+    .icon::before, .icon::after{
+      border-color: #FF3646;
+    }
+
   }
   .ac-container label:hover:after,
   .ac-container input:checked+label:hover:after {
@@ -55,11 +60,8 @@
     height: 24px;
     right: 13px;
     top: 7px;
-    //background: transparent url(../images/arrow_down.png) no-repeat center center;
   }
-  .ac-container input:checked+label:hover:after {
- //   background-image: url(../images/arrow_up.png);
-  }
+
   .ac-container input {
     display: none;
   }

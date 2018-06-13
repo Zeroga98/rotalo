@@ -1,11 +1,16 @@
-<navigation-top></navigation-top>
-<div class="container-bar-offer">
+<navigation-top *ngIf="showHeader"></navigation-top>
+<back-arrow *ngIf="!showHeader"></back-arrow>
+<div *ngIf="showHeader" class="container-bar-offer">
   <div class="container">
     <h1 class="offer-head-title">Preguntas frecuentes</h1>
   </div>
 </div>
-<div class="container-accordion">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut laoreet magna eu erat commodo tempus quis ut magna. Sed euismod venenatis nibh, sed porta quam auctor sit amet.</p>
+<div [ngClass]="{'large': !showHeader }"  class="container-accordion">
+  <div *ngIf="!showHeader">
+    <h2 class="title">Preguntas frecuentes</h2>
+  </div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut laoreet magna eu erat commodo tempus quis ut magna. Sed euismod
+    venenatis nibh, sed porta quam auctor sit amet.</p>
   <accordion></accordion>
 </div>
 <custom-footer></custom-footer>
