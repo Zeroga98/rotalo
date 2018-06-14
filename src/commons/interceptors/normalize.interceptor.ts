@@ -28,7 +28,8 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('refer')
       && !req.url.includes('perfil')
       && !req.url.includes('productos')
-      && !req.url.includes('centro');
+      && !req.url.includes('centro')
+      && !req.url.includes('general');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {

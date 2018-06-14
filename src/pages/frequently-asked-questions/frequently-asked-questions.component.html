@@ -9,8 +9,9 @@
   <div *ngIf="!showHeader">
     <h2 class="title">Preguntas frecuentes</h2>
   </div>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut laoreet magna eu erat commodo tempus quis ut magna. Sed euismod
-    venenatis nibh, sed porta quam auctor sit amet.</p>
-  <accordion></accordion>
+  <p>{{introduction}}</p>
+  <div *ngIf="questions">
+    <accordion [questions]='questions'></accordion>
+  </div>
 </div>
 <custom-footer></custom-footer>

@@ -12,7 +12,7 @@
                 </div>
                 <div class="name">
                   <span>{{nameUser}}
-                    </span>
+                  </span>
                 </div>
 
                 <a (click)="closeChatWindow()" class="modal__close">
@@ -178,6 +178,49 @@
                       </div>
                       <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
 
+
+                      <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
+                      <div  *ngIf="message.tipoNotificacion == 'product_expired'" class="notifications-item">
+                        <div class="intro main-text">
+                          <p class="notification-text">
+                            <span class="icon icon-warning notification-icon expired"></span>
+                            <span>Hola </span>
+                            <span class="highlight bold clickable">
+                              {{message.producto.nombreUsuario}}
+                            </span>
+                          </p>
+
+                          <p class="notification-text">Tu publicación
+                            <span class="highlight bold">{{message.producto.nombreProducto}}</span>
+                            se ha vencido.
+                          </p>
+
+                          <p class="notification-text">● Si la vendiste en Rótalo
+                            <span class="highlight bold clickable">
+                              haz clic aquí
+                            </span>
+                          </p>
+
+                          <p class="notification-text">● Si aún no se ha vendido y quieres republicarla,
+                            <span
+                            (click)="republish(message)" class="highlight bold clickable">
+                              haz clic aquí
+                            </span>
+                          </p>
+
+                          <p class="notification-text">● Si no se ha vendido o la vendiste por otro medio
+                            <br> y No quieres republicarla,
+                              <span class="highlight bold clickable">
+                                haz clic aquí
+                              </span>
+                          </p>
+                          <small class="notification-date">{{message.fechaHora }}</small>
+                        </div>
+                      </div>
+
+                      <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
+
+
                       <!--INICIO NOTIFICACIÓN PRODUCTO RECIBIDO -->
                       <div *ngIf="message.tipoNotificacion == 'product_received'" class="notifications-item">
                         <span class="icon icon-flag notification-icon"></span>
@@ -190,11 +233,6 @@
                       </div>
                       <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
 
-                      <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-                      <!--  <div *ngIf="message.tipoNotificacion == 'rate_seller' || message.tipoNotificacion == 'rate_buyer'" class="notifications-item">
-                        <rating-notification class="notifications-theme" [notification]="notification" (rated)="showModalRate(notification)"></rating-notification>
-                      </div>-->
-                      <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
 
                       <!-- INICIO NOTIFICACIÓN NUEVO SUFI -->
                       <div *ngIf="message.tipoNotificacion == 'new_sufi'" class="notifications-item">
@@ -248,10 +286,10 @@
                         <small class="notification-date">{{message.fechaHora }}</small>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
-                            <button  (click)="buyProduct(message)" class="button button-secondary">Comprar</button>
+                            <button (click)="buyProduct(message)" class="button button-secondary">Comprar</button>
                           </div>
                           <div class="button-item">
-                            <button  (click)="regretOffer(message)" class="button button-primary">Cancelar</button>
+                            <button (click)="regretOffer(message)" class="button button-primary">Cancelar</button>
                           </div>
                         </div>
                       </div>
@@ -294,10 +332,10 @@
                           que comparten tus intereses. ¡Sigue rotando!
                         </p>
                         <br>
-                        <p *ngIf="message.interes.tieneIntereses"  class="notification-text">
-                            <span class="highlight bold clickable" (click)="goToHobbies()">
-                             Has seleccionado tus intereses.
-                            </span>
+                        <p *ngIf="message.interes.tieneIntereses" class="notification-text">
+                          <span class="highlight bold clickable" (click)="goToHobbies()">
+                            Has seleccionado tus intereses.
+                          </span>
                         </p>
                         <small class="notification-date">{{message.fechaHora}}</small>
                         <div *ngIf="!message.interes.tieneIntereses" class="notification-buttons">

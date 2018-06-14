@@ -131,6 +131,7 @@ import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/sho
 import { HobbiesService } from '../services/hobbies.service';
 import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
 import { AccordionComponent } from '../components/accordion/accordion.component';
+import { FrequentlyAskedQuestionsService } from '../services/frequently-asked-questions.service';
 
 @NgModule({
   declarations: [
@@ -262,6 +263,7 @@ import { AccordionComponent } from '../components/accordion/accordion.component'
     ResumeRotaloCenterService,
     ShareInfoChatService,
     HobbiesService,
+    FrequentlyAskedQuestionsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

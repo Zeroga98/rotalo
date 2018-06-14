@@ -19,6 +19,7 @@ import {
 import { ProductsService } from "../../services/products.service";
 import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
+import { CurrentSessionService } from "../../services/current-session.service";
 //import {  AngularMasonry } from 'angular2-masonry';
 @Component({
   selector: "product",
@@ -43,12 +44,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   private readonly limitSize: number = 220;
   public productStatus: boolean = false;
   public productChecked: String = "active";
-
+  public idUser: string = this.currentSessionSevice.getIdUser();
   constructor(
     private render: Renderer2,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private currentSessionSevice: CurrentSessionService
   ) {}
 
   ngAfterContentInit() {
@@ -70,11 +72,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       ? (this.productChecked = "active")
       : (this.productChecked = "inactive");
     const params = {
-      status: this.productStatus ? "active" : "inactive"
+      estado: this.productStatus ? "active" : "inactive"
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
-      .updateProduct(this.product.id, params)
+      .updateProductStatus(this.idUser, this.product.id, params)
       .then(response => {});
   }
 

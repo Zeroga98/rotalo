@@ -310,6 +310,20 @@
     background: url(../../assets/img/eliminar_chat.svg);
     background-size: 30px 30px;
   }
+
+
+  .intro.main-text{
+     p.notification-text{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+ .notifications-theme .notifications-item .notification-icon.expired{
+    font-size: 1.5rem;
+  }
+
+
   @media (max-width: 700px) {
     .user-bar .name {
       width: 50%;

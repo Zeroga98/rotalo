@@ -10,14 +10,13 @@ export const DATAPICKER_CONFIG: IMyDpOptions = {
     allowSelectionOnlyInCurrentMonth: false,
     showClearDateBtn: false,
     disableUntil: {
-        year: currentDate.getFullYear(), 
-        month: currentDate.getMonth() + 1, 
-        day: currentDate.getDate() - 1
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth() + 1,
+        day: currentDate.getDate()
     },
     disableSince:{
-        year: maxDate.getFullYear(), 
-        month: maxDate.getMonth() + 1, 
-        day: maxDate.getDate()
+        year: maxDate.getFullYear(),
+        month: maxDate.getMonth() + 1,
+        day: maxDate.getDate() + 1
     }
-    
-}
+};

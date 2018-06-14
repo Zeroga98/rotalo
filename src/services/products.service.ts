@@ -81,6 +81,17 @@ export class ProductsService {
         .then((response: any) => response.data);
     }
 
+    updateProductStatus(idUser, id: number | string, params): Promise<any> {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, {userId: idUser} );
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${id}/estados`;
+      return this.http
+        .put(url, params, { headers: headers })
+        .toPromise()
+        .then((response: any) => response);
+    }
+
     saveProducts(params): Promise<any> {
         return this.http.post(this.url, this._buildParams(params)).toPromise();
     }

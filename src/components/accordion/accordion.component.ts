@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'accordion',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./accordion.component.scss']
 })
 export class AccordionComponent implements OnInit {
-
-  constructor() { }
+  @Input() questions;
+  constructor() {
+  }
 
   ngOnInit() {
+    console.log(this.questions);
   }
 
 }

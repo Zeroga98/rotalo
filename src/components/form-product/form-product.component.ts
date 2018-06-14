@@ -77,9 +77,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
-
   ngOnChanges(): void {
-
     if (this.product) {
       this.setInitialForm(this.getInitialConfig());
       const interval = setInterval(() => {
@@ -97,11 +95,20 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    let dateMoment: any = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
+    console.log(this.photosForm.value['publish-until']);
+    let dateMoment: any;
+
+    if (this.photosForm.value['publish-until'].formatted) {
+      dateMoment = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
+      dateMoment = dateMoment.toDate();
+    }else {
+      this.photosForm.value['publish-until'].date.month = this.photosForm.value['publish-until'].date.month - 1;
+      dateMoment = moment(this.photosForm.value['publish-until'].date).format('YYYY-MM-DD');
+    }
     let dataAdditional;
     if (this.photosForm.get('sell-type').value === 'SUBASTA') {
         dataAdditional = {
-          'publish-until': dateMoment.toDate(),
+          'publish-until': dateMoment,
           'negotiable': true
         };
     }else {
@@ -115,7 +122,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
     this.photosUploaded.length = 0;
     this.publish.emit(params);
-
   }
 
   async onUploadImageFinished(event) {
@@ -232,11 +238,31 @@ export class FormProductComponent implements OnInit, OnChanges {
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
+    console.log(config['publish-until'], 'config');
 
   }
 
   private getInitialConfig(): ProductInterface {
-    const date = new Date();
+    let date = new Date();
+    date.setMonth(date.getMonth() + 2);
+    let objectDate = {
+      date: {
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          day: date.getDate()
+        }
+    };
+    if (this.product) {
+      const publishUntil  = moment(this.product['publish-until']).toDate();
+      objectDate = {
+        date: {
+          year: publishUntil.getFullYear(),
+          month: publishUntil.getMonth()+1,
+          day: publishUntil.getDate()
+          }
+      };
+      this.product['publish-until'] = objectDate;
+    }
     const product: ProductInterface = {
       name: null,
       price: null,
@@ -246,22 +272,17 @@ export class FormProductComponent implements OnInit, OnChanges {
       visible: "",
       "sell-type": "",
       description: null,
-      'publish-until': {
-        date: {
-            year: date.getFullYear(),
-            month: date.getMonth() + 1,
-            day: date.getDate()
-          }
-        },
+      'publish-until': objectDate,
       negotiable: true
     };
+    console.log(Object.assign({}, product, this.product));
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
   private getPhotosIds(): Array<string> {
     return this.photosUploaded.map(photo => {
       console.log(photo, 'photo');
-      return photo.id.toString()});
+      return photo.id.toString(); });
   }
 
   private setCategoryDefault(subCategory: SubcategoryInterface) {
