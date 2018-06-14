@@ -3,7 +3,7 @@
     <div class="question" *ngFor="let question of questions">
       <input id="ac-{{question.id}}" name="accordion-{{question.id}}" type="checkbox" />
       <label for="ac-{{question.id}}">{{question.question}}<div class="icon"></div></label>
-      <article class="ac-medium">
+      <article class="ac-small">
         <p>{{question.answer}}</p>
       </article>
     </div>
