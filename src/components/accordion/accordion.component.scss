@@ -1,10 +1,10 @@
 :host {
-  .container{
+  .container {
     width: 100%;
     position: relative;
     text-align: center;
   }
-  .question{
+  .question {
     margin-bottom: 10px;
   }
   .ac-container {
@@ -33,7 +33,7 @@
     border: 1px solid #EAE9E8;
     color: #FF3646;
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6);
-    .icon{
+    .icon {
       transform: rotate(0deg);
     }
     .icon::before {
@@ -46,11 +46,10 @@
       bottom: 6.5px;
       transform: rotate(90deg);
     }
-
-    .icon::before, .icon::after{
+    .icon::before,
+    .icon::after {
       border-color: #FF3646;
     }
-
   }
   .ac-container label:hover:after,
   .ac-container input:checked+label:hover:after {
@@ -61,7 +60,6 @@
     right: 13px;
     top: 7px;
   }
-
   .ac-container input {
     display: none;
   }
@@ -101,7 +99,6 @@
   .ac-container input:checked~article.ac-large {
     height: 230px;
   }
-
   .icon {
     position: absolute;
     top: 10px;
@@ -113,7 +110,6 @@
     height: 15px;
     transform: rotate(180deg);
   }
-
   .icon::before {
     content: '';
     display: block;
@@ -125,7 +121,6 @@
     transform: rotate(90deg);
     transition: width 0.3s;
   }
-
   .icon::after {
     content: '';
     display: block;
@@ -137,4 +132,34 @@
   }
 }
 
-
+:host ::ng-deep .answer {
+  p {
+    color: #777777;
+    line-height: 20px;
+    font-size: 1.6rem;
+    padding: 20px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+  }
+  a {
+    color: #ED2F3C;
+    text-decoration: underline;
+  }
+  ol {
+    list-style: none;
+    counter-reset: li;
+    color: #777777;
+    line-height: 20px;
+    font-size: 1.6rem;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+  }
+  li {
+    counter-increment: li;
+  }
+  li::before {
+    content: counter(li);
+    color: #FF3646;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+  }
+}

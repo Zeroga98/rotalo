@@ -74,4 +74,15 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
+  getCommunities(): Promise<any>{
+    this.idUser = this.currentSessionService.getIdUser();
+    const url = `${this.url}/get_communities`;
+    return this.httpClient
+    .post(url, {
+      user: {
+        id: this.idUser
+      }
+    })
+    .toPromise();
+  }
 }
