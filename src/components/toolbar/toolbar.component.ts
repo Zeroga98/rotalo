@@ -40,7 +40,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   changeSelectComunidad(evt) {
-    const name = evt.target.selectedOptions[0].text;
+    let name;
+     if (evt.target.selectedOptions) {
+      name = evt.target.selectedOptions[0].text;
+    } else {
+      name = evt.target.options[evt.target.selectedIndex].text;
+    }
     const id = evt.target.value;
     this.selectedCommunity.emit({ name, id });
   }
