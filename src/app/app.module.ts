@@ -132,6 +132,9 @@ import { HobbiesService } from '../services/hobbies.service';
 import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
 import { AccordionComponent } from '../components/accordion/accordion.component';
 import { FrequentlyAskedQuestionsService } from '../services/frequently-asked-questions.service';
+import { ModalFeedBackService } from '../components/modal-feedBack/modal-feedBack.service';
+import { FeedBackComponent } from '../components/feedBack/feedBack.component';
+import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedBack.component';
 
 @NgModule({
   declarations: [
@@ -209,7 +212,9 @@ import { FrequentlyAskedQuestionsService } from '../services/frequently-asked-qu
     ProfileMenu,
     ShowInfoProfileComponent,
     FrequentlyAskedQuestionsComponent,
-    AccordionComponent
+    AccordionComponent,
+    FeedBackComponent,
+    ModalFeedBackComponent,
   ],
   imports: [
     BrowserModule,
@@ -264,6 +269,7 @@ import { FrequentlyAskedQuestionsService } from '../services/frequently-asked-qu
     ShareInfoChatService,
     HobbiesService,
     FrequentlyAskedQuestionsService,
+    ModalFeedBackService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
