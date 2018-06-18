@@ -40,7 +40,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   }
 
   open(): void {
-    this.element.style.display = 'block';
+   // this.element.style.display = 'block';
     this.element.classList.add('md-show');
     document.body.classList.add('modal-open');
   }
