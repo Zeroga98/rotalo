@@ -1,8 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class ModalFeedBackService {
+  private modals: any[] = [];
+  constructor() {}
 
-constructor() { }
+  add(modal: any) {
+    this.modals.push(modal);
+  }
 
+  remove(id: string) {
+    this.modals = this.modals.filter(x => x.id !== id);
+  }
+
+  open(id: string) {
+    const modal: any = this.modals.filter(x => x.id === id)[0];
+    modal.open();
+  }
+
+  close(id: string) {
+    const modal: any = this.modals.filter(x => x.id === id)[0];
+    modal.close();
+  }
 }
