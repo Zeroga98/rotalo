@@ -91,7 +91,7 @@
     transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
   }
   .ac-container input:checked~article.ac-small {
-    height: 140px;
+    height: auto;
   }
   .ac-container input:checked~article.ac-medium {
     height: 180px;
@@ -145,6 +145,7 @@
     text-decoration: underline;
   }
   ol {
+    padding-bottom: 20px;
     list-style: none;
     counter-reset: li;
     color: #777777;

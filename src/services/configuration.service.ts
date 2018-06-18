@@ -29,7 +29,6 @@ api = {
     server: "api.dev.rotalo.co:1443/gateway",
     inactivityLimit: 86400 // seconds
   };
-
 */
 /*Produccion*/
 /*api = {

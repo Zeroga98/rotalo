@@ -88,14 +88,14 @@ export class ToolbarComponent implements OnInit {
     this.subCategorySelected.emit(subCategory);
   }
 
-  showAutocomplateOptions(){
-    if(this.autoCompleteOptions.length > 0){
-      this.render.addClass(this.autoCompleteBox.nativeElement,'showed');
+  showAutocomplateOptions() {
+    if (this.autoCompleteOptions.length > 0) {
+      this.render.addClass(this.autoCompleteBox.nativeElement, 'showed');
     }
   }
 
   hideAutocomplateOptions(){
-    this.render.removeClass(this.autoCompleteBox.nativeElement,'showed');
+    this.render.removeClass(this.autoCompleteBox.nativeElement, 'showed');
   }
 
   clickOptionAutocomplete(option: string){
