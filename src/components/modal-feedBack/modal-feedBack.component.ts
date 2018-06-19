@@ -8,6 +8,7 @@ import { ModalFeedBackService } from './modal-feedBack.service';
 })
 export class ModalFeedBackComponent implements OnInit, OnDestroy {
   @Input() id: string;
+
   private element: any;
 
   constructor(private modalService: ModalFeedBackService, private el: ElementRef) {

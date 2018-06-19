@@ -50,12 +50,7 @@
   visibility: visible;
 }
 
-.modal-open {
-  overflow: hidden;
-}
-
 /* Effect 2: Slide from the right */
-
 .md-effect-2 .md-content {
   -webkit-transform: translateX(20%);
   -moz-transform: translateX(20%);
@@ -73,4 +68,10 @@
   -ms-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
+}
+
+.modal-open{
+  feed-back {
+    display: none;
+  }
 }

@@ -10,10 +10,8 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, Chang
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesMenuComponent implements OnInit {
-  @Output()
-  categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
-  @Output()
-  subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
+  @Output()categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
+  @Output()subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
 
   categories: CategoryInterface;
 

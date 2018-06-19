@@ -18,7 +18,7 @@
   .md-content {
     background: white;
     position: relative;
-    border-radius: 3px;
+    border-radius: 5px;
     margin: 0 auto;
   }
   .md-content h3 {
@@ -40,6 +40,8 @@
   .md-content>div p {
     margin: 0;
     padding: 10px 0;
+    font-size: 1.6rem;
+    color: #777777;
   }
   .md-content>div ul {
     margin: 0;
@@ -50,9 +52,67 @@
   }
   .md-content button {
     display: block;
+    background: #FF3646;
     margin: 0 auto;
     font-size: 0.8em;
+    width: 45px;
+    height: 45px;
+    position: relative;
+    border-radius: 100%;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
   }
+
+  .md-content{
+    .close-container{
+      padding: 10px;
+      text-align: right;
+      .icon-close{
+        cursor: pointer;
+      }
+    }
+  }
+
+  .form-theme .form-control{
+    padding: 6px 0;
+  }
+
+  .form-theme .help-block{
+    padding-left: 0;
+  }
+
+  textarea.form-control{
+    height: auto;
+    resize: none;
+    min-height: 120px;
+  }
+
+  .icon-send {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../../assets/img/enviar.svg);
+    background-size: 20px 20px;
+    position: absolute;
+  }
+
+  .icon-main{
+    display: block;
+    background: #FF3646;
+    margin: 0 auto;
+    width: 82px;
+    height: 82px;
+    position: absolute;
+    top: -41px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 100%;
+  }
+
 }
 
 :host.md-show .modal-background {
