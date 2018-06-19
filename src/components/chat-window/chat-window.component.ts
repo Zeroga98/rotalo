@@ -289,17 +289,20 @@ export class ChatWindowComponent
   republish(notification) {
     const id = notification.producto.idProducto;
     const param = {
+      idNotificacion: notification.idNotificacion,
       idProducto: id
     };
     this.productsService.republishService(param).subscribe(
       state => {
-        this.router.navigate([
+      /*  this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${id}`
-        ]);
+        ]);*/
       },
       error => console.log(error)
     );
   }
+
+
 
 
 }
