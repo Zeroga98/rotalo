@@ -294,15 +294,26 @@ export class ChatWindowComponent
     };
     this.productsService.republishService(param).subscribe(
       state => {
-      /*  this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${id}`
-        ]);*/
+        notification.accionExpirado = 'republished';
       },
       error => console.log(error)
     );
   }
 
-
-
-
+  updateSellUnknow(notification, type:String) {
+    const param = {
+      idNotificacion: notification.idNotificacion,
+      estado: type
+    };
+    this.messagesService.updateSellUnknow(param).subscribe(
+      state => {
+        if (type === 'out'){
+          notification.accionExpirado = 'sell_unknow_out';
+        }else {
+          notification.accionExpirado = 'sell_unknow_in';
+        }
+      },
+      error => console.log(error)
+    );
+  }
 }
