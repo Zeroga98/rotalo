@@ -95,7 +95,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    console.log(this.photosForm.value['publish-until']);
     let dateMoment: any;
 
     if (this.photosForm.value['publish-until'].formatted) {
@@ -275,13 +274,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': objectDate,
       negotiable: true
     };
-    console.log(Object.assign({}, product, this.product));
+
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
   private getPhotosIds(): Array<string> {
     return this.photosUploaded.map(photo => {
-      console.log(photo, 'photo');
       return photo.id.toString(); });
   }
 
