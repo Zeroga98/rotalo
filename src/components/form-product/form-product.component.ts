@@ -61,7 +61,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     } catch (error) {}
   }
 
-
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
     if (evt === "GRATIS") {
@@ -95,7 +94,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    console.log(this.photosForm.value['publish-until']);
     let dateMoment: any;
 
     if (this.photosForm.value['publish-until'].formatted) {
@@ -128,11 +126,9 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.utilsService.getOrientation(event.file, function(orientation) {
       this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
         event.src = resetBase64Image ;
-
       });
    }.bind(this));
     try {
-
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
