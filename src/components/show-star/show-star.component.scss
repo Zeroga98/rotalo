@@ -15,4 +15,42 @@
     background: url(../../assets/img/estrella_blanca.svg);
     background-size: 25px 25px;
   }
+
+  &.totalRanking{
+    background: black;
+    height: 26px;    
+    .star-container{
+      height: 26px; 
+      .group{
+        height: 26px; 
+        padding: 0;
+        .star, .star-full{
+          width: 26px;
+          height: 26px;
+          background-size: 26px 26px;
+        }
+        .star {
+          background: url(../../assets/img/estrella_linea.svg);
+        }
+        .star-full {
+          background: url(../../assets/img/estrella_blanca.svg);
+        }
+      }
+    }
+  }
+
+  &.photo, &.price{
+    .star-container{
+      height: 20px;
+      .group{
+        height: 20px;
+        padding: 0;
+        .star, .star-full{
+          width: 18px;
+          height: 18px;
+          background-size: 18px 18px;
+        }
+      }
+    }
+  }
 }

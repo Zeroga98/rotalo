@@ -9,10 +9,10 @@
     <div class="ranking-container">
       <p>Mi ranking general</p>
       <div class="ranking">
-        <p>{{mainRanking}}</p>
-        <div class="ico ico-star"></div>
+        <show-star [numberStar] = "mainRanking" class="totalRanking"> </show-star>
       </div>
     </div>
+
     <div class="elements-container">
       <div class="element element-process">
         <p>Rapidez en el proceso</p>

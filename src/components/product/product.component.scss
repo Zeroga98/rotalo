@@ -199,27 +199,22 @@
       margin-right: 1rem;
     }
   }
-  .circle-rating {
+
+  .blue-ranking{
     position: absolute;
+    height: 26px;
+    padding: 0.3rem;
     background: #3BBACE;
-    border-radius: 50%;
-    padding: 7px;
-    width: 40px;
-    height: 40px;
     bottom: 0;
     right: 0;
-    .rating {
-      display: inline-block;
-      font-size: 1.6rem;
-      color: white;
-    }
-    .star {
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background: url(../../assets/img/estrella_blanca.svg);
-      background-size: 15px 15px;
-    }
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .gold-ranking{
+    width: 12rem;
+    background: orange;
   }
 }
 
