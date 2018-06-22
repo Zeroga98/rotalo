@@ -27,6 +27,10 @@
           (uploadFinished)="onUploadImageFinished($event)"
           (removed)="onRemoveImage($event.file)"></image-upload>
         </div>
+        <span class="help-block uploadImg" *ngIf="errorUploadImg">
+          ¡Oops, tus imágenes están muy grandes!  cambia el tamaño para que sea máximo de 300px  X  225px, si sigues teniendo problemas, escríbenos a
+          info@rotalo.co
+        </span>
       </div>
       <div class="container-step">
         <div class="step-number">

@@ -40,6 +40,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
+  errorUploadImg = false;
 
   constructor(
     private router: Router,
@@ -119,6 +120,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async onUploadImageFinished(event) {
+    this.errorUploadImg = false;
     try {
       this.utilsService.getOrientation(event.file, function(orientation) {
         this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
@@ -130,13 +132,17 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.photosUploaded.push(photo);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
+      this.errorUploadImg = true;
       console.error("Error: ", error);
+      this.changeDetectorRef.markForCheck();
     }
   }
 
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.id); }
+    this.errorUploadImg = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   async removeImageFromServer(id: number) {
@@ -261,7 +267,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   private getPhotosIds(): Array<string> {
     return this.photosUploaded.map(photo => {
       console.log(photo, 'photo');
-      return photo.id.toString()});
+      return photo.id.toString(); });
   }
 
   private setCategoryDefault(subCategory: SubcategoryInterface) {
