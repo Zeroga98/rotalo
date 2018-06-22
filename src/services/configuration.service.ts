@@ -31,7 +31,7 @@ api = {
   };
 */
 /*Produccion*/
-  api = {
+api = {
     protocol: "https",
     server: "apirtl.rotalo.co/gateway/v1",
     inactivityLimit: 86400 // seconds

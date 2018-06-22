@@ -75,10 +75,11 @@ export class UtilsService {
     const img = new Image();
 
     img.onload = function() {
-      const width = img.width,
+      let width = img.width,
           height = img.height,
           canvas = document.createElement('canvas'),
           ctx = canvas.getContext("2d");
+
       // set proper canvas dimensions before transform & export
       if (4 < srcOrientation && srcOrientation < 9) {
         canvas.width = height;
