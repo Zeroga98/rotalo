@@ -40,6 +40,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
+  errorUploadImg = false;
 
   constructor(
     private router: Router,
@@ -122,24 +123,29 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.publish.emit(params);
   }
 
-  async onUploadImageFinished(event) {
-    this.utilsService.getOrientation(event.file, function(orientation) {
-      this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
-        event.src = resetBase64Image ;
-      });
-   }.bind(this));
-    try {
-      const response = await this.photosService.updatePhoto(event.file);
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error("Error: ", error);
-    }
+  onUploadImageFinished(event) {
+    this.errorUploadImg = false;
+    this.utilsService.getOrientation(event.file, function (orientation) {
+      this.utilsService.resetOrientation(event.src, orientation, async function (resetBase64Image) {
+        try {
+          event.src = resetBase64Image;
+          const response = await this.photosService.updatePhoto(event.file);
+          const photo = Object.assign({}, response, { file: event.file });
+          this.photosUploaded.push(photo);
+          this.changeDetectorRef.markForCheck();
+        } catch (error) {
+          this.errorUploadImg = true;
+          console.error("Error: ", error);
+          this.changeDetectorRef.markForCheck();
+        }
+      }.bind(this));
+    }.bind(this));
   }
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.id); }
+    this.errorUploadImg = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   async removeImageFromServer(id: number) {
