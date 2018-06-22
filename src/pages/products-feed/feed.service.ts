@@ -15,27 +15,27 @@ export class FeedService{
 
     private configFiltersSubcategory: Object = undefined;
 
-    constructor(){
+    constructor() {
         this.setCurrentFilter(this.initialFilter);
     }
 
-    getCurrentFilter(){
+    getCurrentFilter() {
         return this.currentFilter;
     }
 
-    setCurrentFilter(newFilter){
+    setCurrentFilter(newFilter) {
         this.currentFilter = newFilter;
     }
 
-    getConfigFiltersSubcategory(){
+    getConfigFiltersSubcategory() {
         return this.configFiltersSubcategory;
     }
 
-    setConfigFiltersSubcategory(config){
+    setConfigFiltersSubcategory(config) {
         this.configFiltersSubcategory = config;
     }
 
-    getInitialFilter(){
+    getInitialFilter() {
         return this.initialFilter;
     }
 

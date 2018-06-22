@@ -6,7 +6,8 @@ import { CurrentSessionService } from '../../services/current-session.service';
 export class NavigationService {
     countryChanged: EventEmitter<any> = new EventEmitter();
     private currentCountryId: number = 0;
-
+    private messagesUnRead = 0;
+    private notificationHobby = false;
     constructor(private currentSession: CurrentSessionService) {
         this.currentCountryId = this.currentSession.currentUser() ? this.currentSession.currentUser()['countryId'] : null;
     }
@@ -20,8 +21,24 @@ export class NavigationService {
         return this.currentCountryId;
     }
 
-    setCurrentCountryId(id: number){
+    setCurrentCountryId(id: number) {
         this.currentCountryId = id;
+    }
+
+    setMessagesUnRead(message) {
+      this.messagesUnRead = message;
+    }
+
+    getMessagesUnRead() {
+      return this.messagesUnRead;
+    }
+
+    setNotificationHobbies(notification) {
+      this.notificationHobby = notification;
+    }
+
+    getNotificationHobbies() {
+      return this.notificationHobby;
     }
 
 }

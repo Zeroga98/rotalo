@@ -1,3 +1,5 @@
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
 :host {
   .container-bar-offer {
     background: url("/assets/img/image_bw.jpg") no-repeat center;
@@ -31,6 +33,7 @@
     flex: 1 0 auto;
     display: flex;
     height: auto;
+    min-height: 45rem;
     padding-top: 45px;
     padding-bottom: 70px;
     .menu {
@@ -69,8 +72,7 @@
 
         .logo-circle {
           position: relative;
-          cursor: pointer;
-          background: #ffffff;
+          background: #eae9e8;
           width: 150px;
           height: 150px;
           border-radius: 50%;
@@ -78,16 +80,11 @@
           text-align: center;
           line-height: 100px;
           vertical-align: middle;
-          padding: 30px 15px;
           margin: 0 auto;
           .logo-rotalo {
-            position: absolute;
-            display: block;
-            top: 47%;
-            transform: translateY(-50%);
-            width: 110px;
-            height: 50px;
-            background-size: 110px 50px;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
           }
         }
       }
@@ -105,29 +102,28 @@
           top: 50%;
           transform: translateY(-50%);
         }
-        .message-icon {
+        .datos-icon {
           width: 30px;
           height: 30px;
-          background: url(../../assets/img/mensaje_menu.svg);
+          background: url(../../../assets/img/mis_datos.svg);
           background-size: 30px 30px;
         }
-        .rotando-icon {
+        .security-icon {
           width: 30px;
           height: 30px;
-          background: url(../../assets/img/articulos_rotando.svg);
+          background: url(../../../assets/img/seguridad.svg);
           background-size: 30px 30px;
         }
-        .rotados-icon {
-          left: 3px;
-          width: 50px;
-          height: 50px;
-          background: url(../../assets/img/articulos_rotados.svg);
-          background-size: 50px 50px;
-        }
-        .configuration-icon {
+        .hobbies-icon {
           width: 30px;
           height: 30px;
-          background: url(../../assets/img/configuracion.svg);
+          background: url(../../../assets/img/mis_intereses.svg);
+          background-size: 30px 30px;
+        }
+        .close-icon {
+          width: 30px;
+          height: 30px;
+          background: url(../../../assets/img/cerrar_sesion.svg);
           background-size: 30px 30px;
         }
       }
@@ -136,6 +132,43 @@
 
   .footer {
     width: 100%;
+  }
+
+  .container-info-user {
+    padding-left: 20%;
+    margin-top: 20px;
+    .icon-container {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: $red;
+      margin-right: 1rem;
+      overflow: hidden;
+      position: relative;
+      margin-top: 3px;
+      .icon-account {
+        color: white;
+        font-size: 1rem;
+      }
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+    .name-text {
+      color: #808080;
+      font-size: 2rem;
+    }
+    .company-text {
+      color: $red;
+      font-size: 2rem;
+      .comunidad-text {
+        font-size: 1.4rem;
+      }
+    }
   }
 
   .noti-circle {
@@ -161,7 +194,8 @@
       padding-top:0px;
       .menu {
         width: 100%;
-        padding-left: 2%;
+        padding-left: 10%;
+        padding-top: 10px;
         padding-right: 2%;
         .menu-options{
           padding-left: 0;
@@ -173,6 +207,19 @@
           }
         }
       }
+    }
+    .main .menu .logo-container .logo-circle{
+      width: 85px;
+      height: 85px;
+      display: inline-block;
+    }
+    .container-info-user {
+      display: inline-block;
+      padding-left: 5%;
+      margin-top: 0px;
+    }
+    .main .menu .logo-container {
+      padding: 10px 0;
     }
   }
 }

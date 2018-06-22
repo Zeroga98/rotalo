@@ -30,6 +30,7 @@
     }
   }
   .media {
+    border-radius: 5px;
     margin-bottom: 10px;
     opacity: 0.6;
     filter: alpha(opacity=60);
@@ -63,10 +64,15 @@
   }
 
   .media.unread{
-    opacity: 0.99;
-    filter: alpha(opacity=99);
+    opacity: 1;
+    background-color: rgba(155, 155, 155, 0.13);
+    filter: alpha(opacity=100);
     .message-preview{
       font-weight: bold;
+    }
+    .media-heading{
+      font-weight: bold;
+      color: rgba(74, 74, 74, 0.61);
     }
   }
 

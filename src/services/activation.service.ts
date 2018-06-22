@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from '../services/configuration.service';
 
@@ -19,5 +19,12 @@ export class ActivationService {
                         type: 'users'
                     }
                 }).toPromise().then( (response: any) => response.data);
+    }
+
+    activateCount(activationCode): Promise<any> {
+      const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const url =  this.configurationService.getBaseSapiUrl() + '/sapi/v1/auth/activar-usuario' ;
+      const headers = new HttpHeaders(jsonApiSapiHeaders);
+      return this.httpClient.post(url, activationCode, { headers: headers }).toPromise();
     }
 }

@@ -9,13 +9,6 @@ export class NotificationsService {
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    /*getUnreadNotifications(): Promise<any> {
-        const url: string = this.configurationService.getBaseUrl() + '/users/unread_notifications';
-        return this.httpClient.get(url)
-            .toPromise()
-            .then((res: any) => res.data);
-    }*/
-
     async getNotifications(): Promise<NotificationsInterface[]> {
         this.notifications = await this.getNotificationsFromServer();
         return this.notifications;

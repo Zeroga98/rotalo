@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ShareInfoChatService {
-
   private messageInfoSource = new BehaviorSubject<any>(null);
   currentInfoMessage = this.messageInfoSource.asObservable();
+
   private newConversation;
   private idConversation;
+  private firstThread;
 
   constructor() {}
 
@@ -15,7 +17,7 @@ export class ShareInfoChatService {
     this.messageInfoSource.next(messageInfo);
   }
 
-  setIdConversation(id){
+  setIdConversation(id) {
     this.idConversation = id;
   }
 
@@ -23,7 +25,7 @@ export class ShareInfoChatService {
     return this.idConversation;
   }
 
-  setNewConversation(newConversation){
+  setNewConversation(newConversation) {
     this.newConversation = newConversation;
   }
 
@@ -31,4 +33,11 @@ export class ShareInfoChatService {
     return this.newConversation;
   }
 
+  setFirstConversation(firstThread) {
+    this.firstThread = firstThread;
+  }
+
+  getFirstConversation() {
+    return this.firstThread;
+  }
 }

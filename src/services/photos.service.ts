@@ -19,7 +19,9 @@ export class PhotosService {
                     {
                         headers: new HttpHeaders().delete('Content-Type')
                     })
-                .toPromise().then((res: any) => res.data);
+                .toPromise().then((res: any) => {
+                  return res.data;
+                });
     }
 
     deletePhotoById(id: number): Promise<any> {

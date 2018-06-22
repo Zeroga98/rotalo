@@ -4,6 +4,7 @@ import { ROUTES } from '../../router/routes';
 import { ResumeRotaloCenterService } from '../../services/resume-rotalo-center.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { HostListener } from '@angular/core';
+import { NavigationService } from '../products/navigation.service';
 
 @Component({
   selector: 'rotalo-center',
@@ -19,6 +20,7 @@ export class RotaloCenterPage implements OnInit  {
   public screenHeight;
   public screenWidth;
   public showMenu: boolean = true;
+  public messagesUnRead: number = 0;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -29,13 +31,14 @@ export class RotaloCenterPage implements OnInit  {
   }
 
 
-  constructor(public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public router: Router,
+    private navigationService: NavigationService,
+    private activatedRoute: ActivatedRoute) {
     this.onResize();
     this.router.events.subscribe((val) => {
       this.validateMobileMenu();
     });
   }
-
 
   validateMobileMenu() {
     const currentPage = this.router.url;
@@ -51,6 +54,16 @@ export class RotaloCenterPage implements OnInit  {
   }
 
   ngOnInit() {
+  }
+
+  get messageAvailable(): boolean {
+    this.messagesUnRead = this.navigationService.getMessagesUnRead();
+    return this.messagesUnRead > 0;
+  }
+
+  get getMessagesUnRead(){
+    this.messagesUnRead = this.navigationService.getMessagesUnRead();
+    return this.messagesUnRead;
   }
 
   get isHideBackArrow() {

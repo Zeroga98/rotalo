@@ -10,6 +10,7 @@ import { CurrentSessionService } from "../../services/current-session.service";
 import { Router } from "@angular/router";
 import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
+import { MessagesService } from "../../services/messages.service";
 
 @Component({
   selector: "login-page",
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit {
     private currentSessionService: CurrentSessionService,
     private changeRef: ChangeDetectorRef,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private messagesService: MessagesService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,16 @@ export class LoginPage implements OnInit {
     }
   }
 
+
+  checkNotificationHobbies(idUser) {
+   this.messagesService.checkNotificationHobbies(idUser)
+    .subscribe(
+      state => {
+      },
+      error => console.log(error)
+    );
+  }
+
   login(userEmail: string, password: string) {
     const user = {
       user: userEmail,
@@ -67,10 +79,8 @@ export class LoginPage implements OnInit {
     };
     this.loginService.logOutClearSession(user.user).subscribe(data => {
       if (data.status === 200) {
-        this.loginService
-          .loginSapiUser(user)
+        this.loginService.loginSapiUser(user)
           .then(response => {
-
             if (response.status === 200) {
               this.gapush(
                 "send",
@@ -82,7 +92,7 @@ export class LoginPage implements OnInit {
               const saveInfo = {
                 "auth-token": response.body.data.token,
                 email: response.body.data.userProperties.email,
-                id: response.body.data.userProperties.id,
+                id: response.body.data.userProperties.roles[0],
                 "id-number": response.body.data.userProperties.identification,
                 name: response.body.data.userProperties.fullname,
                 photo: {
@@ -92,7 +102,9 @@ export class LoginPage implements OnInit {
               };
 
               this.currentSessionService.setSession(saveInfo);
+              this.currentSessionService.getIdUser();
               this.setUserCountry(saveInfo);
+              this.checkNotificationHobbies(saveInfo.id);
             }
             if (response.status === 401) {
               this.errorLogin = "Usuario o contraseña incorrecto.";
@@ -126,10 +138,10 @@ export class LoginPage implements OnInit {
 
   async setUserCountry(userInfo) {
     try {
-      //const user = await this.userService.getInfoUser();
-      //this.userCountry = user.city.state.country.id;
+      const user = await this.userService.getInfoUser();
+      this.userCountry = user.city.state.country.id;
       const userLogin = Object.assign({}, userInfo, {
-        countryId: "1"
+        countryId: this.userCountry
       });
       this.currentSessionService.setSession(userLogin);
       this.router.navigate([

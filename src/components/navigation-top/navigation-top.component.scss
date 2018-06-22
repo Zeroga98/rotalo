@@ -1,178 +1,225 @@
 @import "../../styles/settings/colors.scss";
 @import "../../styles/settings/variables.scss";
+:host {
+  display: block;
+  background-color: #ED2F3C;
+  border-color: #d61320;
+  .container {
+    width: 98%;
+    max-width: 1200px;
+    margin: 0 auto;
+    @media #{$medium-max} {
+      width: 90%;
+      ;
+    }
+  }
+  .navbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    back-arrow {
+      margin-right: 1rem;
+    }
+    .upload-offer-button {
+      display: inline-block;
+      vertical-align: middle;
+      .outside-circle {
+        padding: 5px;
+        display: table-cell;
+        vertical-align: middle;
+        background-color: #CD0E2E;
+        color: white;
+        height: 50px;
+        width: 190px;
+        border-radius: 30px 30px 30px 30px;
+        .inside-circle {
+          display: inline-flex;
+          vertical-align: middle;
+          padding: 9px 6px;
+          height: 4rem;
+          width: 4rem;
+          background-color: $blue;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          span {
+            font-size: 25px;
+          }
+        }
+        label {
+          vertical-align: middle;
+          margin-left: 16px;
+          cursor: pointer;
+          font-weight: normal;
+          font-size: 20px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+    .navbar-brand {
+      width: 130px;
+      cursor: pointer;
+      margin-right: 8%;
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+    .list-options {
+      display: flex;
+      color: white;
+      li {
+        font-size: 2.5rem;
+        a {
+          cursor: pointer;
+          color: white;
+        }
+        .icon-message,
+        .icon-rotalo {
+          position: relative;
+        }
+        .icon-rotalo {
+          display: block;
+          width: 27px;
+          height: 27px;
+          background-image: url(../../assets/img/rotalo-center.svg);
+          background-size: 27px 27px;
+        }
+        .noti-circle {
+          position: absolute;
+          background-color: $blue;
+          top: 10px;
+          right: -10px;
+          border-radius: 50%;
+          font-size: 13px;
+          height: 20px;
+          width: 20px;
+          display: flex;
+          justify-content: center;
+          font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+          font-weight: bold;
+          align-items: center;
+        }
+      }
+      li:not(:last-child) {
+        margin-right: 5rem;
+      }
+    }
+  }
+  .perfil-container {
+    position: relative;
+    .dropdown-menu {
+      display: block;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 1000;
+      float: left;
+      min-width: 14rem;
+      padding: .5rem 0;
+      margin: .125rem 0 0;
+      font-size: 2rem;
+      text-align: left;
+      list-style: none;
+      background-color: #fff;
+      background-clip: padding-box;
+      transition: all 0.3s ease;
+      -webkit-transform-origin: 100% 0;
+      transform-origin: 100% 0;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    }
+    .dropdown-menu--show{
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+    .dropdown-item {
+      display: block;
+      width: 100%;
+      padding: .25rem 1.5rem;
+      clear: both;
+      font-weight: 400;
+      font-size: 2rem;
+      color: #9B9B9B;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0;
+      &:hover{
+        background: #ebebeb;
+        color:#CD0E2E;
+      }
+    }
+  }
+  .icon-account{
+    cursor: pointer;
+  }
+}
 
-:host{
-    display: block;
-    background-color: #ED2F3C;
-    border-color: #d61320;
+@media screen and (max-width: 930px) {
+  :host {
+    .navbar-header {
+      .list-options {
+        li:not(:last-child) {
+          margin-right: 3rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  :host {
+    .container-offer {
+      position: fixed;
+      bottom: 3rem;
+      right: 3rem;
+      z-index: 99999;
+      .upload-offer-button {
+        .outside-circle {
+          width: auto;
+          background-color: transparent;
+          .inside-circle {
+            width: 5rem;
+            height: 5rem;
+          }
+          label {
+            display: none;
+          }
+        }
+      }
+    }
+    .navbar-header {
+      padding: 2rem 0;
+      .navbar-brand {
+        width: 20%;
+        min-width: 8rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  :host {
     .container {
-        width: 98%;
-        max-width: 1200px;
-        margin: 0 auto;
-        @media #{$medium-max} {
-            width: 90%;;
-        }
+      width: 95%;
     }
-    .navbar-header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        back-arrow{
-            margin-right: 1rem;
+    .navbar-header {
+      back-arrow {
+        width: 3rem;
+        height: 3rem;
+      }
+      .list-options {
+        padding-left: 10px;
+        li {
+          font-size: 2rem;
         }
-        .upload-offer-button{
-            display: inline-block;
-            vertical-align: middle;
-            .outside-circle{
-                padding: 5px;
-                display: table-cell;
-                vertical-align: middle;
-                background-color: #CD0E2E;
-                color: white;
-                height: 50px;
-                width: 190px;
-                border-radius: 30px 30px 30px 30px;
-                .inside-circle {
-                    display: inline-flex;
-                    vertical-align: middle;
-                    padding: 9px 6px;
-                    height: 4rem;
-                    width: 4rem;
-                    background-color: $blue;
-                    border-radius: 50%;
-                    justify-content: center;
-                    align-items: center;
-                    span {
-                        font-size: 25px;
-                    }
-                }
-                label {
-                    vertical-align: middle;
-                    margin-left: 16px;
-                    cursor: pointer;
-                    font-weight: normal;
-                    font-size: 20px;
-                    margin-bottom: 0px;
-                }
-            }
+        li:not(:last-child) {
+          margin-right: 2rem;
         }
-        .navbar-brand {
-            width: 130px;
-            cursor: pointer;
-            margin-right: 8%;
-            img{
-                height: auto;
-                width: 100%;
-            }
-        }
-        .list-options{
-            display: flex;
-            color: white;
-
-            li{
-                font-size: 2.5rem;
-                a{
-                    cursor: pointer;
-                    color: white;
-                }
-                .icon-message, .icon-rotalo{
-                    position: relative;
-                }
-                .icon-rotalo{
-                  display: block;
-                  width: 27px;
-                  height: 27px;
-                  background-image: url(../../assets/img/rotalo-center.svg);
-                  background-size: 27px 27px;
-                }
-                .noti-circle{
-                    position: absolute;
-                    background-color: $blue;
-                    top: -2px;
-                    right: -6px;
-                    border-radius: 50%;
-                    font-size: 13px;
-                    height: 20px;
-                    width: 20px;
-                    display: flex;
-                    justify-content: center;
-                    font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-                    font-weight: bold;
-                    align-items: center;
-                }
-            }
-            li:not(:last-child){
-                margin-right: 5rem;
-            }
-        }
+      }
     }
+  }
 }
-
-@media screen and (max-width: 930px){
-    :host{
-        .navbar-header{
-            .list-options{
-                li:not(:last-child){
-                    margin-right: 3rem;
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 700px){
-    :host{
-        .container-offer{
-            position: fixed;
-            bottom: 3rem;
-            right: 3rem;
-            z-index: 99999;
-            .upload-offer-button{
-                .outside-circle{
-                    width: auto;
-                    background-color: transparent;
-                    .inside-circle {
-                        width: 5rem;
-                        height: 5rem;
-                    }
-                    label {
-                        display: none;
-                    }
-                }
-            }
-        }
-        .navbar-header{
-            padding: 2rem 0;
-            .navbar-brand {
-                width: 20%;
-                min-width: 8rem;
-            }
-        }
-    }
-}
-
-
-@media screen and (max-width: 400px){
-    :host{
-        .container{
-            width:95%;
-        }
-        .navbar-header{
-            back-arrow{
-                width: 3rem;
-                height: 3rem;
-            }
-            .list-options{
-                padding-left: 10px;
-                li{
-                    font-size: 2rem;
-                }
-                li:not(:last-child){
-                    margin-right: 2rem;
-                }
-            }
-        }
-    }
-}
-

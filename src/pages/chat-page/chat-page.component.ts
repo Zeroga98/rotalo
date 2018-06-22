@@ -35,6 +35,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
     this.shareInfoChatService.setIdConversation(undefined);
     this.shareInfoChatService.changeMessage(undefined);
     this.shareInfoChatService.setNewConversation(undefined);
+    this.shareInfoChatService.setFirstConversation(undefined);
   }
 
   onNotify(ev): void {

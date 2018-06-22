@@ -1,4 +1,6 @@
-<navigation-top></navigation-top>
+<div class="tittle main-title">
+    <h1 class="text">Mis datos</h1>
+</div>
 <div  *ngIf="!showSpinner">
   <div class="container">
     <div *ngIf="loadImage" class="container-spinner-image">
@@ -17,9 +19,6 @@
         </ul>
       </div>
     </div>
-
-    <h1 class="zeta text--grey-dark">Editar cuenta</h1>
-    <p class="text--grey-dark">Edita la información de tu cuenta llenando los siguientes campos</p>
     <div class="container-prev-photos" *ngIf="showPhotoEdit">
       <div class="prev-photos" >
         <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
@@ -97,4 +96,3 @@
   </div>
 </div>
 <custom-spinner *ngIf="showSpinner"></custom-spinner>
-<custom-footer></custom-footer>

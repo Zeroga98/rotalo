@@ -11,11 +11,13 @@
                   <img *ngIf="imagenChat" class="avatar" [src]="imagenChat" [alt]="nameUser" (error)="updateSrc($event)">
                 </div>
                 <div class="name">
-                  <span>{{nameUser}}</span>
-                </div>
-                <a (click)="closeChatWindow()" class="modal__close" >
-                    <span class="icon-close">
+                  <span>{{nameUser}}
                     </span>
+                </div>
+
+                <a (click)="closeChatWindow()" class="modal__close">
+                  <span class="icon-close">
+                  </span>
                 </a>
               </div>
               <div class="conversation">
@@ -26,7 +28,8 @@
                     <div *ngFor="let message of  messages">
                       <!-- INICIO NOTIFICACIÓN NUEVO MENSAJE -->
                       <div *ngIf="message.tipoNotificacion == 'new_message'">
-                        <div *ngIf="message.mensaje != ' ' && message.mensaje != '' " [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'" class="message">
+                        <div *ngIf="message.mensaje != ' ' && message.mensaje != '' " [ngClass]="isSender(message.idEmisor) ? 'sent' : 'received'"
+                          class="message">
                           {{message.mensaje}}
                           <small class="notification-date">{{message.fechaHora}}</small>
                         </div>
@@ -53,7 +56,7 @@
                             <button class="button button-secondary" (click)="acceptOffer(message)">Aceptar</button>
                           </div>
                           <div class="button-item">
-                              <button class="button button-primary" (click)="declineOffer(message)">Rechazar</button>
+                            <button class="button button-primary" (click)="declineOffer(message)">Rechazar</button>
                           </div>
                         </div>
                       </div>
@@ -245,10 +248,10 @@
                         <small class="notification-date">{{message.fechaHora }}</small>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
-                            <button class="button button-secondary">Comprar</button>
+                            <button  (click)="buyProduct(message)" class="button button-secondary">Comprar</button>
                           </div>
                           <div class="button-item">
-                            <button class="button button-primary">Cancelar</button>
+                            <button  (click)="regretOffer(message)" class="button button-primary">Cancelar</button>
                           </div>
                         </div>
                       </div>
@@ -281,17 +284,38 @@
 
                       <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                       <div *ngIf="message.tipoNotificacion == 'qualify_purchase'" class="notifications-item">
-                        <rating-notification class="notifications-theme" [notification]="message" ></rating-notification>
+                        <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-
+                      <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
+                      <div *ngIf="message.tipoNotificacion == 'first_interests_association'" class="notifications-item">
+                        <span class="icon icon-warning notification-icon"></span>
+                        <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y encontrar usuarios
+                          que comparten tus intereses. ¡Sigue rotando!
+                        </p>
+                        <br>
+                        <p *ngIf="message.interes.tieneIntereses"  class="notification-text">
+                            <span class="highlight bold clickable" (click)="goToHobbies()">
+                             Has seleccionado tus intereses.
+                            </span>
+                        </p>
+                        <small class="notification-date">{{message.fechaHora}}</small>
+                        <div *ngIf="!message.interes.tieneIntereses" class="notification-buttons">
+                          <div class="button-item">
+                            <button class="button button-secondary" (click)="goToHobbies()">
+                              <span>Aceptar</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
-              <textarea style="overflow:hidden;"  formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              <textarea style="overflow:hidden;" formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
               </textarea>
               <button [disabled]="formMessage.invalid" type="submit" class="send">
                 <div class="circle">

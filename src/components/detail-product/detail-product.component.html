@@ -39,7 +39,11 @@
       <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
       <div class="capitalize">{{products['sell-type'].toLowerCase()}}</div>
       <div *ngIf="products.subcategory" class="contTipo">
-        <strong>{{products.subcategory.category.name}} -</strong> {{products.subcategory.name}}</div>
+        <strong>{{products.subcategory.category.name}} -</strong> {{products.subcategory.name}}
+      </div>
+      <div *ngIf="products.model" class="contTipo">
+        <strong>Modelo -</strong> {{products.model}}
+      </div>
       <div class="description">{{products.description}}</div>
       <div class="product-info-ubicacion">
         <div>
@@ -101,7 +105,7 @@
           </button>
         </div>
         <div  *ngIf="!isSellProcess() && !validateSession()" class="share-product-container">
-            <a (click)="showInputShare=true" class="share-product">Compartir este producto</a>
+            <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Compartir este producto</a>
             <div *ngIf="showInputShare" class="input-container">
               <form  (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
                   <div class="form-group">

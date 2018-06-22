@@ -11,7 +11,6 @@ import { ProductsUploadPage } from '../pages/products-upload/products-upload.pag
 import { ProductsPage } from '../pages/products/products.page';
 import { ConfirmPage } from '../pages/reset-password/confirm/confirm.page';
 import { RecoverPage } from '../pages/reset-password/recover/recover.page';
-import { ShowPage } from '../pages/profile/show/show.page';
 import { HobbiesPage } from '../pages/profile/hobbies/hobbies.page';
 import { EditProfilePage } from '../pages/profile/edit-profile/edit-profile.page';
 import { ChangePasswordPage } from '../pages/profile/change-password/change-password.page';
@@ -33,6 +32,8 @@ import { RotaloCenterComponent } from '../components/general-info-rotalo-center/
 import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
 import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
+import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
+import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
 
 export const appRouter: Routes = [
   {
@@ -143,14 +144,15 @@ export const appRouter: Routes = [
   {
     path: ROUTES.PROFILE,
     canActivate: [AuthGuardService],
+    component: ProfileMenu,
     children: [
-      { path: ROUTES.SHOW, component: ShowPage },
+      { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
       { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.HOBBIES, component: HobbiesPage },
       { path: ROUTES.EDITPROFILE, component: EditProfilePage },
       {
         path: '',
-        redirectTo: ROUTES.SHOW,
+        redirectTo: ROUTES.PROFILE,
         pathMatch: 'full'
       }
     ]

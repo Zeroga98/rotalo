@@ -1,12 +1,12 @@
-import { FeedService } from "./feed.service";
-import { CountryInterface } from "./../../components/select-country/country.interface";
-import { CityInterface } from "./../../commons/interfaces/city.interface";
-import { NavigationService } from "./../products/navigation.service";
-import { Router } from "@angular/router";
-import { SubcategoryInterface } from "./../../commons/interfaces/subcategory.interface";
-import { CategoryInterface } from "./../../commons/interfaces/category.interface";
-import { ProductInterface } from "./../../commons/interfaces/product.interface";
-import { Observable } from "rxjs/Observable";
+import { FeedService } from './feed.service';
+import { CountryInterface } from './../../components/select-country/country.interface';
+import { CityInterface } from './../../commons/interfaces/city.interface';
+import { NavigationService } from './../products/navigation.service';
+import { Router } from '@angular/router';
+import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from './../../commons/interfaces/category.interface';
+import { ProductInterface } from './../../commons/interfaces/product.interface';
+import { Observable } from 'rxjs/Observable';
 import {
   Component,
   OnInit,
@@ -18,22 +18,23 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   EventEmitter
-} from "@angular/core";
-import { NgxCarousel } from "ngx-carousel";
-import { ProductsService } from "../../services/products.service";
-import { IMGS_BANNER } from "../../commons/constants/banner-imgs.contants";
-import { CAROUSEL_CONFIG } from "./carousel.config";
-import { ROUTES } from "./../../router/routes";
-import { Subscription } from "rxjs";
-import { StatesRequestEnum } from "../../commons/states-request.enum";
-import { UtilsService } from "../../util/utils.service";
-import { MASONRY_CONFIG } from "./masonry.config";
-import { setTimeout } from "timers";
+} from '@angular/core';
+import { NgxCarousel } from 'ngx-carousel';
+import { ProductsService } from '../../services/products.service';
+import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
+import { CAROUSEL_CONFIG } from './carousel.config';
+import { ROUTES } from './../../router/routes';
+import { Subscription } from 'rxjs';
+import { StatesRequestEnum } from '../../commons/states-request.enum';
+import { UtilsService } from '../../util/utils.service';
+import { MASONRY_CONFIG } from './masonry.config';
+import { setTimeout } from 'timers';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
-  selector: "products-feed",
-  templateUrl: "products-feed.page.html",
-  styleUrls: ["products-feed.page.scss"],
+  selector: 'products-feed',
+  templateUrl: 'products-feed.page.html',
+  styleUrls: ['products-feed.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsFeedPage implements OnInit, OnDestroy {
@@ -51,9 +52,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   statesRequestEnum = StatesRequestEnum;
   stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
   private currentFilter: Object;
-  @ViewChild("backTop", { read: ElementRef })
+  @ViewChild('backTop', { read: ElementRef })
   backTop: ElementRef;
-  @ViewChild("masonryRef") masonryRef: any;
+  @ViewChild('masonryRef') masonryRef: any;
 
 
   constructor(
@@ -63,7 +64,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private utilService: UtilsService,
     private navigationService: NavigationService,
     private feedService: FeedService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private currentSession: CurrentSessionService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -73,11 +75,17 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.countrySelected = { id: this.navigationService.getCurrentCountryId() };
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSession.currentUser()['countryId'];
+    }
+    this.countrySelected = { id: countryId };
     this.currentFilter = Object.assign({}, this.currentFilter, {
-      "filter[country]": this.navigationService.getCurrentCountryId(),
-      "page[size]": 8,
-      "page[number]": 1
+      'filter[country]': countryId,
+      'page[size]': 8,
+      'page[number]': 1
     });
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
@@ -109,6 +117,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
+      this.changeDetectorRef.markForCheck();
     }
 
     if (this.productsService.products.length > 0) {
@@ -120,6 +129,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         this.productsService.scroll = 0;
       }, 2500);
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   setScroll(event) {
@@ -132,22 +142,22 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   searchByTags(evt: Array<string>) {
     if (evt.length > 0) {
-      const filterValue = evt.join("+");
+      const filterValue = evt.join('+');
       this.setconfigFiltersSubcategory(null);
       this.routineUpdateProducts({
-        "filter[search]": filterValue,
-        "filter[subcategory_id]": undefined,
-        "filter[category]": undefined
+        'filter[search]': filterValue,
+        'filter[subcategory_id]': undefined,
+        'filter[category]': undefined
       });
       this.showBanner = false;
     } else {
       this.currentFilter = {
-        "filter[status]": "active",
-        "filter[country]": 1,
-        "filter[community]": -1,
-        "page[size]": 8,
-        "page[number]": 1,
-        "filter[search]": null
+        'filter[status]': 'active',
+        'filter[country]': 1,
+        'filter[community]': -1,
+        'page[size]': 8,
+        'page[number]': 1,
+        'filter[search]': null
       };
       this.routineUpdateProducts({});
       this.showBanner = true;
@@ -155,7 +165,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   filteBySellType(sellType: string) {
-    this.routineUpdateProducts({ "filter[sell_type]": sellType.toUpperCase() });
+    this.routineUpdateProducts({ 'filter[sell_type]': sellType.toUpperCase() });
   }
 
   filterBySort(sort: string) {
@@ -163,13 +173,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   filterByState(state) {
-    this.routineUpdateProducts({ "filter[state]": state.id });
+    this.routineUpdateProducts({ 'filter[state]': state.id });
   }
 
   filterByCity(city: CityInterface) {
     this.routineUpdateProducts({
-      "filter[city]": city.id,
-      "filter[state]": undefined
+      'filter[city]': city.id,
+      'filter[state]': undefined
     });
   }
 
@@ -177,13 +187,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.currentPage++;
     this.waitNewPage = true;
     this.routineUpdateProducts(
-      { "page[number]": this.currentPage },
+      { 'page[number]': this.currentPage },
       this.currentPage
     );
   }
 
   changeCommunity(community: any) {
-    this.routineUpdateProducts({ "filter[community]": community.id });
+    this.routineUpdateProducts({ 'filter[community]': community.id });
   }
 
   selectedCategory(category: CategoryInterface) {
@@ -194,8 +204,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       icon: category.icon
     });
     this.routineUpdateProducts({
-      "filter[category]": category.id,
-      "filter[subcategory_id]": undefined
+      'filter[category]': category.id,
+      'filter[subcategory_id]': undefined
     });
   }
 
@@ -214,8 +224,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       icon: subCategory.category.icon
     });
     this.routineUpdateProducts({
-      "filter[subcategory_id]": subCategory.id,
-      "filter[category]": undefined
+      'filter[subcategory_id]': subCategory.id,
+      'filter[category]': undefined
     });
   }
 
@@ -235,7 +245,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         this.showBanner = true;
         this.currentFilter = this.feedService.getInitialFilter();
         this.feedService.setConfigFiltersSubcategory(this.currentFilter);
-        this.routineUpdateProducts({ "filter[country]": country.id });
+        this.routineUpdateProducts({ 'filter[country]': country.id });
       }
     );
   }
@@ -261,7 +271,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
-    return { "page[number]": numberPage };
+    return { 'page[number]': numberPage };
   }
 
   private updateCurrentFilter(filter = {}) {
@@ -272,7 +282,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   private setScrollEvent() {
-    window.addEventListener("scroll", this.backTopToggle.bind(this));
+    window.addEventListener('scroll', this.backTopToggle.bind(this));
   }
 
   private updateMasonry() {
@@ -298,7 +308,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     const offsetScrollTop =
       (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     offsetScrollTop > 50
-      ? this.rendered.addClass(this.backTop.nativeElement, "show")
-      : this.rendered.removeClass(this.backTop.nativeElement, "show");
+      ? this.rendered.addClass(this.backTop.nativeElement, 'show')
+      : this.rendered.removeClass(this.backTop.nativeElement, 'show');
   }
 }

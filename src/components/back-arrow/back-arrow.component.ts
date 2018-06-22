@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 @Component({
     selector: 'back-arrow',
     templateUrl: 'back-arrow.component.html',
-    styleUrls: ['back-arrow.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['back-arrow.component.scss']
 })
 export class BackArrowComponent {
     goBack(): void {
