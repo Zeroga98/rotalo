@@ -55,13 +55,21 @@ export class SoldPage implements OnInit {
         const settingObject = solProduct.find(function(sold) {
           return sold.idProducto == arraySolds[i].id;
         }, arraySolds[i]);
-        if (settingObject && settingObject.comprador) {
+        if (settingObject) {
           this.productsSold[i]["received-at"] = settingObject.fechaVenta;
-          this.productsSold[i] = Object.assign(
-            this.productsSold[i],
-            { calificacionGeneral: settingObject.calificacionGeneral },
-            { comprador: settingObject.comprador.nombre }
-          );
+          if (settingObject.comprador) {
+            this.productsSold[i] = Object.assign(
+              this.productsSold[i],
+              { calificacionGeneral: settingObject.calificacionGeneral },
+              { comprador: settingObject.comprador.nombre }
+            );
+          } else {
+            this.productsSold[i] = Object.assign(
+              this.productsSold[i],
+              { calificacionGeneral: settingObject.calificacionGeneral },
+              { comprador: null }
+            );
+          }
           newArray.push(this.productsSold[i]);
         }
       }
