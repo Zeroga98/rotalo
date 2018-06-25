@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
 import { MessagesService } from "../../services/messages.service";
+import { ModalFeedBackService } from "../../components/modal-feedBack/modal-feedBack.service";
 
 @Component({
   selector: "login-page",
@@ -28,7 +29,8 @@ export class LoginPage implements OnInit {
     private changeRef: ChangeDetectorRef,
     private router: Router,
     private userService: UserService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private modalFeedBackService: ModalFeedBackService
   ) {}
 
   ngOnInit(): void {
@@ -101,7 +103,7 @@ export class LoginPage implements OnInit {
                   url: " "
                 }
               };
-
+              this.modalFeedBackService.close('custom-modal-1');
               this.currentSessionService.setSession(saveInfo);
               this.currentSessionService.getIdUser();
               this.setUserCountry(saveInfo);

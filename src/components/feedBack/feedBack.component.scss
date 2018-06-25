@@ -1,13 +1,29 @@
 :host{
   .feedback-container{
     cursor: pointer;
+    top: 50%;
+    z-index: 2;
     transform: rotate(-90deg);
     background: #FF3646;
     color: #fff;
     padding: 5px;
     font-size: 2.2rem;
-    right: -41px;
+    right: -55px;
     position: fixed;
     border-radius: 10px 10px 0px 0px;
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+  .icon-feedback {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    top: 50%;
+    left: 11%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    background: url(../../assets/img/icono_feedBack.svg);
+    background-size: 30px 30px;
+    position: absolute;
   }
 }

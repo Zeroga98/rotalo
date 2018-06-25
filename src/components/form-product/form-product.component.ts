@@ -124,12 +124,14 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async onUploadImageFinished(event) {
+    this.utilsService.getOrientation(event.file, function(orientation) {
+      this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
+        event.src = resetBase64Image ;
+
+      });
+   }.bind(this));
     try {
-      this.utilsService.getOrientation(event.file, function(orientation) {
-        this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
-          event.src = resetBase64Image;
-        });
-     }.bind(this));
+
       const response = await this.photosService.updatePhoto(event.file);
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
@@ -138,7 +140,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       console.error("Error: ", error);
     }
   }
-
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.id); }
@@ -237,8 +238,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
-    console.log(config['publish-until'], 'config');
-
   }
 
   private getInitialConfig(): ProductInterface {

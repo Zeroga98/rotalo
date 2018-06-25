@@ -1,9 +1,12 @@
 import { Injectable } from "@angular/core";
+import { ConfigurationService } from "../../services/configuration.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class ModalFeedBackService {
   private modals: any[] = [];
-  constructor() {}
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
   add(modal: any) {
     this.modals.push(modal);
@@ -22,4 +25,15 @@ export class ModalFeedBackService {
     const modal: any = this.modals.filter(x => x.id === id)[0];
     modal.close();
   }
+
+
+  sendEmail(params) {
+    const headersSapi = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(headersSapi);
+    const url = this.urlSapi + '/general/contactanos';
+    return this.http
+      .post(url, params , { headers: headers })
+      .map((response: any) => response);
+  }
+
 }

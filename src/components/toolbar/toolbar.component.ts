@@ -23,9 +23,10 @@ export class ToolbarComponent implements OnInit {
   @ViewChild("categoriesMenu", { read: ElementRef }) categoriesMenu: ElementRef;
   @ViewChild("autoCompleteBox", { read: ElementRef }) autoCompleteBox: ElementRef;
 
-  autoCompleteOptions: Array<string> = []
-  tags: Array<string> = [];
-  community: any;
+  public autoCompleteOptions: Array<string> = []
+  public tags: Array<string> = [];
+  public community: any;
+  public communities;
 
   constructor(
     private userService: UserService,
@@ -34,9 +35,19 @@ export class ToolbarComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    this.getCommunities();
     this.autoCompleteOptions = this.toolbarService.getAutoCompleteOptions();
     this.community = await this.userService.getCommunityUser();
     this.changeDetectorRef.markForCheck();
+  }
+
+  async getCommunities() {
+    try {
+      const communities = await this.userService.getCommunities();
+      this.communities = communities.communities;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   changeSelectComunidad(evt) {
@@ -77,14 +88,14 @@ export class ToolbarComponent implements OnInit {
     this.subCategorySelected.emit(subCategory);
   }
 
-  showAutocomplateOptions(){
-    if(this.autoCompleteOptions.length > 0){
-      this.render.addClass(this.autoCompleteBox.nativeElement,'showed');
+  showAutocomplateOptions() {
+    if (this.autoCompleteOptions.length > 0) {
+      this.render.addClass(this.autoCompleteBox.nativeElement, 'showed');
     }
   }
 
   hideAutocomplateOptions(){
-    this.render.removeClass(this.autoCompleteBox.nativeElement,'showed');
+    this.render.removeClass(this.autoCompleteBox.nativeElement, 'showed');
   }
 
   clickOptionAutocomplete(option: string){

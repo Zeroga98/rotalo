@@ -17,6 +17,7 @@
   /* Content styles */
   .md-content {
     background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     position: relative;
     border-radius: 5px;
     margin: 0 auto;
@@ -100,6 +101,19 @@
     position: absolute;
   }
 
+  .icon-feedback {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../../assets/img/icono_feedBack.svg);
+    background-size: 70px 70px;
+    position: absolute;
+  }
+
   .icon-main{
     display: block;
     background: #FF3646;
@@ -111,6 +125,11 @@
     left: 50%;
     transform: translateX(-50%);
     border-radius: 100%;
+  }
+
+  .success-text {
+    color: #00AAC7;
+    font-weight: bold;
   }
 
 }

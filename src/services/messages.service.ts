@@ -64,6 +64,15 @@ export class MessagesService {
         } );
     }
 
+    updateSellUnknow(params){
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/ventas-desconocidas';
+      return this.http
+      .put(url, params , { headers: headers })
+      .map((response: any) => response);
+    }
+
 
     private updateStatusNotification(notification) {
       let status;

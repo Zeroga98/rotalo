@@ -136,6 +136,7 @@ import { ModalFeedBackService } from '../components/modal-feedBack/modal-feedBac
 import { FeedBackComponent } from '../components/feedBack/feedBack.component';
 import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedBack.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -270,6 +271,7 @@ import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedB
     HobbiesService,
     FrequentlyAskedQuestionsService,
     ModalFeedBackService,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

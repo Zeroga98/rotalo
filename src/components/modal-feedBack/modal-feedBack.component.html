@@ -1,7 +1,7 @@
 <div class="modal">
   <div class="md-content">
     <div class="icon-main">
-      <div class="icon-send"></div>
+      <div class="icon-feedback"></div>
     </div>
     <div class="close-container">
       <span (click)="close()" class="icon-close">
@@ -9,21 +9,45 @@
     </div>
     <div>
       <p>¿Quieres decirnos algo?, escríbenos y pronto te responderemos.</p>
-      <form role="form" class="form-theme">
+      <form  [formGroup]="feedBackForm" (ngSubmit)="onSubmit()" role="form" class="form-theme">
         <div class="form-group">
-          <input name="email" type="email" class="form-control" maxlength="50" placeholder="¿Cuál es tu correo electrónico?">
+          <input
+          (click)="messageSuccess=false;"
+          autocomplete="off"
+          formControlName="email"
+          name="email"
+          type="email"
+          class="form-control"
+          maxlength="50"
+          placeholder="¿Cuál es tu correo electrónico?">
           <span class="help-block">
-            <span>
+            <span *ngIf="
+            feedBackForm.get('email').invalid
+            && (!feedBackForm.get('email').pristine
+            || feedBackForm.get('email').touched)">
               El campo no cumple con el formato de correo.
             </span>
           </span>
         </div>
         <div class="form-group">
-          <textarea  class="form-control" name="field" placeholder="Escribe un mensaje…"></textarea>
+          <textarea
+          (click)="messageSuccess=false;"
+          autocomplete="off"
+          formControlName="comment"
+          class="form-control"
+          name="field"
+          placeholder="Escribe un mensaje…"></textarea>
           <span class="help-block">
-            <span>
+            <span *ngIf="feedBackForm.get('comment').invalid
+            && (!feedBackForm.get('comment').pristine
+            || feedBackForm.get('comment').touched )">
               Este campo es obligatorio.
             </span>
+          </span>
+          <span *ngIf="messageSuccess" class="help-block success-text">
+              <span>
+                  ¡Hemos enviado el correo con éxito!
+              </span>
           </span>
         </div>
         <div>

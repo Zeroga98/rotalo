@@ -14,7 +14,8 @@ api = {
     protocol: "https",
     server: "apistg.rotalo.co:1443/gateway",
     inactivityLimit: 86400 // seconds
-  };*/
+  };
+*/
 /*Desarrollo*/
 
 api = {
@@ -28,7 +29,6 @@ api = {
     server: "api.dev.rotalo.co:1443/gateway",
     inactivityLimit: 86400 // seconds
   };
-
 
 /*Produccion*/
 /*

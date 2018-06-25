@@ -11,14 +11,14 @@ export class ValidateSessionService implements CanActivate {
   constructor(private currentSessionService: CurrentSessionService, private router: Router) {}
 
   canActivate() {
-    if(this.checkSession()){
+    if (this.checkSession()) {
         this.router.navigate([`${ROUTES.PRODUCTS.LINK}`]);
         return false;
     }
     return true;
   }
 
-  private checkSession(): SessionUserInterface{
+  private checkSession(): SessionUserInterface {
     return this.currentSessionService.currentUser();
   }
 
