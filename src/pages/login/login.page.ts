@@ -43,6 +43,7 @@ export class LoginPage implements OnInit {
     });
   }
 
+
   gapush(method, type, category, action, label) {
     const paramsGa = {
       event: "pushEventGA",
