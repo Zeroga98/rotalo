@@ -17,7 +17,7 @@
   }
 
   &.totalRanking{
-    background: black;
+    background: transparent;
     height: 24px;
     padding-top: 2px;
     .star-container{
@@ -26,15 +26,15 @@
         height: 22px; 
         padding: 0;
         .star, .star-full{
-          width: 22px;
-          height: 22px;
+          width: 21px;
+          height: 20px;
           background-size: 22px 22px;
         }
         .star {
           background: url(../../assets/img/estrella_linea.svg);
         }
         .star-full {
-          background: url(../../assets/img/estrella_blanca.svg);
+          background: url(../../assets/img/estrella_amarilla.svg);
         }
       }
     }
