@@ -27,7 +27,9 @@ export class ChangePage implements OnInit {
   public changePasswordForm: FormGroup;
   public errorChange: String;
   public messageChange: String;
+  public showLink = false;
   private idPassword;
+
   constructor( private router: Router,
      private route: ActivatedRoute,
      private fb: FormBuilder,
@@ -62,7 +64,8 @@ export class ChangePage implements OnInit {
     this.changePasswordService.changePassProfile(user).then(response => {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
       this.errorChange = '';
-      this.router.navigate([`${ROUTES.LOGIN}`]);
+      this.showLink = true;
+     // this.router.navigate([`${ROUTES.LOGIN}`]);
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';

@@ -266,7 +266,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.setconfigFiltersSubcategory({
       category: subCategory.category.name,
       subCategory: subCategory.name,
-      color: subCategory.category.icon,
+      color: subCategory.category.color,
       icon: subCategory.category.icon
     });
     this.routineUpdateProducts({
