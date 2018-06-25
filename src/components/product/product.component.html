@@ -12,23 +12,18 @@
     <img (load)="triggerMasonryLayout()" *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
     <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"  (error)="updateSrc($event)">
     <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
-    
-    <div *ngIf="isProductSold && product.calificacionGeneral > 0" class="blue-ranking">
-      <show-star [numberStar] = "product.calificacionGeneral" class="photo"> </show-star>
-    </div>
-
   </div>
   <div class="container-name">
     <span class="name">{{product.name}}</span>
   </div>
+  
   <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
     <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
-
     <div *ngIf="isProductSold && product.calificacionGeneral > 0" class="gold-ranking">
       <show-star [numberStar] = "product.calificacionGeneral" class="price"> </show-star>
     </div>
-
   </div>
+
   <div *ngIf="product['sell-type'] && showField" class="container-status">
     <span class="name">{{product['sell-type'].toLowerCase()}}</span>
   </div>
