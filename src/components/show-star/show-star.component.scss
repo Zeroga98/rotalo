@@ -48,8 +48,21 @@
         padding: 0;
         .star, .star-full{
           width: 18px;
-          height: 18px;
+          height: 17px;
           background-size: 18px 18px;
+        }
+      }
+    }
+  }
+
+  &.price{
+    .star-container{
+      .group{
+        .star {
+          background: url(../../assets/img/estrella_linea.svg);
+        }
+        .star-full {
+          background: url(../../assets/img/estrella_amarilla.svg);
         }
       }
     }
