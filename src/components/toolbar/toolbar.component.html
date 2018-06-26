@@ -26,8 +26,9 @@
 		<div class="select-community">
 			<select name="community" (change)="changeSelectComunidad($event)">
 				<option selected value disabled>Comunidades</option>
-				<option value="-1">Todas</option>
-				<option *ngIf="community" value="{{community.id}}">{{community.name}}</option>
+        <option value="-1">Todas</option>
+        <option *ngFor="let community of communities" value="{{community.id}}" >{{community.nombre}}
+        </option>
 			</select>
 		</div>
 	</div>

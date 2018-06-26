@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group  text-left">
         <input
         [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
         formControlName="email"
@@ -24,9 +24,14 @@
          id="txt-email"
          type="email"
          class="form-control"
-         placeholder="Email">
+         placeholder="Email corporativo">
+         <span class="help-block text-left">
+            <span *ngIf="loginForm.get('email').invalid && !loginForm.get('email').pristine">
+              El campo no cumple con el formato de correo.
+            </span>
+          </span>
       </div>
-      <div class="form-group">
+      <div class="form-group  text-left">
         <input
         [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
         formControlName="password"
@@ -35,6 +40,14 @@
         type="password"
         class="form-control"
         placeholder="Contraseña">
+        <span class="help-block">
+            <span *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid && !loginForm.get('password').errors?.minlength">
+                Este campo es obligatorio.
+            </span>
+            <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
+                El campo no cumple la longitud mínima.
+            </span>
+          </span>
       </div>
       <div>
         <custom-button  [disabled]="!loginForm.valid"  type="submit" text="Ingresar"></custom-button>

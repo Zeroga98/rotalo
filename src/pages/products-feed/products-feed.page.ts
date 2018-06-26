@@ -182,14 +182,18 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       });
       this.showBanner = false;
     } else {
-      this.currentFilter = {
-        'filter[status]': 'active',
-        'filter[country]': 1,
-        'filter[community]': -1,
-        'page[size]': 8,
-        'page[number]': 1,
-        'filter[search]': null
-      };
+      if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
+        delete this.currentFilter['filter[search]'];
+      }else {
+        this.currentFilter = {
+          'filter[status]': 'active',
+          'filter[country]': 1,
+          'filter[community]': -1,
+          'page[size]': 8,
+          'page[number]': 1,
+          'filter[search]': null
+        };
+      }
       this.routineUpdateProducts({});
       this.showBanner = true;
     }
@@ -262,7 +266,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.setconfigFiltersSubcategory({
       category: subCategory.category.name,
       subCategory: subCategory.name,
-      color: subCategory.category.icon,
+      color: subCategory.category.color,
       icon: subCategory.category.icon
     });
     this.routineUpdateProducts({

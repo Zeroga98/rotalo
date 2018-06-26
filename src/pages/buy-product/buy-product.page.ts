@@ -1,7 +1,7 @@
 import { ChangeDetectorRef } from "@angular/core";
 import { ProductsService } from "./../../services/products.service";
 import { ProductInterface } from "./../../commons/interfaces/product.interface";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router } from "@angular/router";
 import {
   Component,
   OnInit,
@@ -14,7 +14,7 @@ import { CurrentSessionService } from "../../services/current-session.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UserService } from "../../services/user.service";
 import { ROUTES } from "../../router/routes";
-import { Observable } from "rxjs/Observable";
+
 
 @Component({
   selector: "buy-product",

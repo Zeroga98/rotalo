@@ -45,6 +45,8 @@ export class ChatWindowComponent
   inicioConversacion: boolean = false;
   showDeleteButton = false;
   rol;
+  isSendMessage = false;
+  currentUrl = this.router.url;
   public paymentTypes = {
     cash: "Efectivo",
     bank_account_transfer: "Transferencia bancaria",
@@ -105,6 +107,12 @@ export class ChatWindowComponent
     this.scrollToBottom();
   }
 
+  get showMessageFeedBack(){
+    this.currentUrl = this.router.url;
+    return this.rol === 'admin' &&
+    this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`;
+  }
+
   ngOnDestroy(): void {
     clearInterval(this.listenerMessages);
     this.currentInfoSubscribe.unsubscribe();
@@ -144,6 +152,7 @@ export class ChatWindowComponent
       .sendMessage(params, this.userId)
       .subscribe(
         state => {
+          this.isSendMessage = true;
           this.formMessage.reset();
         },
         error => console.log(error)
@@ -289,17 +298,31 @@ export class ChatWindowComponent
   republish(notification) {
     const id = notification.producto.idProducto;
     const param = {
+      idNotificacion: notification.idNotificacion,
       idProducto: id
     };
     this.productsService.republishService(param).subscribe(
       state => {
-        this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${id}`
-        ]);
+        notification.accionExpirado = 'republished';
       },
       error => console.log(error)
     );
   }
 
-
+  updateSellUnknow(notification, type:String) {
+    const param = {
+      idNotificacion: notification.idNotificacion,
+      estado: type
+    };
+    this.messagesService.updateSellUnknow(param).subscribe(
+      state => {
+        if (type === 'out'){
+          notification.accionExpirado = 'sell_unknow_out';
+        }else {
+          notification.accionExpirado = 'sell_unknow_in';
+        }
+      },
+      error => console.log(error)
+    );
+  }
 }

@@ -29,21 +29,21 @@
 
 .md-modal {
   position: fixed;
-  top: 50%;
-  left: 87%;
+  top: 55%;
+  right: 10px;
   width: 50%;
   max-width: 340px;
-  min-width: 320px;
+  min-width: 300px;
   height: 423px;
   z-index: 2000;
   visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform:  translateY(-50%);
+  -moz-transform:  translateY(-50%);
+  -ms-transform:  translateY(-50%);
+  transform:  translateY(-50%);
 }
 
 .md-show {

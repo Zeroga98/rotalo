@@ -24,14 +24,12 @@ import { ProductEditPage } from '../pages/product-edit/product-edit.page';
 import { SellingPage } from '../pages/profile/selling/selling.page';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
-import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { ChangePage } from '../pages/reset-password/change/change.page';
 import { ValidateSessionService } from './guards/validate-session.service';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
 import { RotaloCenterComponent } from '../components/general-info-rotalo-center/info-rotalo-center.component';
 import { ChatPageComponent } from '../pages/chat-page/chat-page.component';
 import { ErrorPageComponent } from '../components/error-page/error-page.component';
-import { ChatWindowComponent } from '../components/chat-window/chat-window.component';
 import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
 import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
 import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
@@ -54,8 +52,11 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
       { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
-      { path: ROUTES.MENUROTALOCENTER.MESSAGES,
+      { path: `${ROUTES.MENUROTALOCENTER.MESSAGES}`,
         component: ChatPageComponent,
+        children: [
+          { path: ROUTES.MENUROTALOCENTER.FEEDBACK, component: ChatPageComponent },
+        ]
       },
       {
         path: ROUTES.MENUROTALOCENTER.SELLING,

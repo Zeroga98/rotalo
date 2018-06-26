@@ -40,6 +40,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
   minDate: string;
   maxDate: string;
+  errorUploadImg = false;
 
   constructor(
     private router: Router,
@@ -60,7 +61,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
-
 
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
@@ -95,7 +95,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     const photosIds = { "photo-ids": this.getPhotosIds() };
-    console.log(this.photosForm.value['publish-until']);
     let dateMoment: any;
 
     if (this.photosForm.value['publish-until'].formatted) {
@@ -124,25 +123,29 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.publish.emit(params);
   }
 
-  async onUploadImageFinished(event) {
-    try {
-      this.utilsService.getOrientation(event.file, function(orientation) {
-        this.utilsService.resetOrientation(event.src, orientation , function(resetBase64Image) {
+  onUploadImageFinished(event) {
+    this.errorUploadImg = false;
+    this.utilsService.getOrientation(event.file, function (orientation) {
+      this.utilsService.resetOrientation(event.src, orientation, async function (resetBase64Image) {
+        try {
           event.src = resetBase64Image;
-        });
-     }.bind(this));
-      const response = await this.photosService.updatePhoto(event.file);
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error("Error: ", error);
-    }
+          const response = await this.photosService.updatePhoto(event.file);
+          const photo = Object.assign({}, response, { file: event.file });
+          this.photosUploaded.push(photo);
+          this.changeDetectorRef.markForCheck();
+        } catch (error) {
+          this.errorUploadImg = true;
+          console.error("Error: ", error);
+          this.changeDetectorRef.markForCheck();
+        }
+      }.bind(this));
+    }.bind(this));
   }
-
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.id); }
+    this.errorUploadImg = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   async removeImageFromServer(id: number) {
@@ -238,8 +241,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
-    console.log(config['publish-until'], 'config');
-
   }
 
   private getInitialConfig(): ProductInterface {
@@ -275,13 +276,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': objectDate,
       negotiable: true
     };
-    console.log(Object.assign({}, product, this.product));
+
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
   private getPhotosIds(): Array<string> {
     return this.photosUploaded.map(photo => {
-      console.log(photo, 'photo');
       return photo.id.toString(); });
   }
 

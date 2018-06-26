@@ -1,7 +1,6 @@
 import { ROUTES } from './../../../router/routes';
 import { Router } from '@angular/router';
-import { NotificationsInterface } from './../../../commons/interfaces/notifications.interface';
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 
 @Component({

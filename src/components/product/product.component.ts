@@ -1,7 +1,5 @@
-import { OfferInterface } from "./../../commons/interfaces/offer.interface";
 import {
   ElementRef,
-  AfterViewChecked,
   AfterContentInit,
   AfterViewInit,
   Renderer2,
@@ -20,7 +18,7 @@ import { ProductsService } from "../../services/products.service";
 import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
-//import {  AngularMasonry } from 'angular2-masonry';
+
 @Component({
   selector: "product",
   templateUrl: "./product.component.html",
@@ -103,9 +101,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
-     /* this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-      ]);*/
     } catch (error) {}
   }
 

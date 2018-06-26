@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81.073 81.073">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff3646;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="icono_chat" transform="translate(-815 -4583.963)">
+    <circle id="Ellipse_33" data-name="Ellipse 33" class="cls-1" cx="40.537" cy="40.537" r="40.537" transform="translate(815 4583.963)"/>
+    <path id="untitled1475" class="cls-2" d="M18.928,0A16.946,16.946,0,0,0,2,16.928a16.749,16.749,0,0,0,3.161,9.845L2.052,37.137A1.209,1.209,0,0,0,3.21,38.693a1.224,1.224,0,0,0,.631-.177l9.3-5.68A16.928,16.928,0,1,0,18.93,0Z" transform="translate(837.072 4606.654)"/>
+    <rect id="Rectangle_341" data-name="Rectangle 341" class="cls-1" width="2.418" height="6.046" rx="1.209" transform="translate(849.954 4617.537)"/>
+    <rect id="Rectangle_342" data-name="Rectangle 342" class="cls-1" width="2.418" height="6.046" rx="1.209" transform="translate(859.627 4617.537)"/>
+    <path id="Path_2172" data-name="Path 2172" class="cls-1" d="M-741.051,4938.93a5.852,5.852,0,0,1-5.908,4.515,6.281,6.281,0,0,1-6.161-4.515Z" transform="translate(1602.929 -311.806)"/>
+  </g>
+</svg>

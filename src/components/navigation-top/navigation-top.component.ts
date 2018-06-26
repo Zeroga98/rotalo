@@ -74,7 +74,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       id: this.navigationService.getCurrentCountryId()
     };
     this.userId = this.currentSessionService.getIdUser();
-    this.listenerMessages = this.setListenerMessagesUnread(this.userId);
+    //this.listenerMessages = this.setListenerMessagesUnread(this.userId);
+    this.setListenerMessagesUnread(this.userId);
     if (this.navigationService.getMessagesUnRead()) {
       this.messagesUnRead = this.navigationService.getMessagesUnRead();
     }
@@ -92,7 +93,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.listenerMessages);
+   // clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
 
@@ -122,7 +123,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   private  setListenerMessagesUnread(userId) {
-    return setInterval(() => {
+    this.messagesService.getMessagesUnred(userId).subscribe(
+      state => {
+        this.messagesUnRead = state.body.cantidadNotificaciones;
+        this.notificationHobby = state.body.notificacionActIntereses;
+        this.navigationService.setNotificationHobbies(this.notificationHobby);
+        this.navigationService.setMessagesUnRead(this.messagesUnRead);
+        this.changeDetector.markForCheck();
+      },
+      error => console.log(error)
+    );
+    /*return setInterval(() => {
       this.messagesService.getMessagesUnred(userId).subscribe(
         state => {
           this.messagesUnRead = state.body.cantidadNotificaciones;
@@ -133,7 +144,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         },
         error => console.log(error)
       );
-    }, this.timeToCheckNotification);
+    }, this.timeToCheckNotification);*/
+
   }
 
   private goToFeed(id: number) {

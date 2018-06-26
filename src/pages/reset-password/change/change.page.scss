@@ -44,7 +44,19 @@
     }
   }
   footer{
+    font-size: 2rem;
+    text-align: center;
     margin-top: 30px;
+    font-weight: bold;
+    line-height: 19px;
+    a {
+      color: $red;
+      cursor: pointer;
+    }
+    a:hover{
+      color: #bf111c;
+      text-decoration: none;
+    }
   }
 
   .container-fluid{

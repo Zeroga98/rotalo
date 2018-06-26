@@ -37,9 +37,10 @@
         placeholder="Confirmar contraseña">
       </div>
       <footer>
-          <div class="btn-square">
+          <div *ngIf="!showLink" class="btn-square">
               <custom-button [disabled]="!changePasswordForm.valid"  type="submit" text="Guardar"></custom-button>
           </div>
+          <a *ngIf="showLink" routerLink="/login">Ir al login</a>
       </footer>
     </form>
   </div>

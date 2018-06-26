@@ -1,6 +1,12 @@
-<div (click)="openModal('custom-modal-1')" class="feedback-container">
-  <span class="feedback-text">
-    Contactanos
-  </span>
+<div *ngIf="showFeedBack">
+  <div (click)="openModal('custom-modal-1')" class="feedback-container">
+    <span class="feedback-text">
+      Contactanos
+    </span>
+    <div class="icon-container">
+      <div class="icon-feedback">
+      </div>
+    </div>
+  </div>
+  <modal-feedBack class="md-modal md-effect-2" id="custom-modal-1"></modal-feedBack>
 </div>
-<modal-feedBack  class="md-modal md-effect-2" id="custom-modal-1"></modal-feedBack>

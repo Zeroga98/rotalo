@@ -62,7 +62,6 @@
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVA OFERTA -->
 
-
                       <!-- INICIO NOTIFICACIÓN OFERTA ACEPTADA -->
                       <div *ngIf="message.tipoNotificacion == 'offer_accepted'" class="notifications-item">
                         <span class="icon icon-flag notification-icon"></span>
@@ -82,7 +81,6 @@
                         </div>
                       </div>
                       <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
-
 
                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
                       <div *ngIf="message.tipoNotificacion == 'offer_declined'" class="notifications-item">
@@ -166,55 +164,71 @@
                       <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
 
 
-
                       <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
                       <div *ngIf="message.tipoNotificacion == 'product_expired'" class="notifications-item">
-                        <span class="icon icon-warning notification-icon"></span>
-                        <p class="notification-text">Tu publicación
-                          <span class="highlight bold">{{message.producto.nombreProducto}}</span>
-                          se ha vencido.
-                        </p>
-                        <small class="notification-date">{{message.fechaHora }}</small>
-                      </div>
-                      <!--FIN NOTIFICACIÓN PRODUCTO EXPIRADO -->
-
-
-                      <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
-                      <div  *ngIf="message.tipoNotificacion == 'product_expired'" class="notifications-item">
-                        <div class="intro main-text">
-                          <p class="notification-text">
-                            <span class="icon icon-warning notification-icon expired"></span>
-                            <span>Hola </span>
-                            <span class="highlight bold clickable">
-                              {{message.producto.nombreUsuario}}
-                            </span>
-                          </p>
-
+                        <div *ngIf="!message.accionExpirado">
+                          <span class="icon icon-warning notification-icon"></span>
                           <p class="notification-text">Tu publicación
                             <span class="highlight bold">{{message.producto.nombreProducto}}</span>
                             se ha vencido.
                           </p>
-
-                          <p class="notification-text">● Si la vendiste en Rótalo
-                            <span class="highlight bold clickable">
-                              haz clic aquí
-                            </span>
-                          </p>
-
-                          <p class="notification-text">● Si aún no se ha vendido y quieres republicarla,
-                            <span
-                            (click)="republish(message)" class="highlight bold clickable">
-                              haz clic aquí
-                            </span>
-                          </p>
-
-                          <p class="notification-text">● Si no se ha vendido o la vendiste por otro medio
-                            <br> y No quieres republicarla,
-                              <span class="highlight bold clickable">
-                                haz clic aquí
-                              </span>
-                          </p>
                           <small class="notification-date">{{message.fechaHora }}</small>
+                        </div>
+                        <div *ngIf="message.accionExpirado">
+                          <div class="intro main-text">
+                            <p class="notification-text">
+                              <span class="icon icon-warning notification-icon expired"></span>
+                              <span>Hola </span>
+                              <span class="highlight bold">
+                                {{message.producto.nombreUsuario}}
+                              </span>
+                            </p>
+
+                            <p class="notification-text">Tu publicación
+                              <span (click)="goToDetail(message)" class="highlight bold clickable">{{message.producto.nombreProducto}}</span>
+                              se ha vencido.
+                            </p>
+
+                            <div *ngIf="message.accionExpirado === 'new'">
+                              <p class="notification-text">● Si la vendiste en Rótalo
+                                <span (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="highlight bold clickable">
+                                  haz clic aquí
+                                </span>
+                              </p>
+
+                              <p class="notification-text">● Si aún no se ha vendido y quieres republicarla,
+                                <span (click)="republish(message); message.accionExpirado = 'republished'" class="highlight bold clickable">
+                                  haz clic aquí
+                                </span>
+                              </p>
+
+                              <p class="notification-text">● Si no se ha vendido o la vendiste por otro medio
+                                <br> y No quieres republicarla,
+                                <span (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'" class="highlight bold clickable">
+                                  haz clic aquí
+                                </span>
+                              </p>
+                            </div>
+
+                            <div *ngIf="message.accionExpirado !== 'new'">
+                              <div *ngIf="message.accionExpirado === 'republished'">
+                                <p class="notification-text">
+                                  Has republicado tu producto.
+                                </p>
+                              </div>
+                              <div *ngIf="message.accionExpirado === 'sell_unknow_out'">
+                                <p class="notification-text">
+                                  Tu producto se ha marcado como vendido por fuera de Rótalo o no quisiste republicarlo.
+                                </p>
+                              </div>
+                              <div *ngIf="message.accionExpirado === 'sell_unknow_in'">
+                                <p class="notification-text">
+                                  Tu producto ha sido vendido en Rótalo.
+                                </p>
+                              </div>
+                            </div>
+                            <small class="notification-date">{{message.fechaHora }}</small>
+                          </div>
                         </div>
                       </div>
 
@@ -348,12 +362,30 @@
                       </div>
                       <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
                     </div>
+
+
+                    <div *ngIf="showMessageFeedBack"  class="notifications-item">
+                      <a class="notification-text offer-text">
+                        <div>
+                          <span *ngIf="!isSendMessage" class="bold">
+                            ¿Quieres decirnos algo?, escríbenos y pronto te responderemos.
+                          </span>
+                          <span *ngIf="isSendMessage" class="bold">
+                            ¡Recibido! Gracias por ayudarnos a ser cada vez mejor.
+                            Muy pronto te contactaremos para resolver tu duda.
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+
+
+
                   </div>
                 </div>
               </div>
             </div>
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
-              <textarea style="overflow:hidden;" formControlName="message" required type="area" class="input-msg" name="input" placeholder="Escribe un mensaje">
+              <textarea style="overflow:hidden;" formControlName="message" required type="area" class="bold input-msg" name="input" placeholder="Escribe un mensaje">
               </textarea>
               <button [disabled]="formMessage.invalid" type="submit" class="send">
                 <div class="circle">

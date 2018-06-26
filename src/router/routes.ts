@@ -32,6 +32,7 @@ export const ROUTES = {
         SELLING: 'selling',
         SOLD: 'sold',
         MESSAGES: 'messages',
-        CONVERSATION: 'conversation'
+        CONVERSATION: 'conversation',
+        FEEDBACK: 'feed-back'
     }
 };

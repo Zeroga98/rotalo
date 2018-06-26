@@ -5,12 +5,13 @@ import 'rxjs/add/operator/mergeMap';
 import { UserInterface } from '../commons/interfaces/user.interface';
 import { ConfigurationService } from '../services/configuration.service';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 @Injectable()
 export class MessagesService {
     currentUser: UserInterface;
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
-
+    private readonly timeToCheckNotification: number = 10000;
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     getConversation(): Promise<any> {
@@ -33,22 +34,41 @@ export class MessagesService {
                     .toPromise();
     }
 
-    getMessagesUnred(idUser) {
+    getMessagesUnred(idUser): Observable<any> {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/notificaciones-sin-leer';
-      return this.http
+
+      return Observable.timer(0, this.timeToCheckNotification)
+      .concatMap(() =>  this.http.get(url, { headers: headers }))
+      .map((response: any) => response);
+
+    /*  return this.http
         .get(url, { headers: headers })
-        .map((response: any) => response);
+        .map((response: any) => response);*/
     }
 
-    getMessages(idUser) {
+    getMessages(idUser): Observable<any> {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userId: idUser} );
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/notificaciones';
-      return this.http
+      return Observable.timer(0, this.timeToCheckNotification)
+      .concatMap(() =>  this.http.get(url, { headers: headers }))
+      .map((response: any) => {
+        if (response.body.emisarios) {
+          response.body.emisarios.map((emisario) => {
+            emisario.mensajes.map((mensaje) => {
+            mensaje.status = this.updateStatusNotification(mensaje);
+            const dateMoment: any = moment(mensaje.fechaHora);
+            mensaje.fechaHora = dateMoment.format('MMMM Do YYYY, h:mm:ss a');
+            });
+          });
+        }
+        return response;
+      } );
+    /*  return this.http
         .get(url, { headers: headers })
         .map((response: any) => {
           if (response.body.emisarios) {
@@ -61,7 +81,16 @@ export class MessagesService {
             });
           }
           return response;
-        } );
+        } );*/
+    }
+
+    updateSellUnknow(params){
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/ventas-desconocidas';
+      return this.http
+      .put(url, params , { headers: headers })
+      .map((response: any) => response);
     }
 
 

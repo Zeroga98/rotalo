@@ -6,7 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { UserService } from '../../services/user.service';
 import { SavePasswordService } from '../signup/save-password.service';
 import { MessagesService } from '../../services/messages.service';
-import { LoginService } from '../../services/login/login.service';
+
 
 @Component({
   selector: 'app-activacion-cuenta',
@@ -24,7 +24,6 @@ export class ActivacionCuentaPage implements OnInit {
     private currenSession: CurrentSessionService,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
-    private savePassword: SavePasswordService,
     private messagesService: MessagesService
   ) {}
 
