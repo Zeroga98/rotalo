@@ -14,6 +14,7 @@ import { IMyDpOptions } from 'mydatepicker';
 import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../util/utils.service';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: "form-product",
@@ -41,9 +42,10 @@ export class FormProductComponent implements OnInit, OnChanges {
   minDate: string;
   maxDate: string;
   errorUploadImg = false;
-
+  countryId;
   constructor(
     private router: Router,
+    private currentSessionSevice: CurrentSessionService,
     private photosService: PhotosService,
     private categoryService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -54,12 +56,18 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
+    const currentUser = this.currentSessionSevice.currentUser();
+    this.countryId = Number(currentUser['countryId']);
     try {
       this.setInitialForm(this.getInitialConfig());
       this.categories = await this.categoryService.getCategories();
       this.loadYearsModelVehicle();
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
+  }
+
+  get isColombia(){
+    return this.countryId === 1;
   }
 
   changeKindOfProduct(evt) {
@@ -241,7 +249,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       "type-vehicle": new FormControl(typeVehicle, []),
       "model": new FormControl(model, []),
     });
-    console.log(config['publish-until'], 'config');
+
 
   }
 
@@ -278,7 +286,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': objectDate,
       negotiable: true
     };
-    console.log(Object.assign({}, product, this.product));
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
