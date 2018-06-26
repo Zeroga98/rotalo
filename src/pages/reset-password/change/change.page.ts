@@ -48,6 +48,10 @@ export class ChangePage implements OnInit {
     this.changePassword(newPassword , confirmNewPassword);
   }
 
+  markAsTouched(control) {
+    control.markAsTouched();
+  }
+
   changePassword(newPassword: string, confirmNewPassword: string) {
     const user = {
       'data': {
