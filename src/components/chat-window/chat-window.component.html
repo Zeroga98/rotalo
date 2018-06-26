@@ -339,8 +339,8 @@
                       <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
 
                       <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-                      <div *ngIf="message.tipoNotificacion == 'qualify_purchase'" class="notifications-item">
-                        <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
+                      <div *ngIf="message.tipoNotificacion == 'qualify_purchase'">
+                          <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
