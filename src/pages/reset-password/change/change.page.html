@@ -18,6 +18,7 @@
     <form role="form" [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" class="form-theme">
       <div class="form-group">
         <input
+        (click)="markAsTouched(changePasswordForm.get('password'))"
         [ngClass]="{'invalid': changePasswordForm.get('password').invalid && !changePasswordForm.get('password').pristine}"
         formControlName="password"
         maxlength="20"
@@ -25,9 +26,18 @@
         type="password"
         class="form-control"
         placeholder="Contraseña">
+        <span class="help-block">
+            <span *ngIf="changePasswordForm.get('password').touched && changePasswordForm.get('password').errors?.required && !changePasswordForm.get('password').pristine">
+                Este campo es obligatorio.
+            </span>
+            <span *ngIf="changePasswordForm.get('password').errors?.minlength && !changePasswordForm.get('password').pristine">
+                El campo no cumple la longitud mínima.
+            </span>
+          </span>
       </div>
       <div class="form-group m-b-md">
         <input
+        (click)="markAsTouched(changePasswordForm.get('password-confirmation'))"
         [ngClass]="{'invalid': changePasswordForm.get('password-confirmation').invalid && !changePasswordForm.get('password-confirmation').pristine}"
         formControlName="password-confirmation"
         maxlength="20"
@@ -35,6 +45,17 @@
         type="password"
         class="form-control"
         placeholder="Confirmar contraseña">
+        <span class="help-block">
+            <span *ngIf="changePasswordForm.get('password-confirmation').touched && changePasswordForm.get('password-confirmation').errors?.required && !changePasswordForm.get('password-confirmation').pristine">
+                Este campo es obligatorio.
+            </span>
+            <span *ngIf="changePasswordForm.get('password-confirmation').errors?.minlength && !changePasswordForm.get('password-confirmation').pristine">
+                El campo no cumple la longitud mínima.
+            </span>
+            <span *ngIf="!changePasswordForm.get('password-confirmation').errors?.required && changePasswordForm?.errors?.match && !changePasswordForm.get('password-confirmation').errors?.minlength &&!changePasswordForm.get('password-confirmation').pristine">
+                La contraseña de verificación no coincide.
+            </span>
+          </span>
       </div>
       <footer>
           <div *ngIf="!showLink" class="btn-square">

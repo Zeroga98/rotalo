@@ -1,16 +1,28 @@
-:host{
-    .rate{
-      width: 100%;
-      margin-bottom: 15px;
-    }
+:host {
+  width: 100%;
 
-    p.notification-text {
-      margin: 0;
-      margin-bottom: -20px;
-      font-weight: 600;
-    }
-
-    .main-text{
-      margin-bottom: 40px;
-    }
+  .notifications-item, .rating-container{
+    display: block;
+    width: 100%;
+    min-height: 270px;
+    padding-bottom: 0;
+  }
+  .rating-container{
+    position: absolute;
+  }
+  .disable-rate{
+    z-index: -1;
+  }
+  .rate {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  p.notification-text {
+    margin: 0;
+    margin-bottom: -20px;
+    font-weight: 600;
+  }
+  .main-text {
+    margin-bottom: 40px;
+  }
 }

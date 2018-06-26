@@ -190,19 +190,19 @@
                             </p>
 
                             <div *ngIf="message.accionExpirado === 'new'">
-                              <p class="notification-text">● Si la vendiste en Rótalo
+                              <p class="notification-text"><span>1.</span> Si la vendiste en Rótalo
                                 <span (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="highlight bold clickable">
                                   haz clic aquí
                                 </span>
                               </p>
 
-                              <p class="notification-text">● Si aún no se ha vendido y quieres republicarla,
+                              <p class="notification-text"><span>2.</span> Si aún no se ha vendido y quieres republicarla,
                                 <span (click)="republish(message); message.accionExpirado = 'republished'" class="highlight bold clickable">
                                   haz clic aquí
                                 </span>
                               </p>
 
-                              <p class="notification-text">● Si no se ha vendido o la vendiste por otro medio
+                              <p class="notification-text"><span>3.</span> Si no se ha vendido o la vendiste por otro medio
                                 <br> y No quieres republicarla,
                                 <span (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'" class="highlight bold clickable">
                                   haz clic aquí
@@ -335,8 +335,8 @@
                       <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
 
                       <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
-                      <div *ngIf="message.tipoNotificacion == 'qualify_purchase'" class="notifications-item">
-                        <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
+                      <div *ngIf="message.tipoNotificacion == 'qualify_purchase'">
+                          <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
