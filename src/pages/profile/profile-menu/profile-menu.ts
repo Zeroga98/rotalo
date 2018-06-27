@@ -81,6 +81,12 @@ export class ProfileMenu implements OnInit {
   }
 
   onLogout() {
+    const result = confirm('¿Seguro quieres cerrar tu sesión en Rótalo?');
+    if (!result) {
+      const currentUrl = window.location.pathname;
+      this.router.navigate([`${currentUrl}`]);
+      return;
+    }
     this.loginService.logout();
   }
 

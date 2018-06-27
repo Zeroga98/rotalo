@@ -14,4 +14,8 @@ export class MsgCongratulationComponent implements OnInit {
   ngOnInit() {
   }
 
+  onReload() {
+    location.reload();
+  }
+
 }
