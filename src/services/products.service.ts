@@ -127,6 +127,13 @@ export class ProductsService {
         return this.http.get(url, { headers: headers }).map((response: any) => response);
     }
 
+    visitorCounter(productId) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${productId}/visitas`;
+      return this.http.put(url, { headers: headers }).map((response: any) => response);
+    }
+
     shareProduct(params) {
       const url = this.url + '/refer';
       return this.http.post(url, params).toPromise().then( (response: any) => response);

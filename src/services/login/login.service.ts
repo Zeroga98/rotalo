@@ -17,18 +17,20 @@ export class LoginService {
   }
 
   logout(): void {
-    this.currentSessionService.clearSession();
-    this.logOutService(this.currentSessionService.authToken()) .subscribe(
-      resonse => {
-        this.currentSessionService.clearSession();
-        location.reload();
-      },
-      error => {
-        this.currentSessionService.clearSession();
-        location.reload();
-        console.log(error);
-      }
-    );
+    const result = confirm('¿Seguro quieres cerrar tu sesión en Rótalo?');
+    if (result) {
+      this.logOutService(this.currentSessionService.authToken()) .subscribe(
+        resonse => {
+          this.currentSessionService.clearSession();
+          location.reload();
+        },
+        error => {
+          this.currentSessionService.clearSession();
+          location.reload();
+          console.log(error);
+        }
+      );
+    }
   }
 
   logOutService (token) {

@@ -41,6 +41,9 @@
       <div *ngIf="products.subcategory" class="contTipo">
         <strong>{{products.subcategory.category.name}} -</strong> {{products.subcategory.name}}
       </div>
+      <div class="contTipo">
+          <strong>Visitas -</strong> {{visitsNumber}}
+        </div>
       <div *ngIf="products.model" class="contTipo">
         <strong>Modelo -</strong> {{products.model}}
       </div>

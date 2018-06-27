@@ -51,6 +51,7 @@ export class DetailProductComponent implements OnInit {
   public messageSuccess: boolean;
   public messageError: boolean;
   public textError: boolean;
+  public visitsNumber = 0;
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
@@ -72,6 +73,15 @@ export class DetailProductComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email])
     });
     this.loadProduct();
+  }
+
+  visitorCounter() {
+    this.productsService.visitorCounter(this.products.id).subscribe((response) => {
+      if (response.status == 0) {
+        this.visitsNumber = response.body.visitas;
+        this.changeDetectorRef.markForCheck();
+      }
+    }, (error) => {console.log(error); });
   }
 
   clickArrow() {
@@ -170,6 +180,7 @@ export class DetailProductComponent implements OnInit {
       }
       this.productChecked = this.products.status;
       this.productStatus = this.products.status === 'active';
+      this.visitorCounter();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
