@@ -115,8 +115,10 @@ export class ChatWindowComponent
 
   scrollToBottom(): void {
     try {
+
       if (this.ScrollContainer) {
         if (this.isScroollBottom) {
+
           this.ScrollContainer.nativeElement.scrollTop = this.ScrollContainer.nativeElement.scrollHeight;
           this.isScroollBottom = false;
         }

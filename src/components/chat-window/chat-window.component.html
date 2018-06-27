@@ -176,40 +176,26 @@
                           </p>
                           <small class="notification-date">{{message.fechaHora }}</small>
                         </div>
-                        <div *ngIf="message.accionExpirado">
+                        <div class="expired-container" *ngIf="message.accionExpirado">
                           <div class="intro main-text">
-                            <p class="notification-text">
-                              <span class="icon icon-warning notification-icon expired"></span>
-                              <span>Hola </span>
-                              <span class="highlight bold">
-                                {{message.producto.nombreUsuario}}
-                              </span>
-                            </p>
-
                             <p class="notification-text">Tu publicación
                               <span (click)="goToDetail(message)" class="highlight bold clickable">{{message.producto.nombreProducto}}</span>
                               se ha vencido.
                             </p>
 
-                            <div *ngIf="message.accionExpirado === 'new'">
-                              <p class="notification-text"><span>1.</span> Si la vendiste en Rótalo
-                                <span (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
-
-                              <p class="notification-text"><span>2.</span> Si aún no se ha vendido y quieres republicarla,
-                                <span (click)="republish(message); message.accionExpirado = 'republished'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
-
-                              <p class="notification-text"><span>3.</span> Si no se ha vendido o la vendiste por otro medio
-                                <br> y No quieres republicarla,
-                                <span (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
+                            <div class="notification-buttons" *ngIf="message.accionExpirado === 'new'">
+                                <div class="button-item">
+                                    <button  (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'"
+                                     class="button button-primary">Vendido en Rótalo</button>
+                                </div>
+                                <div class="button-item">
+                                    <button (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'"
+                                     class="button button-primary">Vendido afuera</button>
+                                </div>
+                                <div class="button-item">
+                                    <button (click)="republish(message); message.accionExpirado = 'republished'"
+                                     class="button button-primary">Republicar</button>
+                                </div>
                             </div>
 
                             <div *ngIf="message.accionExpirado !== 'new'">
