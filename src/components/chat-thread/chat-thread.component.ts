@@ -27,6 +27,7 @@ export class ChatThreadComponent implements OnInit {
   }
 
   selectInfoConversation() {
+    this.shareInfoChatService.setScrollDown(true);
     this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
     this.shareInfoChatService.changeMessage(this.thread);
     this.selectOption.emit();

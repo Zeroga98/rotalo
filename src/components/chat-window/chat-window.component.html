@@ -165,51 +165,35 @@
 
 
                       <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
-                      <div *ngIf="message.tipoNotificacion == 'product_expired'" class="notifications-item">
-                        <div *ngIf="!message.accionExpirado">
+                      <div *ngIf="message.tipoNotificacion == 'product_expired'">
+                        <div class="notifications-item"  *ngIf="!message.accionExpirado">
                           <span class="icon icon-warning notification-icon"></span>
                           <p class="notification-text">Tu publicación
                             <span class="highlight bold">{{message.producto.nombreProducto}}</span>
                             se ha vencido.
                           </p>
-                          <small class="notification-date">{{message.fechaHora }}</small>
+                          <small class="notification-date">{{message.fechaHora}}</small>
                         </div>
-                        <div *ngIf="message.accionExpirado">
+                      </div>
+                      <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
+                      <div class="notifications-item" *ngIf="message.tipoNotificacion == 'product_expired'">
+                        <div class="expired-container" *ngIf="message.accionExpirado">
                           <div class="intro main-text">
-                            <p class="notification-text">
-                              <span class="icon icon-warning notification-icon expired"></span>
-                              <span>Hola </span>
-                              <span class="highlight bold">
-                                {{message.producto.nombreUsuario}}
-                              </span>
-                            </p>
-
                             <p class="notification-text">Tu publicación
                               <span (click)="goToDetail(message)" class="highlight bold clickable">{{message.producto.nombreProducto}}</span>
                               se ha vencido.
                             </p>
-
-                            <div *ngIf="message.accionExpirado === 'new'">
-                              <p class="notification-text"><span>1.</span> Si la vendiste en Rótalo
-                                <span (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
-
-                              <p class="notification-text"><span>2.</span> Si aún no se ha vendido y quieres republicarla,
-                                <span (click)="republish(message); message.accionExpirado = 'republished'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
-
-                              <p class="notification-text"><span>3.</span> Si no se ha vendido o la vendiste por otro medio
-                                <br> y No quieres republicarla,
-                                <span (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'" class="highlight bold clickable">
-                                  haz clic aquí
-                                </span>
-                              </p>
+                            <div class="notification-buttons" *ngIf="message.accionExpirado === 'new'">
+                              <div class="button-item">
+                                <button (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="button button-primary">Vendido en Rótalo</button>
+                              </div>
+                              <div class="button-item">
+                                <button (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'" class="button button-primary">Vendido afuera</button>
+                              </div>
+                              <div class="button-item">
+                                <button (click)="republish(message)" class="button button-primary">Republicar</button>
+                              </div>
                             </div>
-
                             <div *ngIf="message.accionExpirado !== 'new'">
                               <div *ngIf="message.accionExpirado === 'republished'">
                                 <p class="notification-text">
@@ -218,12 +202,12 @@
                               </div>
                               <div *ngIf="message.accionExpirado === 'sell_unknow_out'">
                                 <p class="notification-text">
-                                  Tu producto se ha marcado como vendido por fuera de Rótalo o no quisiste republicarlo.
+                                  Tu producto ha sido marcado como fuera de Rótalo.
                                 </p>
                               </div>
                               <div *ngIf="message.accionExpirado === 'sell_unknow_in'">
                                 <p class="notification-text">
-                                  Tu producto ha sido vendido en Rótalo.
+                                  Tu producto ha sido marcado como vendido en Rótalo. Ya no recibirás más notificaciones de éste.
                                 </p>
                               </div>
                             </div>
@@ -336,7 +320,7 @@
 
                       <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                       <div *ngIf="message.tipoNotificacion == 'qualify_purchase'">
-                          <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
+                        <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
@@ -344,10 +328,7 @@
                         <span class="icon icon-warning notification-icon"></span>
                         <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y encontrar usuarios
                           que comparten tus intereses. ¡Sigue rotando!
-                        </p>
-                        <br>
-                        <p *ngIf="message.interes.tieneIntereses" class="notification-text">
-                          <span class="highlight bold clickable" (click)="goToHobbies()">
+                          <span *ngIf="message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
                             Has seleccionado tus intereses.
                           </span>
                         </p>

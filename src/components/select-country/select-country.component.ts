@@ -29,6 +29,7 @@ export class SelectCountryComponent implements OnInit {
     name = ev.target.selectedOptions ? ev.target.selectedOptions[0].text :  ev.target.options[ev.target.selectedIndex].text;
     const id = ev.target.value;
     this.selected.emit({ name, id });
+    this.changeDetectorRef.markForCheck();
   }
 
   async getCountries() {

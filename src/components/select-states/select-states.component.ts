@@ -8,13 +8,13 @@ import {
   Output,
   ChangeDetectionStrategy,
   ChangeDetectorRef
-} from "@angular/core";
-import { CollectionSelectService } from "../../services/collection-select.service";
+} from '@angular/core';
+import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
-  selector: "select-states",
-  templateUrl: "./select-states.component.html",
-  styleUrls: ["./select-states.component.scss"],
+  selector: 'select-states',
+  templateUrl: './select-states.component.html',
+  styleUrls: ['./select-states.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectStatesComponent implements OnChanges, OnInit {
@@ -22,8 +22,8 @@ export class SelectStatesComponent implements OnChanges, OnInit {
   @Input() initialValue;
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   states: Array<any> = [];
-  currentState: string = "";
-  defaultOption: string = "Estado/Provincia*";
+  currentState: string = '';
+  defaultOption: string = 'Estado/Provincia*';
 
   constructor(
     private collectionService: CollectionSelectService,
@@ -50,6 +50,11 @@ export class SelectStatesComponent implements OnChanges, OnInit {
           const id = this.initialValue.id;
           this.currentState = id;
           this.selected.emit({ name, id });
+        }else {
+          const name = '';
+          const id = '';
+          this.currentState = '';
+          this.selected.emit({ name, id });
         }
       }
       this.changeDetectorRef.markForCheck();
@@ -67,10 +72,17 @@ export class SelectStatesComponent implements OnChanges, OnInit {
     this.selected.emit({ name, id });
   }
 
-  updateDefaultOption(){
-    const options =  ["Estado/Provincia", "Departamento", "Provincia"];
+  updateDefaultOption() {
+    const options =  ['Estado/Provincia*', 'Departamento*', 'Provincia*'];
     const currentCountryId = this.navigationService.getCurrentCountryId() ? this.navigationService.getCurrentCountryId() : 0;
     this.defaultOption = options[this.navigationService.getCurrentCountryId()];
-    if (this.country && this.country.id) this.defaultOption = options[this.country.id];
+    if (this.country && this.country.id) {
+      if (this.country.id == 1) {
+        this.defaultOption = options[this.country.id];
+      }else {
+        this.defaultOption = options[0];
+      }
+    }
+    this.changeDetectorRef.markForCheck();
   }
 }

@@ -22,6 +22,7 @@ export class SelectCitiesComponent implements OnChanges {
   }
 
   async getCities() {
+
     if (this.state && this.state.id) {
         this.cities = await this.collectionService.getCitiesById(this.state.id);
         this.currentCity = '';
@@ -33,6 +34,11 @@ export class SelectCitiesComponent implements OnChanges {
             this.selected.emit({name, id});
           }
         }
+    }else {
+      const name  = '';
+      const id = '';
+      this.currentCity = '';
+      this.selected.emit({name, id});
     }
     this.changeDetectorRef.markForCheck();
   }

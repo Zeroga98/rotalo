@@ -96,7 +96,7 @@ export class FormProductComponent implements OnInit, OnChanges {
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
         }
-      }, 20);
+      }, 30);
     }
     this.changeDetectorRef.markForCheck();
   }
