@@ -82,6 +82,10 @@ export class EditProfilePage implements OnInit {
     }
   }
 
+  setCountry(event) {
+    this.country = event;
+  }
+
   get isFormInvalid(): boolean {
     return this.editProfileForm.invalid;
   }
