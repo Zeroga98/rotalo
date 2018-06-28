@@ -10,11 +10,20 @@ export class ShareInfoChatService {
   private newConversation;
   private idConversation;
   private firstThread;
+  private scrollDown = true;
 
   constructor() {}
 
   changeMessage(messageInfo) {
     this.messageInfoSource.next(messageInfo);
+  }
+
+  setScrollDown(scrollDown) {
+    this.scrollDown = scrollDown;
+  }
+
+  getScrollDown() {
+    return this.scrollDown;
   }
 
   setIdConversation(id) {

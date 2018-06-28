@@ -41,7 +41,6 @@ export class ChatWindowComponent
   messages: any;
   formMessage: FormGroup;
   showSpinner: boolean = true;
-  isScroollBottom: boolean = true;
   inicioConversacion: boolean = false;
   showDeleteButton = false;
   rol;
@@ -65,6 +64,7 @@ export class ChatWindowComponent
     private buyService: BuyService,
     private router: Router,
     private productsService: ProductsService,
+
   ) {}
 
   ngOnInit() {
@@ -87,7 +87,6 @@ export class ChatWindowComponent
           }
           this.updateConversationStatus(this.idReceptorUser);
           this.onLoadWindow(this.showSpinner);
-          this.isScroollBottom = true;
         }
       }
     );
@@ -113,14 +112,16 @@ export class ChatWindowComponent
     }
   }
 
+  isScrollBottom() {
+    return this.shareInfoChatService.getScrollDown();
+  }
+
   scrollToBottom(): void {
     try {
-
       if (this.ScrollContainer) {
-        if (this.isScroollBottom) {
-
+        if (this.isScrollBottom()) {
           this.ScrollContainer.nativeElement.scrollTop = this.ScrollContainer.nativeElement.scrollHeight;
-          this.isScroollBottom = false;
+          this.shareInfoChatService.setScrollDown(false);
         }
       }
     } catch (err) {

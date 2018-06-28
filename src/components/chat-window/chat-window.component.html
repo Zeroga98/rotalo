@@ -168,21 +168,23 @@
 
                       <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
                       <div *ngIf="message.tipoNotificacion == 'product_expired'">
-                        <div class="notifications-item" *ngIf="!message.accionExpirado">
+                        <div class="notifications-item"  *ngIf="!message.accionExpirado">
                           <span class="icon icon-warning notification-icon"></span>
                           <p class="notification-text">Tu publicación
                             <span class="highlight bold">{{message.producto.nombreProducto}}</span>
                             se ha vencido.
                           </p>
-                          <small class="notification-date">{{message.fechaHora }}</small>
+                          <small class="notification-date">{{message.fechaHora}}</small>
                         </div>
-                        <div class="notifications-item" class="expired-container" *ngIf="message.accionExpirado">
+                      </div>
+                      <!--INICIO NOTIFICACIÓN PRODUCTO EXPIRADO -->
+                      <div class="notifications-item" *ngIf="message.tipoNotificacion == 'product_expired'">
+                        <div class="expired-container" *ngIf="message.accionExpirado">
                           <div class="intro main-text">
                             <p class="notification-text">Tu publicación
                               <span (click)="goToDetail(message)" class="highlight bold clickable">{{message.producto.nombreProducto}}</span>
                               se ha vencido.
                             </p>
-
                             <div class="notification-buttons" *ngIf="message.accionExpirado === 'new'">
                               <div class="button-item">
                                 <button (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'" class="button button-primary">Vendido en Rótalo</button>
@@ -329,7 +331,7 @@
                         <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y encontrar usuarios
                           que comparten tus intereses. ¡Sigue rotando!
                           <span *ngIf="message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
-                              Has seleccionado tus intereses.
+                            Has seleccionado tus intereses.
                           </span>
                         </p>
                         <small class="notification-date">{{message.fechaHora}}</small>
