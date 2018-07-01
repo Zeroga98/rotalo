@@ -296,7 +296,7 @@ export class ChatWindowComponent
       idProducto: id
     };
     const result =
-    confirm('(Verifica que las imágenes muestren bien los atributos y beneficios de tu producto. Además, revisa que el precio sea adecuado y considera “Recibir ofertas” de los compradores)');
+    confirm('Al republicar verifica que las imágenes muestren bien los atributos y beneficios de tu producto. Además, revisa que el precio sea adecuado y considera “Recibir ofertas” de los compradores.');
     if (!result) {
       return;
     }

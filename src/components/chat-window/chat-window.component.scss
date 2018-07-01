@@ -327,6 +327,22 @@
     font-size: 1.5rem;
   }
 
+  .btn-height{
+    height: 4.4rem;
+  }
+
+  .long-button{
+    min-width: 185px;
+  }
+
+  .expired-container{
+    .notification-buttons{
+      .button-item{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
   @media (max-width: 700px) {
     .user-bar .name {
       width: 50%;
@@ -344,6 +360,17 @@
     }
     .user-bar .name {
       padding-right: 10%;
+    }
+    .expired-container{
+      .notification-buttons{
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .button-item{
+          min-width: 185px;
+        }
+      }
     }
   }
 }

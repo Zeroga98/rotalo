@@ -291,7 +291,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getPhotosIds(): Array<string> {
     return this.photosUploaded.map(photo => {
-      console.log(photo, 'photo');
       return photo.id.toString(); });
   }
 

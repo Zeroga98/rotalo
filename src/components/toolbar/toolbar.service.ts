@@ -12,8 +12,6 @@ export class ToolbarService{
     }
 
     addOptions(option: string): Array<string>{
-      console.log(option);
-      console.log(this.autoCompleteOptions);
         if(this.autoCompleteOptions.indexOf(option) == -1) this.autoCompleteOptions.push(option);
         return this.autoCompleteOptions;
     }

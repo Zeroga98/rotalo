@@ -11,7 +11,7 @@ export class AccordionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.questions);
+
   }
 
 }
