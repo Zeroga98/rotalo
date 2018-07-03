@@ -69,7 +69,8 @@ export class ChangePage implements OnInit {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
       this.errorChange = '';
       this.showLink = true;
-     // this.router.navigate([`${ROUTES.LOGIN}`]);
+      alert('Su contraseña se ha actualizado correctamente.');
+      this.router.navigate([`${ROUTES.LOGIN}`]);
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';

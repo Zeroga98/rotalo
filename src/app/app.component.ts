@@ -8,12 +8,12 @@ import * as moment from 'moment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-	constructor(private router: Router){}
+  constructor(private router: Router) { }
 
-	ngOnInit(): void {
+  ngOnInit(): void {
     moment.locale('es');
-	}
+  }
 
 }

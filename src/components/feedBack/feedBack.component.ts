@@ -1,13 +1,13 @@
-import { OnInit, Component } from "@angular/core";
-import { ModalFeedBackService } from "../modal-feedBack/modal-feedBack.service";
-import { Router } from "@angular/router";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { ROUTES } from "../../router/routes";
+import { OnInit, Component } from '@angular/core';
+import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
+import { Router } from '@angular/router';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { ROUTES } from '../../router/routes';
 
 @Component({
-  selector: "feed-back",
-  templateUrl: "./feedBack.component.html",
-  styleUrls: ["./feedBack.component.scss"]
+  selector: 'feed-back',
+  templateUrl: './feedBack.component.html',
+  styleUrls: ['./feedBack.component.scss']
 })
 export class FeedBackComponent implements OnInit {
   private currentUrl = '';
@@ -36,7 +36,8 @@ export class FeedBackComponent implements OnInit {
   }
 
   get showFeedBack() {
-    return this.currentUrl !== `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
+    return true;
+    //return this.currentUrl !== `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   }
 
   closeModal(id: string) {

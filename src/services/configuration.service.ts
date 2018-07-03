@@ -17,7 +17,7 @@ api = {
   };
 */
 /*Desarrollo*/
-/*
+
 api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway/v1',
@@ -29,9 +29,9 @@ api = {
     server: 'api.dev.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
-/*Produccion*/
 
+/*Produccion*/
+/*
 api = {
     protocol: 'https',
     server: 'apirtl.rotalo.co/gateway/v1',
@@ -43,7 +43,7 @@ api = {
     server: 'apirtl.rotalo.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',

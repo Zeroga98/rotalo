@@ -71,7 +71,7 @@
   </div>
   <div *ngIf="product.user && showField" class="container-info-user">
     <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
-      <span class="icon-account" *ngIf="!product.user.photo || !product.user.photos"></span>
+      <span class="icon-account" *ngIf="!product.user.photo && !product.user.photos"></span>
       <img  *ngIf="product.user.photo" [src]="product.user.photo.url">
       <img  *ngIf="product.user.photos" [src]="product.user.photos.url">
     </div>
