@@ -135,6 +135,7 @@ import { FrequentlyAskedQuestionsService } from '../services/frequently-asked-qu
 import { ModalFeedBackService } from '../components/modal-feedBack/modal-feedBack.service';
 import { FeedBackComponent } from '../components/feedBack/feedBack.component';
 import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedBack.component';
+import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
 
 
 @NgModule({
@@ -216,6 +217,7 @@ import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedB
     AccordionComponent,
     FeedBackComponent,
     ModalFeedBackComponent,
+    NotificationConfirmation
   ],
   imports: [
     BrowserModule,

@@ -43,10 +43,6 @@ export class MessagesService {
       return Observable.timer(0, this.timeToCheckNotification)
       .concatMap(() =>  this.http.get(url, { headers: headers }))
       .map((response: any) => response);
-
-    /*  return this.http
-        .get(url, { headers: headers })
-        .map((response: any) => response);*/
     }
 
     getMessages(idUser): Observable<any> {
@@ -68,20 +64,6 @@ export class MessagesService {
         }
         return response;
       } );
-    /*  return this.http
-        .get(url, { headers: headers })
-        .map((response: any) => {
-          if (response.body.emisarios) {
-            response.body.emisarios.map((emisario) => {
-              emisario.mensajes.map((mensaje) => {
-              mensaje.status = this.updateStatusNotification(mensaje);
-              const dateMoment: any = moment(mensaje.fechaHora);
-              mensaje.fechaHora = dateMoment.format('MMMM Do YYYY, h:mm:ss a');
-              });
-            });
-          }
-          return response;
-        } );*/
     }
 
     updateSellUnknow(params){
@@ -220,6 +202,15 @@ export class MessagesService {
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/calificaciones';
+      return this.http
+        .put(url, params , { headers: headers })
+        .map((response: any) => response);
+    }
+
+    notificationConfirmation(params){
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/general/envios-correos';
       return this.http
         .put(url, params , { headers: headers })
         .map((response: any) => response);

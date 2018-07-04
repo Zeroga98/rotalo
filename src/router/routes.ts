@@ -34,5 +34,6 @@ export const ROUTES = {
         MESSAGES: 'messages',
         CONVERSATION: 'conversation',
         FEEDBACK: 'feed-back'
-    }
+    },
+    NOTIFICATIONCONFIRMATION: 'notification-confirmation'
 };
