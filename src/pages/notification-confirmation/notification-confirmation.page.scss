@@ -2,22 +2,29 @@
 @import '../../styles/settings/_variables.scss';
 
 :host {
-    .rotalo-img{
-        text-align: center;
-        margin: 3rem 0rem;
-    }
-
-    .confirmation-message{
-        width: 100%;
-        max-width: 45rem;
+    .container{
+        position: absolute;
+        top: calc(50% - 15rem);
         left: 0;
-        right: 0;
-        margin: auto;
-        padding: 0 3rem;
-
-        p{
-            font-size: 1.8rem;
+        right: 0;   
+        
+        .rotalo-img{
+            text-align: center;
+            margin: 0rem 0rem 3rem 0rem;
         }
+    
+        .confirmation-message{
+            width: 100%;
+            text-align: center;
+            left: 0;
+            right: 0;
+            margin: auto;
+            padding: 0 4rem;
+    
+            p{
+                font-size: 2rem;
+            }
+        }        
     }
 
     .footer{        
@@ -25,9 +32,5 @@
         position: absolute;
         bottom: 0;        
     }
-
-    @media screen and (max-width: 420px) {
-        :host {
-        }
-    }
+    
 }
