@@ -43,16 +43,21 @@ export class CollectionSelectService {
         });
     }
 
-    async getCitiesById(id: number) {
-        const state: any = await this.getStateById(id);
-        const cities = state.cities;
-        return cities.map( city => {
-            return {
-                id: city.id,
-                name: city.name
-            };
-        });
+  async getCitiesById(id: number) {
+    const state: any = await this.getStateById(id);
+    const cities = state.cities;
+    if (cities.length) {
+      return cities.map(city => {
+        return {
+          id: city.id,
+          name: city.name
+        };
+      });
+    } else {
+      const cityArray = [state.cities];
+      return cityArray;
     }
+  }
 
     getStateById(id: number) {
         return new Promise((resolve, reject) => {
