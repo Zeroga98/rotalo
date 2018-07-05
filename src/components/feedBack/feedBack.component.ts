@@ -3,6 +3,7 @@ import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { Router } from '@angular/router';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ROUTES } from '../../router/routes';
+import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
 
 @Component({
   selector: 'feed-back',
@@ -13,7 +14,8 @@ export class FeedBackComponent implements OnInit {
   private currentUrl = '';
   constructor(private modalService: ModalFeedBackService,
     private router: Router,
-    private currentSessionService: CurrentSessionService) {
+    private currentSessionService: CurrentSessionService,
+    private shareInfoChatService: ShareInfoChatService) {
   }
 
   ngOnInit() {
@@ -30,6 +32,11 @@ export class FeedBackComponent implements OnInit {
     if (this.checkSession()) {
       this.router.navigate(
         [`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`]);
+        if (this.shareInfoChatService.getAdminConversation()) {
+          this.shareInfoChatService.setScrollDown(true);
+          this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
+          this.shareInfoChatService.changeMessage(this.shareInfoChatService.getAdminConversation());
+        }
     }else {
       this.modalService.open(id);
     }

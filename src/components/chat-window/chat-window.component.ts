@@ -74,6 +74,7 @@ export class ChatWindowComponent
     this.formMessage = new FormGroup({
       message: new FormControl("", [Validators.required])
     });
+    this.shareInfoChatService.setScrollDown(true);
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
         if (currentConversation) {

@@ -52,11 +52,11 @@ export class ActivacionCuentaPage implements OnInit {
           this.routineActivateSuccess(saveInfo);
         }
         if (response.status === 401) {
-          this.errorLogin = "Usuario o contraseña incorrecto.";
+          this.errorLogin =  '¡El código de activación no es válido.';
         }
         if (response.status === 500) {
           this.errorLogin =
-            "¡El código de activación no es válido.";
+          '¡El código de activación no es válido.';
         }
         this.changeDetectorRef.markForCheck();
     }) .catch(httpErrorResponse => {

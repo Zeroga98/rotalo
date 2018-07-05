@@ -99,7 +99,6 @@ public userId: string;
 
   initPreference() {
     this.preferenceService.getPreference().then(response => {
-
       this.preferencesArray = response.data.attributes;
       this.userId = response.data.id;
       })

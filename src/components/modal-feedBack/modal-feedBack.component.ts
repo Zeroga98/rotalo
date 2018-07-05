@@ -13,6 +13,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   private element: any;
   public feedBackForm: FormGroup;
   public messageSuccess: boolean;
+  private emailPattern = '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,3}';
   constructor(private modalService: ModalFeedBackService, private el: ElementRef) {
     this.element = el.nativeElement;
   }
@@ -32,7 +33,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     });*/
     this.modalService.add(this);
     this.feedBackForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
       comment: new FormControl('', [Validators.required])
     });
 
@@ -76,6 +77,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
 
   open(): void {
    // this.element.style.display = 'block';
+   this.messageSuccess = false;
    this.feedBackForm.reset();
     this.element.classList.add('md-show');
     document.body.classList.add('modal-open');

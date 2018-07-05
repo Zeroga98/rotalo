@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
+  private emailPattern = '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,3}';
   constructor(
     private loginService: LoginService,
     private currentSessionService: CurrentSessionService,
@@ -35,7 +36,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(6)

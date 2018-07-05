@@ -34,14 +34,12 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
-    //this.intervalConversation = this.getMessages(this.userId);
     this.getMessages(this.userId);
     this.changeDetector.markForCheck();
   }
 
   ngOnDestroy(): void {
-    //clearInterval(this.intervalConversation);
-    if (this.subscriptionConversation){
+    if (this.subscriptionConversation) {
       this.subscriptionConversation.unsubscribe();
     }
   }
@@ -49,13 +47,16 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
   receiveOption() {
     this.selectOption.emit();
   }
+
   private getMessages(userId) {
     this.subscriptionConversation = this.messagesService.getMessages(userId).subscribe(
       state => {
         if (state.body && state.body.emisarios) {
           if (!this.threads) {
             this.threads = state.body.emisarios;
+            this.shareInfoChatService.setAdminConversation(this.threads[0]);
             this.shareInfoChatService.setFirstConversation(this.threads[0]);
+            /*Se establece la primera conversacion admin*/
             if (!this.shareInfoChatService.getIdConversation()) {
               this.firstThread = this.threads[0];
               this.shareInfoChatService.setIdConversation(this.firstThread.idEmisario);
@@ -71,6 +72,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
                 }
             }
           } else {
+            this.shareInfoChatService.setAdminConversation(state.body.emisarios[0]);
             if ( JSON.stringify(this.threads) !== JSON.stringify(state.body.emisarios)) {
               if (this.shareInfoChatService.getIdConversation()) {
                 this.threads = state.body.emisarios;
@@ -90,54 +92,6 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
       error => console.log(error)
     );
   }
-
- /* private getMessages(userId) {
-  return setInterval(() => {
-   this.subscriptionConversation = this.messagesService.getMessages(userId).subscribe(
-      state => {
-        if (state.body && state.body.emisarios) {
-          if (!this.threads) {
-            this.threads = state.body.emisarios;
-            this.shareInfoChatService.setFirstConversation(this.threads[0]);
-            if (!this.shareInfoChatService.getIdConversation()) {
-              this.firstThread = this.threads[0];
-              this.shareInfoChatService.setIdConversation(this.firstThread.idEmisario);
-              this.shareInfoChatService.changeMessage(this.firstThread);
-            }else {
-              const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
-                if (currentThread) {
-                  this.shareInfoChatService.changeMessage(currentThread);
-                  this.shareInfoChatService.setNewConversation(undefined);
-                }else {
-                  this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
-                  this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
-                }
-            }
-          } else {
-            if ( JSON.stringify(this.threads) !== JSON.stringify(state.body.emisarios)) {
-              if (this.shareInfoChatService.getIdConversation()) {
-                this.threads = state.body.emisarios;
-                const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
-
-                if (currentThread) {
-                  this.shareInfoChatService.changeMessage(currentThread);
-                  if (this.shareInfoChatService.getNewConversation()) {
-                    /*this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());*/
-                 /* }
-                }else {
-                  this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
-                  this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
-                }
-              }
-            }
-          }
-        }
-        this.changeDetector.markForCheck();
-      },
-      error => console.log(error)
-    );
-    }, this.timeToCheckNotification);
-  }*/
 
   private searchCurrentConversation(currentThreadId, threads) {
     return threads.find(thread => {

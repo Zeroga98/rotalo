@@ -333,7 +333,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     });
   }
 
-  private saveInitialPhotos(photos){
+  private saveInitialPhotos(photos) {
     this.photosUploaded = [].concat(photos);
   }
 

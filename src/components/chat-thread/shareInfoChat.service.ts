@@ -11,6 +11,7 @@ export class ShareInfoChatService {
   private idConversation;
   private firstThread;
   private scrollDown = true;
+  private adminThread;
 
   constructor() {}
 
@@ -49,4 +50,13 @@ export class ShareInfoChatService {
   getFirstConversation() {
     return this.firstThread;
   }
+
+  setAdminConversation(adminThread) {
+    this.adminThread = adminThread;
+  }
+
+  getAdminConversation() {
+    return this.adminThread;
+  }
+
 }

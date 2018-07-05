@@ -28,7 +28,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
   constructor(
     private collectionService: CollectionSelectService,
     private changeDetectorRef: ChangeDetectorRef,
-    private navigationService:NavigationService
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit() {
@@ -56,6 +56,11 @@ export class SelectStatesComponent implements OnChanges, OnInit {
           this.currentState = '';
           this.selected.emit({ name, id });
         }
+      }else {
+        const name = '';
+        const id = '';
+        this.currentState = '';
+        this.selected.emit({ name, id });
       }
       this.changeDetectorRef.markForCheck();
     }
@@ -70,6 +75,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
     }
     const id = ev.target.value;
     this.selected.emit({ name, id });
+    this.changeDetectorRef.markForCheck();
   }
 
   updateDefaultOption() {

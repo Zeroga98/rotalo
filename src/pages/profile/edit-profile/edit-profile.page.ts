@@ -40,6 +40,7 @@ export class EditProfilePage implements OnInit {
   public showPhotoEdit = false;
   public photo;
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
+  private emailPattern = '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,3}';
   constructor(
     private photosService: PhotosService,
     private fb: FormBuilder,
@@ -53,7 +54,7 @@ export class EditProfilePage implements OnInit {
     this.editProfileForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       idNumber: [{ value: '', disabled: true }, Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       cellphone: ['', [Validators.required]]
     });
     this.getInfoUser();
@@ -86,6 +87,7 @@ export class EditProfilePage implements OnInit {
   }
 
   get isFormValid(): boolean {
+    console.log(this.city);
     return this.city['id'] && this.editProfileForm.valid;
   }
 
