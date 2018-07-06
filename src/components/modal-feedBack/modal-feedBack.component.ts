@@ -13,7 +13,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   private element: any;
   public feedBackForm: FormGroup;
   public messageSuccess: boolean;
-  private emailPattern = '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,3}';
+
   constructor(private modalService: ModalFeedBackService, private el: ElementRef) {
     this.element = el.nativeElement;
   }
@@ -33,7 +33,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     });*/
     this.modalService.add(this);
     this.feedBackForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
       comment: new FormControl('', [Validators.required])
     });
 

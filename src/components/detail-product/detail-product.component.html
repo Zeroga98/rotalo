@@ -37,13 +37,13 @@
     <div *ngIf="products" class="product-info">
       <div class="title-product">{{products.name}}</div>
       <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
-      <div class="capitalize">{{products['sell-type'].toLowerCase()}}</div>
+      <div class="capitalize">{{products['sell-type'].toLowerCase()}} <strong>({{visitsNumber}} visitas)</strong></div>
       <div *ngIf="products.subcategory" class="contTipo">
         <strong>{{products.subcategory.category.name}} -</strong> {{products.subcategory.name}}
       </div>
       <div class="contTipo">
-          <strong>Visitas -</strong> {{visitsNumber}}
-        </div>
+
+      </div>
       <div *ngIf="products.model" class="contTipo">
         <strong>Modelo -</strong> {{products.model}}
       </div>
