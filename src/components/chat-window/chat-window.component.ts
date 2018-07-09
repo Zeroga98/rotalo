@@ -8,27 +8,27 @@ import {
   Output,
   EventEmitter,
   OnChanges
-} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MessagesService } from "../../services/messages.service";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { ShareInfoChatService } from "../chat-thread/shareInfoChat.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { UserService } from "../../services/user.service";
-import { OfferService } from "../../services/offer.service";
-import { BuyService } from "../../services/buy.service";
-import { ROUTES } from "../../router/routes";
-import { ProductsService } from "../../services/products.service";
-import { ProductInterface } from "../../commons/interfaces/product.interface";
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessagesService } from '../../services/messages.service';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { OfferService } from '../../services/offer.service';
+import { BuyService } from '../../services/buy.service';
+import { ROUTES } from '../../router/routes';
+import { ProductsService } from '../../services/products.service';
+import { ProductInterface } from '../../commons/interfaces/product.interface';
 
 @Component({
-  selector: "chat-window",
-  templateUrl: "./chat-window.component.html",
-  styleUrls: ["./chat-window.component.scss"]
+  selector: 'chat-window',
+  templateUrl: './chat-window.component.html',
+  styleUrls: ['./chat-window.component.scss']
 })
 export class ChatWindowComponent
   implements OnInit, OnDestroy, AfterViewChecked {
-  readonly defaultImage: string = "../assets/img/user_sin_foto.svg";
+  readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   private idUserConversation;
   private userId;
   private readonly timeToCheckNotification: number = 3000;
@@ -47,16 +47,16 @@ export class ChatWindowComponent
   isSendMessage = false;
   currentUrl = this.router.url;
   public paymentTypes = {
-    cash: "Efectivo",
-    bank_account_transfer: "Transferencia bancaria",
-    qr_code_transfer: "Código QR",
-    sufi_credit: "Crédito SUFI",
-    na: "No aplica"
+    cash: 'Efectivo',
+    bank_account_transfer: 'Transferencia bancaria',
+    qr_code_transfer: 'Código QR',
+    sufi_credit: 'Crédito SUFI',
+    na: 'No aplica'
   };
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   @Output() close: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild("scrollMe") private ScrollContainer: ElementRef;
+  @ViewChild('scrollMe') private ScrollContainer: ElementRef;
 
   constructor(
     private messagesService: MessagesService,
@@ -72,11 +72,12 @@ export class ChatWindowComponent
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
     this.formMessage = new FormGroup({
-      message: new FormControl("", [Validators.required])
+      message: new FormControl('', [Validators.required])
     });
     this.shareInfoChatService.setScrollDown(true);
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
+
         if (currentConversation) {
           this.rol = currentConversation.rol;
           this.showDeleteButton = currentConversation.tieneAccionesPendientes;
@@ -149,7 +150,7 @@ export class ChatWindowComponent
   onSubmit() {
     const params = {
       idUsuarioDestinatario: this.idReceptorUser,
-      mensaje: this.formMessage.controls["message"].value,
+      mensaje: this.formMessage.controls['message'].value,
       inicioConversacion: this.inicioConversacion
     };
     this.subscriptionMessages = this.messagesService
@@ -173,7 +174,7 @@ export class ChatWindowComponent
   }
 
   deleteConversation() {
-    const result = confirm("¿Seguro quieres borrar esta conversación?");
+    const result = confirm('¿Seguro quieres borrar esta conversación?');
     if (!result) {
       return;
     }
@@ -205,15 +206,15 @@ export class ChatWindowComponent
   }
 
   productIsFree(notification) {
-    return notification.producto.tipoVenta === "GRATIS";
+    return notification.producto.tipoVenta === 'GRATIS';
   }
 
   async acceptPurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
-      confirmMessage = "¿Estás seguro que deseas regalar tu producto?";
+      confirmMessage = '¿Estás seguro que deseas regalar tu producto?';
     } else {
-      confirmMessage = "¿Estás seguro que deseas confirmar la compra?";
+      confirmMessage = '¿Estás seguro que deseas confirmar la compra?';
     }
     try {
       if (!confirm(confirmMessage)) {
@@ -223,9 +224,9 @@ export class ChatWindowComponent
         notification.compra.idCompra.toString()
       );
       if (this.productIsFree(notification)) {
-        notification.status = "Lo has regalado";
+        notification.status = 'Lo has regalado';
       } else {
-        notification.status = "Compra confirmada";
+        notification.status = 'Compra confirmada';
       }
     } catch (error) {
       console.error(error);
@@ -235,9 +236,9 @@ export class ChatWindowComponent
   async declinePurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
-      confirmMessage = "¿Estás seguro que no deseas regalar el producto?";
+      confirmMessage = '¿Estás seguro que no deseas regalar el producto?';
     } else {
-      confirmMessage = "¿Estás seguro que deseas cancelar la compra?";
+      confirmMessage = '¿Estás seguro que deseas cancelar la compra?';
     }
     try {
       if (!confirm(confirmMessage)) {
@@ -247,9 +248,9 @@ export class ChatWindowComponent
         notification.compra.idCompra.toString()
       );
       if (this.productIsFree(notification)) {
-        notification.status = "No lo has regalado";
+        notification.status = 'No lo has regalado';
       } else {
-        notification.status = "Compra rechazada";
+        notification.status = 'Compra rechazada';
       }
     } catch (error) {
       console.error(error);
@@ -258,11 +259,11 @@ export class ChatWindowComponent
 
   async acceptOffer(notification) {
     try {
-      if (!confirm("¿Estás seguro que deseas aceptar la oferta?")) return;
+      if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
       const response = await this.offerService.acceptOffer(
         notification.oferta.idOferta.toString()
       );
-      notification.status = "Oferta aceptada";
+      notification.status = 'Oferta aceptada';
     } catch (error) {
       console.error(error);
     }
@@ -270,11 +271,11 @@ export class ChatWindowComponent
 
   async declineOffer(notification) {
     try {
-      if (!confirm("¿Estás seguro que deseas rechazar la oferta?")) return;
+      if (!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
       const response = await this.offerService.declineOffer(
         notification.oferta.idOferta.toString()
       );
-      notification.status = "Oferta rechazada";
+      notification.status = 'Oferta rechazada';
     } catch (error) {
       console.error(error);
     }
@@ -289,11 +290,11 @@ export class ChatWindowComponent
 
   async regretOffer(notification) {
     try {
-      if (!confirm("¿Estás seguro que deseas cancelar la compra?")) return;
+      if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
       const response = await this.offerService.regretOffer(
         notification.oferta.idOferta.toString()
       );
-      notification.status = "Compra cancelada";
+      notification.status = 'Compra cancelada';
     } catch (error) {
       console.error(error);
     }

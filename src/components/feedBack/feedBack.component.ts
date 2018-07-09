@@ -30,21 +30,20 @@ export class FeedBackComponent implements OnInit {
 
   openModal(id: string) {
     if (this.checkSession()) {
-      this.router.navigate(
-        [`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`]);
+      if (this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`) {
         if (this.shareInfoChatService.getAdminConversation()) {
-          this.shareInfoChatService.setScrollDown(true);
-          this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
           this.shareInfoChatService.changeMessage(this.shareInfoChatService.getAdminConversation());
         }
+      }
+      this.router.navigate(
+        [`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`]);
+      if (this.shareInfoChatService.getAdminConversation()) {
+        this.shareInfoChatService.setScrollDown(true);
+        this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
+      }
     }else {
       this.modalService.open(id);
     }
-  }
-
-  get showFeedBack() {
-    return true;
-    //return this.currentUrl !== `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   }
 
   closeModal(id: string) {
