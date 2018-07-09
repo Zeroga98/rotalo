@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ShareInfoChatService } from '../../components/chat-thread/shareInfoChat.service';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'app-chat-page',
@@ -8,7 +10,8 @@ import { ShareInfoChatService } from '../../components/chat-thread/shareInfoChat
 })
 export class ChatPageComponent implements OnInit, OnDestroy {
   showSpinner:boolean = true;
-  constructor( private shareInfoChatService: ShareInfoChatService) { }
+  currentUrl = this.router.url;
+  constructor( private shareInfoChatService: ShareInfoChatService , private router: Router) { }
   screenWidth;
   showChatThreads = 'block';
   showChatWindow = 'blok';
@@ -29,7 +32,20 @@ export class ChatPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.onResize();
+    if (this.isFeedBackPage()) {
+      this.receiveOption();
+    }
+    this.shareInfoChatService.change.subscribe(isOpen => {
+      if (isOpen) {
+        this.receiveOption();
+      }
+    });
   }
+
+  isFeedBackPage() {
+    return this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`;
+  }
+
 
   ngOnDestroy(): void {
     this.shareInfoChatService.setIdConversation(undefined);

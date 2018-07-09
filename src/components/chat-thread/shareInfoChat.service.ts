@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { Observable } from "rxjs/Observable";
+import { Injectable, Output, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ShareInfoChatService {
   private messageInfoSource = new BehaviorSubject<any>(null);
   currentInfoMessage = this.messageInfoSource.asObservable();
+  @Output()  change: EventEmitter<boolean> = new EventEmitter();
 
   private newConversation;
   private idConversation;
@@ -13,7 +14,12 @@ export class ShareInfoChatService {
   private scrollDown = true;
   private adminThread;
 
+
   constructor() {}
+
+  feedBackAdmin() {
+    this.change.emit(true);
+  }
 
   changeMessage(messageInfo) {
     this.messageInfoSource.next(messageInfo);

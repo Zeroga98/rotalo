@@ -5,7 +5,7 @@
         bottom: 0;
         width: 100%;
         .container-form{
-            max-width: 235px;
+            max-width: 284px;
             width: 100%;
         }
         .container-logo{
@@ -42,6 +42,16 @@
         font-size: 1.2rem;
       }
     }
+}
+
+:host{
+  @media (max-width: 450px) {
+    .container{
+      .container-form{
+        max-width: 235px;
+      }
+    }
+  }
 }
 
 

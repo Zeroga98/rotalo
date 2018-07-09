@@ -41,6 +41,7 @@ export class FeedBackComponent implements OnInit {
         this.shareInfoChatService.setScrollDown(true);
         this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
       }
+      this.shareInfoChatService.feedBackAdmin();
     }else {
       this.modalService.open(id);
     }
