@@ -3,6 +3,7 @@ import { ProductsService } from './../../services/products.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../../router/routes';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: "product-edit",
@@ -16,7 +17,8 @@ export class ProductEditPage implements OnInit {
   constructor(
     private router: Router,
     private productsService: ProductsService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private currentSessionService: CurrentSessionService
   ) {}
 
   ngOnInit() {
@@ -26,8 +28,19 @@ export class ProductEditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      this.redirectIfisNotOwner(this.product);
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
+  }
+
+
+  redirectIfisNotOwner(product) {
+    const idUser = this.currentSessionService.getIdUser();
+    if (product.user.id !== idUser) {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
+    }
   }
 
   async updatePhoto(event) {

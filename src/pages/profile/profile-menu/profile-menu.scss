@@ -223,3 +223,13 @@
     }
   }
 }
+
+:host(){
+  @media (max-width: 1050px) {
+    .main {
+      .menu {
+        padding-left: 2%;
+      }
+    }
+  }
+}
