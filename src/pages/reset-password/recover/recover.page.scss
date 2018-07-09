@@ -9,7 +9,7 @@
     width: 100%;
   }
   form {
-    max-width: 235px;
+    max-width: 284px;
     margin: 0 auto;
     font-size: 1.6rem;
     .text--small {
@@ -57,4 +57,13 @@
     padding-top: 2rem;
   }
 
+}
+
+
+:host{
+  @media (max-width: 450px) {
+    form {
+      max-width: 235px;
+    }
+  }
 }

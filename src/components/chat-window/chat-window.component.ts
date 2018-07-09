@@ -157,7 +157,9 @@ export class ChatWindowComponent
       .sendMessage(params, this.userId)
       .subscribe(
         state => {
-          this.isSendMessage = true;
+          if (this.rol === 'admin') {
+            this.isSendMessage = true;
+          }
           this.formMessage.reset();
         },
         error => console.log(error)
