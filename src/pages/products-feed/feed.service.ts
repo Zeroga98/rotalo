@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class FeedService{
@@ -14,6 +14,8 @@ export class FeedService{
     private currentFilter: Object = undefined;
 
     private configFiltersSubcategory: Object = undefined;
+
+    @Output() change: EventEmitter<boolean> = new EventEmitter();
 
     constructor() {
         this.setCurrentFilter(this.initialFilter);
@@ -37,6 +39,10 @@ export class FeedService{
 
     getInitialFilter() {
         return this.initialFilter;
+    }
+
+    hideNoProductsMessage(){
+      this.change.emit(false);
     }
 
 }

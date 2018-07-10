@@ -58,6 +58,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   backTop: ElementRef;
   @ViewChild('masonryRef') masonryRef: any;
   private userId = this.currentSession.getIdUser();
+  private showMessage: boolean;
 
   constructor(
     private productsService: ProductsService,
@@ -87,6 +88,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.setScrollEvent();
+
+    this.feedService.change.subscribe(value =>{
+      this.showMessage = value;
+    });
   }
 
   ngOnDestroy(): void {
@@ -149,6 +154,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
       this.changeDetectorRef.markForCheck();
+    }
+
+    if (this.products.length <= 0) {
+      this.showMessage = true;
+    }else{
+      this.showMessage = false;
     }
 
     if (this.productsService.products.length > 0) {
