@@ -87,7 +87,6 @@ export class EditProfilePage implements OnInit {
   }
 
   get isFormValid(): boolean {
-    console.log(this.city);
     return this.city['id'] && this.editProfileForm.valid;
   }
 
