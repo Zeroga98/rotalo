@@ -129,11 +129,17 @@ export class SignUpPage implements OnInit {
   }
 
   get formIsInValid(): boolean {
+    console.log(this.selectIsCompleted());
     return this.registerForm.invalid || !this.selectIsCompleted();
   }
 
   private selectIsCompleted(): boolean {
-    return this.country && this.state && this.city;
+    if (this.country && this.state && this.city) {
+      if (this.country['id'] && this.state['id'] && this.city['id']) {
+        return true;
+      }
+    }
+    return false;
   }
 
   openTermsModal(): void {

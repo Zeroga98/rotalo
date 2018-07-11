@@ -6,7 +6,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ToolbarService } from './toolbar.service';
 import { read } from 'fs';
-import { FeedService } from '../../pages/products-feed/feed.service';
+
 
 @Component({
   selector: "toolbar",
@@ -33,8 +33,7 @@ export class ToolbarComponent implements OnInit {
     private userService: UserService,
     private render: Renderer2,
     private toolbarService:ToolbarService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private feedService: FeedService) {}
+    private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
     this.getCommunities();
@@ -60,7 +59,6 @@ export class ToolbarComponent implements OnInit {
       name = evt.target.options[evt.target.selectedIndex].text;
     }
     const id = evt.target.value;
-    this.feedService.hideNoProductsMessage();
     this.selectedCommunity.emit({ name, id });
   }
 

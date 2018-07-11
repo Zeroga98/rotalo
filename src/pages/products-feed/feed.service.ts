@@ -15,8 +15,6 @@ export class FeedService{
 
     private configFiltersSubcategory: Object = undefined;
 
-    @Output() change: EventEmitter<boolean> = new EventEmitter();
-
     constructor() {
         this.setCurrentFilter(this.initialFilter);
     }
@@ -40,9 +38,4 @@ export class FeedService{
     getInitialFilter() {
         return this.initialFilter;
     }
-
-    hideNoProductsMessage(){
-      this.change.emit(false);
-    }
-
 }

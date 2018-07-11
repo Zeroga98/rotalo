@@ -21,6 +21,13 @@ export class SelectCitiesComponent implements OnChanges {
     this.getCities();
   }
 
+  setInitialValuesCities() {
+    const name  = '';
+    const id = '';
+    this.currentCity = '';
+    this.selected.emit({name, id});
+  }
+
   async getCities() {
     if (this.state && this.state.id) {
         this.cities = await this.collectionService.getCitiesById(this.state.id);
@@ -32,18 +39,14 @@ export class SelectCitiesComponent implements OnChanges {
             this.currentCity = id;
             this.selected.emit({name, id});
           } else {
-            const name  = '';
-            const id = '';
-            this.currentCity = '';
-            this.selected.emit({name, id});
+            this.setInitialValuesCities();
           }
+        } else {
+          this.setInitialValuesCities();
         }
     }else {
-      const name  = '';
-      const id = '';
-      this.currentCity = '';
+      this.setInitialValuesCities();
       this.cities = [];
-      this.selected.emit({name, id});
     }
     this.changeDetectorRef.markForCheck();
   }
