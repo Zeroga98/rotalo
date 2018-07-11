@@ -103,6 +103,18 @@ export class MessagesService {
                 }
               }
           break;
+          case 'auction_assigned':
+          if (notification.oferta) {
+            switch (notification.oferta.arrepentido) {
+              case false:
+                status = 'Oferta aceptada';
+                break;
+              case true:
+                status = 'Oferta rechazada';
+                break;
+            }
+          }
+          break;
           case 'new_purchase':
               status = this.getStatusNewPurchase(notification.compra, notification.producto);
           break;

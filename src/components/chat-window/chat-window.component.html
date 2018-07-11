@@ -281,7 +281,8 @@
                             {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0) + ' pesos.'}}
                           </span>
                         </p>
-                        <small class="notification-date">{{message.fechaHora }}</small>
+                        <small class="notification-date">{{message.fechaHora}}</small>
+                        <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
                             <button (click)="buyProduct(message)" class="button button-secondary">Comprar</button>

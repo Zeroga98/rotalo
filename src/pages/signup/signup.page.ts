@@ -129,7 +129,6 @@ export class SignUpPage implements OnInit {
   }
 
   get formIsInValid(): boolean {
-    console.log(this.selectIsCompleted());
     return this.registerForm.invalid || !this.selectIsCompleted();
   }
 
