@@ -58,7 +58,7 @@
           </span>
       </div>
       <footer>
-          <div *ngIf="!showLink" class="btn-square">
+          <div  class="btn-reset" *ngIf="!showLink">
               <custom-button [disabled]="!changePasswordForm.valid"  type="submit" text="Guardar"></custom-button>
           </div>
           <a *ngIf="showLink" routerLink="/login">Ir al login</a>

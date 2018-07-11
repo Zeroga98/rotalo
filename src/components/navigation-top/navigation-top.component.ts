@@ -125,27 +125,16 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   private  setListenerMessagesUnread(userId) {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
-        this.messagesUnRead = state.body.cantidadNotificaciones;
-        this.notificationHobby = state.body.notificacionActIntereses;
-        this.navigationService.setNotificationHobbies(this.notificationHobby);
-        this.navigationService.setMessagesUnRead(this.messagesUnRead);
-        this.changeDetector.markForCheck();
-      },
-      error => console.log(error)
-    );
-    /*return setInterval(() => {
-      this.messagesService.getMessagesUnred(userId).subscribe(
-        state => {
+        if (state && state.body) {
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);
           this.navigationService.setMessagesUnRead(this.messagesUnRead);
-          this.changeDetector.markForCheck();
-        },
-        error => console.log(error)
-      );
-    }, this.timeToCheckNotification);*/
-
+        }
+        this.changeDetector.markForCheck();
+      },
+      error => console.log(error)
+    );
   }
 
   private goToFeed(id: number) {

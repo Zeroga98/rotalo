@@ -3,25 +3,23 @@
 :host {
   display: block;
   .container {
-    width: 50%;
-    margin: 5rem auto 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
+    max-width: 284px;
+    margin: 0 auto;
+    padding-top: 4rem;
   }
-  .zeta, p{
+  .zeta,
+  p {
     margin: 0;
     font-size: 1.6rem;
   }
-  p{
+  p {
     margin-bottom: 20px;
   }
   .alert-success {
     padding: 15px;
     background-color: #F2F2F2;
     color: #4A4A4A;
-    p{
+    p {
       margin: 0;
     }
   }
@@ -29,7 +27,6 @@
     color: #8DBA02;
     margin-right: 10px;
   }
-
   .alert-danger {
     padding: 15px;
     color: #ED2F3C;
@@ -37,13 +34,19 @@
     text-align: center;
     font-size: 1.6rem;
   }
-
   @media (max-width: 780px) {
     .container {
       width: 100%;
     }
   }
-  footer{
+
+  @media (max-width: 450px) {
+    form {
+      max-width: 235px;
+    }
+  }
+
+  footer {
     font-size: 2rem;
     text-align: center;
     margin-top: 30px;
@@ -53,16 +56,14 @@
       color: $red;
       cursor: pointer;
     }
-    a:hover{
+    a:hover {
       color: #bf111c;
       text-decoration: none;
     }
   }
-
-  .container-fluid{
+  .container-fluid {
     min-height: calc(100vh - 100px);
     padding-bottom: 7rem;
     padding-top: 2rem;
   }
-
 }

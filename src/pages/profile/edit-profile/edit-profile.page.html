@@ -29,7 +29,7 @@
         <image-upload
         [max]="1"
         [extensions]="['jpeg','png', 'jpg']"
-        [buttonCaption]="'Seleccionar Imagen'"
+        [buttonCaption]="'Seleccionar imagen'"
         [dropBoxMessage]="'Arrastra tu imagen aquí!'"
         [clearButtonCaption]="'Limpiar'"
         [style]="customStyleImageLoader"
@@ -88,8 +88,8 @@
         </div>
       </div>
       <footer>
-        <div class="btn-square">
-          <custom-button type="submit" text="Guardar Cambios" [disabled]="!isFormValid"></custom-button>
+        <div class="text--center">
+          <custom-button class="btn-max" type="submit" text="Guardar cambios" [disabled]="!isFormValid"></custom-button>
         </div>
       </footer>
     </form>

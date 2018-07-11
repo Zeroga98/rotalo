@@ -17,7 +17,7 @@
         <input [ngClass]="{'invalid': recoverForm.get('email').invalid && !recoverForm.get('email').pristine}" formControlName="email"
           maxlength="50" id="txt-email" type="email" class="form-control" placeholder="E-mail">
       </div>
-      <div class="texto btn-square">
+      <div>
         <custom-button [disabled]="!recoverForm.valid" type="submit" text="Enviar"></custom-button>
       </div>
     </form>
