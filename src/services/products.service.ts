@@ -5,6 +5,8 @@ import { ConfigurationService } from "../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 import { UserService } from './user.service';
 import { ProductInterface } from '../commons/interfaces/product.interface';
+import { Router } from "@angular/router";
+import { ROUTES } from "../router/routes";
 
 @Injectable()
 export class ProductsService {
@@ -18,7 +20,8 @@ export class ProductsService {
     constructor(
       private http: HttpClient,
       private configurationService: ConfigurationService,
-      private userService: UserService
+      private userService: UserService,
+      private router: Router,
     ) {}
 
     getProducts(params): Promise<any> {
@@ -145,6 +148,10 @@ export class ProductsService {
         this.currentPage = currentPage;
     }
 
+    setProducts (products) {
+      this.products = products;
+    }
+
     getProductLocation() {
       if (document && this.scroll) {
         if (document.getElementById(this.scroll)) {
@@ -153,4 +160,6 @@ export class ProductsService {
 
     }
   }
+
+
 }

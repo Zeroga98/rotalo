@@ -154,7 +154,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
     if (this.products.length <= 0) {
       this.showAnyProductsMessage = true;
-    }else{
+    }else {
       this.showAnyProductsMessage = false;
     }
 

@@ -91,7 +91,7 @@
         </div>
       </div>
     </div>
-    <div class="product-btn" *ngIf="!readOnly">
+    <div class="product-btn" *ngIf="!readOnly && showButtons">
       <div class="product-btns">
         <div class="info-center" *ngIf="isSellProcess() && !validateSession()">
           <label>Producto en proceso de venta</label>

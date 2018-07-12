@@ -273,7 +273,6 @@ import { NotificationConfirmation } from '../pages/notification-confirmation/not
     HobbiesService,
     FrequentlyAskedQuestionsService,
     ModalFeedBackService,
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

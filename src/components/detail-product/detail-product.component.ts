@@ -55,6 +55,7 @@ export class DetailProductComponent implements OnInit {
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+  public  showButtons = false;
 
   constructor(
     private productsService: ProductsService,
@@ -74,6 +75,7 @@ export class DetailProductComponent implements OnInit {
     });
     this.loadProduct();
   }
+
 
   visitorCounter() {
     this.productsService.visitorCounter(this.products.id).subscribe((response) => {
@@ -168,6 +170,7 @@ export class DetailProductComponent implements OnInit {
         this.idProduct
       );
       this.onLoadProduct(this.products);
+      this.productIsSold(this.products);
       if (this.products.photos !== undefined) {
         this.productsPhotos = [].concat(this.products.photos);
         this.products.photos = this.productsPhotos;
@@ -186,6 +189,14 @@ export class DetailProductComponent implements OnInit {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
+    }
+  }
+
+  productIsSold(product) {
+    if (product.status && product.status === 'sold') {
+      this.showButtons = false;
+    } else {
+      this.showButtons = true;
     }
   }
 

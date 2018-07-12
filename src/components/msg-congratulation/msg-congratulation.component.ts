@@ -1,5 +1,6 @@
 import { ROUTES } from './../../router/routes';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'msg-congratulation',
@@ -9,13 +10,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class MsgCongratulationComponent implements OnInit {
   routeHome:string = `/${ROUTES.PRODUCTS.LINK}`;
-  constructor() { }
+  constructor( private productsService: ProductsService) { }
 
   ngOnInit() {
   }
 
   onReload() {
-    location.reload();
+    this.productsService.setProducts([]);
   }
 
 }
