@@ -38,6 +38,9 @@
         }
         .modal__footer{
             padding: 1rem 2.5rem;
+            .btn-max{
+              min-width: 250px;
+            }
         }
     }
 }

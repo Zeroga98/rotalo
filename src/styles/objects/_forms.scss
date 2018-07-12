@@ -1,3 +1,7 @@
+$colors: #33D7C7, #5C2D8B ,#DBB202, #D3609F, #EC6531, #41B5CB,
+#F3A643, #B1CF4A, #9D47DE;
+
+
 .form-theme {
     .form-control {
         display: block;
@@ -59,6 +63,19 @@
     }
 }
 
+rl-tag-input-item {
+  color: white;
+  .ng2-tag-input-remove{
+    background: white!important;
+    color: #a6a6a6 !important;
+  }
+}
+
+@for $i from 1 through length($colors) {
+  rl-tag-input-item:nth-child(#{length($colors)}n+#{$i}) {
+      background: nth($colors, $i);
+  }
+}
 
 
 
