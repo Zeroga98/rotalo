@@ -19,16 +19,10 @@
         </ul>
       </div>
     </div>
-    <div class="container-prev-photos" *ngIf="showPhotoEdit">
-      <div class="prev-photos" >
-        <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
-        <div class="container-img"><img [src]="photo?.url"></div>
-      </div>
-    </div>
-    <strong>{{maxNumberImg}}</strong>
+
     <div>
         <image-upload
-        [max]="maxNumberImg"
+        [max]="1"
         [extensions]="['jpeg','png', 'jpg']"
         [buttonCaption]="'Seleccionar imagen'"
         [dropBoxMessage]="'Arrastra tu imagen aquí!'"

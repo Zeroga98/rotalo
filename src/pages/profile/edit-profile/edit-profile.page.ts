@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormBuilder,
@@ -11,6 +11,7 @@ import { UtilsService } from '../../../util/utils.service';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
+
 
 @Component({
   selector: 'edit-profile',
@@ -81,6 +82,10 @@ export class EditProfilePage implements OnInit {
       const photo = this.findPhoto(event.file);
       const response = await this.photosService.deletePhotoById(photo.id);
       this.removePhoto(photo.id);
+      this.idImagenProfile = undefined;
+      this.userService.emitChangePhoto(undefined);
+      this.messageChange = '';
+      this.errorChange = '';
     } catch (error) {
       console.error('error: ', error);
     }
@@ -102,11 +107,14 @@ export class EditProfilePage implements OnInit {
   async onUploadImageFinished(event) {
     try {
       this.loadImage = true;
+      this.messageChange = '';
+      this.errorChange = '';
       const response = await this.photosService.updatePhoto(event.file);
       this.idImagenProfile = response.id;
       this.photo = response;
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
+      this.userService.emitChangePhoto(this.photo);
       this.loadImage = false;
     } catch (error) {
       this.loadImage = false;
@@ -143,15 +151,10 @@ export class EditProfilePage implements OnInit {
   editUser(): void {
     let infoUser;
     if (this.idImagenProfile) {
-      infoUser = Object.assign(
-        {},
-        this.editProfileForm.value,
-        { 'city-id': this.city['id'] },
-        { 'photo-id': this.idImagenProfile }
-      );
+      infoUser = Object.assign({}, this.editProfileForm.value, { 'city-id': this.city['id'] }, { 'photo-id': this.idImagenProfile });
     } else {
       infoUser = Object.assign({}, this.editProfileForm.value, {
-        'city-id': this.city['id']
+        "city-id": this.city["id"]
       });
     }
     const currentUser = {
@@ -164,8 +167,6 @@ export class EditProfilePage implements OnInit {
     this.userService
       .updateUser(currentUser)
       .then(response => {
-        this.messageChange = 'Su cuenta se ha actualizado.';
-        this.errorChange = '';
         const updateCountry = this.currentSessionSevice.currentUser();
         updateCountry['countryId'] = this.country['id'];
         this.currentSessionSevice.setSession(updateCountry);
@@ -173,7 +174,8 @@ export class EditProfilePage implements OnInit {
         this.countryValue = this.country;
         this.stateValue = Object.assign({}, this.state, {'country': this.countryValue } );
         this.cityValue = Object.assign({},  this.city, {'state': this.stateValue } );
-
+        this.messageChange = 'Su cuenta se ha actualizado.';
+        this.errorChange = '';
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';

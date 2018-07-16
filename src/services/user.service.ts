@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { UserInterface } from "./../commons/interfaces/user.interface";
-import { Injectable } from "@angular/core";
+import { Injectable, Output, EventEmitter } from "@angular/core";
 import { ConfigurationService } from "../services/configuration.service";
 import { CurrentSessionService } from "../services/current-session.service";
 import { UserRequestInterface } from "../commons/interfaces/user-request.interface";
@@ -10,12 +10,17 @@ export class UserService {
   readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
   currentUser: UserInterface;
   idUser: string;
+  @Output() changePhoto: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService,
     private currentSessionService: CurrentSessionService
   ) {
+  }
+
+  emitChangePhoto(photo) {
+    this.changePhoto.emit(photo);
   }
 
   async getCommunityUser(): Promise<any> {

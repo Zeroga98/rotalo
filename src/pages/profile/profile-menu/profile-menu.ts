@@ -36,9 +36,10 @@ export class ProfileMenu implements OnInit {
   }
 
   constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService,
-    private currentSession: CurrentSessionService, public router: Router, private navigationService: NavigationService) {
+    private currentSession: CurrentSessionService, public router: Router, private navigationService: NavigationService)
+    {
     this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
-   }
+    }
 
   ngOnInit() {
     this.getUserInfo();
@@ -46,6 +47,13 @@ export class ProfileMenu implements OnInit {
     this.router.events.subscribe((val) => {
       this.validateMobileMenu();
     });
+    this.userService.changePhoto.subscribe(response => {
+      this.userInfo.photo = response;
+      if (response  && response.url) {
+        this.photoUrl = this.userInfo.photo.url;
+      }
+    });
+
   }
 
   validateMobileMenu() {

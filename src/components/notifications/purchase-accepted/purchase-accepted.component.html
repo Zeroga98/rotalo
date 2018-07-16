@@ -6,7 +6,7 @@
         </span>
         <span>ha confirmado tu compra</span>
         <span class="highlight bold clickable" (click)="goToDetail(notification.producto.idProducto)">
-            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto  | currency:'$':0) + ' pesos.'}}
+            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto  | currency:'$':0 | removeDigits) + ' pesos.'}}
         </span>
     </p>
     <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
@@ -14,7 +14,7 @@
         <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
         <span>el artículo</span>
         <span class="highlight bold clickable">
-            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0) + ' pesos.'}}
+            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
         </span>
     </p>
     <small class="notification-date">
