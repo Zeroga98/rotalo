@@ -15,4 +15,4 @@ export const IMAGE_LOAD_STYLES = {
         "padding": "1rem 2rem",
         "text-transform": "none",
     },
-}
+};

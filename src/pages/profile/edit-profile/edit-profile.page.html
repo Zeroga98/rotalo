@@ -25,9 +25,10 @@
         <div class="container-img"><img [src]="photo?.url"></div>
       </div>
     </div>
+    <strong>{{maxNumberImg}}</strong>
     <div>
         <image-upload
-        [max]="1"
+        [max]="maxNumberImg"
         [extensions]="['jpeg','png', 'jpg']"
         [buttonCaption]="'Seleccionar imagen'"
         [dropBoxMessage]="'Arrastra tu imagen aquí!'"
