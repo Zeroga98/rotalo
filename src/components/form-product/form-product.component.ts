@@ -15,6 +15,7 @@ import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../util/utils.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { ImageUploadComponent } from 'angular2-image-upload';
 
 @Component({
   selector: 'form-product',
@@ -26,6 +27,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   @Input() product: ProductInterface;
   @Output() publish: EventEmitter<any> = new EventEmitter();
   @ViewChild('categorySelect', { read: ElementRef }) categorySelectElem: ElementRef;
+  @ViewChild('imageInput') imageInput: ImageUploadComponent;
   photosForm: FormGroup;
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];
@@ -43,7 +45,11 @@ export class FormProductComponent implements OnInit, OnChanges {
   maxDate: string;
   errorUploadImg = false;
   countryId;
-  maxNumberImg = 6;
+  readonly maxNumberPhotos: number = 6;
+  maxNumberImg = this.maxNumberPhotos;
+  showLoadSpinner = false;
+
+
   constructor(
     private router: Router,
     private currentSessionSevice: CurrentSessionService,
@@ -133,27 +139,61 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.publish.emit(params);
   }
 
-  onUploadImageFinished(event) {
-      this.errorUploadImg = false;
+  async onUploadImageFinished(event) {
+     /* this.errorUploadImg = false;
+      this.showLoadSpinner = true;
       this.utilsService.getOrientation(event.file, function (orientation) {
         this.utilsService.resetOrientation(event.src, orientation, async function (resetBase64Image) {
           try {
             event.src = resetBase64Image;
             const response = await this.photosService.updatePhoto(event.file);
+            this.showLoadSpinner = false;
             const photo = Object.assign({}, response, { file: event.file });
             this.photosUploaded.push(photo);
-            if (this.maxNumberImg > 0) {
-              this.maxNumberImg--;
-            }
             this.changeDetectorRef.markForCheck();
           } catch (error) {
             this.errorUploadImg = true;
+            this.showLoadSpinner = false;
             console.error('Error: ', error);
             this.changeDetectorRef.markForCheck();
           }
         }.bind(this));
-      }.bind(this));
+      }.bind(this));*/
+      this.errorUploadImg = false;
+      try {
+        this.showLoadSpinner = true;
+        console.log(this.showLoadSpinner);
+        const response = await this.photosService.updatePhoto(event.file);
+        const photo = Object.assign({}, response, { file: event.file });
+        this.photosUploaded.push(photo);
+        this.showLoadSpinner = false;
+        console.log(response);
+        console.log(this.showLoadSpinner);
+        this.changeDetectorRef.markForCheck();
+      } catch (error) {
+        this.errorUploadImg = true;
+        this.showLoadSpinner = false;
+        console.error('Error: ', error);
+        this.changeDetectorRef.markForCheck();
+      }
   }
+
+  onRemovePreviewImage(photo) {
+    const photoFile = this.findPhotoWithId(photo.file);
+    if (photoFile) {
+      this.imageInput.deleteFile(photoFile);
+    }
+    if (photo && photo.id) {
+      this.removeImageFromServer(photo.id);
+    }
+  }
+
+ private findPhotoWithId(file) {
+   return this.imageInput.files.find(inputFile => {
+    return inputFile.file != file;
+    });
+  }
+
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.id); }
@@ -165,7 +205,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     try {
       const response = await this.photosService.deletePhotoById(id);
       this.removePhoto(id);
-      this.maxNumberImg++;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);
@@ -341,13 +380,25 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private saveInitialPhotos(photos) {
     this.photosUploaded = [].concat(photos);
-    if (this.maxNumberImg > 0) {
+    if (this.maxNumberImg > 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberImg - this.photosUploaded.length;
     }
+    console.log(this.photosUploaded);
   }
 
   private removePhoto(id: number) {
     this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
+    console.log(this.imageInput.files.length);
+
+    if (this.maxNumberImg >= 0 && this.maxNumberImg <= this.maxNumberPhotos) {
+      this.maxNumberImg = this.maxNumberPhotos - (this.photosUploaded.length - this.imageInput.files.length ) ;
+    }
+
+    /*if (this.maxNumberImg >= 0 && this.maxNumberImg <= this.maxNumberPhotos) {
+      this.maxNumberImg = this.maxNumberPhotos - this.photosUploaded.length;
+    }
+    console.log(this.imageInput.files);
+    console.log(this.photosUploaded);*/
   }
 
   private defineSubastaTimes(){

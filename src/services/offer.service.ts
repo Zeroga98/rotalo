@@ -20,12 +20,12 @@ export class OfferService {
     }
 
     regretOffer(id: number){
-        this.sendResponseOffer(id,'regret');
+        this.sendResponseOffer(id, 'regret');
     }
 
     private sendResponseOffer(id: number, action:string){
         const url = `${this.url}/${id}/${action}`;
-        return this.httpClient.post(url,{
+        return this.httpClient.post(url, {
             data: {
                 id,
                 type: 'offers'

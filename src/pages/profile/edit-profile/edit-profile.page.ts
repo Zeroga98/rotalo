@@ -83,7 +83,7 @@ export class EditProfilePage implements OnInit {
       const response = await this.photosService.deletePhotoById(photo.id);
       this.removePhoto(photo.id);
       this.idImagenProfile = undefined;
-      this.userService.emitChangePhoto(undefined);
+     /* this.userService.emitChangePhoto(undefined);*/
       this.messageChange = '';
       this.errorChange = '';
     } catch (error) {
@@ -114,7 +114,6 @@ export class EditProfilePage implements OnInit {
       this.photo = response;
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
-      this.userService.emitChangePhoto(this.photo);
       this.loadImage = false;
     } catch (error) {
       this.loadImage = false;
@@ -176,6 +175,7 @@ export class EditProfilePage implements OnInit {
         this.cityValue = Object.assign({},  this.city, {'state': this.stateValue } );
         this.messageChange = 'Su cuenta se ha actualizado.';
         this.errorChange = '';
+        this.userService.emitChangePhoto(this.photo);
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';

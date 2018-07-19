@@ -30,7 +30,7 @@ export class OfferModalComponent implements OnInit {
 
   async sendOffer() {
     const price = this.priceInput.nativeElement.value;
-    if(this.validForm(price)){
+    if(this.validForm(price)) {
       try {
         const response = await this.offerService.sendOffer({
           amount: price,
@@ -40,16 +40,16 @@ export class OfferModalComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
       } catch (error) {}
     }
-    
+
   }
 
   validForm(price: number): boolean{
-    if(price.toString() == '' || price == null){
+    if (price.toString() == '' || price == null){
       this.setErrorForm(true, 'Debes ingresar una oferta');
       return false;
     }
-    if(this.config.type === "SUBASTA"){
-      if(price < this.minValue){
+    if(this.config.type === "SUBASTA") {
+      if(price < this.minValue) {
         this.setErrorForm(true, `La oferta debe ser mayor o igual a ${this.minValue}`);
         return false;
       };

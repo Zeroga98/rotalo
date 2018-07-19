@@ -39,6 +39,8 @@
         }
       }
       .container-prev-photos {
+        min-height: 10px;
+        position: relative;
         margin-bottom: 3rem;
         .prev-photos {
           position: relative;
@@ -185,6 +187,21 @@
   }
   select{
     background-position: 99% center;
+  }
+  custom-spinner{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .load-photos > .prev-photos{
+    opacity: 0.5;
+    filter: alpha(opacity=50);
   }
 }
 

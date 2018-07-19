@@ -11,15 +11,20 @@
           <span class="number">1. </span>Escoge las imágenes perfectas, mira algunos tips.
           <span (click) ="openModal()" class="util-modal icon-light vertical-align--middle"></span>
         </div>
-        <div class="container-prev-photos" *ngIf="product">
+
+        <div [ngClass]="{'load-photos': showLoadSpinner}" class="container-prev-photos" *ngIf="photosUploaded">
+          <custom-spinner *ngIf="showLoadSpinner" ></custom-spinner>
           <div class="prev-photos" *ngFor="let photo of photosUploaded">
-            <div class="remove-action"><span class="icon-close" (click)="removeImageFromServer(photo.id)"></span></div>
+            <div class="remove-action"><span class="icon-close" (click)="onRemovePreviewImage(photo)"></span></div>
             <div class="container-img"><img [src]="photo?.url"></div>
           </div>
         </div>
         <div>
+          {{maxNumberImg}}
           <image-upload
           [max]="maxNumberImg"
+          #imageInput
+          [preview]="false"
           [extensions]="['jpeg','png', 'jpg']"
           [buttonCaption]="'Seleccionar imágenes'"
           [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
