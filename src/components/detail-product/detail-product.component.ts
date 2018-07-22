@@ -73,6 +73,7 @@ export class DetailProductComponent implements OnInit {
     this.sendInfoProduct = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)])
     });
+
     this.loadProduct();
   }
 
@@ -351,11 +352,15 @@ export class DetailProductComponent implements OnInit {
   }
 
   private configurarModal(product: ProductInterface) {
+    const userName = this.currentSessionSevice.currentUser().name;
     this.configModal = {
+      emailVendedor: product.user.email,
+      nombreVendedor: product.user.name,
+      nombreOfertador: userName,
+      idProducto: product.id,
+      nombreProducto: product.name,
       photo: product.photos[0].url,
-      title: product.name,
       price: product.price,
-      'product-id': product.id,
       type: product['sell-type']
     };
   }

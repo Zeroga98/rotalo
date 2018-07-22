@@ -30,7 +30,8 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('productos')
       && !req.url.includes('centro')
       && !req.url.includes('general')
-      && !req.url.includes('get_communities');
+      && !req.url.includes('get_communities')
+      && !req.url.includes('ofertas');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {

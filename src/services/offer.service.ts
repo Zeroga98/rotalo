@@ -4,42 +4,28 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class OfferService {
-    private readonly url = this.configurationService.getBaseUrl() + '/offers';
+    private readonly url = this.configurationService.getBaseSapiUrl() + '/ofertas';
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
     sendOffer(params): Promise<any> {
-        return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
+        return this.httpClient.post(this.url, params).toPromise();
     }
 
-    acceptOffer(id: number){
-        this.sendResponseOffer(id, 'accept');
+    acceptOffer(id: number , params) {
+        this.sendResponseOffer(id, 'aceptar', params);
     }
 
-    declineOffer(id: number){
-        this.sendResponseOffer(id, 'decline');
+    declineOffer(id: number, params) {
+        this.sendResponseOffer(id, 'rechazar', params);
     }
 
-    regretOffer(id: number){
-        this.sendResponseOffer(id, 'regret');
+    regretOffer(id: number, params) {
+        this.sendResponseOffer(id, 'arrepentir', params);
     }
 
-    private sendResponseOffer(id: number, action:string){
+    private sendResponseOffer(id: number, action: string, params) {
         const url = `${this.url}/${id}/${action}`;
-        return this.httpClient.post(url, {
-            data: {
-                id,
-                type: 'offers'
-            }
-        }).toPromise();
-    }
-
-    private buildParams(params): any {
-        return {
-            data: {
-                attributes: params,
-                type: 'offers'
-            }
-        };
+        return this.httpClient.put(url, params).toPromise();
     }
 
 }

@@ -162,13 +162,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.errorUploadImg = false;
       try {
         this.showLoadSpinner = true;
-        console.log(this.showLoadSpinner);
+
         const response = await this.photosService.updatePhoto(event.file);
         const photo = Object.assign({}, response, { file: event.file });
         this.photosUploaded.push(photo);
         this.showLoadSpinner = false;
-        console.log(response);
-        console.log(this.showLoadSpinner);
+
         this.changeDetectorRef.markForCheck();
       } catch (error) {
         this.errorUploadImg = true;
@@ -186,11 +185,12 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (photo && photo.id) {
       this.removeImageFromServer(photo.id);
     }
+    this.changeDetectorRef.markForCheck();
   }
 
  private findPhotoWithId(file) {
    return this.imageInput.files.find(inputFile => {
-    return inputFile.file != file;
+    return inputFile.file === file;
     });
   }
 

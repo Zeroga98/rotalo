@@ -259,11 +259,27 @@ export class ChatWindowComponent
     }
   }
 
+  private buildParamsOffer(notification): any {
+    let esSubasta = false;
+    if (notification.producto.tipoVenta === 'SUBASTA') {
+      esSubasta = true;
+    }
+    return {
+      'emailOfertador': 'diego.gamez+ofertador3@pragma.com.co',
+      'nombreOfertador': notification.oferta.nombreUsuario,
+      'nombreVendedor': notification.producto.nombreUsuario ,
+      'montoOferta':  notification.oferta.monto ,
+      'nombreProducto': notification.producto.nombreProducto,
+      'esSubasta': esSubasta
+      };
+  }
+
+
   async acceptOffer(notification) {
     try {
-      if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
+      if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return ;
       const response = await this.offerService.acceptOffer(
-        notification.oferta.idOferta.toString()
+        notification.oferta.idOferta.toString(), this.buildParamsOffer(notification)
       );
       notification.status = 'Oferta aceptada';
     } catch (error) {
@@ -272,10 +288,10 @@ export class ChatWindowComponent
   }
 
   async declineOffer(notification) {
-    try {
+   try {
       if (!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
       const response = await this.offerService.declineOffer(
-        notification.oferta.idOferta.toString()
+        notification.oferta.idOferta.toString(), this.buildParamsOffer(notification)
       );
       notification.status = 'Oferta rechazada';
     } catch (error) {
@@ -283,23 +299,34 @@ export class ChatWindowComponent
     }
   }
 
+  private buildParamsRegretOffer(notification): any {
+    return {
+      'emailVendedor': '',
+      'nombreVendedor': notification.producto.nombreUsuario ,
+      'nombreProducto': notification.producto.nombreProducto,
+      'montoOferta':  notification.oferta.monto ,
+      'nombreOfertador': notification.oferta.nombreUsuario,
+      };
+  }
+
+
+  async regretOffer(notification) {
+    try {
+        if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
+        const response = await this.offerService.regretOffer(
+          notification.oferta.idOferta.toString() , this.buildParamsRegretOffer(notification)
+        );
+        notification.status = 'Compra cancelada';
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
   buyProduct(mensaje) {
     const id = mensaje.producto.idProducto;
     this.router.navigate([
       `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.BUY}/${id}`
     ]);
-  }
-
-  async regretOffer(notification) {
-    try {
-      if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
-      const response = await this.offerService.regretOffer(
-        notification.oferta.idOferta.toString()
-      );
-      notification.status = 'Compra cancelada';
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   republish(notification) {
