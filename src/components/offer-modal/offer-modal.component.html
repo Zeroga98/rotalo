@@ -32,6 +32,6 @@
 	</div>
 	<div modal-footer class="container-actions" *ngIf="!isReadyResponse">
   <!--<custom-button text="Confirmar Oferta" (click)="sendOffer()" [disabled]="!isPriceCorrect"></custom-button>-->
-  		<custom-button class="gtmHacerOfertConfirmOfert" text="Confirmar Oferta" (click)="sendOffer()"></custom-button>
+  		<custom-button [buttonClass]="'gtmHacerOfertConfirmOfert primary'" class="gtmHacerOfertConfirmOfert" text="Confirmar Oferta" (click)="sendOffer()"></custom-button>
 	</div>
 </custom-modal>
