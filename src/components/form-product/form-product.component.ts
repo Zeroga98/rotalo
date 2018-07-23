@@ -47,7 +47,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   countryId;
   readonly maxNumberPhotos: number = 6;
   maxNumberImg = this.maxNumberPhotos;
-  showLoadSpinner = false;
+  photosCounter = 0;
 
 
   constructor(
@@ -139,7 +139,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.publish.emit(params);
   }
 
-  async onUploadImageFinished(event) {
+   onUploadImageFinished(event) {
      /* this.errorUploadImg = false;
       this.showLoadSpinner = true;
       this.utilsService.getOrientation(event.file, function (orientation) {
@@ -160,22 +160,24 @@ export class FormProductComponent implements OnInit, OnChanges {
         }.bind(this));
       }.bind(this));*/
       this.errorUploadImg = false;
-      try {
-        this.showLoadSpinner = true;
-        console.log(this.showLoadSpinner);
-        const response = await this.photosService.updatePhoto(event.file);
-        const photo = Object.assign({}, response, { file: event.file });
-        this.photosUploaded.push(photo);
-        this.showLoadSpinner = false;
-        console.log(response);
-        console.log(this.showLoadSpinner);
-        this.changeDetectorRef.markForCheck();
-      } catch (error) {
-        this.errorUploadImg = true;
-        this.showLoadSpinner = false;
-        console.error('Error: ', error);
-        this.changeDetectorRef.markForCheck();
-      }
+      this.photosCounter++;
+      this.photosService.updatePhoto(event.file).subscribe(
+        (response) => {
+          const photo = Object.assign({}, response, { file: event.file });
+          this.photosUploaded.push(photo);
+          this.changeDetectorRef.markForCheck();
+        },
+        (error) => {
+          this.errorUploadImg = true;
+          this.changeDetectorRef.markForCheck();
+        },
+        () => {
+          if ( this.photosCounter > 0) {
+            this.photosCounter-- ;
+          }
+        }
+      );
+
   }
 
   onRemovePreviewImage(photo) {
@@ -190,7 +192,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
  private findPhotoWithId(file) {
    return this.imageInput.files.find(inputFile => {
-    return inputFile.file != file;
+    return inputFile.file == file;
     });
   }
 
@@ -233,7 +235,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   subcategoryIsVehicle(): boolean {
-    /**No quemar 'Carros' */
     const subcategoryValue = this.photosForm.get('subcategory-id').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
@@ -383,22 +384,13 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (this.maxNumberImg > 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberImg - this.photosUploaded.length;
     }
-    console.log(this.photosUploaded);
   }
 
   private removePhoto(id: number) {
     this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
-    console.log(this.imageInput.files.length);
-
     if (this.maxNumberImg >= 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberPhotos - (this.photosUploaded.length - this.imageInput.files.length ) ;
     }
-
-    /*if (this.maxNumberImg >= 0 && this.maxNumberImg <= this.maxNumberPhotos) {
-      this.maxNumberImg = this.maxNumberPhotos - this.photosUploaded.length;
-    }
-    console.log(this.imageInput.files);
-    console.log(this.photosUploaded);*/
   }
 
   private defineSubastaTimes(){
