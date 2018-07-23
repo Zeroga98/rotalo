@@ -104,7 +104,7 @@ export class EditProfilePage implements OnInit {
     }
   }
 
-  async onUploadImageFinished(event) {
+  /*async onUploadImageFinished(event) {
     try {
       this.loadImage = true;
       this.messageChange = '';
@@ -119,6 +119,25 @@ export class EditProfilePage implements OnInit {
       this.loadImage = false;
       console.error('Error: ', error);
     }
+  }*/
+
+  onUploadImageFinished(event) {
+    this.loadImage = true;
+    this.messageChange = '';
+    this.errorChange = '';
+    this.photosService.updatePhoto(event.file).subscribe(
+      (response) => {
+        this.idImagenProfile = response.id;
+        this.photo = response;
+        const photo = Object.assign({}, response, { file: event.file });
+        this.photosUploaded.push(photo);
+        this.loadImage = false;
+      },
+      (error) => {
+        this.loadImage = false;
+        console.error('Error: ', error);
+      }
+    );
   }
 
   private findPhoto(file: File) {
