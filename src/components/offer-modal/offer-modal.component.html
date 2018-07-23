@@ -30,8 +30,8 @@
 			<span>Tu oferta ha sido enviada</span>
 		</div>
 	</div>
-	<div modal-footer class="container-actions" *ngIf="!isReadyResponse">
+	<div modal-footer class="text--center container-actions" *ngIf="!isReadyResponse">
   <!--<custom-button text="Confirmar Oferta" (click)="sendOffer()" [disabled]="!isPriceCorrect"></custom-button>-->
-  		<custom-button class="gtmHacerOfertConfirmOfert" text="Confirmar oferta" (click)="sendOffer()"></custom-button>
+  		<custom-button [buttonClass]="'gtmHacerOfertConfirmOfert primary'" class="btn-max gtmHacerOfertConfirmOfert" text="Confirmar oferta" (click)="sendOffer()"></custom-button>
 	</div>
 </custom-modal>
