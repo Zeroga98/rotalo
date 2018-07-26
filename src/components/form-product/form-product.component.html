@@ -59,13 +59,7 @@
                   <option *ngIf="isColombia" value="COP">COP</option>
                   <option *ngIf="!isColombia" value="'USD'">USD</option>
                 </select>
-                <div class="check-offer">
-                  <label for="checkTerms" class="container-check">
-                      <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
-                      <span class="checkmark"></span>
-                  </label>
-                  <span>Recibo ofertas</span>
-                </div>
+
             </div>
             <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
                 Este campo es obligatorio.
@@ -140,7 +134,7 @@
         </div>
       </div>
       <div class="actions-form">
-        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" [disabled]="formIsInValid"></custom-button>
+        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" ></custom-button>
       </div>
     </form>
   </div>
