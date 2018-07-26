@@ -56,6 +56,7 @@ export class DetailProductComponent implements OnInit {
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   public  showButtons = false;
+  readonly defaultImage: string = '../assets/img/product-no-image.png';
 
   constructor(
     private productsService: ProductsService,
@@ -215,8 +216,8 @@ export class DetailProductComponent implements OnInit {
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-    ? (this.productChecked = "active")
-    : (this.productChecked = "inactive");
+    ? (this.productChecked = 'active')
+    : (this.productChecked = 'inactive');
     const params = {
       estado: this.productStatus ? 'active' : 'inactive'
     };
@@ -351,12 +352,13 @@ export class DetailProductComponent implements OnInit {
   }
 
   private configurarModal(product: ProductInterface) {
-    this.configModal = {
-      photo: product.photos[0].url,
-      title: product.name,
-      price: product.price,
-      'product-id': product.id,
-      type: product['sell-type']
-    };
+      this.configModal = {
+        photo: product.photos ? product.photos[0].url : this.defaultImage,
+        title: product.name,
+        price: product.price,
+        'product-id': product.id,
+        type: product['sell-type']
+      };
+
   }
 }
