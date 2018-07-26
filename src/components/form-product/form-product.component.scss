@@ -172,6 +172,11 @@
         background-color: #d4dbe0;
         opacity: 1;
       }
+
+      .price-container {
+        display: block;
+        width: 100%;
+      }
     }
   }
   .date-label{
@@ -251,4 +256,22 @@
       }
     }
   }
+}
+
+
+.form-theme {
+  .form-control.ng-touched.ng-invalid, select.ng-touched.ng-invalid{
+      border-bottom-color: $red;
+      & ~ .error-msg{
+        position: absolute;
+        width: 100%;
+      }
+  }
+  .error-msg{
+      display: none;
+  }
+}
+
+.form-theme .form-control.ng-touched.ng-invalid ~ .error-msg{
+  display: block;
 }

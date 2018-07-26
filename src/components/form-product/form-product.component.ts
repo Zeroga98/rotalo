@@ -42,6 +42,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   minDate: string;
   maxDate: string;
   errorUploadImg = false;
+  errorMaxImg = false;
   countryId;
   constructor(
     private router: Router,
@@ -102,38 +103,60 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    const photosIds = { 'photo-ids': this.getPhotosIds() };
-    let dateMoment: any;
+    if (!this.formIsInValid) {
+      const photosIds = { 'photo-ids': this.getPhotosIds() };
+      let dateMoment: any;
 
-    if (this.photosForm.value['publish-until'].formatted) {
-      dateMoment = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
-      dateMoment = dateMoment.toDate();
-    }else {
-      this.photosForm.value['publish-until'].date.month = this.photosForm.value['publish-until'].date.month - 1;
-      dateMoment = moment(this.photosForm.value['publish-until'].date).format('YYYY-MM-DD');
-    }
-    let dataAdditional;
-    if (this.photosForm.get('sell-type').value === 'SUBASTA') {
+      if (this.photosForm.value['publish-until'].formatted) {
+        dateMoment = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
+        dateMoment = dateMoment.toDate();
+      } else {
+        this.photosForm.value['publish-until'].date.month = this.photosForm.value['publish-until'].date.month - 1;
+        dateMoment = moment(this.photosForm.value['publish-until'].date).format('YYYY-MM-DD');
+      }
+      let dataAdditional;
+      if (this.photosForm.get('sell-type').value === 'SUBASTA') {
         dataAdditional = {
           'publish-until': dateMoment,
           'negotiable': true
         };
-    }else {
-      dataAdditional = {
-        'publish-until': this.getPublishUntilDate(),
+      } else {
+        dataAdditional = {
+          'publish-until': this.getPublishUntilDate(),
+          'negotiable': false
+        };
+      }
+      const publishDate = {
+        'published-at': new Date()
       };
+
+      const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+      this.photosUploaded.length = 0;
+      delete params['category'];
+      console.log(params);
+      this.publish.emit(params);
+    } else {
+      this.validateAllFormFields(this.photosForm);
+      if (this.photosUploaded.length <= 0) {
+        this.errorMaxImg = true;
+      }
     }
-    const publishDate = {
-      'published-at': new Date()
-    };
-    const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
-    this.photosUploaded.length = 0;
-    console.log(params);
-    this.publish.emit(params);
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
   onUploadImageFinished(event) {
     this.errorUploadImg = false;
+    this.errorMaxImg = false;
     this.utilsService.getOrientation(event.file, function (orientation) {
       this.utilsService.resetOrientation(event.src, orientation, async function (resetBase64Image) {
         try {
@@ -249,6 +272,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': new FormControl(config['publish-until'], []),
       'type-vehicle': new FormControl(typeVehicle, []),
       'model': new FormControl(model, []),
+      category: new FormControl(config['category'], [Validators.required]),
     });
   }
 
@@ -283,7 +307,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       'sell-type': '',
       description: null,
       'publish-until': objectDate,
-      negotiable: false
+      negotiable: false,
+      category: ''
     };
     return Object.assign({}, product, this.product) as ProductInterface;
   }
@@ -300,6 +325,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       options[index].selected = options[index].value == subCategory.category.id;
       if (options[index].value == subCategory.category.id) {
         this.selectedComunity(subCategory.category.id as number);
+        this.photosForm.controls['category'].setValue(subCategory.category.id);
         this.photosForm.controls['subcategory-id'].setValue(subCategory.id);
       }
     }
