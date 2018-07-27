@@ -1,5 +1,4 @@
 import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
-import { PhotoInterface } from './../../commons/interfaces/photo.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -11,10 +10,10 @@ import { CategoriesService } from '../../services/categories.service';
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
 import * as moment from 'moment';
 import { IMyDpOptions } from 'mydatepicker';
-import { ROUTES } from '../../router/routes';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../util/utils.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+
 
 @Component({
   selector: 'form-product',
@@ -133,10 +132,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
       this.photosUploaded.length = 0;
       delete params['category'];
+      //this.photosForm.get('sell-type');
       console.log(params);
       this.publish.emit(params);
     } else {
       this.validateAllFormFields(this.photosForm);
+      console.log(this.photosUploaded.length);
       if (this.photosUploaded.length <= 0) {
         this.errorMaxImg = true;
       }
