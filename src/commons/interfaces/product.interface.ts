@@ -22,4 +22,5 @@ export interface ProductInterface {
     'visible': boolean | string;
     'subcategory-id'?: string | number;
     lastPage?: boolean;
+    category: string | number;
 }

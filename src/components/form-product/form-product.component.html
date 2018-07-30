@@ -8,7 +8,7 @@
     <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
       <div class="container-step">
         <div class="step-number">
-          <span class="number">1. </span>Escoge las imágenes perfectas, mira algunos tips.
+          <span class="number">1. </span>Escoge máximo 6 imágenes perfectas, mira algunos tips
           <span (click) ="openModal()" class="util-modal icon-light vertical-align--middle"></span>
         </div>
 
@@ -36,6 +36,9 @@
           ¡Oops, tus imágenes están muy grandes!  Deben ser máximo de 10MB. Escríbenos a
           info@rotalo.co si sigues teniendo problemas.
         </span>
+        <span class="help-block uploadImg" *ngIf="errorMaxImg">
+          Escoge al menos una imagen.
+        </span>
       </div>
       <div class="container-step">
         <div class="step-number">
@@ -48,38 +51,27 @@
           </div>
           <div class="form-group" data-input="price">
             <div class="item-price">
-                <input
-                [attr.disabled]="disabledField ? '' : null"
-                class="form-control input-price"
-                name="price"
-                currencyMask
-                [options]="{align: 'left', precision: 0}"
-                onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                formControlName="price"
-                placeholder="¿Cuánto vale? *"
-                maxlength="100"
-                autocomplete="off">
+                <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
+                  <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="¿Cuánto vale? *"
+                    maxlength="100" autocomplete="off"
+                    >
+                    <span class="error-msg">Este campo es obligatorio.</span>
+                    <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                </div>
                 <select class="form-control currency-select" name="currency" formControlName="currency">
                   <option *ngIf="isColombia" value="COP">COP</option>
                   <option *ngIf="!isColombia" value="'USD'">USD</option>
                 </select>
-                <div class="check-offer">
-                  <label for="checkTerms" class="container-check">
-                      <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
-                      <span class="checkmark"></span>
-                  </label>
-                  <span>Recibo ofertas</span>
-                </div>
             </div>
-            <span class="help-block" *ngIf="this.photosForm.get('price').invalid && !this.photosForm.get('price').pristine">
-                Este campo es obligatorio.
-            </span>
+
           </div>
           <div class="form-group">
-            <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect>
+            <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
               <option value="" selected="true" disabled>Escoge una categoría *</option>
               <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
             </select>
+            <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
             <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()" name="subcategory-id" formControlName= "subcategory-id">
@@ -93,12 +85,14 @@
                   <option value=""  disabled>Modelo de vehículo *</option>
                   <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
               </select>
+              <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div  *ngIf="subcategoryIsVehicle()" class="form-group">
               <select name="type-vehicle"  class="form-control" formControlName="type-vehicle">
                   <option value="" disabled>Tipo de vehículo*</option>
                   <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
               </select>
+              <span class="error-msg">Este campo es obligatorio.</span>
           </div>
           <div class="form-group">
             <select class="form-control" name="used" formControlName= "used">
@@ -144,7 +138,7 @@
         </div>
       </div>
       <div class="actions-form">
-        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar oferta' : 'Subir oferta'" [disabled]="formIsInValid"></custom-button>
+        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" ></custom-button>
       </div>
     </form>
   </div>
