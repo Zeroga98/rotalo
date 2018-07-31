@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CONFIG } from './steps.config';
 import { NgxCarousel } from 'ngx-carousel';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: "rotalo-steps",
@@ -17,7 +18,7 @@ export class StepsPage implements OnInit {
   @ViewChild("nextCarousel", { read: ElementRef })
   nextCarouselElem: ElementRef;
 
-  constructor(private router: Router, private changeRef: ChangeDetectorRef) {
+  constructor(private router: Router, private changeRef: ChangeDetectorRef,  private productsService: ProductsService,) {
     this.carouselConfig = CONFIG.CAROUSEL;
   }
 
@@ -26,8 +27,12 @@ export class StepsPage implements OnInit {
   skipSteps() {
    // this.router.navigate([`/${ROUTES.LOGIN}`]);
    // location.reload();
-   this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
-   location.reload();
+   if (this.productsService.getUrlDetailProduct()) {
+    window.location.replace(this.productsService.getUrlDetailProduct());
+   } else {
+    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+    location.reload();
+   }
    this.changeRef.markForCheck();
   }
 
