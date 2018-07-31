@@ -139,16 +139,27 @@ export class FormProductComponent implements OnInit, OnChanges {
           'negotiable': true
         };
       } else {
-        dataAdditional = {
-          'publish-until': this.getPublishUntilDate(),
-          'negotiable': false
-        };
+        if (this.product) {
+          dataAdditional = {
+            'publish-until': dateMoment,
+            'negotiable': false
+          };
+        } else {
+          dataAdditional = {
+            'publish-until': this.getPublishUntilDate(),
+            'negotiable': false
+          };
+        }
       }
-      const publishDate = {
-        'published-at': new Date()
-      };
-
-      const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+      let params;
+      if (this.product) {
+        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional);
+      } else {
+        const publishDate = {
+          'published-at': new Date()
+        };
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+      }
       this.photosUploaded.length = 0;
       delete params['category'];
       this.publish.emit(params);
