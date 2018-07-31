@@ -41,7 +41,6 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   sendTokenShareProduct() {
-    console.log(this.codeProduct);
     if (this.codeProduct && this.codeProduct !== 'na') {
       this.productsService.sendTokenShareProduct(this.codeProduct).subscribe((response) => {
         if (response.status == 0) {
