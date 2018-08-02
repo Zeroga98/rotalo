@@ -40,7 +40,7 @@ export class SelectCountryComponent implements OnInit {
       this.routineToInitialValue();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      console.error(error);
+      console.error(error , 'getCountries');
     }
   }
 
