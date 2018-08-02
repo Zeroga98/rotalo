@@ -369,8 +369,8 @@
             <form (ngSubmit)="onSubmit()" [formGroup]="formMessage" class="conversation-compose">
               <textarea style="overflow:hidden;" formControlName="message" required type="area" class="bold input-msg" name="input" placeholder="Escribe un mensaje">
               </textarea>
-              <button [disabled]="formMessage.invalid" type="submit" class="send">
-                <div class="circle">
+              <button [disabled]="formMessage.invalid" type="submit" class="send gtmEnviarMensaje">
+                <div class="circle gtmEnviarMensaje">
                   <p>Enviar</p>
                 </div>
               </button>

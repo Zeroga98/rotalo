@@ -13,9 +13,9 @@
     </div>
     <div class="menu-options">
       <div class="menu-container">
-        <div [routerLink]="messages" class="option" routerLinkActive="active">
+        <div [routerLink]="messages" class="option gtmMensajes" routerLinkActive="active">
           <div class="ico message-icon"></div>
-          <a>Mensajes</a>
+          <a class="gtmMensajes">Mensajes</a>
           <span *ngIf="messageAvailable" class="noti-circle">{{getMessagesUnRead}}</span>
         </div>
         <div [routerLink]="selling" class="option" routerLinkActive="active">

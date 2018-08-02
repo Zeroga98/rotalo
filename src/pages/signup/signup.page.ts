@@ -1,24 +1,25 @@
-import { ROUTES } from "./../../router/routes";
-import { UtilsService } from "./../../util/utils.service";
-import { Router } from "@angular/router";
-import { UserInterface } from "./../../commons/interfaces/user.interface";
-import { UserService } from "./../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { ROUTES } from './../../router/routes';
+import { UtilsService } from './../../util/utils.service';
+import { Router } from '@angular/router';
+import { UserInterface } from './../../commons/interfaces/user.interface';
+import { UserService } from './../../services/user.service';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   Validators,
   ValidatorFn,
   AbstractControl
-} from "@angular/forms";
-import { UserRequestInterface } from "../../commons/interfaces/user-request.interface";
-import { TypeDocumentsService } from "../../services/type-documents.service";
-import { SavePasswordService } from "./save-password.service";
+} from '@angular/forms';
+import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
+import { TypeDocumentsService } from '../../services/type-documents.service';
+import { SavePasswordService } from './save-password.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
-  selector: "signup-page",
-  templateUrl: "signup.page.html",
-  styleUrls: ["signup.page.scss"]
+  selector: 'signup-page',
+  templateUrl: 'signup.page.html',
+  styleUrls: ['signup.page.scss']
 })
 export class SignUpPage implements OnInit {
   public errorsSubmit: Array<any> = [];
@@ -30,35 +31,53 @@ export class SignUpPage implements OnInit {
   public documentId;
   public errorMessageId;
   public typeDocuments;
+  private mainUrl = window.location.href;
+  private codeProduct = this.router.url.split('code=', 2)[1];
   constructor(
     private userService: UserService,
     private router: Router,
     private utilsService: UtilsService,
     private typeDocumentsService: TypeDocumentsService,
-    private savePassword: SavePasswordService
+    private savePassword: SavePasswordService,
+    private productsService: ProductsService,
   ) {}
 
   ngOnInit(): void {
+
     this.registerForm = new FormGroup({
-      "first-name": new FormControl("", [Validators.required]),
-      "last-name": new FormControl("", [Validators.required]),
-      "type-document-id": new FormControl("", null),
-      "id-number": new FormControl("", [Validators.required]),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      cellphone: new FormControl("", [Validators.required]),
-      password: new FormControl("", [
+      'first-name': new FormControl('', [Validators.required]),
+      'last-name': new FormControl('', [Validators.required]),
+      'type-document-id': new FormControl('', null),
+      'id-number': new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      cellphone: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(6)
       ]),
-      "password-confirmation": new FormControl("", [
+      'password-confirmation': new FormControl('', [
         Validators.required,
         Validators.minLength(6),
         this.validatePasswordConfirm.bind(this)
       ]),
-      termsCheckbox: new FormControl("", [this.checkBoxRequired.bind(this)])
+      termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
     });
 
     this.loadTypeDocument();
+  }
+
+  sendTokenShareProduct() {
+    if (this.codeProduct && this.codeProduct !== 'na') {
+      this.productsService.sendTokenShareProduct(this.codeProduct).subscribe((response) => {
+        if (response.status == 0) {
+          const signup = `/${ROUTES.SIGNUP}`;
+          const showProduct = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${response.body.idProducto}`;
+          const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
+          console.log(urlDetailProduct);
+          this.productsService.setUrlDetailProduct(urlDetailProduct);
+        }
+      }, (error) => {console.log(error); });
+    }
   }
 
   async onSubmit() {
@@ -66,8 +85,9 @@ export class SignUpPage implements OnInit {
       if (this.registerForm.valid) {
         const params: UserRequestInterface = this.buildParamsUserRequest();
         const response = await this.userService.saveUser(params);
-        this.savePassword.setPassword(this.registerForm.get("password").value);
+        this.savePassword.setPassword(this.registerForm.get('password').value);
         this.errorsSubmit = [];
+        this.sendTokenShareProduct();
         this.router.navigate([ROUTES.ACTIVACION]);
         //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
       }
@@ -84,17 +104,17 @@ export class SignUpPage implements OnInit {
   }
 
   buildParamsUserRequest(): UserRequestInterface {
-    const fullName = `${this.registerForm.get("first-name").value} ${
-      this.registerForm.get("last-name").value
+    const fullName = `${this.registerForm.get('first-name').value} ${
+      this.registerForm.get('last-name').value
     }`;
-    delete this.registerForm.value["first-name"];
-    delete this.registerForm.value["last-name"];
+    delete this.registerForm.value['first-name'];
+    delete this.registerForm.value['last-name'];
     //delete  this.registerForm.value['type-number'];
     const params = Object.assign(
       {},
       this.registerForm.value,
       { name: fullName },
-      { "city-id": this.city.id }
+      { 'city-id': this.city.id }
     );
     delete params.termsCheckbox;
     return params;
@@ -111,8 +131,8 @@ export class SignUpPage implements OnInit {
   selectedCountryColombia(): boolean {
     return (
       this.country &&
-      this.country.id === "1" &&
-      this.country.name === "Colombia"
+      this.country.id === '1' &&
+      this.country.name === 'Colombia'
     );
   }
 
@@ -122,7 +142,7 @@ export class SignUpPage implements OnInit {
 
   validatePasswordConfirm(registerGroup: FormGroup): any {
     if (this.registerForm) {
-      return registerGroup.value === this.registerForm.get("password").value
+      return registerGroup.value === this.registerForm.get('password').value
         ? null
         : { notSame: true };
     }
@@ -157,52 +177,52 @@ export class SignUpPage implements OnInit {
   setValidationId(): void {
     if (this.country) {
       const idCountry = this.country.id;
-      const idDocumentControl = this.registerForm.get("id-number");
+      const idDocumentControl = this.registerForm.get('id-number');
       idDocumentControl.clearValidators();
       const documentObject = this.findNameDocumentType();
       let documentName;
       if (documentObject) {
-        documentName = documentObject["name-document"];
+        documentName = documentObject['name-document'];
       }
 
       /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
       switch (idCountry) {
-        case "1": {
-          if (documentName === "Cédula de ciudadanía") {
+        case '1': {
+          if (documentName === 'Cédula de ciudadanía') {
             idDocumentControl.setValidators([
-              Validators.pattern("^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$"),
+              Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
               Validators.required
             ]);
             this.errorMessageId =
-              "El campo no cumple con el formato de cédula.";
-          } else if (documentName === "Cédula de extranjería") {
+              'El campo no cumple con el formato de cédula.';
+          } else if (documentName === 'Cédula de extranjería') {
             idDocumentControl.setValidators([
               Validators.minLength(3),
               Validators.maxLength(15),
-              Validators.pattern("^[0-9]+$"),
+              Validators.pattern('^[0-9]+$'),
               Validators.required
             ]);
             this.errorMessageId =
-              "El campo no cumple con el formato de cédula.";
-          } else if (documentName === "Pasaporte") {
+              'El campo no cumple con el formato de cédula.';
+          } else if (documentName === 'Pasaporte') {
             idDocumentControl.setValidators([
               Validators.minLength(5),
               Validators.maxLength(36),
               Validators.required
             ]);
             this.errorMessageId =
-              "El campo no cumple con el formato de Pasaporte.";
+              'El campo no cumple con el formato de Pasaporte.';
           }
           break;
         }
-        case "2": {
+        case '2': {
           idDocumentControl.setValidators([
             Validators.pattern(
-              "^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$"
+              '^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'
             ),
             Validators.required
           ]);
-          this.errorMessageId = "El campo no cumple con el formato.";
+          this.errorMessageId = 'El campo no cumple con el formato.';
           break;
         }
         default: {

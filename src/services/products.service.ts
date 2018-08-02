@@ -16,6 +16,7 @@ export class ProductsService {
     public scroll: any;
     public products: Array<ProductInterface> = [];
     public currentPage = 0;
+    private urlDetailProduct;
 
     constructor(
       private http: HttpClient,
@@ -23,6 +24,14 @@ export class ProductsService {
       private userService: UserService,
       private router: Router,
     ) {}
+
+    setUrlDetailProduct (urlDetailProduct) {
+      this.urlDetailProduct = urlDetailProduct;
+    }
+
+    getUrlDetailProduct () {
+      return this.urlDetailProduct;
+    }
 
     getProducts(params): Promise<any> {
       return this.http
@@ -137,9 +146,18 @@ export class ProductsService {
       return this.http.put(url, { headers: headers }).map((response: any) => response);
     }
 
-    shareProduct(params) {
-      const url = this.url + '/refer';
-      return this.http.post(url, params).toPromise().then( (response: any) => response);
+    shareProduct(params, productId) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${productId}/referidos`;
+      return this.http.post(url, params, { headers: headers }).toPromise().then( (response: any) => response);
+    }
+
+    sendTokenShareProduct (token) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/referidos/${token}`;
+      return this.http.put(url,  { headers: headers } ).map((response: any) => response);
     }
 
     setProductLocation(products, name, currentPage) {

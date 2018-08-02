@@ -77,7 +77,6 @@ export class DetailProductComponent implements OnInit {
     this.loadProduct();
   }
 
-
   visitorCounter() {
     this.productsService.visitorCounter(this.products.id).subscribe((response) => {
       if (response.status == 0) {
@@ -94,11 +93,10 @@ export class DetailProductComponent implements OnInit {
   shareProduct() {
     if (!this.sendInfoProduct.invalid) {
       const params = {
-        product_id: this.products.id,
-        email: this.sendInfoProduct.get('email').value
+        correo: this.sendInfoProduct.get('email').value
       };
       this.productsService
-        .shareProduct(params)
+        .shareProduct(params,  this.products.id)
         .then(response => {
           this.messageSuccess = true;
           this.sendInfoProduct.reset();
