@@ -1,144 +1,143 @@
-<modal-tips *ngIf="isModalShowed" (close)="closeModal()" ></modal-tips>
+<modal-tips *ngIf="isModalShowed" (close)="closeModal()"></modal-tips>
 
 <div class="container-form">
-    <div class="title-form">
-      <span>Completa los siguientes datos</span>
-      <span>para que tu producto rote con rapidez</span>
-    </div>
-    <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
-      <div class="container-step">
-        <div class="step-number">
-          <span class="number">1. </span>Escoge máximo 6 imágenes perfectas, mira algunos tips
-          <span (click) ="openModal()" class="util-modal icon-light vertical-align--middle"></span>
-        </div>
-
-        <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
-          <custom-spinner *ngIf="photosCounter > 0" ></custom-spinner>
-          <div class="prev-photos" *ngFor="let photo of photosUploaded">
-            <div class="remove-action"><span class="icon-close" (click)="onRemovePreviewImage(photo)"></span></div>
-            <div class="container-img"><img [src]="photo?.url"></div>
-          </div>
-        </div>
-        <div>
-          <image-upload
-          [max]="maxNumberImg"
-          #imageInput
-          [preview]="false"
-          [extensions]="['jpeg','png', 'jpg']"
-          [buttonCaption]="'Seleccionar imágenes'"
-          [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
-          [clearButtonCaption]="'Limpiar'"
-          [style]="customStyleImageLoader"
-          (uploadFinished)="onUploadImageFinished($event)"
-          (removed)="onRemoveImage($event.file)"></image-upload>
-        </div>
-        <span class="help-block uploadImg" *ngIf="errorUploadImg">
-          ¡Oops, tus imágenes están muy grandes!  Deben ser máximo de 10MB. Escríbenos a
-          info@rotalo.co si sigues teniendo problemas.
-        </span>
-        <span class="help-block uploadImg" *ngIf="errorMaxImg">
-          Escoge al menos una imagen.
-        </span>
-      </div>
-      <div class="container-step">
-        <div class="step-number">
-          <span class="number">2. </span>Datos de tu producto
-        </div>
-        <div class="info-product">
-          <div class="form-group" data-input="name">
-            <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar? *" maxlength="30">
-            <span class="help-block error-msg"> Este campo es obligatorio. </span>
-          </div>
-          <div class="form-group" data-input="price">
-            <div class="item-price">
-                <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
-                  <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
-                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="¿Cuánto vale? *"
-                    maxlength="100" autocomplete="off"
-                    >
-                    <span class="error-msg">Este campo es obligatorio.</span>
-                    <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
-                </div>
-                <select class="form-control currency-select" name="currency" formControlName="currency">
-                  <option *ngIf="isColombia" value="COP">COP</option>
-                  <option *ngIf="!isColombia" value="'USD'">USD</option>
-                </select>
-            </div>
-
-          </div>
-          <div class="form-group">
-            <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
-              <option value="" selected="true" disabled>Escoge una categoría *</option>
-              <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
-            </select>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div class="form-group">
-            <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()" name="subcategory-id" formControlName= "subcategory-id">
-              <option value="" disabled>Escoge una subcategoría *</option>
-              <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
-            </select>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select name="model"  class="form-control" formControlName="model">
-                  <option value=""  disabled>Modelo de vehículo *</option>
-                  <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
-              </select>
-              <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-              <select name="type-vehicle"  class="form-control" formControlName="type-vehicle">
-                  <option value="" disabled>Tipo de vehículo*</option>
-                  <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
-              </select>
-              <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div class="form-group">
-            <select class="form-control" name="used" formControlName= "used">
-              <option value="" disabled>Estado del artículo *</option>
-              <option [ngValue]="true">Artículo Usado</option>
-              <option [ngValue]="false">Artículo Nuevo</option>
-            </select>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div class="form-group">
-            <select class="form-control" name="visible" formControlName= "visible">
-              <option value="" disabled>¿Quién puede verlo? *</option>
-              <option [ngValue]="true">Todas las comunidades</option>
-              <option [ngValue]="false">Solo mi comunidad</option>
-            </select>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div class="form-group">
-            <select  [attr.disabled]="disabledFieldType ? '' : null" class="form-control" name="sell-type" formControlName= "sell-type" (change)="changeKindOfProduct($event.target.value)">
-              <option value="" disabled>Tipo de venta *</option>
-              <option value="VENTA">Vendo</option>
-              <option value="SUBASTA">Subasto</option>
-              <option value="GRATIS">Regalo</option>
-            </select>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-          <div class="form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'">
-            <div class="item-price">
-                <label class="date-label">Fecha de vencimiento</label>
-                <my-date-picker
-                class="data-picker-theme"
-                name="publish-until"
-                placeholder="Fecha de vencimiento de la subasta"
-                formControlName="publish-until"
-                [options]="datePickerOptions"></my-date-picker>
-            </div>
-            <span class="help-block error-msg"> Este campo es obligatorio. </span>
-          </div>
-          <div class="form-group full">
-            <textarea class="form-control" placeholder="Describe tu producto *" name="description" formControlName= "description" maxlength="500"></textarea>
-            <span class="error-msg">Este campo es obligatorio.</span>
-          </div>
-        </div>
-      </div>
-      <div class="actions-form">
-        <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'" ></custom-button>
-      </div>
-    </form>
+  <div class="title-form">
+    <span>Completa los siguientes datos</span>
+    <span>para que tu producto rote con rapidez</span>
   </div>
+  <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
+    <div class="container-step">
+      <div class="step-number">
+        <span class="number">1. </span>Escoge máximo 6 imágenes perfectas, mira algunos tips
+        <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
+      </div>
+
+      <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
+        <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
+        <div class="prev-photos" *ngFor="let photo of photosUploaded">
+          <div class="remove-action">
+            <span class="icon-close" (click)="onRemovePreviewImage(photo)"></span>
+          </div>
+          <div class="container-img">
+            <img [src]="photo?.url">
+          </div>
+        </div>
+      </div>
+      <div>
+        <image-upload [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="'Seleccionar imágenes'"
+          [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
+          (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"></image-upload>
+      </div>
+      <span class="help-block uploadImg" *ngIf="errorUploadImg">
+        ¡Oops, tus imágenes están muy grandes! Deben ser máximo de 10MB. Escríbenos a info@rotalo.co si sigues teniendo problemas.
+      </span>
+      <span class="help-block uploadImg" *ngIf="errorMaxImg">
+        Escoge al menos una imagen.
+      </span>
+    </div>
+    <div class="container-step">
+      <div class="step-number">
+        <span class="number">2. </span>Datos de tu producto
+      </div>
+      <div class="info-product">
+        <div class="form-group" data-input="name">
+          <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar? *" maxlength="30">
+          <span class="help-block error-msg"> Este campo es obligatorio. </span>
+        </div>
+        <div class="form-group" data-input="price">
+          <div class="item-price">
+            <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
+              <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="¿Cuánto vale? *"
+                maxlength="100" autocomplete="off">
+              <span class="error-msg">Este campo es obligatorio.</span>
+              <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+            </div>
+            <select class="form-control currency-select" name="currency" formControlName="currency">
+              <option *ngIf="isColombia" value="COP">COP</option>
+              <option *ngIf="!isColombia" value="'USD'">USD</option>
+            </select>
+            <div class="check-offer">
+              <label for="checkTerms" class="container-check">
+                <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+                <span class="checkmark"></span>
+              </label>
+              <span>Recibo ofertas</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
+            <option value="" selected="true" disabled>Escoge una categoría *</option>
+            <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group">
+          <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
+            name="subcategory-id" formControlName="subcategory-id">
+            <option value="" disabled>Escoge una subcategoría *</option>
+            <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div *ngIf="subcategoryIsVehicle()" class="form-group">
+          <select name="model" class="form-control" formControlName="model">
+            <option value="" disabled>Modelo de vehículo *</option>
+            <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div *ngIf="subcategoryIsVehicle()" class="form-group">
+          <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
+            <option value="" disabled>Tipo de vehículo*</option>
+            <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="used" formControlName="used">
+            <option value="" disabled>Estado del artículo *</option>
+            <option [ngValue]="true">Artículo Usado</option>
+            <option [ngValue]="false">Artículo Nuevo</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="visible" formControlName="visible">
+            <option value="" disabled>¿Quién puede verlo? *</option>
+            <option [ngValue]="true">Todas las comunidades</option>
+            <option [ngValue]="false">Solo mi comunidad</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group">
+          <select [attr.disabled]="disabledFieldType ? '' : null" class="form-control" name="sell-type" formControlName="sell-type"
+            (change)="changeKindOfProduct($event.target.value)">
+            <option value="" disabled>Tipo de venta *</option>
+            <option value="VENTA">Vendo</option>
+            <option value="SUBASTA">Subasto</option>
+            <option value="GRATIS">Regalo</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'">
+          <div class="item-price">
+            <label class="date-label">Fecha de vencimiento</label>
+            <my-date-picker class="data-picker-theme" name="publish-until" placeholder="Fecha de vencimiento de la subasta" formControlName="publish-until"
+              [options]="datePickerOptions"></my-date-picker>
+          </div>
+          <span class="help-block error-msg"> Este campo es obligatorio. </span>
+        </div>
+        <div class="form-group full">
+          <textarea class="form-control" placeholder="Describe tu producto *" name="description" formControlName="description" maxlength="500"></textarea>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+      </div>
+    </div>
+    <div class="actions-form">
+      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Editar Oferta' : 'Subir Oferta'"></custom-button>
+    </div>
+  </form>
+</div>

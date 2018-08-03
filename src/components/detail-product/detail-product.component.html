@@ -56,11 +56,11 @@
         <div class="btn-item">
           <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
         </div>
-        <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()"  class="btn-item">
+        <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()" class="btn-item">
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-            <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'" ></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+            <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
           </button>
-          <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"  (click)="openOfferModal(products)">
+          <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
             <span class="icon-ofert-detalle"></span> Hacer oferta
           </button>
         </div>
@@ -86,6 +86,19 @@
             <button class="botons" (click)="editProduct(products)">
               <span class="icon icon-edit"></span> Editar
             </button>
+          </div>
+        </div>
+        <div class="btn-item">
+          <div class="media" *ngIf="validateSession() && !isSold()">
+            <div class="media-left media-middle">
+              <label class="switch">
+                <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
+                <div class="switch-slider round"></div>
+              </label>
+            </div>
+            <div class="media-body">
+              <p class="panel-product__info post-status {{productChecked}}">Tu aviso está {{ productStatus ? 'activo' : 'inactivo' }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -121,11 +134,15 @@
             </div>
           </div>
           <div class="product-btn" *ngIf="!validateSession()">
+            <div *ngIf="products && products.negotiable" class="get-offer">
+              <span class="icon-check"></span>
+              <span>Recibo ofertas</span>
+            </div>
             <div class="product-btns">
               <div class="cont-botons">
                 <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
                   <span class="icon-chat-detalle"></span>
-                   Enviar a {{firstName}}
+                  Chatea con {{firstName}}
                 </div>
               </div>
             </div>
@@ -134,12 +151,12 @@
       </div>
     </div>
     <div *ngIf="!isSellProcess() && !validateSession()" class="column  share-container">
-      <div  class="share-product-container">
+      <div class="share-product-container">
         <div class="share-mobile">
-            <div class="icon-share-container">
-                <div class="icon-email"></div>
-            </div>
-            <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
+          <div class="icon-share-container">
+            <div class="icon-email"></div>
+          </div>
+          <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
         </div>
         <div *ngIf="showInputShare" class="input-container">
           <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
