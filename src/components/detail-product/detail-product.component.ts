@@ -47,7 +47,7 @@ export class DetailProductComponent implements OnInit {
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
   public sendInfoProduct;
-  public showInputShare: boolean;
+  public showInputShare = true;
   public messageSuccess: boolean;
   public messageError: boolean;
   public textError: boolean;
@@ -57,7 +57,7 @@ export class DetailProductComponent implements OnInit {
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   public  showButtons = false;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
-
+  public firstName = '';
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -168,6 +168,11 @@ export class DetailProductComponent implements OnInit {
       this.products = await this.productsService.getProductsById(
         this.idProduct
       );
+      const fullName = this.products.user.name.split(' ');
+      if (this.products.user.name) {
+        this.firstName = fullName[0];
+      }
+
       this.onLoadProduct(this.products);
       this.productIsSold(this.products);
       if (this.products.photos !== undefined) {

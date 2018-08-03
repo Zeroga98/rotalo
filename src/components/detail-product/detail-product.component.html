@@ -2,8 +2,7 @@
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
   <div class="product">
-    <div class="visits capitalize">{{products['sell-type'].toLowerCase()}}
-      ({{visitsNumber}} visitas)
+    <div class="visits capitalize">{{products['sell-type'].toLowerCase()}} ({{visitsNumber}} visitas)
     </div>
     <div *ngIf="!products?.photos" class="product-photos">
       <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -54,41 +53,125 @@
         {{products.subcategory.category.name}} - {{products.subcategory.name}}
       </div>
       <div class="btns-container">
+        <div class="btn-item">
+          <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
+        </div>
+        <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()"  class="btn-item">
+          <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+            <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'" ></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+          </button>
+          <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"  (click)="openOfferModal(products)">
+            <span class="icon-ofert-detalle"></span> Hacer oferta
+          </button>
+        </div>
+        <div class="btn-two-container" *ngIf="products && checkSufiBotton() && !isSellProcess() && !validateSession()">
           <div class="btn-item">
-              <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
+            <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="openSimulateCreditSufi(products.id)">
+              <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar Crédito
+            </button>
           </div>
-          <div  *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()" class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-                  <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
-               </button>
-               <button class="gtmProdHacerOferta botons" *ngIf="products && products['sell-type'] == 'SUBASTA'" (click)="openOfferModal(products)">
-                  <span class="icon-offer"></span> Hacer oferta
-              </button>
+          <div class="btn-item">
+            <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+              <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+            </button>
           </div>
-          <div class="btn-two-container" *ngIf="products && checkSufiBotton() && !isSellProcess() && !validateSession()" >
-              <div class="btn-item">
-                  <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="openSimulateCreditSufi(products.id)">
-                      <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar Crédito
-                  </button>
-              </div>
-              <div class="btn-item">
-                  <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-                      <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
-                   </button>
-              </div>
+        </div>
+        <div class="btn-two-container" *ngIf="products && validateSession() && !isSold()">
+          <div class="btn-item">
+            <button class="botons" (click)="deleteProduct(products)">
+              <span class="icon icon-trash"></span>Eliminar
+            </button>
           </div>
-          <div class="btn-two-container" *ngIf="products && validateSession() && !isSold()" >
-              <div class="btn-item">
-                  <button class="botons" (click)="deleteProduct(products)">
-                      <span class="icon icon-trash"></span>Eliminar
-                  </button>
-              </div>
-              <div class="btn-item">
-                  <button class="botons" (click)="editProduct(products)">
-                      <span class="icon icon-edit"></span> Editar
-                   </button>
-              </div>
+          <div class="btn-item">
+            <button class="botons" (click)="editProduct(products)">
+              <span class="icon icon-edit"></span> Editar
+            </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row-container">
+    <div class="column info-section">
+      <div class="margin-info">
+        <div class="product-info-ubicacion">
+          <div>
+            <span class="icon icon-calendar"></span>
+            Fecha de Publicación:
+            <span>{{products['published-at'] | amTimeAgo}}</span>
+          </div>
+          <span class="icon icon-location"></span>
+          <span>{{getLocation(products)}}</span>
+        </div>
+        <div class="product-info-user">
+          <div>
+            <div class="media-middle">
+              <div *ngIf="!products.user.photo && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
+                <span class="icon-account"></span>
+              </div>
+              <div *ngIf="products.user.photo" class="photo-user">
+                <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
+              </div>
+            </div>
+            <div *ngIf="products.user.company" class="media-middle product-info-user--data">
+              <p class="name-user">{{products.user.name}}</p>
+              <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}} -
+                <span [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="product-btn" *ngIf="!validateSession()">
+            <div class="product-btns">
+              <div class="cont-botons">
+                <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
+                  <span class="icon-chat-detalle"></span>
+                   Enviar a {{firstName}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isSellProcess() && !validateSession()" class="column  share-container">
+      <div  class="share-product-container">
+        <div class="share-mobile">
+            <div class="icon-share-container">
+                <div class="icon-email"></div>
+            </div>
+            <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
+        </div>
+        <div *ngIf="showInputShare" class="input-container">
+          <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
+            <div class="form-group">
+              <input (click)="messageSuccess=false; messageError= false" [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}"
+                formControlName="email" maxlength="100" id="txt-email" type="email" class="form-control" placeholder="Escribe aquí el correo corporativo de tu amigo">
+              <div class="icon-container">
+                <button class="button-share" type="submit">
+                  <div class="icon-email"></div>
+                </button>
+              </div>
+            </div>
+            <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine" class="help-block">
+              <span class="icon-circle-cancel"></span>
+              <span>
+                Aseguráte de que sea un correo válido.
+              </span>
+            </span>
+            <span *ngIf="messageSuccess" class="help-block">
+              <span class="icon-check"></span>
+              <span>
+                ¡Hemos enviado el correo con éxito!
+              </span>
+            </span>
+            <span *ngIf="messageError" class="help-block">
+              <span class="icon-circle-cancel"></span>
+              <span>
+                {{textError}}
+              </span>
+            </span>
+          </form>
+        </div>
       </div>
     </div>
   </div>
