@@ -2,7 +2,8 @@ import {
   ChangeDetectorRef,
   ViewChild,
   Output,
-  EventEmitter
+  EventEmitter,
+  HostListener
 } from '@angular/core';
 import {
   Component,
@@ -58,6 +59,20 @@ export class DetailProductComponent implements OnInit {
   public  showButtons = false;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
   public firstName = '';
+  public screenHeight;
+  public screenWidth;
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 750) {
+      this.showInputShare = true;
+    }
+  }
+
+
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -241,11 +256,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if (
-      this.products &&
-      this.products['type-vehicle'] &&
-      this.products['model']
-    ) {
+    if ( this.products && this.products['type-vehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
@@ -253,11 +264,8 @@ export class DetailProductComponent implements OnInit {
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
-      if (
-        this.products.subcategory.name === 'Carros' &&
-        differenceYear <= 10 &&
-        type === 'Particular' &&
-        countryId === 1 &&
+
+      if ( this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
         priceVehicle >= this.minVehicleValue &&
         priceVehicle <= this.maxVehicleValue
       ) {
@@ -364,4 +372,13 @@ export class DetailProductComponent implements OnInit {
       };
 
   }
+
+  validateMobile() {
+    if (this.screenWidth <= 750) {
+      this.showInputShare = !this.showInputShare;
+    } else {
+      this.showInputShare = true;
+    }
+  }
+
 }

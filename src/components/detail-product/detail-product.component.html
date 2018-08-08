@@ -56,6 +56,7 @@
         <div class="btn-item">
           <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
         </div>
+
         <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()" class="btn-item">
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
             <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
@@ -66,13 +67,16 @@
         </div>
         <div class="btn-two-container" *ngIf="products && checkSufiBotton() && !isSellProcess() && !validateSession()">
           <div class="btn-item">
-            <button class="gtmProdSufiTePresta botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="openSimulateCreditSufi(products.id)">
+            <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
               <span class="icon-custom icon-custom--sufi-logo"></span>Solicitar Crédito
             </button>
           </div>
           <div class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
               <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+            </button>
+            <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
+                <span class="icon-ofert-detalle"></span> Hacer oferta
             </button>
           </div>
         </div>
@@ -152,11 +156,12 @@
     </div>
     <div *ngIf="!isSellProcess() && !validateSession()" class="column  share-container">
       <div class="share-product-container">
-        <div class="share-mobile">
+        <div (click)="validateMobile()" class="share-mobile">
           <div class="icon-share-container">
             <div class="icon-email"></div>
           </div>
-          <a (click)="showInputShare=true" class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
+          <a  class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
+          <span  [ngClass]="{'open': showInputShare}" class="icon-arrow"></span>
         </div>
         <div *ngIf="showInputShare" class="input-container">
           <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">

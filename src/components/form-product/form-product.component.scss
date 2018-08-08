@@ -256,18 +256,26 @@
         }
       }
     }
+
     .date-label{
       padding-left: 12px;
       width: 100%;
     }
+
     my-date-picker{
       width: 100%;
     }
+
     .item-price {
       flex-wrap: wrap;
     }
+
     .currency-select{
-      margin-top: 20px;
+      margin-top: 35px;
+    }
+
+    .check-offer{
+      margin-top: 35px;
     }
   }
 }

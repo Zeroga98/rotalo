@@ -214,7 +214,6 @@
         width: 44px;
         height: 45px;
         text-align: center;
-        padding-top: 5px;
         background-color: #C61B27;
       }
     }
@@ -265,6 +264,9 @@
       color: #FF3646;
       margin-right: 5px;
     }
+  }
+  .icon-arrow {
+    display: none;
   }
 }
 
@@ -500,12 +502,12 @@
     width: 40px;
     height: 40px;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 11px;
     background-color: #FFFFFF;
     border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 20px;
     .icon-email {
       margin: 0 auto;
       width: 20px;
@@ -709,10 +711,11 @@ input:checked+.switch-slider:before {
         padding: 10px 30px;
         padding-bottom: 30px;
         background: #F0F0F0;
+        height: 105px;
       }
 
       .icon-share-container {
-        margin-right: 50px;
+        margin-right: 20px;
       }
       .share-product-container .share-product {
         font-size: 1.2rem;
@@ -724,6 +727,17 @@ input:checked+.switch-slider:before {
       .share-mobile {
         background: #FF3646;
         padding: 10px 20px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        position: relative;
+        .icon-arrow {
+          display: block;
+          width: 20px;
+          margin: 0 auto;
+          color: white;
+        }
+        .icon-arrow.open {
+          transform: rotate(180deg);
+        }
       }
     }
     .form-theme {

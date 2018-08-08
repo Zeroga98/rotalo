@@ -147,9 +147,16 @@ export class FormProductComponent implements OnInit, OnChanges {
             'publish-until': dateMoment
           };
         } else {
-          dataAdditional = {
-            'publish-until': this.getPublishUntilDate()
-          };
+          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+            dataAdditional = {
+              'publish-until': this.getPublishUntilDate(),
+              'negotiable': false
+            };
+          } else {
+            dataAdditional = {
+              'publish-until': this.getPublishUntilDate()
+            };
+          }
         }
       }
       let params;
