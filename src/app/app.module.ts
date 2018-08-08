@@ -137,6 +137,7 @@ import { FeedBackComponent } from '../components/feedBack/feedBack.component';
 import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedBack.component';
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
 import { ModalShareProductComponent } from '../components/modal-shareProduct/modal-shareProduct.component';
+import { ModalShareProductService } from '../components/modal-shareProduct/modal-shareProduct.service';
 
 
 @NgModule({
@@ -275,6 +276,7 @@ import { ModalShareProductComponent } from '../components/modal-shareProduct/mod
     HobbiesService,
     FrequentlyAskedQuestionsService,
     ModalFeedBackService,
+    ModalShareProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

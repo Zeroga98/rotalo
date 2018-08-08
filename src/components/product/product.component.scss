@@ -24,12 +24,42 @@
       border-bottom: 1px solid #BABABA;
     }
     .container-name {
+      position: relative;
       color: $red;
       font-size: 3.2rem;
       font-weight: bold;
       margin-bottom: 5px;
       line-height: 32px;
     }
+    .icon-share-container{
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      padding-top: 13px;
+      background-color: white;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      position: absolute;
+      top: -45px;
+      right: 0;
+      box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+      .icon-share {
+        margin: 0 auto;
+        width: 20px;
+        height: 20px;
+        background: url(../../assets/img/icon_share_detalle.svg);
+        background-size: 20px 20px;
+      }
+    }
+
+    .icon-share-container:hover {
+      box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+    }
+
+
     .container-status {
       font-size: 1.4rem;
       text-transform: capitalize;

@@ -52,21 +52,23 @@ export class NormalizeInterceptor implements HttpInterceptor {
     }
     private fillDataWithRelationships(data, includes){
         return data.map( item => {
+          if (item) {
             const keys = Object.keys(item.relationships || {});
-            keys.forEach( key => {
-                let relacioneToAdd = [];
-                let relaciones = item.relationships[key].data;
-                Array.isArray(relaciones) ? '' : relaciones = [relaciones];
-                relaciones.forEach(element => {
-                    let newResource = this.getInfoInclude(element, includes);
-                    relacioneToAdd.push(newResource);
-                });
-                let value = this.fillDataWithRelationships(relacioneToAdd, includes);
-                item.attributes[key] = value.length == 1 ? value[0] : value;
+            keys.forEach(key => {
+              let relacioneToAdd = [];
+              let relaciones = item.relationships[key].data;
+              Array.isArray(relaciones) ? '' : relaciones = [relaciones];
+              relaciones.forEach(element => {
+                let newResource = this.getInfoInclude(element, includes);
+                relacioneToAdd.push(newResource);
+              });
+              let value = this.fillDataWithRelationships(relacioneToAdd, includes);
+              item.attributes[key] = value.length == 1 ? value[0] : value;
             });
             item.attributes.id = item.id;
             item = item.attributes;
-            return item;
+          }
+          return item;
         });
     }
     private getInfoInclude(value, includes){

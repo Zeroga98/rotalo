@@ -1,0 +1,143 @@
+:host {
+
+  .modal-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    opacity: 0;
+    background: rgba(143, 27, 15, 0.8);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  /* Content styles */
+  .md-content {
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    position: relative;
+    border-radius: 5px;
+    margin: 0 auto;
+  }
+  .md-content h3 {
+    margin: 0;
+    padding: 0.4em;
+    text-align: center;
+    font-size: 2.4em;
+    font-weight: 300;
+    opacity: 0.8;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px 3px 0 0;
+  }
+  .md-content>div {
+    padding: 15px 30px 30px;
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.15em;
+  }
+  .md-content>div p {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1.6rem;
+    color: #777777;
+  }
+  .md-content>div ul {
+    margin: 0;
+    padding: 0 0 30px 20px;
+  }
+  .md-content>div ul li {
+    padding: 5px 0;
+  }
+  .md-content button {
+    display: block;
+    background: #FF3646;
+    margin: 0 auto;
+    font-size: 0.8em;
+    width: 45px;
+    height: 45px;
+    position: relative;
+    border-radius: 100%;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  }
+
+  .md-content{
+    .close-container{
+      padding: 10px;
+      text-align: right;
+      .icon-close{
+        cursor: pointer;
+      }
+    }
+  }
+
+  .form-theme .form-control{
+    padding: 6px 0;
+  }
+
+  .form-theme .help-block{
+    padding-left: 0;
+  }
+
+  .form-theme textarea.form-control{
+    height: auto;
+    resize: none;
+    border-radius: 10px;
+    padding: 6px 5px;
+    border: 1px solid #d4dbe0;
+    min-height: 120px;
+  }
+
+  .icon-send {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../../assets/img/enviar.svg);
+    background-size: 20px 20px;
+    position: absolute;
+  }
+
+  .icon-feedback {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../../assets/img/icono_feedBack_red.svg);
+    background-size: 70px 70px;
+    position: absolute;
+  }
+
+  .icon-main{
+    display: block;
+    background: #FF3646;
+    margin: 0 auto;
+    width: 82px;
+    height: 82px;
+    position: absolute;
+    top: -41px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 100%;
+  }
+
+  .success-text {
+    color: #00AAC7;
+    font-weight: bold;
+  }
+
+}
+
+:host.md-show .modal-background {
+  opacity: 1;
+  visibility: visible;
+}

@@ -18,6 +18,7 @@ import { ProductsService } from "../../services/products.service";
 import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
+import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
 
 @Component({
   selector: "product",
@@ -48,7 +49,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
-    private currentSessionSevice: CurrentSessionService
+    private currentSessionSevice: CurrentSessionService,
+    private modalService: ModalShareProductService,
   ) {}
 
   ngAfterContentInit() {
@@ -147,4 +149,10 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       }
     });
   }
+
+   shareProduct(id: string) {
+    this.modalService.open(id);
+  }
+
+
 }
