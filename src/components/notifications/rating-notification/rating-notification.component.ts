@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { MessagesService } from "../../../services/messages.service";
-import { CurrentSessionService } from "../../../services/current-session.service";
-import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from "@angular/forms";
+import { Component, OnInit, Input } from '@angular/core';
+import { MessagesService } from '../../../services/messages.service';
+import { CurrentSessionService } from '../../../services/current-session.service';
+import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
 
 function validateRating(c: AbstractControl): {[key: string]: boolean} | null {
   const speed = c.get('speed').value;
@@ -15,9 +15,9 @@ function validateRating(c: AbstractControl): {[key: string]: boolean} | null {
 }
 
 @Component({
-  selector: "rating-notification",
-  templateUrl: "./rating-notification.component.html",
-  styleUrls: ["./rating-notification.component.scss"]
+  selector: 'rating-notification',
+  templateUrl: './rating-notification.component.html',
+  styleUrls: ['./rating-notification.component.scss']
 })
 export class RatingNotificationComponent implements OnInit {
   @Input() notification;

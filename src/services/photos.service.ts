@@ -12,7 +12,7 @@ export class PhotosService {
     getUrlPhotos(): string {
         return this.url;
     }
-
+/*
     updatePhoto(file: File): Promise<any> {
         const formData: FormData = this.buildFormData(file);
 
@@ -23,7 +23,16 @@ export class PhotosService {
                 .toPromise().then((res: any) => {
                   return res.data;
                 });
-    }
+    }*/
+
+    updatePhoto(file: File) {
+      const formData: FormData = this.buildFormData(file);
+
+      return this.http.post(this.url, formData,
+                  {
+                      headers: new HttpHeaders().delete('Content-Type')
+                  }).map ((res: any) => res.data);
+  }
 
     deletePhotoById(id: number): Promise<any> {
         const url = `${this.url}/${id}`;
