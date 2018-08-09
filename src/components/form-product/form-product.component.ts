@@ -109,6 +109,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.photosForm.controls['negotiable'].enable();
     if (evt === 'GRATIS') {
       this.photosForm.patchValue({price: 0});
+      this.photosForm.patchValue({'negotiable': false});
       const elem = document.getElementById('checkTerms') as any;
       elem.checked = false;
       this.disabledField = true;
@@ -143,9 +144,16 @@ export class FormProductComponent implements OnInit, OnChanges {
         };
       } else {
         if (this.product) {
-          dataAdditional = {
-            'publish-until': dateMoment
-          };
+          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+            dataAdditional = {
+              'publish-until': dateMoment,
+              'negotiable': false
+            };
+          } else {
+            dataAdditional = {
+              'publish-until': dateMoment
+            };
+          }
         } else {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
