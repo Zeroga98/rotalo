@@ -16,6 +16,7 @@ export class CollectionSelectService {
             this.collection = response.data;
             return this.collection;
         } catch (error) {
+            console.log(error, 'fail get collection');
             return error;
         }
     }
