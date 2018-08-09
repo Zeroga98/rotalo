@@ -2,7 +2,8 @@ import {
   ChangeDetectorRef,
   ViewChild,
   Output,
-  EventEmitter
+  EventEmitter,
+  HostListener
 } from '@angular/core';
 import {
   Component,
@@ -47,7 +48,7 @@ export class DetailProductComponent implements OnInit {
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
   public sendInfoProduct;
-  public showInputShare: boolean;
+  public showInputShare = true;
   public messageSuccess: boolean;
   public messageError: boolean;
   public textError: boolean;
@@ -57,6 +58,20 @@ export class DetailProductComponent implements OnInit {
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   public  showButtons = false;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
+  public firstName = '';
+  public screenHeight;
+  public screenWidth;
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > 750) {
+      this.showInputShare = true;
+    }
+  }
+
 
   constructor(
     private productsService: ProductsService,
@@ -78,7 +93,6 @@ export class DetailProductComponent implements OnInit {
     this.loadProduct();
   }
 
-
   visitorCounter() {
     this.productsService.visitorCounter(this.products.id).subscribe((response) => {
       if (response.status == 0) {
@@ -95,11 +109,10 @@ export class DetailProductComponent implements OnInit {
   shareProduct() {
     if (!this.sendInfoProduct.invalid) {
       const params = {
-        product_id: this.products.id,
-        email: this.sendInfoProduct.get('email').value
+        correo: this.sendInfoProduct.get('email').value
       };
       this.productsService
-        .shareProduct(params)
+        .shareProduct(params,  this.products.id)
         .then(response => {
           this.messageSuccess = true;
           this.sendInfoProduct.reset();
@@ -171,6 +184,11 @@ export class DetailProductComponent implements OnInit {
       this.products = await this.productsService.getProductsById(
         this.idProduct
       );
+      const fullName = this.products.user.name.split(' ');
+      if (this.products.user.name) {
+        this.firstName = fullName[0];
+      }
+
       this.onLoadProduct(this.products);
       this.productIsSold(this.products);
       if (this.products.photos !== undefined) {
@@ -239,11 +257,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if (
-      this.products &&
-      this.products['type-vehicle'] &&
-      this.products['model']
-    ) {
+    if ( this.products && this.products['type-vehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
@@ -251,11 +265,8 @@ export class DetailProductComponent implements OnInit {
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
-      if (
-        this.products.subcategory.name === 'Carros' &&
-        differenceYear <= 10 &&
-        type === 'Particular' &&
-        countryId === 1 &&
+
+      if ( this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
         priceVehicle >= this.minVehicleValue &&
         priceVehicle <= this.maxVehicleValue
       ) {
@@ -366,4 +377,13 @@ export class DetailProductComponent implements OnInit {
       idVendedor: product.user.id
     };
   }
+
+  validateMobile() {
+    if (this.screenWidth <= 750) {
+      this.showInputShare = !this.showInputShare;
+    } else {
+      this.showInputShare = true;
+    }
+  }
+
 }

@@ -136,6 +136,7 @@ import { ModalFeedBackService } from '../components/modal-feedBack/modal-feedBac
 import { FeedBackComponent } from '../components/feedBack/feedBack.component';
 import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedBack.component';
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
+import { ModalShareProductComponent } from '../components/modal-shareProduct/modal-shareProduct.component';
 
 
 @NgModule({
@@ -217,7 +218,8 @@ import { NotificationConfirmation } from '../pages/notification-confirmation/not
     AccordionComponent,
     FeedBackComponent,
     ModalFeedBackComponent,
-    NotificationConfirmation
+    NotificationConfirmation,
+    ModalShareProductComponent,
   ],
   imports: [
     BrowserModule,

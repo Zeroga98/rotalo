@@ -44,6 +44,7 @@ export class SuccessActivationPage implements OnInit {
   }
 
   ngOnInit() {
+    window.scroll(0, 0);
     this.loadIdUser();
     this.loadHobbies();
   }

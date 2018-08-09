@@ -12,6 +12,8 @@ import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
 import { MessagesService } from "../../services/messages.service";
 import { ModalFeedBackService } from "../../components/modal-feedBack/modal-feedBack.service";
+import { ProductsService } from "../../services/products.service";
+
 
 @Component({
   selector: "login-page",
@@ -31,7 +33,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private userService: UserService,
     private messagesService: MessagesService,
-    private modalFeedBackService: ModalFeedBackService
+    private modalFeedBackService: ModalFeedBackService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
@@ -152,9 +155,13 @@ export class LoginPage implements OnInit {
         countryId: this.userCountry
       });
       this.currentSessionService.setSession(userLogin);
-      this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-      ]);
+      if (this.productsService.getUrlDetailProduct()) {
+        window.location.replace(this.productsService.getUrlDetailProduct());
+      } else {
+        this.router.navigate([
+          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        ]);
+      }
     } catch (error) {
       console.error(error);
     }

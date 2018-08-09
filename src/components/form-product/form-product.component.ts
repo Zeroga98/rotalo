@@ -109,10 +109,14 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.photosForm.controls['negotiable'].enable();
     if (evt === 'GRATIS') {
       this.photosForm.patchValue({price: 0});
+      this.photosForm.patchValue({'negotiable': false});
+      const elem = document.getElementById('checkTerms') as any;
+      elem.checked = false;
       this.disabledField = true;
+      this.photosForm.controls['negotiable'].disable();
     }else if (evt === 'SUBASTA') {
-      /*const elem = document.getElementById('checkTerms') as any;
-      elem.checked = true;*/
+      const elem = document.getElementById('checkTerms') as any;
+      elem.checked = true;
       this.disabledField = false;
       this.photosForm.controls['negotiable'].disable();
     }else {
@@ -139,16 +143,39 @@ export class FormProductComponent implements OnInit, OnChanges {
           'negotiable': true
         };
       } else {
-        dataAdditional = {
-          'publish-until': this.getPublishUntilDate(),
-          'negotiable': false
-        };
+        if (this.product) {
+          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+            dataAdditional = {
+              'publish-until': dateMoment,
+              'negotiable': false
+            };
+          } else {
+            dataAdditional = {
+              'publish-until': dateMoment
+            };
+          }
+        } else {
+          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+            dataAdditional = {
+              'publish-until': this.getPublishUntilDate(),
+              'negotiable': false
+            };
+          } else {
+            dataAdditional = {
+              'publish-until': this.getPublishUntilDate()
+            };
+          }
+        }
       }
-      const publishDate = {
-        'published-at': new Date()
-      };
-
-      const params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+      let params;
+      if (this.product) {
+        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional);
+      } else {
+        const publishDate = {
+          'published-at': new Date()
+        };
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+      }
       this.photosUploaded.length = 0;
       delete params['category'];
       this.publish.emit(params);
@@ -297,6 +324,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
+      this.photosForm.controls['negotiable'].disable();
     }
 
     if (config['sell-type'] === 'SUBASTA') {
@@ -304,12 +332,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.disabledFieldType = true;
       this.photosForm.controls['negotiable'].disable();
     }
-
-    /* this.rateSeller =  this.fb.group({
-      speed: [this.notification.calificacion.rapidezProceso, [Validators.required]],
-      quality: [this.notification.calificacion.calidadProducto, [Validators.required]],
-      attention: [this.notification.calificacion.amabilidadAtencion, [Validators.required]]
-      }, {validator: validatePrice});*/
 
         this.photosForm =  this.fb.group({
         name: [config.name, [Validators.required]],
@@ -326,24 +348,6 @@ export class FormProductComponent implements OnInit, OnChanges {
         'model': [model, []],
         category: [config['category'], [Validators.required]],
         }, {validator: validatePrice});
-
-
-/*
-    this.photosForm = new FormGroup({
-      name: new FormControl(config.name, [Validators.required]),
-      price: new FormControl(config.price, [Validators.required]),
-      currency: new FormControl(config.currency, [Validators.required]),
-      'subcategory-id': new FormControl(config['subcategory-id'], [Validators.required]),
-      used: new FormControl(config.used, [Validators.required]),
-      visible: new FormControl(config.visible, [Validators.required]),
-      'sell-type': new FormControl(config['sell-type'], [Validators.required]),
-      description: new FormControl(config.description, [Validators.required]),
-      negotiable: new FormControl({value: config.negotiable, disabled: false}, []),
-      'publish-until': new FormControl(config['publish-until'], []),
-      'type-vehicle': new FormControl(typeVehicle, []),
-      'model': new FormControl(model, []),
-      category: new FormControl(config['category'], [Validators.required]),
-    }, {validator: validateRating});*/
   }
 
   private getInitialConfig(): ProductInterface {
@@ -356,6 +360,7 @@ export class FormProductComponent implements OnInit, OnChanges {
           day: date.getDate()
         }
     };
+
     if (this.product) {
       const publishUntil  = moment(this.product['publish-until']).toDate();
       objectDate = {
@@ -367,6 +372,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       };
       this.product['publish-until'] = objectDate;
     }
+
     const product: ProductInterface = {
       name: null,
       price: null,
@@ -377,7 +383,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'sell-type': '',
       description: null,
       'publish-until': objectDate,
-      negotiable: false,
+      negotiable: true,
       category: ''
     };
     return Object.assign({}, product, this.product) as ProductInterface;
