@@ -7,4 +7,5 @@ export interface ModalInterface {
   photo: string;
   price: string | number;
   type ?: string;
+  idVendedor?: string;
 }

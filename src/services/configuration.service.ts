@@ -2,8 +2,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConfigurationService {
+
+
+  apiTem = {
+    protocol: 'http',
+    server: 'stg-internalapi.rotalo.co:2070/api/v1',
+    inactivityLimit: 86400 // seconds
+  };
+
+
   /*Staging*/
-/*
   api = {
     protocol: 'https',
     server: 'apistg.rotalo.co:1443/gateway/v1',
@@ -15,9 +23,9 @@ export class ConfigurationService {
     server: 'apistg.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
-  /*Desarrollo*/
 
+  /*Desarrollo*/
+/*
 api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway/v1',
@@ -29,7 +37,7 @@ api = {
     server: 'api.dev.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
   /*Produccion*/
   /*
 api = {
@@ -66,6 +74,10 @@ api = {
   };
 
   constructor() {}
+
+  getTempBaseUrl(): string {
+    return this.apiTem.protocol + '://' + this.apiTem.server;
+  }
 
   getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;

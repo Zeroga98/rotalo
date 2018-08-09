@@ -353,6 +353,7 @@ export class DetailProductComponent implements OnInit {
 
   private configurarModal(product: ProductInterface) {
     const userName = this.currentSessionSevice.currentUser().name;
+    console.log(product);
     this.configModal = {
       emailVendedor: product.user.email,
       nombreVendedor: product.user.name,
@@ -361,7 +362,8 @@ export class DetailProductComponent implements OnInit {
       nombreProducto: product.name,
       photo: product.photos[0].url,
       price: product.price,
-      type: product['sell-type']
+      type: product['sell-type'],
+      idVendedor: product.user.id
     };
   }
 }

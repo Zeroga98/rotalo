@@ -43,7 +43,8 @@ export class OfferModalComponent implements OnInit {
           'idProducto':  this.config.idProducto,
           'nombreProducto':  this.config.nombreProducto,
           'esSubasta': isSubasta,
-          'montoOferta': price
+          'montoOferta': price,
+          'idVendedor': this.config.idVendedor
           });
 
         this.routineSuccess();
