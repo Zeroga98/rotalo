@@ -16,10 +16,8 @@
   }
   /* Content styles */
   .md-content {
-    background: white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: #FF3646;
     position: relative;
-    border-radius: 5px;
     margin: 0 auto;
   }
   .md-content h3 {
@@ -51,25 +49,15 @@
   .md-content>div ul li {
     padding: 5px 0;
   }
-  .md-content button {
-    display: block;
-    background: #FF3646;
-    margin: 0 auto;
-    font-size: 0.8em;
-    width: 45px;
-    height: 45px;
-    position: relative;
-    border-radius: 100%;
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-  }
 
   .md-content{
     .close-container{
-      padding: 10px;
-      text-align: right;
-      .icon-close{
+      padding: 15px 10px 10px 20px;
+      text-align: left;
+      .icon-circle-cancel{
         cursor: pointer;
+        color: #FFFFFF;
+        font-size: 2.5rem;
       }
     }
   }
@@ -104,40 +92,68 @@
     position: absolute;
   }
 
-  .icon-feedback {
-    display: block;
-    width: 70px;
-    height: 70px;
-    margin: 0 auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url(../../assets/img/icono_feedBack_red.svg);
-    background-size: 70px 70px;
-    position: absolute;
-  }
-
-  .icon-main{
-    display: block;
-    background: #FF3646;
-    margin: 0 auto;
-    width: 82px;
-    height: 82px;
-    position: absolute;
-    top: -41px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 100%;
-  }
-
-  .success-text {
-    color: #00AAC7;
-    font-weight: bold;
-  }
-
 }
 
 :host.md-show .modal-background {
   opacity: 1;
   visibility: visible;
 }
+
+:host {
+  .md-content{
+    text-align: center;
+    .share-product-container {
+      .share-product {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #FFFFFF;
+      }
+      .icon-container {
+        .button-share {
+          width: 44px;
+          height: 45px;
+          background-color: #C61B27;
+        }
+      }
+    }
+  }
+}
+
+:host {
+  .form-theme {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .form-group {
+      margin-bottom: 5px;
+      position: relative;
+      .form-control {
+        height: 45px;
+      }
+      .icon-container {
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        bottom: 0;
+        top: 0;
+      }
+    }
+    .success-text {
+      color: #00AAC7;
+      font-weight: bold;
+    }
+    .icon-email {
+      margin: 0 auto;
+      width: 20px;
+      height: 20px;
+      background: url(../../assets/img/enviar.svg);
+      background-size: 20px 20px;
+    }
+    .help-block {
+      position: absolute;
+      font-size: 1.7rem;
+      color: #FFFFFF;
+      padding: 0;
+    }
+  }
+}
+
