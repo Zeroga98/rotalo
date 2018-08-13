@@ -151,8 +151,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
    shareProduct(id: string) {
-    this.modalService.open(id);
+    if (this.product.id) {
+      this.modalService.setProductId(this.product.id);
+      this.modalService.open(id);
+    }
   }
-
-
 }

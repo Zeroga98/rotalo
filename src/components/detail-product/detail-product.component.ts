@@ -23,8 +23,16 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 import { CurrentSessionService } from '../../services/current-session.service';
 import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
+
+function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
+  const email = c;
+  if (email.value == this.currentEmail) {
+    return { emailError: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'detail-product',
@@ -61,7 +69,7 @@ export class DetailProductComponent implements OnInit {
   public firstName = '';
   public screenHeight;
   public screenWidth;
-
+  private currentEmail;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -72,7 +80,6 @@ export class DetailProductComponent implements OnInit {
     }
   }
 
-
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -80,16 +87,27 @@ export class DetailProductComponent implements OnInit {
     private currentSessionSevice: CurrentSessionService,
     private userService: UserService,
     private messagesService: MessagesService,
-    private shareInfoChatService: ShareInfoChatService
+    private shareInfoChatService: ShareInfoChatService,
+    private fb: FormBuilder
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
 
   ngOnInit() {
-    this.sendInfoProduct = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)])
-    });
+    const currentUser = this.currentSessionSevice.currentUser();
+    if (currentUser) {
+      this.currentEmail = currentUser.email;
+    }
+    this.initShareForm();
     this.loadProduct();
+  }
+
+  initShareForm() {
+    this.sendInfoProduct = this.fb.group(
+      {
+        email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+      }
+    );
   }
 
   visitorCounter() {
@@ -122,12 +140,14 @@ export class DetailProductComponent implements OnInit {
             'ClicInferior',
             'CompartirEsteProductoExitoso'
           );
+          this.changeDetectorRef.markForCheck();
         })
         .catch(httpErrorResponse => {
           if (httpErrorResponse.status === 422) {
             this.textError = httpErrorResponse.error.errors[0].detail;
             this.messageError = true;
           }
+          this.changeDetectorRef.markForCheck();
         });
     }
   }

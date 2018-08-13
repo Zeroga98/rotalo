@@ -31,7 +31,7 @@
     border-radius: 3px 3px 0 0;
   }
   .md-content>div {
-    padding: 15px 30px 30px;
+    padding: 15px 30px 50px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
@@ -62,23 +62,6 @@
     }
   }
 
-  .form-theme .form-control{
-    padding: 6px 0;
-  }
-
-  .form-theme .help-block{
-    padding-left: 0;
-  }
-
-  .form-theme textarea.form-control{
-    height: auto;
-    resize: none;
-    border-radius: 10px;
-    padding: 6px 5px;
-    border: 1px solid #d4dbe0;
-    min-height: 120px;
-  }
-
   .icon-send {
     display: block;
     width: 20px;
@@ -103,6 +86,8 @@
   .md-content{
     text-align: center;
     .share-product-container {
+      margin: 0 auto;
+      width: 85%;
       .share-product {
         font-size: 1.7rem;
         font-weight: bold;
@@ -121,6 +106,7 @@
 
 :host {
   .form-theme {
+    position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
     .form-group {
@@ -150,9 +136,35 @@
     }
     .help-block {
       position: absolute;
+      left: 0;
       font-size: 1.7rem;
       color: #FFFFFF;
       padding: 0;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  :host {
+    .md-content .share-product-container .share-product,
+    .form-theme .help-block,
+    .form-theme .form-control {
+      font-size: 1.1rem;
+    }
+    .form-theme .form-group .form-control {
+      height: 30px;
+    }
+    .md-content .share-product-container .icon-container .button-share {
+      width: 30px;
+      height: 30px;
+    }
+    .form-theme .icon-email {
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+    }
+    .md-content .share-product-container{
+      width: 100%;
     }
   }
 }
