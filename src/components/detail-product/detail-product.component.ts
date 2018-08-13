@@ -122,12 +122,14 @@ export class DetailProductComponent implements OnInit {
             'ClicInferior',
             'CompartirEsteProductoExitoso'
           );
+          this.changeDetectorRef.markForCheck();
         })
         .catch(httpErrorResponse => {
           if (httpErrorResponse.status === 422) {
             this.textError = httpErrorResponse.error.errors[0].detail;
             this.messageError = true;
           }
+          this.changeDetectorRef.markForCheck();
         });
     }
   }
