@@ -12,7 +12,6 @@ export class ConfigurationService {
 
 
   /*Staging*/
-
  api = {
     protocol: 'https',
     server: 'apistg.rotalo.co:1443/gateway/v1',
