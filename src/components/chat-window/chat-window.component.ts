@@ -265,12 +265,13 @@ export class ChatWindowComponent
       esSubasta = true;
     }
     return {
-      'emailOfertador': 'diego.gamez+ofertador3@pragma.com.co',
+      'emailOfertador': notification.oferta.emailOfertador,
       'nombreOfertador': notification.oferta.nombreUsuario,
       'nombreVendedor': notification.producto.nombreUsuario ,
       'montoOferta':  notification.oferta.monto ,
       'nombreProducto': notification.producto.nombreProducto,
-      'esSubasta': esSubasta
+      'esSubasta': esSubasta,
+      'idProducto': notification.producto.idProducto
       };
   }
 
@@ -301,14 +302,15 @@ export class ChatWindowComponent
 
   private buildParamsRegretOffer(notification): any {
     return {
-      'emailVendedor': '',
+      'emailVendedor': notification.producto.emailVendedor,
       'nombreVendedor': notification.producto.nombreUsuario ,
       'nombreProducto': notification.producto.nombreProducto,
       'montoOferta':  notification.oferta.monto ,
       'nombreOfertador': notification.oferta.nombreUsuario,
+      'idProducto': notification.producto.idProducto,
+      'idVendedor': notification.producto.idVendedor
       };
   }
-
 
   async regretOffer(notification) {
     try {

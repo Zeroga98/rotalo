@@ -59,7 +59,7 @@
 
         <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()" class="btn-item">
           <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-            <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+            <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
           </button>
           <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
             <span class="icon-ofert-detalle"></span> Hacer oferta
@@ -73,7 +73,7 @@
           </div>
           <div class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-              <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Yo lo quiero' : 'Comprar' }}
+              <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
             </button>
             <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
                 <span class="icon-ofert-detalle"></span> Hacer oferta
