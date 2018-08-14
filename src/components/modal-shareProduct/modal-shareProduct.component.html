@@ -4,8 +4,9 @@
       <span (click)="close()"  class="icon-circle-cancel"></span>
     </div>
     <div class="share-product-container">
-      <div class="icon-share-container">
-      </div>
+        <div class="icon-share-container">
+          <div class="icon-email"></div>
+        </div>
       <div>
         <p  class="share-product">Comparte este producto con un amigo</p>
       </div>
@@ -22,8 +23,11 @@
             </div>
             <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine" class="help-block">
               <span class="icon-circle-cancel"></span>
-              <span>
+              <span *ngIf="!sendInfoProduct.get('email').errors.emailError">
                 Aseguráte de que sea un correo válido.
+              </span>
+              <span *ngIf="sendInfoProduct.get('email').errors.emailError">
+                ¡Hey! compártelo a un correo diferente al tuyo.
               </span>
             </span>
             <span *ngIf="messageSuccess" class="help-block">

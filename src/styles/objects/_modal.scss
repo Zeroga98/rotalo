@@ -105,7 +105,32 @@
 }
 
 .modal-open{
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
   feed-back {
     display: none;
+  }
+}
+
+.md-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  background: rgba(23, 23, 23, 0.65);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.modal-open {
+  .md-overlay {
+    opacity: 1;
+    visibility: visible;
   }
 }

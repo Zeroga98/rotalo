@@ -176,8 +176,11 @@
             </div>
             <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine" class="help-block">
               <span class="icon-circle-cancel"></span>
-              <span>
+              <span *ngIf="!sendInfoProduct.get('email').errors.emailError">
                 Aseguráte de que sea un correo válido.
+              </span>
+              <span *ngIf="sendInfoProduct.get('email').errors.emailError">
+                ¡Hey! compártelo a un correo diferente al tuyo.
               </span>
             </span>
             <span *ngIf="messageSuccess" class="help-block">

@@ -89,8 +89,8 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
     this.element.remove();
+    this.close();
   }
-
 
   open(): void {
      this.productId = this.modalService.getProductId();

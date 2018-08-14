@@ -83,7 +83,7 @@
 
   .lable-sell-process{
     position: absolute;
-    background: #ED2F3C;    
+    background: #ED2F3C;
     z-index: 1;
     color: #FFFFFF;
     top: 30px;
@@ -111,9 +111,9 @@
 
 @media screen and (max-width: 570px) {
   :host {
-    .lable-sell-process{      
+    .lable-sell-process{
       font-size: 1.3rem;
-    }            
+    }
   }
 }
 
