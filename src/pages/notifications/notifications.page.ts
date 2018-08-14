@@ -99,40 +99,6 @@ export class NotificationsPage implements OnInit {
     }
   }
 
-  async regretOffer(notification:NotificationsInterface){
-    try {
-      if (!confirm("¿Estás seguro que deseas cancelar la compra?")) return;
-      const response = await this.offerService.regretOffer(notification.offer.id as number);
-      notification.status = "Compra cancelada";
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async acceptOffer(notification: NotificationsInterface) {
-    try {
-      if (!confirm("¿Estás seguro que deseas aceptar la oferta?")) return;
-      const response = await this.offerService.acceptOffer(notification.offer
-        .id as number);
-      notification.status = "Oferta aceptada";
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async declineOffer(notification: NotificationsInterface) {
-    try {
-      if (!confirm("¿Estás seguro que deseas rechazar la oferta?")) return;
-      const response = await this.offerService.declineOffer(notification.offer
-        .id as number);
-      notification.status = "Oferta rechazada";
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   buyProduct(notification: NotificationsInterface){
     const id = notification.product.id;

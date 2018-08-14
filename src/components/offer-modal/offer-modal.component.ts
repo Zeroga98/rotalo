@@ -4,16 +4,16 @@ import { ModalInterface } from './../../commons/interfaces/modal.interface';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: "offer-modal",
-  templateUrl: "./offer-modal.component.html",
-  styleUrls: ["./offer-modal.component.scss"],
+  selector: 'offer-modal',
+  templateUrl: './offer-modal.component.html',
+  styleUrls: ['./offer-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OfferModalComponent implements OnInit {
-  @ViewChild("priceInput", { read: ElementRef }) priceInput: ElementRef;
+  @ViewChild('priceInput', { read: ElementRef }) priceInput: ElementRef;
   @Input() config: ModalInterface;
   @Output() close: EventEmitter<any> = new EventEmitter();
-  title: string = "¿Cuánto quieres ofertar?";
+  title: string = '¿Cuánto quieres ofertar?';
   errorInForm: boolean = false;
   msgError: string = '';
   isReadyResponse: boolean = false;
@@ -30,12 +30,23 @@ export class OfferModalComponent implements OnInit {
 
   async sendOffer() {
     const price = this.priceInput.nativeElement.value;
-    if(this.validForm(price)) {
+    let isSubasta = false;
+    if (this.validForm(price)) {
       try {
+        if (this.config.type === 'SUBASTA') {
+          isSubasta = true;
+        }
         const response = await this.offerService.sendOffer({
-          amount: price,
-          "product-id": this.config["product-id"]
-        });
+          'emailVendedor': this.config.emailVendedor,
+          'nombreVendedor': this.config.nombreVendedor,
+          'nombreOfertador':  this.config.nombreOfertador,
+          'idProducto':  this.config.idProducto,
+          'nombreProducto':  this.config.nombreProducto,
+          'esSubasta': isSubasta,
+          'montoOferta': price,
+          'idVendedor': this.config.idVendedor
+          });
+
         this.routineSuccess();
         this.changeDetectorRef.markForCheck();
       } catch (error) {}
@@ -43,23 +54,23 @@ export class OfferModalComponent implements OnInit {
 
   }
 
-  validForm(price: number): boolean{
-    if (price.toString() == '' || price == null){
+  validForm(price: number): boolean {
+    if (price.toString() == '' || price == null) {
       this.setErrorForm(true, 'Debes ingresar una oferta');
       return false;
     }
-    if(this.config.type === "SUBASTA") {
-      if(price < this.minValue) {
+    if (this.config.type === 'SUBASTA') {
+      if (price < this.minValue) {
         this.setErrorForm(true, `La oferta debe ser mayor o igual a ${this.minValue}`);
         return false;
-      };
+      }
     }
     this.setErrorForm(false);
     this.changeDetectorRef.markForCheck();
     return true;
   }
 
-  setErrorForm(isError:boolean, msg: string = ''){
+  setErrorForm(isError: boolean, msg: string = '') {
     this.errorInForm = isError;
     this.msgError = msg;
     this.changeDetectorRef.markForCheck();
@@ -74,6 +85,6 @@ export class OfferModalComponent implements OnInit {
   }
 
  /* get isPriceCorrect(): boolean {
-    //return (this.priceInput || this.priceInput.nativeElement.value !== ""  ? true : false);
+    //return (this.priceInput || this.priceInput.nativeElement.value !== ''  ? true : false);
   }*/
 }

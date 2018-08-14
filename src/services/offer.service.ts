@@ -1,45 +1,41 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from './configuration.service';
+import { CurrentSessionService } from './current-session.service';
 
 @Injectable()
 export class OfferService {
-    private readonly url = this.configurationService.getBaseUrl() + '/offers';
-    constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    sendOffer(params): Promise<any> {
-        return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
+   private userId = this.currentSessionService.getIdUser();
+    private readonly url = this.configurationService.getTempBaseUrl() + '/ofertas';
+    constructor(private httpClient: HttpClient, private configurationService: ConfigurationService,
+      private currentSessionService: CurrentSessionService) { }
+
+  sendOffer(params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: this.userId });
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.httpClient.post(this.url, params, { headers: headers }).toPromise();
+  }
+
+    acceptOffer(id: number , params) {
+        this.sendResponseOffer(id, 'aceptar', params);
     }
 
-    acceptOffer(id: number){
-        this.sendResponseOffer(id, 'accept');
+    declineOffer(id: number, params) {
+        this.sendResponseOffer(id, 'rechazar', params);
     }
 
-    declineOffer(id: number){
-        this.sendResponseOffer(id, 'decline');
+    regretOffer(id: number, params) {
+        this.sendResponseOffer(id, 'arrepentir', params);
     }
 
-    regretOffer(id: number){
-        this.sendResponseOffer(id, 'regret');
-    }
-
-    private sendResponseOffer(id: number, action:string){
+    private sendResponseOffer(id: number, action: string, params) {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: this.userId });
+      const headers = new HttpHeaders(jsonSapiHeaders);
         const url = `${this.url}/${id}/${action}`;
-        return this.httpClient.post(url, {
-            data: {
-                id,
-                type: 'offers'
-            }
-        }).toPromise();
-    }
-
-    private buildParams(params): any {
-        return {
-            data: {
-                attributes: params,
-                type: 'offers'
-            }
-        };
+        return this.httpClient.put(url, params, { headers: headers }).toPromise();
     }
 
 }

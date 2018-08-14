@@ -238,6 +238,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (photo && photo.id) {
       this.removeImageFromServer(photo.id);
     }
+    this.changeDetectorRef.markForCheck();
   }
 
  private findPhotoWithId(file) {

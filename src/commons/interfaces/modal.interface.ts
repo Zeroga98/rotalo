@@ -1,7 +1,11 @@
 export interface ModalInterface {
-    photo: string;
-    title: string;
-    price: string | number;
-    'product-id' ?: string | number;
-    type ?: string;
+  emailVendedor: string;
+  nombreVendedor: string;
+  nombreOfertador: string;
+  idProducto ?: string | number;
+  nombreProducto: string;
+  photo: string;
+  price: string | number;
+  type ?: string;
+  idVendedor?: string;
 }

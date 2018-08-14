@@ -383,14 +383,18 @@ export class DetailProductComponent implements OnInit {
   }
 
   private configurarModal(product: ProductInterface) {
-      this.configModal = {
-        photo: product.photos ? product.photos[0].url : this.defaultImage,
-        title: product.name,
-        price: product.price,
-        'product-id': product.id,
-        type: product['sell-type']
-      };
-
+    const userName = this.currentSessionSevice.currentUser().name;
+    this.configModal = {
+      emailVendedor: product.user.email,
+      nombreVendedor: product.user.name,
+      nombreOfertador: userName,
+      idProducto: product.id,
+      nombreProducto: product.name,
+      photo: product.photos[0].url,
+      price: product.price,
+      type: product['sell-type'],
+      idVendedor: product.user.id
+    };
   }
 
   validateMobile() {

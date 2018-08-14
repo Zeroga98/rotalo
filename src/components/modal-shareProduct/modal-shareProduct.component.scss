@@ -14,12 +14,14 @@
     -moz-transition: all 0.3s;
     transition: all 0.3s;
   }
+
   /* Content styles */
   .md-content {
     background-color: #FF3646;
     position: relative;
     margin: 0 auto;
   }
+
   .md-content h3 {
     margin: 0;
     padding: 0.4em;
@@ -30,22 +32,26 @@
     background: rgba(0, 0, 0, 0.1);
     border-radius: 3px 3px 0 0;
   }
+
   .md-content>div {
     padding: 15px 30px 50px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
   }
+
   .md-content>div p {
     margin: 0;
     padding: 10px 0;
     font-size: 1.6rem;
     color: #777777;
   }
+
   .md-content>div ul {
     margin: 0;
     padding: 0 0 30px 20px;
   }
+
   .md-content>div ul li {
     padding: 5px 0;
   }
@@ -73,6 +79,13 @@
     background: url(../../assets/img/enviar.svg);
     background-size: 20px 20px;
     position: absolute;
+  }
+
+  .md-content{
+    .footer-icon{
+      padding: 40px;
+      background: url(../../assets/img/icon_background_detalle.png);
+    }
   }
 
 }
@@ -154,11 +167,7 @@
       background-size: 60px 50px;
     }
   }
-
-
-
 }
-
 
 @media (max-width: 850px) {
   :host {
@@ -181,6 +190,7 @@
     }
     .md-content .share-product-container{
       width: 100%;
+      padding: 15px 30px 15px;
     }
   }
 }
