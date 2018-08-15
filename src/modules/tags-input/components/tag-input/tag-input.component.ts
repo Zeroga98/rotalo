@@ -39,6 +39,7 @@ export interface AutoCompleteItem {
     </rl-tag-input-item>
     <form [formGroup]="tagInputForm" class="ng2-tag-input-form">
       <input
+        maxlength="18"
         class="ng2-tag-input-field"
         type="text"
         #tagInputElement
@@ -78,7 +79,7 @@ export interface AutoCompleteItem {
       font-family: "Roboto", "Helvetica Neue", sans-serif;
       font-size: 16px;
       display: inline-block;
-      width: 85%;
+      width: 100%;
       box-shadow: none;
       border: 0;
       padding: 8px 0;

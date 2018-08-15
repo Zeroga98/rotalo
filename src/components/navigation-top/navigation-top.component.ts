@@ -74,7 +74,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       id: this.navigationService.getCurrentCountryId()
     };
     this.userId = this.currentSessionService.getIdUser();
-    //this.listenerMessages = this.setListenerMessagesUnread(this.userId);
     this.setListenerMessagesUnread(this.userId);
     if (this.navigationService.getMessagesUnRead()) {
       this.messagesUnRead = this.navigationService.getMessagesUnRead();
@@ -93,7 +92,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-   // clearInterval(this.listenerMessages);
     clearInterval(this.listenerNotifications);
   }
 
@@ -133,7 +131,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         }
         this.changeDetector.markForCheck();
       },
-      error => console.log(error)
+      error => {
+        if (error.error.error == 401) {
+          this.loginService.logout();
+        }
+      }
     );
   }
 
