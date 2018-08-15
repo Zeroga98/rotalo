@@ -78,7 +78,7 @@ export interface AutoCompleteItem {
       font-family: "Roboto", "Helvetica Neue", sans-serif;
       font-size: 16px;
       display: inline-block;
-      width: auto;
+      width: 85%;
       box-shadow: none;
       border: 0;
       padding: 8px 0;
