@@ -2,8 +2,8 @@
 
   .modal-share-container {
     display: flex;
+    flex-wrap: wrap;
    }
-
 
   .modal-background {
     position: fixed;
@@ -39,7 +39,7 @@
   }
 
   .md-content>div {
-    padding: 15px 30px 10rem;
+    padding: 3rem 1rem 12rem;
     margin: 0;
   }
 
@@ -84,32 +84,48 @@
     position: absolute;
   }
 
+  .img-modal-pc {
+    width: 80%;
+  }
 
 }
 
 :host {
-  .img-pc {
-    display: block;
-    width: 272.83px;
-    height: 147.37px;
-    margin: 0 auto;
-    background: url(../../assets/img/ic_modal_pc.svg);
-    background-size: 272.83px 147.37px;
+
+  .icon-check-modal{
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    background: url(../../assets/img/ic_modal_check.svg);
+    background-size: 25px 25px;
   }
+
   .modal{
     width: 55%;
+    min-width: 300px;
   }
   .modal-info {
     width: 45%;
+    min-width: 300px;
     text-align: center;
     background: #FFFFFF;
     padding: 30px;
     .info-container{
+      position: relative;
       height: 100%;
       border: 1px dashed #707070;
+      .info {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
     .information-text{
+      margin: 0 auto;
       margin-top: 15px;
+      width: 70%;
       p{
         font-size: 1.4rem;
         color: #404040;
@@ -128,12 +144,16 @@
     text-align: center;
     .share-product-container {
       margin: 0 auto;
-      width: 100%;
+      width: 85%;
+
       .share-product {
+        display: inline-block;
+        vertical-align: middle;
         font-size: 1.9rem;
         font-weight: bold;
         color: #FFFFFF;
       }
+
       .share-description {
         font-size: 1.6rem;
         color: #FFFFFF;
@@ -183,38 +203,83 @@
 
     .help-block {
       position: absolute;
+      margin: 0 auto;
       left: 0;
+      right: 0;
       font-size: 1.7rem;
       color: #FFFFFF;
       padding: 0;
+
     }
   }
 
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1000px) {
   :host {
-    .md-content .share-product-container .share-product,
-    .form-theme .help-block,
-    .form-theme .form-control {
-      font-size: 1.1rem;
+
+    .modal-share-container {
+      width: 300px;
+      margin: 0 auto;
     }
+
+    .modal,
+    .modal-info {
+      width: 100%;
+    }
+
+    .modal-info {
+      min-height: 210px;
+    }
+
+    .md-content .close-container {
+      padding: 5px;
+    }
+
+    .md-content .share-product-container .share-product {
+      font-size: 1.2rem;
+    }
+
+    .md-content .share-product-container .share-description {
+      font-size: 1.0rem;
+    }
+
     .form-theme .form-group .form-control {
       height: 30px;
+      font-size: 1.0rem;
     }
+
+     .modal-info .information-text p {
+      font-size: 1.0rem;
+     }
+
+     .modal-info .info-container {
+      border: none;
+     }
+
+    .modal-info .information-text {
+      width: 100%;
+    }
+
     .md-content .share-product-container .icon-container .button-share {
       width: 30px;
       height: 30px;
     }
+
     .form-theme .icon-email {
       width: 15px;
       height: 15px;
       background-size: 15px 15px;
     }
-    .md-content .share-product-container{
-      width: 100%;
-      padding: 15px 30px 15px;
+
+    .form-theme .help-block {
+      font-size: 1rem;
     }
+
+     .md-content > div {
+      padding: 0rem 1rem 4rem;
+    }
+
   }
 }
 
