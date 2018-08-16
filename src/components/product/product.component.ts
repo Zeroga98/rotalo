@@ -25,6 +25,7 @@ import { CurrentSessionService } from "../../services/current-session.service";
   styleUrls: ["./product.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() product: ProductInterface;
   @Input() masonryInfo;
