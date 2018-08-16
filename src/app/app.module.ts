@@ -138,6 +138,8 @@ import { ModalFeedBackComponent } from '../components/modal-feedBack/modal-feedB
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
 import { ModalShareProductComponent } from '../components/modal-shareProduct/modal-shareProduct.component';
 import { ModalShareProductService } from '../components/modal-shareProduct/modal-shareProduct.service';
+import { ModalUploadProductComponent } from '../components/modal-uploadProduct/modal-uploadProduct.component';
+import { ModalUploadProductService } from '../components/modal-uploadProduct/modal-uploadProduct.service';
 
 
 @NgModule({
@@ -221,6 +223,7 @@ import { ModalShareProductService } from '../components/modal-shareProduct/modal
     ModalFeedBackComponent,
     NotificationConfirmation,
     ModalShareProductComponent,
+    ModalUploadProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -277,6 +280,7 @@ import { ModalShareProductService } from '../components/modal-shareProduct/modal
     FrequentlyAskedQuestionsService,
     ModalFeedBackService,
     ModalShareProductService,
+    ModalUploadProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

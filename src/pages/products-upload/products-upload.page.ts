@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
+import { ModalUploadProductService } from "../../components/modal-uploadProduct/modal-uploadProduct.service";
 
 @Component({
   selector: "roducts-upload",
@@ -14,19 +15,24 @@ export class ProductsUploadPage implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: ModalUploadProductService,
   ) {}
 
   ngOnInit() {}
 
   async publishPhoto(event) {
     try {
+
       const response = await this.productsService.saveProducts(event);
+      if (response.data) {
+        this.shareProduct('custom-modal-3', response.data.id);
+      }
       this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
       this.userService.updateInfoUser();
-      this.router.navigate([
+      /*this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
-      ]);
+      ]);*/
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -42,5 +48,12 @@ export class ProductsUploadPage implements OnInit {
       etiqueta: label
     };
     window['dataLayer'].push(paramsGa);
+  }
+
+  shareProduct(id: string, idProduct) {
+    if (idProduct) {
+      this.modalService.setProductId(idProduct);
+      this.modalService.open(id);
+    }
   }
 }

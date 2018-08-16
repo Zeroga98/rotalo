@@ -25,7 +25,9 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 */
+
   /*Desarrollo*/
+
 api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway/v1',

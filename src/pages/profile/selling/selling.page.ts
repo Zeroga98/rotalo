@@ -29,6 +29,7 @@ export class SellingPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.currentTab = "selling";
     this.getInfoUser();
     this.loadProductsExpired();
