@@ -21,13 +21,13 @@
   }
 
   /* Content styles */
-  .md-content {
+  .md-content-upload {
     background-color: #FF3646;
     position: relative;
     margin: 0 auto;
   }
 
-  .md-content h3 {
+  .md-content-upload h3 {
     margin: 0;
     padding: 0.4em;
     text-align: center;
@@ -38,28 +38,28 @@
     border-radius: 3px 3px 0 0;
   }
 
-  .md-content>div {
+  .md-content-upload>div {
     padding: 3rem 1rem 12rem;
     margin: 0;
   }
 
-  .md-content>div p {
+  .md-content-upload>div p {
     margin: 0;
     padding: 10px 0;
     font-size: 1.6rem;
     color: #777777;
   }
 
-  .md-content>div ul {
+  .md-content-upload>div ul {
     margin: 0;
     padding: 0 0 30px 20px;
   }
 
-  .md-content>div ul li {
+  .md-content-upload>div ul li {
     padding: 5px 0;
   }
 
-  .md-content{
+  .md-content-upload{
     .close-container{
       padding: 15px 10px 10px 20px;
       text-align: left;
@@ -102,10 +102,11 @@
     background-size: 25px 25px;
   }
 
-  .modal{
+  .modal-upload{
     width: 55%;
     min-width: 300px;
   }
+
   .modal-info {
     width: 45%;
     min-width: 300px;
@@ -140,7 +141,7 @@
 }
 
 :host {
-  .md-content{
+  .md-content-upload{
     text-align: center;
     .share-product-container {
       margin: 0 auto;
@@ -209,7 +210,6 @@
       font-size: 1.7rem;
       color: #FFFFFF;
       padding: 0;
-
     }
   }
 
@@ -232,15 +232,15 @@
       min-height: 210px;
     }
 
-    .md-content .close-container {
+    .md-content-upload .close-container {
       padding: 5px;
     }
 
-    .md-content .share-product-container .share-product {
+    .md-content-upload .share-product-container .share-product {
       font-size: 1.2rem;
     }
 
-    .md-content .share-product-container .share-description {
+    .md-content-upload .share-product-container .share-description {
       font-size: 1.0rem;
     }
 
@@ -261,7 +261,7 @@
       width: 100%;
     }
 
-    .md-content .share-product-container .icon-container .button-share {
+    .md-content-upload .share-product-container .icon-container .button-share {
       width: 30px;
       height: 30px;
     }
@@ -276,7 +276,7 @@
       font-size: 1rem;
     }
 
-     .md-content > div {
+     .md-content-upload > div {
       padding: 0rem 1rem 4rem;
     }
 

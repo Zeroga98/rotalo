@@ -83,10 +83,11 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
-    this.element.remove();
-    this.close();
+    this.element = undefined;
+    //this.element.remove();
   }
 
   open(): void {
