@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ModalUploadProductService } from './modal-uploadProduct.service';
 import { ProductsService } from '../../services/products.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../router/routes';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -33,7 +35,8 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private fb: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
-    private currentSessionSevice: CurrentSessionService) {
+    private currentSessionSevice: CurrentSessionService,
+    private router: Router) {
       this.element = el.nativeElement;
     }
 
@@ -97,12 +100,18 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
   }
 
   close(): void {
-    this.modalService.setProductId(undefined);
     this.sendInfoProduct.reset();
     this.messageSuccess = false;
     this.messageError = false;
     this.element.classList.remove('md-show');
     document.body.classList.remove('modal-open');
+    const id = this.modalService.getProductId();
+    if (id) {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+      ]);
+    }
+    this.modalService.setProductId(undefined);
   }
 
 }

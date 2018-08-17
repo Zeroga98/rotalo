@@ -25,11 +25,11 @@ export class ProductsUploadPage implements OnInit {
     try {
 
       const response = await this.productsService.saveProducts(event);
+      this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
+      this.userService.updateInfoUser();
       if (response.data) {
         this.shareProduct('custom-modal-3', response.data.id);
       }
-      this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
-      this.userService.updateInfoUser();
       /*this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);*/
