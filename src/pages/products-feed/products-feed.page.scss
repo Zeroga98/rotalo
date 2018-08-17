@@ -109,6 +109,45 @@
 
 }
 
+:host {
+  .featured-section {
+    background-color: #F4F4F4;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.16);
+    .featured-container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 0;
+      .header-featured{
+        margin-bottom: 22px;
+        h3 , .star-img {
+          display: inline-block;
+        }
+        h3 {
+          color: #383838;
+          font-size: 1.8rem;
+          font-weight: bold;
+          margin: 0 0 0 8px;
+        }
+        .star-img{
+          vertical-align: middle;
+          width: 56px;
+          height: 56px;
+        }
+      }
+    }
+    .featured-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .featured-card {
+      background: #383838;
+      flex: 0 1 calc(20% - 1em);
+    }
+  }
+
+}
+
 @media screen and (max-width: 570px) {
   :host {
     .lable-sell-process{
