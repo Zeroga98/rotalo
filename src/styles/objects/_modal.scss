@@ -55,7 +55,7 @@
   max-width: 941.08px;
   min-width: 300px;
   height: auto;
-  z-index: 2000;
+  z-index: 99999;
   visibility: hidden;
 }
 
@@ -145,7 +145,7 @@
   visibility: hidden;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 99999;
   opacity: 0;
   background: rgba(23, 23, 23, 0.65);
   -webkit-transition: all 0.3s;

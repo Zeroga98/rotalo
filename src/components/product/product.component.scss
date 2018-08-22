@@ -327,3 +327,21 @@
     color: #ED2F3C;
   }
 }
+
+:host {
+  .container-low-price {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 54px;
+    background: url(../../assets/img/img_insignia_precio.svg);
+    background-size: 140px 54px;
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 13px 15px;
+    }
+  }
+}
