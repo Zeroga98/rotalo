@@ -18,7 +18,7 @@
 <ngx-carousel class="carousel-theme" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner">
-        <img [src]="image">
+        <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "isExclusiveOffer(image)" [src]="image">
       </div>
   </ngx-item>
   <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev"></span>

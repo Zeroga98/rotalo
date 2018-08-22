@@ -406,4 +406,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.modalService.open(id);
     }
   }
+
+  isExclusiveOffer(imageUrl) {
+    if (imageUrl === './assets/img/banner/banner_8.png') {
+      return true;
+    }
+    return false;
+  }
+
+
 }
