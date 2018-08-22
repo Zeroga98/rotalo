@@ -179,10 +179,11 @@ export class ProductsService {
       }
     }
 
-    featuredProduct (countryId) {
+    featuredProduct (countryId, communityId) {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
-      const url = `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=-1&cantidad=5&pagina=1`;
+      const url =
+      `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=${communityId}&cantidad=5&pagina=1`;
       return this.http.get(url, { headers: headers }).map((response: any) => response);
     }
 

@@ -345,3 +345,19 @@
     }
   }
 }
+
+@media screen and (max-width: 570px) {
+  :host {
+    .container-low-price {
+      top: 0;
+      left: 0;
+      width: 104px;
+      height: 40px;
+      background-size: 104px 40px;
+      p {
+        font-size: 1.2rem;
+        padding: 5px 10px;
+      }
+    }
+  }
+}

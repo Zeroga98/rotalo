@@ -88,7 +88,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-    this.loadFeaturedProduct(countryId);
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.setScrollEvent();
@@ -98,8 +97,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this._subscriptionCountryChanges.unsubscribe();
   }
 
-  loadFeaturedProduct(countryId) {
-    this.productsService.featuredProduct(countryId).subscribe(
+  loadFeaturedProduct(countryId, communityId) {
+    this.productsService.featuredProduct(countryId, communityId).subscribe(
       (response) => {
         if (response.body) {
           this.featuredproducts = response.body.productos;
@@ -142,13 +141,16 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         'cantidad': 3,
         'pagina': 1
       };
+      this.loadFeaturedProduct(countryId, -1);
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
         'filter[country]': countryId,
         'page[size]': 8,
         'page[number]': 1
       });
+      this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
     }
+
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
@@ -271,8 +273,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   changeCommunity(community: any) {
     if (this.isSuperUser()) {
+      this.loadFeaturedProduct(this.countrySelected.id, community.id);
       this.routineUpdateProducts({ 'comunidad': community.id });
     }else {
+      this.loadFeaturedProduct(this.countrySelected.id, community.id);
       this.routineUpdateProducts({ 'filter[community]': community.id });
     }
   }
