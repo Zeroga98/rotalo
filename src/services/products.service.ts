@@ -176,8 +176,14 @@ export class ProductsService {
           document.getElementById(this.scroll).scrollIntoView();
         }
 
+      }
     }
-  }
 
+    featuredProduct (countryId) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=-1&cantidad=5&pagina=1`;
+      return this.http.get(url, { headers: headers }).map((response: any) => response);
+    }
 
 }

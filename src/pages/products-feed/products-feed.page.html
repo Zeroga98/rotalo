@@ -33,12 +33,49 @@
         <h3>Artículos destacados</h3>
       </div>
       <div class="carousel-container">
-        <div class="featured-cards">
-          <div class="featured-card">a</div>
-          <div class="featured-card">b</div>
-          <div class="featured-card">c</div>
-          <div class="featured-card">d</div>
-          <div class="featured-card">e</div>
+        <div  class="featured-cards">
+          <div *ngFor="let featuredproduct of featuredproducts" class="featured-card">
+              <div *ngIf= "featuredproduct" class="item__wrapper">
+                  <div class="item__card">
+                      <div class="item__image-container">
+                          <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
+                          <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
+                          <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="icon-share-container">
+                              <div class="icon-share">
+                              </div>
+                          </div>
+                      </div>
+                      <div  (click)="selectProduct(featuredproduct)" class="item__content">
+                        <div class="item__name">
+                          <span>
+                              {{featuredproduct.name}}
+                          </span>
+                        </div>
+                        <div class="item__price-block">
+                          <span>{{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}</span>
+                        </div>
+                        <div class="item__location">
+                            <span class="icon-location"></span>
+                            <span>{{getLocation(featuredproduct)}}</span>
+                        </div>
+                        <div *ngIf="featuredproduct.user" class="item_info-user">
+                            <div class="icon-container" [ngStyle]="{'background-color':featuredproduct.user.company.colour}">
+                                <span class="icon-account" *ngIf="!featuredproduct.user.photo && !featuredproduct.user.photos"></span>
+                                <img  *ngIf="featuredproduct.user.photo" [src]="featuredproduct.user.photo.url">
+                                <img  *ngIf="featuredproduct.user.photos" [src]="featuredproduct.user.photos.url">
+                            </div>
+                            <div class="info-user">
+                                <p class="name-text">{{featuredproduct.user.name}}</p>
+                                <p  *ngIf="featuredproduct.user && featuredproduct.user.company" [ngStyle]="{'color':featuredproduct.user.company.colour}" class="company-text">
+                                    {{featuredproduct.user?.company.name}}
+                                    <span class="comunidad-text"> -  {{featuredproduct.user?.company.community.name}}</span>
+                                </p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+          </div>
         </div>
       </div>
     </div>

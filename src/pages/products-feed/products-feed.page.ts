@@ -31,6 +31,7 @@ import { MASONRY_CONFIG } from './masonry.config';
 import { setTimeout } from 'timers';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { LoginService } from '../../services/login/login.service';
+import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
 
 
 @Component({
@@ -59,7 +60,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   @ViewChild('masonryRef') masonryRef: any;
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
-
+  public featuredproducts: Array<ProductInterface> = [];
+  readonly defaultImage: string = "../assets/img/product-no-image.png";
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -69,7 +71,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private feedService: FeedService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private modalService: ModalShareProductService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -85,6 +88,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
+    this.loadFeaturedProduct(countryId);
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.setScrollEvent();
@@ -92,6 +96,30 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
+  }
+
+  loadFeaturedProduct(countryId) {
+    this.productsService.featuredProduct(countryId).subscribe(
+      (response) => {
+        if (response.body) {
+          this.featuredproducts = response.body.productos;
+          this.changeDetectorRef.markForCheck();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateSrc(evt) {
+    evt.currentTarget.src = this.defaultImage;
+  }
+
+  getLocation(product): string {
+    const city = product.user.city;
+    const state = city.state;
+    return `${city.name}, ${state.name}`;
   }
 
   isSuperUser() {
@@ -366,5 +394,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     offsetScrollTop > 50
       ? this.rendered.addClass(this.backTop.nativeElement, 'show')
       : this.rendered.removeClass(this.backTop.nativeElement, 'show');
+  }
+
+  shareProduct(id: string, product) {
+    if (product.id) {
+      this.modalService.setProductId(product.id);
+      this.modalService.open(id);
+    }
   }
 }
