@@ -40,10 +40,10 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform:  translateY(-50%);
-  -moz-transform:  translateY(-50%);
-  -ms-transform:  translateY(-50%);
-  transform:  translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .md-modal-center {
@@ -69,47 +69,49 @@
 }
 
 /* Effect 1: Fade in and scale up */
+
 .md-effect-1 .md-content {
   -webkit-transform: scale(0.7);
-	-moz-transform: scale(0.7);
-	-ms-transform: scale(0.7);
-	transform: scale(0.7);
-	opacity: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .md-show.md-effect-1 .md-content {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-	opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
 }
 
-
 /* Effect 1: Fade in and scale up */
+
 .md-effect-1 .modal-share-container {
   -webkit-transform: scale(0.7);
-	-moz-transform: scale(0.7);
-	-ms-transform: scale(0.7);
-	transform: scale(0.7);
-	opacity: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .md-show.md-effect-1 .modal-share-container {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-	opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* Effect 2: Slide from the right */
+
 .md-effect-2 .md-content {
   -webkit-transform: translateX(20%);
   -moz-transform: translateX(20%);
@@ -129,13 +131,19 @@
   opacity: 1;
 }
 
-.modal-open{
+.modal-open {
   margin: 0;
   height: 100%;
   overflow: hidden;
   feed-back {
     display: none;
   }
+}
+
+.modal-open-red {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .md-overlay {
@@ -155,6 +163,32 @@
 
 .modal-open {
   .md-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.md-overlay-red {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  opacity: 0;
+  transition: all 0.3s;
+  background-image: url(assets/img/fondo_rojo.svg);
+  background-color: #FF3646;
+  background-attachment: fixed;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+}
+
+.modal-open-red {
+  .md-overlay-red {
     opacity: 1;
     visibility: visible;
   }

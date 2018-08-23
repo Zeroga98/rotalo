@@ -32,6 +32,7 @@ import { setTimeout } from 'timers';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
+import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 
 
 @Component({
@@ -61,6 +62,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
+  public couponService;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   constructor(
     private productsService: ProductsService,
@@ -73,6 +75,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private currentSession: CurrentSessionService,
     private loginService: LoginService,
     private modalService: ModalShareProductService,
+    private modalTicketService: ModalTicketService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -412,6 +415,28 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+
+  openModalCupon (imageUrl, id: string) {
+    if (this.isExclusiveOffer(imageUrl)) {
+      const currentUser = this.currentSession.currentUser();
+      if (currentUser) {
+        const emailObject = {
+          'correo' : currentUser.email
+        };
+        this.getCoupon (emailObject, id);
+      }
+    }
+  }
+
+
+  getCoupon (email, id: string) {
+    this.modalTicketService.getCoupon(email).subscribe((response) => {
+      this.couponService = response.body.cupon;
+      this.modalTicketService.open(id);
+      this.changeDetectorRef.markForCheck();
+    },
+    (error) => {console.log(error)});
   }
 
 

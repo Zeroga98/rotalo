@@ -1,8 +1,8 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-    <div class="container-low-price">
-      <p>$ REBAJÓ</p>
-    </div>
+      <div class="container-low-price">
+          <p>$ REBAJÓ</p>
+        </div>
     <div *ngIf="isProductSelling" class="options-container">
       <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
       <div class="delete" (click)="deleteProduct(product)"></div>

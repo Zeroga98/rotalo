@@ -11,7 +11,6 @@ import { ROUTES } from "../router/routes";
 @Injectable()
 export class ProductsService {
     readonly url = this.configurationService.getBaseUrl() + '/products';
-
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     public scroll: any;
     public products: Array<ProductInterface> = [];
