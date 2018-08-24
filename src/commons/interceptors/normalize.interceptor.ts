@@ -22,6 +22,12 @@ export class NormalizeInterceptor implements HttpInterceptor {
     }
     /**Valida si el request es de la API de nequi---en este caso no se debe aplicar el interceptor**/
     private isNecessaryNormalize(req: HttpRequest<any>): boolean {
+      const method = req.method.toLocaleLowerCase();
+
+      if (method.includes('put')) {
+        debugger
+        return !req.url.includes('products');
+      }
       return !req.url.includes('auth')
       && !req.url.includes('nequi')
       && !req.url.includes('logout')

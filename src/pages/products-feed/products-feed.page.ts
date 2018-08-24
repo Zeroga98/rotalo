@@ -436,7 +436,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.modalTicketService.open(id);
       this.changeDetectorRef.markForCheck();
     },
-    (error) => {console.log(error)});
+    (error) => {console.log(error)} );
   }
 
 

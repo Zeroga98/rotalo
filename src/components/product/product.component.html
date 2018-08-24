@@ -1,8 +1,8 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-      <div class="container-low-price">
+      <div *ngIf="product['is-low-price']" class="container-low-price">
           <p>$ REBAJÓ</p>
-        </div>
+      </div>
     <div *ngIf="isProductSelling" class="options-container">
       <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
       <div class="delete" (click)="deleteProduct(product)"></div>
@@ -16,8 +16,8 @@
     <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"  (error)="updateSrc($event)">
     <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
   </div>
-  <div class="container-name">
-    <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling" class="icon-share-container">
+  <div  class="container-name">
+    <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling  && !isProductSold" class="icon-share-container">
       <div class="icon-share">
       </div>
     </div>

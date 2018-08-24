@@ -278,9 +278,9 @@ export class ChatWindowComponent
 
   async acceptOffer(notification) {
     try {
-      if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return ;
+      if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
       const response = await this.offerService.acceptOffer(
-        notification.oferta.idOferta.toString(), this.buildParamsOffer(notification)
+        notification.oferta.idOferta.toString()
       );
       notification.status = 'Oferta aceptada';
     } catch (error) {
@@ -289,10 +289,10 @@ export class ChatWindowComponent
   }
 
   async declineOffer(notification) {
-   try {
+    try {
       if (!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
       const response = await this.offerService.declineOffer(
-        notification.oferta.idOferta.toString(), this.buildParamsOffer(notification)
+        notification.oferta.idOferta.toString()
       );
       notification.status = 'Oferta rechazada';
     } catch (error) {
@@ -314,15 +314,15 @@ export class ChatWindowComponent
 
   async regretOffer(notification) {
     try {
-        if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
-        const response = await this.offerService.regretOffer(
-          notification.oferta.idOferta.toString() , this.buildParamsRegretOffer(notification)
-        );
-        notification.status = 'Compra cancelada';
-      } catch (error) {
-        console.error(error);
-      }
+      if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
+      const response = await this.offerService.regretOffer(
+        notification.oferta.idOferta.toString()
+      );
+      notification.status = 'Compra cancelada';
+    } catch (error) {
+      console.error(error);
     }
+  }
 
   buyProduct(mensaje) {
     const id = mensaje.producto.idProducto;
