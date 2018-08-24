@@ -54,7 +54,8 @@
       </div>
       <div class="btns-container">
         <div class="btn-item">
-          <div class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
+          <div *ngIf="products.price!='0'" class="valor-product">{{products.price | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
+          <div *ngIf="products.price =='0'" class="valor-product">Gratis</div>
         </div>
 
         <div *ngIf="products && !checkSufiBotton() && !isSellProcess() && !validateSession()" class="btn-item">

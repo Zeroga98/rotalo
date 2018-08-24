@@ -127,7 +127,7 @@
             color: #FF3646;
             width: 50%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             border: 1px dashed #707070;
           }
           .info-coupon {
@@ -167,6 +167,9 @@
       background-image: none;
       border: 1px solid transparent;
       white-space: nowrap;
+    }
+    button:hover {
+      background-color: #bf111c;
     }
   }
 }
@@ -237,8 +240,44 @@
       background-size: 15px 15px;
     }
     .md-content .share-product-container {
-      width: 100%;
-      padding: 15px 30px 15px;
+      margin: 0 auto;
+      width: 95%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  :host {
+    .md-content {
+      .share-product-container {
+        .company-info-container {
+          p {
+            font-size: 1.2rem;
+          }
+          .percentage-container {
+            .item-percentage {
+              .percentage {
+                font-size: 8.0rem;
+              }
+              .percentage-info {
+                font-size: 1.2rem;
+              }
+            }
+          }
+          .coupon-container {
+            .title-coupon {
+              padding: 10px 0;
+              font-size: 1.6rem;
+            }
+            .coupon {
+              font-size: 1.6rem;
+            }
+            .info-coupon {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
     }
   }
 }

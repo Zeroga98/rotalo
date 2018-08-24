@@ -25,7 +25,8 @@
   </div>
   <div (click)="selectProduct()">
       <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
-          <span class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
+          <span *ngIf="product.price != 0" class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
+          <span *ngIf="product.price == 0" class="name">Gratis</span>
           <div *ngIf="isProductSold && product.calificacionGeneral > 0" class="gold-ranking">
             <show-star [numberStar] = "product.calificacionGeneral" class="price"> </show-star>
           </div>

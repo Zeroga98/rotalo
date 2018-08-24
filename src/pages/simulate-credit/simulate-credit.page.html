@@ -104,7 +104,7 @@
       <div class="info-product">
         <div class="form-group">
           <p class="text-label">¿Cuál es tu número de contacto?*</p>
-          <input maxlength="10" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone-user"
+          <input maxlength="10" class="margin-text form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone-user"
             [ngClass]="{'invalid': contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine}">
           <span *ngIf="contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine" class="help-block">
             <span *ngIf="contactUser.get('phone-user').errors['required']">
@@ -116,7 +116,7 @@
           </span>
         </div>
         <div class="form-group">
-          <select class="form-control" formControlName="hour-contact" required>
+          <select class="margin-text form-control" formControlName="hour-contact" required>
             <option value="" disabled>¿En qué horario quieres que te contactemos?*</option>
             <option>Mañana</option>
             <option>Tarde</option>

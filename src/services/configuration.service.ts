@@ -4,14 +4,7 @@ import { Injectable } from '@angular/core';
 export class ConfigurationService {
 
 
-  apiTem = {
-    protocol: 'http',
-    server: 'stg-internalapi.rotalo.co:2070/api/v1',
-    inactivityLimit: 86400 // seconds
-  };
-
-
-  /*Staging*/
+/*Staging*/
 
  api = {
     protocol: 'https',
@@ -77,9 +70,6 @@ api = {
 
   constructor() {}
 
-  getTempBaseUrl(): string {
-    return this.apiTem.protocol + '://' + this.apiTem.server;
-  }
 
   getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;

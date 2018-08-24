@@ -8,9 +8,34 @@
             <img src="../../assets/img/logo_dislicores_black.png" alt="logo_dislicores">
           </div>
         <div class="company-info-container">
+
+            <p>Del 13 al 20 de septiembre disfruta estos súper descuentos en licores importados a través de la página web www.dislicores.com presentando este código único de descuento al momento de la compra.</p>
+            <div class="percentage-container">
+                <div class="item-percentage">
+                  <div class="percentage">
+                    15%
+                  </div>
+                  <div class="percentage-info">
+                    En Old Parr, Buchanans, Zacapa, Tanqueray, Ciroc, Smirnoff, Johnnie Walker.
+                  </div>
+                </div>
+                <div class="item-percentage">
+                    <div class="percentage">
+                      30%
+                    </div>
+                    <div class="percentage-info">
+                      En Cousiño Macul y Navarro Correas
+                    </div>
+                </div>
+            </div>
+
+
           <div class="coupon-container">
-            <div class="title-coupon">
+            <div *ngIf="coupon != '0'" class="title-coupon">
               ESTE ES TU CÓDIGO DE DESCUENTO
+            </div>
+            <div *ngIf="coupon == '0'" class="title-coupon">
+              NO HAY CUPONES DISPONIBLES
             </div>
             <div class="coupon">
               {{coupon}}

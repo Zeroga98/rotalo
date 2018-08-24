@@ -24,9 +24,8 @@ export class NormalizeInterceptor implements HttpInterceptor {
     private isNecessaryNormalize(req: HttpRequest<any>): boolean {
       const method = req.method.toLocaleLowerCase();
 
-      if (method.includes('put')) {
-        debugger
-        return !req.url.includes('products');
+      if (method.includes('put') && req.url.includes('products')) {
+        return false;
       }
       return !req.url.includes('auth')
       && !req.url.includes('nequi')

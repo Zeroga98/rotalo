@@ -64,6 +64,11 @@
   max-width: 70%;
 }
 
+.md-modal-center.md-modal-coupon {
+  width: 100%;
+  max-width: 60%;
+}
+
 .md-show {
   visibility: visible;
 }
@@ -191,5 +196,11 @@
   .md-overlay-red {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+@media (max-width: 1000px) {
+  .md-modal-center.md-modal-coupon {
+    max-width: 70%;
   }
 }

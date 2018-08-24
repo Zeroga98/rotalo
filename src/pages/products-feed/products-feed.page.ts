@@ -198,7 +198,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         this.productsService.getProductLocation();
         this.currentPage = this.productsService.currentPage;
         this.productsService.scroll = 0;
-      }, 2500);
+      }, 2200);
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -436,7 +436,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.modalTicketService.open(id);
       this.changeDetectorRef.markForCheck();
     },
-    (error) => {console.log(error)} );
+    (error) => {console.log(error); } );
   }
 
 
