@@ -26,6 +26,7 @@ import { ModalShareProductService } from "../modal-shareProduct/modal-shareProdu
   styleUrls: ["./product.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() product: ProductInterface;
   @Input() masonryInfo;
