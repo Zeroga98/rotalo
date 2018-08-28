@@ -43,7 +43,7 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const modal = this;
     const currentUser = this.currentSessionSevice.currentUser();
-    if(currentUser) {
+    if (currentUser) {
       this.currentEmail = currentUser.email;
     }
     if (!this.id) {

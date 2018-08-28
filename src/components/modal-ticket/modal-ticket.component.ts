@@ -1,6 +1,16 @@
 import { Component, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ModalTicketService } from './modal-ticket.service';
+import { FormBuilder, AbstractControl, Validators } from '@angular/forms';
+
+function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
+  const email = c;
+  if (email.value == this.currentEmail) {
+    return { emailError: true };
+  }
+  return null;
+}
+
 
 @Component({
   selector: 'modal-ticket',
@@ -14,11 +24,14 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
   private currentEmail;
   private element: any;
   private productId;
-
+  public sendEmail;
+  public messageSuccess: boolean;
+  public messageError: boolean;
 
   constructor(private modalService: ModalTicketService,
     private el: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
+    private fb: FormBuilder,
     private currentSessionSevice: CurrentSessionService) {
     this.element = el.nativeElement;
   }
@@ -40,6 +53,7 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
 
     document.body.appendChild(this.element);
     this.modalService.add(this);
+    this.initShareForm();
   }
 
   ngOnDestroy() {
@@ -47,6 +61,18 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
     this.element = undefined;
+  }
+
+  initShareForm() {
+    this.sendEmail = this.fb.group(
+      {
+        email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+      }
+    );
+  }
+
+  shareEmail() {
+   alert('');
   }
 
   open(): void {

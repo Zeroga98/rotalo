@@ -8,7 +8,6 @@
             <img src="../../assets/img/logo_dislicores_black.png" alt="logo_dislicores">
           </div>
         <div class="company-info-container">
-
             <p>Del 13 al 20 de septiembre disfruta estos súper descuentos en licores importados a través de la página web www.dislicores.com presentando este código único de descuento al momento de la compra.</p>
             <div class="percentage-container">
                 <div class="item-percentage">
@@ -52,15 +51,39 @@
                 </div>
                 <label class="share-text">Comparte esta promo</label>
               </div>
-              <form class="form-theme">
+              <form (ngSubmit)="shareEmail()" class="form-theme" [formGroup]="sendEmail">
                   <div class="form-group">
-                    <input maxlength="100" id="txt-email" type="email" class="form-control" placeholder="Escribe aquí el correo corporativo de tu amigo">
+                    <input
+                    (click)="messageSuccess=false; messageError= false"
+                    formControlName="email"
+                    maxlength="100"
+                    id="txt-email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Escribe aquí el correo corporativo de tu amigo">
                     <div class="icon-container">
                       <button class="button-share" type="submit">
                         <div class="icon-email"></div>
                       </button>
                     </div>
                   </div>
+
+                  <span *ngIf="sendEmail.get('email').invalid && !sendEmail.get('email').pristine" class="help-block">
+                    <span class="icon-circle-cancel"></span>
+                    <span *ngIf="!sendEmail.get('email').errors.emailError">
+                      Aseguráte de que sea un correo válido.
+                    </span>
+                    <span *ngIf="sendEmail.get('email').errors.emailError">
+                      ¡Hey! compártelo a un correo diferente al tuyo.
+                    </span>
+                  </span>
+                  <span *ngIf="messageSuccess" class="help-block">
+                    <span class="icon-check"></span>
+                    <span>
+                      ¡Hemos enviado el correo con éxito!
+                    </span>
+                  </span>
+
               </form>
             </div>
           </div>
