@@ -30,28 +30,16 @@ export class OfferModalComponent implements OnInit {
 
   async sendOffer() {
     const price = this.priceInput.nativeElement.value;
-    let isSubasta = false;
     if (this.validForm(price)) {
       try {
-        if (this.config.type === 'SUBASTA') {
-          isSubasta = true;
-        }
         const response = await this.offerService.sendOffer({
-          'emailVendedor': this.config.emailVendedor,
-          'nombreVendedor': this.config.nombreVendedor,
-          'nombreOfertador':  this.config.nombreOfertador,
-          'idProducto':  this.config.idProducto,
-          'nombreProducto':  this.config.nombreProducto,
-          'esSubasta': isSubasta,
-          'montoOferta': price,
-          'idVendedor': this.config.idVendedor
-          });
-
+          amount: price,
+          'product-id': this.config['product-id']
+        });
         this.routineSuccess();
         this.changeDetectorRef.markForCheck();
       } catch (error) {}
     }
-
   }
 
   validForm(price: number): boolean {
