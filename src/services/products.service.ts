@@ -152,6 +152,13 @@ export class ProductsService {
       return this.http.post(url, params, { headers: headers }).toPromise().then( (response: any) => response);
     }
 
+    shareCoupon(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/convenios/referidos`;
+      return this.http.post(url, params, { headers: headers }).toPromise().then( (response: any) => response);
+    }
+
     sendTokenShareProduct (token) {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);

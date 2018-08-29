@@ -67,7 +67,6 @@
                       </button>
                     </div>
                   </div>
-
                   <span *ngIf="sendEmail.get('email').invalid && !sendEmail.get('email').pristine" class="help-block">
                     <span class="icon-circle-cancel"></span>
                     <span *ngIf="!sendEmail.get('email').errors.emailError">
@@ -83,8 +82,16 @@
                       ¡Hemos enviado el correo con éxito!
                     </span>
                   </span>
-
+                  <span *ngIf="messageError" class="help-block">
+                    <span class="icon-circle-cancel"></span>
+                    <span>
+                      Email no pertenece a una comunidad rotalo
+                    </span>
+                  </span>
               </form>
+            </div>
+            <div class="promo-container info-coupon">
+              https://www.rotalo.com.co/rotalapromo/dislicores
             </div>
           </div>
         </div>
