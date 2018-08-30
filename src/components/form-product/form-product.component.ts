@@ -146,14 +146,15 @@ export class FormProductComponent implements OnInit, OnChanges {
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
-              'publish-until': dateMoment,
+            //  'publish-until': dateMoment,
               'negotiable': false
             };
-          } else {
+          }
+          /* else {
             dataAdditional = {
               'publish-until': dateMoment
             };
-          }
+          }*/
         } else {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -170,6 +171,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       let params;
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional);
+        if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
+          delete params['publish-until'];
+        }
       } else {
         const publishDate = {
           'published-at': new Date()
