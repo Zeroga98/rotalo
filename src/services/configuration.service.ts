@@ -5,7 +5,7 @@ export class ConfigurationService {
 
 
 /*Staging*/
-
+/*
  api = {
     protocol: 'https',
     server: 'apistg.rotalo.co:1443/gateway/v1',
@@ -17,7 +17,7 @@ export class ConfigurationService {
     server: 'apistg.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
 
   /*Desarrollo*/
 /*
@@ -34,7 +34,7 @@ api = {
   };
 */
 /*Produccion*/
-/*
+
 api = {
     protocol: 'https',
     server: 'apirtl.rotalo.co/gateway/v1',
@@ -46,7 +46,7 @@ api = {
     server: 'apirtl.rotalo.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
+
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
