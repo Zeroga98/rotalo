@@ -411,7 +411,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   isExclusiveOffer(imageUrl) {
-    if (imageUrl === './assets/img/banner/banner_8.png') {
+    if (imageUrl === './assets/img/banner/banner_10.png') {
       return true;
     }
     return false;
@@ -428,7 +428,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       }
     }
   }
-
 
   getCoupon (email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {

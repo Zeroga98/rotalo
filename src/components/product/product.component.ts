@@ -78,7 +78,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.changeDetectorRef.markForCheck();
     this.productsService
       .updateProductStatus(this.idUser, this.product.id, params)
-      .then(response => {});
+      .then(response => {
+        if (response.status == '0') {
+          this.product['published-at'] = response.body.producto['published-at'];
+          this.product['publish-until'] = response.body.producto['publish-until'];
+        }
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
   getLocation(product): string {

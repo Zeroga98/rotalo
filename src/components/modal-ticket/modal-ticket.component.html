@@ -4,10 +4,11 @@
         <span (click)="close()"  class="icon-circle-cancel"></span>
       </div>
       <div class="share-product-container">
-          <div class="icon-share-container">
+          <div *ngIf="coupon != '0'" class="icon-share-container">
             <img src="../../assets/img/logo_dislicores_black.png" alt="logo_dislicores">
           </div>
         <div class="company-info-container">
+          <div *ngIf="coupon != '0'">
             <p>Del 13 al 20 de septiembre disfruta estos súper descuentos en licores importados a través de la página web www.dislicores.com presentando este código único de descuento al momento de la compra.</p>
             <div class="percentage-container">
                 <div class="item-percentage">
@@ -27,37 +28,33 @@
                     </div>
                 </div>
             </div>
-
-
+          </div>
           <div class="coupon-container">
-            <div *ngIf="coupon != '0'" class="title-coupon">
-              ESTE ES TU CÓDIGO DE DESCUENTO
+            <div *ngIf="coupon != '0'">
+                <div  class="title-coupon">
+                  ESTE ES TU CÓDIGO DE DESCUENTO
+                </div>
+                <div class="coupon">
+                  {{coupon}}
+                </div>
+                <div class="info-coupon">
+                  Entra a www.dislicores.com y al momento de la compra ingresa este código
+                </div>
             </div>
-            <div *ngIf="coupon == '0'" class="title-coupon">
-              NO HAY CUPONES DISPONIBLES
-            </div>
-            <div class="coupon">
-              {{coupon}}
-            </div>
-            <div class="info-coupon">
-              Entra a www.dislicores.com y al momento de la compra ingresa este código
+
+            <div *ngIf="coupon == '0'" class="empty-coupon">
+              <h4 class="title">¡Lo sentimos!</h4>
+              <p>Todos corrieron a generar sus cupones y ya no quedan más. <br>
+                  Te estaremos informando cuando tengamos super promos como esta.</p>
+              <p>Ingresar a Dislicores y antójate de muchas cosas más</p>
             </div>
             <div class="button-container">
               <button class="primary" type="button" onclick="window.open('https://www.dislicores.com', '_blank');">Ingresa aquí</button>
             </div>
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
-
-      <div class="promo-container">
+      <div *ngIf="coupon != '0'" class="promo-container">
           <div class="input-container">
             <div class="label-container">
               <div class="icon-share">
@@ -97,14 +94,12 @@
               </span>
             </form>
           </div>
-
           <div class="copy-container">
             <div class="label-container">
               <label class="share-text">Copia este link para que más personas conozcan la promo</label>
             </div>
             <div class="link-text">
-              <input value="https://www.rotalo.com.co/rotalapromo/dislicores" id="link">
-              <p>https://www.rotalo.com.co/rotalapromo/dislicores</p>
+              <input value="https://www.rotalo.com.co/rotalapromo/dislicores" id="link" readonly>
               <div class="btn-container">
                 <button (click)="copyToClipboard()" class="btn-copy">
                   Copiar
@@ -112,14 +107,7 @@
               </div>
             </div>
           </div>
-
-
-
-
-        </div>
-
-
-
+      </div>
     </div>
   </div>
 

@@ -57,6 +57,7 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
     document.body.appendChild(this.element);
     this.modalService.add(this);
     this.initShareForm();
+
   }
 
   ngOnDestroy() {
@@ -116,9 +117,7 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
 
   copyToClipboard () {
     const copyText = document.querySelector('#link') as HTMLInputElement;
-    console.log(copyText);
     copyText.select();
-  //  element.select();
     document.execCommand('copy');
   }
 
