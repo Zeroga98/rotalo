@@ -35,7 +35,7 @@
     border-radius: 3px 3px 0 0;
   }
   .md-content>div {
-    padding: 0px 30px 35px;
+    padding: 0px 30px 0px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
@@ -58,7 +58,7 @@
     .close-container {
       padding: 10px 15px;
       padding-bottom: 0;
-      text-align: left;
+      text-align: right;
       .icon-circle-cancel {
         cursor: pointer;
         color: #707070;
@@ -142,13 +142,6 @@
           }
         }
       }
-      .icon-container {
-        .button-share {
-          width: 44px;
-          height: 45px;
-          background-color: #C61B27;
-        }
-      }
     }
     .button-container {
       button {
@@ -174,21 +167,26 @@
       }
     }
   }
-  .input-container{
-    margin-bottom: 1.5rem;
+  .icon-container {
+    .button-share {
+      width: 40px;
+      height: 40px;
+      background-color: #C61B27;
+    }
   }
+
 }
 
 :host {
   .form-theme {
-    width: 65%;
-    display: inline-block;
+    width: 100%;
     position: relative;
     .form-group {
       margin-bottom: 5px;
       position: relative;
       .form-control {
-        height: 45px;
+        height: 40px;
+        font-size: 1.3rem;
       }
       .icon-container {
         cursor: pointer;
@@ -220,19 +218,18 @@
     background: url(../../assets/img/enviar.svg);
     background-size: 20px 20px;
   }
-
   .label-container {
-    display: inline-block;
-    padding-bottom: 20px;
+    text-align: left;
+    padding-bottom: 3px;
     .icon-share {
       display: inline-block;
       vertical-align: middle;
       margin: 0 auto;
-      margin-right: 10px;
-      width: 20px;
-      height: 20px;
+      margin-right: 5px;
+      width: 15px;
+      height: 15px;
       background: url(../../assets/img/icon_share_detalle.svg);
-      background-size: 20px 20px;
+      background-size: 15px 15px;
     }
     .share-text {
       margin-right: 10px;
@@ -240,11 +237,85 @@
       color: #5F5F5F;
     }
   }
+}
 
+:host {
+  .md-content {
+    .promo-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 60px 5rem;
+    }
+
+    .link-text{
+      position: relative;
+      border: 1px solid #E2E2E2;
+      border-radius: 5px;
+      width: 100%;
+      text-align: left;
+      height: 40px;
+      padding: 8px 12px;
+      padding-right: 6rem;
+      p {
+        padding: 0;
+        color: #536570;
+        font-size: 13px;
+      }
+      input {
+
+      }
+      .btn-container {
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        bottom: 0;
+        top: 0;
+        .btn-copy {
+          width: 50px;
+          height: 39px;
+          color: #FFF;
+          background-color: #C61B27;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+        .btn-copy:hover{
+          background-color: #bf111c;
+        }
+      }
+    }
+  }
+  .input-container, .copy-container {
+    min-width: 300px;
+  }
+  .input-container{
+    width: 40%;
+  }
+  .copy-container {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1200px) {
+  :host {
+    .md-content .promo-container{
+      flex-direction: column;
+    }
+    .input-container {
+      margin-bottom: 2.5rem;
+    }
+     .input-container, .copy-container {
+      width: 70%;
+    }
+  }
 }
 
 @media (max-width: 850px) {
   :host {
+
+    .md-content {
+      background: white;
+    }
     .md-content .share-product-container .share-product,
     .form-theme .help-block,
     .form-theme .form-control {
@@ -252,6 +323,7 @@
     }
     .form-theme .form-group .form-control {
       height: 30px;
+      font-size: 1.2rem;
     }
     .md-content .share-product-container .icon-container .button-share {
       width: 30px;
@@ -269,18 +341,18 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 850px) {
   :host {
     .md-content {
       .share-product-container {
         .company-info-container {
-          p {
-            font-size: 1.2rem;
-          }
           .percentage-container {
+            flex-direction: column;
+
             .item-percentage {
+              width: 100%;
               .percentage {
-                font-size: 6.5rem;
+                font-size: 5rem;
               }
               .percentage-info {
                 font-size: 1.2rem;
@@ -293,15 +365,31 @@
               font-size: 1.6rem;
             }
             .coupon {
-              font-size: 1.6rem;
-            }
-            .info-coupon {
-              font-size: 1.2rem;
+              padding: 5px;
+              font-size: 2.2rem;
             }
           }
         }
       }
     }
+
+    .md-content .button-container button {
+      font-size: 2rem;
+    }
+
+    .label-container .share-text {
+      font-size: 1.2rem;
+    }
+
+    .md-content .link-text p {
+      font-size: 1.2rem;
+    }
+
+    .icon-container .button-share{
+      width: 30px;
+      height: 30px;
+    }
+
   }
 }
 

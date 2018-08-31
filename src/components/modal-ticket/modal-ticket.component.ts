@@ -114,5 +114,13 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
     document.body.classList.remove('modal-open-red');
   }
 
+  copyToClipboard () {
+    const copyText = document.querySelector('#link') as HTMLInputElement;
+    console.log(copyText);
+    copyText.select();
+  //  element.select();
+    document.execCommand('copy');
+  }
+
 
 }

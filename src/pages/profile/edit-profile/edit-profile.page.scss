@@ -183,6 +183,15 @@
   }
 }
 
+:host {
+  .text--center{
+    custom-button {
+      width: 20rem;
+      margin: 0 auto;
+    }
+  }
+}
+
 @media screen and (max-width: 700px) {
   :host {
     .tittle h1.text {
