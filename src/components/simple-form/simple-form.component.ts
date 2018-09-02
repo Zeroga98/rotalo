@@ -30,6 +30,7 @@ export class SimpleFormComponent implements OnInit {
 
   continue() {
     this.next.emit(this.form);
+    this.form.reset();
   }
 
   get formIsInValid(): boolean{
