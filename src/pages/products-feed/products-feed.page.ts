@@ -104,7 +104,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   async addPromoBanner() {
     this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'Pragma') {
+    if (this.community && this.community.name === 'SQA') {
       this.imagesBanner = IMGS_BANNER_PROMO;
     }
   }
