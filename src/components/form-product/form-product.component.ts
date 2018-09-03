@@ -105,6 +105,10 @@ export class FormProductComponent implements OnInit, OnChanges {
     return this.countryId === 1;
   }
 
+  get isGuatemala(){
+    return this.countryId === 9;
+  }
+
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
     if (evt === 'GRATIS') {
@@ -373,10 +377,24 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.product['publish-until'] = objectDate;
     }
 
+    /**Moneda por defecto**/
+    let currency = 'COP';
+    switch (this.countryId) {
+      case 1:
+        currency = 'COP';
+        break;
+      case 9:
+        currency = 'GTQ';
+        break;
+      default:
+        currency = 'USD';
+        break;
+    }
+
     const product: ProductInterface = {
       name: null,
       price: null,
-      currency: 'COP',
+      currency: currency,
       'subcategory-id': '',
       used: '',
       visible: '',
