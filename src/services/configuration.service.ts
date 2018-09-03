@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConfigurationService {
-
-
-/*Staging*/
+  /*Staging*/
 
  api = {
     protocol: 'https',
@@ -18,10 +16,9 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 
-
   /*Desarrollo*/
 /*
-api = {
+  api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway/v1',
     inactivityLimit: 86400 // seconds
@@ -69,7 +66,6 @@ api = {
   };
 
   constructor() {}
-
 
   getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;
