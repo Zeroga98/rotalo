@@ -29,7 +29,7 @@
   <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next"></span>
 </ngx-carousel>
 
-<div class="featured-section">
+<div *ngIf="featuredproducts.length != 0" class="featured-section">
   <div class="featured-container">
     <div class="row-featured">
       <div class="header-featured">
