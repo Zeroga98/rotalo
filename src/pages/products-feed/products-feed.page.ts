@@ -33,6 +33,8 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
+import { UserService } from '../../services/user.service';
+import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
 
 
 @Component({
@@ -63,6 +65,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
   public couponService;
+  public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   constructor(
     private productsService: ProductsService,
@@ -76,15 +79,18 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     private loginService: LoginService,
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
+    private userService: UserService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
+    /*Promo fecha determinada para cierta comunidad*/
+    this.addPromoBanner();
   }
 
-  ngOnInit() {
+   ngOnInit() {
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
@@ -94,6 +100,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.setScrollEvent();
+  }
+
+  async addPromoBanner() {
+    this.community = await this.userService.getCommunityUser();
+    if (this.community && this.community.name === 'Pragma') {
+      this.imagesBanner = IMGS_BANNER_PROMO;
+    }
   }
 
   ngOnDestroy(): void {
