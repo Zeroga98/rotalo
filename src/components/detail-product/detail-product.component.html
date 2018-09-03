@@ -168,7 +168,7 @@
           <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
             <div class="form-group">
               <input (click)="messageSuccess=false; messageError= false" [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}"
-                formControlName="email" maxlength="100" id="txt-email" type="email" class="form-control" placeholder="Escribe aquí el correo corporativo de tu amigo">
+                formControlName="email" maxlength="100" id="txt-email-detail" type="email" class="form-control" placeholder="Escribe aquí el correo corporativo de tu amigo">
               <div class="icon-container">
                 <button class="button-share" type="submit">
                   <div class="icon-email"></div>

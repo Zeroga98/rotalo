@@ -64,6 +64,9 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
     this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
+    if (this.element) {
+      this.element.remove();
+    }
     this.element = undefined;
   }
 

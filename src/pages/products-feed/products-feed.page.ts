@@ -86,8 +86,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.imagesBanner = IMGS_BANNER;
+
+
     /*Promo fecha determinada para cierta comunidad*/
-    this.addPromoBanner();
+   // this.addPromoBanner();
   }
 
    ngOnInit() {

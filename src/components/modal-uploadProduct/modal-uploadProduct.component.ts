@@ -73,6 +73,13 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
         .then(response => {
           this.sendInfoProduct.reset();
           this.messageSuccess = true;
+          this.gapush(
+            'send',
+            'event',
+            'Productos',
+            'ClicInferior',
+            'CompartirEsteProductoExitoso'
+          );
           this.changeDetectorRef.markForCheck();
         })
         .catch(httpErrorResponse => {
@@ -85,12 +92,26 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
     }
   }
 
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
+
   ngOnDestroy(): void {
     this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
+    if (this.element) {
+      this.element.remove();
+    }
     this.element = undefined;
-    //this.element.remove();
   }
 
   open(): void {

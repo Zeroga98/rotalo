@@ -24,7 +24,7 @@ export class FeedBackComponent implements OnInit {
     });
   }
 
-  private checkSession() {
+  public checkSession() {
     return this.currentSessionService.currentUser();
   }
 

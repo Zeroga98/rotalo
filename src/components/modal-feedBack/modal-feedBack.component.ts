@@ -91,9 +91,4 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     document.body.classList.remove('modal-open');
   }
 
-
-
-
-
-
 }

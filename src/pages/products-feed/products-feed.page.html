@@ -3,7 +3,7 @@
 <div class="md-overlay-red"></div>
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
 
-<modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket>
+<!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
 
 <toolbar
 (selectedCommunity)="changeCommunity($event)"
@@ -47,7 +47,7 @@
                         </div>
                           <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
                           <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
-                          <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="icon-share-container">
+                          <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="gtmCompartirProducto icon-share-container">
                               <div class="icon-share">
                               </div>
                           </div>
