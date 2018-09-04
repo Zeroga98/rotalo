@@ -5,5 +5,6 @@ export const MASONRY_CONFIG = {
     horizontalOrder: true,
     itemSelector: '.grid-item',
     percentPosition: true,
+    transitionDuration: 0,
 }
 ;

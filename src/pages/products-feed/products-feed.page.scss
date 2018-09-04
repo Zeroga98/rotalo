@@ -174,9 +174,9 @@
             background-color: #fff;
             position: relative;
             img {
-              width: 100%;
+              //width: 100%;
               height: auto;
-              max-width: 100%;
+              max-width: 224px;
               max-height: 100%;
             }
           }
@@ -255,7 +255,7 @@
           }
         }
         .item__card:hover {
-          height: 350px;
+          height: 355px;
           z-index: 2;
           box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
           .item__content {

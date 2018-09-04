@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { ModalShareProductService } from './modal-shareProduct.service';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
@@ -31,6 +31,18 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
   private productId;
   private currentEmail;
 
+  @HostListener('document:click', ['$event']) clickout(event) {
+    /*console.log(event);
+    console.log(event.target);
+    console.log(event.target.className);*/
+    if (event.target && event.target.className) {
+      if (event.target.className == 'md-overlay') {
+        this.close();
+      }
+    }
+  }
+
+
   constructor( private modalService: ModalShareProductService,
     private el: ElementRef,
     private productsService: ProductsService,
@@ -51,6 +63,8 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
       return;
     }
     document.body.appendChild(this.element);
+
+
     this.modalService.add(this);
     this.initShareForm();
   }

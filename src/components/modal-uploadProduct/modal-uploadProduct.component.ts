@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ModalUploadProductService } from './modal-uploadProduct.service';
 import { ProductsService } from '../../services/products.service';
@@ -29,6 +29,14 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
   private element: any;
   private productId;
   private currentEmail;
+
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'md-overlay') {
+        this.close();
+      }
+    }
+  }
 
   constructor(private modalService: ModalUploadProductService,
     private el: ElementRef,

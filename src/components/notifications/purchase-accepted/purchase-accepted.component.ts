@@ -12,17 +12,18 @@ export class PurchaseAcceptedComponent {
 	@Input() notification;
 	@Output() userClicked: EventEmitter<any> = new EventEmitter();
 	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
-	constructor(private productsService: ProductsService, private router: Router) { }
+  constructor(private productsService: ProductsService, private router: Router) { }
 
-	async productReceived(id: number){
-		try {
-			const response = await this.productsService.receiveProduct(id,{id});
-			this.notification.status = 'Has recibido el producto';
-		} catch (error) {
-			console.error(error);
-			alert('Ha ocurrido un error: ' + error.error.errors[0]);
-		}
-	}
+  async productReceived(id: number) {
+    try {
+      const response = await this.productsService.receiveProduct(id, { id });
+      this.notification.status = 'Has recibido el producto';
+    } catch (error) {
+      console.error(error);
+      console.error('Ha ocurrido un error');
+     // alert('Ha ocurrido un error: ' + error.error.errors[0]);
+    }
+  }
 
 	clickUser(){
 		this.userClicked.emit();

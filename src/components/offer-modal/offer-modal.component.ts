@@ -1,4 +1,4 @@
-import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { OfferService } from './../../services/offer.service';
 import { ModalInterface } from './../../commons/interfaces/modal.interface';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
@@ -18,6 +18,16 @@ export class OfferModalComponent implements OnInit {
   msgError: string = '';
   isReadyResponse: boolean = false;
   minValue: number;
+
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'opacity') {
+        this.closeModal();
+      }
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
 
   constructor(
     private offerService: OfferService,

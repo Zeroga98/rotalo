@@ -48,7 +48,7 @@
                           <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
                           <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
                           <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="gtmCompartirProducto icon-share-container">
-                              <div class="icon-share">
+                              <div class="gtmCompartirProducto icon-share">
                               </div>
                           </div>
                       </div>
