@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, HostListener } from "@angular/core";
 
 import {
   FormControl,
@@ -85,6 +85,16 @@ export class SimulateCreditPage implements OnInit {
   showModalCredit: boolean;
   currentUser;
   showPage: boolean;
+
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'opacity') {
+        this.closeModal();
+      }
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -166,6 +176,7 @@ export class SimulateCreditPage implements OnInit {
 
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
       this.showModalCredit = true;
+      this.changeDetectorRef.markForCheck();
     })
     .catch(httpErrorResponse => {});
   }

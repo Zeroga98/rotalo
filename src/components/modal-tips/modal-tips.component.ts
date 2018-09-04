@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, HostListener } from '@angular/core';
 
 @Component({
   selector: 'modal-tips',
@@ -7,6 +7,15 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class ModalTipsComponent implements OnInit {
   @Output() close: EventEmitter<any> = new EventEmitter();
+
+
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'opacity') {
+        this.closeModal();
+      }
+    }
+  }
   constructor() { }
 
   ngOnInit() {

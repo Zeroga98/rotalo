@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { Component, Renderer2, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -10,6 +10,14 @@ import { Component, Renderer2, EventEmitter, Output } from '@angular/core';
 export class TermsModalComponent {
     @Output() close: EventEmitter<any> = new EventEmitter();
     @Output() accept: EventEmitter<any> = new EventEmitter();
+
+    @HostListener('document:click', ['$event']) clickout(event) {
+      if (event.target && event.target.className) {
+        if (event.target.className == 'opacity') {
+          this.closeModal();
+        }
+      }
+    }
 
     constructor(private render: Renderer2) { }
 

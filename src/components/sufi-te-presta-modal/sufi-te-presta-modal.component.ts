@@ -1,4 +1,4 @@
-import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalInterface } from '../../commons/interfaces/modal.interface';
 import { ROUTES } from '../../router/routes';
@@ -14,6 +14,15 @@ export class SufiTePrestaModalComponent implements OnInit {
   @Input() config: ModalInterface;
   @Output() close: EventEmitter<any> = new EventEmitter();
   title: string = "Créditos Sufi";
+
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'opacity') {
+        this.closeModal();
+      }
+    }
+    this.changeDetectorRef.markForCheck();
+  }
 
   constructor(
     private router: Router,
