@@ -177,7 +177,9 @@ export class SignUpPage implements OnInit {
     if (this.country) {
       const idCountry = this.country.id;
       const idDocumentControl = this.registerForm.get('id-number');
+      const phoneNumberControl = this.registerForm.get('cellphone');
       idDocumentControl.clearValidators();
+      phoneNumberControl.clearValidators();
       const documentObject = this.findNameDocumentType();
       let documentName;
       if (documentObject) {
@@ -219,6 +221,21 @@ export class SignUpPage implements OnInit {
             Validators.pattern(
               '^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'
             ),
+            Validators.required
+          ]);
+          this.errorMessageId = 'El campo no cumple con el formato.';
+          break;
+        }
+        case '9': {
+          idDocumentControl.setValidators([
+            Validators.pattern(
+              '^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'
+            ),
+            Validators.required
+          ]);
+          phoneNumberControl.setValidators([
+            Validators.minLength(8),
+            Validators.maxLength(8),
             Validators.required
           ]);
           this.errorMessageId = 'El campo no cumple con el formato.';

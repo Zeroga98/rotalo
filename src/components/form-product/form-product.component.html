@@ -55,6 +55,7 @@
             </div>
             <select class="form-control currency-select" name="currency" formControlName="currency">
               <option *ngIf="isColombia" value="COP">COP</option>
+              <option *ngIf="isGuatemala" value="GTQ">GTQ</option>
               <option *ngIf="!isColombia" value="'USD'">USD</option>
             </select>
             <div class="check-offer">
