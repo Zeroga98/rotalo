@@ -90,7 +90,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
 
     /*Promo fecha determinada para cierta comunidad*/
-   this.addPromoBanner();
+   /*this.addPromoBanner();*/
   }
 
    ngOnInit() {

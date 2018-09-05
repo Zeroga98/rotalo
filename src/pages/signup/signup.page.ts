@@ -73,7 +73,6 @@ export class SignUpPage implements OnInit {
           const signup = `/${ROUTES.SIGNUP}`;
           const showProduct = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${response.body.idProducto}`;
           const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
-          console.log(urlDetailProduct);
           this.productsService.setUrlDetailProduct(urlDetailProduct);
         }
       }, (error) => {console.log(error); });

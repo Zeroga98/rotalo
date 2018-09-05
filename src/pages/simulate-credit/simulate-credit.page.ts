@@ -182,6 +182,7 @@ export class SimulateCreditPage implements OnInit {
   }
 
   closeModal() {
+     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
      this.showModalCredit = false;
   }
 
