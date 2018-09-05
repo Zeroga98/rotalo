@@ -43,6 +43,7 @@ api = {
     server: 'apirtl.rotalo.co/gateway',
     inactivityLimit: 86400 // seconds
   };
+
 */
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',

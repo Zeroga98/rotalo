@@ -26,11 +26,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       return;
     }
     document.body.appendChild(this.element);
-    /*this.element.addEventListener('click', function(e: any) {
-      if (e.target.className === 'modal') {
-        modal.close();
-      }
-    });*/
+
     this.modalService.add(this);
     this.feedBackForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
@@ -42,7 +38,6 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.modalService.remove(this.id);
     this.element = undefined;
-    //this.element.remove();
   }
 
   onSubmit() {

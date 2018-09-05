@@ -58,7 +58,7 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
       console.error('modal must have an id');
       return;
     }
-    document.body.appendChild(this.element);
+    //document.body.appendChild(this.element);
     this.modalService.add(this);
     this.initShareForm();
   }
@@ -116,9 +116,6 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
     this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
-    if (this.element) {
-      this.element.remove();
-    }
     this.element = undefined;
   }
 

@@ -32,9 +32,6 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
   private currentEmail;
 
   @HostListener('document:click', ['$event']) clickout(event) {
-    /*console.log(event);
-    console.log(event.target);
-    console.log(event.target.className);*/
     if (event.target && event.target.className) {
       if (event.target.className == 'md-overlay') {
         this.close();
@@ -62,8 +59,7 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
       console.error('modal must have an id');
       return;
     }
-    document.body.appendChild(this.element);
-
+    //document.body.appendChild(this.element);
 
     this.modalService.add(this);
     this.initShareForm();
@@ -122,9 +118,6 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
     this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
-    if (this.element) {
-      this.element.remove();
-    }
     this.element = undefined;
   }
 

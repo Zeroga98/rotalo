@@ -1,6 +1,6 @@
 import { ProductsService } from "../../services/products.service";
 import { Router } from "@angular/router";
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
 import { ROUTES } from "../../router/routes";
 import { UserService } from "../../services/user.service";
 import { ModalUploadProductService } from "../../components/modal-uploadProduct/modal-uploadProduct.service";
@@ -11,7 +11,7 @@ import { ModalUploadProductService } from "../../components/modal-uploadProduct/
   styleUrls: ["./products-upload.page.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsUploadPage implements OnInit {
+export class ProductsUploadPage implements OnInit, OnDestroy {
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -20,6 +20,13 @@ export class ProductsUploadPage implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  ngOnDestroy(): void {
+
+    /*Se remueve los modales del DOM */
+   /* const element1 = document.getElementById('custom-modal-3');
+    element1.parentNode.removeChild(element1);*/
+  }
 
   async publishPhoto(event) {
     try {

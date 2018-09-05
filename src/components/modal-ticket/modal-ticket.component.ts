@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Input, HostListener } from '@angular/core';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ModalTicketService } from './modal-ticket.service';
 import { FormBuilder, AbstractControl, Validators } from '@angular/forms';
@@ -30,6 +30,15 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
   public messageError: boolean;
   public textError: boolean;
 
+  @HostListener('document:click', ['$event']) clickout(event) {
+    if (event.target && event.target.className) {
+      if (event.target.className == 'md-overlay-red') {
+        this.close();
+      }
+      this.changeDetectorRef.markForCheck();
+    }
+  }
+
   constructor(private modalService: ModalTicketService,
     private el: ElementRef,
     private changeDetectorRef: ChangeDetectorRef,
@@ -54,7 +63,7 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
       return;
     }
 
-    document.body.appendChild(this.element);
+    //document.body.appendChild(this.element);
     this.modalService.add(this);
     this.initShareForm();
 
@@ -64,9 +73,6 @@ export class ModalTicketComponent implements OnInit, OnDestroy {
     this.close();
     this.modalService.remove(this.id);
     this.modalService.setProductId(undefined);
-    if (this.element) {
-      this.element.remove();
-    }
     this.element = undefined;
   }
 

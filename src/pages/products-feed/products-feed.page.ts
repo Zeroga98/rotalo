@@ -67,6 +67,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public couponService;
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
+
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -89,7 +90,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
 
     /*Promo fecha determinada para cierta comunidad*/
-   // this.addPromoBanner();
+   this.addPromoBanner();
   }
 
    ngOnInit() {
@@ -112,7 +113,16 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+
+    /*Se remueve los modales del DOM */
+    /*
+    const element1 = document.getElementById('custom-modal-2');
+    const element2 = document.getElementById('custom-modal-3');
+    element1.parentNode.removeChild(element1);
+    element2.parentNode.removeChild(element2);*/
+
     this._subscriptionCountryChanges.unsubscribe();
+    this.changeDetectorRef.markForCheck();
   }
 
   loadFeaturedProduct(countryId, communityId) {
