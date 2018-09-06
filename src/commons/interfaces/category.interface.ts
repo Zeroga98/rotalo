@@ -5,6 +5,6 @@ export interface CategoryInterface {
     icon?: string;
     color?: string;
     url: string;
-    name:string;
-    subcategories?: Array<SubcategoryInterface>;
+    name: string;
+    subcategories?: Array<any>;
 }

@@ -79,8 +79,15 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.countryId = Number(currentUser['countryId']);
     try {
       this.setInitialForm(this.getInitialConfig());
-      this.categories = await this.categoryService.getCategories();
-      this.loadYearsModelVehicle();
+      this.categoryService.getCategoriesActiveServer().subscribe((response) => {
+        this.loadYearsModelVehicle();
+        this.categories = response;
+        this.changeDetectorRef.markForCheck();
+      }, (error) => {
+        console.log(error);
+      });
+     /* this.categories = await this.categoryService.getCategories();
+      */
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
@@ -431,12 +438,12 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private findCategory(id: number) {
     return this.categories.find(
-      (category: CategoryInterface) => category.id === id
+      (category: CategoryInterface) => category.id == id
     );
   }
 
   private findSubCategory(id: number) {
-    return this.subCategories.find(subCategory => subCategory.id === id);
+    return this.subCategories.find(subCategory => subCategory.id == id);
   }
 
   private getPublishUntilDate(): Date {

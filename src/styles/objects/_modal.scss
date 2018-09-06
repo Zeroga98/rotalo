@@ -138,6 +138,8 @@
 }
 
 .modal-open {
+  position:relative;
+  overflow-y:hidden;
   margin: 0;
   height: 100%;
   overflow: hidden;
