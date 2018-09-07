@@ -45,8 +45,9 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       const email = this.feedBackForm.get('email').value;
       const comment = this.feedBackForm.get('comment').value;
       const params = {
-        "correo": email,
-        "mensaje": comment
+        'correo': email,
+        'mensaje': comment,
+        'pais': '1'
       };
       this.modalService.sendEmail(params) .subscribe(
         state => {

@@ -90,7 +90,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
 
     /*Promo fecha determinada para cierta comunidad*/
-   /*this.addPromoBanner();*/
+   this.addPromoBanner();
   }
 
    ngOnInit() {
@@ -107,7 +107,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   async addPromoBanner() {
     this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'SQA') {
+    if (this.community && this.community.name === 'Pragma') {
       this.imagesBanner = IMGS_BANNER_PROMO;
     }
   }

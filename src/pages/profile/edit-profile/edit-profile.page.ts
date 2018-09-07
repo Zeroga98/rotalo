@@ -41,6 +41,7 @@ export class EditProfilePage implements OnInit {
   public showPhotoEdit = false;
   public photo;
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
+  public countryId;
 
   constructor(
     private photosService: PhotosService,
@@ -52,6 +53,8 @@ export class EditProfilePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const currentUser = this.currentSessionSevice.currentUser();
+    this.countryId = Number(currentUser['countryId']);
     this.editProfileForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       idNumber: [{ value: '', disabled: true }, Validators.required],
@@ -67,6 +70,23 @@ export class EditProfilePage implements OnInit {
     this.photoExist(this.photo);
     this.loadTypeDocuments();
     this.onInfoRetrieved(this.userEdit);
+  }
+
+  setValidationId() {
+    if (this.country) {
+      const idCountry  = this.country['name'];
+      this.editProfileForm.get('cellphone').clearValidators();
+      if (idCountry == 'Guatemala') {
+        this.editProfileForm.get('cellphone').setValidators([Validators.required,
+          Validators.pattern(/^\d{8}$/)
+        ]);
+      }else  {
+        this.editProfileForm.get('cellphone').setValidators([Validators.required]);
+      }
+
+      this.editProfileForm.get('cellphone').updateValueAndValidity();
+
+    }
   }
 
   photoExist(photo) {

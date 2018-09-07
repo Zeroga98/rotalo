@@ -44,7 +44,7 @@
       <div *ngIf="selectedCountryColombia()" class="form-group">
         <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
           <option value="" disabled>Selecciona tipo de documento*</option>
-          <option *ngFor="let typeDocument of typeDocuments" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
+          <option *ngFor="let typeDocument of typeDocumentsColombia" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
         </select>
       </div>
       <div class="form-group">
@@ -78,8 +78,13 @@
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
           maxlength="10" class="form-control" placeholder="Teléfono celular*">
           <span class="help-block">
-              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
+              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+              && !registerForm.get('cellphone').errors['pattern']">
                   Este campo es obligatorio.
+              </span>
+              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+              && registerForm.get('cellphone').errors['pattern']">
+                  El campo no cumple con el formato de teléfono.
               </span>
             </span>
       </div>

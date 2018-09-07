@@ -31,6 +31,7 @@ export class SignUpPage implements OnInit {
   public documentId;
   public errorMessageId;
   public typeDocuments;
+  public typeDocumentsColombia;
   private mainUrl = window.location.href;
   private codeProduct = this.router.url.split('code=', 2)[1];
   constructor(
@@ -99,7 +100,13 @@ export class SignUpPage implements OnInit {
   async loadTypeDocument() {
     try {
       this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+      this.typeDocumentsColombia = this.filterColombiaDocuments(this.typeDocuments);
     } catch (error) {}
+  }
+
+  filterColombiaDocuments(typeDocuments) {
+    const documents = typeDocuments.filter(typeDocument => typeDocument['country-id'] == 1);
+    return documents;
   }
 
   buildParamsUserRequest(): UserRequestInterface {
@@ -108,7 +115,6 @@ export class SignUpPage implements OnInit {
     }`;
     delete this.registerForm.value['first-name'];
     delete this.registerForm.value['last-name'];
-    //delete  this.registerForm.value['type-number'];
     const params = Object.assign(
       {},
       this.registerForm.value,
@@ -116,7 +122,16 @@ export class SignUpPage implements OnInit {
       { 'city-id': this.city.id }
     );
     delete params.termsCheckbox;
+    if (params['type-document-id'] == '') {
+      const countryFilterDocument = this.filterCountryDocuments(this.country);
+      params['type-document-id'] = countryFilterDocument[0].id;
+    }
     return params;
+  }
+
+  filterCountryDocuments(country) {
+    const documents = this.typeDocuments.filter(typeDocument => typeDocument['country-id'] == country.id);
+    return documents;
   }
 
   selectedCountry(ev) {
@@ -175,7 +190,7 @@ export class SignUpPage implements OnInit {
 
   setValidationId(): void {
     if (this.country) {
-      const idCountry = this.country.id;
+      const idCountry = this.country.name;
       const idDocumentControl = this.registerForm.get('id-number');
       const phoneNumberControl = this.registerForm.get('cellphone');
       idDocumentControl.clearValidators();
@@ -188,7 +203,7 @@ export class SignUpPage implements OnInit {
 
       /* Los id de los documentos estan 1,4,5 en el administrador de pruebas */
       switch (idCountry) {
-        case '1': {
+        case 'Colombia': {
           if (documentName === 'Cédula de ciudadanía') {
             idDocumentControl.setValidators([
               Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
@@ -214,39 +229,46 @@ export class SignUpPage implements OnInit {
             this.errorMessageId =
               'El campo no cumple con el formato de Pasaporte.';
           }
+          phoneNumberControl.setValidators([
+            Validators.required
+          ]);
           break;
         }
-        case '2': {
+        case 'Panama': {
           idDocumentControl.setValidators([
             Validators.pattern(
               '^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'
             ),
             Validators.required
           ]);
+          phoneNumberControl.setValidators([
+            Validators.required
+          ]);
           this.errorMessageId = 'El campo no cumple con el formato.';
           break;
         }
-        case '9': {
+        case 'Guatemala': {
           idDocumentControl.setValidators([
             Validators.pattern(
-              '^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'
+              '^[0-9]{4}\\s[0-9]{5}\\s[0-9]{4}$'
             ),
             Validators.required
           ]);
           phoneNumberControl.setValidators([
-            Validators.minLength(8),
-            Validators.maxLength(8),
-            Validators.required
+            Validators.required,
+            Validators.pattern(/^\d{8}$/),
           ]);
           this.errorMessageId = 'El campo no cumple con el formato.';
           break;
         }
         default: {
           idDocumentControl.setValidators([Validators.required]);
+          phoneNumberControl.setValidators([Validators.required]);
           break;
         }
       }
       idDocumentControl.updateValueAndValidity();
+      phoneNumberControl.updateValueAndValidity();
     }
   }
 

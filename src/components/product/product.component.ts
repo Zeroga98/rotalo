@@ -82,6 +82,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         if (response.status == '0') {
           this.product['published-at'] = response.body.producto['published-at'];
           this.product['publish-until'] = response.body.producto['publish-until'];
+          this.changeDetectorRef.markForCheck();
         }
         this.changeDetectorRef.markForCheck();
       });
