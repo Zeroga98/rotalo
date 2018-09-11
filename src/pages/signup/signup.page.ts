@@ -258,7 +258,7 @@ export class SignUpPage implements OnInit {
             Validators.required,
             Validators.pattern(/^\d{8}$/),
           ]);
-          this.errorMessageId = 'El campo no cumple con el formato.';
+          this.errorMessageId = 'El campo no cumple el formato 1234 12345 1234.';
           break;
         }
         default: {

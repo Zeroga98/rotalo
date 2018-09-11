@@ -49,7 +49,7 @@
               <div class="tag-container" *ngFor="let hobby of hobbies">
                   <div *ngIf="!hobby.seleccionado" class="tag">
                       <input
-                      [disabled]="checkMaxNumberHobbies()"
+
                       value="{{hobby.id}}"
                       name ="{{hobby.nombre}}"
                       [(ngModel)]="hobby.seleccionado"

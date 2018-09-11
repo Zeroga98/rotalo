@@ -14,11 +14,12 @@ export class SelectCountryComponent implements OnInit {
   @Input() turnOffInitialEvent: boolean = false;
   countries: Array<any> = [];
   currentCountryId: number | string = "";
-
+  private currentUrl = '';
   constructor(
     private collectionService: CollectionSelectService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.getCountries();
@@ -32,10 +33,31 @@ export class SelectCountryComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+  filterColombiaPanama (countries) {
+    const newCountries = countries.filter(country => country['name'] == 'Colombia' || country['name'] == 'Panamá');
+    return newCountries;
+  }
+
+  filterGuatemala (countries) {
+    const newCountries = countries.filter(country => country['name'] == 'Guatemala');
+    return newCountries;
+  }
+
+  changeArrayCountries(countries) {
+    this.currentUrl = window.location.href;
+    if (this.currentUrl.includes('gt')) {
+      countries = this.filterGuatemala(countries);
+    } else {
+      countries = this.filterColombiaPanama(countries);
+    }
+    return countries;
+  }
+
   async getCountries() {
     try {
       await this.collectionService.isReady();
       this.countries = await this.collectionService.getCountries();
+      this.countries = this.changeArrayCountries(this.countries);
       this.loaded.emit();
       this.routineToInitialValue();
       this.changeDetectorRef.markForCheck();

@@ -16,22 +16,9 @@ export class SuccessActivationPage implements OnInit {
   userId: String;
   public messageChange: String;
   public errorChange: String;
-  public hobbies2: Array<any> = [
-    { name: 'Bebés', id: 1, checked: true },
-    { name: 'Camping y actividades al aire libre', id: 2, checked: false },
-    { name: 'Carpinteria y manualidades', id: 3, checked: true },
-    { name: 'Carros', id: 4, checked: false },
-    { name: 'Cine', id: 5, checked: false },
-    { name: 'Cocina', id: 6, checked: false },
-    { name: 'Coleccionar', id: 7, checked: false },
-    { name: 'Deporte', id: 8, checked: false },
-    { name: 'Eventos y espectáculos', id: 9, checked: false },
-    { name: 'Hogar', id: 11, checked: false },
-    { name: 'Jardineria', id: 12, checked: false }
-  ];
   public hobbies: Array<any> = [];
   private numberHobbies = 0;
-  public maxHobbies: number = 5;
+  // public maxHobbies: number = 5;
   public minHobbies: number = 1;
   constructor(
     private userService: UserService,
@@ -40,7 +27,7 @@ export class SuccessActivationPage implements OnInit {
     private hobbiesService: HobbiesService,
     private settingsService: SettingsService
   ) {
-    this.loadMaxMinNumHobbies();
+    // this.loadMaxMinNumHobbies();
   }
 
   ngOnInit() {
@@ -49,7 +36,7 @@ export class SuccessActivationPage implements OnInit {
     this.loadHobbies();
   }
 
-  loadMaxMinNumHobbies() {
+ /* loadMaxMinNumHobbies() {
     this.settingsService
       .getSettings()
       .then(response => {
@@ -63,7 +50,7 @@ export class SuccessActivationPage implements OnInit {
         this.minHobbies = Number(minObj.value);
       })
       .catch(httpErrorResponse => {});
-  }
+  }*/
 
   loadIdUser() {
     this.userId = this.currentSessionService.getIdUser();
@@ -97,16 +84,16 @@ export class SuccessActivationPage implements OnInit {
     this.numberHobbies = numberHobbies;
   }
 
-  checkMaxNumberHobbies(): boolean {
+ /* checkMaxNumberHobbies(): boolean {
     if (this.numberHobbies < this.maxHobbies) {
       return false;
     }
     return true;
-  }
+  }*/
 
   isValidateNumberHobbies(): boolean {
     if (
-      this.numberHobbies <= this.maxHobbies &&
+     // this.numberHobbies <= this.maxHobbies &&
       this.numberHobbies >= this.minHobbies
     ) {
       return true;

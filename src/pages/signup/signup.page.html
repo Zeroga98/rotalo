@@ -47,7 +47,7 @@
           <option *ngFor="let typeDocument of typeDocumentsColombia" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="margin-error-bottom form-group">
         <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
         name="id-number"
         formControlName="id-number"
