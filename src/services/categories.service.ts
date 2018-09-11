@@ -32,7 +32,7 @@ export class CategoriesService {
               name: category.nombre,
               subcategories: this.changeNameSubcategory(category.subcategorias),
               productsActives: category.productosActivos,
-              url: ''
+              url: category.url
             };
             return interfaceCategory;
           });
@@ -48,7 +48,7 @@ export class CategoriesService {
           id:  subcategory.id,
           name: subcategory.nombre,
           productsActives: subcategory.productosActivos,
-          url: ''
+          url: subcategory.url
         };
         return interfaceSubCategory;
       });
