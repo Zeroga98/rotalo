@@ -18,7 +18,7 @@ export class SuccessActivationPage implements OnInit {
   public errorChange: String;
   public hobbies: Array<any> = [];
   private numberHobbies = 0;
-  // public maxHobbies: number = 5;
+  public maxHobbies: number = 5;
   public minHobbies: number = 1;
   constructor(
     private userService: UserService,
@@ -27,7 +27,7 @@ export class SuccessActivationPage implements OnInit {
     private hobbiesService: HobbiesService,
     private settingsService: SettingsService
   ) {
-    // this.loadMaxMinNumHobbies();
+    this.loadMaxMinNumHobbies();
   }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class SuccessActivationPage implements OnInit {
     this.loadHobbies();
   }
 
- /* loadMaxMinNumHobbies() {
+  loadMaxMinNumHobbies() {
     this.settingsService
       .getSettings()
       .then(response => {
@@ -50,7 +50,7 @@ export class SuccessActivationPage implements OnInit {
         this.minHobbies = Number(minObj.value);
       })
       .catch(httpErrorResponse => {});
-  }*/
+  }
 
   loadIdUser() {
     this.userId = this.currentSessionService.getIdUser();
@@ -84,16 +84,16 @@ export class SuccessActivationPage implements OnInit {
     this.numberHobbies = numberHobbies;
   }
 
- /* checkMaxNumberHobbies(): boolean {
+  checkMaxNumberHobbies(): boolean {
     if (this.numberHobbies < this.maxHobbies) {
       return false;
     }
     return true;
-  }*/
+  }
 
   isValidateNumberHobbies(): boolean {
     if (
-     // this.numberHobbies <= this.maxHobbies &&
+      this.numberHobbies <= this.maxHobbies &&
       this.numberHobbies >= this.minHobbies
     ) {
       return true;

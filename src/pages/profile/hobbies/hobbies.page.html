@@ -1,33 +1,55 @@
 <div class="tittle main-title">
-    <h1 class="text">Mis intereses</h1>
+  <h1 class="text">Mis intereses</h1>
 </div>
 <div>
-  <div  class="container">
-    <div class="description">
-      <p>Selecciona las categorías que más te interesen, así mantendremos actualizado tu feed con lo que más te gusta.</p>
-    </div>
-    <div id="flashMessage" class="flashMessage">
-        <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
-          <p>
-            <span class="icon-check alert-icon"></span> {{messageChange}}</p>
-        </div>
-        <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
-          <ul>
-            <li>
-              <span>{{errorChange}}</span>
-            </li>
-          </ul>
-        </div>
-    </div>
-    <form  #formHobbies="ngForm" role="form">
-      <div class="subtitle">
-        <p>Me interesa</p>
+<div  class="container">
+  <div class="description">
+    <p>Selecciona las categorías que más te interesen, así mantendremos actualizado tu feed con lo que más te gusta.</p>
+  </div>
+  <div id="flashMessage" class="flashMessage">
+      <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
+        <p>
+          <span class="icon-check alert-icon"></span> {{messageChange}}</p>
       </div>
-      <div class="form-group user-checked">
-          <div class="tag-wrapper">
-              <div class="tag-container" *ngFor="let hobby of hobbies">
-                <div  *ngIf="hobby.seleccionado"  class="tag">
+      <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
+        <ul>
+          <li>
+            <span>{{errorChange}}</span>
+          </li>
+        </ul>
+      </div>
+  </div>
+  <form  #formHobbies="ngForm" role="form">
+    <div class="subtitle">
+      <p>Me interesa</p>
+    </div>
+    <div class="form-group user-checked">
+        <div class="tag-wrapper">
+            <div class="tag-container" *ngFor="let hobby of hobbies">
+              <div  *ngIf="hobby.seleccionado"  class="tag">
+                  <input
+                  value="{{hobby.id}}"
+                  name ="{{hobby.nombre}}"
+                  [(ngModel)]="hobby.seleccionado"
+                  type="checkbox"
+                  (change)="countCheck($event)"
+                  />
+                  <label for="{{hobby.id}}">{{hobby.nombre}}</label>
+                  <i class="fa fa-plus"></i>
+                  <i class="fa fa-check"></i>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="subtitle">
+      <p>Otros intereses</p>
+    </div>
+    <div class="form-group user-nochecked">
+        <div class="tag-wrapper">
+            <div class="tag-container" *ngFor="let hobby of hobbies">
+                <div *ngIf="!hobby.seleccionado" class="tag">
                     <input
+                    [disabled]="checkMaxNumberHobbies()"
                     value="{{hobby.id}}"
                     name ="{{hobby.nombre}}"
                     [(ngModel)]="hobby.seleccionado"
@@ -39,35 +61,13 @@
                     <i class="fa fa-check"></i>
                 </div>
               </div>
-          </div>
-      </div>
-      <div class="subtitle">
-        <p>Otros intereses</p>
-      </div>
-      <div class="form-group user-nochecked">
-          <div class="tag-wrapper">
-              <div class="tag-container" *ngFor="let hobby of hobbies">
-                  <div *ngIf="!hobby.seleccionado" class="tag">
-                      <input
-
-                      value="{{hobby.id}}"
-                      name ="{{hobby.nombre}}"
-                      [(ngModel)]="hobby.seleccionado"
-                      type="checkbox"
-                      (change)="countCheck($event)"
-                      />
-                      <label for="{{hobby.id}}">{{hobby.nombre}}</label>
-                      <i class="fa fa-plus"></i>
-                      <i class="fa fa-check"></i>
-                  </div>
-                </div>
-          </div>
-      </div>
-      <footer>
-        <div class="btn-container">
-          <custom-button  [disabled]="!isValidateNumberHobbies()"  (click) = "saveHobbies()" class="btn--square" type="submit" text="Guardar"></custom-button>
         </div>
-      </footer>
-    </form>
-  </div>
+    </div>
+    <footer>
+      <div class="btn-container">
+        <custom-button  [disabled]="!isValidateNumberHobbies()"  (click) = "saveHobbies()" class="btn--square" type="submit" text="Guardar"></custom-button>
+      </div>
+    </footer>
+  </form>
+</div>
 </div>

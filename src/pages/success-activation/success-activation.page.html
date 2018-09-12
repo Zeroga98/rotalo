@@ -44,7 +44,7 @@
         <div class="tag-wrapper">
           <div class="tag-container" *ngFor="let hobby of hobbies">
             <div *ngIf="!hobby.seleccionado" class="tag">
-              <input  value="{{hobby.id}}" name="{{hobby.nombre}}" [(ngModel)]="hobby.seleccionado"
+              <input [disabled]="checkMaxNumberHobbies()" value="{{hobby.id}}" name="{{hobby.nombre}}" [(ngModel)]="hobby.seleccionado"
                 type="checkbox" (change)="countCheck($event)" />
               <label for="{{hobby.id}}">{{hobby.nombre}}</label>
               <i class="fa fa-plus"></i>

@@ -65,6 +65,7 @@
       text-align: right;
       .icon-circle-cancel{
         cursor: pointer;
+        display: none;
         color: #FFFFFF;
         font-size: 2.5rem;
       }
@@ -112,7 +113,8 @@
     min-width: 300px;
     text-align: center;
     background: #FFFFFF;
-    padding: 30px;
+    padding: 35px;
+    position: relative;
     .info-container{
       position: relative;
       height: 100%;
@@ -131,6 +133,13 @@
         font-size: 1.4rem;
         color: #404040;
       }
+    }
+    .close-container {
+      cursor: pointer;
+      font-size: 2.5rem;
+      position: absolute;
+      top: 5px;
+      right: 8px;
     }
   }
 }
@@ -230,6 +239,13 @@
 
     .modal-info {
       min-height: 210px;
+      .close-container {
+        display: none;
+      }
+    }
+
+    .md-content-upload .close-container .icon-circle-cancel {
+      display: block;
     }
 
     .md-content-upload .close-container {

@@ -18,7 +18,7 @@ export class HobbiesPage implements OnInit {
   private userId;
   public hobbies: Array<any> = [];
   private numberHobbies = 0;
- // public maxHobbies: number = 5;
+  public maxHobbies: number = 5;
   public minHobbies: number = 1;
   public disableButton;
   constructor(
@@ -28,7 +28,7 @@ export class HobbiesPage implements OnInit {
     private utilsService: UtilsService,
     private settingsService: SettingsService
   ) {
-   // this.loadMaxMinNumHobbies();
+    this.loadMaxMinNumHobbies();
   }
 
   ngOnInit() {
@@ -37,18 +37,17 @@ export class HobbiesPage implements OnInit {
     this.disableButton = true;
   }
 
- /* loadMaxMinNumHobbies() {
+  loadMaxMinNumHobbies() {
     this.settingsService.getSettings().then(response => {
       if (response) {
         const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
         const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
-        console.log(maxObJ.value);
         this.maxHobbies = Number(maxObJ.value);
         this.minHobbies = Number(minObj.value);
       }
     })
     .catch(httpErrorResponse => {});
-  }*/
+  }
 
   loadIdUser() {
     this.userId = this.currentSessionService.getIdUser();
@@ -83,16 +82,16 @@ export class HobbiesPage implements OnInit {
     this.numberHobbies = numberHobbies;
   }
 
-  /*checkMaxNumberHobbies(): boolean {
+  checkMaxNumberHobbies(): boolean {
     if (this.numberHobbies < this.maxHobbies) {
       return false;
     }
     return true;
-  }*/
+  }
 
   isValidateNumberHobbies(): boolean {
     if (
-    //  this.numberHobbies <= this.maxHobbies &&
+      this.numberHobbies <= this.maxHobbies &&
       this.numberHobbies >= this.minHobbies &&  !this.disableButton
     ) {
       return true;
@@ -108,7 +107,7 @@ export class HobbiesPage implements OnInit {
           arrayHobbies.push(hobby.id);
         }
       }
-      const params = Object.assign({}, {intereses: arrayHobbies });
+      const params = Object.assign({},{intereses: arrayHobbies });
       this.hobbiesService.sendHobbies(params, this.userId).subscribe(
         state => {
           this.messageChange = 'Sus intereses se han guardado correctamente.';

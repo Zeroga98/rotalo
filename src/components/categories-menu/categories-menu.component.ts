@@ -29,11 +29,15 @@ export class CategoriesMenuComponent implements OnInit {
   }
 
   selectCategory(category: any) {
-    this.categorySelected.emit(category);
+    if (category.productsActives != 0) {
+      this.categorySelected.emit(category);
+    }
   }
 
   selectSubCategory(subCategory: any, category: any) {
-    subCategory.category = category;
-    this.subCategorySelected.emit(subCategory);
+    if (subCategory.productsActives != 0) {
+      subCategory.category = category;
+      this.subCategorySelected.emit(subCategory);
+    }
   }
 }

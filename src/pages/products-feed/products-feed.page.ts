@@ -67,7 +67,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public couponService;
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
-
+  private currentUrl = '';
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -86,11 +86,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
-    this.imagesBanner = IMGS_BANNER;
-
+    this.imagesBanner = IMGS_BANNER_PROMO;
 
     /*Promo fecha determinada para cierta comunidad*/
-   this.addPromoBanner();
+  // this.addPromoBanner();
+    this.addPromoBannerColombia();
   }
 
    ngOnInit() {
@@ -105,9 +105,18 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.setScrollEvent();
   }
 
-  async addPromoBanner() {
+  /*async addPromoBanner() {
     this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'Pragma') {
+    if (this.community && this.community.name === 'Grupo Bancolombia') {
+      this.imagesBanner = IMGS_BANNER_PROMO;
+    }
+  }*/
+
+  addPromoBannerColombia() {
+    this.currentUrl = window.location.href;
+    if (this.currentUrl.includes('gt')) {
+      this.imagesBanner = IMGS_BANNER;
+    }else {
       this.imagesBanner = IMGS_BANNER_PROMO;
     }
   }
@@ -138,6 +147,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       }
     );
   }
+
+  chunkArray(myArray, chunk_size) {
+    const results = [];
+    while (myArray.length) {
+        results.push(myArray.splice(0, chunk_size));
+    }
+    return results;
+}
+
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;

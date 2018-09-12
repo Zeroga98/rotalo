@@ -10,7 +10,9 @@
         .category{
             margin-bottom: 1rem;
             .title-circle{
-                background: cadetblue;
+                //background: cadetblue;
+                background: #DFDFDF;
+                color: #9F9F9F;
                 display: inline-flex;
                 padding: .5rem 1rem;
                 border-radius: 2rem;
@@ -31,11 +33,18 @@
                     li{
                         font-size: 1.6rem;
                         color: #9B9B9B;
+                        font-weight: bold;
                         cursor: pointer;
+                    }
+                    a.disabled{
+                      cursor: auto;
+                      color:  rgba(155, 155, 155, 0.61);
+                      font-weight: normal;
                     }
                 }
             }
         }
+
     }
 }
 
