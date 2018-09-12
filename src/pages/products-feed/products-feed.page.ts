@@ -35,6 +35,7 @@ import { ModalShareProductService } from '../../components/modal-shareProduct/mo
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
 import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 
 
 @Component({
@@ -45,6 +46,7 @@ import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.con
 })
 export class ProductsFeedPage implements OnInit, OnDestroy {
   public carouselConfig: NgxCarousel;
+  public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
@@ -64,6 +66,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
+  public groupFeaturedProducts:  Array<any> = [];
   public couponService;
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
@@ -86,6 +89,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
+    this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER_PROMO;
 
     /*Promo fecha determinada para cierta comunidad*/
@@ -139,7 +143,24 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       (response) => {
         if (response.body) {
           this.featuredproducts = response.body.productos;
-          this.changeDetectorRef.markForCheck();
+          this.featuredproducts.push(this.featuredproducts[0]);
+          this.featuredproducts.push(this.featuredproducts[1]);
+          this.featuredproducts.push(this.featuredproducts[4]);
+
+          this.featuredproducts.push(this.featuredproducts[0]);
+          this.featuredproducts.push(this.featuredproducts[1]);
+          this.featuredproducts.push(this.featuredproducts[2]);
+          this.featuredproducts.push(this.featuredproducts[3]);
+          this.featuredproducts.push(this.featuredproducts[4]);
+
+        this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
+         /* let i = 0;
+          setInterval(function(){
+            i++;
+            console.log(i);
+          }, 6000);*/
+        //  console.log(array);
+        this.changeDetectorRef.markForCheck();
         }
       },
       (error) => {

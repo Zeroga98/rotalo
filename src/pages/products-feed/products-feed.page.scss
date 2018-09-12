@@ -15,6 +15,13 @@
       transition: opacity 1s;
     }
   }
+
+  ngx-carousel.carousel-featured {
+    ngx-item {
+      min-height: 38rem;
+    }
+  }
+
   ngx-carousel {
     position: relative;
     .item-banner {
@@ -43,6 +50,14 @@
       left: auto;
       right: 2rem;
       transform: rotate(-135deg);
+    }
+  }
+
+  ngx-carousel.carousel-featured {
+    .arrow {
+      z-index: 3;
+      border-bottom: 4px solid #A2A2A2;
+      border-left: 4px solid #A2A2A2;
     }
   }
   .container-masonry {
@@ -115,6 +130,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 35px 0;
+      padding-bottom: 0;
       .header-featured {
         margin-bottom: 15px;
         h3,
