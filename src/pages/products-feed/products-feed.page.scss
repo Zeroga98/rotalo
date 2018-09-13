@@ -59,6 +59,9 @@
       border-bottom: 4px solid #A2A2A2;
       border-left: 4px solid #A2A2A2;
     }
+    .hide.arrow {
+      display: none !important;
+    }
   }
   .container-masonry {
     padding: 4rem 5%;

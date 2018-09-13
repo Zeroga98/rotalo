@@ -142,24 +142,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.productsService.featuredProduct(countryId, communityId).subscribe(
       (response) => {
         if (response.body) {
-          this.featuredproducts = response.body.productos;
-          this.featuredproducts.push(this.featuredproducts[0]);
-          this.featuredproducts.push(this.featuredproducts[1]);
-          this.featuredproducts.push(this.featuredproducts[4]);
-
-          this.featuredproducts.push(this.featuredproducts[0]);
-          this.featuredproducts.push(this.featuredproducts[1]);
-          this.featuredproducts.push(this.featuredproducts[2]);
-          this.featuredproducts.push(this.featuredproducts[3]);
-          this.featuredproducts.push(this.featuredproducts[4]);
-
+        this.featuredproducts = response.body.productos;
+        console.log(this.featuredproducts);
         this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
-         /* let i = 0;
-          setInterval(function(){
-            i++;
-            console.log(i);
-          }, 6000);*/
-        //  console.log(array);
         this.changeDetectorRef.markForCheck();
         }
       },
