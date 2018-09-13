@@ -454,7 +454,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   isExclusiveOffer(imageUrl) {
-    if (imageUrl === './assets/img/banner/banner_10.png') {
+    if (imageUrl.includes('banner_10')) {
       return true;
     }
     return false;
