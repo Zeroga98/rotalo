@@ -95,9 +95,6 @@
       </div>
     </div>
   </div>
-
-
-
 <div>
   <div class="container-spinner" *ngIf="isSpinnerShow">
       <custom-spinner></custom-spinner>
@@ -115,10 +112,6 @@
       [infiniteScrollDisabled]="isInfiniteScrollDisabled"
       (scrolled)="scrolledInfinite()">
         <masonry-brick class="grid-item" *ngFor="let product of products">
-            <div *ngIf="product && product.status === 'sell_process'" class="lable-sell-process">
-                <div class="icon-clock label-sell--center"></div>
-                <label class="label-sell--center">Venta en proceso</label>
-            </div>
             <product *ngIf="product.user && product.user.company" id="{{product.id}}"
             [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
             [isProductSelling]="false"

@@ -197,7 +197,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
         'filter[country]': countryId,
-        'page[size]': 8,
+        'page[size]': 26,
         'page[number]': 1
       });
       this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);

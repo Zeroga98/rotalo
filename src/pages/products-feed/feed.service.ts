@@ -7,7 +7,7 @@ export class FeedService{
        // "filter[status]": "sell_process",
         "filter[country]": 1,
         "filter[community]": -1,
-        "page[size]": 8,
+        "page[size]": 26,
         "page[number]": 1
     }
 
