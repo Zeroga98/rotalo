@@ -71,6 +71,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private currentUrl = '';
+  collection = [];
+
+
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -95,6 +98,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     /*Promo fecha determinada para cierta comunidad*/
   // this.addPromoBanner();
     this.addPromoBannerColombia();
+
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`item ${i}`);
+    }
   }
 
    ngOnInit() {
@@ -106,7 +113,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-    this.setScrollEvent();
+    // this.setScrollEvent();
   }
 
   /*async addPromoBanner() {
@@ -143,7 +150,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       (response) => {
         if (response.body) {
         this.featuredproducts = response.body.productos;
-        console.log(this.featuredproducts);
         this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
         this.changeDetectorRef.markForCheck();
         }

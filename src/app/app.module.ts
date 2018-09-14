@@ -142,7 +142,7 @@ import { ModalUploadProductComponent } from '../components/modal-uploadProduct/m
 import { ModalUploadProductService } from '../components/modal-uploadProduct/modal-uploadProduct.service';
 import { ModalTicketComponent } from '../components/modal-ticket/modal-ticket.component';
 import { ModalTicketService } from '../components/modal-ticket/modal-ticket.service';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -244,7 +244,8 @@ import { ModalTicketService } from '../components/modal-ticket/modal-ticket.serv
     RouterModule.forRoot(appRouter),
     LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule,
-    BarRatingModule
+    BarRatingModule,
+    NgxPaginationModule
   ],
   providers: [
     UserService,

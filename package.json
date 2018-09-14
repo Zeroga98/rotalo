@@ -41,6 +41,7 @@
     "ngx-infinite-scroll": "^0.8.3",
     "ngx-masonry": "^1.1.2",
     "ngx-mydatepicker": "^2.4.5",
+    "ngx-pagination": "^3.2.0",
     "normalize.scss": "^0.1.0",
     "rxjs": "^5.5.2",
     "web-animations-js": "^2.3.1",

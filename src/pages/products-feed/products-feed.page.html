@@ -1,4 +1,3 @@
-<back-top number="300" stepTime="10" #backTop></back-top>
 <div class="md-overlay"></div>
 <div class="md-overlay-red"></div>
 
@@ -103,25 +102,16 @@
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
   <div class="container-masonry">
-      <masonry class="masonry"
-      #masonryRef
-      [useImagesLoaded]="false"
-      [options]="masonryConfig"
-      infiniteScroll
-      [infiniteScrollDistance]="0.5"
-      [infiniteScrollDisabled]="isInfiniteScrollDisabled"
-      (scrolled)="scrolledInfinite()">
-        <masonry-brick class="grid-item" *ngFor="let product of products">
-            <product *ngIf="product.user && product.user.company" id="{{product.id}}"
-            [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
-            [isProductSelling]="false"
-            [showField] = "true"
-            [product]="product"
-            [masonryInfo]="masonryRef"
-            (selected)="selectProduct($event); setScroll($event)"
-            [colourCompany]="product.user.company.colour">
-            </product>
-        </masonry-brick>
-      </masonry>
+      <div class="list">
+          <ul>
+            <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }">{{ item }}</li>
+          </ul>
+          <pagination-controls
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          (pageChange)="p = $event">
+          </pagination-controls>
+      </div>
   </div>
 </div>
