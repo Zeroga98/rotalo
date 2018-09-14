@@ -143,7 +143,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       (response) => {
         if (response.body) {
         this.featuredproducts = response.body.productos;
-        console.log(this.featuredproducts);
         this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
         this.changeDetectorRef.markForCheck();
         }
@@ -157,10 +156,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   chunkArray(myArray, chunk_size) {
     const results = [];
     while (myArray.length) {
-        results.push(myArray.splice(0, chunk_size));
+      results.push(myArray.splice(0, chunk_size));
     }
     return results;
-}
+  }
 
 
   updateSrc(evt) {
