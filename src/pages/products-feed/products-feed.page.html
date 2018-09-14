@@ -44,8 +44,11 @@
                           <div *ngIf= "featuredproduct" class="item__wrapper">
                               <div class="item__card">
                                   <div class="item__image-container">
-                                    <div  *ngIf="featuredproduct['is-low-price']" class="container-low-price">
+                                    <div *ngIf="featuredproduct['is-low-price'] && featuredproduct['featuredType'] == 'isLowPrice'" class="container-low-price">
                                       <p>$ REBAJÓ</p>
+                                    </div>
+                                    <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
+                                        <p>TRENDING</p>
                                     </div>
                                       <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
                                       <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">

@@ -340,6 +340,24 @@
 }
 
 :host {
+  .container-trending {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 40px;
+    background: url(../../assets/img/img_insignia_trending.svg);
+    background-size: 104px 40px;
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+    }
+  }
+}
+
+:host {
   @media screen and (max-width: 890px) {
     .featured-section {
       .featured-container {
