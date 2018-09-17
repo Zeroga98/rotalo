@@ -23,7 +23,7 @@
     </div>
     <span  (click)="selectProduct()" class="name">{{product.name}}</span>
   </div>
-  <div (click)="selectProduct()">
+  <div class="product-info" (click)="selectProduct()">
       <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
           <span *ngIf="product.price != 0" class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
           <span *ngIf="product.price == 0" class="name">Gratis</span>

@@ -70,13 +70,17 @@
       max-width: 100%;
       margin: auto;
       .grid-item {
-        width: 24%;
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
       }
       product {
+        cursor: pointer;
         text-align: left;
-        width: 24%;
+        width: 23%;
         overflow: hidden;
         margin: 0 1rem 2.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
     }
   }
@@ -121,6 +125,10 @@
   .label-sell--center {
     text-align: center;
     vertical-align: middle;
+  }
+  .has-text-centered {
+    text-align: center;
+    font-size: 1.5rem;
   }
 }
 
@@ -291,6 +299,7 @@
   }
 }
 
+
 :host {
   .icon-share-container{
     cursor: pointer;
@@ -339,6 +348,22 @@
   }
 }
 
+@media screen and (max-width: 1110px) {
+  :host {
+    .container-masonry .masonry product {
+      width: 31%;
+    }
+  }
+}
+
+@media screen and (max-width: 952px) {
+  :host {
+    .container-masonry .masonry product {
+      width: 45%;
+    }
+  }
+}
+
 :host {
   @media screen and (max-width: 890px) {
     .featured-section {
@@ -364,6 +389,23 @@
       width: 50%;
     }
   }
+
+  @media screen and (max-width: 500px) {
+
+    .container-masonry {
+      padding: 4rem 0;
+     }
+
+    .container-masonry .masonry .grid-item{
+      justify-content: center;
+    }
+
+    .container-masonry .masonry product {
+      width: 43%;
+    }
+
+  }
+
   @media screen and (max-width: 470px) {
     .featured-section {
       .featured-container {
@@ -440,13 +482,6 @@
     ngx-carousel {
       .arrow {
         display: none !important;
-      }
-    }
-    .container-masonry {
-      .masonry {
-        .grid-item {
-          width: 48%;
-        }
       }
     }
   }

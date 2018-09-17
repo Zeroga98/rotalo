@@ -65,7 +65,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   triggerMasonryLayout() {
-    this.masonryInfo.layout();
+    if (this.masonryInfo) {
+      this.masonryInfo.layout();
+    }
   }
   saveCheck() {
     this.productStatus = !this.productStatus;

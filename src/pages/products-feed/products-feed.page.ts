@@ -71,6 +71,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private currentUrl = '';
+  public pageNumber: number = 1;
+  public totalPages: number = 619;
+
   collection = [];
 
 
@@ -98,10 +101,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     /*Promo fecha determinada para cierta comunidad*/
   // this.addPromoBanner();
     this.addPromoBannerColombia();
-
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
   }
 
    ngOnInit() {
@@ -133,14 +132,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
-    /*Se remueve los modales del DOM */
-    /*
-    const element1 = document.getElementById('custom-modal-2');
-    const element2 = document.getElementById('custom-modal-3');
-    element1.parentNode.removeChild(element1);
-    element2.parentNode.removeChild(element2);*/
-
     this._subscriptionCountryChanges.unsubscribe();
     this.changeDetectorRef.markForCheck();
   }
@@ -203,7 +194,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
         'filter[country]': countryId,
-        'page[size]': 26,
+        'page[size]': 24,
         'page[number]': 1
       });
       this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
@@ -226,14 +217,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       let products;
-      if ( this.isSuperUser()) {
+      if (this.isSuperUser()) {
         products = await this.productsService.getProductsSuper(this.userId, params);
       }else {
         products = await this.productsService.getProducts(params);
       }
+      window.scrollTo(0, 0);
       this.stateRequest = this.statesRequestEnum.success;
       this.updateProducts(products);
-      this.validateStateScrollInfinite(products);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
@@ -313,18 +304,17 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     });
   }
 
-  scrolledInfinite() {
-    this.currentPage++;
-    this.waitNewPage = true;
+  getPage(page: number) {
+    this.pageNumber = page;
     if ( this.isSuperUser()) {
       this.routineUpdateProducts(
-        { 'pagina': this.currentPage },
-        this.currentPage
+        { 'pagina': page },
+        page
       );
     }else {
       this.routineUpdateProducts(
-        { 'page[number]': this.currentPage },
-        this.currentPage
+        { 'page[number]': page },
+        page
       );
     }
   }
@@ -398,7 +388,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
     this.waitNewPage = false;
-    this.updateMasonry();
+   // this.updateMasonry();
   }
 
   addNewPage(newProducts) {
@@ -427,52 +417,28 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     return this.currentFilter;
   }
 
-  private setScrollEvent() {
-    window.addEventListener('scroll', this.backTopToggle.bind(this));
-  }
-
-  private updateMasonry() {
-    if (this.masonryRef.layout) {
-      setTimeout(() => {
-        this.masonryRef.layout();
-      }, 1);
-    }
-  }
-
-  private validateStateScrollInfinite(products: ProductInterface) {
-    this.isInfiniteScrollDisabled =
-      this.products.length <= 0 || products.lastPage;
-  }
 
   private setconfigFiltersSubcategory(filter) {
     this.configFiltersSubcategory = filter;
     this.feedService.setConfigFiltersSubcategory(this.configFiltersSubcategory);
   }
 
-  private backTopToggle(ev) {
-    const doc = document.documentElement;
-    const offsetScrollTop =
-      (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    offsetScrollTop > 50
-      ? this.rendered.addClass(this.backTop.nativeElement, 'show')
-      : this.rendered.removeClass(this.backTop.nativeElement, 'show');
-  }
 
-  shareProduct(id: string, product) {
+  public shareProduct(id: string, product) {
     if (product.id) {
       this.modalService.setProductId(product.id);
       this.modalService.open(id);
     }
   }
 
-  isExclusiveOffer(imageUrl) {
+  public isExclusiveOffer(imageUrl) {
     if (imageUrl.includes('banner_10')) {
       return true;
     }
     return false;
   }
 
-  openModalCupon (imageUrl, id: string) {
+  public openModalCupon (imageUrl, id: string) {
     if (this.isExclusiveOffer(imageUrl)) {
       const currentUser = this.currentSession.currentUser();
       if (currentUser) {
@@ -484,7 +450,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  getCoupon (email, id: string) {
+  public getCoupon (email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {
       this.couponService = response.body.cupon;
       this.modalTicketService.open(id);

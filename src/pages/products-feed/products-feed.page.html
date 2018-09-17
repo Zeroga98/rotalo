@@ -103,14 +103,25 @@
   </div>
   <div class="container-masonry">
       <div class="list">
-          <ul>
-            <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage: p }">{{ item }}</li>
-          </ul>
+          <div class="masonry">
+            <div class="grid-item">
+              <product class="product-feed" *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }"
+              [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
+              [isProductSelling]="false"
+              [showField] = "true"
+              [product]="product"
+              (selected)="selectProduct($event);"
+              [colourCompany]="product.user.company.colour"
+              >
+              </product>
+            </div>
+          </div>
           <pagination-controls
+          class="has-text-centered"
           responsive="true"
           previousLabel="Anterior"
           nextLabel="Siguiente"
-          (pageChange)="p = $event">
+          (pageChange)="getPage($event)">
           </pagination-controls>
       </div>
   </div>
