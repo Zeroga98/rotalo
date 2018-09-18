@@ -352,6 +352,13 @@
   .container-product {
     height: 500px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transform: scale(1);
+  }
+
+  .container-product:hover .container-photo img {
+    top: 50%;
+    left: 50%;
+    transform:  translate(-50%, -50%) scale(1.1);
   }
 
   .product-info{
@@ -409,6 +416,7 @@
     border-bottom: 1px solid rgba(51, 51, 51, 0.1);
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .container-product .container-photo img {
@@ -420,6 +428,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto;
+    transition: all .15s ease-in-out;
   }
 }
 

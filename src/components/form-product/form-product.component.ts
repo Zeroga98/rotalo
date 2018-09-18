@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from '../../util/utils.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
+import { UserService } from '../../services/user.service';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -59,7 +60,13 @@ export class FormProductComponent implements OnInit, OnChanges {
   readonly maxNumberPhotos: number = 6;
   maxNumberImg = this.maxNumberPhotos;
   photosCounter = 0;
-
+  public country: Object = {};
+  public state: Object = {};
+  public city: Object = {};
+  public userEdit: any;
+  public countryValue = {};
+  public stateValue;
+  public cityValue;
 
   constructor(
     private router: Router,
@@ -68,8 +75,10 @@ export class FormProductComponent implements OnInit, OnChanges {
     private photosService: PhotosService,
     private categoryService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private userService: UserService,
   ) {
+    this.getInfoUser();
     this.defineSubastaTimes();
     this.changeDetectorRef.markForCheck();
   }
@@ -86,10 +95,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       }, (error) => {
         console.log(error);
       });
-     /* this.categories = await this.categoryService.getCategories();
-      */
       this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   ngOnChanges(): void {
@@ -106,6 +115,17 @@ export class FormProductComponent implements OnInit, OnChanges {
       }, 30);
     }
     this.changeDetectorRef.markForCheck();
+  }
+
+  async getInfoUser() {
+    this.userEdit = await this.userService.getInfoUser();
+    this.onInfoRetrieved(this.userEdit);
+  }
+
+  onInfoRetrieved(user): void {
+    this.country = user.city.state.country;
+    this.stateValue = user.city.state;
+    this.cityValue = user.city;
   }
 
   get isColombia(){
@@ -136,7 +156,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid) {
+    if (!this.formIsInValid && this.city['id']) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -181,7 +201,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       }
       let params;
       if (this.product) {
-        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional);
+        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
+          "city-id": this.city["id"]
+        });
         if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
           delete params['publish-until'];
         }
@@ -189,10 +211,13 @@ export class FormProductComponent implements OnInit, OnChanges {
         const publishDate = {
           'published-at': new Date()
         };
-        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
+          "city-id": this.city["id"]
+        });
       }
       this.photosUploaded.length = 0;
       delete params['category'];
+      console.log(params);
       this.publish.emit(params);
 
     } else {
@@ -485,6 +510,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
+   return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
   }
 }
