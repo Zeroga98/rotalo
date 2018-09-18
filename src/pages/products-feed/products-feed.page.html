@@ -105,15 +105,15 @@
       <div class="list">
           <div class="masonry">
             <div class="grid-item">
-              <product class="product-feed" *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }"
-              [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
-              [isProductSelling]="false"
-              [showField] = "true"
-              [product]="product"
-              (selected)="selectProduct($event);"
-              [colourCompany]="product.user.company.colour"
-              >
-              </product>
+                  <product *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }" class="product-feed" 
+                  [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
+                  [isProductSelling]="false"
+                  [showField] = "true"
+                  [product]="product"
+                  (selected)="selectProduct($event);"
+                  [colourCompany]="product.user.company?.colour"
+                  >
+                  </product>
             </div>
           </div>
           <pagination-controls
