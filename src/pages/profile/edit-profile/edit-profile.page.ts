@@ -180,7 +180,7 @@ export class EditProfilePage implements OnInit {
       email: user.email,
       cellphone: user.cellphone
     });
-
+    console.log(user);
     this.countryValue = user.city.state.country;
     this.stateValue = user.city.state;
     this.cityValue = user.city;

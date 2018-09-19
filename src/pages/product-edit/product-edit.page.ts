@@ -28,6 +28,7 @@ export class ProductEditPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.product);
       this.redirectIfisNotOwner(this.product);
       this.changeDetectorRef.markForCheck();
     } catch (error) {}

@@ -42,7 +42,6 @@ export class OfferModalComponent implements OnInit {
     const price = this.priceInput.nativeElement.value;
     if (this.validForm(price)) {
       try {
-        debugger
         const response = await this.offerService.sendOffer({
           amount: price,
           'product-id': this.config['product-id']
