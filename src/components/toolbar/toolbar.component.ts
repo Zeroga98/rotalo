@@ -60,6 +60,7 @@ export class ToolbarComponent implements OnInit {
     }
     const id = evt.target.value;
     this.selectedCommunity.emit({ name, id });
+    this.changeDetectorRef.markForCheck();
   }
 
   showSearchBar(evt){

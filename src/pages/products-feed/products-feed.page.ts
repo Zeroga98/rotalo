@@ -16,7 +16,6 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewInit,
   EventEmitter
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
@@ -72,8 +71,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private currentUrl = '';
   public pageNumber: number = 1;
-  public totalPages: number = 619;
-
+  public totalPages: number = 100;
+  public contador = 0;
   collection = [];
 
 
@@ -115,6 +114,20 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     // this.setScrollEvent();
   }
 
+  ngOnDestroy(): void {
+    this._subscriptionCountryChanges.unsubscribe();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  ngForEnd(lastItem) {
+    console.log(this.contador);
+    this.contador++;
+    if (lastItem) {
+      this.productsService.products = [];
+      this.productsService.getProductLocation();
+    }
+  }
+
   /*async addPromoBanner() {
     this.community = await this.userService.getCommunityUser();
     if (this.community && this.community.name === 'Grupo Bancolombia') {
@@ -129,11 +142,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }else {
       this.imagesBanner = IMGS_BANNER_PROMO;
     }
-  }
-
-  ngOnDestroy(): void {
-    this._subscriptionCountryChanges.unsubscribe();
-    this.changeDetectorRef.markForCheck();
   }
 
   loadFeaturedProduct(countryId, communityId) {
@@ -216,15 +224,23 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-      let products;
-      if (this.isSuperUser()) {
-        products = await this.productsService.getProductsSuper(this.userId, params);
-      }else {
-        products = await this.productsService.getProducts(params);
+
+      if (this.productsService.products.length > 0) {
+        this.products = this.productsService.products;
+        this.currentPage = this.productsService.currentPage;
+        this.pageNumber = this.currentPage;
+        this.changeDetectorRef.markForCheck();
+      } else {
+        let products;
+        if (this.isSuperUser()) {
+          products = await this.productsService.getProductsSuper(this.userId, params);
+        }else {
+          products = await this.productsService.getProducts(params);
+        }
+        this.updateProducts(products);
       }
-      window.scrollTo(0, 0);
+      this.totalPages = this.productsService.getTotalProducts();
       this.stateRequest = this.statesRequestEnum.success;
-      this.updateProducts(products);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
@@ -235,16 +251,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.showAnyProductsMessage = true;
     }else {
       this.showAnyProductsMessage = false;
-    }
-
-    if (this.productsService.products.length > 0) {
-      this.products = this.productsService.products;
-      this.productsService.products = [];
-      setTimeout(() => {
-        this.productsService.getProductLocation();
-        this.currentPage = this.productsService.currentPage;
-        this.productsService.scroll = 0;
-      }, 2200);
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -306,7 +312,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
 
   getPage(page: number) {
     this.pageNumber = page;
-    if ( this.isSuperUser()) {
+    if (this.isSuperUser()) {
       this.routineUpdateProducts(
         { 'pagina': page },
         page
@@ -317,6 +323,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
         page
       );
     }
+    this.productsService.scroll = 0;
+    window.scrollTo(0, 0);
   }
 
   changeCommunity(community: any) {

@@ -101,19 +101,23 @@
   <div class="msg-no-products" *ngIf="showAnyProductsMessage">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div class="container-masonry">
+  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
       <div class="list">
           <div class="masonry">
             <div class="grid-item">
-                  <product *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }" class="product-feed" 
+              <product *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }; let lastItem = last" class="product-feed"
                   [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
                   [isProductSelling]="false"
                   [showField] = "true"
                   [product]="product"
-                  (selected)="selectProduct($event);"
+                  (selected)="selectProduct($event); setScroll($event)"
                   [colourCompany]="product.user.company?.colour"
+                  id="{{product.id}}"
                   >
-                  </product>
+                  <span>
+                    {{ngForEnd(lastItem)}}
+                  </span>
+              </product>
             </div>
           </div>
           <pagination-controls
