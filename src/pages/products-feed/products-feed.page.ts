@@ -16,7 +16,9 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  EventEmitter
+  EventEmitter,
+  ViewChildren,
+  QueryList
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
@@ -74,6 +76,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   public totalPages: number = 100;
   public contador = 0;
   collection = [];
+  @ViewChildren('productsEnd') endForRender: QueryList<any>;
 
 
   constructor(
@@ -119,13 +122,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.changeDetectorRef.markForCheck();
   }
 
-  ngForEnd(lastItem) {
-    console.log(this.contador);
-    this.contador++;
-    if (lastItem) {
-      this.productsService.products = [];
-      this.productsService.getProductLocation();
-    }
+  ngAfterViewInit() {
+    this.endForRender.changes.subscribe(t => {
+      this.ngForRender();
+    })
+  }
+
+  ngForRender() {
+    this.productsService.products = [];
+    this.productsService.getProductLocation();
   }
 
   /*async addPromoBanner() {

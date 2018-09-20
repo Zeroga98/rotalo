@@ -62,7 +62,7 @@ export class BuyProductPage implements OnInit {
     private buyService: BuyService,
     private currentSessionSevice: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit() {
@@ -183,6 +183,7 @@ export class BuyProductPage implements OnInit {
       this.disableButton = true;
       const response = await this.buyService.buyProduct(this.buildParams());
       this.transactionSuccess = true;
+      this.productsService.scroll = undefined;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {

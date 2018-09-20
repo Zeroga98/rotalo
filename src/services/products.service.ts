@@ -192,8 +192,8 @@ export class ProductsService {
       if (document && this.scroll) {
         if (document.getElementById(this.scroll)) {
           document.getElementById(this.scroll).scrollIntoView(true);
+          this.scroll = undefined;
         }
-       // this.scroll = undefined;
       }
     }
 

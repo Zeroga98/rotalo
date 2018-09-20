@@ -1,4 +1,6 @@
 <div class="container-product" *ngIf="product" #containerProducts>
+
+  <a>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <div *ngIf="product['is-low-price']" class="container-low-price">
           <p>$ REBAJÓ</p>
@@ -102,4 +104,5 @@
       <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' : 'inactivo' }}</p>
     </div>
   </div>
+</a>
 </div>
