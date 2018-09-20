@@ -153,6 +153,7 @@ export class ChatWindowComponent
       mensaje: this.formMessage.controls['message'].value,
       inicioConversacion: this.inicioConversacion
     };
+    this.formMessage.reset();
     this.subscriptionMessages = this.messagesService
       .sendMessage(params, this.userId)
       .subscribe(
