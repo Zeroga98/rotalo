@@ -18,7 +18,8 @@ import {
   ChangeDetectorRef,
   EventEmitter,
   ViewChildren,
-  QueryList
+  QueryList,
+  AfterViewInit
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
@@ -45,7 +46,7 @@ import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
   styleUrls: ['products-feed.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsFeedPage implements OnInit, OnDestroy {
+export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public carouselConfig: NgxCarousel;
   public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
@@ -125,7 +126,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   ngAfterViewInit() {
     this.endForRender.changes.subscribe(t => {
       this.ngForRender();
-    })
+    });
   }
 
   ngForRender() {
@@ -200,7 +201,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.currentFilter = {
         'pais': countryId,
         'comunidad': -1,
-        'cantidad': 3,
+        'cantidad': 24,
         'pagina': 1
       };
       this.loadFeaturedProduct(countryId, -1);

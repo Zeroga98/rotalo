@@ -97,6 +97,16 @@
           </select>
           <span class="error-msg">Este campo es obligatorio.</span>
         </div>
+
+        <div class="form-group">
+          <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group">
+          <select-cities class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+
         <div class="form-group">
           <select class="form-control" name="used" formControlName="used">
             <option value="" disabled>Estado del artículo *</option>
@@ -130,14 +140,6 @@
               [options]="datePickerOptions"></my-date-picker>
           </div>
           <span class="help-block error-msg"> Este campo es obligatorio. </span>
-        </div>
-        <div class="form-group">
-            <div class="item-price">
-              <label class="location-label">Ubicación de la oferta</label>
-              <select-states class="location-label white-theme-select" [country]="country" (selected)="state=$event"></select-states>
-              <select-cities class="location-label white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
-            </div>
-            <span class="help-block error-msg"> Este campo es obligatorio. </span>
         </div>
         <div class="form-group full">
           <textarea class="form-control" placeholder="Describe tu producto *" name="description" formControlName="description" maxlength="500"></textarea>

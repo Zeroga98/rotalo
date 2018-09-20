@@ -15,6 +15,7 @@ import { UtilsService } from '../../util/utils.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../services/user.service';
+import { CollectionSelectService } from '../../services/collection-select.service';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -77,8 +78,9 @@ export class FormProductComponent implements OnInit, OnChanges {
     private changeDetectorRef: ChangeDetectorRef,
     private utilsService: UtilsService,
     private userService: UserService,
+    private collectionService: CollectionSelectService,
   ) {
-    this.getInfoUser();
+    this.getCountries();
     this.defineSubastaTimes();
     this.changeDetectorRef.markForCheck();
   }
@@ -120,12 +122,24 @@ export class FormProductComponent implements OnInit, OnChanges {
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
     this.onInfoRetrieved(this.userEdit);
+    this.changeDetectorRef.markForCheck();
   }
 
   onInfoRetrieved(user): void {
+    console.log(user);
     this.country = user.city.state.country;
     this.stateValue = user.city.state;
     this.cityValue = user.city;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.getInfoUser();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   get isColombia(){

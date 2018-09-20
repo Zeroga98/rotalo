@@ -61,6 +61,9 @@ export class ProductsService {
       const url = this.urlSapi + '/productos';
       return this.http.get(url, { headers: headers,  params: params }).toPromise()
       .then((response: any) => {
+      if (response.body.totalProductos) {
+        this.setTotalProducts (response.body.totalProductos);
+      }
       return response.body.productos;
       });
     }

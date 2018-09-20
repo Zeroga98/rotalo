@@ -88,6 +88,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   async getCountries() {
     try {
       await this.collectionService.isReady();
+      this.changeDetector.markForCheck();
     } catch (error) {
       console.error(error);
     }

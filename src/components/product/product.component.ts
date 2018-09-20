@@ -91,7 +91,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   getLocation(product): string {
-    const city = product.user.city;
+    const city = product.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
   }
