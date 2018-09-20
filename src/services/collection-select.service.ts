@@ -48,6 +48,7 @@ export class CollectionSelectService {
 
   async getCitiesById(id: number) {
     const state: any = await this.getStateById(id);
+    console.log(state);
     const cities = state.cities;
     if (cities.length) {
       return cities.map(city => {
@@ -62,14 +63,17 @@ export class CollectionSelectService {
     }
   }
 
-    getStateById(id: number) {
-        return new Promise((resolve, reject) => {
-            const states = this.states.filter( value => {
-                return value.id == id;
-            });
-            resolve(states[0]);
+  getStateById(id: number) {
+    return new Promise((resolve, reject) => {
+      console.log(this.states);
+      if (this.states) {
+        const states = this.states.filter(value => {
+          return value.id == id;
         });
-    }
+        resolve(states[0]);
+      }
+    });
+  }
 
   getCountryById(id: number): Promise<any> {
     return new Promise((resolve, reject) => {

@@ -168,10 +168,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   chunkArray(myArray, chunk_size) {
     const results = [];
     while (myArray.length) {
-        results.push(myArray.splice(0, chunk_size));
+      results.push(myArray.splice(0, chunk_size));
     }
     return results;
-}
+  }
 
 
   updateSrc(evt) {

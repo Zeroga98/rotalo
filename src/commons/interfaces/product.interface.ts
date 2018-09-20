@@ -23,4 +23,5 @@ export interface ProductInterface {
     'subcategory-id'?: string | number;
     lastPage?: boolean;
     category: string | number;
+    city?: any;
 }

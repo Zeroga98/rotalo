@@ -10,7 +10,7 @@ export const CAROUSEL_PRODUCTS_CONFIG: NgxCarousel = {
     },
     slide: 1,
     speed: 500,
-    interval: 9000,
+    interval: 4000,
     point: {
         visible: false
     },

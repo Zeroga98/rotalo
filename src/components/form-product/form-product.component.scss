@@ -286,6 +286,15 @@
   }
 }
 
+:host() {
+  .form-theme {
+    .invalid.product-location + .error-msg{
+      display: block;
+    }
+  }
+}
+
+
 @media screen and (max-width: 450px) {
   :host {
     .container-form {

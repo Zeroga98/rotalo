@@ -40,6 +40,15 @@
     }
 }
 
+
+.product-location.white-theme-select select.form-control {
+    background-position: 99% center;
+}
+
+.invalid.product-location.white-theme-select select.form-control {
+  border-bottom-color: #ED2F3C;
+}
+
 .btn-square {
     button {
         border-radius: 4px !important;

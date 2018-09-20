@@ -99,11 +99,11 @@
         </div>
 
         <div class="form-group">
-          <select-states class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+          <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
           <span class="error-msg">Este campo es obligatorio.</span>
         </div>
         <div class="form-group">
-          <select-cities class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+          <select-cities [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
           <span class="error-msg">Este campo es obligatorio.</span>
         </div>
 

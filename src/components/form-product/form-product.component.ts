@@ -68,6 +68,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   public countryValue = {};
   public stateValue;
   public cityValue;
+  public errorState = false;
+  public errorCity = false;
 
   constructor(
     private router: Router,
@@ -126,7 +128,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   onInfoRetrieved(user): void {
-    console.log(user);
     this.country = user.city.state.country;
     this.stateValue = user.city.state;
     this.cityValue = user.city;
@@ -191,15 +192,9 @@ export class FormProductComponent implements OnInit, OnChanges {
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
-            //  'publish-until': dateMoment,
               'negotiable': false
             };
           }
-          /* else {
-            dataAdditional = {
-              'publish-until': dateMoment
-            };
-          }*/
         } else {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -231,7 +226,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       }
       this.photosUploaded.length = 0;
       delete params['category'];
-      console.log(params);
       this.publish.emit(params);
 
     } else {
@@ -240,6 +234,24 @@ export class FormProductComponent implements OnInit, OnChanges {
         this.errorMaxImg = true;
         this.changeDetectorRef.markForCheck();
       }
+      if (!this.state['id']) {
+        this.errorState = true;
+      }
+      if (!this.city['id']) {
+        this.errorCity = true;
+      }
+    }
+  }
+
+  validateState() {
+    if (this.state['id']) {
+      this.errorState = false;
+    }
+  }
+
+  validateCity() {
+    if (this.city['id']) {
+      this.errorCity = false;
     }
   }
 
@@ -424,7 +436,20 @@ export class FormProductComponent implements OnInit, OnChanges {
           day: publishUntil.getDate()
           }
       };
+
+      this.stateValue =  {
+        id: this.product.city.state.id,
+        name: this.product.city.state.name
+      }
+      this.cityValue = {
+        id: this.product.city.id,
+        name: this.product.city.name
+      };
+
+      console.log(this.state);
+      console.log( this.city);
       this.product['publish-until'] = objectDate;
+
     }
 
     /**Moneda por defecto**/
@@ -454,6 +479,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       negotiable: true,
       category: ''
     };
+
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
@@ -525,6 +551,10 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   get formIsInValid() {
    //return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
-   return this.photosForm.invalid;
+   return this.photosForm.invalid && !this.city['id'];
   }
+
+
+
+
 }
