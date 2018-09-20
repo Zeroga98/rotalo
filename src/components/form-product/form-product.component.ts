@@ -129,8 +129,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   onInfoRetrieved(user): void {
     this.country = user.city.state.country;
-    this.stateValue = user.city.state;
+    console.log(this.product);
+    /*this.stateValue = user.city.state;
     this.cityValue = user.city;
+    console.log(this.stateValue);
+    console.log(this.cityValue);*/
     this.changeDetectorRef.markForCheck();
   }
 
@@ -437,7 +440,7 @@ export class FormProductComponent implements OnInit, OnChanges {
           }
       };
 
-      this.stateValue =  {
+     /* this.stateValue =  {
         id: this.product.city.state.id,
         name: this.product.city.state.name
       }
@@ -447,7 +450,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       };
 
       console.log(this.state);
-      console.log( this.city);
+      console.log( this.city);*/
       this.product['publish-until'] = objectDate;
 
     }
