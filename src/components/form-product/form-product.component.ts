@@ -130,6 +130,8 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   onInfoRetrieved(user): void {
     this.country = user.city.state.country;
+    this.stateValue =  user.city.state;
+    this.cityValue = user.city;
     if (this.product &&  this.country) {
       this.product.city.state.country =  this.country;
       this.stateValue =  this.product.city.state;
@@ -535,17 +537,14 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
-  private defineSubastaTimes(){
+  private defineSubastaTimes() {
     this.minDate = moment().format('YYYY-MM-DD');
     this.maxDate = moment().add(30, 'days').format('YYYY-MM-DD');
   }
 
   get formIsInValid() {
-   //return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
-   return this.photosForm.invalid && !this.city['id'];
+    return this.photosForm.invalid && !this.city['id'] || this.photosUploaded.length <= 0 ;
   }
-
-
 
 
 }

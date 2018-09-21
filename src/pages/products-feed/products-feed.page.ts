@@ -75,10 +75,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   private currentUrl = '';
   public pageNumber: number = 1;
   public totalPages: number = 100;
-  public contador = 0;
-  collection = [];
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
-
+  public  showPagination = false;
 
   constructor(
     private productsService: ProductsService,
@@ -126,6 +124,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.endForRender.changes.subscribe(t => {
       this.ngForRender();
+      this.showPagination = true;
     });
   }
 

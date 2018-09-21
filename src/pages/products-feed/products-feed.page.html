@@ -114,13 +114,14 @@
                   [showField] = "true"
                   [product]="product"
                   (selected)="selectProduct($event); setScroll($event)"
-                  [colourCompany]="product.user.company?.colour"
+                  [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'"
                   id="{{product.id}}"
                   >
               </product>
             </div>
           </div>
           <pagination-controls
+          *ngIf= "showPagination"
           class="has-text-centered"
           responsive="true"
           previousLabel="Anterior"
