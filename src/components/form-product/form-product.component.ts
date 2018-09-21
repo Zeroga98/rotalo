@@ -108,6 +108,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.product) {
       this.setInitialForm(this.getInitialConfig());
+      this.getCountries();
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
           if (this.product.photos) {
@@ -129,11 +130,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   onInfoRetrieved(user): void {
     this.country = user.city.state.country;
-    console.log(this.product);
-    /*this.stateValue = user.city.state;
-    this.cityValue = user.city;
-    console.log(this.stateValue);
-    console.log(this.cityValue);*/
+    if (this.product &&  this.country) {
+      this.product.city.state.country =  this.country;
+      this.stateValue =  this.product.city.state;
+      this.cityValue = this.product.city;
+    }
     this.changeDetectorRef.markForCheck();
   }
 
@@ -439,22 +440,9 @@ export class FormProductComponent implements OnInit, OnChanges {
           day: publishUntil.getDate()
           }
       };
-
-     /* this.stateValue =  {
-        id: this.product.city.state.id,
-        name: this.product.city.state.name
-      }
-      this.cityValue = {
-        id: this.product.city.id,
-        name: this.product.city.name
-      };
-
-      console.log(this.state);
-      console.log( this.city);*/
       this.product['publish-until'] = objectDate;
 
     }
-
     /**Moneda por defecto**/
     let currency = 'COP';
     switch (this.countryId) {
