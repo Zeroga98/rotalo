@@ -15,6 +15,13 @@
       transition: opacity 1s;
     }
   }
+
+  ngx-carousel.carousel-featured {
+    ngx-item {
+      min-height: 38rem;
+    }
+  }
+
   ngx-carousel {
     position: relative;
     .item-banner {
@@ -43,6 +50,17 @@
       left: auto;
       right: 2rem;
       transform: rotate(-135deg);
+    }
+  }
+
+  ngx-carousel.carousel-featured {
+    .arrow {
+      z-index: 3;
+      border-bottom: 4px solid #A2A2A2;
+      border-left: 4px solid #A2A2A2;
+    }
+    .hide.arrow {
+      display: none !important;
     }
   }
   .container-masonry {
@@ -115,6 +133,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 35px 0;
+      padding-bottom: 0;
       .header-featured {
         margin-bottom: 15px;
         h3,
@@ -310,6 +329,24 @@
     width: 104px;
     height: 40px;
     background: url(../../assets/img/img_insignia_precio.svg);
+    background-size: 104px 40px;
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+    }
+  }
+}
+
+:host {
+  .container-trending {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 40px;
+    background: url(../../assets/img/img_insignia_trending.svg);
     background-size: 104px 40px;
     p {
       color: #FFFFFF;

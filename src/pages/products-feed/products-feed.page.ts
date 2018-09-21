@@ -35,6 +35,7 @@ import { ModalShareProductService } from '../../components/modal-shareProduct/mo
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
 import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 
 
 @Component({
@@ -45,6 +46,7 @@ import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.con
 })
 export class ProductsFeedPage implements OnInit, OnDestroy {
   public carouselConfig: NgxCarousel;
+  public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
@@ -64,6 +66,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
+  public groupFeaturedProducts:  Array<any> = [];
   public couponService;
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
@@ -87,6 +90,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     // this.imagesBanner = IMGS_BANNER_PROMO;
+    this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER;
 
     /*Promo fecha determinada para cierta comunidad*/
@@ -140,8 +144,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.productsService.featuredProduct(countryId, communityId).subscribe(
       (response) => {
         if (response.body) {
-          this.featuredproducts = response.body.productos;
-          this.changeDetectorRef.markForCheck();
+        this.featuredproducts = response.body.productos;
+        this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
+        this.changeDetectorRef.markForCheck();
         }
       },
       (error) => {
@@ -153,10 +158,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   chunkArray(myArray, chunk_size) {
     const results = [];
     while (myArray.length) {
-        results.push(myArray.splice(0, chunk_size));
+      results.push(myArray.splice(0, chunk_size));
     }
     return results;
-}
+  }
 
 
   updateSrc(evt) {
