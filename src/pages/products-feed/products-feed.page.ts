@@ -96,8 +96,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
+    // this.imagesBanner = IMGS_BANNER_PROMO;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-    this.imagesBanner = IMGS_BANNER_PROMO;
+    this.imagesBanner = IMGS_BANNER;
 
     /*Promo fecha determinada para cierta comunidad*/
   // this.addPromoBanner();
@@ -145,7 +146,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER;
     }else {
-      this.imagesBanner = IMGS_BANNER_PROMO;
+     // this.imagesBanner = IMGS_BANNER_PROMO;
+     this.imagesBanner = IMGS_BANNER;
     }
   }
 
