@@ -108,7 +108,7 @@
       <div class="list">
           <div class="masonry">
             <div class="grid-item">
-              <product  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 26, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
+              <product  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
                   [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
                   [isProductSelling]="false"
                   [showField] = "true"
