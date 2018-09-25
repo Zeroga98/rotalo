@@ -143,6 +143,7 @@ import { ModalUploadProductService } from '../components/modal-uploadProduct/mod
 import { ModalTicketComponent } from '../components/modal-ticket/modal-ticket.component';
 import { ModalTicketService } from '../components/modal-ticket/modal-ticket.service';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NavigationTopLoginComponent } from '../components/navigation-top-login/navigation-top-login.component';
 
 @NgModule({
   declarations: [
@@ -227,6 +228,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ModalShareProductComponent,
     ModalUploadProductComponent,
     ModalTicketComponent,
+    NavigationTopLoginComponent
   ],
   imports: [
     BrowserModule,

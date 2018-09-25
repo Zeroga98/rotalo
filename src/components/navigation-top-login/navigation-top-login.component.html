@@ -1,0 +1,59 @@
+<nav>
+  <div class="container">
+    <div class="navbar-header">
+      <div class="flexbox center-center">
+        <div class="container-logo">
+          <a  class="brand-container" routerLink="/home">
+            <img  src="./assets/img/logo-red.svg" alt="brand">
+          </a>
+        </div>
+      </div>
+      <div class="menu_login_container">
+          <form role="form" name="loginForm" class="text-center form-theme">
+              <div class="form-group  text-left">
+                  <span class="input input--float input--filled">
+                    <input class="input__field input__field--float " id="txt-email" type="email"/>
+                    <label class="input__label input__label--float">
+                      <span class="input__label-content input__label-content--float" data-content="Email corporativo">Email
+                        corporativo</span>
+                    </label>
+                    <span class="help-block text-left">
+                        <span>
+                          El campo no cumple con el formato de correo.
+                        </span>
+                    </span>
+                  </span>
+              </div>
+              <div class="form-group  text-left">
+                <span class="input input--float">
+                    <input
+                    class="input__field input__field--float"
+                    maxlength="20"
+                    id="txt-password"
+                    type="password"
+                    />
+                    <label class="input__label input__label--float">
+                      <span class="input__label-content input__label-content--float" data-content="Contraseña">Contraseña</span>
+                    </label>
+                    <span class="help-block">
+                        <span>
+                            Este campo es obligatorio.
+                        </span>
+                        <span>
+                            El campo no cumple la longitud mínima.
+                        </span>
+                    </span>
+                </span>
+              </div>
+              <div>
+                <custom-button type="submit" text="Iniciar sesión"></custom-button>
+              </div>
+              <div class="content-link">
+                <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
