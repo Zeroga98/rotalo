@@ -83,6 +83,7 @@ rl-tag-input-item {
 	display: inline-block;
 	margin: 1em;
 	margin-top: 2.5rem;
+	margin-bottom: 1.5rem;
 	max-width: 300px;
 	width: calc(100% - 2em);
 	vertical-align: top;
@@ -90,8 +91,8 @@ rl-tag-input-item {
 
 .input__field {
 	position: relative;
-  display: block;
-  font-size: 1.4rem;
+  	display: block;
+  	font-size: 1.4rem;
 	float: right;
 	padding: 0.8em;
 	width: 60%;
@@ -176,7 +177,7 @@ rl-tag-input-item {
 	width: 100%;
 	color: #383838;
 	padding: 0.25em 0;
-  font-size: 1.2rem;
+  	font-size: 1.2rem;
 }
 
 .input__field--float:focus + .input__label--float,
@@ -195,6 +196,12 @@ rl-tag-input-item {
 .input--filled .input__field--float {
 	background-color: transparent;
 	border-color: #0FBBD8;
+}
+
+
+.form-theme .input__field.invalid.ng-touched {
+	border-bottom: 2px solid #ED2F3C;
+	border-color: #ED2F3C;
 }
 
 

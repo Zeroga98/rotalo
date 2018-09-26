@@ -9,24 +9,38 @@
         </div>
       </div>
       <div class="menu_login_container">
-          <form role="form" name="loginForm" class="text-center form-theme form-login">
+          <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
               <div class="text-left">
-                  <span class="input input--float input--filled">
-                    <input class="input__field input__field--float " id="txt-email" type="email"/>
+                  <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
+                    <input 
+                    (click)="markAsTouched(loginForm.get('email'))"
+                    [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
+                    formControlName="email"
+                    maxlength="50"
+                    class=" input__field input__field--float " 
+                    id="txt-email" 
+                    type="email"/>
                     <label class="input__label input__label--float">
-                      <span class="input__label-content input__label-content--float" data-content="Email corporativo">Email
-                        corporativo</span>
+                      <span class="input__label-content input__label-content--float" data-content="Email corporativo">
+                        Email corporativo</span>
                     </label>
                     <span class="help-block text-left">
-                        <span>
+                        <span *ngIf="loginForm.get('email').invalid && !loginForm.get('email').pristine">
                           El campo no cumple con el formato de correo.
+                        </span>
+                        <span *ngIf="errorLogin">
+                            {{errorLogin}}
                         </span>
                     </span>
                   </span>
               </div>
               <div class="text-left">
-                <span class="input input--float">
+                <span [ngClass]="{'input--filled': loginForm.get('password').value}" class="input-password input input--float">
                     <input
+                    (click)="markAsTouched(loginForm.get('password'))"
+                    [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
+                    formControlName="password"
+                    maxlength="20"
                     class="input__field input__field--float"
                     maxlength="20"
                     id="txt-password"
@@ -36,10 +50,10 @@
                       <span class="input__label-content input__label-content--float" data-content="Contraseña">Contraseña</span>
                     </label>
                     <span class="help-block">
-                        <span>
+                        <span *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid && !loginForm.get('password').pristine && !loginForm.get('password').errors?.minlength">
                             Este campo es obligatorio.
                         </span>
-                        <span>
+                        <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
                             El campo no cumple la longitud mínima.
                         </span>
                     </span>
@@ -49,7 +63,7 @@
                 </span>
               </div>
               <div class="button-container">
-                <custom-button class="primary-blue" type="submit" text="Iniciar sesión"></custom-button>
+                <custom-button [disabled]="!loginForm.valid" class="primary-blue" type="submit" text="Iniciar sesión"></custom-button>
               </div>
              
             </form>
