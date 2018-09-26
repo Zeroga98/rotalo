@@ -9,8 +9,8 @@
         </div>
       </div>
       <div class="menu_login_container">
-          <form role="form" name="loginForm" class="text-center form-theme">
-              <div class="form-group  text-left">
+          <form role="form" name="loginForm" class="text-center form-theme form-login">
+              <div class="text-left">
                   <span class="input input--float input--filled">
                     <input class="input__field input__field--float " id="txt-email" type="email"/>
                     <label class="input__label input__label--float">
@@ -24,7 +24,7 @@
                     </span>
                   </span>
               </div>
-              <div class="form-group  text-left">
+              <div class="text-left">
                 <span class="input input--float">
                     <input
                     class="input__field input__field--float"
@@ -43,14 +43,15 @@
                             El campo no cumple la longitud mínima.
                         </span>
                     </span>
+                    <div class="content-link">
+                      <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
+                    </div>
                 </span>
               </div>
-              <div>
-                <custom-button type="submit" text="Iniciar sesión"></custom-button>
+              <div class="button-container">
+                <custom-button class="primary-blue" type="submit" text="Iniciar sesión"></custom-button>
               </div>
-              <div class="content-link">
-                <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
-              </div>
+             
             </form>
       </div>
     </div>

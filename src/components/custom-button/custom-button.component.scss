@@ -37,3 +37,12 @@
         }
     }
 }
+
+:host(.primary-blue) {
+    button.primary{
+        background-color: #0FBBD8;
+        &:hover{
+          
+        }
+    }
+}
