@@ -12,13 +12,13 @@
           <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
-                    <input 
+                    <input
                     (click)="markAsTouched(loginForm.get('email'))"
                     [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
                     formControlName="email"
                     maxlength="64"
-                    class=" input__field input__field--float " 
-                    id="txt-email" 
+                    class=" input__field input__field--float "
+                    id="txt-email"
                     type="email"/>
                     <label class="input__label input__label--float">
                       <span class="input__label-content input__label-content--float" data-content="Email corporativo">
@@ -56,15 +56,14 @@
                             El campo no cumple la longitud mínima.
                         </span>
                     </span>
-                    <div class="content-link">
-                      <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
-                    </div>
                 </span>
               </div>
               <div class="button-container">
-                <custom-button [disabled]="!loginForm.valid" class="primary-blue" type="submit" text="Iniciar sesión"></custom-button>
+                <custom-button [disabled]="!loginForm.valid" class="primary-size primary-blue" type="submit" text="Iniciar sesión"></custom-button>
+                <div class="content-link">
+                    <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
+                  </div>
               </div>
-             
             </form>
       </div>
     </div>

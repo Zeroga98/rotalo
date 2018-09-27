@@ -44,13 +44,13 @@
             </div>
             <div class="text-center">
                 <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--float">
-                  <input 
-                  [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" 
+                  <input
+                  [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
                   formControlName="email"
                   name="email"
                   maxlength="64"
-                  class=" input__field input__field--float " 
-                  id="txt-email-register" 
+                  class=" input__field input__field--float "
+                  id="txt-email-register"
                   type="email"/>
                   <label class="input__label input__label--float">
                     <span class="input__label-content input__label-content--float" data-content="Email corporativo">
@@ -65,7 +65,7 @@
             </div>
             <div class="text-center">
                 <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="text-left input input--float">
-                  <input 
+                  <input
                     [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
                     formControlName="password"
                     name="password"
@@ -89,9 +89,9 @@
             </div>
             <div class="text-center">
                 <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="text-left input input--float">
-                  <input 
+                  <input
                     [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
-                    name="password-confirmation" 
+                    name="password-confirmation"
                     formControlName="password-confirmation"
                     maxlength="20"
                     class="input__field input__field--float"
@@ -116,7 +116,7 @@
             </div>
             <div class="text-center form-group terms">
               <label class="gtmSignUpAcepTermYCond" for="checkTerms">
-                <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" 
+                <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms"
                 formControlName="termsCheckbox" #checkBoxTerms
                  >
               </label>
@@ -131,5 +131,6 @@
     </div>
   </div>
 </div>
+<company-slider></company-slider>
 <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
 <custom-footer></custom-footer>

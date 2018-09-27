@@ -1,0 +1,44 @@
+:host {
+  width: 100%;
+  .company-slider-section{
+    width: 100%;
+    margin: 0 auto;
+    padding: 45px 5.7%;
+    text-align: center;
+    .header-company{
+      margin-bottom: 20px;
+      h3 {
+        font-size: 2.4rem;
+        color:#272727;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+:host {
+  ngx-carousel {
+    position: relative;
+    .arrow {
+      display: inline-block !important;
+      border: 0;
+      border-bottom: 4px solid #707070;
+      border-left: 4px solid #707070;
+      z-index: 1;
+      top: 46%;
+      left: 2rem;
+      width: 30px;
+      height: 30px;
+      transform: rotate(45deg);
+      border-radius: 1px;
+      position: absolute;
+      cursor: pointer;
+    }
+    .arrow-next {
+      // left: unset;
+      left: auto;
+      right: 2rem;
+      transform: rotate(-135deg);
+    }
+  }
+}

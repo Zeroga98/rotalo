@@ -10,6 +10,7 @@ export class UserService {
   readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
   currentUser: UserInterface;
   idUser: string;
+  communities;
   @Output() changePhoto: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -90,4 +91,14 @@ export class UserService {
     })
     .toPromise();
   }
+
+  setCommunities(communities) {
+    this.communities = communities;
+  }
+
+  getCommunitiesCurrent() {
+    return  this.communities;
+  }
+
+
 }

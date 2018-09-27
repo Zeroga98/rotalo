@@ -17,6 +17,7 @@ export class ProductsService {
     public currentPage = 0;
     private urlDetailProduct;
     private totalProducts = 0;
+    private featuredProducts;
 
     constructor(
       private http: HttpClient,
@@ -206,6 +207,14 @@ export class ProductsService {
       const url =
       `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=${communityId}&cantidad=5&pagina=1`;
       return this.http.get(url, { headers: headers }).map((response: any) => response);
+    }
+
+    setFeatureProducts(featuredProducts) {
+      this.featuredProducts = featuredProducts;
+    }
+
+    getFeatureProducts() {
+      return  this.featuredProducts ;
     }
 
 }

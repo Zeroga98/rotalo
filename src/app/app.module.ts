@@ -144,6 +144,7 @@ import { ModalTicketComponent } from '../components/modal-ticket/modal-ticket.co
 import { ModalTicketService } from '../components/modal-ticket/modal-ticket.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NavigationTopLoginComponent } from '../components/navigation-top-login/navigation-top-login.component';
+import { CompanySliderComponent } from '../components/company-slider/company-slider.component';
 
 @NgModule({
   declarations: [
@@ -228,7 +229,8 @@ import { NavigationTopLoginComponent } from '../components/navigation-top-login/
     ModalShareProductComponent,
     ModalUploadProductComponent,
     ModalTicketComponent,
-    NavigationTopLoginComponent
+    NavigationTopLoginComponent,
+    CompanySliderComponent,
   ],
   imports: [
     BrowserModule,

@@ -90,17 +90,18 @@ rl-tag-input-item {
 }
 
 .input__field {
-	position: relative;
-  	display: block;
-  	font-size: 1.4rem;
-	float: right;
-	padding: 0.8em;
-	width: 60%;
-	border: none;
-	border-radius: 0;
-	color: #aaa;
-	font-weight: 400;
-	-webkit-appearance: none; /* for box shadows to show on iOS */
+  position: relative;
+  display: block;
+  font-size: 1.4rem;
+  float: right;
+  padding: 0.7rem;
+  padding-left: 1.2rem;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  color: #aaa;
+  font-weight: 400;
+  -webkit-appearance: none;
 }
 
 .input__field:focus {
@@ -150,8 +151,8 @@ rl-tag-input-item {
 	pointer-events: none;
 	overflow: hidden;
 	padding: 0 1.25rem;
-	-webkit-transform: translate3d(0, 3.5rem, 0);
-  transform: translate3d(0, 3.5rem, 0);
+	-webkit-transform: translate3d(0, 3rem, 0);
+  transform: translate3d(0, 3rem, 0);
 	-webkit-transition: -webkit-transform 0.25s;
 	transition: transform 0.25s ;
 	-webkit-transition-timing-function: ease-in-out;

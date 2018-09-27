@@ -42,9 +42,15 @@
     button.primary{
         background-color: #0FBBD8;
         &:hover{
-          
+
         }
     }
+}
+
+:host(.primary-size) {
+  button.primary{
+      font-size: 1.6rem;
+  }
 }
 
 :host() {
