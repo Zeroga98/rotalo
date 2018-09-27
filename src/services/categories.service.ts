@@ -7,7 +7,7 @@ import { ConfigurationService } from "../services/configuration.service";
 @Injectable()
 export class CategoriesService {
     categories: Array<CategoryInterface>;
-    categoriesActive: Array<any>;
+    categoriesActive;
 
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
@@ -18,6 +18,14 @@ export class CategoriesService {
             this.categories = this._asociateIcon(this.categories);
         }
         return this.categories;
+    }
+
+    getCategoriesActive () {
+      return this.categoriesActive;
+    }
+
+    setCategoriesActive(categoriesActive) {
+      this.categoriesActive = categoriesActive;
     }
 
     getCategoriesActiveServer() {

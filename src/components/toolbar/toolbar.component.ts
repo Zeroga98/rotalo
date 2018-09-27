@@ -36,7 +36,12 @@ export class ToolbarComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit() {
-    this.getCommunities();
+
+    if (!this.userService.getCommunitiesCurrent()) {
+      this.getCommunities();
+    } else {
+      this.communities = this.userService.getCommunitiesCurrent();
+    }
     this.autoCompleteOptions = this.toolbarService.getAutoCompleteOptions();
     this.community = await this.userService.getCommunityUser();
     this.changeDetectorRef.markForCheck();
@@ -46,6 +51,7 @@ export class ToolbarComponent implements OnInit {
     try {
       const communities = await this.userService.getCommunities();
       this.communities = communities.communities;
+      this.userService.setCommunities(this.communities);
     } catch (error) {
       console.error(error);
     }

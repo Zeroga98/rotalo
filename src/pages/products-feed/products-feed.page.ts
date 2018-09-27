@@ -123,15 +123,21 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.endForRender.changes.subscribe(t => {
-      this.ngForRender();
-      this.showPagination = true;
-    });
+    this.showPagination = true;
+    if (this.productsService.products.length > 0) {
+      this.endForRender.notifyOnChanges();
+      this.endForRender.changes.subscribe(t => {
+        this.ngForRender();
+        this.changeDetectorRef.markForCheck();
+      });
+    }
+    this.changeDetectorRef.markForCheck();
   }
 
   ngForRender() {
     this.productsService.products = [];
     this.productsService.getProductLocation();
+    this.changeDetectorRef.markForCheck();
   }
 
   /*async addPromoBanner() {
@@ -152,18 +158,24 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadFeaturedProduct(countryId, communityId) {
-    this.productsService.featuredProduct(countryId, communityId).subscribe(
-      (response) => {
-        if (response.body) {
-        this.featuredproducts = response.body.productos;
-        this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
-        this.changeDetectorRef.markForCheck();
+    if (!this.productsService.getFeatureProducts()) {
+      this.productsService.featuredProduct(countryId, communityId).subscribe(
+        (response) => {
+          if (response.body) {
+          this.featuredproducts = response.body.productos;
+          this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
+          this.productsService.setFeatureProducts(this.groupFeaturedProducts);
+          this.changeDetectorRef.markForCheck();
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    } else {
+      this.groupFeaturedProducts = this.productsService.getFeatureProducts();
+      this.changeDetectorRef.markForCheck();
+    }
   }
 
   chunkArray(myArray, chunk_size) {
