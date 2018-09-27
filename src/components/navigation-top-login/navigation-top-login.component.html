@@ -16,7 +16,7 @@
                     (click)="markAsTouched(loginForm.get('email'))"
                     [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
                     formControlName="email"
-                    maxlength="50"
+                    maxlength="64"
                     class=" input__field input__field--float " 
                     id="txt-email" 
                     type="email"/>
@@ -42,7 +42,6 @@
                     formControlName="password"
                     maxlength="20"
                     class="input__field input__field--float"
-                    maxlength="20"
                     id="txt-password"
                     type="password"
                     />

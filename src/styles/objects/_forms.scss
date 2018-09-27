@@ -136,7 +136,7 @@ rl-tag-input-item {
 
 .input__field--float {
 	width: 100%;
-  border: 2px solid #E2E2E2;
+  border: 1px solid #E2E2E2;
   border-radius: 10px;
 	-webkit-transition: background-color 0.25s, border-color 0.25s;
 	transition: background-color 0.25s, border-color 0.25s;
@@ -200,10 +200,14 @@ rl-tag-input-item {
 
 
 .form-theme .input__field.invalid.ng-touched {
-	border-bottom: 2px solid #ED2F3C;
+	border-bottom: 1px solid #ED2F3C;
 	border-color: #ED2F3C;
 }
 
+.form-theme .input--filled .input__field.invalid {
+	border-bottom: 1px solid #ED2F3C;
+	border-color: #ED2F3C;
+}
 
 
 

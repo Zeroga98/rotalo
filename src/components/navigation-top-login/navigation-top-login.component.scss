@@ -4,6 +4,8 @@
   display: block;
   background-color: #FFFFFF;
   border-color: #FFFFFF;
+  position: relative;
+  z-index: 1;
   box-shadow: 2px 4px 10px rgba(0,0,0,.2);
   .container {
     width: 100%;

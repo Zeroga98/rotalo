@@ -142,7 +142,7 @@ export class NavigationTopLoginComponent implements OnInit {
        }
      });
    }
-   
+
    async setUserCountry(userInfo) {
      try {
        const user = await this.userService.getInfoUser();

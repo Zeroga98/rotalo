@@ -1,57 +1,138 @@
-:host{
-    .container{
-        position: absolute;
-        top: 0;
-        bottom: 0;
+:host {
+   
+    .home-container {
+        display: flex;
+    }
+    .video-container {
+        width: 50%;
+        position: relative;
+        text-align: center;
+      img {
         width: 100%;
-        .container-form{
-            max-width: 284px;
-            width: 100%;
-        }
-        .container-logo{
-            margin-bottom: 10px;
-        }
-        .container-text{
-            margin-bottom: 60px;
-            color: white;
-            font-size: 16px;
-        }
-        .button-ingresar{
-            margin-bottom: 10px;
-        }
-    }
-    .sufi-logo{
-        position: absolute;
-        right: 1%;
-        bottom: 1%;
-    }
-    .vigilado-logo{
-        position: absolute;
-        left: 1%;
-        bottom: 1%;
-    }
-    .link-info{
-        position: absolute;
-        padding-left: 5px;
-        bottom: 60px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 22rem;
-      a{
-        color: white;
-        font-size: 1.2rem;
+        height: auto;
       }
+    }
+    .register-container {
+        width: 45%;
+        margin: 0 auto;
+        padding: 50px 0;
+        padding-bottom: 0;
+    }
+    .play-container{
+        position: absolute;
+        text-align: left;
+        top: calc(100% - 320px);
+        left: 12%;
+        color: white; 
+    }
+    .terms{
+        color: #707070;
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+    .btn-container{
+        min-width: 250px;
+        width: 30%;
+        margin: 0 auto;
     }
 }
 
-:host{
-  @media (max-width: 450px) {
-    .container{
-      .container-form{
-        max-width: 235px;
-      }
+:host {
+    .play-container {
+        .btn-container-video {
+            .btn-play {
+                cursor: pointer;
+                margin: 0 auto;
+                display: inline-block;
+                vertical-align: middle;
+                width: 64px;
+                height: 64px;
+                background: url(../../assets/img/ic_play_video.svg);
+                background-size: 64px 64px;
+                &:hover{
+                    background: url(../../assets/img/ic_play_video_hover.svg);
+                }
+            }
+            .label-text{
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 2rem;
+                font-size: 1.2vw;
+                font-weight: bold;
+            }
+        }
+        .info-rotalo{
+            h3{
+                font-size: 10rem;
+                font-size: 5.3vw;
+            }
+
+            h4{
+                font-size: 3rem;
+                font-size: 1.6vw;
+            } 
+        }
     }
-  }
 }
 
 
+:host {
+    .register-container {
+        .title-text {
+            h1 {
+                color: #272727;
+                font-size: 2.4rem;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+        }
+        .input--float{
+            margin: 1.8rem 0;
+            margin-bottom: 0;
+        }
+        .input__field {
+            max-height: 44px;
+            font-size: 1.6rem;
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 1440px) {
+    :host {
+        .register-container{
+            width: 40%;
+            margin: 0 auto;
+            padding: 25px 0;
+            padding-bottom: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    :host {
+        .play-container{
+            top: calc(100% - 260px);
+        }
+        .video-container {
+            width: 55%;
+        }
+        .register-container{
+            width: 35%;
+            padding: 20px 0;
+            padding-bottom: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    :host {
+        .video-container {
+            width: 70%;
+        }
+        .register-container{
+            width: 30%;
+        }
+    }
+}

@@ -124,14 +124,16 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.endForRender.changes.subscribe(t => {
+      console.log(t);
       this.ngForRender();
-      this.showPagination = true;
     });
   }
 
   ngForRender() {
     this.productsService.products = [];
     this.productsService.getProductLocation();
+    this.showPagination = true;
+    this.changeDetectorRef.markForCheck();
   }
 
   /*async addPromoBanner() {
