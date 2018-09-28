@@ -7,8 +7,10 @@
     text-align: center;
     .header-company{
       margin-bottom: 20px;
-      h3 {
+      h1 {
         font-size: 2.4rem;
+        margin: 0;
+        margin-bottom: 10px;
         color:#272727;
         font-weight: bold;
       }
@@ -19,26 +21,71 @@
 :host {
   ngx-carousel {
     position: relative;
+    padding: 0 6%;
     .arrow {
       display: inline-block !important;
       border: 0;
-      border-bottom: 4px solid #707070;
-      border-left: 4px solid #707070;
       z-index: 1;
       top: 46%;
       left: 2rem;
-      width: 30px;
-      height: 30px;
-      transform: rotate(45deg);
-      border-radius: 1px;
+      width: 50px;
+      height: 50px;
       position: absolute;
       cursor: pointer;
+      border-radius: 50%;
+      background: #EFEFEF;
     }
     .arrow-next {
       // left: unset;
-      left: auto;
-      right: 2rem;
-      transform: rotate(-135deg);
+     left: auto;
+     right: 2rem;
+     // transform: rotate(-135deg);
+    }
+
+    .ic-arrow {
+      margin: 0 auto;
+      margin-top: 18px;
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+    }
+
+    .arrow-prev{
+      .ic-arrow-prev{
+        background-image: url(../../assets/img/ic_flecha_izquierda.svg);
+      }
+    }
+
+    .arrow-next{
+      .ic-arrow-next{
+        background-image: url(../../assets/img/ic_flecha_derecha.svg);
+      }
+    }
+
+    .companies-container{
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .company-container{
+      width: 25%;
+      .img-container{
+        margin: 2px;
+        width: 100px;
+        height: 100px;
+        img {
+
+        }
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 460px) {
+  :host {
+    .company-slider-section .header-company h1 {
+      font-size: 2.0rem;
     }
   }
 }

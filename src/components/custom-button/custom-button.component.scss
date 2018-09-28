@@ -41,8 +41,14 @@
 :host(.primary-blue) {
     button.primary{
         background-color: #0FBBD8;
+        transition: background 0.8s;
         &:hover{
-
+          background: #15c5e2 radial-gradient(circle, transparent 1%, #15c5e2 1%) center/15000%;
+        }
+        &:active{
+          background-color: #6eb9f7;
+          background-size: 100%;
+          transition: background 0s;
         }
     }
 }

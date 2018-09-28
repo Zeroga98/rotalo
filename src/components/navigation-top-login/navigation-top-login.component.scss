@@ -64,70 +64,39 @@
     width: 240px;
   }
 
-}
-
-@media screen and (max-width: 930px) {
-  :host {
-    .navbar-header {
-      .list-options {
-        li:not(:last-child) {
-          margin-right: 3rem;
-        }
-      }
-    }
+  .btn-mobile{
+    display: none;
   }
+
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
   :host {
-    .container-logo {
-      position: fixed;
-      bottom: 3rem;
-      right: 3rem;
-      z-index: 99999;
-      .upload-offer-button {
-        .outside-circle {
-          width: auto;
-          background-color: transparent;
-          .inside-circle {
-            width: 5rem;
-            height: 5rem;
-          }
-          label {
-            display: none;
-          }
-        }
-      }
-    }
-    .navbar-header {
-      padding: 2rem 0;
-      .navbar-brand {
-        width: 20%;
-        min-width: 8rem;
-      }
-    }
-  }
-}
 
-@media screen and (max-width: 400px) {
-  :host {
     .container {
-      width: 95%;
+      padding: 15px 5.7%;
     }
-    .navbar-header {
-      back-arrow {
-        width: 3rem;
-        height: 3rem;
-      }
-      .list-options {
-        padding-left: 10px;
-        li {
-          font-size: 2rem;
-        }
-        li:not(:last-child) {
-          margin-right: 2rem;
-        }
-      }
+
+    .input, .content-link {
+      display: none;
     }
+
+    .container-logo{
+      padding-bottom: 0px;
+    }
+
+    .button-container{
+      margin-top: 0px;
+    }
+
+    .btn-desktop{
+      display: none;
+    }
+
+    .btn-mobile{
+      display: block;
+    }
+
   }
 }
+

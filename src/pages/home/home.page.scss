@@ -1,138 +1,222 @@
 :host {
-   
-    .home-container {
-        display: flex;
+
+  .home-container {
+    display: flex;
+  }
+
+  .video-container {
+    width: 50%;
+    position: relative;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
     }
-    .video-container {
-        width: 50%;
-        position: relative;
-        text-align: center;
-      img {
-        width: 100%;
-        height: auto;
+  }
+
+  .register-container {
+    width: 45%;
+    margin: 0 auto;
+    padding: 50px 0;
+    padding-bottom: 0;
+  }
+
+  .play-container {
+    position: absolute;
+    text-align: left;
+    top: calc(100% - 320px);
+    left: 12%;
+    color: white;
+  }
+
+  .terms {
+    color: #707070;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .btn-container {
+    min-width: 250px;
+    width: 30%;
+    margin: 0 auto;
+  }
+}
+
+:host {
+  .play-container {
+    .btn-container-video {
+      .btn-play {
+        cursor: pointer;
+        margin: 0 auto;
+        display: inline-block;
+        vertical-align: middle;
+        width: 64px;
+        height: 64px;
+        background: url(../../assets/img/ic_play_video.svg);
+        background-size: 64px 64px;
+
+        &:hover {
+          background: url(../../assets/img/ic_play_video_hover.svg);
+        }
+      }
+
+      .label-text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 2rem;
+        font-size: 1.2vw;
+        font-weight: bold;
       }
     }
-    .register-container {
-        width: 45%;
-        margin: 0 auto;
-        padding: 50px 0;
-        padding-bottom: 0;
-    }
-    .play-container{
-        position: absolute;
-        text-align: left;
-        top: calc(100% - 320px);
-        left: 12%;
-        color: white; 
-    }
-    .terms{
-        color: #707070;
-        font-size: 1.6rem;
-        margin-bottom: 15px;
-    }
-    .btn-container{
-        min-width: 250px;
-        width: 30%;
-        margin: 0 auto;
-    }
-}
 
-:host {
-    .play-container {
-        .btn-container-video {
-            .btn-play {
-                cursor: pointer;
-                margin: 0 auto;
-                display: inline-block;
-                vertical-align: middle;
-                width: 64px;
-                height: 64px;
-                background: url(../../assets/img/ic_play_video.svg);
-                background-size: 64px 64px;
-                &:hover{
-                    background: url(../../assets/img/ic_play_video_hover.svg);
-                }
-            }
-            .label-text{
-                display: inline-block;
-                vertical-align: middle;
-                font-size: 2rem;
-                font-size: 1.2vw;
-                font-weight: bold;
-            }
-        }
-        .info-rotalo{
-            h3{
-                font-size: 10rem;
-                font-size: 5.3vw;
-            }
+    .info-rotalo {
+      h3 {
+        font-size: 10rem;
+        font-size: 5.3vw;
+      }
 
-            h4{
-                font-size: 3rem;
-                font-size: 1.6vw;
-            } 
-        }
+      h4 {
+        font-size: 3rem;
+        font-size: 1.6vw;
+      }
     }
+  }
 }
 
 
 :host {
-    .register-container {
-        .title-text {
-            h1 {
-                color: #272727;
-                font-size: 2.4rem;
-                margin: 0;
-                margin-bottom: 10px;
-            }
-        }
-        .input--float{
-            margin: 1.8rem 0;
-            margin-bottom: 0;
-        }
-        .input__field {
-            max-height: 44px;
-            font-size: 1.6rem;
-        }
-
+  .register-container {
+    .title-text {
+      h1 {
+        color: #272727;
+        font-size: 2.4rem;
+        margin: 0;
+        margin-bottom: 10px;
+      }
     }
+
+    .input--float {
+      margin: 1.8rem 0;
+      margin-bottom: 0;
+    }
+
+    .input__field {
+      max-height: 44px;
+      font-size: 1.6rem;
+    }
+
+  }
 }
 
 
 @media screen and (max-width: 1440px) {
-    :host {
-        .register-container{
-            width: 40%;
-            margin: 0 auto;
-            padding: 25px 0;
-            padding-bottom: 0;
-        }
+  :host {
+    .register-container {
+      width: 40%;
+      margin: 0 auto;
+      padding: 25px 0;
+      padding-bottom: 0;
     }
+  }
 }
 
 @media screen and (max-width: 1280px) {
-    :host {
-        .play-container{
-            top: calc(100% - 260px);
-        }
-        .video-container {
-            width: 55%;
-        }
-        .register-container{
-            width: 35%;
-            padding: 20px 0;
-            padding-bottom: 0;
-        }
+  :host {
+    .play-container {
+      top: calc(100% - 260px);
     }
+
+    .video-container {
+      width: 55%;
+    }
+
+    .register-container {
+      width: 35%;
+      padding: 20px 0;
+      padding-bottom: 0;
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {
-    :host {
-        .video-container {
-            width: 70%;
-        }
-        .register-container{
-            width: 30%;
-        }
+  :host {
+    .play-container {
+      top: calc(100% - 220px);
     }
+
+    .home-container {
+      flex-direction: column;
+    }
+
+    .video-container {
+      width: 100%;
+      height: 350px;
+
+      img {
+        display: none;
+      }
+    }
+
+    .register-container {
+      width: 100%;
+      padding: 45px 0;
+    }
+
+    .hero-image {
+      background-image: url("../../assets/img/img_bienvenida@2x.png");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :host {
+    .play-container {
+      .btn-container-video {
+        .label-text {
+          font-size: 1.4rem;
+        }
+      }
+
+      .info-rotalo {
+        h3 {
+          font-size: 5rem;
+        }
+
+        h4 {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .video-container {
+      height: 300px;
+    }
+
+  }
+}
+
+
+@media screen and (max-width: 460px) {
+  :host {
+    .hero-image {
+      background-image: url("../../assets/img/img_bienvenida.png");
+    }
+    .register-container {
+      .title-text {
+        h1 {
+          font-size: 2.0rem;
+        }
+      }
+    }
+    .terms {
+      font-size: 1.4rem;
+    }
+  }
 }
