@@ -2,19 +2,15 @@
 @import '../../styles/settings/_variables.scss';
 :host{
     display: block;
-    back-arrow{
-        display: block;
-        padding: 2rem 1.5rem;
-        width: 100%;
-    }
     form{
-      max-width: 284px;
+        max-width: 284px;
         margin:0 auto;
         .title-text{
-            color: $grey-dark;
-            font-weight: 700;
-            margin-bottom: 5rem;
-            font-size: 1.6rem;
+            h1{
+                color: #272727;
+                font-size: 2.4rem;
+                margin: 0;
+            }
         }
         .container-errors{
             margin-bottom: 5rem;

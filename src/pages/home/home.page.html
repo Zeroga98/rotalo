@@ -20,7 +20,7 @@
           <div class="text-center title-text">
               <h1>Haz parte de Rótalo ¡Regístrate!</h1>
           </div>
-        <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+        <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" >
             <div class="text-center">
               <span [ngClass]="{'input--filled': registerForm.get('name').value}"  class="text-left input input--float">
                   <input
@@ -124,7 +124,7 @@
               <a (click)="openTermsModal()">términos y condiciones</a>
             </div>
             <div class="btn-container">
-              <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme" [disabled]="formIsInValid"></custom-button>
+              <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme"></custom-button>
             </div>
         </form>
       </div>

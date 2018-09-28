@@ -1,14 +1,11 @@
-<back-arrow></back-arrow>
+<navigation-top-login>
+</navigation-top-login>
 <div class="container-fluid">
   <div class="">
     <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
-      <div class="text-center m-b">
-        <a href="../index.html" class="m-b-lg">
-          <img src="./assets/img/logo-red.svg" alt="brand">
-          <h1 class="sr-only">rótalo</h1>
-        </a>
+      <div class="text-center title-text">
+        <h1>Haz parte de Rótalo ¡Regístrate!</h1>
       </div>
-      <p class="title-text text-center">Crea una cuenta</p>
       <div class="container-errors">
         <ul>
           <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>

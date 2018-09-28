@@ -3,7 +3,6 @@ import { StepsPage } from './../pages/steps/steps.page';
 import { ActivacionCuentaPage } from './../pages/activacion-cuenta/activacion-cuenta.page';
 import { ROUTES } from './routes';
 import { Routes } from '@angular/router';
-import { LoginPage } from './../pages/login/login.page';
 import { HomePage } from '../pages/home/home.page';
 import { SignUpPage } from '../pages/signup/signup.page';
 import { ProductsFeedPage } from '../pages/products-feed/products-feed.page';
@@ -121,11 +120,6 @@ export const appRouter: Routes = [
             pathMatch: 'full'
         },
     ]
-  },
-  {
-    path: ROUTES.LOGIN,
-    canActivate: [LoggedGuardService],
-    component: LoginPage
   },
   {
     path: ROUTES.TERMS,
