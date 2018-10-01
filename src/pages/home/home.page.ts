@@ -1,6 +1,7 @@
 import { ROUTES } from './../../router/routes';
 import { Component, OnInit} from "@angular/core";
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -14,32 +15,38 @@ export class HomePage implements OnInit {
     public readonly faqLink: string = `/${ROUTES.FAQ}`;
     public registerForm: FormGroup;
     public modalTermsIsOpen: boolean = false;
-    constructor(
+    public idCountry;
+    public errorMessage = '';
+    public showMessageEmail = false;
+    public showSendEmail = false;
+
+    constructor( private userService: UserService,
+      private fb: FormBuilder
       ) {}
 
-
     ngOnInit(): void {
-        this.registerForm = new FormGroup({
-          'name': new FormControl('', [Validators.required]),
-          email: new FormControl('', [Validators.required, Validators.email]),
-          password: new FormControl('', [
+        this.registerForm =  this.fb.group({
+          'name': ['', [Validators.required]],
+          'email': ['', [Validators.required, Validators.email]],
+          'password': ['', [
             Validators.required,
             Validators.minLength(6)
-          ]),
-          'password-confirmation': new FormControl('', [
+          ]],
+          'password-confirmation': ['', [
             Validators.required,
             Validators.minLength(6),
             this.validatePasswordConfirm.bind(this)
-          ]),
-          termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
-        });
+          ]],
+          'termsCheckbox': ['', [this.checkBoxRequired.bind(this)]]
+          });
+
     }
 
     validatePasswordConfirm(registerGroup: FormGroup): any {
         if (this.registerForm) {
           return registerGroup.value === this.registerForm.get('password').value
             ? null
-            : { notSame: true };
+            : { match: true };
         }
     }
 
@@ -58,6 +65,72 @@ export class HomePage implements OnInit {
       acceptTerms(checkbox) {
         checkbox.checked = true;
         this.closeModal();
+      }
+
+      validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+          const control = formGroup.get(field);
+          if (control instanceof FormControl) {
+           control.markAsDirty({ onlySelf: true });
+           control.markAsTouched({ onlySelf: true });
+          } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+          }
+        });
+      }
+
+      get formIsInValid() {
+        return this.registerForm.invalid ;
+      }
+
+      submitForm(form) {
+        if (!this.formIsInValid) {
+          const currentUrl = window.location.href;
+
+          if (currentUrl.includes('gt')) {
+            this.idCountry = 9;
+          } else {
+            this.idCountry = 1;
+          }
+
+          const params = {
+            'pais': this.idCountry,
+            'correo': this.registerForm.get('email').value,
+            'nombres': this.registerForm.get('name').value,
+            'contrasena' : this.registerForm.get('password').value
+          };
+
+          this.userService.preSignup(params).subscribe(response => {
+            this.showSendEmail = true;
+          }
+          , error => {
+            if (error.status) {
+              this.errorMessage = error.error.message;
+            }
+          });
+
+        } else {
+          this.validateAllFormFields(this.registerForm);
+        }
+      }
+
+      removeError() {
+        this.errorMessage = '';
+      }
+
+      reSendEmail () {
+        if (!this.formIsInValid) {
+          this.showMessageEmail = false;
+          const params = {
+            'pais': this.idCountry,
+            'correo': this.registerForm.get('email').value
+          };
+          this.userService.reSendEmail(params).subscribe(response => {
+            this.showMessageEmail = true;
+          }, error => {
+            console.log(error);
+          });
+        }
       }
 
 }

@@ -16,6 +16,7 @@
   }
 
   .register-container {
+    position: relative;
     width: 45%;
     margin: 0 auto;
     padding: 50px 0;
@@ -109,6 +110,42 @@
   }
 }
 
+:host {
+  .success-container {
+    margin: 20px;
+    margin-top: 70px;
+    .img-send {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      background: url(../../assets/img/ic_enviar_registro.svg);
+      background-size: 70px 70px;
+    }
+
+    .text-container {
+      margin: 20px auto;
+      text-align: center;
+      p {
+        color: #707070;
+        font-size: 1.6rem;
+      }
+    }
+
+  }
+  .success-message{
+    text-align: center;
+    padding: 10px 0px;
+    .icon-check {
+      color: #0FBBD8;
+      font-size: 1.6rem;
+    }
+    .text {
+      color: #707070;
+      font-size: 1.6rem;
+    }
+  }
+}
+
 
 @media screen and (max-width: 1440px) {
   :host {
@@ -172,6 +209,11 @@
       position: relative;
     }
 
+    .success-container {
+      margin: 5%;
+      margin-top: 0px;
+    }
+
   }
 }
 
@@ -217,6 +259,21 @@
     }
     .terms {
       font-size: 1.4rem;
+    }
+  }
+
+  :host {
+    .success-container {
+      .img-send {
+        width: 50px;
+        height: 50px;
+        background-size: 50px 50px;
+      }
+      .text-container {
+        p {
+          font-size: 1.4rem;
+        }
+      }
     }
   }
 }

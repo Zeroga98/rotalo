@@ -2,7 +2,7 @@
 </navigation-top-login>
 <div class="home-container">
   <div class="video-container">
-   <img src="../../assets/img/img_bienvenida@2x.png" alt="video">
+    <img src="../../assets/img/img_bienvenida@2x.png" alt="video">
     <div class="hero-image"></div>
     <div class="play-container">
       <div class="btn-container-video">
@@ -17,120 +17,122 @@
   </div>
   <div class="register-container">
     <div class="container-fluid">
-      <div  class="form-container">
-          <div class="text-center title-text">
-              <h1>Haz parte de Rótalo ¡Regístrate!</h1>
-          </div>
-        <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" >
-            <div class="text-center">
-              <span [ngClass]="{'input--filled': registerForm.get('name').value}"  class="text-left input input--float">
-                  <input
-                  [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
-                  formControlName="name"
-                  name="name"
-                  maxlength="50"
-                  class="input__field input__field--float"
-                  id="txt-name"
-                  type="text"
-                  />
-                  <label class="input__label input__label--float">
-                      <span class="input__label-content input__label-content--float" data-content="Nombre completo">Nombre completo</span>
-                  </label>
-                  <span class="help-block">
-                      <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
-                          Este campo es obligatorio.
-                      </span>
-                  </span>
-              </span>
-            </div>
-            <div class="text-center">
-                <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--float">
-                  <input
-                  [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
-                  formControlName="email"
-                  name="email"
-                  maxlength="64"
-                  class=" input__field input__field--float "
-                  id="txt-email-register"
-                  type="email"/>
-                  <label class="input__label input__label--float">
-                    <span class="input__label-content input__label-content--float" data-content="Email corporativo">
-                      Email corporativo</span>
-                  </label>
-                  <span class="help-block text-left">
-                      <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
-                        El campo no cumple con el formato de correo.
-                      </span>
-                  </span>
-                </span>
-            </div>
-            <div class="text-center">
-                <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="text-left input input--float">
-                  <input
-                    [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
-                    formControlName="password"
-                    name="password"
-                    maxlength="20"
-                    class="input__field input__field--float"
-                    id="txt-password-register"
-                    type="password"/>
-                  <label class="input__label input__label--float">
-                    <span class="input__label-content input__label-content--float" data-content="Contraseña">
-                        Contraseña</span>
-                  </label>
-                  <span class="help-block">
-                      <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
-                          Este campo es obligatorio.
-                      </span>
-                      <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
-                          El campo no cumple la longitud mínima.
-                      </span>
-                  </span>
-                </span>
-            </div>
-            <div class="text-center">
-                <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="text-left input input--float">
-                  <input
-                    [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
-                    name="password-confirmation"
-                    formControlName="password-confirmation"
-                    maxlength="20"
-                    class="input__field input__field--float"
-                    id="txt-password-confirmation"
-                    type="password"/>
-                  <label class="input__label input__label--float">
-                    <span class="input__label-content input__label-content--float" data-content="Confirmar Contraseña">
-                        Confirmar Contraseña</span>
-                  </label>
-                  <span class="help-block">
-                      <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
-                          Este campo es obligatorio.
-                      </span>
-                      <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
-                          El campo no cumple la longitud mínima.
-                      </span>
-                      <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
-                          La contraseña de verificación no coincide.
-                      </span>
-                  </span>
-                </span>
-            </div>
-            <div class="text-center form-group terms">
-              <label class="gtmSignUpAcepTermYCond" for="checkTerms">
-                <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms"
-                formControlName="termsCheckbox" #checkBoxTerms
-                 >
+      <div *ngIf="!showSendEmail" class="form-container">
+        <div class="text-center title-text">
+          <h1>Haz parte de Rótalo ¡Regístrate!</h1>
+        </div>
+        <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="submitForm(form)"
+          #form>
+          <div class="text-center">
+            <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--float">
+              <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
+                formControlName="name" name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
+                type="text" />
+              <label class="input__label input__label--float">
+                <span class="input__label-content input__label-content--float" data-content="Nombre completo">Nombre
+                  completo</span>
               </label>
-              Acepto
-              <a (click)="openTermsModal()">términos y condiciones</a>
-            </div>
-            <div class="btn-container">
-              <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme"></custom-button>
-            </div>
+              <span class="help-block">
+                <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
+                  Este campo es obligatorio.
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="text-center">
+            <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--float">
+              <input (keypress)="removeError()" [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
+                formControlName="email" name="email" maxlength="64" class=" input__field input__field--float " id="txt-email-register"
+                type="email" />
+              <label class="input__label input__label--float">
+                <span class="input__label-content input__label-content--float" data-content="Email corporativo">
+                  Email corporativo</span>
+              </label>
+              <span class="help-block text-left">
+                <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
+                  El campo no cumple con el formato de correo.
+                </span>
+                <span *ngIf="errorMessage">
+                  {{errorMessage}}
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="text-center">
+            <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="text-left input input--float">
+              <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
+                formControlName="password" name="password" maxlength="20" class="input__field input__field--float" id="txt-password-register"
+                type="password" />
+              <label class="input__label input__label--float">
+                <span class="input__label-content input__label-content--float" data-content="Contraseña">
+                  Contraseña</span>
+              </label>
+              <span class="help-block">
+                <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
+                  Este campo es obligatorio.
+                </span>
+                <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
+                  El campo no cumple la longitud mínima.
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="text-center">
+            <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="text-left input input--float">
+              <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
+                name="password-confirmation" formControlName="password-confirmation" maxlength="20" class="input__field input__field--float"
+                id="txt-password-confirmation" type="password" />
+              <label class="input__label input__label--float">
+                <span class="input__label-content input__label-content--float" data-content="Confirmar Contraseña">
+                  Confirmar Contraseña</span>
+              </label>
+              <span class="help-block">
+                <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
+                  Este campo es obligatorio.
+                </span>
+                <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
+                  El campo no cumple la longitud mínima.
+                </span>
+                <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
+                  La contraseña de verificación no coincide.
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="text-center form-group terms">
+            <label class="gtmSignUpAcepTermYCond" for="checkTerms">
+              <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox"
+                #checkBoxTerms>
+            </label>
+            Acepto
+            <a (click)="openTermsModal()">términos y condiciones</a>
+          </div>
+          <div class="btn-container">
+            <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme"></custom-button>
+          </div>
         </form>
       </div>
     </div>
+    <div *ngIf="showSendEmail" class="success-container">
+      <div class="img-send">
+      </div>
+      <div class="text-container">
+        <p>Acabamos de enviarte un correo electrónico para que confirmes tu registro, aseguráte de que no este en tu
+          bandeja de spam si no, te lo enviaremos nuevamente.</p>
+      </div>
+      <div class="btn-container">
+        <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="Reenviarme el correo"></custom-button>
+      </div>
+      <div *ngIf="showMessageEmail" class="success-message">
+        <span class="icon-check">
+        </span>
+        <span class="text">
+            ¡Hemos enviado el correo con éxito!
+          </span>
+      </div>
+    </div>
   </div>
+
 </div>
 <company-slider></company-slider>
 <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>

@@ -8,6 +8,7 @@ import { UserRequestInterface } from "../commons/interfaces/user-request.interfa
 @Injectable()
 export class UserService {
   readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
   currentUser: UserInterface;
   idUser: string;
   communities;
@@ -100,5 +101,20 @@ export class UserService {
     return  this.communities;
   }
 
+  preSignup (params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/preregistro`;
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
+  reSendEmail (params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/preregistro/reenvio`;
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+  }
 
 }

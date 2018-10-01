@@ -43,6 +43,15 @@ export class NavigationTopLoginComponent implements OnInit {
     });
   }
 
+
+  goToHome() {
+    const url = `${ROUTES.HOME}`;
+    `/${url}` === this.router.url
+      ? location.reload()
+      : this.router.navigate([url]);
+  }
+
+
   markAsTouched(control) {
     control.markAsTouched();
     this.errorLogin = '';
