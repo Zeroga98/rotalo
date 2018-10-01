@@ -13,29 +13,22 @@
   .container-form {
     padding: 66px 76px;
     .title-form {
-      font-size: 2.5rem;
-      color: $red;
-      font-weight: bold;
-      font-size: 4rem;
-      margin-bottom: 4rem;
-      span:last-child {
-        font-size: 2.8rem;
-        display: block;
+      h1{
+        color: #272727;
+        font-size: 2.4rem;
+        font-weight: bold;
+        margin: 0;
+        margin-bottom: 4rem;
       }
     }
     form {
       .container-step {
         margin-bottom: 4rem;
         .step-number {
-          color: #9B9B9B;
+          color: #272727;
           font-size: 1.8rem;
-          font-weight: 400;
+          font-weight: bold;
           margin-bottom: 2rem;
-          .number {
-            font-size: 2rem;
-            color: $red;
-            font-weight: bold;
-          }
         }
       }
       .container-prev-photos {
@@ -80,12 +73,20 @@
         }
       }
       .info-product {
-        display: flex;
+        /*display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-between;*/
+        .row-section {
+        
+          .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+          }
+        }
         margin-bottom: 5rem;
         .form-group {
-          width: 48%;
+          width: 30%;
         }
         .item-price {
           display: flex;

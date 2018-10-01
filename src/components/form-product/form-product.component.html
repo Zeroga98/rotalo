@@ -2,16 +2,14 @@
 
 <div class="container-form">
   <div class="title-form">
-    <span>Completa los siguientes datos</span>
-    <span>para que tu producto rote con rapidez</span>
+    <h1>¿Que vas a rotar?</h1>
   </div>
   <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
     <div class="container-step">
       <div class="step-number">
-        <span class="number">1. </span>Escoge máximo 6 imágenes perfectas, mira algunos tips
+        <span class="number">1. </span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
         <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
       </div>
-
       <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
         <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
         <div class="prev-photos" *ngFor="let photo of photosUploaded">
@@ -40,6 +38,26 @@
         <span class="number">2. </span>Datos de tu producto
       </div>
       <div class="info-product">
+        <div class="row-section">
+          <div class="row">
+              <div class="form-group">
+                  <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
+                    <option value="" selected="true" disabled>Escoge una categoría *</option>
+                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es obligatorio.</span>
+                </div>
+                <div class="form-group">
+                  <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
+                    name="subcategory-id" formControlName="subcategory-id">
+                    <option value="" disabled>Escoge una subcategoría *</option>
+                    <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es obligatorio.</span>
+                </div>
+          </div>
+        </div>
+          
         <div class="form-group" data-input="name">
           <input class="form-control" name="name" formControlName="name" placeholder="¿Qué quieres rotar? *" maxlength="50">
           <span class="help-block error-msg"> Este campo es obligatorio. </span>
@@ -68,21 +86,7 @@
           </div>
 
         </div>
-        <div class="form-group">
-          <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
-            <option value="" selected="true" disabled>Escoge una categoría *</option>
-            <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
-          </select>
-          <span class="error-msg">Este campo es obligatorio.</span>
-        </div>
-        <div class="form-group">
-          <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
-            name="subcategory-id" formControlName="subcategory-id">
-            <option value="" disabled>Escoge una subcategoría *</option>
-            <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
-          </select>
-          <span class="error-msg">Este campo es obligatorio.</span>
-        </div>
+       
         <div *ngIf="subcategoryIsVehicle()" class="form-group">
           <select name="model" class="form-control" formControlName="model">
             <option value="" disabled>Modelo de vehículo *</option>
