@@ -1,6 +1,6 @@
 import { ROUTES } from './../../router/routes';
 import { UtilsService } from './../../util/utils.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserInterface } from './../../commons/interfaces/user.interface';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,8 +8,6 @@ import {
   FormControl,
   FormGroup,
   Validators,
-  ValidatorFn,
-  AbstractControl
 } from '@angular/forms';
 import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
 import { TypeDocumentsService } from '../../services/type-documents.service';
@@ -34,9 +32,12 @@ export class SignUpPage implements OnInit {
   public typeDocumentsColombia;
   private mainUrl = window.location.href;
   private codeProduct = this.router.url.split('code=', 2)[1];
+  public paramsUrl;
+
   constructor(
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
     private utilsService: UtilsService,
     private typeDocumentsService: TypeDocumentsService,
     private savePassword: SavePasswordService,
@@ -44,27 +45,32 @@ export class SignUpPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.registerForm = new FormGroup({
-      'first-name': new FormControl('', [Validators.required]),
-      'last-name': new FormControl('', [Validators.required]),
+      'name': new FormControl('', [Validators.required]),
       'type-document-id': new FormControl('', null),
       'id-number': new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      cellphone: new FormControl('', [Validators.required]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ]),
-      'password-confirmation': new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        this.validatePasswordConfirm.bind(this)
-      ]),
-      termsCheckbox: new FormControl('', [this.checkBoxRequired.bind(this)])
+      cellphone: new FormControl('', [Validators.required])
     });
-
+    this.route.queryParamMap.subscribe(params => {
+      this.paramsUrl = params['params'];
+      this.setCountry(this.paramsUrl.country);
+    });
     this.loadTypeDocument();
+  }
+
+  setCountry(idCountry) {
+    if (idCountry == '1') {
+      this.country = {
+        name: 'Colombia',
+        id: '1'
+      };
+    } else {
+      this.country = {
+        name: 'Guatemala',
+        id: '9'
+      };
+    }
   }
 
   sendTokenShareProduct() {
@@ -88,7 +94,7 @@ export class SignUpPage implements OnInit {
         this.savePassword.setPassword(this.registerForm.get('password').value);
         this.errorsSubmit = [];
         this.sendTokenShareProduct();
-        this.router.navigate([ROUTES.ACTIVACION]);
+        //this.router.navigate([ROUTES.ACTIVACION]);
         //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
       }
     } catch (error) {
@@ -100,6 +106,7 @@ export class SignUpPage implements OnInit {
   async loadTypeDocument() {
     try {
       this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+      console.log(this.typeDocuments);
       this.typeDocumentsColombia = this.filterColombiaDocuments(this.typeDocuments);
     } catch (error) {}
   }
@@ -110,18 +117,11 @@ export class SignUpPage implements OnInit {
   }
 
   buildParamsUserRequest(): UserRequestInterface {
-    const fullName = `${this.registerForm.get('first-name').value} ${
-      this.registerForm.get('last-name').value
-    }`;
-    delete this.registerForm.value['first-name'];
-    delete this.registerForm.value['last-name'];
     const params = Object.assign(
       {},
       this.registerForm.value,
-      { name: fullName },
       { 'city-id': this.city.id }
     );
-    delete params.termsCheckbox;
     if (params['type-document-id'] == '') {
       const countryFilterDocument = this.filterCountryDocuments(this.country);
       params['type-document-id'] = countryFilterDocument[0].id;
@@ -150,17 +150,6 @@ export class SignUpPage implements OnInit {
     );
   }
 
-  checkBoxRequired(checkBox: FormGroup): any {
-    return checkBox.value ? null : { noSelected: true };
-  }
-
-  validatePasswordConfirm(registerGroup: FormGroup): any {
-    if (this.registerForm) {
-      return registerGroup.value === this.registerForm.get('password').value
-        ? null
-        : { notSame: true };
-    }
-  }
 
   get formIsInValid(): boolean {
     return this.registerForm.invalid || !this.selectIsCompleted();
@@ -173,19 +162,6 @@ export class SignUpPage implements OnInit {
       }
     }
     return false;
-  }
-
-  openTermsModal(): void {
-    this.modalTermsIsOpen = true;
-  }
-
-  closeModal() {
-    this.modalTermsIsOpen = false;
-  }
-
-  acceptTerms(checkbox) {
-    checkbox.checked = true;
-    this.closeModal();
   }
 
   setValidationId(): void {
@@ -258,7 +234,7 @@ export class SignUpPage implements OnInit {
             Validators.required,
             Validators.pattern(/^\d{8}$/),
           ]);
-          this.errorMessageId = 'El campo no cumple el formato 1234 12345 1234.';
+          this.errorMessageId = 'El campo no cumple el formato.';
           break;
         }
         default: {

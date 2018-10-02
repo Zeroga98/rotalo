@@ -12,31 +12,31 @@
         </ul>
       </div>
       <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine}" name="first-name"
-        formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres*">
+        <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}" name="name"
+        formControlName="name" type="text" class="form-control" maxlength="100" placeholder="Nombres*">
         <span class="help-block">
-          <span *ngIf="registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine">
+          <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
             Este campo es obligatorio.
           </span>
         </span>
       </div>
       <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine}" name="last-name"
-          formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos*">
+        <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
+          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo*">
         <span class="help-block">
-          <span *ngIf="registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine">
-            Este campo es obligatorio.
+          <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
+            El campo no cumple con el formato de correo.
           </span>
         </span>
       </div>
       <div class="form-group">
-        <select-country class="white-theme-select"  (selected)="country=$event; setValidationId()"></select-country>
+        <select-country class="white-theme-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
       <div class="form-group">
-        <select-states *ngIf="country" class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
+        <select-states  class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
       </div>
       <div class="form-group">
-        <select-cities *ngIf="state" class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+        <select-cities  class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
       </div>
       <div *ngIf="selectedCountryColombia()" class="form-group">
         <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
@@ -61,15 +61,7 @@
             </span>
         </span>
       </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
-          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo*">
-        <span class="help-block">
-          <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
-            El campo no cumple con el formato de correo.
-          </span>
-        </span>
-      </div>
+      
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
@@ -85,54 +77,10 @@
               </span>
             </span>
       </div>
-
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
-          formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña*">
-          <span class="help-block">
-              <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
-                  Este campo es obligatorio.
-              </span>
-              <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
-                  El campo no cumple la longitud mínima.
-              </span>
-            </span>
-      </div>
-
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
-          name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
-          placeholder="Confirmar Contraseña*">
-          <span class="help-block">
-              <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
-                  Este campo es obligatorio.
-              </span>
-              <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
-                  El campo no cumple la longitud mínima.
-              </span>
-              <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
-                  La contraseña de verificación no coincide.
-              </span>
-            </span>
-      </div>
-      <div class="text-center form-group terms">
-        <label class="gtmSignUpAcepTermYCond" for="checkTerms">
-          <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
-        </label>
-        Acepto
-        <a (click)="openTermsModal()">términos y condiciones</a>
-      </div>
       <div>
         <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro" [disabled]="formIsInValid"></custom-button>
       </div>
-
-      <footer class="text-center">
-        <p>¿Tienes cuenta?
-          <a routerLink="/login"> Ingresar</a>
-        </p>
-      </footer>
     </form>
   </div>
 </div>
-<terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
 <custom-footer></custom-footer>

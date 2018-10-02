@@ -33,8 +33,8 @@ export class SelectCountryComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  filterColombiaPanama (countries) {
-    const newCountries = countries.filter(country => country['name'] == 'Colombia' || country['name'] == 'Panamá');
+  filterColombia (countries) {
+    const newCountries = countries.filter(country => country['name'] == 'Colombia');
     return newCountries;
   }
 
@@ -48,7 +48,7 @@ export class SelectCountryComponent implements OnInit {
     if (this.currentUrl.includes('gt')) {
       countries = this.filterGuatemala(countries);
     } else {
-      countries = this.filterColombiaPanama(countries);
+      countries = this.filterColombia(countries);
     }
     return countries;
   }
