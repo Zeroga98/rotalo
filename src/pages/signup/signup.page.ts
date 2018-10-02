@@ -4,11 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserInterface } from './../../commons/interfaces/user.interface';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
 import { TypeDocumentsService } from '../../services/type-documents.service';
 import { SavePasswordService } from './save-password.service';
@@ -29,24 +25,23 @@ export class SignUpPage implements OnInit {
   public documentId;
   public errorMessageId;
   public typeDocuments;
-  public typeDocumentsColombia;
+  public typeDocumentsFilter;
   private mainUrl = window.location.href;
   private codeProduct = this.router.url.split('code=', 2)[1];
   public paramsUrl;
+  public codeSignup;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private utilsService: UtilsService,
     private typeDocumentsService: TypeDocumentsService,
-    private savePassword: SavePasswordService,
-    private productsService: ProductsService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      'name': new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       'type-document-id': new FormControl('', null),
       'id-number': new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -55,8 +50,14 @@ export class SignUpPage implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.paramsUrl = params['params'];
       this.setCountry(this.paramsUrl.country);
+      let email = this.paramsUrl.email;
+      email = email.replace(' ', '+');
+      email = email.replace(/\s+/g, '+');
+      this.registerForm.patchValue({ name: this.paramsUrl.name });
+      this.registerForm.patchValue({ email: email });
+      this.codeSignup =  this.paramsUrl.code;
+      this.loadTypeDocument(this.paramsUrl.country);
     });
-    this.loadTypeDocument();
   }
 
   setCountry(idCountry) {
@@ -73,66 +74,78 @@ export class SignUpPage implements OnInit {
     }
   }
 
+  async loadTypeDocument(idCountry) {
+    try {
+      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
+      this.typeDocumentsFilter = this.filterDocuments(
+        this.typeDocuments, idCountry
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  filterDocuments(typeDocuments, idCountry) {
+    const documents = typeDocuments.filter(
+      typeDocument => typeDocument['country-id'] == idCountry
+    );
+    return documents;
+  }
+
   sendTokenShareProduct() {
     if (this.codeProduct && this.codeProduct !== 'na') {
-      this.productsService.sendTokenShareProduct(this.codeProduct).subscribe((response) => {
-        if (response.status == 0) {
-          const signup = `/${ROUTES.SIGNUP}`;
-          const showProduct = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${response.body.idProducto}`;
-          const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
-          this.productsService.setUrlDetailProduct(urlDetailProduct);
+      this.productsService.sendTokenShareProduct(this.codeProduct).subscribe(
+        response => {
+          if (response.status == 0) {
+            const signup = `/${ROUTES.SIGNUP}`;
+            const showProduct = `/${ROUTES.PRODUCTS.LINK}/${
+              ROUTES.PRODUCTS.SHOW
+            }/${response.body.idProducto}`;
+            const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
+            this.productsService.setUrlDetailProduct(urlDetailProduct);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      }, (error) => {console.log(error); });
+      );
     }
   }
 
   async onSubmit() {
     try {
       if (this.registerForm.valid) {
-        const params: UserRequestInterface = this.buildParamsUserRequest();
-        const response = await this.userService.saveUser(params);
-        this.savePassword.setPassword(this.registerForm.get('password').value);
-        this.errorsSubmit = [];
-        this.sendTokenShareProduct();
-        //this.router.navigate([ROUTES.ACTIVACION]);
-        //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
+        const params = this.buildParamsUserRequest();
+        console.log(params);
+        this.userService.signup(params).subscribe(
+          response => {
+            // this.savePassword.setPassword(this.registerForm.get('password').value);
+            this.errorsSubmit = [];
+          //  this.sendTokenShareProduct();
+            // this.router.navigate([ROUTES.ACTIVACION]);
+            //  this.router.navigate([`${ROUTES.SIGNUP}/${ROUTES.ACTIVACION}`]);
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }
     } catch (error) {
       this.errorsSubmit = error.error.errors;
-      this.utilsService.goToTopWindow(20, 600);
     }
   }
 
-  async loadTypeDocument() {
-    try {
-      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-      console.log(this.typeDocuments);
-      this.typeDocumentsColombia = this.filterColombiaDocuments(this.typeDocuments);
-    } catch (error) {}
-  }
-
-  filterColombiaDocuments(typeDocuments) {
-    const documents = typeDocuments.filter(typeDocument => typeDocument['country-id'] == 1);
-    return documents;
-  }
-
-  buildParamsUserRequest(): UserRequestInterface {
-    const params = Object.assign(
-      {},
-      this.registerForm.value,
-      { 'city-id': this.city.id }
-    );
-    if (params['type-document-id'] == '') {
-      const countryFilterDocument = this.filterCountryDocuments(this.country);
-      params['type-document-id'] = countryFilterDocument[0].id;
-    }
+  buildParamsUserRequest() {
+    const params = {
+      'idCiudad': this.city['id'],
+      'idTipoDocumento': this.registerForm.get('type-document-id').value,
+      'numeroDocumento': this.registerForm.get('id-number').value,
+      'celular': this.registerForm.get('cellphone').value,
+      'codigoActivacion': this.codeSignup
+    };
     return params;
   }
 
-  filterCountryDocuments(country) {
-    const documents = this.typeDocuments.filter(typeDocument => typeDocument['country-id'] == country.id);
-    return documents;
-  }
 
   selectedCountry(ev) {
     this.country = ev;
@@ -142,16 +155,8 @@ export class SignUpPage implements OnInit {
     this.state = ev;
   }
 
-  selectedCountryColombia(): boolean {
-    return (
-      this.country &&
-      this.country.id === '1' &&
-      this.country.name === 'Colombia'
-    );
-  }
 
-
-  get formIsInValid(): boolean {
+  get formIsInvalid(): boolean {
     return this.registerForm.invalid || !this.selectIsCompleted();
   }
 
@@ -205,9 +210,7 @@ export class SignUpPage implements OnInit {
             this.errorMessageId =
               'El campo no cumple con el formato de Pasaporte.';
           }
-          phoneNumberControl.setValidators([
-            Validators.required
-          ]);
+          phoneNumberControl.setValidators([Validators.required]);
           break;
         }
         case 'Panama': {
@@ -217,22 +220,18 @@ export class SignUpPage implements OnInit {
             ),
             Validators.required
           ]);
-          phoneNumberControl.setValidators([
-            Validators.required
-          ]);
+          phoneNumberControl.setValidators([Validators.required]);
           this.errorMessageId = 'El campo no cumple con el formato.';
           break;
         }
         case 'Guatemala': {
           idDocumentControl.setValidators([
-            Validators.pattern(
-              '^[0-9]{4}\\s[0-9]{5}\\s[0-9]{4}$'
-            ),
+            Validators.pattern('^[0-9]{4}\\s[0-9]{5}\\s[0-9]{4}$'),
             Validators.required
           ]);
           phoneNumberControl.setValidators([
             Validators.required,
-            Validators.pattern(/^\d{8}$/),
+            Validators.pattern(/^\d{8}$/)
           ]);
           this.errorMessageId = 'El campo no cumple el formato.';
           break;

@@ -1,35 +1,49 @@
 <navigation-top-login>
 </navigation-top-login>
-<div class="container-fluid">
-  <div class="">
+<div class="container-fluid material">
+  <div class="img-container">
+    <img src="" alt="">
+  </div>
+  <div class="form-container">
     <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
-      <div class="text-center title-text">
-        <h1>Haz parte de Rótalo ¡Regístrate!</h1>
+      <div class="title-text">
+        <h1>Estás a un paso de completar tu registro
+        </h1>
       </div>
-      <div class="container-errors">
-        <ul>
-          <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>
-        </ul>
-      </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}" name="name"
-        formControlName="name" type="text" class="form-control" maxlength="100" placeholder="Nombres*">
+      <div class="material-input text-center">
+        <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
+          <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
+            formControlName="name" name="name" maxlength="50" class="input__field input__field--label-md" id="txt-name" type="text"
+            autocomplete="off"/>
+          <label class="input__label input__label--label-md">
+            <span class="input__label-content input__label-content--label-md" data-content="Nombre completo">Nombre
+              completo</span>
+          </label>
+        </span>
         <span class="help-block">
-          <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
-            Este campo es obligatorio.
-          </span>
+            <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
+              Este campo es obligatorio.
+            </span>
         </span>
       </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
-          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo*">
-        <span class="help-block">
-          <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
-            El campo no cumple con el formato de correo.
-          </span>
+      <div class="material-input text-center">
+        <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--label-md">
+          <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
+            formControlName="email" name="email" maxlength="64" class=" input__field input__field--label-md " id="txt-email-register"
+            type="email" autocomplete="off"/>
+          <label class="input__label input__label--label-md">
+            <span class="input__label-content input__label-content--label-md" data-content="Email corporativo">
+              Email corporativo</span>
+          </label>
+        </span>
+        <span class="help-block text-left">
+            <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
+              El campo no cumple con el formato de correo.
+            </span>
         </span>
       </div>
-      <div class="form-group">
+
+      <div class="select-country form-group">
         <select-country class="white-theme-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
       <div class="form-group">
@@ -38,12 +52,14 @@
       <div class="form-group">
         <select-cities  class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
       </div>
-      <div *ngIf="selectedCountryColombia()" class="form-group">
+
+      <div class="form-group">
         <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
           <option value="" disabled>Selecciona tipo de documento*</option>
-          <option *ngFor="let typeDocument of typeDocumentsColombia" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
+          <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
         </select>
       </div>
+
       <div class="margin-error-bottom form-group">
         <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
         name="id-number"
@@ -51,7 +67,8 @@
         type="text"
         maxlength="40"
         class="form-control"
-        placeholder="Número de documento*">
+        placeholder="Número de documento*"
+        autocomplete="off">
         <span class="help-block">
             <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
                 Este campo es obligatorio.
@@ -61,7 +78,7 @@
             </span>
         </span>
       </div>
-      
+
       <div class="form-group">
         <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
           formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
@@ -78,7 +95,7 @@
             </span>
       </div>
       <div>
-        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro" [disabled]="formIsInValid"></custom-button>
+        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro" [disabled]="formIsInvalid"></custom-button>
       </div>
     </form>
   </div>

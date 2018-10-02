@@ -2,38 +2,29 @@
 @import '../../styles/settings/_variables.scss';
 :host{
     display: block;
+    .container-fluid{
+      display: flex;
+    }
+    .img-container {
+      width: 40%
+    }
+
+    .form-container {
+      width: 60%;
+      padding: 40px 8% 20px 1%;
+    }
+
+    .material-input {
+      position: relative;
+    }
+
     form{
-        max-width: 284px;
-        margin:0 auto;
         .title-text{
             h1{
                 color: #272727;
                 font-size: 2.4rem;
                 margin: 0;
-            }
-        }
-        .container-errors{
-            margin-bottom: 5rem;
-            ul{
-                padding: 0;
-                text-align: center;
-                .error{
-                    color: $red;
-                    font-size: 1.6rem;
-                }
-            }
-        }
-
-        .terms{
-            margin: 5rem 0 2rem;
-            font-size: 1.6rem;
-            font-weight: 400;
-            label{
-                display: inline-block;
-            }
-            a{
-                color: $red;
-                cursor: pointer;
+                margin-bottom: 20px;
             }
         }
         custom-button{
@@ -61,13 +52,14 @@
         background-position: 95% center;
       }
     }
-    .help-block{
+    .help-block {
       position: absolute;
+      left: 0;
+      bottom: 0px;
     }
-    .container-fluid{
-      min-height: calc(100vh - 140px);
-      padding-bottom: 7rem;
-      padding-top: 2rem;
+
+    .select-country{
+      display: none;
     }
 }
 
