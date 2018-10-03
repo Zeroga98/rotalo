@@ -35,8 +35,15 @@
     select.form-control {
         background-image: url(assets/img/arrow.svg);
         background-position: 95% center;
-        background-size: 15px;
+        background-size: 17px;
         background-repeat: no-repeat;
+    }
+}
+
+
+.material-select {
+    select.form-control {
+        border-bottom: 1px solid #707070;
     }
 }
 

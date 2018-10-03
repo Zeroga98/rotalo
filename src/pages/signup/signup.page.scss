@@ -4,6 +4,7 @@
     display: block;
     .container-fluid{
       display: flex;
+      margin-bottom: 100px;
     }
     .img-container {
       width: 40%
@@ -16,6 +17,28 @@
 
     .material-input {
       position: relative;
+    }
+
+    .row-two {
+      display:flex;
+      justify-content: space-between;
+      .column {
+        width: 48%;
+      }
+    }
+
+    .btn-signup {
+      max-width: 270px;
+      margin-top: 20px;
+    }
+
+    .currency-select {
+      position: absolute;
+      bottom: 0;
+    }
+
+    input:disabled {
+      background-color: #fff;
     }
 
     form{
@@ -50,6 +73,7 @@
       position: relative;
       .form-control{
         background-position: 95% center;
+        border-bottom: 1px solid #707070;
       }
     }
     .help-block {
@@ -61,8 +85,19 @@
     .select-country{
       display: none;
     }
+
+    input:-webkit-autofill {
+      background-color: #fff !important;
+    }
 }
 
+:host {
+  .invalid ~ .error-msg {
+    display: block;
+    position: absolute;
+    bottom: -20px;
+  }
+}
 
 :host{
   @media (max-width: 450px) {

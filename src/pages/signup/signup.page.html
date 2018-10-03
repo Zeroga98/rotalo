@@ -14,7 +14,7 @@
         <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
             formControlName="name" name="name" maxlength="50" class="input__field input__field--label-md" id="txt-name" type="text"
-            autocomplete="off"/>
+            autocomplete="off" />
           <label class="input__label input__label--label-md">
             <span class="input__label-content input__label-content--label-md" data-content="Nombre completo">Nombre
               completo</span>
@@ -30,7 +30,7 @@
         <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
             formControlName="email" name="email" maxlength="64" class=" input__field input__field--label-md " id="txt-email-register"
-            type="email" autocomplete="off"/>
+            type="email" autocomplete="off" />
           <label class="input__label input__label--label-md">
             <span class="input__label-content input__label-content--label-md" data-content="Email corporativo">
               Email corporativo</span>
@@ -44,45 +44,58 @@
       </div>
 
       <div class="select-country form-group">
-        <select-country class="white-theme-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
-      </div>
-      <div class="form-group">
-        <select-states  class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
-      </div>
-      <div class="form-group">
-        <select-cities  class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
+        <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
 
-      <div class="form-group">
-        <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
-          <option value="" disabled>Selecciona tipo de documento*</option>
-          <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
-        </select>
+      <div class="row-two">
+        <div class="form-group column">
+          <select-states [ngClass]="{'invalid': errorState}"  class="white-theme-select material-select" [country]="country" (selected)="state=$event; validateState()"></select-states>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+        <div class="form-group column">
+          <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
       </div>
 
-      <div class="margin-error-bottom form-group">
-        <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
-        name="id-number"
-        formControlName="id-number"
-        type="text"
-        maxlength="40"
-        class="form-control"
-        placeholder="Número de documento*"
-        autocomplete="off">
-        <span class="help-block">
-            <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
-                Este campo es obligatorio.
+      <div class="row-two">
+        <div class="form-group column">
+          <select [ngClass]="{'invalid': errorTypeDocument}" class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
+            <option value="" disabled>Selecciona tipo de documento*</option>
+            <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
+          </select>
+          <span class="error-msg">Este campo es obligatorio.</span>
+        </div>
+  
+        <div class="material-input text-center column">
+            <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="text-left input input--label-md">
+              <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
+                formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--label-md" id="txt-id-number" type="text"
+                autocomplete="off"/>
+              <label class="input__label input__label--label-md">
+                <span class="input__label-content input__label-content--label-md" data-content="Número">Número</span>
+              </label>
             </span>
-            <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
-                {{errorMessageId}}
+            <span class="help-block">
+                <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                    Este campo es obligatorio.
+                </span>
+                <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
+                    {{errorMessageId}}
+                </span>
             </span>
-        </span>
+          </div>
       </div>
 
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
-          formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
-          maxlength="10" class="form-control" placeholder="Teléfono celular*">
+      <div class="material-input text-center">
+          <span [ngClass]="{'input--filled': registerForm.get('cellphone').value}" class="text-left input input--label-md">
+            <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
+              formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
+              maxlength="10" class="form-control" class="input__field input__field--label-md" id="txt-cellphone" autocomplete="off"/>
+            <label class="input__label input__label--label-md">
+              <span class="input__label-content input__label-content--label-md" data-content="Celular">Celular</span>
+            </label>
+          </span>
           <span class="help-block">
               <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
               && !registerForm.get('cellphone').errors['pattern']">
@@ -93,9 +106,11 @@
                   El campo no cumple con el formato de teléfono.
               </span>
             </span>
-      </div>
-      <div>
-        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro" [disabled]="formIsInvalid"></custom-button>
+        </div>
+
+      
+      <div class="btn-signup">
+        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro"></custom-button>
       </div>
     </form>
   </div>
