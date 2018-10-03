@@ -55,37 +55,30 @@ export class ChangePage implements OnInit {
   }
 
   changePassword(newPassword: string, confirmNewPassword: string) {
-    const user = {
-      'data': {
-        'type': 'passwords',
-        'attributes': {
-          'password': newPassword,
-          'password-confirmation': confirmNewPassword,
-          'token': this.idPassword
-        }
-      }
+    const currentUrl = window.location.href;
+    let idCountry;
+    if (currentUrl.includes('gt')) {
+      idCountry = 9;
+    }else {
+      idCountry = 1;
+    }
+    const params = {
+     'pais': idCountry,
+     'contrasena': newPassword,
+     'token': this.idPassword
     };
-    this.changePasswordService.changePassProfile(user).then(response => {
+
+    this.changePasswordService.changePassProfile(params).subscribe((reponse) => {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
       this.errorChange = '';
       this.showLink = true;
       alert('Su contraseña se ha actualizado correctamente.');
-      this.router.navigate([`${ROUTES.LOGIN}`]);
-      })
-      .catch(httpErrorResponse => {
-        this.messageChange = '';
-        if (httpErrorResponse.status === 403) {
-        }
-        if (httpErrorResponse.status === 404) {
-          this.errorChange = '¡Codigo de seguridad no valido.';
-        }
-        if (httpErrorResponse.status === 422) {
-          this.errorChange = httpErrorResponse.error.errors[0].title;
-        }
-        if (httpErrorResponse.status === 0) {
-          this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
-        }
-      });
+      this.router.navigate([`${ROUTES.HOME}`]);
+    },
+    (error) => {
+      this.errorChange = error.error.message;
+    });
+
   }
 
 }

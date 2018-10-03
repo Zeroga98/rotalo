@@ -47,6 +47,11 @@
     }
 }
 
+.material-select.invalid {
+  select.form-control {
+    border-bottom: 2px solid #FF3646;
+  }
+}
 
 .product-location.white-theme-select select.form-control {
     background-position: 99% center;

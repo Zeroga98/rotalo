@@ -100,7 +100,7 @@ rl-tag-input-item {
     width: 60%;
     border: none;
     border-radius: 0;
-    color: #aaa;
+    color: #383838;
     font-weight: 400;
     -webkit-appearance: none;
   }
@@ -220,9 +220,9 @@ rl-tag-input-item {
     position: relative;
     z-index: 1;
     display: inline-block;
-    margin: 1rem;
+    margin: 1rem 0;
     margin-bottom: 2rem;
-    width: calc(100% - 2rem);
+    width: 100%;
     vertical-align: top;
   }
 
@@ -312,6 +312,16 @@ rl-tag-input-item {
     -webkit-transition: -webkit-transform 0.3s;
     transition: transform 0.3s;
   }
+
+  input.invalid.ng-touched  {
+    border-bottom: 1px solid #FF3646;
+  }
+
+  input.invalid.ng-touched + .input__label--label-md::before,
+  input.invalid.ng-touched +.input__label--label-md::after {
+    border-bottom: 1px solid #FF3646;
+  }
+
 
   .input__field--label-md:focus+.input__label--label-md::after,
   .input--filled .input__label--label-md::after {

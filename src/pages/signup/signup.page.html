@@ -2,7 +2,7 @@
 </navigation-top-login>
 <div class="container-fluid material">
   <div class="img-container">
-    <img src="" alt="">
+    <img src="../../assets/img/img_banner_registro.svg" alt="banner registro">
   </div>
   <div class="form-container">
     <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
@@ -61,12 +61,12 @@
       <div class="row-two">
         <div class="form-group column">
           <select [ngClass]="{'invalid': errorTypeDocument}" class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
-            <option value="" disabled>Selecciona tipo de documento*</option>
+            <option value="" disabled>Tipo de documento</option>
             <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
           </select>
           <span class="error-msg">Este campo es obligatorio.</span>
         </div>
-  
+
         <div class="material-input text-center column">
             <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="text-left input input--label-md">
               <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
@@ -108,7 +108,7 @@
             </span>
         </div>
 
-      
+
       <div class="btn-signup">
         <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro"></custom-button>
       </div>

@@ -1,5 +1,5 @@
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
     public errorMessage = '';
     public showMessageEmail = false;
     public showSendEmail = false;
-
+    @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
     constructor( private userService: UserService,
       private fb: FormBuilder
       ) {}
@@ -63,6 +63,9 @@ export class HomePage implements OnInit {
       }
 
       acceptTerms(checkbox) {
+        this.registerForm.patchValue({
+          'termsCheckbox': true
+        });
         checkbox.checked = true;
         this.closeModal();
       }

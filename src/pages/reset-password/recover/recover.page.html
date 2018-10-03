@@ -4,7 +4,7 @@
     <div *ngIf="errorLogin" class="container--app">
       <div class="alert-danger" role="alert">
         <div>
-          <span>{{errorLogin}}</span>
+          <span [innerHtml]=errorLogin></span>
         </div>
       </div>
     </div>

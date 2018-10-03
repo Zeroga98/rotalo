@@ -74,7 +74,21 @@ export class NavigationTopLoginComponent implements OnInit {
       const email = this.loginForm.get('email').value;
       const password = this.loginForm.get('password').value;
       this.login(email, password);
+    }else {
+      this.validateAllFormFields(this.loginForm);
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+       control.markAsDirty({ onlySelf: true });
+       control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
   checkNotificationHobbies(idUser) {

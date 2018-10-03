@@ -101,11 +101,15 @@
           </div>
           <div class="text-center form-group terms">
             <label class="gtmSignUpAcepTermYCond" for="checkTerms">
-              <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox"
-                #checkBoxTerms>
+              <input #checkBoxTerms class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox">
             </label>
             Acepto
-            <a (click)="openTermsModal()">términos y condiciones</a>
+            <a class="terms-link" (click)="openTermsModal()">términos y condiciones</a>
+            <span class="help-block">
+                <span *ngIf="registerForm.get('termsCheckbox').touched && registerForm.get('termsCheckbox').invalid && !registerForm.get('termsCheckbox').pristine">
+                    Este campo es obligatorio.
+                </span>
+            </span>
           </div>
           <div class="btn-container">
             <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme"></custom-button>

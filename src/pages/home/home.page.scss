@@ -31,10 +31,17 @@
     color: white;
   }
 
+  .terms-link{
+    cursor: pointer;
+  }
+
   .terms {
     color: #707070;
     font-size: 1.6rem;
     margin-bottom: 15px;
+    .help-block{
+      display: block;
+    }
   }
 
   .btn-container {

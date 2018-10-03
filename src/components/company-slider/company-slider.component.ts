@@ -19,20 +19,14 @@ export class CompanySliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    const imgCompanies = IMGS_COMPANIES ;
+   /* const imgCompanies = IMGS_COMPANIES ;
     const imgCompaniesMobile = IMGS_COMPANIES_MOBILE;
     this.imgCompaniesGroup = imgCompanies;
     this.imgCompaniesGroupMobile = imgCompaniesMobile;
     this.imgCompanies = this.chunkArray(this.imgCompaniesGroup, 4);
-    this.imgCompaniesMobile = this.chunkArray(this.imgCompaniesGroupMobile, 2);
-
+    this.imgCompaniesMobile = this.chunkArray(this.imgCompaniesGroupMobile, 2);*/
+    this.imgCompanies = IMGS_COMPANIES;
+    this.imgCompaniesMobile = IMGS_COMPANIES_MOBILE;
   }
 
-  chunkArray(myArray, chunk_size) {
-    const results = [];
-    while (myArray.length) {
-      results.push(myArray.splice(0, chunk_size));
-    }
-    return results;
-  }
 }

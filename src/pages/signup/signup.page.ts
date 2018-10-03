@@ -295,7 +295,7 @@ export class SignUpPage implements OnInit {
         case 'Colombia': {
           if (documentName == 'Cédula de ciudadanía') {
             idDocumentControl.setValidators([
-              Validators.pattern('^((\\d{7})|(\\d{8})|(\\d{10})|(\\d{11}))?$'),
+              Validators.pattern('^((\\d{4})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
               Validators.required
             ]);
             this.errorMessageId =
@@ -335,7 +335,8 @@ export class SignUpPage implements OnInit {
         }
         case 'Guatemala': {
           idDocumentControl.setValidators([
-            Validators.pattern('^[0-9]{4}\\s[0-9]{5}\\s[0-9]{4}$'),
+           // Validators.pattern('^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'),
+           Validators.pattern('^[0-9]{13}$'),
             Validators.required
           ]);
           phoneNumberControl.setValidators([

@@ -33,6 +33,10 @@
     background-color: #F2F2F2;
     text-align: center;
     font-size: 1.6rem;
+    margin-bottom: 10px;
+    ul{
+      padding-left: 0;
+    }
   }
   @media (max-width: 780px) {
     .container {
