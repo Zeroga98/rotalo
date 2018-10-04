@@ -337,6 +337,32 @@ rl-tag-input-item {
 
 }
 
+
+.material {
+  .select-label {
+    color: #383838;
+    font-size: 1.6rem;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 40px;
+    //transition: 0.2s ease all;
+  }
+
+  .select-text:focus ~ .select-label,  .valid .select-text ~ .select-label{
+    color: #383838;
+    font-size: 1.6rem;
+   // top: -10px;
+   // transition: 0.2s ease all;
+    animation: anim-2 0.3s forwards;
+  }
+
+  .form-theme .form-control {
+    padding-left: 0;
+  }
+}
+
 @-webkit-keyframes anim-1 {
 	50% {
 		opacity: 0;
@@ -372,6 +398,27 @@ rl-tag-input-item {
 		opacity: 1;
 		-webkit-transform: translate3d(0, -42%, 0);
     transform: translate3d(0, -42%, 0);
+    -ms-transform: translate3d(0, -35%, 0);
+	}
+}
+
+@keyframes anim-2 {
+	50% {
+		opacity: 0;
+		-webkit-transform: translate3d(1em, 0, 0);
+    transform: translate3d(1em, 0, 0);
+    -ms-transform: translate3d(1em, 0, 0);
+	}
+	51% {
+		opacity: 0;
+		-webkit-transform: translate3d(-1em, -90%, 0);
+    transform: translate3d(-1em, -90%, 0);
+    -ms-transform: translate3d(-1em, -35%, 0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate3d(0, -90%, 0);
+    transform: translate3d(0, -90%, 0);
     -ms-transform: translate3d(0, -35%, 0);
 	}
 }

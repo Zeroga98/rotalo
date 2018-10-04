@@ -27,7 +27,7 @@ constructor(private http: HttpClient,
   changePassProfile (params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/credenciales/restablecer`;
+    const url = `${this.urlSapi}/registro/restablecer`;
     return this.http.post(url, params, { headers: headers }).map((response: any) => response);
   }
 

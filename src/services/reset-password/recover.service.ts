@@ -23,7 +23,7 @@ constructor(private http: HttpClient,
   recoverUser (params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/credenciales/recuperar`;
+    const url = `${this.urlSapi}/registro/recuperar`;
     return this.http.post(url, params, { headers: headers }).map((response: any) => response);
   }
 
