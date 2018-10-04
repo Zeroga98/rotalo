@@ -358,6 +358,10 @@ rl-tag-input-item {
     animation: anim-2 0.3s forwards;
   }
 
+  .valid .select-text{
+    border-bottom: 2px solid #0FBBD8;
+  }
+
   .form-theme .form-control {
     padding-left: 0;
   }

@@ -39,6 +39,7 @@ export class SignUpPage implements OnInit {
   public errorRequest: Array<string> = [];
   public errorLogin;
   private userCountry: any;
+  public errorMessage = '';
 
   constructor(
     private userService: UserService,
@@ -48,7 +49,8 @@ export class SignUpPage implements OnInit {
     private productsService: ProductsService,
     private activationService: ActivationService,
     private currenSession: CurrentSessionService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -208,15 +210,19 @@ export class SignUpPage implements OnInit {
   async onSubmit() {
       if (!this.formIsInvalid) {
         const params = this.buildParamsUserRequest();
-        console.log(params);
         this.userService.signup(params).subscribe(
           response => {
             this.errorsSubmit = [];
+            this.errorMessage = '';
           //  this.sendTokenShareProduct();
             this.activate();
           },
           error => {
-            console.log(error);
+            if (error.status) {
+              console.log(error.status);
+              this.errorMessage = error.error.message;
+              this.utilsService.goToTopWindow(20, 600);
+            }
           }
         );
       } else {

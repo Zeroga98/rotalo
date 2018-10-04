@@ -35,7 +35,7 @@
     select.form-control {
         background-image: url(assets/img/arrow.svg);
         background-position: 95% center;
-        background-size: 17px;
+        background-size: 10px 10px;
         background-repeat: no-repeat;
     }
 }
@@ -45,6 +45,18 @@
     select.form-control {
         border-bottom: 1px solid #707070;
     }
+}
+
+.material-select {
+  select.form-control:focus {
+    border-bottom: 2px solid #0FBBD8;
+  }
+}
+
+.material-select {
+  select.form-control.ng-dirty {
+    border-bottom: 2px solid #0FBBD8;
+  }
 }
 
 .material-select.invalid {

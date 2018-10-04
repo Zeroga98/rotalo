@@ -24,7 +24,7 @@
         <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="submitForm(form)"
           #form>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="input-full-name text-left input input--float">
               <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
                 formControlName="name" name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
                 type="text" />
@@ -40,7 +40,7 @@
             </span>
           </div>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="input-email-user text-left input input--float">
               <input (keypress)="removeError()" [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
                 formControlName="email" name="email" maxlength="64" class=" input__field input__field--float " id="txt-email-register"
                 type="email" />
@@ -59,7 +59,7 @@
             </span>
           </div>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="input-pass-user text-left input input--float">
               <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
                 formControlName="password" name="password" maxlength="20" class="input__field input__field--float" id="txt-password-register"
                 type="password" />
@@ -78,7 +78,7 @@
             </span>
           </div>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="input-pass-confirm text-left input input--float">
               <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
                 name="password-confirmation" formControlName="password-confirmation" maxlength="20" class="input__field input__field--float"
                 id="txt-password-confirmation" type="password" />
@@ -99,7 +99,7 @@
               </span>
             </span>
           </div>
-          <div class="text-center form-group terms">
+          <div class="text-center form-group terms input-terms">
             <label class="gtmSignUpAcepTermYCond" for="checkTerms">
               <input #checkBoxTerms class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox">
             </label>

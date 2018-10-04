@@ -91,6 +91,17 @@
       }
     }
 
+    .form-theme .form-group {
+      .form-control:focus{
+        border-bottom: 2px solid #0FBBD8;
+      }
+    }
+
+    .form-theme .form-group.valid {
+      .form-control{
+        border-bottom: 2px solid #0FBBD8;
+      }
+    }
 
     .material .form-theme .form-group {
       .form-control.invalid.ng-touched{
@@ -102,6 +113,7 @@
       position: absolute;
       left: 0;
       bottom: 0px;
+      padding-left: 0;
     }
 
     .select-country{
@@ -111,6 +123,21 @@
     input:-webkit-autofill {
       background-color: #fff !important;
     }
+
+    .error-signup{
+      font-size: 1.6rem;
+      color: #FF3646;
+      margin-left: 5px;
+    }
+
+    .error-ico{
+      width: 20px;
+      height: 20px;
+      background: url(../../assets/img/ic_error_validacion.svg);
+      background-size: 20px 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
 }
 
 :host {
@@ -118,6 +145,7 @@
     display: block;
     position: absolute;
     bottom: -20px;
+    padding-left: 0;
   }
 }
 
@@ -145,6 +173,20 @@
       margin-top: 20px;
     }
 
+  }
+}
+
+:host {
+  @media (max-width: 650px) {
+    .row-two {
+      flex-wrap: wrap;
+    }
+     .row-two .column {
+      width: 100%;
+    }
+    .type-document{
+      min-height: 70px;
+    }
   }
 }
 

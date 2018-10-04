@@ -73,20 +73,16 @@
         }
       }
       .info-product {
-        /*display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;*/
         .row-section {
-        
           .row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
           }
         }
         margin-bottom: 5rem;
         .form-group {
-          width: 30%;
+          width: 25%;
+          margin-right: 5%;
         }
         .item-price {
           display: flex;
@@ -156,6 +152,9 @@
         }
         .form-group.full {
           width: 100%;
+        }
+        .form-group.half {
+          width: 50%;
         }
         textarea {
           min-height: 8rem;
@@ -337,4 +336,26 @@
 
 .form-theme .form-control.ng-touched.ng-invalid ~ .error-msg{
   display: block;
+}
+
+.material-design {
+
+  .label-title {
+    color: #383838;
+    font-size: 1.8rem;
+    padding: 10px 0;
+    display: block;
+  }
+
+  .form-control{
+    color: #383838;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #707070;
+  }
+
+  .row-section {
+    border-bottom: #d0d0d0 dashed 1px;
+    padding: 20px 0;
+  }
+
 }
