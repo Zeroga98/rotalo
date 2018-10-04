@@ -103,8 +103,8 @@
             <label class="gtmSignUpAcepTermYCond" for="checkTerms">
               <input #checkBoxTerms class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox">
             </label>
-            Acepto
-            <a class="terms-link" (click)="openTermsModal()">términos y condiciones</a>
+            <a class="terms-link" (click)="openTermsModal()">
+                Acepto términos y condiciones</a>
             <span class="help-block">
                 <span *ngIf="registerForm.get('termsCheckbox').touched && registerForm.get('termsCheckbox').invalid && !registerForm.get('termsCheckbox').pristine">
                     Este campo es obligatorio.

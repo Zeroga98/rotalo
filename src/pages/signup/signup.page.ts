@@ -301,7 +301,7 @@ export class SignUpPage implements OnInit {
         case 'Colombia': {
           if (documentName == 'Cédula de ciudadanía') {
             idDocumentControl.setValidators([
-              Validators.pattern('^((\\d{4})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
+              Validators.pattern('^((\\d{6})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
               Validators.required
             ]);
             this.errorMessageId =

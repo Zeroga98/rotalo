@@ -404,22 +404,22 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.disabledFieldType = true;
       this.photosForm.controls['negotiable'].disable();
     }
-
-        this.photosForm =  this.fb.group({
-        name: [config.name, [Validators.required]],
-        price: [config.price, [Validators.required]],
-        currency: [config.currency, [Validators.required]],
-        'subcategory-id': [config['subcategory-id'], [Validators.required]],
-        used: [config.used, [Validators.required]],
-        visible: [config.visible, [Validators.required]],
-        'sell-type': [config['sell-type'], [Validators.required]],
-        description: [config.description, [Validators.required]],
-        negotiable: [{value: config.negotiable, disabled: false}, []],
-        'publish-until': [config['publish-until'], []],
-        'type-vehicle': [typeVehicle, []],
-        'model': [model, []],
-        category: [config['category'], [Validators.required]],
-        }, {validator: validatePrice});
+    console.log(config.used);
+    this.photosForm = this.fb.group({
+      name: [config.name, [Validators.required]],
+      price: [config.price, [Validators.required]],
+      currency: [config.currency, [Validators.required]],
+      'subcategory-id': [config['subcategory-id'], [Validators.required]],
+      used: [config.used, [Validators.required]],
+      visible: [config.visible, [Validators.required]],
+      'sell-type': [config['sell-type'], [Validators.required]],
+      description: [config.description, [Validators.required]],
+      negotiable: [{ value: config.negotiable, disabled: false }, []],
+      'publish-until': [config['publish-until'], []],
+      'type-vehicle': [typeVehicle, []],
+      'model': [model, []],
+      category: [config['category'], [Validators.required]],
+    }, { validator: validatePrice });
   }
 
   private getInitialConfig(): ProductInterface {
@@ -464,9 +464,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       price: null,
       currency: currency,
       'subcategory-id': '',
-      used: '',
-      visible: '',
-      'sell-type': '',
+      used: false,
+      visible: true,
+      'sell-type': 'VENTA',
       description: null,
       'publish-until': objectDate,
       negotiable: true,

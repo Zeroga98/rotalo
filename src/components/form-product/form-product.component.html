@@ -84,30 +84,86 @@
           <div class="row">
               <div class="form-group">
                   <label class="label-title">Estado</label>
-                  <select class="form-control" name="used" formControlName="used">
-                    <option value="" disabled>Estado del artículo *</option>
-                    <option [ngValue]="true">Artículo Usado</option>
-                    <option [ngValue]="false">Artículo Nuevo</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
+                 <div>
+                      <div class="md-radio">
+                        <input
+                        [value]="false"
+                        formControlName="used"
+                        id="1"
+                        type="radio"
+                        name="used">
+                        <label for="1">Nuevo</label>
+                      </div>
+                      <div  class="md-radio">
+                        <input
+                        [value]="true"
+                        formControlName="used"
+                        id="2"
+                        type="radio"
+                        name="used">
+                        <label for="2">Usado</label>
+                      </div>
+                      <span class="error-msg">Este campo es requerido</span>
+                 </div>
               </div>
+
               <div class="form-group">
                   <label class="label-title">Que te gustaría hacer</label>
-                  <select [attr.disabled]="disabledFieldType ? '' : null" class="form-control" name="sell-type" formControlName="sell-type"
-                    (change)="changeKindOfProduct($event.target.value)">
-                    <option value="" disabled>Tipo de venta *</option>
-                    <option value="VENTA">Vendo</option>
-                    <option value="SUBASTA">Subasto</option>
-                    <option value="GRATIS">Regalo</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
+                 <div>
+                      <div class="md-radio">
+                        <input
+                        (click)="changeKindOfProduct($event.target.value)"
+                        [attr.disabled]="disabledFieldType ? '' : null"
+                        value="VENTA"
+                        formControlName="sell-type"
+                        id="vender"
+                        type="radio"
+                        name="sell-type">
+                        <label for="vender">Vender</label>
+                      </div>
+                      <div  class="md-radio">
+                          <input
+                          (click)="changeKindOfProduct($event.target.value)"
+                          [attr.disabled]="disabledFieldType ? '' : null"
+                          value="ALQUILAR"
+                          formControlName="sell-type"
+                          id="alquilar"
+                          type="radio"
+                          name="sell-type">
+                          <label for="alquilar">Alquilar</label>
+                      </div>
+                      <div  class="md-radio">
+                        <input
+                        (click)="changeKindOfProduct($event.target.value)"
+                        [attr.disabled]="disabledFieldType ? '' : null"
+                        value="SUBASTA"
+                        formControlName="sell-type"
+                        id="subastar"
+                        type="radio"
+                        name="sell-type">
+                        <label for="subastar">Subastar</label>
+                      </div>
+                      <div  class="md-radio">
+                          <input
+                          (click)="changeKindOfProduct($event.target.value)"
+                          [attr.disabled]="disabledFieldType ? '' : null"
+                          value="GRATIS"
+                          formControlName="sell-type"
+                          id="regalar"
+                          type="radio"
+                          name="sell-type">
+                          <label for="regalar">Regalar</label>
+                      </div>
+                      <span class="error-msg">Este campo es requerido</span>
+                 </div>
               </div>
+
               <div class="form-group" data-input="price">
                   <label class="label-title">Precio</label>
                   <div class="item-price">
                     <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
                       <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
-                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="¿Cuánto vale? *"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="$"
                         maxlength="50" autocomplete="off">
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
@@ -144,21 +200,36 @@
         </div>
 
         <div class="row-section">
-            <div class="row">
-              <div class="form-group">
-                <label class="label-title">¿Quién puede ver tu publicación?</label>
-                <select class="form-control" name="visible" formControlName="visible">
-                  <option value="" disabled>¿Quién puede verlo? *</option>
-                  <option [ngValue]="true">Todas las comunidades</option>
-                  <option [ngValue]="false">Solo mi comunidad</option>
-                </select>
-                <span class="error-msg">Este campo es requerido</span>
-              </div>
+
+            <div class="form-group">
+              <label class="label-title">¿Quién puede ver tu publicación?</label>
+               <div>
+                    <div class="md-radio">
+                      <input
+                      [value]="false"
+                      formControlName="visible"
+                      id="visible1"
+                      type="radio"
+                      name="visible">
+                      <label for="visible1">Mi comunidad</label>
+                    </div>
+                    <div  class="md-radio">
+                      <input
+                      [value]="true"
+                      formControlName="visible"
+                      id="visible2"
+                      type="radio"
+                      name="visible">
+                      <label for="visible2">Todas las comunidades</label>
+                    </div>
+                    <span class="error-msg">Este campo es requerido</span>
+               </div>
             </div>
+
             <div class="row">
               <div class="form-group half" data-input="name">
                 <label class="label-title">Título de la publicación</label>
-                <input class="form-control" name="name" formControlName="name" maxlength="50" placeholder="Ejm: Alquilo Apto duplex amoblado">
+                <input type="text" class="form-control" name="name" formControlName="name" maxlength="50" placeholder="Ejm: Alquilo Apto duplex amoblado">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
             </div>
@@ -174,7 +245,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Guardar' : 'Subir oferta'"></custom-button>
+      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Guardar' : 'Guardar Publicación'"></custom-button>
     </div>
   </form>
 </div>
