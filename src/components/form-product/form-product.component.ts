@@ -182,8 +182,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    console.log(this.formIsInValid);
-    if (!this.formIsInValid && this.city['id']) {
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -382,6 +381,8 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (idCategory == 7 || idCategory == 6) {
       this.photosForm.patchValue({'sell-type': 'VENTA'});
       this.showOptions = false;
+      this.disabledField = false;
+      this.photosForm.controls['negotiable'].enable();
     }
   }
 
@@ -554,7 +555,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid  && this.photosUploaded.length <= 0 ;
+    return this.photosForm.invalid;
   }
 
 
