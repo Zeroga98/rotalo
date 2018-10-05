@@ -543,7 +543,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid && !this.city['id'] || this.photosUploaded.length <= 0 ;
+    return this.photosForm.invalid && !this.city['id'] && this.photosUploaded.length <= 0 ;
   }
 
 

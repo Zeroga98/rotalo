@@ -113,6 +113,7 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
+      console.log(this.product);
       this.productIsSold(this.product);
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;

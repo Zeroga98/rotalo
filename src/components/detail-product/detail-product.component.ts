@@ -25,6 +25,7 @@ import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
+import { BuyService } from '../../services/buy.service';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -88,7 +89,8 @@ export class DetailProductComponent implements OnInit {
     private userService: UserService,
     private messagesService: MessagesService,
     private shareInfoChatService: ShareInfoChatService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private buyService:BuyService
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
@@ -346,6 +348,18 @@ export class DetailProductComponent implements OnInit {
       ROUTES.PRODUCTS.BUY
     }/${id}`;
     this.router.navigate([urlBuyProduct]);
+  }
+
+  rentProduct(id: number | string) {
+    this.buyService.rentProduct(id).subscribe((response) => {
+      const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+        ROUTES.PRODUCTS.BUY
+      }/${id}`;
+      this.router.navigate([urlBuyProduct]);
+    }
+    , (error) => {
+      console.log(error);
+    });
   }
 
   async showBuyModal() {

@@ -189,7 +189,7 @@
                     <div class="button">
                         <custom-button  text="Atrás" (click)="goBack()"></custom-button>
                     </div>
-                    <div class="button">
+                    <div *ngIf="product && product['sell-type'] !='ALQUILAR'" class="button">
                         <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton" class="gtmCompConfirmComp" type="submit"  text="Confirmar compra" ></custom-button>
                     </div>
                   </div>
