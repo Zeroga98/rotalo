@@ -145,6 +145,11 @@ export class NavigationTopLoginComponent implements OnInit {
                  '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
                this.changeRef.markForCheck();
              }
+             if (response.status === 700) {
+              this.errorLogin = response.message;
+              this.reSendEmail(userEmail);
+              this.changeRef.markForCheck();
+            }
            })
            .catch(httpErrorResponse => {
              console.error(httpErrorResponse);
@@ -165,6 +170,25 @@ export class NavigationTopLoginComponent implements OnInit {
        }
      });
    }
+
+
+   reSendEmail (email) {
+    let idCountry;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      idCountry = 9;
+    }else {
+      idCountry = 1;
+    }
+      const params = {
+        'pais': idCountry,
+        'correo': email
+      };
+      this.userService.reSendEmail(params).subscribe(response => {
+      }, error => {
+        console.log(error);
+      });
+  }
 
    async setUserCountry(userInfo) {
      try {

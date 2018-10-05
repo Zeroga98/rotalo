@@ -47,12 +47,14 @@
                 </div>
                 <div class="form-group">
                   <label class="label-title">Tipo de subcategoría</label>
-                  <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
-                    name="subcategory-id" formControlName="subcategory-id">
-                    <option value="" disabled>Subcategoría *</option>
-                    <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
+                  <div class="subcategory-container">
+                      <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
+                      name="subcategory-id" formControlName="subcategory-id">
+                      <option value="" disabled>Subcategoría *</option>
+                      <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
+                    </select>
+                    <span class="error-msg">Este campo es requerido</span>
+                  </div>
                 </div>
           </div>
           <div class="row">
@@ -125,14 +127,14 @@
                           <input
                           (click)="changeKindOfProduct($event.target.value)"
                           [attr.disabled]="disabledFieldType ? '' : null"
-                          value="ALQUILAR"
+                          value="ALQUILA"
                           formControlName="sell-type"
                           id="alquilar"
                           type="radio"
                           name="sell-type">
-                          <label for="alquilar">Alquilar</label>
+                          <label for="alquilar">Alquilo</label>
                       </div>
-                      <div  class="md-radio">
+                      <div  *ngIf="showOptions" class="md-radio">
                         <input
                         (click)="changeKindOfProduct($event.target.value)"
                         [attr.disabled]="disabledFieldType ? '' : null"
@@ -143,7 +145,7 @@
                         name="sell-type">
                         <label for="subastar">Subastar</label>
                       </div>
-                      <div  class="md-radio">
+                      <div  *ngIf="showOptions" class="md-radio">
                           <input
                           (click)="changeKindOfProduct($event.target.value)"
                           [attr.disabled]="disabledFieldType ? '' : null"
@@ -160,7 +162,7 @@
 
               <div class="form-group" data-input="price">
                   <label class="label-title">Precio</label>
-                  <div class="item-price">
+                  <div>
                     <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
                       <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
                         onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="$"
@@ -168,17 +170,17 @@
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                     </div>
-                    <select class="form-control currency-select" name="currency" formControlName="currency">
+                    <select [ngStyle]="{'display': isColombia ? 'none' : 'block' }"  class="form-control currency-select" name="currency" formControlName="currency">
                       <option *ngIf="isColombia" value="COP">COP</option>
                       <option *ngIf="isGuatemala" value="GTQ">GTQ</option>
                       <option *ngIf="!isColombia" value="'USD'">USD</option>
                     </select>
                     <div class="check-offer">
-                      <label for="checkTerms" class="container-check">
+                      <label for="checkTerms" class="material-checkbox container-check">
                         <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
                         <span class="checkmark"></span>
                       </label>
-                      <span>Recibo ofertas</span>
+                      <span class="check-label">Recibo ofertas</span>
                     </div>
                   </div>
                 </div>
@@ -189,11 +191,11 @@
             <div class="row">
                 <div class="form-group">
                     <label class="label-title">En que ubicación se encuentra tu producto</label>
-                    <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
+                    <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
                     <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group">
-                    <select-cities [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                  <div class="form-group select-cities">
+                    <select-cities [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
                     <span class="error-msg">Este campo es requerido</span>
                 </div>
             </div>
@@ -211,7 +213,8 @@
                       id="visible1"
                       type="radio"
                       name="visible">
-                      <label for="visible1">Mi comunidad</label>
+                      <label for="visible1">Mi comunidad - {{communityName}}
+                      </label>
                     </div>
                     <div  class="md-radio">
                       <input
@@ -245,7 +248,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Guardar' : 'Guardar Publicación'"></custom-button>
+      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
     </div>
   </form>
 </div>
