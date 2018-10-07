@@ -62,7 +62,7 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
       console.error('modal must have an id');
       return;
     }
-    //document.body.appendChild(this.element);
+    // document.body.appendChild(this.element);
 
     this.modalService.add(this);
     this.initShareForm();

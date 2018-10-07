@@ -1,12 +1,14 @@
 <navigation-top-login>
 </navigation-top-login>
+<div class="md-overlay"></div>
+<modal-video class="md-modal-center md-effect-1" id="custom-modal-3"></modal-video>
 <div class="home-container">
   <div class="video-container">
     <img src="../../assets/img/img_bienvenida@2x.png" alt="video">
     <div class="hero-image"></div>
     <div class="play-container">
       <div class="btn-container-video">
-        <div class="btn-play"></div>
+        <div (click)= "showVideo('custom-modal-3')"  class="btn-play"></div>
         <div class="label-text">Ver video</div>
       </div>
       <div class="info-rotalo">

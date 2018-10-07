@@ -77,14 +77,14 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
    this.messageSuccess = false;
    this.feedBackForm.reset();
     this.element.classList.add('md-show');
-    document.body.classList.add('modal-open');
+   // document.body.classList.add('modal-open');
   }
 
   close(): void {
-   //this.element.style.display = 'none';
+   // this.element.style.display = 'none';
     this.feedBackForm.reset();
     this.element.classList.remove('md-show');
-    document.body.classList.remove('modal-open');
+    // document.body.classList.remove('modal-open');
   }
 
 }

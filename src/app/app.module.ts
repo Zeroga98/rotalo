@@ -145,6 +145,8 @@ import { ModalTicketService } from '../components/modal-ticket/modal-ticket.serv
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NavigationTopLoginComponent } from '../components/navigation-top-login/navigation-top-login.component';
 import { CompanySliderComponent } from '../components/company-slider/company-slider.component';
+import { ModalVideoService } from '../components/modal-video/modal-video.service';
+import { ModalVideoComponent } from '../components/modal-video/modal-video.component';
 
 @NgModule({
   declarations: [
@@ -231,6 +233,7 @@ import { CompanySliderComponent } from '../components/company-slider/company-sli
     ModalTicketComponent,
     NavigationTopLoginComponent,
     CompanySliderComponent,
+    ModalVideoComponent,
   ],
   imports: [
     BrowserModule,
@@ -290,6 +293,7 @@ import { CompanySliderComponent } from '../components/company-slider/company-sli
     ModalShareProductService,
     ModalUploadProductService,
     ModalTicketService,
+    ModalVideoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

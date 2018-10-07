@@ -2,6 +2,7 @@ import { ROUTES } from './../../router/routes';
 import { Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { ModalVideoService } from '../../components/modal-video/modal-video.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class HomePage implements OnInit {
     public showSendEmail = false;
     @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
     constructor( private userService: UserService,
-      private fb: FormBuilder
+      private fb: FormBuilder,
+      private modalService: ModalVideoService
       ) {}
 
     ngOnInit(): void {
@@ -134,6 +136,10 @@ export class HomePage implements OnInit {
             console.log(error);
           });
         }
+      }
+
+      showVideo(id: string) {
+        this.modalService.open(id);
       }
 
 }
