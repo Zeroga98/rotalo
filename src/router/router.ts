@@ -33,6 +33,7 @@ import { ProfileMenu } from '../pages/profile/profile-menu/profile-menu';
 import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/show-info-profile.component';
 import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
+import { LoginPage } from '../pages/login/login.page';
 
 export const appRouter: Routes = [
   {
@@ -43,6 +44,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.SIGNUP,
     component: SignUpPage
+  },
+  {
+    path: ROUTES.LOGINMOBILE,
+    component: LoginPage
   },
   {
     path: ROUTES.ROTALOCENTER,

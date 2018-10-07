@@ -17,6 +17,7 @@ export const ROUTES = {
     SUCCESS: 'success-activation',
     STEPS: 'steps',
     FAQ: 'faq',
+    LOGINMOBILE: 'login-mobile',
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

@@ -158,12 +158,6 @@ export class SignUpPage implements OnInit {
 
   async setUserCountry(userInfo) {
       try {
-        /* const user = await this.userService.getInfoUser();
-        if (user.city.state.country.id) {
-          this.userCountry = user.city.state.country.id;
-        }
-        const userLogin = Object.assign({}, userInfo, { countryId: this.userCountry });
-        this.currenSession.setSession(userLogin); */
         this.currenSession.setSession(userInfo);
         this.router.navigate([
           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
@@ -326,6 +320,10 @@ export class SignUpPage implements OnInit {
           }
           phoneNumberControl.setValidators([Validators.required]);
           this.registerForm.get('cellphone').setValidators([Validators.required]);
+          phoneNumberControl.setValidators([
+            Validators.required,
+            Validators.pattern(/^\d{10}$/)
+          ]);
           break;
         }
         case 'Panama': {

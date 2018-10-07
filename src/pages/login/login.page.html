@@ -1,53 +1,64 @@
-<back-arrow></back-arrow>
-<div class="container-fluid">
+<div class="close-container">
+  <a  (click)= "goBack()"  class="icon-circle-cancel"></a>
+</div>
+<div class="container-fluid material-register">
   <div class="">
     <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme">
-      <p class="title-text">Ingresar</p>
-      <div class="form-group  text-left">
-        <input
-        (click)="markAsTouched(loginForm.get('email'))"
-        [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
-        formControlName="email"
-         maxlength="50"
-         id="txt-email"
-         type="email"
-         class="form-control"
-         placeholder="Email corporativo">
-         <span class="help-block text-left">
-            <span *ngIf="loginForm.get('email').invalid && !loginForm.get('email').pristine">
-              El campo no cumple con el formato de correo.
-            </span>
+      <h1 class="title-text">¡Hola! Inicia sesión</h1>
+      <div class="text-left">
+        <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
+          <input
+          (click)="markAsTouched(loginForm.get('email'))"
+          [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
+          formControlName="email"
+          maxlength="64"
+          class=" input__field input__field--float "
+          id="txt-email"
+          type="email"/>
+          <label class="input__label input__label--float">
+            <span class="input__label-content input__label-content--float" data-content="Email corporativo">
+              Email corporativo</span>
+          </label>
+          <span class="help-block text-left">
+              <span *ngIf="loginForm.get('email').invalid && !loginForm.get('email').pristine">
+                El campo no cumple con el formato de correo.
+              </span>
+              <span *ngIf="errorLogin">
+                  {{errorLogin}}
+              </span>
           </span>
-      </div>
-      <div class="form-group  text-left">
-        <input
-        (click)="markAsTouched(loginForm.get('password'))"
-        [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
-        formControlName="password"
-        maxlength="20"
-        id="txt-password"
-        type="password"
-        class="form-control"
-        placeholder="Contraseña">
-        <span class="help-block">
-            <span *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid && !loginForm.get('password').pristine && !loginForm.get('password').errors?.minlength">
-                Este campo es obligatorio.
-            </span>
-            <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
-                El campo no cumple la longitud mínima.
-            </span>
+        </span>
+    </div>
+    <div class="text-left">
+      <span [ngClass]="{'input--filled': loginForm.get('password').value}" class="input-password input input--float">
+          <input
+          (click)="markAsTouched(loginForm.get('password'))"
+          [ngClass]="{'invalid': loginForm.get('password').invalid && !loginForm.get('password').pristine}"
+          formControlName="password"
+          maxlength="20"
+          class="input__field input__field--float"
+          id="txt-password"
+          type="password"
+          />
+          <label class="input__label input__label--float">
+            <span class="input__label-content input__label-content--float" data-content="Contraseña">Contraseña</span>
+          </label>
+          <span class="help-block">
+              <span *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid && !loginForm.get('password').pristine && !loginForm.get('password').errors?.minlength">
+                  Este campo es obligatorio.
+              </span>
+              <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
+                  El campo no cumple la longitud mínima.
+              </span>
           </span>
-      </div>
+      </span>
+    </div>
+    <div class="content-link">
+      <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
+    </div>
       <div>
-        <custom-button  [disabled]="!loginForm.valid"  type="submit" text="Ingresar"></custom-button>
+        <custom-button type="submit" text="Ingresar"></custom-button>
       </div>
-      <div class="content-link">
-        <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
-      </div>
-      <footer>
-        <p class="">¿No tienes una cuenta? <a routerLink="/signup" >Crea una cuenta</a></p>
-      </footer>
     </form>
   </div>
 </div>
-<custom-footer></custom-footer>
