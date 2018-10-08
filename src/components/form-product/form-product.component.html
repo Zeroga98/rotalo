@@ -37,7 +37,7 @@
       <div class="info-product">
         <div class="row-section">
           <div class="row">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{'valid': photosForm.get('category').value}">
                   <label class="label-title">Selecciona la categoría de tu producto</label>
                   <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
                     <option value="" selected="true" disabled>Categoría *</option>
@@ -45,7 +45,7 @@
                   </select>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                   <label class="label-title">Tipo de subcategoría</label>
                   <div class="subcategory-container">
                       <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
@@ -58,7 +58,7 @@
                 </div>
           </div>
           <div class="row">
-              <div *ngIf="subcategoryIsVehicle()" class="form-group">
+              <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('model').value}">
                   <label class="label-title">Modelo de vehículo*</label>
                   <select name="model" class="form-control" formControlName="model">
                     <option value="" disabled>Modelo de vehículo *</option>
@@ -66,7 +66,7 @@
                   </select>
                   <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div *ngIf="subcategoryIsVehicle()" class="form-group">
+              <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
                   <label class="label-title">Tipo de uso</label>
                   <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
                     <option value="" disabled>Tipo de vehículo*</option>
@@ -74,7 +74,7 @@
                   </select>
                   <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'">
+              <div class="form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'" [ngClass]="{'valid': photosForm.get('sell-type').value}">
                   <label class="label-title">Fecha de vencimiento</label>
                   <my-date-picker class="data-picker-theme" name="publish-until" placeholder="Fecha de vencimiento de la subasta" formControlName="publish-until"
                   [options]="datePickerOptions"></my-date-picker>
