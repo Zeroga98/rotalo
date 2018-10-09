@@ -17,7 +17,7 @@
           {{errorMessage}}
         </span>
       </div>
-      <div class="material-input text-center">
+      <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
             formControlName="name" name="name" maxlength="50" class="input__field input__field--label-md" id="txt-name" type="text"
@@ -33,7 +33,7 @@
             </span>
         </span>
       </div>
-      <div class="material-input text-center">
+      <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
             formControlName="email" name="email" maxlength="64" class=" input__field input__field--label-md " id="txt-email-register"
