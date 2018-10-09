@@ -101,7 +101,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.imagesBanner = IMGS_BANNER;
 
     /*Promo fecha determinada para cierta comunidad*/
-  // this.addPromoBanner();
+    // this.addPromoBanner();
     this.addPromoBannerColombia();
   }
 
@@ -152,8 +152,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER;
     }else {
-     // this.imagesBanner = IMGS_BANNER_PROMO;
-     this.imagesBanner = IMGS_BANNER;
+      this.imagesBanner = IMGS_BANNER_PROMO;
+    // this.imagesBanner = IMGS_BANNER;
     }
   }
 
@@ -470,6 +470,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       const currentUser = this.currentSession.currentUser();
       if (currentUser) {
         const emailObject = {
+          'convenio': 2,
           'correo' : currentUser.email
         };
         this.getCoupon (emailObject, id);
