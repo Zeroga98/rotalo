@@ -7,7 +7,7 @@
   <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
     <div class="container-step">
       <div class="step-number">
-        <span class="number">1. </span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
+        <span class="number"></span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
         <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
       </div>
       <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
