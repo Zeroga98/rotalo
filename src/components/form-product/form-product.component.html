@@ -7,7 +7,7 @@
   <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
     <div class="container-step">
       <div class="step-number">
-        <span class="number">1. </span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
+        <span class="number"></span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
         <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
       </div>
       <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
@@ -238,7 +238,7 @@
             </div>
             <div class="row">
               <div class="form-group half">
-                <label class="label-title">Descripción de la publicación (Escribe las caracteristicas principales)</label>
+                <label class="label-title">Descripción de la publicación (Escribe las características principales)</label>
                 <textarea class="form-control" placeholder="Ejm: Apartamento amoblado, cuenta con 65m2, 3 habitaciones, sala comedor, zona de ropas, cuarto útil y parqueadero. Cuenta con acceso a transporte público, cercano a super mercados y parques." name="description" formControlName="description"
                   maxlength="500"></textarea>
                 <span class="error-msg">Este campo es requerido</span>

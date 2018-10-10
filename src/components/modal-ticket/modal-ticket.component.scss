@@ -120,9 +120,13 @@
             width: 50%;
             align-self: start;
             .percentage {
-              font-size: 7rem;
+              //font-size: 7rem;
               font-weight: bold;
               color: #00AAC7;
+              img {
+                width: 70%;
+                padding-top: 1rem;
+              }
             }
             .percentage-info {
               font-size: 1.6rem;
@@ -187,6 +191,12 @@
       width: 40px;
       height: 40px;
       background-color: #C61B27;
+    }
+  }
+
+  .icon-share-container {
+    img {
+      width:20%;
     }
   }
 
@@ -336,6 +346,11 @@
 
 @media (max-width: 850px) {
   :host {
+    
+    .md-content .share-product-container .company-info-container .percentage-container .item-percentage .percentage img {
+      width: 20%;
+      min-width: 50%;
+    }
 
     .md-content {
       background: white;
@@ -391,7 +406,7 @@
             .item-percentage {
               width: 100%;
               .percentage {
-                font-size: 5rem;
+               // font-size: 5rem;
               }
               .percentage-info {
                 font-size: 1.2rem;

@@ -152,8 +152,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER;
     }else {
-      this.imagesBanner = IMGS_BANNER_PROMO;
-    // this.imagesBanner = IMGS_BANNER;
+     this.imagesBanner = IMGS_BANNER_PROMO;
+     // this.imagesBanner = IMGS_BANNER;
     }
   }
 
@@ -459,7 +459,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('banner_10')) {
+    if (imageUrl.includes('rotalo_banner')) {
       return true;
     }
     return false;
