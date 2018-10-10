@@ -152,8 +152,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER;
     }else {
-     // this.imagesBanner = IMGS_BANNER_PROMO;
-     this.imagesBanner = IMGS_BANNER;
+     this.imagesBanner = IMGS_BANNER_PROMO;
+     // this.imagesBanner = IMGS_BANNER;
     }
   }
 
