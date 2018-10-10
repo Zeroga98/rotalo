@@ -459,7 +459,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('banner_10')) {
+    if (imageUrl.includes('rotalo_banner')) {
       return true;
     }
     return false;
