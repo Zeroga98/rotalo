@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalVideoService } from '../../components/modal-video/modal-video.service';
+import { Router } from '@angular/router';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -20,10 +22,15 @@ export class HomePage implements OnInit {
     public errorMessage = '';
     public showMessageEmail = false;
     public showSendEmail = false;
+    private codeProduct = this.router.url.split('code=', 2)[1];
+    private mainUrl = window.location.href;
+
     @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
     constructor( private userService: UserService,
       private fb: FormBuilder,
-      private modalService: ModalVideoService
+      private modalService: ModalVideoService,
+      private router: Router,
+      private productsService: ProductsService,
       ) {}
 
     ngOnInit(): void {
@@ -107,6 +114,7 @@ export class HomePage implements OnInit {
 
           this.userService.preSignup(params).subscribe(response => {
             this.showSendEmail = true;
+            this.sendTokenShareProduct();
           }
           , error => {
             if (error.status) {
@@ -116,6 +124,27 @@ export class HomePage implements OnInit {
 
         } else {
           this.validateAllFormFields(this.registerForm);
+        }
+      }
+
+
+      sendTokenShareProduct() {
+        if (this.codeProduct && this.codeProduct !== 'na') {
+          this.productsService.sendTokenShareProduct(this.codeProduct).subscribe(
+            response => {
+              if (response.status == 0) {
+               /* const signup = `/${ROUTES.HOME}`;
+                const showProduct = `/${ROUTES.PRODUCTS.LINK}/${
+                  ROUTES.PRODUCTS.SHOW
+                  }/${response.body.idProducto}`;
+                const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
+                this.productsService.setUrlDetailProduct(urlDetailProduct);*/
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
       }
 

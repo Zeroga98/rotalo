@@ -29,8 +29,6 @@ export class SignUpPage implements OnInit {
   public errorMessageId;
   public typeDocuments;
   public typeDocumentsFilter;
-  private mainUrl = window.location.href;
-  private codeProduct = this.router.url.split('code=', 2)[1];
   public paramsUrl;
   public codeSignup;
   public errorState = false;
@@ -46,11 +44,11 @@ export class SignUpPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private typeDocumentsService: TypeDocumentsService,
-    private productsService: ProductsService,
     private activationService: ActivationService,
     private currenSession: CurrentSessionService,
     private messagesService: MessagesService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
@@ -107,25 +105,6 @@ export class SignUpPage implements OnInit {
     return documents;
   }
 
-  sendTokenShareProduct() {
-    if (this.codeProduct && this.codeProduct !== 'na') {
-      this.productsService.sendTokenShareProduct(this.codeProduct).subscribe(
-        response => {
-          if (response.status == 0) {
-            const signup = `/${ROUTES.SIGNUP}`;
-            const showProduct = `/${ROUTES.PRODUCTS.LINK}/${
-              ROUTES.PRODUCTS.SHOW
-            }/${response.body.idProducto}`;
-            const urlDetailProduct = this.mainUrl.replace(signup, showProduct);
-            this.productsService.setUrlDetailProduct(urlDetailProduct);
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -159,9 +138,13 @@ export class SignUpPage implements OnInit {
   async setUserCountry(userInfo) {
       try {
         this.currenSession.setSession(userInfo);
-        this.router.navigate([
-          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-        ]);
+        this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+        /*if (this.productsService.getUrlDetailProduct()) {
+          window.location.replace(this.productsService.getUrlDetailProduct());
+         } else {
+          this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+          // location.reload();
+         }*/
       } catch (error) {
         console.error(error);
       }
