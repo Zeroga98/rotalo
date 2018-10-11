@@ -33,11 +33,44 @@
 
 .white-theme-select {
     select.form-control {
-        background-image: url(assets/img/arrow.png);
+        background-image: url(assets/img/arrow.svg);
         background-position: 95% center;
-        background-size: 15px;
+        background-size: 10px 10px;
         background-repeat: no-repeat;
     }
+}
+
+
+.material-select {
+    select.form-control {
+        border-bottom: 1px solid #707070;
+    }
+}
+
+.material-select {
+  select.form-control:focus {
+    border-bottom: 2px solid #0FBBD8;
+  }
+}
+
+/*.material-select {
+  select.form-control.ng-dirty {
+    border-bottom: 2px solid #0FBBD8;
+  }
+}
+*/
+.material-select.invalid {
+  select.form-control {
+    border-bottom: 2px solid #FF3646;
+  }
+}
+
+.product-location.white-theme-select select.form-control {
+    background-position: 99% center;
+}
+
+.invalid.product-location.white-theme-select select.form-control {
+  border-bottom-color: #ED2F3C;
 }
 
 .btn-square {

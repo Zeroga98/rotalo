@@ -1,5 +1,5 @@
 export const ROUTES = {
-    HOME: 'home',
+    HOME: 'public',
     SIGNUP: 'signup',
     LOGIN: 'login',
     ROTALOCENTER: 'rotalo-center',
@@ -17,10 +17,11 @@ export const ROUTES = {
     SUCCESS: 'success-activation',
     STEPS: 'steps',
     FAQ: 'faq',
+    LOGINMOBILE: 'login-mobile',
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',
-        FEED: 'feed',
+        FEED: 'home',
         UPLOAD: 'form',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit',

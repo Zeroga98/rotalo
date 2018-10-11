@@ -1,18 +1,18 @@
 <div class="categories-container">
-	<div class="category" *ngFor="let category of categories">
-		<div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.color">
-			<span [ngClass]="category.icon"></span>
-			<a class="gtmMegaMeCateg{{category.url}}" (click)= "selectCategory(category)">
-				<span></span>
-				<label>{{ category.name }}</label>
-			</a>
-		</div>
-		<div class="sub-categories">
-			<ul>
-				<li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
-					<a  class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}"> {{ subcategory.name }} </a>
-				</li>
-			</ul>
-		</div>
-	</div>
+  <div class="category" *ngFor="let category of categories">
+    <div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.productsActives != 0 ?  category.color: ''">
+      <span [ngClass]="category.icon"></span>
+      <a class="gtmMegaMeCateg{{category.url}}" (click)="selectCategory(category)">
+        <span></span>
+        <label>{{ category.name }}</label>
+      </a>
+    </div>
+    <div class="sub-categories">
+      <ul>
+        <li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
+          <a [ngClass]="subcategory.productsActives != 0 ?  '': 'disabled'" class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}"> {{ subcategory.name }} </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

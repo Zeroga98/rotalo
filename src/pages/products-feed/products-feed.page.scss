@@ -15,6 +15,13 @@
       transition: opacity 1s;
     }
   }
+
+  ngx-carousel.carousel-featured {
+    ngx-item {
+      min-height: 38rem;
+    }
+  }
+
   ngx-carousel {
     position: relative;
     .item-banner {
@@ -45,20 +52,36 @@
       transform: rotate(-135deg);
     }
   }
+
+  ngx-carousel.carousel-featured {
+    .arrow {
+      z-index: 3;
+      border-bottom: 4px solid #A2A2A2;
+      border-left: 4px solid #A2A2A2;
+    }
+    .hide.arrow {
+      display: none !important;
+    }
+  }
   .container-masonry {
     padding: 4rem 5%;
+    min-height: 480px;
     .masonry {
       width: 100%;
       max-width: 100%;
       margin: auto;
       .grid-item {
-        width: 32.5%;
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
       }
       product {
+        cursor: pointer;
         text-align: left;
-        width: 31%;
+        width: 23%;
         overflow: hidden;
         margin: 0 1rem 2.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
     }
   }
@@ -104,6 +127,10 @@
     text-align: center;
     vertical-align: middle;
   }
+  .has-text-centered {
+    text-align: center;
+    font-size: 1.5rem;
+  }
 }
 
 :host {
@@ -115,6 +142,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 35px 0;
+      padding-bottom: 0;
       .header-featured {
         margin-bottom: 15px;
         h3,
@@ -271,6 +299,7 @@
   }
 }
 
+
 :host {
   .icon-share-container{
     cursor: pointer;
@@ -319,6 +348,40 @@
   }
 }
 
+@media screen and (max-width: 1110px) {
+  :host {
+    .container-masonry .masonry product {
+      width: 31%;
+    }
+  }
+}
+
+@media screen and (max-width: 952px) {
+  :host {
+    .container-masonry .masonry product {
+      width: 45%;
+    }
+  }
+}
+
+:host {
+  .container-trending {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 40px;
+    background: url(../../assets/img/img_insignia_trending.svg);
+    background-size: 104px 40px;
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+    }
+  }
+}
+
 :host {
   @media screen and (max-width: 890px) {
     .featured-section {
@@ -344,6 +407,23 @@
       width: 50%;
     }
   }
+
+  @media screen and (max-width: 500px) {
+
+    .container-masonry {
+      padding: 4rem 0;
+     }
+
+    .container-masonry .masonry .grid-item{
+      justify-content: center;
+    }
+
+    .container-masonry .masonry product {
+      width: 43%;
+    }
+
+  }
+
   @media screen and (max-width: 470px) {
     .featured-section {
       .featured-container {
@@ -420,13 +500,6 @@
     ngx-carousel {
       .arrow {
         display: none !important;
-      }
-    }
-    .container-masonry {
-      .masonry {
-        .grid-item {
-          width: 48%;
-        }
       }
     }
   }

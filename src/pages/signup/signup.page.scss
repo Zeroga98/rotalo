@@ -2,42 +2,62 @@
 @import '../../styles/settings/_variables.scss';
 :host{
     display: block;
-    back-arrow{
-        display: block;
-        padding: 2rem 1.5rem;
-        width: 100%;
+    display: block;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 100px;
+    .container-fluid{
+      display: flex;
     }
-    form{
-      max-width: 284px;
-        margin:0 auto;
-        .title-text{
-            color: $grey-dark;
-            font-weight: 700;
-            margin-bottom: 5rem;
-            font-size: 1.6rem;
-        }
-        .container-errors{
-            margin-bottom: 5rem;
-            ul{
-                padding: 0;
-                text-align: center;
-                .error{
-                    color: $red;
-                    font-size: 1.6rem;
-                }
-            }
-        }
+    custom-footer {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
 
-        .terms{
-            margin: 5rem 0 2rem;
-            font-size: 1.6rem;
-            font-weight: 400;
-            label{
-                display: inline-block;
-            }
-            a{
-                color: $red;
-                cursor: pointer;
+    .img-container {
+      width: 40%;
+      padding: 50px 2% 20px 13.5%;
+      img {
+        max-width: 380px;
+      }
+    }
+
+    .form-container {
+      width: 60%;
+      padding: 50px 16% 20px 2%;
+    }
+
+    .material-input {
+      position: relative;
+    }
+
+    .row-two {
+      display:flex;
+      justify-content: space-between;
+      .column {
+        width: 48%;
+      }
+    }
+
+    .btn-signup {
+      max-width: 270px;
+      margin-top: 20px;
+    }
+
+    .currency-select {
+      position: absolute;
+      bottom: 0;
+    }
+
+    form{
+        .title-text{
+            h1{
+                color: #272727;
+                font-size: 2.4rem;
+                margin: 0;
+                margin-bottom: 20px;
             }
         }
         custom-button{
@@ -63,23 +83,107 @@
       position: relative;
       .form-control{
         background-position: 95% center;
+        border-bottom: 1px solid #707070;
       }
     }
-    .help-block{
-      position: absolute;
+
+    .form-theme .form-group {
+      .form-control:focus{
+        border-bottom: 2px solid #0FBBD8;
+      }
     }
-    .container-fluid{
-      min-height: calc(100vh - 140px);
-      padding-bottom: 7rem;
-      padding-top: 2rem;
+
+    /*
+    .form-theme .form-group.valid {
+      .form-control{
+        border-bottom: 2px solid #0FBBD8;
+      }
+    }*/
+
+    .material .form-theme .form-group {
+      .form-control.invalid.ng-touched{
+        border-bottom: 2px solid #FF3646;
+      }
+    }
+
+    .help-block {
+      position: absolute;
+      left: 0;
+      bottom: 0px;
+      padding-left: 0;
+    }
+
+    .select-country{
+      display: none;
+    }
+
+    input:-webkit-autofill {
+      background-color: #fff !important;
+    }
+
+    .error-signup{
+      font-size: 1.6rem;
+      color: #FF3646;
+      margin-left: 5px;
+    }
+
+    .error-ico{
+      width: 20px;
+      height: 20px;
+      background: url(../../assets/img/ic_error_validacion.svg);
+      background-size: 20px 20px;
+      display: inline-block;
+      vertical-align: middle;
     }
 }
 
+:host {
+  .invalid ~ .error-msg {
+    display: block;
+    position: absolute;
+    bottom: -20px;
+    padding-left: 0;
+  }
+}
 
-:host{
-  @media (max-width: 450px) {
-    form {
-      max-width: 235px;
+:host {
+  @media (max-width: 1024px) {
+    .form-container {
+      padding: 50px 3% 20px 2%;
     }
   }
 }
+
+:host {
+  @media (max-width: 900px) {
+    .img-container {
+      display: none;
+    }
+
+    .form-container {
+      width: 100%;
+      padding: 50px 5% 20px 5%;
+    }
+
+     .btn-signup {
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+  }
+}
+
+:host {
+  @media (max-width: 650px) {
+    .row-two {
+      flex-wrap: wrap;
+    }
+     .row-two .column {
+      width: 100%;
+    }
+    .type-document{
+      min-height: 70px;
+    }
+  }
+}
+

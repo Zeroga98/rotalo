@@ -65,7 +65,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   triggerMasonryLayout() {
-    this.masonryInfo.layout();
+    if (this.masonryInfo) {
+      this.masonryInfo.layout();
+    }
   }
   saveCheck() {
     this.productStatus = !this.productStatus;
@@ -82,13 +84,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         if (response.status == '0') {
           this.product['published-at'] = response.body.producto['published-at'];
           this.product['publish-until'] = response.body.producto['publish-until'];
+          this.changeDetectorRef.markForCheck();
         }
         this.changeDetectorRef.markForCheck();
       });
   }
 
   getLocation(product): string {
-    const city = product.user.city;
+    const city = product.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
   }

@@ -1,4 +1,6 @@
 <div class="container-product" *ngIf="product" #containerProducts>
+
+  <a>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <div *ngIf="product['is-low-price']" class="container-low-price">
           <p>$ REBAJÓ</p>
@@ -23,7 +25,7 @@
     </div>
     <span  (click)="selectProduct()" class="name">{{product.name}}</span>
   </div>
-  <div (click)="selectProduct()">
+  <div class="product-info" (click)="selectProduct()">
       <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
           <span *ngIf="product.price != 0" class="name">{{product.price | currency:"$":0 | removeDigits}} {{ product.currency }}</span>
           <span *ngIf="product.price == 0" class="name">Gratis</span>
@@ -102,4 +104,5 @@
       <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' : 'inactivo' }}</p>
     </div>
   </div>
+</a>
 </div>

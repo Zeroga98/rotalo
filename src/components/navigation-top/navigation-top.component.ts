@@ -18,6 +18,7 @@ import { CurrentSessionService } from "../../services/current-session.service";
 import { UserService } from "../../services/user.service";
 import { CollectionSelectService } from "../../services/collection-select.service";
 import { LoginService } from "../../services/login/login.service";
+import { ProductsService } from "../../services/products.service";
 @Component({
   selector: "navigation-top",
   templateUrl: "./navigation-top.component.html",
@@ -64,6 +65,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private collectionService: CollectionSelectService,
     private loginService: LoginService,
+    private productsService: ProductsService,
   ) {
     this.onResize();
   }
@@ -86,6 +88,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   async getCountries() {
     try {
       await this.collectionService.isReady();
+      this.changeDetector.markForCheck();
     } catch (error) {
       console.error(error);
     }
@@ -156,4 +159,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
     this.loginService.logout();
   }
+
+  initScrollProduct() {
+    this.productsService.scroll = undefined;
+  }
+
 }

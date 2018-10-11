@@ -13,27 +13,37 @@ export class CategoriesMenuComponent implements OnInit {
   @Output()categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
   @Output()subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
 
-  categories: CategoryInterface;
+  categories: any;
 
   constructor(
     private categoriesService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef) {}
 
-  async ngOnInit() {
-    try {
-      this.categories  = await this.categoriesService.getCategories();
+  ngOnInit() {
+    if (this.categoriesService.getCategoriesActive()) {
+      this.categories = this.categoriesService.getCategoriesActive();
       this.changeDetectorRef.markForCheck();
-    } catch (error) {
-
+    } else {
+      this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
+        this.categories = response;
+        this.categoriesService.setCategoriesActive(this.categories);
+        this.changeDetectorRef.markForCheck();
+      }, (error) => {
+        console.log(error);
+      });
     }
   }
 
-  selectCategory(category: CategoryInterface) {
-    this.categorySelected.emit(category);
+  selectCategory(category: any) {
+    if (category.productsActives != 0) {
+      this.categorySelected.emit(category);
+    }
   }
 
-  selectSubCategory(subCategory: SubcategoryInterface, category: CategoryInterface) {
-    subCategory.category = category;
-    this.subCategorySelected.emit(subCategory);
+  selectSubCategory(subCategory: any, category: any) {
+    if (subCategory.productsActives != 0) {
+      subCategory.category = category;
+      this.subCategorySelected.emit(subCategory);
+    }
   }
 }

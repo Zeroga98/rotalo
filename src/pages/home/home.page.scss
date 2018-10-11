@@ -1,57 +1,409 @@
-:host{
-    .container{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        .container-form{
-            max-width: 284px;
-            width: 100%;
-        }
-        .container-logo{
-            margin-bottom: 10px;
-        }
-        .container-text{
-            margin-bottom: 60px;
-            color: white;
-            font-size: 16px;
-        }
-        .button-ingresar{
-            margin-bottom: 10px;
-        }
+:host {
+
+  .home-container {
+    display: flex;
+  }
+
+  .video-container {
+    width: 50%;
+    position: relative;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
     }
-    .sufi-logo{
-        position: absolute;
-        right: 1%;
-        bottom: 1%;
+  }
+
+  .register-container {
+    position: relative;
+    width: 45%;
+    margin: 0 auto;
+    padding: 50px 0;
+    padding-bottom: 0;
+  }
+
+  .play-container {
+    position: absolute;
+    text-align: left;
+    top: calc(100% - 320px);
+    left: 12%;
+    color: white;
+  }
+
+  .terms-link{
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 12px;
+  }
+
+  .terms {
+    color: #707070;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    .help-block{
+      display: block;
     }
-    .vigilado-logo{
-        position: absolute;
-        left: 1%;
-        bottom: 1%;
-    }
-    .link-info{
-        position: absolute;
-        padding-left: 5px;
-        bottom: 60px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 22rem;
-      a{
-        color: white;
-        font-size: 1.2rem;
-      }
-    }
+  }
+
+  .btn-container {
+    min-width: 250px;
+    width: 30%;
+    margin: 0 auto;
+  }
 }
 
-:host{
-  @media (max-width: 450px) {
-    .container{
-      .container-form{
-        max-width: 235px;
+:host {
+  .play-container {
+    .btn-container-video {
+      .btn-play {
+        cursor: pointer;
+        margin: 0 auto;
+        display: inline-block;
+        vertical-align: middle;
+        width: 64px;
+        height: 64px;
+        background: url(../../assets/img/ic_play_video.svg);
+        background-size: 64px 64px;
+
+        &:hover {
+          background: url(../../assets/img/ic_play_video_hover.svg);
+        }
+      }
+
+      .label-text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 2rem;
+        font-size: 1.2vw;
+        font-weight: bold;
+      }
+    }
+
+    .info-rotalo {
+      h3 {
+        font-size: 10rem;
+        font-size: 5.3vw;
+      }
+
+      h4 {
+        font-size: 3rem;
+        font-size: 1.6vw;
       }
     }
   }
 }
 
 
+:host {
+  .register-container {
+    .title-text {
+      h1 {
+        color: #272727;
+        font-size: 2.4rem;
+        margin: 0;
+        margin-bottom: 10px;
+      }
+    }
+
+    .input--float {
+      margin: 1.8rem 0;
+      margin-bottom: 0;
+    }
+
+    .input__field {
+      max-height: 44px;
+      font-size: 1.6rem;
+    }
+
+  }
+}
+
+:host {
+  .success-container {
+    margin: 20px;
+    margin-top: 70px;
+    .img-send {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      background: url(../../assets/img/ic_enviar_registro.svg);
+      background-size: 70px 70px;
+    }
+
+    .text-container {
+      margin: 20px auto;
+      text-align: center;
+      p {
+        color: #707070;
+        font-size: 1.6rem;
+      }
+    }
+
+  }
+  .success-message{
+    text-align: center;
+    padding: 10px 0px;
+    .icon-check {
+      color: #0FBBD8;
+      font-size: 1.6rem;
+    }
+    .text {
+      color: #707070;
+      font-size: 1.6rem;
+    }
+  }
+}
+
+
+
+
+  .check-offer{
+    padding-left: 12px;
+  }
+
+  .material-checkbox {
+    position: relative;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .material-checkbox>input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    position: absolute;
+    z-index: -1;
+    left: -15px;
+    top: -15px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(0, 0, 0, 0.42);
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    -ms-transform: scale(0);
+    /* Graceful degradation for IE */
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .material-checkbox>input:checked {
+    background-color: #0FBBD8;
+  }
+
+  .material-checkbox:active>input {
+    opacity: 1;
+    transform: scale(0);
+    transition: opacity 0s, transform 0s;
+  }
+
+  .material-checkbox>input:disabled {
+    opacity: 0;
+  }
+
+  .material-checkbox>input:disabled+span {
+    color: rgba(0, 0, 0, 0.38);
+    cursor: initial;
+  }
+
+  .material-checkbox>span::before {
+    content: "";
+    display: inline-block;
+    border: solid 2px rgba(0, 0, 0, 0.42);
+    border-radius: 2px;
+    width: 14px;
+    height: 14px;
+    vertical-align: 0px;
+    transition: border-color 0.5s, background-color 0.5s;
+  }
+
+  .material-checkbox>input:checked+span::before {
+    border-color: #0FBBD8;
+    //background-color: #0FBBD8;
+  }
+
+  .material-checkbox>input:active+span::before {
+    border-color: #0FBBD8;
+  }
+
+  .material-checkbox>input:focus+span::before {
+    border-color: #0FBBD8;
+  }
+
+  .material-checkbox>input:checked:active+span::before {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.42);
+  }
+
+  .material-checkbox>input:disabled+span::before {
+    border-color: rgba(0, 0, 0, 0.26);
+  }
+
+  .material-checkbox>input:checked:disabled+span::before {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.26);
+  }
+
+  .material-checkbox>span::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 10px;
+    border: solid 2px transparent;
+    border-left: none;
+    border-top: none;
+    transform: translate(5.5px, 1px) rotate(45deg);
+    -ms-transform: translate(5.5px, 2px) rotate(45deg);
+  }
+
+  .material-checkbox>input:checked+span::after {
+    border-color: #0FBBD8;
+  }
+
+  .check-label{
+    color: #383838;
+    font-size: 1.6rem;
+    margin-left: 5px;
+  }
+
+@media screen and (max-width: 1440px) {
+  :host {
+    .register-container {
+      width: 40%;
+      margin: 0 auto;
+      padding: 25px 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  :host {
+    .play-container {
+      top: calc(100% - 260px);
+    }
+
+    .video-container {
+      width: 55%;
+    }
+
+    .register-container {
+      width: 35%;
+      padding: 20px 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  :host {
+    .play-container {
+      top: calc(100% - 220px);
+    }
+
+    .home-container {
+      flex-direction: column;
+    }
+
+    .video-container {
+      width: 100%;
+      height: 350px;
+
+      img {
+        display: none;
+      }
+    }
+
+    .register-container {
+      width: 100%;
+      padding: 45px 0;
+    }
+
+    .hero-image {
+      background-image: url("../../assets/img/img_bienvenida@2x.png");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+    .success-container {
+      margin: 5%;
+      margin-top: 0px;
+    }
+
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :host {
+    .play-container {
+      .btn-container-video {
+        .label-text {
+          font-size: 1.4rem;
+        }
+      }
+
+      .info-rotalo {
+        h3 {
+          font-size: 5rem;
+        }
+
+        h4 {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .video-container {
+      height: 300px;
+    }
+
+  }
+}
+
+
+
+
+@media screen and (max-width: 460px) {
+  :host {
+    .hero-image {
+      background-image: url("../../assets/img/img_bienvenida.png");
+    }
+    .register-container {
+      .title-text {
+        h1 {
+          font-size: 2.0rem;
+        }
+      }
+    }
+    .terms {
+      font-size: 1.4rem;
+    }
+  }
+
+  :host {
+    .success-container {
+      .img-send {
+        width: 50px;
+        height: 50px;
+        background-size: 50px 50px;
+      }
+      .text-container {
+        p {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+}

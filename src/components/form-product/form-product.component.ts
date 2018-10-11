@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 import { UtilsService } from '../../util/utils.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
+import { UserService } from '../../services/user.service';
+import { CollectionSelectService } from '../../services/collection-select.service';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -59,7 +61,17 @@ export class FormProductComponent implements OnInit, OnChanges {
   readonly maxNumberPhotos: number = 6;
   maxNumberImg = this.maxNumberPhotos;
   photosCounter = 0;
-
+  public country: Object = {};
+  public state: Object = {};
+  public city: Object = {};
+  public userEdit: any;
+  public countryValue = {};
+  public stateValue;
+  public cityValue;
+  public errorState = false;
+  public errorCity = false;
+  public communityName = '';
+  public showOptions = true;
 
   constructor(
     private router: Router,
@@ -68,8 +80,11 @@ export class FormProductComponent implements OnInit, OnChanges {
     private photosService: PhotosService,
     private categoryService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private userService: UserService,
+    private collectionService: CollectionSelectService,
   ) {
+    this.getCountries();
     this.defineSubastaTimes();
     this.changeDetectorRef.markForCheck();
   }
@@ -79,15 +94,23 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.countryId = Number(currentUser['countryId']);
     try {
       this.setInitialForm(this.getInitialConfig());
-      this.categories = await this.categoryService.getCategories();
-      this.loadYearsModelVehicle();
+      this.categoryService.getCategoriesActiveServer().subscribe((response) => {
+        this.loadYearsModelVehicle();
+        this.categories = response;
+        this.changeDetectorRef.markForCheck();
+      }, (error) => {
+        console.log(error);
+      });
       this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   ngOnChanges(): void {
     if (this.product) {
       this.setInitialForm(this.getInitialConfig());
+      this.getCountries();
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
           if (this.product.photos) {
@@ -101,8 +124,42 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.changeDetectorRef.markForCheck();
   }
 
+  async getInfoUser() {
+    this.userEdit = await this.userService.getInfoUser();
+    if (this.userEdit && this.userEdit.company && this.userEdit.company.community) {
+      this.communityName = this.userEdit.company.community.name;
+    }
+    this.onInfoRetrieved(this.userEdit);
+    this.changeDetectorRef.markForCheck();
+  }
+
+  onInfoRetrieved(user): void {
+    this.country = user.city.state.country;
+    this.stateValue =  user.city.state;
+    this.cityValue = user.city;
+    if (this.product &&  this.country) {
+      this.product.city.state.country =  this.country;
+      this.stateValue =  this.product.city.state;
+      this.cityValue = this.product.city;
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.getInfoUser();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   get isColombia(){
     return this.countryId === 1;
+  }
+
+  get isGuatemala(){
+    return this.countryId === 9;
   }
 
   changeKindOfProduct(evt) {
@@ -125,7 +182,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid) {
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -146,15 +203,9 @@ export class FormProductComponent implements OnInit, OnChanges {
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
-            //  'publish-until': dateMoment,
               'negotiable': false
             };
           }
-          /* else {
-            dataAdditional = {
-              'publish-until': dateMoment
-            };
-          }*/
         } else {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -170,7 +221,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       }
       let params;
       if (this.product) {
-        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional);
+        params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
+          "city-id": this.city["id"]
+        });
         if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
           delete params['publish-until'];
         }
@@ -178,7 +231,9 @@ export class FormProductComponent implements OnInit, OnChanges {
         const publishDate = {
           'published-at': new Date()
         };
-        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional);
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
+          "city-id": this.city["id"]
+        });
       }
       this.photosUploaded.length = 0;
       delete params['category'];
@@ -190,6 +245,24 @@ export class FormProductComponent implements OnInit, OnChanges {
         this.errorMaxImg = true;
         this.changeDetectorRef.markForCheck();
       }
+      if (!this.state['id']) {
+        this.errorState = true;
+      }
+      if (!this.city['id']) {
+        this.errorCity = true;
+      }
+    }
+  }
+
+  validateState() {
+    if (this.state['id']) {
+      this.errorState = false;
+    }
+  }
+
+  validateCity() {
+    if (this.city['id']) {
+      this.errorCity = false;
     }
   }
 
@@ -300,10 +373,17 @@ export class FormProductComponent implements OnInit, OnChanges {
     return false;
   }
 
-  selectedComunity(idCategory: number) {
+  selectedComunity(idCategory: number ) {
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = '';
     this.subCategory = null;
+    this.showOptions = true;
+    if (idCategory == 7 || idCategory == 6) {
+      this.photosForm.patchValue({'sell-type': 'VENTA'});
+      this.showOptions = false;
+      this.disabledField = false;
+      this.photosForm.controls['negotiable'].enable();
+    }
   }
 
   selectedSubcategory(idSubcategory) {
@@ -337,21 +417,21 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.photosForm.controls['negotiable'].disable();
     }
 
-        this.photosForm =  this.fb.group({
-        name: [config.name, [Validators.required]],
-        price: [config.price, [Validators.required]],
-        currency: [config.currency, [Validators.required]],
-        'subcategory-id': [config['subcategory-id'], [Validators.required]],
-        used: [config.used, [Validators.required]],
-        visible: [config.visible, [Validators.required]],
-        'sell-type': [config['sell-type'], [Validators.required]],
-        description: [config.description, [Validators.required]],
-        negotiable: [{value: config.negotiable, disabled: false}, []],
-        'publish-until': [config['publish-until'], []],
-        'type-vehicle': [typeVehicle, []],
-        'model': [model, []],
-        category: [config['category'], [Validators.required]],
-        }, {validator: validatePrice});
+    this.photosForm = this.fb.group({
+      name: [config.name, [Validators.required]],
+      price: [config.price, [Validators.required]],
+      currency: [config.currency, [Validators.required]],
+      'subcategory-id': [config['subcategory-id'], [Validators.required]],
+      used: [config.used, [Validators.required]],
+      visible: [config.visible, [Validators.required]],
+      'sell-type': [config['sell-type'], [Validators.required]],
+      description: [config.description, [Validators.required]],
+      negotiable: [{ value: config.negotiable, disabled: false }, []],
+      'publish-until': [config['publish-until'], []],
+      'type-vehicle': [typeVehicle, []],
+      'model': [model, []],
+      category: [config['category'], [Validators.required]],
+    }, { validator: validatePrice });
   }
 
   private getInitialConfig(): ProductInterface {
@@ -375,21 +455,36 @@ export class FormProductComponent implements OnInit, OnChanges {
           }
       };
       this.product['publish-until'] = objectDate;
+
+    }
+    /**Moneda por defecto**/
+    let currency = 'COP';
+    switch (this.countryId) {
+      case 1:
+        currency = 'COP';
+        break;
+      case 9:
+        currency = 'GTQ';
+        break;
+      default:
+        currency = 'USD';
+        break;
     }
 
     const product: ProductInterface = {
       name: null,
       price: null,
-      currency: 'COP',
+      currency: currency,
       'subcategory-id': '',
-      used: '',
-      visible: '',
-      'sell-type': '',
+      used: false,
+      visible: true,
+      'sell-type': 'VENTA',
       description: null,
       'publish-until': objectDate,
       negotiable: true,
       category: ''
     };
+
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
@@ -413,12 +508,12 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private findCategory(id: number) {
     return this.categories.find(
-      (category: CategoryInterface) => category.id === id
+      (category: CategoryInterface) => category.id == id
     );
   }
 
   private findSubCategory(id: number) {
-    return this.subCategories.find(subCategory => subCategory.id === id);
+    return this.subCategories.find(subCategory => subCategory.id == id);
   }
 
   private getPublishUntilDate(): Date {
@@ -454,12 +549,14 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
-  private defineSubastaTimes(){
+  private defineSubastaTimes() {
     this.minDate = moment().format('YYYY-MM-DD');
     this.maxDate = moment().add(30, 'days').format('YYYY-MM-DD');
   }
 
   get formIsInValid() {
-    return this.photosForm.invalid || this.photosUploaded.length <= 0 ;
+    return this.photosForm.invalid;
   }
+
+
 }

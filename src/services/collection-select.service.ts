@@ -21,17 +21,19 @@ export class CollectionSelectService {
         }
     }
 
-    getCountries(): Promise<any> {
-        return new Promise ((resolve, reject) => {
-            const countries = this.collection.map( value => {
-                return {
-                    id: value.id,
-                    name: value.name,
-                };
-            });
-            resolve(countries);
+  getCountries(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.collection) {
+        const countries = this.collection.map(value => {
+          return {
+            id: value.id,
+            name: value.name,
+          };
         });
-    }
+        resolve(countries);
+      }
+    });
+  }
 
     async getStatesById(id: number) {
         const country = await this.getCountryById(id);
@@ -60,23 +62,27 @@ export class CollectionSelectService {
     }
   }
 
-    getStateById(id: number) {
-        return new Promise((resolve, reject) => {
-            const states = this.states.filter( value => {
-                return value.id == id;
-            });
-            resolve(states[0]);
+  getStateById(id: number) {
+    return new Promise((resolve, reject) => {
+      if (this.states) {
+        const states = this.states.filter(value => {
+          return value.id == id;
         });
-    }
+        resolve(states[0]);
+      }
+    });
+  }
 
-    getCountryById(id: number): Promise <any> {
-        return new Promise((resolve, reject) => {
-            const country = this.collection.filter( value => {
-                return value.id == id;
-            });
-            resolve(country[0]);
+  getCountryById(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.collection) {
+        const country = this.collection.filter(value => {
+          return value.id == id;
         });
-    }
+        resolve(country[0]);
+      }
+    });
+  }
 
     private getCollection(filterActive: string = 'true'): Promise<any> {
         const url = this.configurationService.getBaseUrl() + '/locations/';

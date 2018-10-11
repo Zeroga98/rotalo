@@ -64,8 +64,11 @@
         <input formControlName="cellphone" id="txt-cellphone" name="cellphone" type="number" class="form-control" placeholder="Teléfono celular*"
           onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="15">
           <span class="help-block">
-            <span *ngIf="editProfileForm.get('cellphone').invalid && !editProfileForm.get('cellphone').pristine">
+            <span *ngIf="editProfileForm.get('cellphone').invalid && !editProfileForm.get('cellphone').pristine && !editProfileForm.get('cellphone').errors['pattern']">
                 Este campo es obligatorio.
+            </span>
+            <span *ngIf="editProfileForm.get('cellphone').invalid && editProfileForm.get('cellphone').errors['pattern']">
+                El campo no cumple con el formato de teléfono celular.
             </span>
           </span>
       </div>
@@ -73,7 +76,7 @@
       <div class="form-group location">
         <label class="text--grey-dark">Ubicación</label>
         <div class="form-group">
-          <select-country class="white-theme-select" [initialValue]="countryValue" (selected)="country=$event"></select-country>
+          <select-country class="white-theme-select" [initialValue]="countryValue" (selected)="country=$event; setValidationId()"></select-country>
         </div>
         <div class="form-group">
           <select-states class="white-theme-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event"></select-states>

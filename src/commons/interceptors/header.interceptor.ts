@@ -36,6 +36,10 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('centro')
       && !req.url.includes('general')
       && !req.url.includes('ofertas')
-      && !req.url.includes('convenios');
+      && !req.url.includes('convenios')
+      && !req.url.includes('categorias')
+      && !req.url.includes('preregistro')
+      && !req.url.includes('registro')
+      && !req.url.includes('credenciales');
     }
 }

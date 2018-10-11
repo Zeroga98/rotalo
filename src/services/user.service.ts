@@ -8,8 +8,10 @@ import { UserRequestInterface } from "../commons/interfaces/user-request.interfa
 @Injectable()
 export class UserService {
   readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
   currentUser: UserInterface;
   idUser: string;
+  communities;
   @Output() changePhoto: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -90,4 +92,37 @@ export class UserService {
     })
     .toPromise();
   }
+
+  setCommunities(communities) {
+    this.communities = communities;
+  }
+
+  getCommunitiesCurrent() {
+    return  this.communities;
+  }
+
+  preSignup (params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/preregistro`;
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
+  reSendEmail (params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/preregistro/reenvio`;
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
+  signup (params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/registro`;
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
 }

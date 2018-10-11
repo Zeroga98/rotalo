@@ -2,23 +2,23 @@ import {
   Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef
-} from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
-import { LoginService } from "../../services/login/login.service";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { Router } from "@angular/router";
-import { ROUTES } from "../../router/routes";
-import { UserService } from "../../services/user.service";
-import { MessagesService } from "../../services/messages.service";
-import { ModalFeedBackService } from "../../components/modal-feedBack/modal-feedBack.service";
-import { ProductsService } from "../../services/products.service";
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { LoginService } from '../../services/login/login.service';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../router/routes';
+import { UserService } from '../../services/user.service';
+import { MessagesService } from '../../services/messages.service';
+import { ModalFeedBackService } from '../../components/modal-feedBack/modal-feedBack.service';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
-  selector: "login-page",
-  templateUrl: "login.page.html",
-  styleUrls: ["login.page.scss"],
+  selector: 'login-page',
+  templateUrl: 'login.page.html',
+  styleUrls: ['login.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPage implements OnInit {
@@ -53,22 +53,37 @@ export class LoginPage implements OnInit {
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
-      event: "pushEventGA",
+      event: 'pushEventGA',
       method: method,
       type: type,
       categoria: category,
       accion: action,
       etiqueta: label
     };
-    window["dataLayer"].push(paramsGa);
+    window['dataLayer'].push(paramsGa);
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get("email").value;
-      const password = this.loginForm.get("password").value;
+      const email = this.loginForm.get('email').value;
+      const password = this.loginForm.get('password').value;
       this.login(email, password);
+    }else {
+      this.validateAllFormFields(this.loginForm);
     }
+  }
+
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+       control.markAsDirty({ onlySelf: true });
+       control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
 
@@ -85,7 +100,7 @@ export class LoginPage implements OnInit {
     const user = {
       user: userEmail,
       password: password,
-      ipAddress: "127.0.0.0"
+      ipAddress: '127.0.0.0'
     };
     this.loginService.logOutClearSession(user.user).subscribe(data => {
       if (data.status === 200) {
@@ -93,22 +108,22 @@ export class LoginPage implements OnInit {
           .then(response => {
             if (response.status === 200) {
               this.gapush(
-                "send",
-                "event",
-                "Ingreso",
-                "ClicLogin",
-                "IngresarExitosamente"
+                'send',
+                'event',
+                'Ingreso',
+                'ClicLogin',
+                'IngresarExitosamente'
               );
               const saveInfo = {
-                "auth-token": response.body.data.token,
+                'auth-token': response.body.data.token,
                 email: response.body.data.userProperties.email,
                 id: response.body.data.userProperties.roles[0],
                 rol: response.body.data.userProperties.roles[1],
-                "id-number": response.body.data.userProperties.identification,
+                'id-number': response.body.data.userProperties.identification,
                 name: response.body.data.userProperties.fullname,
                 photo: {
-                  id: " ",
-                  url: " "
+                  id: ' ',
+                  url: ' '
                 }
               };
               this.modalFeedBackService.close('custom-modal-1');
@@ -118,19 +133,24 @@ export class LoginPage implements OnInit {
               this.checkNotificationHobbies(saveInfo.id);
             }
             if (response.status === 401) {
-              this.errorLogin = "Usuario o contraseña incorrecto.";
+              this.errorLogin = 'Usuario o contraseña incorrecto.';
               this.changeRef.markForCheck();
             }
             if (response.status === 500) {
               this.errorLogin =
-                "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
+                '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+              this.changeRef.markForCheck();
+            }
+            if (response.status === 700) {
+              this.errorLogin = response.message;
+              this.reSendEmail(userEmail);
               this.changeRef.markForCheck();
             }
           })
           .catch(httpErrorResponse => {
             console.error(httpErrorResponse);
             if (httpErrorResponse.status === 401) {
-              this.errorLogin = "No puede tener más de 1 sesión activas.";
+              this.errorLogin = 'No puede tener más de 1 sesión activas.';
             }
             if (httpErrorResponse.status === 403) {
             }
@@ -139,13 +159,32 @@ export class LoginPage implements OnInit {
             }
             if (httpErrorResponse.status === 0) {
               this.errorLogin =
-                "¡No hemos podido conectarnos! Por favor intenta de nuevo.";
+                '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
             }
             this.changeRef.markForCheck();
           });
       }
     });
   }
+
+  reSendEmail (email) {
+    let idCountry;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      idCountry = 9;
+    }else {
+      idCountry = 1;
+    }
+      const params = {
+        'pais': idCountry,
+        'correo': email
+      };
+      this.userService.reSendEmail(params).subscribe(response => {
+      }, error => {
+        console.log(error);
+      });
+  }
+
 
   async setUserCountry(userInfo) {
     try {
@@ -165,5 +204,9 @@ export class LoginPage implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 }

@@ -16,6 +16,8 @@ export class ProductsService {
     public products: Array<ProductInterface> = [];
     public currentPage = 0;
     private urlDetailProduct;
+    private totalProducts = 0;
+    private featuredProducts;
 
     constructor(
       private http: HttpClient,
@@ -23,6 +25,14 @@ export class ProductsService {
       private userService: UserService,
       private router: Router,
     ) {}
+
+    setTotalProducts (total) {
+      this.totalProducts = total;
+    }
+
+    getTotalProducts () {
+      return this.totalProducts;
+    }
 
     setUrlDetailProduct (urlDetailProduct) {
       this.urlDetailProduct = urlDetailProduct;
@@ -37,6 +47,9 @@ export class ProductsService {
         .get(this.url, { params: params })
         .toPromise()
         .then((response: any) => {
+          if (response.meta) {
+            this.setTotalProducts (response.meta['record-count']);
+          }
           response.data.lastPage = response.links.next === undefined;
           return response.data;
         });
@@ -49,6 +62,9 @@ export class ProductsService {
       const url = this.urlSapi + '/productos';
       return this.http.get(url, { headers: headers,  params: params }).toPromise()
       .then((response: any) => {
+      if (response.body.totalProductos) {
+        this.setTotalProducts (response.body.totalProductos);
+      }
       return response.body.productos;
       });
     }
@@ -179,9 +195,9 @@ export class ProductsService {
     getProductLocation() {
       if (document && this.scroll) {
         if (document.getElementById(this.scroll)) {
-          document.getElementById(this.scroll).scrollIntoView();
+          document.getElementById(this.scroll).scrollIntoView(true);
+          this.scroll = undefined;
         }
-
       }
     }
 
@@ -191,6 +207,14 @@ export class ProductsService {
       const url =
       `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=${communityId}&cantidad=5&pagina=1`;
       return this.http.get(url, { headers: headers }).map((response: any) => response);
+    }
+
+    setFeatureProducts(featuredProducts) {
+      this.featuredProducts = featuredProducts;
+    }
+
+    getFeatureProducts() {
+      return  this.featuredProducts ;
     }
 
 }

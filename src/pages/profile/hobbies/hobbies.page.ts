@@ -16,19 +16,6 @@ export class HobbiesPage implements OnInit {
   public messageChange: String;
   public userHobbie: any;
   private userId;
-  public hobbies2: Array<any> = [
-    { name: "Bebés", id: 1, checked: true },
-    { name: "Camping y actividades al aire libre", id: 2, checked: false },
-    { name: "Carpinteria y manualidades", id: 3, checked: true },
-    { name: "Carros", id: 4, checked: false },
-    { name: "Cine", id: 5, checked: false },
-    { name: "Cocina", id: 6, checked: false },
-    { name: "Coleccionar", id: 7, checked: false },
-    { name: "Deporte", id: 8, checked: false },
-    { name: "Eventos y espectáculos", id: 9, checked: false },
-    { name: "Hogar", id: 11, checked: false },
-    { name: "Jardineria", id: 12, checked: false }
-  ];
   public hobbies: Array<any> = [];
   private numberHobbies = 0;
   public maxHobbies: number = 5;

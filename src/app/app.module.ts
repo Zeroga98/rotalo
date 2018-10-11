@@ -142,7 +142,11 @@ import { ModalUploadProductComponent } from '../components/modal-uploadProduct/m
 import { ModalUploadProductService } from '../components/modal-uploadProduct/modal-uploadProduct.service';
 import { ModalTicketComponent } from '../components/modal-ticket/modal-ticket.component';
 import { ModalTicketService } from '../components/modal-ticket/modal-ticket.service';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { NavigationTopLoginComponent } from '../components/navigation-top-login/navigation-top-login.component';
+import { CompanySliderComponent } from '../components/company-slider/company-slider.component';
+import { ModalVideoService } from '../components/modal-video/modal-video.service';
+import { ModalVideoComponent } from '../components/modal-video/modal-video.component';
 
 @NgModule({
   declarations: [
@@ -227,6 +231,9 @@ import { ModalTicketService } from '../components/modal-ticket/modal-ticket.serv
     ModalShareProductComponent,
     ModalUploadProductComponent,
     ModalTicketComponent,
+    NavigationTopLoginComponent,
+    CompanySliderComponent,
+    ModalVideoComponent,
   ],
   imports: [
     BrowserModule,
@@ -244,7 +251,8 @@ import { ModalTicketService } from '../components/modal-ticket/modal-ticket.serv
     RouterModule.forRoot(appRouter),
     LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule,
-    BarRatingModule
+    BarRatingModule,
+    NgxPaginationModule
   ],
   providers: [
     UserService,
@@ -285,6 +293,7 @@ import { ModalTicketService } from '../components/modal-ticket/modal-ticket.serv
     ModalShareProductService,
     ModalUploadProductService,
     ModalTicketService,
+    ModalVideoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

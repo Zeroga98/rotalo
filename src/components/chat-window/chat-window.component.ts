@@ -161,7 +161,6 @@ export class ChatWindowComponent
           if (this.rol === 'admin') {
             this.isSendMessage = true;
           }
-          this.formMessage.reset();
         },
         error => console.log(error)
       );

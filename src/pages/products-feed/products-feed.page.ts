@@ -16,8 +16,10 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewInit,
-  EventEmitter
+  EventEmitter,
+  ViewChildren,
+  QueryList,
+  AfterViewInit
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
@@ -35,6 +37,7 @@ import { ModalShareProductService } from '../../components/modal-shareProduct/mo
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
 import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 
 
 @Component({
@@ -43,8 +46,9 @@ import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.con
   styleUrls: ['products-feed.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsFeedPage implements OnInit, OnDestroy {
+export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public carouselConfig: NgxCarousel;
+  public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
@@ -64,9 +68,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
+  public groupFeaturedProducts:  Array<any> = [];
   public couponService;
   public community: any;
   readonly defaultImage: string = "../assets/img/product-no-image.png";
+  private currentUrl = '';
+  public pageNumber: number = 1;
+  public totalPages: number = 100;
+  @ViewChildren('productsEnd') endForRender: QueryList<any>;
+  public  showPagination = false;
 
   constructor(
     private productsService: ProductsService,
@@ -86,11 +96,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
+    // this.imagesBanner = IMGS_BANNER_PROMO;
+    this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER;
 
-
     /*Promo fecha determinada para cierta comunidad*/
-   /*this.addPromoBanner();*/
+    // this.addPromoBanner();
+    this.addPromoBannerColombia();
   }
 
    ngOnInit() {
@@ -102,49 +114,85 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-    this.setScrollEvent();
-  }
-
-  async addPromoBanner() {
-    this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'SQA') {
-      this.imagesBanner = IMGS_BANNER_PROMO;
-    }
+    // this.setScrollEvent();
   }
 
   ngOnDestroy(): void {
-
-    /*Se remueve los modales del DOM */
-    /*
-    const element1 = document.getElementById('custom-modal-2');
-    const element2 = document.getElementById('custom-modal-3');
-    element1.parentNode.removeChild(element1);
-    element2.parentNode.removeChild(element2);*/
-
     this._subscriptionCountryChanges.unsubscribe();
     this.changeDetectorRef.markForCheck();
   }
 
-  loadFeaturedProduct(countryId, communityId) {
-    this.productsService.featuredProduct(countryId, communityId).subscribe(
-      (response) => {
-        if (response.body) {
-          this.featuredproducts = response.body.productos;
-          this.changeDetectorRef.markForCheck();
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  ngAfterViewInit() {
+    this.showPagination = true;
+    if (this.productsService.products.length > 0) {
+      this.endForRender.notifyOnChanges();
+      this.endForRender.changes.subscribe(t => {
+        this.ngForRender();
+        this.changeDetectorRef.markForCheck();
+      });
+    }
+    this.changeDetectorRef.markForCheck();
   }
+
+  ngForRender() {
+    this.productsService.products = [];
+    this.productsService.getProductLocation();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  /*async addPromoBanner() {
+    this.community = await this.userService.getCommunityUser();
+    if (this.community && this.community.name === 'Grupo Bancolombia') {
+      this.imagesBanner = IMGS_BANNER_PROMO;
+    }
+  }*/
+
+  addPromoBannerColombia() {
+    this.currentUrl = window.location.href;
+    if (this.currentUrl.includes('gt')) {
+      this.imagesBanner = IMGS_BANNER;
+    }else {
+     this.imagesBanner = IMGS_BANNER_PROMO;
+     // this.imagesBanner = IMGS_BANNER;
+    }
+  }
+
+  loadFeaturedProduct(countryId, communityId) {
+    if (!this.productsService.getFeatureProducts()) {
+      this.productsService.featuredProduct(countryId, communityId).subscribe(
+        (response) => {
+          if (response.body) {
+          this.featuredproducts = response.body.productos;
+          this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
+          this.productsService.setFeatureProducts(this.groupFeaturedProducts);
+          this.changeDetectorRef.markForCheck();
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.groupFeaturedProducts = this.productsService.getFeatureProducts();
+      this.changeDetectorRef.markForCheck();
+    }
+  }
+
+  chunkArray(myArray, chunk_size) {
+    const results = [];
+    while (myArray.length) {
+      results.push(myArray.splice(0, chunk_size));
+    }
+    return results;
+  }
+
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
 
   getLocation(product): string {
-    const city = product.user.city;
+    const city = product.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
   }
@@ -166,14 +214,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.currentFilter = {
         'pais': countryId,
         'comunidad': -1,
-        'cantidad': 3,
+        'cantidad': 24,
         'pagina': 1
       };
       this.loadFeaturedProduct(countryId, -1);
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
         'filter[country]': countryId,
-        'page[size]': 8,
+        'page[size]': 24,
         'page[number]': 1
       });
       this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
@@ -195,15 +243,23 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-      let products;
-      if ( this.isSuperUser()) {
-        products = await this.productsService.getProductsSuper(this.userId, params);
-      }else {
-        products = await this.productsService.getProducts(params);
+
+      if (this.productsService.products.length > 0) {
+        this.products = this.productsService.products;
+        this.currentPage = this.productsService.currentPage;
+        this.pageNumber = this.currentPage;
+        this.changeDetectorRef.markForCheck();
+      } else {
+        let products;
+        if (this.isSuperUser()) {
+          products = await this.productsService.getProductsSuper(this.userId, params);
+        }else {
+          products = await this.productsService.getProducts(params);
+        }
+        this.updateProducts(products);
       }
+      this.totalPages = this.productsService.getTotalProducts();
       this.stateRequest = this.statesRequestEnum.success;
-      this.updateProducts(products);
-      this.validateStateScrollInfinite(products);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.stateRequest = this.statesRequestEnum.error;
@@ -214,16 +270,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       this.showAnyProductsMessage = true;
     }else {
       this.showAnyProductsMessage = false;
-    }
-
-    if (this.productsService.products.length > 0) {
-      this.products = this.productsService.products;
-      this.productsService.products = [];
-      setTimeout(() => {
-        this.productsService.getProductLocation();
-        this.currentPage = this.productsService.currentPage;
-        this.productsService.scroll = 0;
-      }, 2200);
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -254,7 +300,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
           'filter[status]': 'active',
           'filter[country]': 1,
           'filter[community]': -1,
-          'page[size]': 8,
+          'page[size]': 24,
           'page[number]': 1,
           'filter[search]': null
         };
@@ -283,20 +329,21 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     });
   }
 
-  scrolledInfinite() {
-    this.currentPage++;
-    this.waitNewPage = true;
-    if ( this.isSuperUser()) {
+  getPage(page: number) {
+    this.pageNumber = page;
+    if (this.isSuperUser()) {
       this.routineUpdateProducts(
-        { 'pagina': this.currentPage },
-        this.currentPage
+        { 'pagina': page },
+        page
       );
     }else {
       this.routineUpdateProducts(
-        { 'page[number]': this.currentPage },
-        this.currentPage
+        { 'page[number]': page },
+        page
       );
     }
+    this.productsService.scroll = 0;
+    window.scrollTo(0, 0);
   }
 
   changeCommunity(community: any) {
@@ -368,7 +415,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
     this.waitNewPage = false;
-    this.updateMasonry();
+   // this.updateMasonry();
   }
 
   addNewPage(newProducts) {
@@ -397,56 +444,33 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     return this.currentFilter;
   }
 
-  private setScrollEvent() {
-    window.addEventListener('scroll', this.backTopToggle.bind(this));
-  }
-
-  private updateMasonry() {
-    if (this.masonryRef.layout) {
-      setTimeout(() => {
-        this.masonryRef.layout();
-      }, 1);
-    }
-  }
-
-  private validateStateScrollInfinite(products: ProductInterface) {
-    this.isInfiniteScrollDisabled =
-      this.products.length <= 0 || products.lastPage;
-  }
 
   private setconfigFiltersSubcategory(filter) {
     this.configFiltersSubcategory = filter;
     this.feedService.setConfigFiltersSubcategory(this.configFiltersSubcategory);
   }
 
-  private backTopToggle(ev) {
-    const doc = document.documentElement;
-    const offsetScrollTop =
-      (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    offsetScrollTop > 50
-      ? this.rendered.addClass(this.backTop.nativeElement, 'show')
-      : this.rendered.removeClass(this.backTop.nativeElement, 'show');
-  }
 
-  shareProduct(id: string, product) {
+  public shareProduct(id: string, product) {
     if (product.id) {
       this.modalService.setProductId(product.id);
       this.modalService.open(id);
     }
   }
 
-  isExclusiveOffer(imageUrl) {
-    if (imageUrl === './assets/img/banner/banner_10.png') {
+  public isExclusiveOffer(imageUrl) {
+    if (imageUrl.includes('rotalo_banner')) {
       return true;
     }
     return false;
   }
 
-  openModalCupon (imageUrl, id: string) {
+  public openModalCupon (imageUrl, id: string) {
     if (this.isExclusiveOffer(imageUrl)) {
       const currentUser = this.currentSession.currentUser();
       if (currentUser) {
         const emailObject = {
+          'convenio': 2,
           'correo' : currentUser.email
         };
         this.getCoupon (emailObject, id);
@@ -454,7 +478,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy {
     }
   }
 
-  getCoupon (email, id: string) {
+  public getCoupon (email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {
       this.couponService = response.body.cupon;
       this.modalTicketService.open(id);

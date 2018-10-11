@@ -12,7 +12,7 @@ export class MessagesService {
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     private readonly timeToCheckNotification: number = 10000;
-    private readonly timeToCheckUnreadNotification: number = 15000;
+    private readonly timeToCheckUnreadNotification: number = 20000;
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     getConversation(): Promise<any> {

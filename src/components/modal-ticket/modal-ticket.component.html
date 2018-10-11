@@ -5,27 +5,19 @@
       </div>
       <div class="share-product-container">
           <div *ngIf="coupon != '0'" class="icon-share-container">
-            <img src="../../assets/img/logo_dislicores_black.png" alt="logo_dislicores">
+            <img src="../../assets/img/logo_offcors.png" alt="logo_dislicores">
           </div>
         <div class="company-info-container">
           <div *ngIf="coupon != '0'">
-            <p>Del 13 al 20 de septiembre disfruta estos súper descuentos en licores importados a través de la página web www.dislicores.com presentando este código único de descuento al momento de la compra.</p>
+            <p>Del 11 al 25 de octubre disfruta de un súper descuento que te trae OFFCORSS.</p>
             <div class="percentage-container">
                 <div class="item-percentage">
                   <div class="percentage">
-                    15%
+                    <img src="../../assets/img/20_descuento.png" alt="20%">
                   </div>
-                  <div class="percentage-info">
-                    En Old Parr, Buchanans, Zacapa, Tanqueray, Ciroc, Smirnoff, Johnnie Walker.
-                  </div>
-                </div>
-                <div class="item-percentage">
-                    <div class="percentage">
-                      30%
-                    </div>
-                    <div class="percentage-info">
-                      En Cousiño Macul y Navarro Correas
-                    </div>
+                <!--  <div class="percentage-info">
+                    Old Parr, Buchanan’s, Zacapa, Tanqueray, Cîroc, Smirnoff, Johnnie Walker, Cousiño Macul y Navarro Correas.
+                  </div>-->
                 </div>
             </div>
           </div>
@@ -38,18 +30,18 @@
                   {{coupon}}
                 </div>
                 <div class="info-coupon">
-                  Entra a www.dislicores.com y al momento de la compra ingresa este código
+                  Entra a WWW.OFFCORSS.COM y al finalizar la compra ingresa este código
                 </div>
             </div>
 
             <div *ngIf="coupon == '0'" class="empty-coupon">
               <h4 class="title">¡Lo sentimos!</h4>
               <p>Todos corrieron a generar sus cupones y ya no quedan más. <br>
-                  Te estaremos informando cuando tengamos super promos como esta.</p>
-              <p>Ingresar a Dislicores y antójate de muchas cosas más</p>
+                 Te estaremos informando cuando tengamos súper promos como esta.</p>
+              <p>Pero no te preocupes, tenemos muchos artículos que te pueden interesar.</p>
             </div>
             <div class="button-container">
-              <button class="primary" type="button" onclick="window.open('https://www.dislicores.com', '_blank');">Ingresa aquí</button>
+              <button class="primary" type="button" onclick="window.open('https://www.offcorss.com', '_blank');">Ingresa aquí</button>
             </div>
           </div>
         </div>
@@ -99,7 +91,7 @@
               <label class="share-text">Copia este link para que más personas conozcan la promo</label>
             </div>
             <div class="link-text">
-              <input value="https://www.rotalo.com.co/rotalapromo/dislicores" id="link" readonly>
+              <input value="https://www.rotalo.com.co/rotalapromo/offcorss" id="link" readonly>
               <div class="btn-container">
                 <button (click)="copyToClipboard()" class="btn-copy">
                   Copiar

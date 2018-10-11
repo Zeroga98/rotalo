@@ -27,20 +27,24 @@ export class RecoverPage implements OnInit {
     }
   }
   recover(userEmail: string) {
-    const user = {
-      'data': {
-        'type': 'recover',
-        'attributes': {
-          'email': userEmail
-        }
-      }
+    const currentUrl = window.location.href;
+    let idCountry;
+    if (currentUrl.includes('gt')) {
+      idCountry = 9;
+    }else {
+      idCountry = 1;
+    }
+    const params = {
+     'pais': idCountry,
+     'correo': userEmail
     };
-    this.recoverService.recoverUser(user).then((response) => {
-      this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
-    }).catch((httpErrorResponse) => {
-      if (httpErrorResponse.status ===  404) {
-        this.errorLogin = httpErrorResponse.error.errors[0].title;
+    this.recoverService.recoverUser(params).subscribe(
+      (response) => {
+        this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
+      },
+      (error) => {
+       this.errorLogin = error.error.message;
       }
-    });
+    );
   }
 }

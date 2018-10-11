@@ -1,136 +1,127 @@
-<back-arrow></back-arrow>
-<div class="container-fluid">
-  <div class="">
+<navigation-top-login>
+</navigation-top-login>
+<div class="container-fluid material">
+  <div class="img-container">
+    <img src="././assets/img/img_banner_registro.svg" alt="banner registro">
+  </div>
+  <div class="form-container">
     <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
-      <div class="text-center m-b">
-        <a href="../index.html" class="m-b-lg">
-          <img src="./assets/img/logo-red.svg" alt="brand">
-          <h1 class="sr-only">rótalo</h1>
-        </a>
+      <div class="title-text">
+        <h1>Estás a un paso de completar tu registro
+        </h1>
       </div>
-      <p class="title-text text-center">Crea una cuenta</p>
-      <div class="container-errors">
-        <ul>
-          <li *ngFor="let error of errorsSubmit" class="error">{{error.title}}</li>
-        </ul>
-      </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine}" name="first-name"
-        formControlName="first-name" type="text" class="form-control" maxlength="100" placeholder="Nombres*">
-        <span class="help-block">
-          <span *ngIf="registerForm.get('first-name').invalid && !registerForm.get('first-name').pristine">
-            Este campo es obligatorio.
-          </span>
+      <div *ngIf="errorMessage">
+        <div class="error-ico">
+        </div>
+        <span class="error-signup" >
+          {{errorMessage}}
         </span>
       </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine}" name="last-name"
-          formControlName="last-name" type="text" class="form-control" maxlength="100" placeholder="Apellidos*">
-        <span class="help-block">
-          <span *ngIf="registerForm.get('last-name').invalid && !registerForm.get('last-name').pristine">
-            Este campo es obligatorio.
-          </span>
+      <div class="input-readonly material-input text-center">
+        <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
+          <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
+            formControlName="name" name="name" maxlength="50" class="input__field input__field--label-md" id="txt-name" type="text"
+            autocomplete="off" />
+          <label class="input__label input__label--label-md">
+            <span class="input__label-content input__label-content--label-md" data-content="Nombre completo">Nombre
+              completo</span>
+          </label>
         </span>
-      </div>
-      <div class="form-group">
-        <select-country class="white-theme-select"  (selected)="country=$event; setValidationId()"></select-country>
-      </div>
-      <div class="form-group">
-        <select-states *ngIf="country" class="white-theme-select" [country]="country" (selected)="state=$event"></select-states>
-      </div>
-      <div class="form-group">
-        <select-cities *ngIf="state" class="white-theme-select" [state]="state" (selected)="city=$event"></select-cities>
-      </div>
-      <div *ngIf="selectedCountryColombia()" class="form-group">
-        <select class="form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId()">
-          <option value="" disabled>Selecciona tipo de documento*</option>
-          <option *ngFor="let typeDocument of typeDocuments" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
-        name="id-number"
-        formControlName="id-number"
-        type="text"
-        maxlength="40"
-        class="form-control"
-        placeholder="Número de documento*">
         <span class="help-block">
-            <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
-                Este campo es obligatorio.
-            </span>
-            <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
-                {{errorMessageId}}
+            <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
+              Este campo es requerido.
             </span>
         </span>
       </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}" name="email" formControlName="email"
-          type="email" class="form-control" maxlength="50" placeholder="Tu email corporativo*">
-        <span class="help-block">
-          <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
-            El campo no cumple con el formato de correo.
-          </span>
+      <div class="input-readonly material-input text-center">
+        <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="text-left input input--label-md">
+          <input [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
+            formControlName="email" name="email" maxlength="64" class=" input__field input__field--label-md " id="txt-email-register"
+            type="email" autocomplete="off" />
+          <label class="input__label input__label--label-md">
+            <span class="input__label-content input__label-content--label-md" data-content="Email corporativo">
+              Email corporativo</span>
+          </label>
         </span>
-      </div>
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
-          formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
-          maxlength="10" class="form-control" placeholder="Teléfono celular*">
-          <span class="help-block">
-              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine">
-                  Este campo es obligatorio.
-              </span>
+        <span class="help-block text-left">
+            <span *ngIf="registerForm.get('email').invalid && !registerForm.get('email').pristine">
+              El campo no cumple con el formato de correo.
             </span>
+        </span>
       </div>
 
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}" name="password"
-          formControlName="password" type="password" maxlength="20" class="form-control" placeholder="Contraseña*">
-          <span class="help-block">
-              <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
-                  Este campo es obligatorio.
-              </span>
-              <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
-                  El campo no cumple la longitud mínima.
-              </span>
-            </span>
+      <div class="select-country form-group">
+        <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
 
-      <div class="form-group">
-        <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
-          name="password-confirmation" formControlName="password-confirmation" type="password" maxlength="20" class="form-control"
-          placeholder="Confirmar Contraseña*">
-          <span class="help-block">
-              <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
-                  Este campo es obligatorio.
-              </span>
-              <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
-                  El campo no cumple la longitud mínima.
-              </span>
-              <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
-                  La contraseña de verificación no coincide.
-              </span>
-            </span>
-      </div>
-      <div class="text-center form-group terms">
-        <label class="gtmSignUpAcepTermYCond" for="checkTerms">
-          <input class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox" #checkBoxTerms>
-        </label>
-        Acepto
-        <a (click)="openTermsModal()">términos y condiciones</a>
-      </div>
-      <div>
-        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Crear cuenta" [disabled]="formIsInValid"></custom-button>
+      <div class="row-two">
+        <div class="form-group column">
+          <select-states [ngClass]="{'invalid': errorState}"  class="white-theme-select material-select" [country]="country" (selected)="state=$event; validateState()"></select-states>
+          <span class="error-msg">Este campo es requerido.</span>
+        </div>
+        <div class="form-group column">
+          <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+          <span class="error-msg">Este campo es requerido.</span>
+        </div>
       </div>
 
-      <footer class="text-center">
-        <p>¿Tienes cuenta?
-          <a routerLink="/login"> Ingresar</a>
-        </p>
-      </footer>
+      <div class="row-two">
+        <div class="form-group column type-document" [ngClass]="{'valid': registerForm.get('type-document-id').value}">
+          <select [ngClass]="{'invalid': errorTypeDocument}" class="select-text form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
+            <option value="" disabled></option>
+            <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
+          </select>
+					<label class="select-label">Tipo de documento
+          </label>
+          <span class="error-msg">Este campo es requerido.</span>
+        </div>
+
+        <div class="material-input text-center column">
+            <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="text-left input input--label-md">
+              <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
+                formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--label-md" id="txt-id-number" type="text"
+                autocomplete="off"/>
+              <label class="input__label input__label--label-md">
+                <span class="input__label-content input__label-content--label-md" data-content="Número">Número</span>
+              </label>
+            </span>
+            <span class="help-block">
+                <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                    Este campo es requerido.
+                </span>
+                <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
+                    {{errorMessageId}}
+                </span>
+            </span>
+          </div>
+      </div>
+
+      <div class="material-input text-center">
+          <span [ngClass]="{'input--filled': registerForm.get('cellphone').value}" class="text-left input input--label-md">
+            <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
+              formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
+              maxlength="10" class="form-control" class="input__field input__field--label-md" id="txt-cellphone" autocomplete="off"/>
+            <label class="input__label input__label--label-md">
+              <span class="input__label-content input__label-content--label-md" data-content="Celular">Celular</span>
+            </label>
+          </span>
+          <span class="help-block">
+              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+              && !registerForm.get('cellphone').errors['pattern']">
+                  Este campo es requerido.
+              </span>
+              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+              && registerForm.get('cellphone').errors['pattern']">
+                  El campo no cumple con el formato de teléfono.
+              </span>
+            </span>
+        </div>
+
+
+      <div class="btn-signup">
+        <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro"></custom-button>
+      </div>
     </form>
   </div>
 </div>
-<terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
 <custom-footer></custom-footer>

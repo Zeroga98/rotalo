@@ -1,9 +1,8 @@
-<back-top number="300" stepTime="10" #backTop></back-top>
 <div class="md-overlay"></div>
 <div class="md-overlay-red"></div>
 
-<modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
-<!--<modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
+ <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
+<modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket>
 
 <toolbar
 (selectedCommunity)="changeCommunity($event)"
@@ -29,67 +28,75 @@
   <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next"></span>
 </ngx-carousel>
 
-<div *ngIf="featuredproducts.length != 0" class="featured-section">
-  <div class="featured-container">
-    <div class="row-featured">
-      <div class="header-featured">
-        <img class="star-img" src="../../assets/img/estrella.gif" alt="estrella">
-        <h3>Artículos destacados</h3>
-      </div>
-      <div class="carousel-container">
-        <div  class="featured-cards">
-          <div *ngFor="let featuredproduct of featuredproducts" class="featured-card">
-              <div *ngIf= "featuredproduct" class="item__wrapper">
-                  <div class="item__card">
-                      <div class="item__image-container">
-                        <div  *ngIf="featuredproduct['is-low-price']" class="container-low-price">
-                          <p>$ REBAJÓ</p>
-                        </div>
-                          <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
-                          <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
-                          <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="gtmCompartirProducto icon-share-container">
-                              <div class="gtmCompartirProducto icon-share">
-                              </div>
-                          </div>
-                      </div>
-                      <div  (click)="selectProduct(featuredproduct)" class="item__content">
-                        <div class="item__name">
-                          <span>
-                              {{featuredproduct.name}}
-                          </span>
-                        </div>
-                        <div class="item__price-block">
-                          <span *ngIf=" featuredproduct.price != 0">{{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}</span>
-                          <span *ngIf=" featuredproduct.price == 0">Gratis</span>
-                        </div>
-                        <div class="item__location">
-                            <span class="icon-location"></span>
-                            <span>{{getLocation(featuredproduct)}}</span>
-                        </div>
-                        <div *ngIf="featuredproduct.user" class="item_info-user">
-                            <div class="icon-container" [ngStyle]="{'background-color':featuredproduct.user.company.colour}">
-                                <span class="icon-account" *ngIf="!featuredproduct.user.photo && !featuredproduct.user.photos"></span>
-                                <img  *ngIf="featuredproduct.user.photo" [src]="featuredproduct.user.photo.url">
-                                <img  *ngIf="featuredproduct.user.photos" [src]="featuredproduct.user.photos.url">
-                            </div>
-                            <div class="info-user">
-                                <p class="name-text">{{featuredproduct.user.name}}</p>
-                                <p  *ngIf="featuredproduct.user && featuredproduct.user.company" [ngStyle]="{'color':featuredproduct.user.company.colour}" class="company-text">
-                                    {{featuredproduct.user?.company.name}}
-                                    <span class="comunidad-text"> -  {{featuredproduct.user?.company.community.name}}</span>
-                                </p>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-          </div>
+<div *ngIf="groupFeaturedProducts.length != 0 && showBanner && !configFiltersSubcategory" class="featured-section">
+    <div class="featured-container">
+      <div class="row-featured">
+        <div class="header-featured">
+          <img class="star-img" src="../../assets/img/estrella.gif" alt="estrella">
+          <h3>Artículos destacados</h3>
         </div>
+        <ngx-carousel class="carousel-featured" *ngIf="groupFeaturedProducts.length != 0" [inputs]="carouselProductsConfig">
+            <ngx-item NgxCarouselItem *ngFor="let groupfeaturedProduct of groupFeaturedProducts">
+                <div class="carousel-container">
+                    <div  class="featured-cards">
+                      <div *ngFor="let featuredproduct of groupfeaturedProduct" class="featured-card">
+                          <div *ngIf= "featuredproduct" class="item__wrapper">
+                              <div class="item__card">
+                                  <div class="item__image-container">
+                                    <div *ngIf="featuredproduct['is-low-price'] && featuredproduct['featuredType'] == 'isLowPrice'" class="container-low-price">
+                                      <p>$ REBAJÓ</p>
+                                    </div>
+                                    <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
+                                        <p>TRENDING</p>
+                                    </div>
+                                      <img (click)="selectProduct(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
+                                      <img (click)="selectProduct(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
+                                      <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="gtmCompartirProducto icon-share-container">
+                                          <div class="gtmCompartirProducto icon-share">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div  (click)="selectProduct(featuredproduct)" class="item__content">
+                                    <div class="item__name">
+                                      <span>
+                                          {{featuredproduct.name}}
+                                      </span>
+                                    </div>
+                                    <div class="item__price-block">
+                                      <span *ngIf=" featuredproduct.price != 0">{{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}</span>
+                                      <span *ngIf=" featuredproduct.price == 0">Gratis</span>
+                                    </div>
+                                    <div class="item__location">
+                                        <span class="icon-location"></span>
+                                        <span>{{getLocation(featuredproduct)}}</span>
+                                    </div>
+                                    <div *ngIf="featuredproduct.user" class="item_info-user">
+                                        <div class="icon-container" [ngStyle]="{'background-color':featuredproduct.user.company.colour}">
+                                            <span class="icon-account" *ngIf="!featuredproduct.user.photo && !featuredproduct.user.photos"></span>
+                                            <img  *ngIf="featuredproduct.user.photo" [src]="featuredproduct.user.photo.url">
+                                            <img  *ngIf="featuredproduct.user.photos" [src]="featuredproduct.user.photos.url">
+                                        </div>
+                                        <div class="info-user">
+                                            <p class="name-text">{{featuredproduct.user.name}}</p>
+                                            <p  *ngIf="featuredproduct.user && featuredproduct.user.company" [ngStyle]="{'color':featuredproduct.user.company.colour}" class="company-text">
+                                                {{featuredproduct.user?.company.name}}
+                                                <span class="comunidad-text"> -  {{featuredproduct.user?.company.community.name}}</span>
+                                            </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+            </ngx-item>
+            <span NgxCarouselPrev class="hide arrow arrow-prev"></span>
+            <span NgxCarouselNext class="hide arrow arrow-next"></span>
+        </ngx-carousel>
       </div>
     </div>
   </div>
-</div>
-
 <div>
   <div class="container-spinner" *ngIf="isSpinnerShow">
       <custom-spinner></custom-spinner>
@@ -97,30 +104,31 @@
   <div class="msg-no-products" *ngIf="showAnyProductsMessage">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div class="container-masonry">
-      <masonry class="masonry"
-      #masonryRef
-      [useImagesLoaded]="false"
-      [options]="masonryConfig"
-      infiniteScroll
-      [infiniteScrollDistance]="0.5"
-      [infiniteScrollDisabled]="isInfiniteScrollDisabled"
-      (scrolled)="scrolledInfinite()">
-        <masonry-brick class="grid-item" *ngFor="let product of products">
-            <div *ngIf="product && product.status === 'sell_process'" class="lable-sell-process">
-                <div class="icon-clock label-sell--center"></div>
-                <label class="label-sell--center">Venta en proceso</label>
+  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+      <div class="list">
+          <div class="masonry">
+            <div class="grid-item">
+              <product  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
+                  [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
+                  [isProductSelling]="false"
+                  [showField] = "true"
+                  [product]="product"
+                  (selected)="selectProduct($event); setScroll($event)"
+                  [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'"
+                  id="{{product.id}}"
+                  >
+              </product>
             </div>
-            <product *ngIf="product.user && product.user.company" id="{{product.id}}"
-            [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
-            [isProductSelling]="false"
-            [showField] = "true"
-            [product]="product"
-            [masonryInfo]="masonryRef"
-            (selected)="selectProduct($event); setScroll($event)"
-            [colourCompany]="product.user.company.colour">
-            </product>
-        </masonry-brick>
-      </masonry>
+          </div>
+          <pagination-controls
+          *ngIf= "showPagination"
+          class="has-text-centered"
+          responsive="true"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          (pageChange)="getPage($event)">
+          </pagination-controls>
+      </div>
   </div>
 </div>
+<custom-footer></custom-footer>

@@ -4,7 +4,7 @@
       <div class="flexbox center-center">
         <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
         <div class="container-offer">
-          <a class="upload-offer-button" routerLink="/products/form">
+          <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
             <div class="gtmSubeTuOferta outside-circle">
               <div class="gtmSubeTuOferta inside-circle">
                 <span class="gtmSubeTuOferta icon-tag"></span>
@@ -20,7 +20,7 @@
       </a>
       <ul class="list-options">
         <li class="gtmCentroRotalo">
-          <a [routerLink]="rotaloCenter">
+          <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
             <span class="gtmCentroRotalo icon-rotalo">
               <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
             </span>
@@ -33,7 +33,7 @@
             </span>
           </div>
           <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
+              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
               <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
           </div>
         </li>

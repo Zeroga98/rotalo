@@ -8,6 +8,7 @@ export class BuyService {
   private readonly url = this.configurationService.getBaseUrl() + "/purchases";
   private readonly urlNewPurchase = this.configurationService.getBaseUrl() + "/purchases/create_and_confirm";
   private readonly urlNequi = this.configurationService.getBaseSapiUrl() + "/pagos/nequi/notificaciones";
+  private readonly urlSapi = this.configurationService.getBaseSapiUrl();
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService
@@ -23,6 +24,15 @@ export class BuyService {
     return this.httpClient.post(this.urlNequi, params, { headers: headers}).map( (response: any) =>
       response
     );
+  }
+
+  rentProduct (idProducto) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/productos/me-interesa/${idProducto}`;
+    const params = {};
+    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
   }
 
   validateStateNequi(params) {

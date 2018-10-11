@@ -10,7 +10,7 @@
           <p  class="share-product">¡Tu oferta ha sido publicada con éxito!</p>
         </div>
         <div>
-          <p  class="share-description">Comparte esta oferta con dos amigos y tu publicación se destacará del resto durante 48 Horas.</p>
+          <p  class="share-description">Comparte esta oferta con todos tus amigos para que tu publicación pueda estar en la sección de destacados.</p>
         </div>
         <div class="input-container">
             <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
@@ -51,11 +51,14 @@
   </div>
 
 <div class="modal-info">
+    <div class="close-container">
+        <span (click)="close()"  class="icon-circle-cancel"></span>
+      </div>
   <div class="info-container">
     <div class="info">
       <img class="img-modal-pc" src="../../assets/img/ic_modal_pc.svg" alt="pc destacados">
       <div class="information-text">
-        <p>Sabías qué… Las ofertas que estan en las primeras posiciones se venden más rápido que el resto.</p>
+        <p>Sabías qué… Las ofertas que están en las primeras posiciones se venden más rápido que el resto.</p>
       </div>
     </div>
   </div>
