@@ -40,7 +40,10 @@ export class ModalVideoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.modalService.remove(this.id);
-    this.element.remove();
+    /*if (this.element) {
+      this.element.remove();
+    }*/
+    this.element = undefined;
   }
 
   open(): void {
