@@ -5,7 +5,7 @@
   }
 
   .video-container {
-    width: 50%;
+    width: 60%;
     position: relative;
     text-align: center;
 
@@ -34,7 +34,6 @@
   .terms-link{
     cursor: pointer;
     text-decoration: underline;
-    margin-left: 12px;
   }
 
   .terms {
@@ -111,6 +110,10 @@
       margin-bottom: 0;
     }
 
+    .number-document .input--float {
+      margin-left: 1rem;
+    }
+
     .input__field {
       max-height: 44px;
       font-size: 1.6rem;
@@ -163,8 +166,9 @@
   }
 
   .material-checkbox {
+
     position: relative;
-    display: inline-block;
+    display: none;
     color: rgba(0, 0, 0, 0.87);
     cursor: pointer;
     font-size: 14px;

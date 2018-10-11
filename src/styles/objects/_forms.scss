@@ -214,6 +214,50 @@ rl-tag-input-item {
     border-bottom: 1px solid #ED2F3C;
     border-color: #ED2F3C;
   }
+
+  .select {
+    position: relative;
+  }
+
+  .type-document {
+    display: inline-block;
+    .input {
+      width: 90px;
+    }
+  }
+
+  .number-document {
+    display: inline-block;
+    .input--float{
+      width: 25rem;
+      margin-left: 1rem;
+    }
+  }
+
+
+  .error-document {
+    display: block;
+    padding-right: 195px;
+  }
+
+
+  select.ng-touched.ng-invalid {
+    border-bottom: 1px solid #ED2F3C;
+    border-color: #ED2F3C;
+  }
+
+
+  @media screen and (max-width: 360px) {
+    .number-document .input {
+      width: 24rem;
+    }
+  }
+  @media screen and (max-width: 360px) {
+    .number-document .input {
+      width: 20rem;
+    }
+  }
+
 }
 
 /**Material design**/

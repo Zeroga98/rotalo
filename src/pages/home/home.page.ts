@@ -30,6 +30,7 @@ export class HomePage implements OnInit {
   public errorTypeDocument = false;
   public documentId;
   private currentUrl;
+  public errorMessageId;
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -44,17 +45,20 @@ export class HomePage implements OnInit {
     this.registerForm = this.fb.group({
       'name': ['', [Validators.required]],
       'email': ['', [Validators.required, Validators.email]],
-      'type-document-id': ['', null],
+      'type-document-id': ['', Validators.required],
       'password': ['', [
         Validators.required,
         Validators.minLength(6)
+      ]],
+      'id-number': ['', [
+        Validators.required
       ]],
       'password-confirmation': ['', [
         Validators.required,
         Validators.minLength(6),
         this.validatePasswordConfirm.bind(this)
       ]],
-      'termsCheckbox': ['', [this.checkBoxRequired.bind(this)]]
+      'termsCheckbox': [true, [this.checkBoxRequired.bind(this)]]
     });
 
     this.currentUrl = window.location.href;
