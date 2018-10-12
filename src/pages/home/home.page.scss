@@ -296,19 +296,15 @@
       top: calc(100% - 260px);
     }
 
-    .video-container {
-      width: 55%;
-    }
-
     .register-container {
-      width: 35%;
+    //  width: 35%;
       padding: 20px 0;
       padding-bottom: 0;
     }
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
   :host {
     .play-container {
       top: calc(100% - 220px);

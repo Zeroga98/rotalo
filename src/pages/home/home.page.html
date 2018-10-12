@@ -36,7 +36,7 @@
               </label>
               <span class="help-block">
                 <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
-                  Este campo es obligatorio.
+                  Este campo es requerido.
                 </span>
               </span>
             </span>
@@ -90,8 +90,8 @@
             </div>
             <div>
               <span class="error-document text-center help-block">
-                <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
-                  Este campo es obligatorio.
+                <span *ngIf="(registerForm.get('type-document-id').touched && registerForm.get('type-document-id').invalid) || registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                  Estos campos son requeridos.
                 </span>
                 <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid">
                   {{errorMessageId}}
@@ -111,7 +111,7 @@
               </label>
               <span class="help-block">
                 <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
-                  Este campo es obligatorio.
+                  Este campo es requerido.
                 </span>
                 <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
                   El campo no cumple la longitud mínima.
@@ -130,7 +130,7 @@
               </label>
               <span class="help-block">
                 <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
-                  Este campo es obligatorio.
+                  Este campo es requerido.
                 </span>
                 <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
                   El campo no cumple la longitud mínima.

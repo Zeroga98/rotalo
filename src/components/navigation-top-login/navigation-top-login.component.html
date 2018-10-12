@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="menu_login_container">
-          <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
+          <form id="loginForm" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
                     <input

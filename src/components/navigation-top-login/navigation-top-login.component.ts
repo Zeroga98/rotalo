@@ -15,7 +15,7 @@ import { ROUTES } from '../../router/routes';
   templateUrl: './navigation-top-login.component.html',
   styleUrls: ['./navigation-top-login.component.scss']
 })
-export class NavigationTopLoginComponent implements OnInit {
+export class NavigationTopLoginComponent implements    OnInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
@@ -28,7 +28,7 @@ export class NavigationTopLoginComponent implements OnInit {
     private userService: UserService,
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
   ) {
 
   }
@@ -41,8 +41,8 @@ export class NavigationTopLoginComponent implements OnInit {
         Validators.minLength(6)
       ])
     });
-  }
 
+  }
 
   goToHome() {
     const url = `${ROUTES.HOME}`;
