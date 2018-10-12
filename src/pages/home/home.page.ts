@@ -69,15 +69,14 @@ export class HomePage implements OnInit {
     }
   }
 
-  async loadTypeDocument(idCountry) {
-    try {
-      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-      this.typeDocumentsFilter = this.filterDocuments(
-        this.typeDocuments, idCountry
-      );
-    } catch (error) {
-      console.log(error);
-    }
+ loadTypeDocument(idCountry) {
+    const countryDocument = {
+      'pais': idCountry
+    } ;
+    this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
+  //    if()
+      console.log(response);
+    });
   }
   filterDocuments(typeDocuments, idCountry) {
     const documents = typeDocuments.filter(

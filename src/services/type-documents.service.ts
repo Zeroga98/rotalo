@@ -15,11 +15,12 @@ export class TypeDocumentsService {
       return this.http.get(url).toPromise().then((response: any) => response.data);
     }
 */
-    getTypeDocument(params): Promise<any> {
+    getTypeDocument(params) {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
       const urlSapi = `${this.urlSapi}`;
-      return this.http.post(urlSapi, params, { headers: headers }).toPromise().then((response: any) => response.data);
+      const url = urlSapi + '/preregistro/tipodocumentos';
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
 
 }
