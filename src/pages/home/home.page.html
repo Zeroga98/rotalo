@@ -68,7 +68,7 @@
                       <select class="select-text input__field input__field--float" name="type-id" formControlName="type-document-id"
                       (change)="documentId=$event.target.value; validateTypeDocument()">
                       <option value="" disabled selected></option>
-                      <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
+                      <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['abrev']}}</option>
                     </select>
                     <label class="input__label input__label--float">
                       <span class="input__label-content input__label-content--float" data-content="Tipo doc.">

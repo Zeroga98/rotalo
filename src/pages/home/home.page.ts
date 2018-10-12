@@ -74,8 +74,13 @@ export class HomePage implements OnInit {
       'pais': idCountry
     } ;
     this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
-  //    if()
+
+      if(response.status == 0) {
+        this.typeDocumentsFilter = response.body.documentType;
+       }
       console.log(response);
+    }, (error) =>{
+      console.log(error);
     });
   }
   filterDocuments(typeDocuments, idCountry) {
