@@ -49,6 +49,7 @@ export class SignUpPage implements OnInit {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
+      identification: new FormControl({value: '', disabled: true}, [Validators.required]),
       email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
       cellphone: new FormControl('', [Validators.required])
     });
@@ -60,6 +61,7 @@ export class SignUpPage implements OnInit {
       email = email.replace(/\s+/g, '+');
       this.registerForm.patchValue({ name: this.paramsUrl.name });
       this.registerForm.patchValue({ email: email });
+      this.registerForm.patchValue({ identification: this.paramsUrl.documentType + '' + this.paramsUrl.document });
       this.codeSignup =  this.paramsUrl.code;
       this.userCountry = this.paramsUrl.country;
     });

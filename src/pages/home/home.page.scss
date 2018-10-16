@@ -50,6 +50,23 @@
     width: 30%;
     margin: 0 auto;
   }
+
+  .error-text, .error-text-long {
+    position: relative;
+  }
+
+  .error-text{
+    right: 90px;
+  }
+
+  .error-text-long{
+    right: 50px;
+  }
+
+
+.row {margin-bottom: 10px;}
+
+
 }
 
 :host {

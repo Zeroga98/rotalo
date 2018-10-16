@@ -31,6 +31,7 @@ export class HomePage implements OnInit {
   public documentId;
   private currentUrl;
   public errorMessageId;
+  public country = 'Colombia';
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -64,8 +65,10 @@ export class HomePage implements OnInit {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
       this.loadTypeDocument(9);
+      this.country = 'Guatemala';
     } else {
       this.loadTypeDocument(1);
+      this.country =  'Colombia';
     }
   }
 
@@ -74,31 +77,15 @@ export class HomePage implements OnInit {
       'pais': idCountry
     } ;
     this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
-
-      if(response.status == 0) {
+      if (response.status == 0) {
         this.typeDocumentsFilter = response.body.documentType;
        }
-      console.log(response);
-    }, (error) =>{
+    }, (error) => {
       console.log(error);
     });
   }
-  filterDocuments(typeDocuments, idCountry) {
-    const documents = typeDocuments.filter(
-      typeDocument => typeDocument['country-id'] == idCountry
-    );
-    return documents;
-  }
 
-  findNameDocumentType() {
-    let data;
-    if (this.typeDocuments) {
-      data = this.typeDocuments.find(resource => {
-        return resource.id === this.documentId;
-      });
-    }
-    return data;
-  }
+
 
   validateTypeDocument() {
     if (this.registerForm.get('type-document-id').value) {
@@ -106,29 +93,35 @@ export class HomePage implements OnInit {
     }
   }
 
-/*
+  findNameDocumentType() {
+    let data;
+    if (this.typeDocumentsFilter) {
+      data = this.typeDocumentsFilter.find(resource => {
+        return resource.id == this.documentId;
+      });
+    }
+    return data;
+  }
+
   setValidationId(): void {
     if (this.country) {
-      const idCountry = this.country.name;
       const idDocumentControl = this.registerForm.get('id-number');
-      const phoneNumberControl = this.registerForm.get('cellphone');
       const documentObject = this.findNameDocumentType();
       let documentName;
       if (documentObject) {
-        documentName = documentObject['name-document'];
+        documentName = documentObject['abrev'];
         idDocumentControl.clearValidators();
-        phoneNumberControl.clearValidators();
       }
-      switch (idCountry) {
+      switch (this.country) {
         case 'Colombia': {
-          if (documentName == 'Cédula de ciudadanía') {
+          if (documentName == 'CC') {
             idDocumentControl.setValidators([
               Validators.pattern('^((\\d{6})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
               Validators.required
             ]);
             this.errorMessageId =
               'El campo no cumple con el formato de cédula.';
-          } else if (documentName == 'Cédula de extranjería') {
+          } else if (documentName == 'CE') {
             idDocumentControl.setValidators([
               Validators.minLength(3),
               Validators.maxLength(15),
@@ -137,7 +130,7 @@ export class HomePage implements OnInit {
             ]);
             this.errorMessageId =
               'El campo no cumple con el formato de cédula.';
-          } else if (documentName == 'Pasaporte') {
+          } else if (documentName == 'PA') {
             idDocumentControl.setValidators([
               Validators.minLength(5),
               Validators.maxLength(36),
@@ -146,23 +139,6 @@ export class HomePage implements OnInit {
             this.errorMessageId =
               'El campo no cumple con el formato de Pasaporte.';
           }
-          phoneNumberControl.setValidators([Validators.required]);
-          this.registerForm.get('cellphone').setValidators([Validators.required]);
-          phoneNumberControl.setValidators([
-            Validators.required,
-            Validators.pattern(/^\d{10}$/)
-          ]);
-          break;
-        }
-        case 'Panama': {
-          idDocumentControl.setValidators([
-            Validators.pattern(
-              '^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'
-            ),
-            Validators.required
-          ]);
-          phoneNumberControl.setValidators([Validators.required]);
-          this.errorMessageId = 'El campo no cumple con el formato.';
           break;
         }
         case 'Guatemala': {
@@ -171,24 +147,18 @@ export class HomePage implements OnInit {
            Validators.pattern('^[0-9]{13}$'),
             Validators.required
           ]);
-          phoneNumberControl.setValidators([
-            Validators.required,
-            Validators.pattern(/^\d{8}$/)
-          ]);
           this.errorMessageId = 'El campo no cumple el formato.';
           break;
         }
         default: {
           idDocumentControl.setValidators([Validators.required]);
-          phoneNumberControl.setValidators([Validators.required]);
           break;
         }
       }
       idDocumentControl.updateValueAndValidity();
-      phoneNumberControl.updateValueAndValidity();
     }
   }
-*/
+
   validatePasswordConfirm(registerGroup: FormGroup): any {
     if (this.registerForm) {
       return registerGroup.value === this.registerForm.get('password').value
@@ -213,7 +183,7 @@ export class HomePage implements OnInit {
     this.registerForm.patchValue({
       'termsCheckbox': true
     });
-    checkbox.checked = true;
+   // checkbox.checked = true;
     this.closeModal();
   }
 

@@ -17,6 +17,7 @@
           {{errorMessage}}
         </span>
       </div>
+
       <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
@@ -50,6 +51,17 @@
         </span>
       </div>
 
+      <div class="input-readonly material-input text-center">
+          <span [ngClass]="{'input--filled': registerForm.get('identification').value}" class="text-left input input--label-md">
+            <input [ngClass]="{'invalid': registerForm.get('identification').invalid && !registerForm.get('identification').pristine}"
+              formControlName="identification" name="identification" maxlength="50" class="input__field input__field--label-md" id="txt-identification" type="text"
+              autocomplete="off" />
+            <label class="input__label input__label--label-md">
+              <span class="input__label-content input__label-content--label-md" data-content="Número de identificación">Número de identificación</span>
+            </label>
+          </span>
+      </div>
+  
       <div class="select-country form-group">
         <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
