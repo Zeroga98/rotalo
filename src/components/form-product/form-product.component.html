@@ -2,12 +2,47 @@
 
 <div class="container-form">
   <div class="title-form">
-    <h1>¿Qué vas a rotar?</h1>
+    <div class="numberCircle">1</div>
+    <div class="step-info">
+        <h1>¿Qué vas a rotar?</h1>
+        <p>
+            Cuéntanos todo sobre tu producto
+        </p>
+    </div>
+   
   </div>
   <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
     <div class="container-step">
+      <div class="material-design container-step">
+        <div class="info-product">
+          <div class="row-section">
+            <div class="row">
+              <div class="form-group" [ngClass]="{'valid': photosForm.get('category').value}">
+                <label class="label-title">Selecciona la categoría de tu producto</label>
+                <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)"
+                  #categorySelect formControlName="category">
+                  <option value="" selected="true" disabled>Categoría</option>
+                  <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div class="form-group" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
+                <label class="label-title">Tipo de subcategoría</label>
+                <div class="subcategory-container">
+                  <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
+                    name="subcategory-id" formControlName="subcategory-id">
+                    <option value="" disabled>Subcategoría</option>
+                    <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="step-number">
-        <span class="number"></span>Sube o arrastra máximo 6 imágenes perfectas, mira algunos tips.
+        <span class="number"></span>Comparte las mejores imágenes de tu producto, recuerda ¡todo entra por los ojos!.
         <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
       </div>
       <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
@@ -37,27 +72,6 @@
       <div class="info-product">
         <div class="row-section">
           <div class="row">
-              <div class="form-group" [ngClass]="{'valid': photosForm.get('category').value}">
-                  <label class="label-title">Selecciona la categoría de tu producto</label>
-                  <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)" #categorySelect formControlName="category">
-                    <option value="" selected="true" disabled>Categoría *</option>
-                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
-                  <label class="label-title">Tipo de subcategoría</label>
-                  <div class="subcategory-container">
-                      <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
-                      name="subcategory-id" formControlName="subcategory-id">
-                      <option value="" disabled>Subcategoría *</option>
-                      <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
-                    </select>
-                    <span class="error-msg">Este campo es requerido</span>
-                  </div>
-                </div>
-          </div>
-          <div class="row">
               <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('model').value}">
                   <label class="label-title">Modelo de vehículo*</label>
                   <select name="model" class="form-control" formControlName="model">
@@ -85,7 +99,7 @@
         <div class="row-section">
           <div class="row">
               <div class="form-group">
-                  <label class="label-title">Estado</label>
+                  <label class="label-title">¿En que estado se encuentra?</label>
                  <div>
                       <div class="md-radio">
                         <input
@@ -161,11 +175,11 @@
               </div>
 
               <div class="form-group" data-input="price">
-                  <label class="label-title">Precio</label>
+                  <label class="label-title">Precio (con los pies en la tierra).</label>
                   <div>
                     <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
-                      <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{align: 'left', precision: 0}"
-                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="$"
+                      <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="$ 15.000.000"
                         maxlength="50" autocomplete="off">
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
