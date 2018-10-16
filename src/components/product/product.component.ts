@@ -19,6 +19,7 @@ import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
+import { NavigationService } from "../../pages/products/navigation.service";
 
 @Component({
   selector: "product",
@@ -45,6 +46,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public productStatus: boolean = false;
   public productChecked: String = "active";
   public idUser: string = this.currentSessionSevice.getIdUser();
+  public idCountry = 1;
+
   constructor(
     private render: Renderer2,
     private productsService: ProductsService,
@@ -52,7 +55,16 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     private router: Router,
     private currentSessionSevice: CurrentSessionService,
     private modalService: ModalShareProductService,
-  ) {}
+    private navigationService: NavigationService,
+  ) {
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSessionSevice.currentUser()['countryId'];
+    }
+    this.idCountry = countryId;
+  }
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;

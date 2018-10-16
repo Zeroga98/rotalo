@@ -206,18 +206,20 @@ export class HomePage implements OnInit {
   submitForm(form) {
     if (!this.formIsInValid) {
       const currentUrl = window.location.href;
-
       if (currentUrl.includes('gt')) {
         this.idCountry = 9;
       } else {
         this.idCountry = 1;
       }
 
+      const idDocument: number = +this.registerForm.get('type-document-id').value;
       const params = {
         'pais': this.idCountry,
         'correo': this.registerForm.get('email').value,
         'nombres': this.registerForm.get('name').value,
-        'contrasena': this.registerForm.get('password').value
+        'contrasena': this.registerForm.get('password').value,
+        'idTipoDocumento': idDocument,
+        'documento': this.registerForm.get('id-number').value,
       };
 
       this.userService.preSignup(params).subscribe(response => {

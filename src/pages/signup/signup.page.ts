@@ -61,7 +61,7 @@ export class SignUpPage implements OnInit {
       email = email.replace(/\s+/g, '+');
       this.registerForm.patchValue({ name: this.paramsUrl.name });
       this.registerForm.patchValue({ email: email });
-      this.registerForm.patchValue({ identification: this.paramsUrl.documentType + '' + this.paramsUrl.document });
+      this.registerForm.patchValue({ identification: this.paramsUrl.documentType + ' ' + this.paramsUrl.document });
       this.codeSignup =  this.paramsUrl.code;
       this.userCountry = this.paramsUrl.country;
     });

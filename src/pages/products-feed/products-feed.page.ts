@@ -77,7 +77,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public totalPages: number = 100;
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
   public  showPagination = false;
-
+  public idCountry = 1;
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -112,6 +112,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
+
+    this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     // this.setScrollEvent();

@@ -91,7 +91,7 @@
                         <span class="error-msg">Este campo es requerido</span>
                    </div>
                 </div>
-  
+
                 <div class="form-group">
                     <label class="label-title">¿Qué te gustaría hacer?</label>
                    <div>
@@ -142,13 +142,13 @@
                         <span class="error-msg">Este campo es requerido</span>
                    </div>
                 </div>
-  
+
                 <div class="form-group" data-input="price">
                     <label class="label-title">Precio (con los pies en la tierra).</label>
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
                         <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="$ 15.000.000"
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder=""
                           maxlength="50" autocomplete="off">
                         <span class="error-msg">Este campo es requerido</span>
                         <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
@@ -194,23 +194,134 @@
                   </div>
               </div>
               <div class="row">
-                  <div class="form-group" [ngClass]="{'valid': photosForm.get('model').value}">
-                      <label class="label-title">Modelo de vehículo*</label>
-                      <select name="model" class="form-control" formControlName="model">
-                        <option value="" disabled>Modelo de vehículo *</option>
-                        <option value="{{modelVehicle}}" *ngFor="let modelVehicle of modelsVehicle">{{modelVehicle}}</option>
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('carMake').value}">
+                      <label class="label-title">Marca</label>
+                      <select name="year" class="form-control" formControlName="carMake">
+                        <option value="" disabled>Año</option>
+                        <option value="{{carMake}}" *ngFor="let carMake of carMakeList">{{carMake}}</option>
                       </select>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
-                      <label class="label-title">Tipo de uso</label>
-                      <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
-                        <option value="" disabled>Tipo de vehículo*</option>
-                        <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('model').value}">
+                      <label class="label-title">model</label>
+                      <select name="model" class="form-control" formControlName="model">
+                        <option value="" disabled>model</option>
+                        <option value="{{model}}" *ngFor="let model of modelList">{{model}}</option>
+                      </select>
+                      <span class="error-msg">Este campo es requerido</span>
+                  </div>
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('year').value}">
+                      <label class="label-title">Año</label>
+                      <select name="year" class="form-control" formControlName="year">
+                        <option value="" disabled>Año</option>
+                        <option value="{{year}}" *ngFor="let year of yearsVehicle">{{year}}</option>
                       </select>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
               </div>
+              <div class="row">
+                <div class="form-group">
+                  <label class="label-title">Kilometraje</label>
+                    <div>
+                      <input class="form-control input-price" name="kilometraje" currencyMask
+                        [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                        formControlName="kilometraje" placeholder="15.000.000" maxlength="50" autocomplete="off">
+                      <span class="error-msg">Este campo es requerido</span>
+                      <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('cylinder').value}">
+                  <label class="label-title">Cilindraje</label>
+                  <select name="cylinders" class="form-control" formControlName="cylinder">
+                    <option value="" disabled>Cilindraje</option>
+                    <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('combustible').value}">
+                  <label class="label-title">Combustible</label>
+                  <select name="combustible" class="form-control" formControlName="combustible">
+                    <option value="" disabled>Combustible</option>
+                    <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('color').value}">
+                  <label class="label-title">Color</label>
+                  <select name="color" class="form-control" formControlName="color">
+                    <option value="" disabled>color</option>
+                    <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('transmission').value}">
+                  <label class="label-title">transmission</label>
+                  <select name="transmission" class="form-control" formControlName="transmission">
+                    <option value="" disabled>transmission</option>
+                    <option value="{{transmission}}" *ngFor="let transmission of transmissionList">{{transmission}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('vehicleNumber').value}">
+                    <label class="label-title">Nº Placa (terminado en)</label>
+                    <select name="vehicleNumber" class="form-control" formControlName="vehicleNumber">
+                      <option value="" disabled>Nº Placa (terminado en)</option>
+                      <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
+                    </select>
+                    <span class="error-msg">Este campo es requerido</span>
+                  </div>
+              </div>
+          </div>
+          <div class="row-section">
+              <div class="title-form">
+                  <div class="numberCircle">3</div>
+                  <div class="step-info">
+                      <h1>Agrégale esa milla extra a tu producto</h1>
+                      <p>
+                          Cuéntanos acerca de esos detalles que enamoran
+                      </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group">
+                    <div>
+                        <input type="checkbox" id="id-name--1" name="set-name" class="switch-input">
+                        <label for="id-name--1" class="switch-label">Airbag</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="id-name--2" name="set-name" class="switch-input">
+                        <label for="id-name--2" class="switch-label">Aire acondicionado</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="id-name--3" name="set-name" class="switch-input">
+                          <label for="id-name--3" class="switch-label">Frenos ABS</label>
+                      </div>
+                      <div>
+                          <input type="checkbox" id="id-name--4" name="set-name" class="switch-input">
+                          <label for="id-name--4" class="switch-label">Único dueño</label>
+                      </div>
+                    </div>
+                  <div class="form-group">
+                    <label class="label-title">Tipo de asiento</label>
+                    <div>
+                      <div class="md-radio">
+                        <input [value]="true" formControlName="kindSeat" id="kindSeat1" type="radio" name="kindSeat">
+                        <label for="kindSeat1">Cuero
+                        </label>
+                      </div>
+                      <div class="md-radio">
+                        <input [value]="false" formControlName="kindSeat" id="kindSeat2" type="radio" name="kindSeat">
+                        <label for="kindSeat2">Tela</label>
+                      </div>
+                      <span class="error-msg">Este campo es requerido</span>
+                    </div>
+                  </div>
+
+                </div>
           </div>
           <div class="row-section">
               <div class="title-form">
@@ -244,7 +355,7 @@
                       <span class="error-msg">Este campo es requerido</span>
                  </div>
               </div>
-  
+
               <div class="row">
                 <div class="form-group half" data-input="name">
                   <label class="label-title">Título de la publicación</label>
@@ -263,9 +374,9 @@
           </div>
         </div>
       </div>
-  
+
     </div>
-  
+
     <div class="actions-form">
       <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit" [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
     </div>

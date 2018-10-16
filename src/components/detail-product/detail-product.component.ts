@@ -71,6 +71,7 @@ export class DetailProductComponent implements OnInit {
   public screenHeight;
   public screenWidth;
   private currentEmail;
+  public countryId;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -99,6 +100,7 @@ export class DetailProductComponent implements OnInit {
     const currentUser = this.currentSessionSevice.currentUser();
     if (currentUser) {
       this.currentEmail = currentUser.email;
+      this.countryId =  currentUser.countryId;
     }
     this.initShareForm();
     this.loadProduct();
@@ -402,7 +404,8 @@ export class DetailProductComponent implements OnInit {
       title: product.name,
       price: product.price,
       'product-id': product.id,
-      type: product['sell-type']
+      type: product['sell-type'],
+      currency: product.currency
     };
 }
 

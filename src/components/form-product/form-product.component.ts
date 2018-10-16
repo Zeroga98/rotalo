@@ -16,6 +16,7 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
+import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -45,8 +46,15 @@ export class FormProductComponent implements OnInit, OnChanges {
   categories: Array<CategoryInterface> = [];
   subCategories: Array<SubcategoryInterface> = [];
   subCategory: SubcategoryInterface;
-  modelsVehicle: Array<any> = [];
+  yearsVehicle: Array<any> = [];
+  transmissionList: Array<any> = LISTA_TRANSMISION;
+  colorList: Array<any> = COLOR;
+  vehicleNumberList: Array<any> = PLACA;
+  cylinderList: Array<any> = CILINDRAJE;
+  combustibleList: Array<any> = COMBUSTIBLE;
+  carMakeList: Array<any> = COMBUSTIBLE;
   vehicleProperties: Array<any> = ['Particular', 'Público'];
+  modelList: Array<any> = COMBUSTIBLE;
   currentSubcategory: String = '';
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
@@ -343,15 +351,15 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   setValidationVehicle() {
     const typeVehicleControl = this.photosForm.get('type-vehicle');
-    const model = this.photosForm.get('model');
+    const year = this.photosForm.get('year');
     typeVehicleControl.clearValidators();
-    model.clearValidators();
+    year.clearValidators();
     if (this.subcategoryIsVehicle()) {
       typeVehicleControl.setValidators([Validators.required]);
-      model.setValidators([Validators.required]);
+      year.setValidators([Validators.required]);
     }
     typeVehicleControl.updateValueAndValidity();
-    model.updateValueAndValidity();
+    year.updateValueAndValidity();
   }
 
   closeModal() {
@@ -393,17 +401,41 @@ export class FormProductComponent implements OnInit, OnChanges {
   loadYearsModelVehicle() {
     const years = (new Date()).getFullYear() - 1968;
     for (let i = 0; i < years; i++) {
-      this.modelsVehicle.push((new Date()).getFullYear() + 1 - i);
+      this.yearsVehicle.push((new Date()).getFullYear() + 1 - i);
     }
   }
 
   private setInitialForm(config: ProductInterface) {
     let typeVehicle = '';
+    let year = '';
+    let transmission = '';
+    let color = '';
+    let vehicleNumber = '';
+    let kilometraje = null;
+    let cylinder = '';
+    let combustible = '';
+    let carMake = '';
     let model = '';
-
-    if (config['type-vehicle'] && config['model']) {
+    let kindSeat = true;
+    if (config['type-vehicle'] && config['year']
+    && config['transmission'] && config['color']
+    && config['vehicleNumber']
+    && config['cylinder']
+    && config['combustible']
+    && config['carMake']
+    && config['model']
+    && config['kindSeat']) {
       typeVehicle = config['type-vehicle'];
+      year = config['year'];
+      transmission = config['transmission'];
+      color = config['color'];
+      vehicleNumber = config['vehicleNumber'];
+      kilometraje = config['kilometraje'];
+      cylinder = config['cylinder'];
+      combustible = config['cylinder'];
+      carMake = config['carMake'];
       model = config['model'];
+      kindSeat = config['kindSeat'];
     }
 
     if (config['sell-type'] === 'GRATIS') {
@@ -429,7 +461,16 @@ export class FormProductComponent implements OnInit, OnChanges {
       negotiable: [{ value: config.negotiable, disabled: false }, []],
       'publish-until': [config['publish-until'], []],
       'type-vehicle': [typeVehicle, []],
+      'year': [year, []],
+      'transmission': [transmission, []],
+      'color': [color, []],
+      'vehicleNumber': [vehicleNumber, []],
+      'kilometraje': [kilometraje, []],
+      'cylinder': [cylinder, []],
+      'combustible': [combustible, []],
+      'carMake': [carMake, []],
       'model': [model, []],
+      'kindSeat': [kindSeat, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
   }
