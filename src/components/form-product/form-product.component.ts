@@ -381,6 +381,17 @@ export class FormProductComponent implements OnInit, OnChanges {
     return false;
   }
 
+  subcategoryIsMotos(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Motos') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   selectedComunity(idCategory: number ) {
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = '';

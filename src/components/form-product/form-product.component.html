@@ -186,7 +186,7 @@
                 </div>
             </div>
           </div>
-          <div *ngIf="subcategoryIsVehicle()" class="row-section">
+          <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
               <div class="title-form">
                   <div class="numberCircle">2</div>
                   <div class="step-info">
@@ -230,33 +230,15 @@
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                     </div>
                 </div>
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('cylinder').value}">
-                  <label class="label-title">Cilindraje</label>
-                  <select name="cylinders" class="form-control" formControlName="cylinder">
-                    <option value="" disabled>Cilindraje</option>
-                    <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('combustible').value}">
-                  <label class="label-title">Combustible</label>
-                  <select name="combustible" class="form-control" formControlName="combustible">
-                    <option value="" disabled>Combustible</option>
-                    <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-              </div>
-              <div class="row">
                 <div class="form-group" [ngClass]="{'valid': photosForm.get('color').value}">
-                  <label class="label-title">Color</label>
-                  <select name="color" class="form-control" formControlName="color">
-                    <option value="" disabled>color</option>
-                    <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
-                  </select>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('transmission').value}">
+                    <label class="label-title">Color</label>
+                    <select name="color" class="form-control" formControlName="color">
+                      <option value="" disabled>color</option>
+                      <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
+                    </select>
+                    <span class="error-msg">Este campo es requerido</span>
+                  </div>
+                 <div class="form-group" [ngClass]="{'valid': photosForm.get('transmission').value}">
                   <label class="label-title">transmission</label>
                   <select name="transmission" class="form-control" formControlName="transmission">
                     <option value="" disabled>transmission</option>
@@ -264,6 +246,24 @@
                   </select>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
+              </div>
+              <div class="row">
+                  <div *ngIf="subcategoryIsMotos()" class="form-group" [ngClass]="{'valid': photosForm.get('cylinder').value}">
+                      <label class="label-title">Cilindraje</label>
+                      <select name="cylinders" class="form-control" formControlName="cylinder">
+                        <option value="" disabled>Cilindraje</option>
+                        <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
+                      </select>
+                      <span class="error-msg">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group" [ngClass]="{'valid': photosForm.get('combustible').value}">
+                      <label class="label-title">Combustible</label>
+                      <select name="combustible" class="form-control" formControlName="combustible">
+                        <option value="" disabled>Combustible</option>
+                        <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
+                      </select>
+                      <span class="error-msg">Este campo es requerido</span>
+                    </div>
                 <div class="form-group" [ngClass]="{'valid': photosForm.get('vehicleNumber').value}">
                     <label class="label-title">Nº Placa (terminado en)</label>
                     <select name="vehicleNumber" class="form-control" formControlName="vehicleNumber">
@@ -271,6 +271,16 @@
                       <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
                     </select>
                     <span class="error-msg">Este campo es requerido</span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
+                      <label class="label-title">Tipo de uso</label>
+                      <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
+                        <option value="" disabled>Tipo de vehículo*</option>
+                        <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
+                      </select>
+                      <span class="error-msg">Este campo es requerido</span>
                   </div>
               </div>
           </div>
