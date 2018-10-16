@@ -78,8 +78,7 @@ export class HomePage implements OnInit {
       if(response.status == 0) {
         this.typeDocumentsFilter = response.body.documentType;
        }
-      console.log(response);
-    }, (error) =>{
+    }, (error) => {
       console.log(error);
     });
   }

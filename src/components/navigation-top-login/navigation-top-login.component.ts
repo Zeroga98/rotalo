@@ -41,7 +41,6 @@ export class NavigationTopLoginComponent implements    OnInit {
         Validators.minLength(6)
       ])
     });
-
   }
 
   goToHome() {
