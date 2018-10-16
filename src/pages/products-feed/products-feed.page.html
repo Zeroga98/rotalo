@@ -63,7 +63,12 @@
                                       </span>
                                     </div>
                                     <div class="item__price-block">
-                                      <span *ngIf=" featuredproduct.price != 0">{{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}</span>
+                                      <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency == 'GTQ'">
+                                        {{featuredproduct.price | currency:"Q":0 | removeDigits}} {{ featuredproduct.currency }}
+                                      </span>
+                                      <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ'">
+                                          {{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}
+                                        </span>
                                       <span *ngIf=" featuredproduct.price == 0">Gratis</span>
                                     </div>
                                     <div class="item__location">
