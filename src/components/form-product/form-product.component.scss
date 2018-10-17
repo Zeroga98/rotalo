@@ -240,6 +240,7 @@
         width: 100%;
         position: relative;
         margin-bottom: 20px;
+        background: transparent;
       }
 
       .currency-select {
@@ -437,6 +438,14 @@
     color: #383838;
     font-size: 1.6rem;
     border-bottom: 1px solid #707070;
+  }
+
+  select.form-control {
+    padding-left:0;
+  }
+
+  .error-msg{
+    padding-left: 0px;
   }
 
   .row-section {
@@ -705,22 +714,92 @@
 }
 
 :host {
-  .form-group{
-   select.form-control + .label-title {
-      position: absolute;
-      top: 0;
-      padding: 7px 0 0 13px;
-      transition: all 200ms;
-    }
+  .field-form {
+    margin-top: 30px;
+  }
 
-  select.form-control:focus +  .label-title{
-      font-size: 1.6rem;
+  .form-group.field-form.valid {
+    .label-title {
+      font-size: 1.8rem;
       transform: translate3d(0, -100%, 0);
       opacity: 1;
     }
   }
+
+  .form-group {
+
+    select.form-control+.label-title {
+      position: absolute;
+      top: 0;
+      padding: 7px 0 0 0;
+      transition: all 200ms;
+    }
+
+    select.form-control:focus+.label-title {
+      font-size: 1.8rem;
+      transform: translate3d(0, -100%, 0);
+      opacity: 1;
+    }
+
+    .price-container {
+      input.input-price {
+        background: transparent;
+      }
+      input.form-control+.label-title {
+        position: absolute;
+        top: 0;
+        padding: 7px 0 0 12px;
+        transition: all 200ms;
+        z-index: -1;
+      }
+      input.form-control:focus+.label-title {
+        font-size: 1.8rem;
+        transform: translate3d(0, -100%, 0);
+        opacity: 1;
+      }
+    }
+
+    .kilometraje-container {
+      position: relative;
+
+      input.form-control+.label-title {
+        position: absolute;
+        top: 0;
+        padding: 7px 0 0 12px;
+        transition: all 200ms;
+      }
+
+      input.form-control:focus+.label-title, input.form-control.ng-dirty +.label-title {
+        font-size: 1.8rem;
+        transform: translate3d(0, -100%, 0);
+        opacity: 1;
+      }
+
+      .input-price {
+        padding-right: 35px;
+      }
+
+      .symbol-km {
+        position: absolute;
+        color: #0FBBD8;
+        top: 0;
+        right: 10px;
+        font-size: 1.8rem;
+        padding: 7px 0 0 12px;
+      }
+
+    }
+  }
 }
 
+
+@media screen and (max-width: 1095px) {
+  :host {
+    .container-form form .info-product .form-group[data-input='price'] {
+      width: 100%;
+    }
+  }
+}
 
 @media screen and (max-width: 850px) {
   :host {

@@ -17,7 +17,7 @@
 
           <div class="row-section">
             <div class="row">
-              <div class="form-group" [ngClass]="{'valid': photosForm.get('category').value}">
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
                 <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)"
                   #categorySelect formControlName="category">
                   <option value="" selected="true" disabled></option>
@@ -26,8 +26,8 @@
                 <label class="label-title">Categoría</label>
                 <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="form-group" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
-                <div class="subcategory-container">
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
+                <div>
                   <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
@@ -143,13 +143,13 @@
                    </div>
                 </div>
 
-                <div class="form-group" data-input="price">
-                    <label class="label-title">Precio (con los pies en la tierra).</label>
+                <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group field-form" data-input="price">
                     <div>
-                      <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice() }">
+                      <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
                         <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder=""
                           maxlength="50" autocomplete="off">
+                        <label class="label-title">Precio (con los pies en la tierra).</label>
                         <span class="error-msg">Este campo es requerido</span>
                         <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                       </div>
@@ -169,12 +169,12 @@
                   </div>
             </div>
             <div class="row">
-                <div class="form-group">
+                <div class="form-group field-form">
                     <label class="label-title">En que ubicación se encuentra tu producto</label>
                     <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
                     <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group select-cities">
+                  <div class="form-group select-cities field-form">
                     <select-cities [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
                     <span class="error-msg">Este campo es requerido</span>
                 </div>
@@ -194,7 +194,7 @@
                   </div>
               </div>
               <div class="row">
-                  <div class="form-group" [ngClass]="{'valid': photosForm.get('carMake').value}">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('carMake').value}">
                       <select name="year" class="form-control" formControlName="carMake">
                         <option value="" disabled></option>
                         <option value="{{carMake}}" *ngFor="let carMake of carMakeList">{{carMake}}</option>
@@ -202,7 +202,7 @@
                       <label class="label-title">Marca</label>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group" [ngClass]="{'valid': photosForm.get('model').value}">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('model').value}">
                       <select name="model" class="form-control" formControlName="model">
                         <option value="" disabled></option>
                         <option value="{{model}}" *ngFor="let model of modelList">{{model}}</option>
@@ -210,7 +210,7 @@
                       <label class="label-title">Modelo</label>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group" [ngClass]="{'valid': photosForm.get('year').value}">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('year').value}">
                       <select name="year" class="form-control" formControlName="year">
                         <option value="" disabled></option>
                         <option value="{{year}}" *ngFor="let year of yearsVehicle">{{year}}</option>
@@ -220,17 +220,18 @@
                   </div>
               </div>
               <div class="row">
-                <div class="form-group">
+                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('kilometraje').value || photosForm.get('kilometraje').value == 0}">
                     <div class="kilometraje-container">
                       <input class="form-control input-price" name="kilometraje" currencyMask
                         [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                        formControlName="kilometraje" placeholder="15.000.000" maxlength="50" autocomplete="off">
+                        formControlName="kilometraje" placeholder="" maxlength="50" autocomplete="off">
                       <label class="label-title">Kilometraje</label>
+                      <label class="symbol-km">Km</label>
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                     </div>
                 </div>
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('color').value}">
+                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('color').value}">
                     <select name="color" class="form-control" formControlName="color">
                       <option value="" disabled></option>
                       <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
@@ -238,7 +239,7 @@
                     <label class="label-title">Color</label>
                     <span class="error-msg">Este campo es requerido</span>
                 </div>
-                 <div class="form-group" [ngClass]="{'valid': photosForm.get('transmission').value}">
+                 <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('transmission').value}">
                   <select name="transmission" class="form-control" formControlName="transmission">
                     <option value="" disabled></option>
                     <option value="{{transmission}}" *ngFor="let transmission of transmissionList">{{transmission}}</option>
@@ -248,7 +249,7 @@
                 </div>
               </div>
               <div class="row">
-                <div *ngIf="!subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('cylinder').value}">
+                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('cylinder').value}">
                   <select name="cylinders" class="form-control" formControlName="cylinder">
                     <option value="" disabled></option>
                     <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
@@ -256,7 +257,7 @@
                   <label class="label-title">Cilindraje</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('combustible').value}">
+                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('combustible').value}">
                   <select name="combustible" class="form-control" formControlName="combustible">
                     <option value="" disabled></option>
                     <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
@@ -264,7 +265,7 @@
                   <label class="label-title">Combustible</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('vehicleNumber').value}">
+                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('vehicleNumber').value}">
                   <select name="vehicleNumber" class="form-control" formControlName="vehicleNumber">
                     <option value="" disabled></option>
                     <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
@@ -272,7 +273,7 @@
                   <label class="label-title">Nº Placa (terminado en)</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
+                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
                   <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
                     <option value="" disabled></option>
                     <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
