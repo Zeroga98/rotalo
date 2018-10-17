@@ -702,7 +702,23 @@
   *:before, *:after {
     box-sizing: border-box;
   }
+}
 
+:host {
+  .form-group{
+   select.form-control + .label-title {
+      position: absolute;
+      top: 0;
+      padding: 7px 0 0 13px;
+      transition: all 200ms;
+    }
+
+  select.form-control:focus +  .label-title{
+      font-size: 1.6rem;
+      transform: translate3d(0, -100%, 0);
+      opacity: 1;
+    }
+  }
 }
 
 

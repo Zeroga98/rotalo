@@ -428,14 +428,24 @@ export class FormProductComponent implements OnInit, OnChanges {
     let carMake = '';
     let model = '';
     let kindSeat = true;
-    if (config['type-vehicle'] && config['year']
-    && config['transmission'] && config['color']
+    let airbag = '';
+    let airConditioner = '';
+    let absBrakes = '';
+    let onlyOwner = '';
+    if (config['type-vehicle']
+    && config['year']
+    && config['transmission']
+    && config['color']
     && config['vehicleNumber']
     && config['cylinder']
     && config['combustible']
     && config['carMake']
     && config['model']
-    && config['kindSeat']) {
+    && config['kindSeat']
+    && config['airbag']
+    && config['airConditioner']
+    && config['absBrakes']
+    && config['onlyOwner']) {
       typeVehicle = config['type-vehicle'];
       year = config['year'];
       transmission = config['transmission'];
@@ -447,6 +457,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       carMake = config['carMake'];
       model = config['model'];
       kindSeat = config['kindSeat'];
+      airbag = config['airbag'];
+      airConditioner = config['airConditioner'];
+      absBrakes = config['absBrakes'];
+      onlyOwner = config['onlyOwner'];
     }
 
     if (config['sell-type'] === 'GRATIS') {
@@ -482,6 +496,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       'carMake': [carMake, []],
       'model': [model, []],
       'kindSeat': [kindSeat, []],
+      'airbag': [airbag, []],
+      'airConditioner': [airConditioner, []],
+      'absBrakes': [absBrakes, []],
+      'onlyOwner': [onlyOwner, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
   }
@@ -509,6 +527,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.product['publish-until'] = objectDate;
 
     }
+
     /**Moneda por defecto**/
     let currency = 'COP';
     switch (this.countryId) {
