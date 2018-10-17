@@ -190,8 +190,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    //&&  this.photosUploaded.length > 0
-    if (!this.formIsInValid && (this.city['id']) ) {
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -243,9 +242,7 @@ export class FormProductComponent implements OnInit, OnChanges {
         const publishDate = {
           'published-at': new Date()
         };
-
         // const photosIds2 = { 'photo-ids': ['10083'] };
-
 
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']

@@ -127,7 +127,7 @@ export class ProductsService {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
       const url = this.urlSapi + '/productos';
-      return this.http.post(url, params, { headers: headers });
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
 
     private _buildParams(params): any {
