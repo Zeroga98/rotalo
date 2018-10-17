@@ -123,6 +123,13 @@ export class ProductsService {
         return this.http.post(this.url, this._buildParams(params)).toPromise();
     }
 
+    saveProductsForm(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/productos';
+      return this.http.post(url, params, { headers: headers });
+    }
+
     private _buildParams(params): any {
         return {
             data: {

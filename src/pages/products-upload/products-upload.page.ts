@@ -28,21 +28,32 @@ export class ProductsUploadPage implements OnInit, OnDestroy {
     element1.parentNode.removeChild(element1);*/
   }
 
-  async publishPhoto(event) {
+  /*async publishPhoto(event) {
     try {
-
       const response = await this.productsService.saveProducts(event);
       this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
       this.userService.updateInfoUser();
       if (response.data) {
         this.shareProduct('custom-modal-3', response.data.id);
       }
-      /*this.router.navigate([
-        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
-      ]);*/
     } catch (error) {
       console.error("Error: ", error);
     }
+  }*/
+
+
+  publishPhoto (event) {
+    this.productsService.saveProductsForm(event).subscribe((response) => {
+      this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
+      this.userService.updateInfoUser();
+      console.log(response.body);
+      if (response.body && response.body.producto) {
+        this.shareProduct('custom-modal-3', response.body.producto.id);
+      }
+    },
+    (error) => {
+      console.error("Error: ", error);
+    });
   }
 
   gapush(method, type, category, action, label) {

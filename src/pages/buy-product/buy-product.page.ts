@@ -14,6 +14,7 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ROUTES } from '../../router/routes';
+import { NavigationService } from '../products/navigation.service';
 
 
 @Component({
@@ -55,6 +56,7 @@ export class BuyProductPage implements OnInit {
   private tokenUser;
   private timeToWaitPay = 4;
   public disableButton = false;
+  public idCountry = 1;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -63,7 +65,16 @@ export class BuyProductPage implements OnInit {
     private currentSessionSevice: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef,
     private fb: FormBuilder,
-  ) {}
+    private navigationService: NavigationService,
+  ) {
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSessionSevice.currentUser()['countryId'];
+    }
+    this.idCountry = countryId;
+  }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -113,7 +124,6 @@ export class BuyProductPage implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      console.log(this.product);
       this.productIsSold(this.product);
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;

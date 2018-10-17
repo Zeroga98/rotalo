@@ -190,7 +190,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
+    //&&  this.photosUploaded.length > 0
+    if (!this.formIsInValid && (this.city['id']) ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -208,6 +209,7 @@ export class FormProductComponent implements OnInit, OnChanges {
           'negotiable': true
         };
       } else {
+
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -226,27 +228,43 @@ export class FormProductComponent implements OnInit, OnChanges {
             };
           }
         }
+
       }
       let params;
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
-          "city-id": this.city["id"]
+          'city-id': this.city['id']
         });
         if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
           delete params['publish-until'];
         }
       } else {
+
         const publishDate = {
           'published-at': new Date()
         };
+
+        // const photosIds2 = { 'photo-ids': ['10083'] };
+
+
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
-          "city-id": this.city["id"]
+          'city-id': this.city['id']
         });
+
+        if (!this.subcategoryIsVehicle() && !this.subcategoryIsMotos()) {
+          delete params['category'];
+        }
       }
       this.photosUploaded.length = 0;
       delete params['category'];
-      this.publish.emit(params);
+      const request = {
+        'data': {
+          'attributes': params
+        }
+      };
 
+      console.log(request);
+      this.publish.emit(request);
     } else {
       this.validateAllFormFields(this.photosForm);
       if (this.photosUploaded.length <= 0) {
@@ -486,6 +504,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       negotiable: [{ value: config.negotiable, disabled: false }, []],
       'publish-until': [config['publish-until'], []],
       'type-vehicle': [typeVehicle, []],
+      'model': [model, []],
+    /*
       'year': [year, []],
       'transmission': [transmission, []],
       'color': [color, []],
@@ -494,12 +514,11 @@ export class FormProductComponent implements OnInit, OnChanges {
       'cylinder': [cylinder, []],
       'combustible': [combustible, []],
       'carMake': [carMake, []],
-      'model': [model, []],
       'kindSeat': [kindSeat, []],
       'airbag': [airbag, []],
       'airConditioner': [airConditioner, []],
       'absBrakes': [absBrakes, []],
-      'onlyOwner': [onlyOwner, []],
+      'onlyOwner': [onlyOwner, []],*/
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
   }

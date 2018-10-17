@@ -32,7 +32,8 @@
                           <span>Condición:</span> {{usedProduct}}</div>
                       </div>
                       <div class="price">
-                        <div>{{priceProduct | currency:"$":0 | removeDigits }}</div>
+                        <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$":0 | removeDigits }}</div>
+                        <div *ngIf="product.currency == 'GTQ' && idCountry == 9">{{priceProduct | currency:"Q":0 | removeDigits }}</div>
                       </div>
                     </div>
                   </li>
