@@ -221,11 +221,11 @@
               </div>
               <div class="row">
                 <div class="form-group">
-                  <label class="label-title">Kilometraje</label>
-                    <div>
+                    <div class="kilometraje-container">
                       <input class="form-control input-price" name="kilometraje" currencyMask
                         [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                         formControlName="kilometraje" placeholder="15.000.000" maxlength="50" autocomplete="off">
+                      <label class="label-title">Kilometraje</label>
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                     </div>
