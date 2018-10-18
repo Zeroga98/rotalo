@@ -77,6 +77,13 @@ export class ProductsService {
         .then((response: any) => response.data);
     }
 
+    getProductsByIdDetail(id: number) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${id}`;
+      return this.http.get(url, { headers: headers }).map((response: any) => response);
+    }
+
     deleteProduct(id: number | string): Promise<any> {
       const url = `${this.url}/${id}`;
       return this.http
@@ -106,6 +113,13 @@ export class ProductsService {
         .put(url, request)
         .toPromise()
         .then((response: any) => response.data);
+    }
+
+    updateProductForm(id: number | string, params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${id}`;
+      return this.http.put(url, params, { headers: headers }).map((response: any) => response);
     }
 
     updateProductStatus(idUser, id: number | string, params): Promise<any> {

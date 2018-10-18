@@ -202,7 +202,7 @@ export class DetailProductComponent implements OnInit {
     ]);
   }
 
-  async loadProduct() {
+  /*async loadProduct() {
     try {
       this.products = await this.productsService.getProductsById(
         this.idProduct
@@ -211,7 +211,6 @@ export class DetailProductComponent implements OnInit {
       if (this.products.user.name) {
         this.firstName = fullName[0];
       }
-
       this.onLoadProduct(this.products);
       this.productIsSold(this.products);
       if (this.products.photos !== undefined) {
@@ -233,6 +232,37 @@ export class DetailProductComponent implements OnInit {
         this.redirectErrorPage();
       }
     }
+  }*/
+
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.products = reponse.body.productos[0];
+        const fullName = this.products.user.name.split(' ');
+        if (this.products.user.name) {
+          this.firstName = fullName[0];
+          this.onLoadProduct(this.products);
+          this.productIsSold(this.products);
+          if (this.products.photoList) {
+            this.productsPhotos = [].concat(this.products.photoList);
+            this.products.photoList = this.productsPhotos;
+          }
+          if (this.products.photoList) {
+            this.conversation = {
+              photo: this.products.photoList[0].url,
+              name: this.products.user.name
+            };
+          }
+          this.productChecked = this.products.status;
+          this.productStatus = this.products.status === 'active';
+          this.visitorCounter();
+          this.changeDetectorRef.markForCheck();
+        }
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
   }
 
   productIsSold(product) {
@@ -252,7 +282,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   getUrlImge() {
-    return 'url(' + this.products.user.photo.url + ')';
+    return 'url(' + this.products.user.photos.url + ')';
   }
 
   saveCheck() {

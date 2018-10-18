@@ -55,4 +55,8 @@ export class ProductEditPage implements OnInit {
       console.error("Error: ", error);
     }
   }
+
+  /*updatePhoto(event) {
+
+  }*/
 }

@@ -192,8 +192,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    // &&  this.photosUploaded.length > 0
-    if (!this.formIsInValid && (this.city['id']) ) {
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -245,7 +244,7 @@ export class FormProductComponent implements OnInit, OnChanges {
         const publishDate = {
           'published-at': new Date()
         };
-        // const photosIds2 = { 'photo-ids': ['10083'] };
+       // const photosIds2 = { 'photo-ids': ['10083'] };
 
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
@@ -257,13 +256,46 @@ export class FormProductComponent implements OnInit, OnChanges {
       }
       this.photosUploaded.length = 0;
       delete params['category'];
+      /**Mejora hacer nested formgroups**/
+      delete params['line-id'];
+      delete params['transmission'];
+      delete params['color'];
+      delete params['license-plate'];
+      delete params['mileage'];
+      delete params['displacement'];
+      delete params['gas'];
+      delete params['carMake'];
+      delete params['type-of-seat'];
+      delete params['airbag'];
+      delete params['air-conditioner'];
+      delete params['abs-brakes'];
+      delete params['unique-owner'];
+      if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
+          const vehicle  = {
+            'vehicle-type': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
+            'line-id': this.photosForm.get('line-id').value,
+            'transmission': this.photosForm.get('transmission').value,
+            'color': this.photosForm.get('color').value,
+            'license-plate': this.photosForm.get('license-plate').value,
+            'mileage': this.photosForm.get('mileage').value,
+            'displacement': this.photosForm.get('displacement').value,
+            'gas': this.photosForm.get('gas').value,
+            'type-of-seat': this.photosForm.get('type-of-seat').value,
+            'airbag': this.photosForm.get('airbag').value,
+            'air-conditioner': this.photosForm.get('air-conditioner').value,
+            'abs-brakes': this.photosForm.get('abs-brakes').value,
+            'unique-owner': this.photosForm.get('unique-owner').value
+          };
+          params.vehicle = vehicle;
+          console.log(params);
+      }
       const request = {
         'data': {
           'attributes': params
         }
       };
 
-      console.log(request);
+
       this.publish.emit(request);
     } else {
       this.validateAllFormFields(this.photosForm);
@@ -279,6 +311,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       }
     }
   }
+
 
   validateState() {
     if (this.state['id']) {
@@ -368,13 +401,49 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   setValidationVehicle() {
+    this.photosForm.patchValue({'line-id': ''});
+    this.photosForm.patchValue({'carMake': ''});
     const typeVehicleControl = this.photosForm.get('type-vehicle');
     const model = this.photosForm.get('model');
+    const lineId = this.photosForm.get('line-id');
+    const transmission = this.photosForm.get('transmission');
+    const color = this.photosForm.get('color');
+    const licensePlate = this.photosForm.get('license-plate');
+    const mileage = this.photosForm.get('mileage');
+    const displacement = this.photosForm.get('displacement');
+    const gas = this.photosForm.get('gas');
+    const carMake = this.photosForm.get('carMake');
+    const kindSeat = this.photosForm.get('type-of-seat');
+    const airbag = this.photosForm.get('airbag');
+    const airConditioner = this.photosForm.get('air-conditioner');
+    const absBrakes = this.photosForm.get('abs-brakes');
+    const uniqueOwner = this.photosForm.get('unique-owner');
     typeVehicleControl.clearValidators();
     model.clearValidators();
+    lineId.clearValidators();
+    transmission.clearValidators();
+    color.clearValidators();
+    licensePlate.clearValidators();
+    mileage.clearValidators();
+    displacement.clearValidators();
+    gas.clearValidators();
+    carMake.clearValidators();
+    kindSeat.clearValidators();
+    airbag.clearValidators();
+    airConditioner.clearValidators();
+    absBrakes.clearValidators();
+    uniqueOwner.clearValidators();
+
     if (this.subcategoryIsVehicle()) {
-      typeVehicleControl.setValidators([Validators.required]);
+      carMake.setValidators([Validators.required]);
+      lineId.setValidators([Validators.required]);
+      mileage.setValidators([Validators.required]);
+      gas.setValidators([Validators.required]);
+      color.setValidators([Validators.required]);
+      transmission.setValidators([Validators.required]);
+      licensePlate.setValidators([Validators.required]);
       model.setValidators([Validators.required]);
+      typeVehicleControl.setValidators([Validators.required]);
       const request = {
         tipo: 1
       };
@@ -391,6 +460,13 @@ export class FormProductComponent implements OnInit, OnChanges {
         this.brandsList = this.collectionService.getBrandsCars();
       }
     } else if (this.subcategoryIsMotos()) {
+      carMake.setValidators([Validators.required]);
+      lineId.setValidators([Validators.required]);
+      mileage.setValidators([Validators.required]);
+      displacement.setValidators([Validators.required]);
+      color.setValidators([Validators.required]);
+      transmission.setValidators([Validators.required]);
+      model.setValidators([Validators.required]);
       const request = {
         tipo: 2
       };
@@ -409,6 +485,19 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
+    lineId.updateValueAndValidity();
+    transmission.updateValueAndValidity();
+    color.updateValueAndValidity();
+    licensePlate.updateValueAndValidity();
+    mileage.updateValueAndValidity();
+    displacement.updateValueAndValidity();
+    gas.updateValueAndValidity();
+    carMake.updateValueAndValidity();
+    kindSeat.updateValueAndValidity();
+    airbag.updateValueAndValidity();
+    airConditioner.updateValueAndValidity();
+    absBrakes.updateValueAndValidity();
+    uniqueOwner.updateValueAndValidity();
   }
 
   setLinesVehicle (id) {
@@ -476,7 +565,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private setInitialForm(config: ProductInterface) {
-    console.log(config);
     if (config['vehicle']) {
       const vehicle  = config['vehicle'];
     }
@@ -555,7 +643,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'color': [color, []],
       'license-plate': [licensePlate, []],
       'mileage': [mileage, []],
-      'displacement ': [displacement, []],
+      'displacement': [displacement, []],
       'gas': [gas, []],
       'carMake': [carMake, []],
       'type-of-seat': [kindSeat, []],

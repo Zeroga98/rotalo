@@ -137,6 +137,11 @@
       padding-left: 30px;
       min-height: 400px;
 
+      .card-product{
+        border: 1px solid #E5E5E5;
+        padding: 20px;
+      }
+
       .title-product {
         color: $red;
         font-size: 3rem;
@@ -254,8 +259,8 @@
     }
   }
   .get-offer {
-    width: 190px;
-    margin: 5px auto;
+    display: inline-block;
+    margin-left: 5px;
     span {
       color: #707070;
       font-size: 1.5rem;
@@ -390,6 +395,9 @@
     align-items: center;
     flex-wrap: wrap;
     padding-top: 5px;
+    border: 1px dotted #E5E5E5;
+    padding: 20px;
+    margin: 15px 0;
     .photo-user {
       width: 45px;
       height: 45px;
@@ -457,6 +465,7 @@
     margin-top: 1rem;
     flex-grow: 1;
     .product-btns {
+      display: inline-block;
       margin: 0;
       .botons {
         border: 1px solid #FF3646;
@@ -487,17 +496,23 @@
 
 }
 :host() {
+
   .product strong {
     font-weight: bold;
   }
+
   .share-container {
-    padding: 45px 60px;
+    padding: 45px 45px;
     background: #FF3646;
+    border-radius:  8px;
+    width: 100%;
   }
+
   .icon-chat-detalle {
     font-size: 2rem;
     padding-right: 8px;
   }
+
   .icon-share-container {
     width: 40px;
     height: 40px;
@@ -515,6 +530,12 @@
       background: url(../../assets/img/icon_share_detalle.svg);
       background-size: 20px 20px;
     }
+  }
+}
+
+:host() {
+  .info-container {
+    width: 100%;
   }
 }
 /* The switch - the box around the switch-slider */
@@ -658,6 +679,7 @@ input:checked+.switch-slider:before {
       float: none;
       display: block;
       .product-btns {
+        width: 100%;
         .cont-botons {
           display: flex;
           flex-wrap: wrap;

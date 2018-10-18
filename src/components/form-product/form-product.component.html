@@ -68,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <label class="label-title">¿En que estado se encuentra?</label>
+                    <label class="label-title">¿En qué estado se encuentra?</label>
                    <div>
                         <div class="md-radio">
                           <input
@@ -170,7 +170,7 @@
             </div>
             <div class="row">
                 <div class="form-group field-form">
-                    <label class="label-title">En que ubicación se encuentra tu producto</label>
+                    <label class="label-title">¿En qué ubicación se encuentra tu producto?</label>
                     <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
                     <span class="error-msg">Este campo es requerido</span>
                   </div>
@@ -314,7 +314,7 @@
                           <label for="id-name--4" class="switch-label">Único dueño</label>
                       </div>
                     </div>
-                  <div class="form-group">
+                  <div  *ngIf="subcategoryIsVehicle()" class="form-group">
                     <label class="label-title">Tipo de asiento</label>
                     <div>
                       <div class="md-radio">
