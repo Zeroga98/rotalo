@@ -54,7 +54,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   combustibleList: Array<any> = COMBUSTIBLE;
   carMakeList: Array<any> = COMBUSTIBLE;
   vehicleProperties: Array<any> = ['Particular', 'Público'];
-  modelList: Array<any> = COMBUSTIBLE;
+  modelList: Array<any> = [];
+  brandsList: Array<any> = [];
+  linesList: Array<any> = [];
   currentSubcategory: String = '';
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
@@ -190,7 +192,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
+    // &&  this.photosUploaded.length > 0
+    if (!this.formIsInValid && (this.city['id']) ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -366,15 +369,56 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   setValidationVehicle() {
     const typeVehicleControl = this.photosForm.get('type-vehicle');
-    const year = this.photosForm.get('year');
+    const model = this.photosForm.get('model');
     typeVehicleControl.clearValidators();
-    year.clearValidators();
+    model.clearValidators();
     if (this.subcategoryIsVehicle()) {
       typeVehicleControl.setValidators([Validators.required]);
-      year.setValidators([Validators.required]);
+      model.setValidators([Validators.required]);
+      const request = {
+        tipo: 1
+      };
+      if (!this.collectionService.getBrandsCars()) {
+        this.collectionService.getVehicles(request).subscribe((response) => {
+          if (response.body) {
+            this.brandsList = response.body.brands;
+            this.collectionService.setBrandsCars(this.brandsList);
+          }
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.brandsList = this.collectionService.getBrandsCars();
+      }
+    } else if (this.subcategoryIsMotos()) {
+      const request = {
+        tipo: 2
+      };
+      if (!this.collectionService.getBrandsMotos()) {
+        this.collectionService.getVehicles(request).subscribe((response) => {
+          if (response.body) {
+            this.brandsList = response.body.brands;
+            this.collectionService.setBrandsMotos(this.brandsList);
+          }
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.brandsList = this.collectionService.getBrandsMotos();
+      }
     }
     typeVehicleControl.updateValueAndValidity();
-    year.updateValueAndValidity();
+    model.updateValueAndValidity();
+  }
+
+  setLinesVehicle (id) {
+    if (this.brandsList) {
+      const brands = this.brandsList.filter(value => {
+        return value.id == id;
+      });
+     this.photosForm.patchValue({'line-id': ''});
+     this.modelList = brands[0].lines;
+    }
   }
 
   closeModal() {
@@ -432,50 +476,54 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private setInitialForm(config: ProductInterface) {
+    console.log(config);
+    if (config['vehicle']) {
+      const vehicle  = config['vehicle'];
+    }
     let typeVehicle = '';
-    let year = '';
+    let lineId = '';
     let transmission = '';
     let color = '';
-    let vehicleNumber = '';
-    let kilometraje = null;
-    let cylinder = '';
-    let combustible = '';
+    let licensePlate = '';
+    let mileage = null;
+    let displacement = '';
+    let gas = '';
     let carMake = '';
     let model = '';
     let kindSeat = true;
     let airbag = '';
     let airConditioner = '';
     let absBrakes = '';
-    let onlyOwner = '';
+    let uniqueOwner = '';
     if (config['type-vehicle']
-    && config['year']
+    && config['line-id']
     && config['transmission']
     && config['color']
-    && config['vehicleNumber']
-    && config['cylinder']
-    && config['combustible']
+    && config['license-plate']
+    && config['displacement']
+    && config['gas']
     && config['carMake']
     && config['model']
-    && config['kindSeat']
+    && config['type-of-seat']
     && config['airbag']
-    && config['airConditioner']
-    && config['absBrakes']
-    && config['onlyOwner']) {
+    && config['air-conditioner']
+    && config['abs-brakes']
+    && config['unique-owner']) {
       typeVehicle = config['type-vehicle'];
-      year = config['year'];
+      lineId = config['line-id'];
       transmission = config['transmission'];
       color = config['color'];
-      vehicleNumber = config['vehicleNumber'];
-      kilometraje = config['kilometraje'];
-      cylinder = config['cylinder'];
-      combustible = config['cylinder'];
+      licensePlate = config['license-plate'];
+      mileage = config['mileage'];
+      displacement  = config['displacement'];
+      gas = config['gas'];
       carMake = config['carMake'];
       model = config['model'];
-      kindSeat = config['kindSeat'];
+      kindSeat = config['type-of-seat'];
       airbag = config['airbag'];
-      airConditioner = config['airConditioner'];
-      absBrakes = config['absBrakes'];
-      onlyOwner = config['onlyOwner'];
+      airConditioner = config['air-conditioner'];
+      absBrakes = config['abs-brakes'];
+      uniqueOwner = config['unique-owner'];
     }
 
     if (config['sell-type'] === 'GRATIS') {
@@ -502,20 +550,19 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': [config['publish-until'], []],
       'type-vehicle': [typeVehicle, []],
       'model': [model, []],
-    /*
-      'year': [year, []],
+      'line-id': [lineId, []],
       'transmission': [transmission, []],
       'color': [color, []],
-      'vehicleNumber': [vehicleNumber, []],
-      'kilometraje': [kilometraje, []],
-      'cylinder': [cylinder, []],
-      'combustible': [combustible, []],
+      'license-plate': [licensePlate, []],
+      'mileage': [mileage, []],
+      'displacement ': [displacement, []],
+      'gas': [gas, []],
       'carMake': [carMake, []],
-      'kindSeat': [kindSeat, []],
+      'type-of-seat': [kindSeat, []],
       'airbag': [airbag, []],
-      'airConditioner': [airConditioner, []],
-      'absBrakes': [absBrakes, []],
-      'onlyOwner': [onlyOwner, []],*/
+      'air-conditioner': [airConditioner, []],
+      'abs-brakes': [absBrakes, []],
+      'unique-owner': [uniqueOwner, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
   }

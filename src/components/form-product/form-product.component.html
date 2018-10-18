@@ -195,23 +195,23 @@
               </div>
               <div class="row">
                   <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('carMake').value}">
-                      <select name="year" class="form-control" formControlName="carMake">
+                      <select name="year" class="form-control" formControlName="carMake" (change)="setLinesVehicle($event.target.value)">
                         <option value="" disabled></option>
-                        <option value="{{carMake}}" *ngFor="let carMake of carMakeList">{{carMake}}</option>
+                        <option value="{{carMake.id}}" *ngFor="let carMake of brandsList">{{carMake.name}}</option>
                       </select>
                       <label class="label-title">Marca</label>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('model').value}">
-                      <select name="model" class="form-control" formControlName="model">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('line-id').value}">
+                      <select name="line-id" class="form-control" formControlName="line-id">
                         <option value="" disabled></option>
-                        <option value="{{model}}" *ngFor="let model of modelList">{{model}}</option>
+                        <option value="{{model.id}}" *ngFor="let model of modelList">{{model.name}}</option>
                       </select>
                       <label class="label-title">Modelo</label>
                       <span class="error-msg">Este campo es requerido</span>
                   </div>
-                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('year').value}">
-                      <select name="year" class="form-control" formControlName="year">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('model').value}">
+                      <select name="model" class="form-control" formControlName="model">
                         <option value="" disabled></option>
                         <option value="{{year}}" *ngFor="let year of yearsVehicle">{{year}}</option>
                       </select>
@@ -220,11 +220,11 @@
                   </div>
               </div>
               <div class="row">
-                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('kilometraje').value || photosForm.get('kilometraje').value == 0}">
+                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('mileage').value || photosForm.get('mileage').value == 0}">
                     <div class="kilometraje-container">
-                      <input class="form-control input-price" name="kilometraje" currencyMask
+                      <input class="form-control input-price" name="mileage" currencyMask
                         [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                        formControlName="kilometraje" placeholder="" maxlength="50" autocomplete="off">
+                        formControlName="mileage" placeholder="" maxlength="50" autocomplete="off">
                       <label class="label-title">Kilometraje</label>
                       <label class="symbol-km">Km</label>
                       <span class="error-msg">Este campo es requerido</span>
@@ -249,24 +249,24 @@
                 </div>
               </div>
               <div class="row">
-                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('cylinder').value}">
-                  <select name="cylinders" class="form-control" formControlName="cylinder">
+                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('displacement').value}">
+                  <select name="displacement" class="form-control" formControlName="displacement">
                     <option value="" disabled></option>
                     <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
                   </select>
                   <label class="label-title">Cilindraje</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('combustible').value}">
-                  <select name="combustible" class="form-control" formControlName="combustible">
+                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('gas').value}">
+                  <select name="gas" class="form-control" formControlName="gas">
                     <option value="" disabled></option>
                     <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
                   </select>
                   <label class="label-title">Combustible</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('vehicleNumber').value}">
-                  <select name="vehicleNumber" class="form-control" formControlName="vehicleNumber">
+                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('license-plate').value}">
+                  <select name="license-plate" class="form-control" formControlName="license-plate">
                     <option value="" disabled></option>
                     <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
                   </select>
@@ -300,17 +300,17 @@
                         <label for="id-name--1" class="switch-label">Airbag</label>
                     </div>
                     <div>
-                        <input formControlName="airConditioner" type="checkbox" id="id-name--2" name="airConditioner" class="switch-input">
+                        <input formControlName="air-conditioner" type="checkbox" id="id-name--2" name="air-conditioner" class="switch-input">
                         <label for="id-name--2" class="switch-label">Aire acondicionado</label>
                     </div>
                   </div>
                   <div class="form-group">
                       <div>
-                          <input formControlName="absBrakes" type="checkbox" id="id-name--3" name="absBrakes" class="switch-input">
+                          <input formControlName="abs-brakes" type="checkbox" id="id-name--3" name="abs-brakes" class="switch-input">
                           <label for="id-name--3" class="switch-label">Frenos ABS</label>
                       </div>
                       <div>
-                          <input formControlName="onlyOwner" type="checkbox" id="id-name--4" name="onlyOwner" class="switch-input">
+                          <input formControlName="unique-owner" type="checkbox" id="id-name--4" name="unique-owner" class="switch-input">
                           <label for="id-name--4" class="switch-label">Único dueño</label>
                       </div>
                     </div>
@@ -318,12 +318,12 @@
                     <label class="label-title">Tipo de asiento</label>
                     <div>
                       <div class="md-radio">
-                        <input [value]="true" formControlName="kindSeat" id="kindSeat1" type="radio" name="kindSeat">
+                        <input [value]="true" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
                         <label for="kindSeat1">Cuero
                         </label>
                       </div>
                       <div class="md-radio">
-                        <input [value]="false" formControlName="kindSeat" id="kindSeat2" type="radio" name="kindSeat">
+                        <input [value]="false" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
                         <label for="kindSeat2">Tela</label>
                       </div>
                       <span class="error-msg">Este campo es requerido</span>

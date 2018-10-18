@@ -7,6 +7,9 @@ export class CollectionSelectService {
     collection: Array<any> = undefined;
     includes: Array<any> = [];
     states: Array<any> = [];
+    brandsCars: Array<any> = undefined;
+    brandsMoto: Array<any> = undefined;
+    readonly urlSapi = this.configurationService.getBaseSapiUrl();
     constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
     async isReady() {
@@ -92,4 +95,28 @@ export class CollectionSelectService {
             },
         }).toPromise();
     }
+
+    getVehicles(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/categorias/vehiculos';
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    }
+
+    setBrandsCars(brands) {
+      this.brandsCars = brands;
+    }
+
+    getBrandsCars() {
+     return this.brandsCars;
+    }
+
+    setBrandsMotos(brands) {
+      this.brandsMoto = brands;
+    }
+
+    getBrandsMotos() {
+     return this.brandsMoto;
+    }
+
 }
