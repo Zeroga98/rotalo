@@ -25,14 +25,26 @@ export class ProductEditPage implements OnInit {
     this.loadProduct();
   }
 
-  async loadProduct() {
+  /*async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       this.redirectIfisNotOwner(this.product);
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
-  }
+  }*/
 
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.redirectIfisNotOwner(this.product);
+        this.changeDetectorRef.markForCheck();
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
+  }
 
   redirectIfisNotOwner(product) {
     const idUser = this.currentSessionService.getIdUser();

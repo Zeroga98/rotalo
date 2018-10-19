@@ -42,67 +42,69 @@
           </ngx-carousel>
         </div>
         <div class="description">{{products.description}}</div>
-        <div class="tabla-container">
+        <div *ngIf="products.vehicle" class="tabla-container">
           <h1>Características</h1>
           <table class="table-info">
             <tbody>
                 <tr>
-                    <td class="padding-cell-right">
-                      <div>
+                    <td class=" ">
+                      <div *ngIf="products.vehicle.line">
                           Marca/Modelo
-                          <p>Chevrolet, Spark GT</p>
+                          <p>{{products.vehicle.line.brand.name}}, {{products.vehicle.line.name}}</p>
                       </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
-                      <div>
+                      <div *ngIf="products.vehicle.transmission">
                           Transmisión
-                          <p>Chevrolet, Spark GT</p>
+                          <p>{{products.vehicle.transmission}}</p>
                       </div>
                     </td>
                     <td class="padding-cell-left">
-                      <div>
+                      <div *ngIf="products.vehicle.licensePlate">
                         Placa
-                        <p>Chevrolet, Spark GT</p>
+                        <p>*****{{products.vehicle.licensePlate}}</p>
                       </div>
                     </td>
                   </tr>
                   <tr>
-                    <td class="padding-cell-right">
-                      <div>
+                    <td class=" ">
+                      <div *ngIf="products.vehicle.mileage">
                         Kilometraje
-                        <p>Chevrolet, Spark GT</p>
+                        <p>{{products.vehicle.mileage | currency:" ":0 | removeDigits }} Km</p>
                       </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
-                        <div>
+                        <div *ngIf="products.vehicle.gas">
                             Combustible
-                            <p>Chevrolet, Spark GT</p>
+                            <p>{{products.vehicle.gas}}</p>
+                        </div>
+                        <div *ngIf="products.vehicle.displacement">
+                            Cilindraje
+                            <p>{{products.vehicle.displacement}}</p>
                         </div>
                     </td>
                     <td class="padding-cell-left">
-                        <div>
-                          Año
-                          <p>Chevrolet, Spark GT</p>
+                        <div *ngIf="products.typeVehicle">
+                          Tipo de Vehículo
+                          <p>{{products.typeVehicle}}</p>
                         </div>
                     </td>
                   </tr>
                   <tr>
-                    <td class="padding-cell-right">
-                        <div>
+                    <td class=" ">
+                        <div *ngIf="products.vehicle.color">
                             Color
-                            <p>Chevrolet, Spark GT</p>
+                            <p>{{products.vehicle.color}}</p>
                         </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
-                        <div>
-                          Tipo de Vehículo 
-                          <p>Chevrolet, Spark GT</p>
+                        <div *ngIf="products.model">
+                          Año
+                          <p>{{products.model}}</p>
                         </div>
                     </td>
                     <td class="padding-cell-left">
                         <div>
-                            Marca/Modelo
-                            <p>Chevrolet, Spark GT</p>
                         </div>
                     </td>
                   </tr>
@@ -110,23 +112,24 @@
           </table>
           <h1>Características adicionales</h1>
           <div class="additional-info">
-            <div class="additional-container">
+            <div *ngIf="products.vehicle.airbag" class="additional-container">
               <div class="img-airbag additional-img"></div>
               <div class="additional-text">Airbag</div>
             </div>
-            <div class="additional-container">
+            <div  *ngIf="products.vehicle.absBrakes" class="additional-container">
               <div class="img-frenos additional-img"></div>
               <div class="additional-text">Frenos ABS</div>
             </div>
-            <div class="additional-container">
+            <div *ngIf="products.vehicle.airConditioner" class="additional-container">
               <div class="img-aire additional-img"></div>
               <div class="additional-text">Aire acondicionado</div>
             </div>
-            <div class="additional-container">
+            <div *ngIf="products.vehicle.typeOfSeat != null && products.vehicle.typeOfSeat != undefined" class="additional-container">
               <div class="img-material additional-img"></div>
-              <div class="additional-text">Material Cuero</div>
+              <div *ngIf="products.vehicle.typeOfSeat" class="additional-text">Material Cuero</div>
+              <div *ngIf="!products.vehicle.typeOfSeat" class="additional-text">Material Tela</div>
             </div>
-            <div class="additional-container">
+            <div *ngIf="products.vehicle['unique-owner']" class="additional-container">
               <div class="img-unico additional-img"></div>
               <div class="additional-text">Único dueño</div>
             </div>
@@ -138,10 +141,8 @@
     <div *ngIf="products" class="product-info">
       <div class="card-product">
         <div class="title-product">{{products.name}}</div>
-        <div class="flexbox">
-          <div *ngIf="products.model" class="contTipo">
-            Modelo - {{products.model}}
-          </div>
+      <!--  <div class="flexbox">-->
+        <div>
           <div>
            <div class="capitalize">
               <span class="condition">Condición: </span>

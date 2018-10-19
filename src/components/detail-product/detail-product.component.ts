@@ -338,15 +338,15 @@ export class DetailProductComponent implements OnInit {
   }
 
   validateSession() {
-    return this.products && this.products.user.id === this.idUser;
+    return this.products && this.products.user.id == this.idUser;
   }
 
   isSellProcess() {
-    return this.products && this.products.status === 'sell_process';
+    return this.products && this.products.status == 'sell_process';
   }
 
   isSold() {
-    return this.products && this.products.status === 'sold';
+    return this.products && this.products.status == 'sold';
   }
 
   async deleteProduct(product: ProductInterface) {
