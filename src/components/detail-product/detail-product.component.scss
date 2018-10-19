@@ -139,7 +139,8 @@
 
       .card-product{
         border: 1px solid #E5E5E5;
-        padding: 20px;
+        padding: 5%;
+        border-radius: 8px;
       }
 
       .title-product {
@@ -161,6 +162,10 @@
         margin: 0 0 15px;
       }
       .contTipo {
+        .icon-eye {
+          font-size: 1.2rem;
+          margin: 0 5px;
+        }
         strong {
           font-weight: bold;
         }
@@ -266,8 +271,9 @@
       font-size: 1.5rem;
     }
     .icon-check {
-      color: #FF3646;
+      color: #4B2878;
       margin-right: 5px;
+      font-size: 2.0rem;
     }
   }
   .icon-arrow {
@@ -336,6 +342,11 @@
       }
     }
   }
+
+  .description {
+    margin-top: 2rem;
+  }
+
 }
 
 :host() {
@@ -347,7 +358,7 @@
     width: 50%;
   }
   .info-section {
-    border: 2px solid #F7F7F7;
+    //border: 2px solid #F7F7F7;
     position: relative;
   }
 
@@ -376,6 +387,8 @@
     }
     .icon {
       color: #D6D6D6;
+      font-size: 1.6rem;
+      margin: 0 10px;
     }
     font-size: 2rem;
     padding-bottom: 20px;
@@ -396,6 +409,7 @@
     flex-wrap: wrap;
     padding-top: 5px;
     border: 1px dotted #E5E5E5;
+    border-radius: 7px;
     padding: 20px;
     margin: 15px 0;
     .photo-user {
@@ -646,6 +660,83 @@ input:checked+.switch-slider:before {
 }
 
 
+:host {
+  .tabla-container {
+    h1 {
+      color:#272727;
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+    .table-info {
+      width: 100%;
+    }
+
+    td{
+      div {
+        color: #8B8B8B;
+        font-size: 1.5rem;
+        p{
+          padding:0;
+          padding-top: 5px;
+          padding-bottom: 15px;
+          color: #2E2E2E;
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+    .middle-cell {
+      border-left: 1px dashed #8B8B8B;
+      border-right: 1px dashed #8B8B8B;
+    }
+    .padding-cell-left {
+      padding-left: 2%;
+    }
+    .padding-cell-right {
+      padding-right: 2%;
+    }
+  }
+}
+
+:host {
+  .additional-info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -3%;
+    .additional-container {
+      width: 15%;
+      min-width: 100px;
+      text-align: center;
+      .additional-img {
+        margin: 0 auto;
+        width: 60px;
+        height: 60px;
+        background-size: 60px 60px;
+      }
+      .img-airbag {
+        background-image: url(../../assets/img/ic_detalle_airbag.svg);
+      }
+      .img-frenos {
+        background-image: url(../../assets/img/ic_detalle_frenos.svg);
+      }
+      .img-aire {
+        background-image: url(../../assets/img/ic_detalle_aire.svg);
+      }
+      .img-material {
+        background-image: url(../../assets/img/ic_detalle_material.svg);
+      }
+      .img-unico {
+        background-image: url(../../assets/img/ic_detalle_unico.svg);
+      }
+    }
+    .additional-text {
+      color: #383838;
+      font-size: 1.4rem;
+    }
+  }
+}
+
 @media screen and (max-width: 750px) {
   :host {
     .container {
@@ -689,6 +780,9 @@ input:checked+.switch-slider:before {
         }
       }
     }
+  }
+  .additional-info {
+    margin-bottom: 40px;
   }
 }
 

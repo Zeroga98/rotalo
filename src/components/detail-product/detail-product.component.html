@@ -17,6 +17,9 @@
           </div>
         </div>
         <div class="description">{{products.description}}</div>
+        <div>
+          tabla
+        </div>
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -39,6 +42,96 @@
           </ngx-carousel>
         </div>
         <div class="description">{{products.description}}</div>
+        <div class="tabla-container">
+          <h1>Características</h1>
+          <table class="table-info">
+            <tbody>
+                <tr>
+                    <td class="padding-cell-right">
+                      <div>
+                          Marca/Modelo
+                          <p>Chevrolet, Spark GT</p>
+                      </div>
+                    </td>
+                    <td class="padding-cell-left middle-cell">
+                      <div>
+                          Transmisión
+                          <p>Chevrolet, Spark GT</p>
+                      </div>
+                    </td>
+                    <td class="padding-cell-left">
+                      <div>
+                        Placa
+                        <p>Chevrolet, Spark GT</p>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="padding-cell-right">
+                      <div>
+                        Kilometraje
+                        <p>Chevrolet, Spark GT</p>
+                      </div>
+                    </td>
+                    <td class="padding-cell-left middle-cell">
+                        <div>
+                            Combustible
+                            <p>Chevrolet, Spark GT</p>
+                        </div>
+                    </td>
+                    <td class="padding-cell-left">
+                        <div>
+                          Año
+                          <p>Chevrolet, Spark GT</p>
+                        </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="padding-cell-right">
+                        <div>
+                            Color
+                            <p>Chevrolet, Spark GT</p>
+                        </div>
+                    </td>
+                    <td class="padding-cell-left middle-cell">
+                        <div>
+                          Tipo de Vehículo 
+                          <p>Chevrolet, Spark GT</p>
+                        </div>
+                    </td>
+                    <td class="padding-cell-left">
+                        <div>
+                            Marca/Modelo
+                            <p>Chevrolet, Spark GT</p>
+                        </div>
+                    </td>
+                  </tr>
+            </tbody>
+          </table>
+          <h1>Características adicionales</h1>
+          <div class="additional-info">
+            <div class="additional-container">
+              <div class="img-airbag additional-img"></div>
+              <div class="additional-text">Airbag</div>
+            </div>
+            <div class="additional-container">
+              <div class="img-frenos additional-img"></div>
+              <div class="additional-text">Frenos ABS</div>
+            </div>
+            <div class="additional-container">
+              <div class="img-aire additional-img"></div>
+              <div class="additional-text">Aire acondicionado</div>
+            </div>
+            <div class="additional-container">
+              <div class="img-material additional-img"></div>
+              <div class="additional-text">Material Cuero</div>
+            </div>
+            <div class="additional-container">
+              <div class="img-unico additional-img"></div>
+              <div class="additional-text">Único dueño</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -50,10 +143,12 @@
             Modelo - {{products.model}}
           </div>
           <div>
-            <span class="space" *ngIf="products.model">-</span>
-            <span class="condition">Condición: </span>
-            <span>{{products.used ? 'Usado' : 'Nuevo'}}</span>
+           <div class="capitalize">
+              <span class="condition">Condición: </span>
+              <span>{{products.used ? 'Usado' : 'Nuevo'}}</span>
+           </div>
             <div class="capitalize">
+              <span class="icon icon-detail-off"></span>
               {{products['sell-type'].toLowerCase()}}
             </div>
           </div>
@@ -169,10 +264,12 @@
                 Fecha de Publicación:
                 <span>{{products['published-at'] | amTimeAgo}}</span>
               </div>
-              <span class="icon icon-location"></span>
-              <span>{{getLocation(products)}}</span>
+              <div>
+                  <span class="icon icon-location"></span>
+                  <span>{{getLocation(products)}}</span>
+              </div>
               <div class="contTipo">
-                {{visitsNumber}} visitas
+                  <span class="icon icon-eye"></span> {{visitsNumber}} visitas
               </div>
             </div>
           </div>
