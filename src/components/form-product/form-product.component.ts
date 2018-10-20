@@ -123,8 +123,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.getCountries();
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
-          if (this.product.photos) {
-            this.saveInitialPhotos(this.product.photos);
+          if (this.product['photoList']) {
+            this.saveInitialPhotos(this.product['photoList']);
           }
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
@@ -192,7 +192,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
+    this.setValidationVehicle();
+
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -244,18 +246,17 @@ export class FormProductComponent implements OnInit, OnChanges {
         const publishDate = {
           'published-at': new Date()
         };
-       // const photosIds2 = { 'photo-ids': ['10083'] };
 
-        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
+        //////////////////////////
+       const photosIds2 = { 'photo-ids': ['10083'] };
+
+        params = Object.assign({}, this.photosForm.value, photosIds2, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
 
-        if (!this.subcategoryIsVehicle() && !this.subcategoryIsMotos()) {
-          delete params['category'];
-        }
       }
       this.photosUploaded.length = 0;
-      delete params['category'];
+
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];
       delete params['transmission'];
@@ -400,9 +401,12 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
-  setValidationVehicle() {
+  resetFormsVehicle() {
     this.photosForm.patchValue({'line-id': ''});
     this.photosForm.patchValue({'carMake': ''});
+  }
+
+  setValidationVehicle() {
     const typeVehicleControl = this.photosForm.get('type-vehicle');
     const model = this.photosForm.get('model');
     const lineId = this.photosForm.get('line-id');
@@ -465,7 +469,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       mileage.setValidators([Validators.required]);
       displacement.setValidators([Validators.required]);
       color.setValidators([Validators.required]);
-      transmission.setValidators([Validators.required]);
       model.setValidators([Validators.required]);
       const request = {
         tipo: 2
@@ -498,6 +501,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     airConditioner.updateValueAndValidity();
     absBrakes.updateValueAndValidity();
     uniqueOwner.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
   }
 
   setLinesVehicle (id) {
@@ -507,6 +511,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       });
      this.photosForm.patchValue({'line-id': ''});
      this.modelList = brands[0].lines;
+     this.changeDetectorRef.markForCheck();
     }
   }
 
@@ -565,10 +570,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private setInitialForm(config: ProductInterface) {
-    if (config['vehicle']) {
-      const vehicle  = config['vehicle'];
-    }
+
     let typeVehicle = '';
+    let model = '';
     let lineId = '';
     let transmission = '';
     let color = '';
@@ -577,42 +581,48 @@ export class FormProductComponent implements OnInit, OnChanges {
     let displacement = '';
     let gas = '';
     let carMake = '';
-    let model = '';
-    let kindSeat = true;
+    let kindSeat = 'TELA';
     let airbag = '';
     let airConditioner = '';
     let absBrakes = '';
     let uniqueOwner = '';
-    if (config['type-vehicle']
-    && config['line-id']
-    && config['transmission']
-    && config['color']
-    && config['license-plate']
-    && config['displacement']
-    && config['gas']
-    && config['carMake']
-    && config['model']
-    && config['type-of-seat']
-    && config['airbag']
-    && config['air-conditioner']
-    && config['abs-brakes']
-    && config['unique-owner']) {
-      typeVehicle = config['type-vehicle'];
-      lineId = config['line-id'];
-      transmission = config['transmission'];
-      color = config['color'];
-      licensePlate = config['license-plate'];
-      mileage = config['mileage'];
-      displacement  = config['displacement'];
-      gas = config['gas'];
-      carMake = config['carMake'];
-      model = config['model'];
-      kindSeat = config['type-of-seat'];
-      airbag = config['airbag'];
-      airConditioner = config['air-conditioner'];
-      absBrakes = config['abs-brakes'];
-      uniqueOwner = config['unique-owner'];
+
+    if (config['vehicle']) {
+      const vehicle  = config['vehicle'];
+      transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
+      color = vehicle['color'] ? vehicle['color'] : '';
+      licensePlate = vehicle['licensePlate'] ? vehicle['licensePlate'] : '';
+      mileage = vehicle['mileage'] ? vehicle['mileage'] : '';
+      displacement  = vehicle['displacement'] ? vehicle['displacement'] : '';
+      gas = vehicle['gas'] ? vehicle['gas'] : '';
+      kindSeat = vehicle['typeOfSeat'] ? vehicle['typeOfSeat'] : '';
+      airbag = vehicle['airbag'] ? vehicle['airbag'] : '';
+      airConditioner = vehicle['airConditioner'] ? vehicle['airConditioner'] : '';
+      absBrakes = vehicle['absBrakes'] ? vehicle['absBrakes'] : '';
+      uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
+      carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
+      lineId = vehicle['line'] ? vehicle['line'].id : '';
+      const request = {
+        tipo: 1
+      };
+      if (vehicle['vehicleType'] == 'MOTO') {
+        request.tipo = 2;
+      } else if (vehicle['vehicleType'] == 'AUTO') {
+        request.tipo = 1;
+      }
+      this.collectionService.getVehicles(request).subscribe((response) => {
+        if (response.body) {
+          this.brandsList = response.body.brands;
+          this.setLinesVehicle(carMake);
+          this.photosForm.patchValue({'line-id': lineId});
+        }
+      }, (error) => {
+        console.log(error);
+      });
     }
+
+    typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
+    model = config['model'] ? config['model'] : '';
 
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
@@ -629,7 +639,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
       currency: [config.currency, [Validators.required]],
-      'subcategory-id': [config['subcategory-id'], [Validators.required]],
+      'subcategory-id': [config['subcategory'].id, [Validators.required]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
       'sell-type': [config['sell-type'], [Validators.required]],
@@ -653,6 +663,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'unique-owner': [uniqueOwner, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
+    this.changeDetectorRef.markForCheck();
   }
 
   private getInitialConfig(): ProductInterface {
@@ -693,11 +704,11 @@ export class FormProductComponent implements OnInit, OnChanges {
         break;
     }
 
-    const product: ProductInterface = {
+    const product = {
       name: null,
       price: null,
       currency: currency,
-      'subcategory-id': '',
+      'subcategory': {id : ''},
       used: false,
       visible: true,
       'sell-type': 'VENTA',

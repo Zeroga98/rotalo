@@ -48,59 +48,60 @@
             <tbody>
                 <tr>
                     <td class=" ">
-                      <div *ngIf="products.vehicle.line">
+                      <div>
                           Marca/Modelo
-                          <p>{{products.vehicle.line.brand.name}}, {{products.vehicle.line.name}}</p>
+                          <p *ngIf="products.vehicle.line">{{products.vehicle.line.brand.name}}, {{products.vehicle.line.name}}</p>
                       </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
-                      <div *ngIf="products.vehicle.transmission">
-                          Transmisión
-                          <p>{{products.vehicle.transmission}}</p>
-                      </div>
+                        <div>
+                            Año
+                            <p *ngIf="products.model">{{products.model}}</p>
+                          </div>
                     </td>
                     <td class="padding-cell-left">
-                      <div *ngIf="products.vehicle.licensePlate">
-                        Placa
-                        <p>*****{{products.vehicle.licensePlate}}</p>
-                      </div>
+                        <div>
+                            Kilometraje
+                            <p *ngIf="products.vehicle.mileage &&  products.vehicle.mileage != 0">{{products.vehicle.mileage | currency:" ":0 | removeDigits }} Km</p>
+                            <p *ngIf="products.vehicle.mileage == 0">0 Km</p>
+                          </div>
                     </td>
                   </tr>
                   <tr>
                     <td class=" ">
-                      <div *ngIf="products.vehicle.mileage">
-                        Kilometraje
-                        <p>{{products.vehicle.mileage | currency:" ":0 | removeDigits }} Km</p>
-                      </div>
+                        <div>
+                            Color
+                            <p *ngIf="products.vehicle.color">{{products.vehicle.color}}</p>
+                        </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
                         <div *ngIf="products.vehicle.gas">
                             Combustible
-                            <p>{{products.vehicle.gas}}</p>
+                            <p *ngIf="products.vehicle.gas">{{products.vehicle.gas}}</p>
                         </div>
                         <div *ngIf="products.vehicle.displacement">
                             Cilindraje
-                            <p>{{products.vehicle.displacement}}</p>
+                            <p *ngIf="products.vehicle.displacement">{{products.vehicle.displacement}}</p>
                         </div>
                     </td>
                     <td class="padding-cell-left">
-                        <div *ngIf="products.typeVehicle">
+                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
                           Tipo de Vehículo
-                          <p>{{products.typeVehicle}}</p>
+                          <p *ngIf="products.typeVehicle">{{products.typeVehicle}}</p>
                         </div>
                     </td>
                   </tr>
                   <tr>
                     <td class=" ">
-                        <div *ngIf="products.vehicle.color">
-                            Color
-                            <p>{{products.vehicle.color}}</p>
-                        </div>
+                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                            Placa
+                            <p *ngIf="products.vehicle.licensePlate">*****{{products.vehicle.licensePlate}}</p>
+                          </div>
                     </td>
                     <td class="padding-cell-left middle-cell">
-                        <div *ngIf="products.model">
-                          Año
-                          <p>{{products.model}}</p>
+                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                            Transmisión
+                            <p *ngIf="products.vehicle.transmission">{{products.vehicle.transmission}}</p>
                         </div>
                     </td>
                     <td class="padding-cell-left">
@@ -112,7 +113,7 @@
           </table>
           <h1>Características adicionales</h1>
           <div class="additional-info">
-            <div *ngIf="products.vehicle.airbag" class="additional-container">
+            <div *ngIf="products.vehicle.airbag && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
               <div class="img-airbag additional-img"></div>
               <div class="additional-text">Airbag</div>
             </div>
@@ -120,16 +121,16 @@
               <div class="img-frenos additional-img"></div>
               <div class="additional-text">Frenos ABS</div>
             </div>
-            <div *ngIf="products.vehicle.airConditioner" class="additional-container">
+            <div *ngIf="products.vehicle.airConditioner && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
               <div class="img-aire additional-img"></div>
               <div class="additional-text">Aire acondicionado</div>
             </div>
-            <div *ngIf="products.vehicle.typeOfSeat != null && products.vehicle.typeOfSeat != undefined" class="additional-container">
+            <div *ngIf="products.vehicle.typeOfSeat && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
               <div class="img-material additional-img"></div>
-              <div *ngIf="products.vehicle.typeOfSeat" class="additional-text">Material Cuero</div>
-              <div *ngIf="!products.vehicle.typeOfSeat" class="additional-text">Material Tela</div>
+              <div *ngIf="products.vehicle.typeOfSeat == 'CUERO'" class="additional-text">Material Cuero</div>
+              <div *ngIf="products.vehicle.typeOfSeat == 'TELA'" class="additional-text">Material Tela</div>
             </div>
-            <div *ngIf="products.vehicle['unique-owner']" class="additional-container">
+            <div *ngIf="products.vehicle['uniqueOwner']" class="additional-container">
               <div class="img-unico additional-img"></div>
               <div class="additional-text">Único dueño</div>
             </div>

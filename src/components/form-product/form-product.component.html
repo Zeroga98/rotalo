@@ -18,7 +18,7 @@
           <div class="row-section">
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
-                <select name="category-id" class="form-control" (change)="selectedComunity($event.target.value)"
+                <select  name="category-id" class="form-control" (change)="selectedComunity($event.target.value)"
                   #categorySelect formControlName="category">
                   <option value="" selected="true" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
@@ -28,7 +28,7 @@
               </div>
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                 <div>
-                  <select [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle()"
+                  <select  [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
                     <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
@@ -239,7 +239,7 @@
                     <label class="label-title">Color</label>
                     <span class="error-msg">Este campo es requerido</span>
                 </div>
-                 <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('transmission').value}">
+                 <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('transmission').value}">
                   <select name="transmission" class="form-control" formControlName="transmission">
                     <option value="" disabled></option>
                     <option value="{{transmission}}" *ngFor="let transmission of transmissionList">{{transmission}}</option>
@@ -318,13 +318,13 @@
                     <label class="label-title">Tipo de asiento</label>
                     <div>
                       <div class="md-radio">
-                        <input [value]="true" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
-                        <label for="kindSeat1">Cuero
-                        </label>
+                        <input value="TELA" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
+                        <label for="kindSeat1">Tela</label>
                       </div>
                       <div class="md-radio">
-                        <input [value]="false" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
-                        <label for="kindSeat2">Tela</label>
+                        <input value="CUERO" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
+                        <label for="kindSeat2">Cuero
+                        </label>
                       </div>
                       <span class="error-msg">Este campo es requerido</span>
                     </div>

@@ -324,6 +324,19 @@
                         <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
                       </div>
                       <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
+
+                      <!-- INICIO NOTIFICACIÓN INFORMACION DEL VEHICULO -->
+                      <div *ngIf="message.tipoNotificacion == 'vehicles_not_updated'" class="notifications-item">
+                          <span class="icon icon-warning notification-icon"></span>
+                          <p class="notification-text">
+                            ¡Hey, tenemos algo que contarte! Ahora puedes agregar detalles a la publicación de tu vehículo, porque como sabes, todo entra por los ojos.
+                          </p>
+                          <small class="notification-date">{{message.fechaHora}}</small>
+                        </div>
+                        <!-- FIN NOTIFICACIÓN INFORMACION DEL VEHICULO -->
+
+
+
                       <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
                       <div *ngIf="message.tipoNotificacion == 'first_interests_association'" class="notifications-item">
                         <span class="icon icon-warning notification-icon"></span>
