@@ -111,3 +111,19 @@ export const IMGS_COMPANIES_MOBILE = [
     name: 'tuya'
   }]
 ];
+
+
+export const IMGS_COMPANIES_GUATEMALA = [
+  [{
+    url: './assets/img/logos_company/bam@2x.png',
+    name: 'bam'
+  }
+]];
+
+export const IMGS_COMPANIES_MOBILE_GUATEMALA = [
+  [{
+    url: './assets/img/logos_company/bam@2x.png',
+    name: 'bam'
+  }
+]];
+
