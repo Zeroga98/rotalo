@@ -634,6 +634,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.photosForm.controls['negotiable'].disable();
     }
 
+    if (this.product) {
+      this.photosForm.get('category').disable();
+      this.photosForm.get('subcategory-id').disable();
+    }
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
@@ -662,6 +666,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'unique-owner': [uniqueOwner, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
+
     this.changeDetectorRef.markForCheck();
   }
 

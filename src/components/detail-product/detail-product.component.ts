@@ -310,11 +310,11 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if ( this.products && this.products['type-vehicle'] && this.products['model']) {
+    if ( this.products && this.products['typeVehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
-      const type = this.products['type-vehicle'];
+      const type = this.products['typeVehicle'];
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;

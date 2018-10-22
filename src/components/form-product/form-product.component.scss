@@ -235,6 +235,16 @@
         opacity: 1;
       }
 
+      .form-control.category[disabled], .form-control.subcategory[disabled] {
+        background: transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      .form-control.category[disabled] + .label-title, .form-control.subcategory[disabled] + .label-title  {
+        color: #383838;
+        font-weight: bold;
+      }
+
       .price-container {
         display: block;
         width: 100%;
@@ -735,12 +745,11 @@
       top: 0;
       padding: 7px 0 0 0;
       transition: all 200ms;
+      z-index: -1;
     }
 
-    select.form-control:focus+.label-title {
-      font-size: 1.8rem;
-      transform: translate3d(0, -100%, 0);
-      opacity: 1;
+    select.form-control {
+      background-color: transparent;
     }
 
     .price-container {
@@ -764,11 +773,16 @@
     .kilometraje-container {
       position: relative;
 
+      input.input-price {
+        background: transparent;
+      }
+      
       input.form-control+.label-title {
         position: absolute;
         top: 0;
         padding: 7px 0 0 12px;
         transition: all 200ms;
+        z-index: -1;
       }
 
       input.form-control:focus+.label-title, input.form-control.ng-dirty +.label-title {

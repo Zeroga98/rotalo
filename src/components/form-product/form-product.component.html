@@ -18,7 +18,7 @@
           <div class="row-section">
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
-                <select  name="category-id" class="form-control" (change)="selectedComunity($event.target.value)"
+                <select  name="category-id" class="category form-control" (change)="selectedComunity($event.target.value)"
                   #categorySelect formControlName="category">
                   <option value="" selected="true" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
@@ -28,7 +28,7 @@
               </div>
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                 <div>
-                  <select  [(ngModel)]="currentSubcategory" class="form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
+                  <select  [(ngModel)]="currentSubcategory" class="subcategory form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
                     <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>

@@ -32,6 +32,7 @@ export class RotaloCenterComponent implements OnInit {
     /**valor id usuario quemado */
     this.resumeRotaloCenterService.resumeRotaloCenter(userId).subscribe(
       state => {
+        if (state.body) {
         this.numberMessages = state.body.notificacionesPendientes;
         this.speedRanking = state.body.rapidezProceso;
         this.qualityRanking = state.body.calidadProducto;
@@ -40,6 +41,7 @@ export class RotaloCenterComponent implements OnInit {
         this.productsRotados = state.body.articulosRotados;
         this.productExpire = state.body.articulosVencidos;
         this.mainRanking = state.body.calificacionGeneral;
+        }
       },
       error => console.log(error)
     );
