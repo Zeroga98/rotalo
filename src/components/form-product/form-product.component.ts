@@ -81,7 +81,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   public errorState = false;
   public errorCity = false;
   public communityName = '';
-  public showOptions = true;
+
 
   constructor(
     private router: Router,
@@ -509,7 +509,9 @@ export class FormProductComponent implements OnInit, OnChanges {
         return value.id == id;
       });
      this.photosForm.patchValue({'line-id': ''});
-     this.modelList = brands[0].lines;
+     if (brands) {
+      this.modelList = brands[0].lines;
+     }
      this.changeDetectorRef.markForCheck();
     }
   }
@@ -548,10 +550,8 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = '';
     this.subCategory = null;
-    this.showOptions = true;
     if (idCategory == 7 || idCategory == 6) {
       this.photosForm.patchValue({'sell-type': 'VENTA'});
-      this.showOptions = false;
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
     }
@@ -795,5 +795,18 @@ export class FormProductComponent implements OnInit, OnChanges {
     return this.photosForm.invalid;
   }
 
-
+  get showOptionsVehicles () {
+    if (this.photosForm.get('category').value == 6) {
+      if (this.photosForm.get('subcategory-id').value != 55) {
+        return false;
+      }
+    }
+    return true;
+  }
+  get showOptionEstate () {
+    if (this.photosForm.get('category').value == 7) {
+      return false;
+    }
+    return true;
+  }
 }

@@ -116,7 +116,9 @@ export class HomePage implements OnInit {
         case 'Colombia': {
           if (documentName == 'CC') {
             idDocumentControl.setValidators([
-              Validators.pattern('^((\\d{6})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
+              // Validators.pattern('^((\\d{6})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
+              Validators.maxLength(10),
+              Validators.pattern('^[0-9]+$'),
               Validators.required
             ]);
             this.errorMessageId =

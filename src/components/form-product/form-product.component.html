@@ -28,6 +28,7 @@
               </div>
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                 <div>
+
                   <select  [(ngModel)]="currentSubcategory" class="subcategory form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
@@ -106,7 +107,7 @@
                           name="sell-type">
                           <label for="vender">Vender</label>
                         </div>
-                        <div  class="md-radio">
+                        <div *ngIf="showOptionsVehicles" class="md-radio">
                             <input
                             (click)="changeKindOfProduct($event.target.value)"
                             [attr.disabled]="disabledFieldType ? '' : null"
@@ -117,7 +118,7 @@
                             name="sell-type">
                             <label for="alquilar">Alquilar</label>
                         </div>
-                        <div  *ngIf="showOptions" class="md-radio">
+                        <div  *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
                           <input
                           (click)="changeKindOfProduct($event.target.value)"
                           [attr.disabled]="disabledFieldType ? '' : null"
@@ -128,7 +129,7 @@
                           name="sell-type">
                           <label for="subastar">Subastar</label>
                         </div>
-                        <div  *ngIf="showOptions" class="md-radio">
+                        <div  *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
                             <input
                             (click)="changeKindOfProduct($event.target.value)"
                             [attr.disabled]="disabledFieldType ? '' : null"
