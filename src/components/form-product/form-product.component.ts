@@ -403,6 +403,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   resetFormsVehicle() {
     this.photosForm.patchValue({'line-id': ''});
     this.photosForm.patchValue({'carMake': ''});
+    this.photosForm.patchValue({'sell-type': 'VENTA'});
+    this.disabledField = false;
+    this.photosForm.controls['negotiable'].enable();
   }
 
   setValidationVehicle() {
@@ -508,8 +511,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       const brands = this.brandsList.filter(value => {
         return value.id == id;
       });
-     this.photosForm.patchValue({'line-id': ''});
-     if (brands) {
+    this.photosForm.patchValue({'line-id': ''});
+     if (brands && brands.length > 0) {
       this.modelList = brands[0].lines;
      }
      this.changeDetectorRef.markForCheck();
@@ -586,6 +589,30 @@ export class FormProductComponent implements OnInit, OnChanges {
     let absBrakes = '';
     let uniqueOwner = '';
 
+    const request = {
+      tipo: 1
+    };
+
+    if (config['subcategory'].name == 'Carros') {
+      request.tipo = 1;
+    } else if (config['subcategory'].name == 'Motos') {
+      request.tipo = 2;
+    }
+    this.collectionService.getVehicles(request).subscribe((response) => {
+      if (response.body) {
+        this.brandsList = response.body.brands;
+        if (config['vehicle']) {
+          const vehicle  = config['vehicle'];
+          carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
+          lineId = vehicle['line'] ? vehicle['line'].id : '';
+          this.setLinesVehicle(carMake);
+          this.photosForm.patchValue({'line-id': lineId});
+        }
+      }
+    }, (error) => {
+      console.log(error);
+    });
+
     if (config['vehicle']) {
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
@@ -601,23 +628,6 @@ export class FormProductComponent implements OnInit, OnChanges {
       uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
       carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
       lineId = vehicle['line'] ? vehicle['line'].id : '';
-      const request = {
-        tipo: 1
-      };
-      if (vehicle['vehicleType'] == 'MOTO') {
-        request.tipo = 2;
-      } else if (vehicle['vehicleType'] == 'AUTO') {
-        request.tipo = 1;
-      }
-      this.collectionService.getVehicles(request).subscribe((response) => {
-        if (response.body) {
-          this.brandsList = response.body.brands;
-          this.setLinesVehicle(carMake);
-          this.photosForm.patchValue({'line-id': lineId});
-        }
-      }, (error) => {
-        console.log(error);
-      });
     }
 
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
@@ -667,7 +677,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
 
-    this.changeDetectorRef.markForCheck();
+  //  this.changeDetectorRef.markForCheck();
   }
 
   private getInitialConfig(): ProductInterface {

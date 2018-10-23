@@ -53,7 +53,7 @@
                             Este campo es obligatorio.
                         </span>
                         <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
-                            El campo no cumple la longitud mínima.
+                            Debe tener mínimo 6 caracteres
                         </span>
                     </span>
                 </span>

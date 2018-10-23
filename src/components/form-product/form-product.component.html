@@ -144,13 +144,13 @@
                    </div>
                 </div>
 
-                <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group field-form" data-input="price">
+                <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group" data-input="price">
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
-                        <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder=""
-                          maxlength="50" autocomplete="off">
                         <label class="label-title">Precio (con los pies en la tierra)</label>
+                        <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price" placeholder="10.000"
+                          maxlength="50" autocomplete="off">
                         <span class="error-msg">Este campo es requerido</span>
                         <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
                       </div>
@@ -221,12 +221,12 @@
                   </div>
               </div>
               <div class="row">
-                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('mileage').value || photosForm.get('mileage').value == 0}">
+                <div class="form-group" [ngClass]="{'valid': photosForm.get('mileage').value || photosForm.get('mileage').value == 0}">
                     <div class="kilometraje-container">
+                      <label class="label-title">Kilometraje</label>
                       <input class="form-control input-price" name="mileage" currencyMask
                         [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                        formControlName="mileage" placeholder="" maxlength="50" autocomplete="off">
-                      <label class="label-title">Kilometraje</label>
+                        formControlName="mileage" placeholder="15.000.000" maxlength="50" autocomplete="off">
                       <label class="symbol-km">Km</label>
                       <span class="error-msg">Este campo es requerido</span>
                       <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
@@ -248,16 +248,16 @@
                   <label class="label-title">Transmisión</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
+                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('displacement').value}">
+                    <select name="displacement" class="form-control" formControlName="displacement">
+                      <option value="" disabled></option>
+                      <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
+                    </select>
+                    <label class="label-title">Cilindraje</label>
+                    <span class="error-msg">Este campo es requerido</span>
+                </div>
               </div>
               <div class="row">
-                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('displacement').value}">
-                  <select name="displacement" class="form-control" formControlName="displacement">
-                    <option value="" disabled></option>
-                    <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
-                  </select>
-                  <label class="label-title">Cilindraje</label>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
                 <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('gas').value}">
                   <select name="gas" class="form-control" formControlName="gas">
                     <option value="" disabled></option>
