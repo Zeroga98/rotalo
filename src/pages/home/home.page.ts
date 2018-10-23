@@ -1,5 +1,5 @@
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalVideoService } from '../../components/modal-video/modal-video.service';

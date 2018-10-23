@@ -46,7 +46,6 @@ export class ProductsUploadPage implements OnInit, OnDestroy {
     this.productsService.saveProductsForm(event).subscribe((response) => {
       this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
       this.userService.updateInfoUser();
-      console.log(response.body);
       if (response.body && response.body.producto) {
         this.shareProduct('custom-modal-3', response.body.producto.id);
       }
