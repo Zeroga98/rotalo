@@ -111,7 +111,7 @@
                   </tr>
             </tbody>
           </table>
-          <h1>Características adicionales</h1>
+          <h1 *ngIf="motoHasCharacteristics() || autoHasCharacteristics()" >Características adicionales</h1>
           <div class="additional-info">
             <div *ngIf="products.vehicle.airbag && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
               <div class="img-airbag additional-img"></div>

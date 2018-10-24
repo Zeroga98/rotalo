@@ -447,4 +447,23 @@ export class DetailProductComponent implements OnInit {
     }
   }
 
+  motoHasCharacteristics() {
+   if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
+    if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
+      return true;
+    }
+   }
+   return false;
+  }
+
+  autoHasCharacteristics() {
+    if (this.products.vehicle && this.products.vehicle.vehicleType == 'AUTO') {
+     if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
+     this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
+       return true;
+     }
+    }
+    return false;
+   }
+
 }
