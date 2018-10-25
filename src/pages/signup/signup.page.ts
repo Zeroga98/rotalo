@@ -9,6 +9,7 @@ import { ActivationService } from '../../services/activation.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { MessagesService } from '../../services/messages.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
+import { TypeDocumentsService } from '../../services/type-documents.service';
 
 @Component({
   selector: 'signup-page',
@@ -40,7 +41,6 @@ export class SignUpPage implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private productsService: ProductsService,
     private activationService: ActivationService,
     private currenSession: CurrentSessionService,
     private messagesService: MessagesService,
@@ -66,7 +66,7 @@ export class SignUpPage implements OnInit {
         name: 'Colombia',
         id: '1'
       };
-    } else if (idCountry == '9') {
+    } else if (idCountry == '9')  {
       this.country = {
         name: 'Guatemala',
         id: '9'
