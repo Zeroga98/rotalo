@@ -25,6 +25,7 @@ export const ROUTES = {
         UPLOAD: 'form',
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit',
+        FINANCEBAM: 'finance',
         ERROR: 'error'
     },
     MENUROTALOCENTER: {

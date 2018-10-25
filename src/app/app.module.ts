@@ -147,6 +147,7 @@ import { NavigationTopLoginComponent } from '../components/navigation-top-login/
 import { CompanySliderComponent } from '../components/company-slider/company-slider.component';
 import { ModalVideoService } from '../components/modal-video/modal-video.service';
 import { ModalVideoComponent } from '../components/modal-video/modal-video.component';
+import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
 
 @NgModule({
   declarations: [
@@ -234,6 +235,7 @@ import { ModalVideoComponent } from '../components/modal-video/modal-video.compo
     NavigationTopLoginComponent,
     CompanySliderComponent,
     ModalVideoComponent,
+    FinanceBamComponent,
   ],
   imports: [
     BrowserModule,

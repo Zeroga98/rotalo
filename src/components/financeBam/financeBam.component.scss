@@ -1,0 +1,27 @@
+:host {
+  .container-form {
+    padding: 66px 7%;
+    h1 {
+      font-size: 2.4rem;
+      color: #272727;
+    }
+    .container-info {
+      display: flex;
+    }
+
+    .info-list {
+      .row {
+        p {
+          font-size:1.8rem;
+          color: #272727;
+          padding: 5px 0;
+        }
+      }
+    }
+
+    .info-list, .info-form {
+      width: 50%;
+    }
+
+  }
+}

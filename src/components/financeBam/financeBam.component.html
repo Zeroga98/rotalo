@@ -1,0 +1,53 @@
+<div class="container-finance">
+  <div *ngIf="product" class="container-form">
+    <h1>Para financiar este producto válida esta información</h1>
+    <div class="container-info">
+      <div class="info-list">
+        <div class="row">
+          <p>
+            Nombre
+          </p>
+          <p *ngIf="nameUser">
+            {{nameUser}}
+          </p>
+        </div>
+        <div class="row">
+          <p>
+            Tipo de documento
+          </p>
+          <p *ngIf="typeDocument">
+            {{typeDocument}}
+          </p>
+        </div>
+        <div class="row">
+            <p>
+              Número de documento
+            </p>
+            <p *ngIf="documentNumber">
+            {{documentNumber}}
+            </p>
+        </div>
+        <div class="row">
+            <p>
+              Correo electrónico
+            </p>
+            <p *ngIf="email">
+              {{email}}
+            </p>
+        </div>
+        <div class="row">
+            <p>
+              Celular
+            </p>
+            <p *ngIf="cellphone">
+              {{cellphone}}
+            </p>
+        </div>
+      </div>
+      <div class="info-form">
+
+      </div>
+    </div>
+  </div>
+</div>
+<custom-footer></custom-footer>
