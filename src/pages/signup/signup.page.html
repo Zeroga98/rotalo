@@ -61,11 +61,10 @@
             </label>
           </span>
       </div>
-  
+
       <div class="select-country form-group">
         <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
-
       <div class="row-two">
         <div class="form-group column">
           <select-states [ngClass]="{'invalid': errorState}"  class="white-theme-select material-select" [country]="country" (selected)="state=$event; validateState()"></select-states>

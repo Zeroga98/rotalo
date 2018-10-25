@@ -193,6 +193,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
+    const el =   document.getElementsByClassName('ng-invalid');
+    console.log(el[3]);
+    if (el[3]) {
+      el[3].scrollIntoView({block: 'start', behavior: 'smooth'});
+    }
 
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
@@ -645,8 +650,10 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
 
     if (this.product) {
-      this.photosForm.get('category').disable();
-      this.photosForm.get('subcategory-id').disable();
+      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
+        this.photosForm.get('category').disable();
+        this.photosForm.get('subcategory-id').disable();
+      }
     }
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
