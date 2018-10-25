@@ -12,6 +12,7 @@ import { ProductsService } from '../../services/products.service';
 import { ActivationService } from '../../services/activation.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { MessagesService } from '../../services/messages.service';
+import { CollectionSelectService } from '../../services/collection-select.service';
 
 @Component({
   selector: 'signup-page',
@@ -48,7 +49,8 @@ export class SignUpPage implements OnInit {
     private currenSession: CurrentSessionService,
     private messagesService: MessagesService,
     private utilsService: UtilsService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private collectionService: CollectionSelectService,
   ) {}
 
   ngOnInit(): void {
@@ -59,18 +61,7 @@ export class SignUpPage implements OnInit {
       email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
       cellphone: new FormControl('', [Validators.required])
     });
-    this.route.queryParamMap.subscribe(params => {
-      this.paramsUrl = params['params'];
-      this.setCountry(this.paramsUrl.country);
-      let email = this.paramsUrl.email;
-      email = email.replace(' ', '+');
-      email = email.replace(/\s+/g, '+');
-      this.registerForm.patchValue({ name: this.paramsUrl.name });
-      this.registerForm.patchValue({ email: email });
-      this.codeSignup =  this.paramsUrl.code;
-      this.userCountry = this.paramsUrl.country;
-      this.loadTypeDocument(this.paramsUrl.country);
-    });
+    this.getCountries();
   }
 
   setCountry(idCountry) {
@@ -79,11 +70,32 @@ export class SignUpPage implements OnInit {
         name: 'Colombia',
         id: '1'
       };
-    } else {
+    } else if (idCountry == '9')  {
       this.country = {
         name: 'Guatemala',
         id: '9'
       };
+    }
+  }
+
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.route.queryParamMap.subscribe(params => {
+        this.paramsUrl = params['params'];
+        this.setCountry(this.paramsUrl.country);
+        let email = this.paramsUrl.email;
+        email = email.replace(' ', '+');
+        email = email.replace(/\s+/g, '+');
+        this.registerForm.patchValue({ name: this.paramsUrl.name });
+        this.registerForm.patchValue({ email: email });
+        this.registerForm.patchValue({ identification: this.paramsUrl.documentType + ' ' + this.paramsUrl.document });
+        this.codeSignup =  this.paramsUrl.code;
+        this.userCountry = this.paramsUrl.country;
+        this.loadTypeDocument(this.paramsUrl.country);
+      });
+    } catch (error) {
+      console.error(error);
     }
   }
 

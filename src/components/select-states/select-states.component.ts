@@ -88,6 +88,8 @@ export class SelectStatesComponent implements OnChanges, OnInit {
       }else {
         this.defaultOption = options[0];
       }
+    } else {
+      this.defaultOption = options[1];
     }
     this.changeDetectorRef.markForCheck();
   }
