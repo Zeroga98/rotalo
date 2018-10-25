@@ -330,13 +330,17 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkBAMBotton() {
-    if ( this.products) {
+    if (this.products) {
       const priceVehicle = this.products.price;
+      const currency = this.products.currency;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
-
-      if (countryId === 9) {
-        return true;
+      if (this.products['sell-type'] === 'VENTA') {
+        if (countryId === 9 && currency == 'GTQ' && priceVehicle >= 5000) {
+          return true;
+        } else if (countryId === 9 && currency == 'USD' && priceVehicle >= 650) {
+          return true;
+        }
       }
     }
     return false;
