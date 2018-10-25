@@ -329,6 +329,19 @@ export class DetailProductComponent implements OnInit {
     return false;
   }
 
+  checkBAMBotton() {
+    if ( this.products) {
+      const priceVehicle = this.products.price;
+      const currentUser = this.currentSessionSevice.currentUser();
+      const countryId = Number(currentUser['countryId']);
+
+      if (countryId === 9) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
