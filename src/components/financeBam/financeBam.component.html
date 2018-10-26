@@ -4,7 +4,7 @@
     <div class="container-info">
       <div class="info-list">
         <div class="row">
-          <p>
+          <p class="title">
             Nombre
           </p>
           <p *ngIf="nameUser">
@@ -12,7 +12,7 @@
           </p>
         </div>
         <div class="row">
-          <p>
+          <p class="title">
             Tipo de documento
           </p>
           <p *ngIf="typeDocument">
@@ -20,7 +20,7 @@
           </p>
         </div>
         <div class="row">
-            <p>
+            <p class="title">
               Número de documento
             </p>
             <p *ngIf="documentNumber">
@@ -28,7 +28,7 @@
             </p>
         </div>
         <div class="row">
-            <p>
+            <p class="title">
               Correo electrónico
             </p>
             <p *ngIf="email">
@@ -36,7 +36,7 @@
             </p>
         </div>
         <div class="row">
-            <p>
+            <p class="title">
               Celular
             </p>
             <p *ngIf="cellphone">
@@ -45,7 +45,21 @@
         </div>
       </div>
       <div class="info-form">
-
+        <div class="container-header">
+          <div class="image">
+            <img [src]="photoProduct">
+          </div>
+          <div>
+            <div class="title">{{product.name}}</div>
+            <div class="price">
+                <span>
+                    Precio:
+                  </span>
+              <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$":0 | removeDigits }}</div>
+              <div *ngIf="product.currency == 'GTQ'">{{priceProduct | currency:"Q":0 | removeDigits }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
