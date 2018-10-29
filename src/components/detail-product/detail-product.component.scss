@@ -256,12 +256,6 @@
       background: url(../../assets/img/enviar.svg);
       background-size: 20px 20px;
     }
-    .help-block {
-      position: absolute;
-      font-size: 1.7rem;
-      color: #FFFFFF;
-      padding: 0;
-    }
   }
   .get-offer {
     display: inline-block;
@@ -353,6 +347,14 @@
     margin-top: 2rem;
   }
 
+  .share-container {
+    .help-block,.icon-circle-cancel, span {
+      font-size: 1.7rem;
+      color: #FFFFFF;
+      padding: 0;
+    }
+  }
+  
 }
 
 :host() {

@@ -63,6 +63,7 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
+      margin-bottom: 4rem;
       .image {
         width: auto;
         margin-right: 2rem;
@@ -90,4 +91,46 @@
   }
 }
 
+:host {
+  .material-design .input-price{
+    border: 1px solid #A2A2A2;
+    border-radius: 10px;
+  }
 
+  .material-design .input-price.ng-touched.ng-dirty.ng-invalid {
+    border-color: #ED2F3C;
+  }
+
+  .material-design .input-price:focus {
+    border-color: #0fbbd8;
+  }
+
+  .form-container {
+    h1 {
+      margin-bottom: 1.6rem;
+    }
+    .input-container, .btn-container {
+      width: 50%;
+    }
+    .input-container {
+      position: relative; 
+    }
+    .help-block {
+      position: absolute;
+    }
+    .btn-container {
+      max-width: 270.07px;
+      margin-top: 4rem;
+    }
+  }
+
+  .successMessage{
+    position: absolute;
+    padding-left: 12px;
+    font-size: 1.4rem;
+    color: #0fbbd8;
+    font-weight: bold;
+  }
+
+
+}
