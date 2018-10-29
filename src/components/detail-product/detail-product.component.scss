@@ -127,6 +127,7 @@
       color: #707070;
     }
     .visits{
+      font-size: 1.6rem;
       margin: 10px auto;
     }
     .product-info {
@@ -215,7 +216,7 @@
   .share-product-container {
 
     .share-product {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #FFFFFF;
     }
@@ -274,10 +275,25 @@
     display: none;
   }
 
-  .form-theme .form-group .form-control.share-input 
+  .form-theme .form-group .form-control.share-input
   {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
+   .btns-container .btn-item .botons span.icon-credit {
+    color: #FF3646;
+    font-weight: bold;
+  }
+  .btns-container .btn-item.full-item{
+    width: 100%;
+  }
+
+  .product {
+    .date, .location span,  .visit{
+      font-size: 1.8rem;
+    }
+  }
+
+
 
 }
 
@@ -343,8 +359,10 @@
     }
   }
 
-  .description {
-    margin-top: 2rem;
+  .product {
+    .description {
+      margin-top: 2rem;
+    }
   }
 
   .share-container {
@@ -354,7 +372,7 @@
       padding: 0;
     }
   }
-  
+
 }
 
 :host() {

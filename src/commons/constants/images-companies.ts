@@ -52,7 +52,18 @@ export const IMGS_COMPANIES = [
   [{
     url: './assets/img/logos_company/tuya.png',
     name: 'tuya'
+  },
+
+  {
+    url: './assets/img/logos_company/febanc@1x.png',
+    name: 'febanc'
+  },
+
+  {
+    url: './assets/img/logos_company/casa_britanica@2x.png',
+    name: 'casa_britanica'
   }]
+
 ];
 
 
@@ -109,7 +120,17 @@ export const IMGS_COMPANIES_MOBILE = [
   [{
     url: './assets/img/logos_company/tuya.png',
     name: 'tuya'
+  },
+  {
+    url: './assets/img/logos_company/febanc@1x.png',
+    name: 'febanc'
   }]
+  ,
+  [{
+    url: './assets/img/logos_company/casa_britanica@2x.png',
+    name: 'casa_britanica'
+  }]
+
 ];
 
 

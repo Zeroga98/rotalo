@@ -9,12 +9,20 @@
     width: 100%;
     bottom: 0;
   }
+
+  .desktop {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+
 }
 
 
 :host {
   .container-form {
-    padding: 66px 7%;
+    padding: 50px 7%;
     h1 {
       font-size: 2.4rem;
       color: #272727;
@@ -84,7 +92,7 @@
       color: #272727;
       font-size: 3.0rem;
       div {
-        color: #FF4958;  
+        color: #FF4958;
       }
     }
 
@@ -113,7 +121,7 @@
       width: 50%;
     }
     .input-container {
-      position: relative; 
+      position: relative;
     }
     .help-block {
       position: absolute;
@@ -132,5 +140,46 @@
     font-weight: bold;
   }
 
+}
 
+@media (max-width: 880px) {
+    :host {
+      .container-form .container-info {
+        flex-direction: column;
+      }
+      .desktop {
+        display: none;
+      }
+      .mobile {
+        display: block;
+      }
+      .container-form .info-form, .container-form .info-list {
+        width: 100%;
+      }
+      .container-form {
+        padding: 40px 5%;
+      }
+      .form-container .input-container,  .form-container .btn-container {
+        width: 100%;
+      }
+      .container-form .info-list .row {
+        background-size: 16px 16px;
+      }
+      .container-form .info-list {
+        padding: 10px 5%;
+      }
+
+      .container-form h1.mobile {
+        margin: 0;
+      }
+
+      .form-container h1, .container-form h1.mobile,  .info-form .title, .info-form .price {
+        font-size: 1.8rem;
+      }
+
+      .info-form .container-header {
+        margin-bottom: 2rem;
+      }
+
+    }
 }

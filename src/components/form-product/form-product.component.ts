@@ -193,11 +193,12 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
-    const el =   document.getElementsByClassName('ng-invalid');
+    console.log(this.photosForm.get('mileage').value);
+    /*const el =   document.getElementsByClassName('ng-invalid');
     console.log(el[3]);
     if (el[3]) {
       el[3].scrollIntoView({block: 'start', behavior: 'smooth'});
-    }
+    }*/
 
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
@@ -292,7 +293,7 @@ export class FormProductComponent implements OnInit, OnChanges {
             'unique-owner': this.photosForm.get('unique-owner').value
           };
           params.vehicle = vehicle;
-          console.log(params);
+
       }
       const request = {
         'data': {
@@ -408,7 +409,11 @@ export class FormProductComponent implements OnInit, OnChanges {
   resetFormsVehicle() {
     this.photosForm.patchValue({'line-id': ''});
     this.photosForm.patchValue({'carMake': ''});
-    this.photosForm.patchValue({'sell-type': 'VENTA'});
+    let sellType = '';
+      sellType = this.photosForm.get('sell-type').value;
+      if (sellType != 'VENTA' && sellType != 'ALQUILA') {
+        this.photosForm.patchValue({'sell-type': 'VENTA'});
+    }
     this.disabledField = false;
     this.photosForm.controls['negotiable'].enable();
   }
@@ -559,7 +564,11 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.currentSubcategory = '';
     this.subCategory = null;
     if (idCategory == 7 || idCategory == 6) {
-      this.photosForm.patchValue({'sell-type': 'VENTA'});
+      let sellType = '';
+      sellType = this.photosForm.get('sell-type').value;
+      if (sellType != 'VENTA' && sellType != 'ALQUILA') {
+        this.photosForm.patchValue({'sell-type': 'VENTA'});
+      }
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
     }
@@ -584,7 +593,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     let transmission = '';
     let color = '';
     let licensePlate = '';
-    let mileage = null;
+    let mileage = 0;
     let displacement = '';
     let gas = '';
     let carMake = '';
@@ -623,7 +632,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
       color = vehicle['color'] ? vehicle['color'] : '';
       licensePlate = vehicle['licensePlate'] ? vehicle['licensePlate'] : '';
-      mileage = vehicle['mileage'] ? vehicle['mileage'] : '';
+      mileage = vehicle['mileage'] ? vehicle['mileage'] : 0;
       displacement  = vehicle['displacement'] ? vehicle['displacement'] : '';
       gas = vehicle['gas'] ? vehicle['gas'] : '';
       kindSeat = vehicle['typeOfSeat'] ? vehicle['typeOfSeat'] : '';

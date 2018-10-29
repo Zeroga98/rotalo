@@ -399,6 +399,13 @@ export class DetailProductComponent implements OnInit {
     this.router.navigate([urlBuyProduct]);
   }
 
+  creditProduct(id: number | string) {
+    const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.FINANCEBAM
+    }/${id}`;
+    this.router.navigate([urlBuyProduct]);
+  }
+
   rentProduct(id: number | string) {
     this.buyService.rentProduct(id).subscribe((response) => {
       const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${

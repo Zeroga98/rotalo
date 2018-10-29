@@ -178,8 +178,8 @@
           </div>
           <div class="btn-two-container" *ngIf="products && checkBAMBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
               <div class="btn-item">
-                  <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
-                    <span></span> Financiar
+                  <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
+                    <span class="icon-credit"></span> Financiar
                   </button>
               </div>
               <div class="btn-item">
@@ -221,7 +221,7 @@
               </button>
             </div>
           </div>
-          <div class="btn-item">
+          <div class="btn-item full-item">
             <div class="media" *ngIf="validateSession() && !isSold()">
               <div class="media-left media-middle">
                 <label class="switch">
@@ -273,16 +273,16 @@
               </div>
             </div>
             <div class="product-info-ubicacion">
-              <div>
+              <div class="date">
                 <span class="icon icon-calendar"></span>
                 Fecha de Publicación:
-                <span>{{products['published-at'] | amTimeAgo}}</span>
+                <span class="date">{{products['published-at'] | amTimeAgo}}</span>
               </div>
-              <div>
+              <div class="location">
                   <span class="icon icon-location"></span>
                   <span>{{getLocation(products)}}</span>
               </div>
-              <div class="contTipo">
+              <div class="visit contTipo">
                   <span class="icon icon-eye"></span> {{visitsNumber}} visitas
               </div>
             </div>
