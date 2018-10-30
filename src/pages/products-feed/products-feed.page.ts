@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
-import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
+import { IMGS_BANNER, IMGS_BANNER_GUATEMALA } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
@@ -101,7 +101,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.imagesBanner = IMGS_BANNER;
 
     /*Promo fecha determinada para cierta comunidad*/
-    // this.addPromoBanner();
+    //
     this.addPromoBannerColombia();
   }
 
@@ -142,22 +142,24 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  /*async addPromoBanner() {
+  async addPromoBanner() {
     this.community = await this.userService.getCommunityUser();
     if (this.community && this.community.name === 'Grupo Bancolombia') {
       this.imagesBanner = IMGS_BANNER_PROMO;
     }
-  }*/
+  }
 
   addPromoBannerColombia() {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
-      this.imagesBanner = IMGS_BANNER;
+      this.imagesBanner = IMGS_BANNER_GUATEMALA;
     }else {
-     this.imagesBanner = IMGS_BANNER_PROMO;
+     this.imagesBanner = IMGS_BANNER;
      // this.imagesBanner = IMGS_BANNER;
+     this.addPromoBanner();
     }
   }
+
 
   loadFeaturedProduct(countryId, communityId) {
     if (!this.productsService.getFeatureProducts()) {

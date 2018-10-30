@@ -193,7 +193,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
-    console.log(this.photosForm.get('mileage').value);
+
     /*const el =   document.getElementsByClassName('ng-invalid');
     console.log(el[3]);
     if (el[3]) {
