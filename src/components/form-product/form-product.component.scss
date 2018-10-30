@@ -631,6 +631,11 @@
       width: 100%;
       bottom: 0;
     }
+    .error-msg{
+      position: absolute;
+      width: 100%;
+      bottom: -20px;
+    }
   }
 
 }
@@ -820,6 +825,44 @@
 
     }
   }
+}
+
+:host {
+  .input-group {
+    position: relative;
+    width: 125px;
+  }
+
+  .input-number {
+    width: 55px;
+  }
+
+  .btn {
+    width: 30px;
+    span {
+      font-size: 2rem;
+    }
+  }
+
+  .quantity-wrapper {
+    border: 1px solid #A2A2A2;
+    border-radius: 13px;
+  }
+
+  .input-group-btn, .quantity-style {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .container-form form .form-control.quantity-style {
+    text-align: center !important;
+    background: white;
+    border: 0 solid #A2A2A2;
+    border-radius: 0;
+    border-left: 1px solid #A2A2A2;
+    border-right: 1px solid #A2A2A2;
+  }
+
 }
 
 

@@ -144,9 +144,11 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   onInfoRetrieved(user): void {
-    this.country = user.city.state.country;
-    this.stateValue =  user.city.state;
-    this.cityValue = user.city;
+    if (user) {
+      this.country = user.city.state.country;
+      this.stateValue =  user.city.state;
+      this.cityValue = user.city;
+    }
     if (this.product &&  this.country) {
       this.product.city.state.country =  this.country;
       this.stateValue =  this.product.city.state;
@@ -194,13 +196,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   async publishPhoto(form) {
     this.setValidationVehicle();
 
-    /*const el =   document.getElementsByClassName('ng-invalid');
-    console.log(el[3]);
-    if (el[3]) {
-      el[3].scrollIntoView({block: 'start', behavior: 'smooth'});
-    }*/
-
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
+    if (!this.formIsInValid && (this.city['id']) /*&&  this.photosUploaded.length > 0 */ ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -240,6 +236,8 @@ export class FormProductComponent implements OnInit, OnChanges {
 
       }
       let params;
+      console.log(this.photosForm);
+      console.log(this.photosForm.value);
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
           'city-id': this.city['id']
@@ -249,19 +247,16 @@ export class FormProductComponent implements OnInit, OnChanges {
         }
       } else {
 
-        const publishDate = {
+      const publishDate = {
           'published-at': new Date()
-        };
-
-       // const photosIds2 = { 'photo-ids': ['10083'] };
-
-        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
+      };
+       const photosIds2 = { 'photo-ids': ['10083'] };
+        params = Object.assign({}, this.photosForm.value, photosIds2, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
 
       }
       this.photosUploaded.length = 0;
-
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];
       delete params['transmission'];
@@ -301,7 +296,6 @@ export class FormProductComponent implements OnInit, OnChanges {
         }
       };
 
-
       this.publish.emit(request);
     } else {
       this.validateAllFormFields(this.photosForm);
@@ -315,6 +309,21 @@ export class FormProductComponent implements OnInit, OnChanges {
       if (!this.city['id']) {
         this.errorCity = true;
       }
+      this.scrollToError();
+    }
+  }
+
+  scrollToError() {
+    /**El numero 3 puede cambiar en caso que se agreguen nuevos campos al formulario**/
+    const elements = document.getElementsByClassName('ng-invalid');
+    if (this.errorUploadImg || this.errorMaxImg) {
+      const element = document.getElementById('image-upload');
+      element.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    } else if (elements && elements[3]) {
+      elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } else if (this.errorState || this.errorCity) {
+      const element = document.getElementById('select-cities');
+      element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   }
 
@@ -602,7 +611,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     let airConditioner = '';
     let absBrakes = '';
     let uniqueOwner = '';
-
+    let stock = 1;
     const request = {
       tipo: 1
     };
@@ -646,6 +655,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
     model = config['model'] ? config['model'] : '';
+    stock = config['stock'] ? config['stock'] : 1;
 
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
@@ -669,6 +679,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       price: [config.price, [Validators.required]],
       currency: [config.currency, [Validators.required]],
       'subcategory-id': [config['subcategory'].id, [Validators.required]],
+      'stock': [{ value: stock, disabled: true }, [Validators.required]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
       'sell-type': [config['sell-type'], [Validators.required]],
@@ -739,6 +750,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       price: null,
       currency: currency,
       'subcategory': {id : ''},
+      stock: 1,
       used: false,
       visible: true,
       'sell-type': 'VENTA',
@@ -835,4 +847,24 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
     return true;
   }
+
+
+  addStock() {
+    if (this.photosForm.get('stock').value <= 9999) {
+      let stock =  this.photosForm.get('stock').value;
+      stock = ++stock;
+      console.log(stock);
+      this.photosForm.patchValue({stock: stock});
+    }
+  }
+
+  minusStock() {
+    if (this.photosForm.get('stock').value > 1) {
+      let stock =  this.photosForm.get('stock').value;
+      stock = --stock;
+      console.log(stock);
+      this.photosForm.patchValue({stock: stock});
+    }
+  }
+
 }
