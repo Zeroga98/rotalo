@@ -290,6 +290,8 @@ export class FormProductComponent implements OnInit, OnChanges {
           params.vehicle = vehicle;
 
       }
+      params.stock = this.photosForm.get('stock').value;
+      console.log(params);
       const request = {
         'data': {
           'attributes': params
@@ -418,6 +420,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   resetFormsVehicle() {
     this.photosForm.patchValue({'line-id': ''});
     this.photosForm.patchValue({'carMake': ''});
+    if (!this.showOptionsVehicles || !this.showOptionEstate) {
+      this.photosForm.patchValue({'stock': 1});
+    }
     let sellType = '';
       sellType = this.photosForm.get('sell-type').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
@@ -850,20 +855,22 @@ export class FormProductComponent implements OnInit, OnChanges {
 
 
   addStock() {
-    if (this.photosForm.get('stock').value <= 9999) {
-      let stock =  this.photosForm.get('stock').value;
-      stock = ++stock;
-      console.log(stock);
-      this.photosForm.patchValue({stock: stock});
+    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+      if (this.photosForm.get('stock').value <= 9999) {
+        let stock =  this.photosForm.get('stock').value;
+        stock = ++stock;
+        this.photosForm.patchValue({stock: stock});
+      }
     }
   }
 
   minusStock() {
-    if (this.photosForm.get('stock').value > 1) {
-      let stock =  this.photosForm.get('stock').value;
-      stock = --stock;
-      console.log(stock);
-      this.photosForm.patchValue({stock: stock});
+    if (this.showOptionsVehicles && this.showOptionEstate) {
+      if (this.photosForm.get('stock').value > 1) {
+        let stock =  this.photosForm.get('stock').value;
+        stock = --stock;
+        this.photosForm.patchValue({stock: stock});
+      }
     }
   }
 
