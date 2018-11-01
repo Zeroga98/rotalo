@@ -143,7 +143,7 @@
       <div class="card-product">
         <div class="title-product">{{products.name}}</div>
       <!--  <div class="flexbox">-->
-        <div>
+        <div class="condition-container">
           <div>
            <div class="capitalize">
               <span class="condition">Condición: </span>
@@ -166,6 +166,35 @@
               | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
             <div *ngIf="products.price =='0'" class="valor-product">Gratis</div>
           </div>
+
+
+          <div *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate" class="full-width quantity-container">
+            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
+                <div  class="form-group">
+                    <label class="label-title">Cantidad</label>
+                    <div class="input-group quantity-wrapper">
+                      <span class="input-group-btn">
+                        <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                          <span>-</span>
+                        </button>
+                      </span>
+                      <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="1" maxlength="9999"
+                        autocomplete="off">
+                      <span class="input-group-btn">
+                        <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                          <span>+</span>
+                        </button>
+                      </span>
+                    </div>
+                    <span class="quantity-on-stock">
+                        ({{totalStock}} disponibles)
+                    </span>
+                  </div>
+            </form>
+          </div>
+
+
           <div *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">

@@ -57,6 +57,7 @@ export class DetailProductComponent implements OnInit {
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
   public sendInfoProduct;
+  public quantityForm;
   public showInputShare = true;
   public messageSuccess: boolean;
   public messageError: boolean;
@@ -72,6 +73,8 @@ export class DetailProductComponent implements OnInit {
   public screenWidth;
   private currentEmail;
   public countryId;
+  public totalStock = 1;
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -91,7 +94,7 @@ export class DetailProductComponent implements OnInit {
     private messagesService: MessagesService,
     private shareInfoChatService: ShareInfoChatService,
     private fb: FormBuilder,
-    private buyService:BuyService
+    private buyService: BuyService
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
   }
@@ -103,6 +106,7 @@ export class DetailProductComponent implements OnInit {
       this.countryId =  currentUser.countryId;
     }
     this.initShareForm();
+    this.initQuantityForm();
     this.loadProduct();
   }
 
@@ -110,6 +114,14 @@ export class DetailProductComponent implements OnInit {
     this.sendInfoProduct = this.fb.group(
       {
         email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+      }
+    );
+  }
+
+  initQuantityForm() {
+    this.quantityForm = this.fb.group(
+      {
+        stock: [{ value: 1, disabled: true }, [Validators.required]]
       }
     );
   }
@@ -202,42 +214,16 @@ export class DetailProductComponent implements OnInit {
     ]);
   }
 
-  /*async loadProduct() {
-    try {
-      this.products = await this.productsService.getProductsById(
-        this.idProduct
-      );
-      const fullName = this.products.user.name.split(' ');
-      if (this.products.user.name) {
-        this.firstName = fullName[0];
-      }
-      this.onLoadProduct(this.products);
-      this.productIsSold(this.products);
-      if (this.products.photos !== undefined) {
-        this.productsPhotos = [].concat(this.products.photos);
-        this.products.photos = this.productsPhotos;
-      }
-      if (this.products.photos) {
-        this.conversation = {
-          photo: this.products.photos[0].url,
-          name: this.products.user.name
-        };
-      }
-      this.productChecked = this.products.status;
-      this.productStatus = this.products.status === 'active';
-      this.visitorCounter();
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      if (error.status === 404) {
-        this.redirectErrorPage();
-      }
-    }
-  }*/
-
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        this.totalStock = this.products.stock;
+        if (this.products['stock']) {
+          this.totalStock = this.products['stock'];
+        } else  {
+          this.totalStock = 1;
+        }
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {
           this.firstName = fullName[0];
@@ -393,6 +379,15 @@ export class DetailProductComponent implements OnInit {
   }
 
   buyProduct(id: number | string) {
+    let quantity = 1;
+    if (this.quantityForm.get('stock').value) {
+      quantity = this.quantityForm.get('stock').value;
+    }
+    const quantityProduct = {
+      idProduct: id,
+      quantity: quantity
+    };
+    this.buyService.setQuantityProduct(quantityProduct);
     const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.BUY
     }/${id}`;
@@ -489,5 +484,50 @@ export class DetailProductComponent implements OnInit {
     }
     return false;
    }
+
+
+  get showOptionsVehicles() {
+    if (this.products) {
+      if (this.products.subcategory.category.id == 6) {
+        if (this.products.subcategory.id != 55) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  get showOptionEstate () {
+    if (this.products) {
+      if (this.products.subcategory.category.id == 7) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  addStock() {
+    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value < this.totalStock) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = ++stock;
+        this.quantityForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+  minusStock() {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value > 1) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = --stock;
+        this.quantityForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+
+
+
 
 }

@@ -57,6 +57,9 @@ export class BuyProductPage implements OnInit {
   private timeToWaitPay = 4;
   public disableButton = false;
   public idCountry = 1;
+  public quantityForm;
+  public totalStock = 1;
+  public totalPrice;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -91,6 +94,19 @@ export class BuyProductPage implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+  initQuantityForm() {
+    const quantityObject = this.buyService.getQuantityProduct();
+    let quantity = 1;
+    if (quantityObject && quantityObject.idProduct == this.idProduct) {
+      quantity = quantityObject.quantity;
+    }
+    this.quantityForm = this.fb.group(
+      {
+        stock: [{ value: quantity, disabled: true }, [Validators.required]]
+      }
+    );
+  }
+
   goToUrlBank(): void {
     window.open(
       'https://sucursalpersonas.transaccionesbancolombia.com',
@@ -114,17 +130,24 @@ export class BuyProductPage implements OnInit {
       this.buyForm.patchValue({
         'payment-type': 'cash'
       });
-      /* this.buyForm.patchValue({
-        'payment-type': 'bank_account_transfer'
-      });
-      this.payWithBank = true;*/
     }
   }
 
-  async loadProduct() {
+   loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.loadUserInfo(reponse);
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
+  }
+
+  async loadUserInfo(reponse) {
     try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
-      this.productIsSold(this.product);
+      this.initQuantityForm();
+      this.product = reponse.body.productos[0];
       this.currentUser = await this.userService.getInfoUser();
       this.cellphoneUser = this.currentUser.cellphone;
       this.idNumberBuyer = this.currentUser['id-number'];
@@ -133,22 +156,33 @@ export class BuyProductPage implements OnInit {
         this.categoryProduct = this.product.subcategory.category.name;
       }
       this.priceProduct = this.product.price;
+      if (this.product['stock']) {
+        this.totalStock = this.product['stock'];
+      } else  {
+        this.totalStock = 1;
+      }
+      if (this.quantityForm.get('stock').value) {
+        const quantity = this.quantityForm.get('stock').value;
+        this.totalPrice =  this.priceProduct * quantity;
+      } else {
+        this.totalPrice = this.priceProduct;
+      }
       this.product.used
         ? (this.usedProduct = 'Usado')
         : (this.usedProduct = 'Nuevo');
-      if (this.product.photos) {
-        this.photoProduct = this.product.photos.url || this.product.photos[0].url;
+      if (this.product['photoList']) {
+        this.photoProduct = this.product['photoList'].url || this.product['photoList'][0].url;
       }
       this.idNumberSeller = this.product.user['id-number'];
       this.idUserSellerDb = this.product.user['id'];
       this.currencyProduct = this.product.currency;
       this.initFormBuy();
+      this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
     }
-    this.changeDetectorRef.markForCheck();
   }
 
   productIsSold(product) {
@@ -330,4 +364,60 @@ export class BuyProductPage implements OnInit {
     }/${id}`;
     this.router.navigate([urlSimulateCredit]);
   }
+
+
+  get showOptionsVehicles() {
+    if (this.product) {
+      if (this.product.subcategory.category.id == 6) {
+        if (this.product.subcategory.id != 55) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  get showOptionEstate () {
+    if (this.product) {
+      if (this.product.subcategory.category.id == 7) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  addStock() {
+    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value < this.totalStock) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = ++stock;
+        this.quantityForm.patchValue({stock: stock});
+        if (this.quantityForm.get('stock').value) {
+          const quantity = this.quantityForm.get('stock').value;
+          this.totalPrice =  this.priceProduct * quantity;
+        } else {
+          this.totalPrice = this.priceProduct;
+        }
+      }
+    }
+  }
+
+  minusStock() {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value > 1) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = --stock;
+        this.quantityForm.patchValue({stock: stock});
+        if (this.quantityForm.get('stock').value) {
+          const quantity = this.quantityForm.get('stock').value;
+          this.totalPrice =  this.priceProduct * quantity;
+        } else {
+          this.totalPrice = this.priceProduct;
+        }
+      }
+    }
+  }
+
+
+
 }

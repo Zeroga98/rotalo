@@ -9,6 +9,7 @@ export class BuyService {
   private readonly urlNewPurchase = this.configurationService.getBaseUrl() + "/purchases/create_and_confirm";
   private readonly urlNequi = this.configurationService.getBaseSapiUrl() + "/pagos/nequi/notificaciones";
   private readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  private quantityProduct;
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService
@@ -82,4 +83,13 @@ export class BuyService {
       }
     };
   }
+
+  public getQuantityProduct() {
+    return this.quantityProduct;
+  }
+
+  public setQuantityProduct(quantityProduct) {
+    this.quantityProduct = quantityProduct;
+  }
+
 }
