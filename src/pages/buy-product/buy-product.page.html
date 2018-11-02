@@ -38,7 +38,8 @@
                       </div>
                       <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
                           <div class="title-quantity">Cantidad</div>
-                          <div class="full-width quantity-container">
+                          <div class="text-center">{{quantity}}</div>
+                        <!--  <div class="full-width quantity-container">
                               <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
                                   <div  class="form-group">
                                       <div class="input-group quantity-wrapper">
@@ -58,7 +59,7 @@
                                       </div>
                                     </div>
                               </form>
-                            </div>
+                          </div> -->
                       </div>
                         <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
                             <div class="title">Total</div>

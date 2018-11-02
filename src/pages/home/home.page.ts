@@ -31,6 +31,7 @@ export class HomePage implements OnInit {
   public documentId;
   private currentUrl;
   public errorMessageId;
+  public errorMessageDoc;
   public country = 'Colombia';
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
@@ -206,6 +207,7 @@ export class HomePage implements OnInit {
   }
 
   submitForm(form) {
+
     if (!this.formIsInValid) {
       const currentUrl = window.location.href;
       if (currentUrl.includes('gt')) {
@@ -228,9 +230,16 @@ export class HomePage implements OnInit {
         this.showSendEmail = true;
         this.sendTokenShareProduct();
       }
-        , error => {
-          if (error.status) {
-            this.errorMessage = error.error.message;
+      , error => {
+        console.log(error);
+          if (error.error) {
+            if (error.error.status == '608' || error.error.status == '604' || error.error.status == '608') {
+              this.errorMessage = error.error.message;
+              this.errorMessageDoc = '';
+            } else if (error.error.status == '612' || error.error.status == '613') {
+              this.errorMessage = '';
+              this.errorMessageDoc = error.error.message;
+            }
           }
         });
 
@@ -262,6 +271,7 @@ export class HomePage implements OnInit {
 
   removeError() {
     this.errorMessage = '';
+    this.errorMessageDoc = '';
   }
 
   reSendEmail() {

@@ -78,7 +78,7 @@
               </div>
               <div class="text-center number-document">
                 <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="input-pass-user text-left input input--float">
-                  <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
+                  <input (keypress)="removeError()" [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine || errorMessageDoc}"
                     formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--float" id="txt-id-number"
                     autocomplete="off" type="text">
                   <label class="input__label input__label--float">
@@ -88,11 +88,14 @@
                 </span>
               </div>
               <span class="error-document text-center help-block">
-                  <span  class="error-text" *ngIf="(registerForm.get('type-document-id').touched && registerForm.get('type-document-id').invalid) || registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                  <span  class="error-text" *ngIf="!errorMessageDoc && (registerForm.get('type-document-id').touched && registerForm.get('type-document-id').invalid) || registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
                       Estos campos son requeridos.
                   </span>
                   <span class="error-text-long" *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid">
                       {{errorMessageId}}
+                  </span>
+                  <span *ngIf="errorMessageDoc" class="error-message-doc">
+                    {{errorMessageDoc}}
                   </span>
               </span>
             </div>

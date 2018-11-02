@@ -51,7 +51,7 @@
     margin: 0 auto;
   }
 
-  .error-text, .error-text-long {
+  .error-text, .error-text-long, .error-message-doc {
     position: relative;
   }
 
@@ -63,6 +63,9 @@
     right: 50px;
   }
 
+  .error-message-doc {
+    right: 0px;
+  }
 
 .row {margin-bottom: 10px;}
 

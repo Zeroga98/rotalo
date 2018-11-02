@@ -176,6 +176,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
+    this.photosForm.patchValue({stock: 1});
     if (evt === 'GRATIS') {
       this.photosForm.patchValue({price: 0});
       this.photosForm.patchValue({'negotiable': false});
@@ -196,7 +197,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   async publishPhoto(form) {
     this.setValidationVehicle();
 
-    if (!this.formIsInValid && (this.city['id']) /*&&  this.photosUploaded.length > 0 */ ) {
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -236,8 +237,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
       }
       let params;
-      console.log(this.photosForm);
-      console.log(this.photosForm.value);
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
           'city-id': this.city['id']
@@ -250,8 +249,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       const publishDate = {
           'published-at': new Date()
       };
-       const photosIds2 = { 'photo-ids': ['10083'] };
-        params = Object.assign({}, this.photosForm.value, photosIds2, publishDate, dataAdditional, {
+       // const photosIds2 = { 'photo-ids': ['10083'] };
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
 
@@ -291,7 +290,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
       }
       params.stock = this.photosForm.get('stock').value;
-      console.log(params);
       const request = {
         'data': {
           'attributes': params
@@ -321,9 +319,11 @@ export class FormProductComponent implements OnInit, OnChanges {
     if (this.errorUploadImg || this.errorMaxImg) {
       const element = document.getElementById('image-upload');
       element.scrollIntoView({ block: 'end', behavior: 'smooth' });
-    } else if (elements && elements[3]) {
+    } else if (!this.product && elements && elements[3]) {
       elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
-    } else if (this.errorState || this.errorCity) {
+    }else if (this.product && elements && elements[1]) {
+      elements[1].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }else if (this.errorState || this.errorCity) {
       const element = document.getElementById('select-cities');
       element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
@@ -418,11 +418,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   resetFormsVehicle() {
+    this.photosForm.patchValue({stock: 1});
     this.photosForm.patchValue({'line-id': ''});
     this.photosForm.patchValue({'carMake': ''});
-    if (!this.showOptionsVehicles || !this.showOptionEstate) {
-      this.photosForm.patchValue({'stock': 1});
-    }
     let sellType = '';
       sellType = this.photosForm.get('sell-type').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
@@ -714,11 +712,10 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getInitialConfig(): ProductInterface {
     const date = new Date();
-    date.setMonth(date.getMonth() + 2);
     let objectDate = {
       date: {
           year: date.getFullYear(),
-          month: date.getMonth(),
+          month: date.getMonth() + 1,
           day: date.getDate()
         }
     };
@@ -733,7 +730,6 @@ export class FormProductComponent implements OnInit, OnChanges {
           }
       };
       this.product['publish-until'] = objectDate;
-
     }
 
     /**Moneda por defecto**/
@@ -856,7 +852,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   addStock() {
     if (this.showOptionsVehicles &&  this.showOptionEstate) {
-      if (this.photosForm.get('stock').value <= 9999) {
+      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value < 9999) {
         let stock =  this.photosForm.get('stock').value;
         stock = ++stock;
         this.photosForm.patchValue({stock: stock});
@@ -866,7 +862,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   minusStock() {
     if (this.showOptionsVehicles && this.showOptionEstate) {
-      if (this.photosForm.get('stock').value > 1) {
+      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value > 1) {
         let stock =  this.photosForm.get('stock').value;
         stock = --stock;
         this.photosForm.patchValue({stock: stock});

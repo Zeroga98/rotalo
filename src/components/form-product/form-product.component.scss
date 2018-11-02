@@ -858,6 +858,15 @@
     border-right: 1px solid #A2A2A2;
   }
 
+  .date-auction {
+    position: relative;
+    .date-container {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
 }
 
 
@@ -873,6 +882,12 @@
   :host {
      .container-form form .info-product .form-group {
       width: 40%;
+    }
+
+    .date-auction {
+      .date-container {
+        position: relative;
+      }
     }
   }
 }

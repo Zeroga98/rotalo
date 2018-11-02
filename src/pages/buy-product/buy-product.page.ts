@@ -60,6 +60,7 @@ export class BuyProductPage implements OnInit {
   public quantityForm;
   public totalStock = 1;
   public totalPrice;
+  public quantity = 1;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -96,13 +97,13 @@ export class BuyProductPage implements OnInit {
 
   initQuantityForm() {
     const quantityObject = this.buyService.getQuantityProduct();
-    let quantity = 1;
+    this.quantity = 1;
     if (quantityObject && quantityObject.idProduct == this.idProduct) {
-      quantity = quantityObject.quantity;
+      this.quantity = quantityObject.quantity;
     }
     this.quantityForm = this.fb.group(
       {
-        stock: [{ value: quantity, disabled: true }, [Validators.required]]
+        stock: [{ value: this.quantity, disabled: true }, [Validators.required]]
       }
     );
   }
@@ -223,19 +224,17 @@ export class BuyProductPage implements OnInit {
     }
   }
 
-  async buyProductCash() {
-    try {
-      this.disableButton = true;
-      const response = await this.buyService.buyProduct(this.buildParams());
+  buyProductCash() {
+    this.disableButton = true;
+    this.buyService.buyProduct(this.buildParams()).subscribe((response) => {
       this.transactionSuccess = true;
       this.productsService.scroll = undefined;
       this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      if (error.status === 404) {
-        this.disableButton = false;
-        this.redirectErrorPage();
-      }
-    }
+    },
+    (error) => {
+      this.disableButton = false;
+      this.redirectErrorPage();
+    });
   }
 
   showMessageModal(evt) {

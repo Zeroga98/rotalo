@@ -15,8 +15,11 @@ export class BuyService {
     private configurationService: ConfigurationService
   ) {}
 
-  buyProduct(params): Promise<any> {
-    return this.httpClient.post(this.urlNewPurchase, this.buildParams(params)).toPromise();
+  buyProduct(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =`${this.urlSapi}/compras`;
+    return this.httpClient.post(this.url, params, { headers: headers}).map( (response: any) => response);
   }
 
   buyProductNequi(params) {
