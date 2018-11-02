@@ -199,7 +199,7 @@
             min-height: 100%;
             border-radius: 100%;
           }
-        }        
+        }
       }
     }
   }
@@ -259,7 +259,7 @@
       }
 
     }
-  
+
   .input-group-btn, .quantity-style {
     display: inline-block;
     vertical-align: middle;
@@ -277,8 +277,14 @@
   .form-theme .form-group .form-control.quantity-style  {
     height: 36px;
   }
+}
 
-
+:host {
+  .error-message {
+    text-align: center;
+    font-size: 2.0rem;
+    color:#FF3646;
+  }
 }
 
 /**Estilos para opciones de pago**/
@@ -431,7 +437,7 @@
       padding: 4rem 1rem;
     }
     .info-seller-container .info-seller{
-      width: 100%;      
+      width: 100%;
       display: inline-block;
       margin-bottom: 2rem;
 
@@ -439,12 +445,12 @@
         &.product-info-user--data{
           word-wrap:break-word;
         }
-      } 
-    }  
+      }
+    }
      .container-offer .container .container-header .price, .category-container {
       width: 100%;
       margin: 2% 3%;
-    } 
+    }
   }
 
   @media (max-width: 400px) {

@@ -18,8 +18,8 @@ export class BuyService {
   buyProduct(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url =`${this.urlSapi}/compras`;
-    return this.httpClient.post(this.url, params, { headers: headers}).map( (response: any) => response);
+    const url = `${this.urlSapi}/compras`;
+    return this.httpClient.post(url, params, { headers: headers}).map( (response: any) => response);
   }
 
   buyProductNequi(params) {

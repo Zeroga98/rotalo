@@ -71,6 +71,7 @@ export class HomePage implements OnInit {
       this.loadTypeDocument(1);
       this.country =  'Colombia';
     }
+
   }
 
  loadTypeDocument(idCountry) {
@@ -85,8 +86,6 @@ export class HomePage implements OnInit {
       console.log(error);
     });
   }
-
-
 
   validateTypeDocument() {
     if (this.registerForm.get('type-document-id').value) {

@@ -61,6 +61,7 @@ export class BuyProductPage implements OnInit {
   public totalStock = 1;
   public totalPrice;
   public quantity = 1;
+  public errorMessage = '';
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -92,6 +93,7 @@ export class BuyProductPage implements OnInit {
     });
     this.tokenUser = this.currentSessionSevice.authToken();
     this.loadProduct();
+    this.errorMessage = '';
     this.changeDetectorRef.markForCheck();
   }
 
@@ -232,8 +234,19 @@ export class BuyProductPage implements OnInit {
       this.changeDetectorRef.markForCheck();
     },
     (error) => {
-      this.disableButton = false;
-      this.redirectErrorPage();
+      if (error.error) {
+        if (error.error.status == '404') {
+          this.disableButton = false;
+          this.redirectErrorPage();
+        } else {
+          this.errorMessage = '';
+          this.errorMessage = error.error.message;
+        }
+        this.changeDetectorRef.markForCheck();
+      } else {
+        this.disableButton = false;
+        this.redirectErrorPage();
+      }
     });
   }
 
@@ -317,8 +330,9 @@ export class BuyProductPage implements OnInit {
 
   private buildParams() {
     return {
-      'product-id': this.idProduct,
-      'payment-type': this.buyForm.get('payment-type').value
+      'idProducto': this.idProduct,
+      'tipoPago': this.buyForm.get('payment-type').value,
+      'cantidad': this.quantity
     };
   }
 

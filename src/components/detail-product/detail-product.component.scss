@@ -816,7 +816,12 @@ input:checked+.switch-slider:before {
       }
 
     }
-  
+
+  .total-stock {
+    width: 100%;
+    margin: 10px auto;
+  }
+
   .input-group-btn, .quantity-style {
     display: inline-block;
     vertical-align: middle;

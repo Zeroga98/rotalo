@@ -225,6 +225,9 @@
                         <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton" class="gtmCompConfirmComp" type="submit"  text="Confirmar compra" ></custom-button>
                     </div>
                   </div>
+                  <div *ngIf="errorMessage" class="error-message">
+                    {{errorMessage}}
+                  </div>
                 </div>
               </div>
             </div>
