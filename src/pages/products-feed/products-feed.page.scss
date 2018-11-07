@@ -76,7 +76,10 @@
     }
   }
   .container-masonry {
-    padding: 4rem 5%;
+    padding: 4rem 0;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
     min-height: 480px;
     .masonry {
       width: 100%;
@@ -86,6 +89,7 @@
         width: 100%;
         display: flex;
         flex-flow: row wrap;
+        justify-content: space-between;
       }
       product {
         cursor: pointer;
@@ -351,7 +355,7 @@
     width: 104px;
     height: 40px;
   //  background: url(../../assets/img/img_insignia_precio.svg);
-  background: url(../../assets/img/img_insignia_black.svg);
+  background: url(../../assets/img/img_etiqueta_bf.png);
     background-size: 104px 40px;
     p {
       color: #FFFFFF;
