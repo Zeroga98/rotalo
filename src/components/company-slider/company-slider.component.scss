@@ -8,9 +8,10 @@
 :host {
   width: 100%;
   .company-slider-section{
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 55px 5.7%;
+    padding: 55px 0;
     text-align: center;
     .header-company{
       margin-bottom: 20px;

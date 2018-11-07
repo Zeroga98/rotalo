@@ -8,9 +8,9 @@
   z-index: 1;
   box-shadow: 2px 4px 10px rgba(0,0,0,.2);
   .container {
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 5.7%;
     @media #{$medium-max} {
       width: 90%;
       ;
