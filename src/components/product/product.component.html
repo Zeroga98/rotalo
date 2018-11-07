@@ -1,5 +1,4 @@
 <div class="container-product" *ngIf="product" #containerProducts>
-
   <a>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <div *ngIf="product['is-low-price']" class="container-low-price">
