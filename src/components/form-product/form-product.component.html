@@ -69,7 +69,7 @@
                     Escoge al menos una imagen.
                   </span>
             </div>
-            <div class="row">
+            <div class="row row-min">
                 <div class="form-group">
                     <label class="label-title">Estado</label>
                    <div>
@@ -146,9 +146,8 @@
                         <span class="error-msg">Este campo es requerido</span>
                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div  class="form-group">
+
+                <div *ngIf="showOptionsVehicles && showOptionEstate" class="form-group">
                   <label class="label-title">Número de unidades disponibles</label>
                   <div class="input-group quantity-wrapper">
                     <span class="input-group-btn">
@@ -166,6 +165,9 @@
                     </span>
                   </div>
                 </div>
+            </div>
+            <div class="row">
+
                 <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group" data-input="price">
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
