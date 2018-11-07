@@ -715,7 +715,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     let objectDate = {
       date: {
           year: date.getFullYear(),
-          month: date.getMonth() + 1,
+          month: date.getMonth() + 2,
           day: date.getDate()
         }
     };

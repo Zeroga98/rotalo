@@ -151,36 +151,40 @@ export class BuyProductPage implements OnInit {
     try {
       this.initQuantityForm();
       this.product = reponse.body.productos[0];
-      this.currentUser = await this.userService.getInfoUser();
-      this.cellphoneUser = this.currentUser.cellphone;
-      this.idNumberBuyer = this.currentUser['id-number'];
-      if (this.product.subcategory && this.product.subcategory.category) {
-        this.subCategoryProduct = this.product.subcategory.name;
-        this.categoryProduct = this.product.subcategory.category.name;
-      }
-      this.priceProduct = this.product.price;
-      if (this.product['stock']) {
-        this.totalStock = this.product['stock'];
+      if (this.product.status && this.product.status !=  'expired') {
+        this.currentUser = await this.userService.getInfoUser();
+        this.cellphoneUser = this.currentUser.cellphone;
+        this.idNumberBuyer = this.currentUser['id-number'];
+        if (this.product.subcategory && this.product.subcategory.category) {
+          this.subCategoryProduct = this.product.subcategory.name;
+          this.categoryProduct = this.product.subcategory.category.name;
+        }
+        this.priceProduct = this.product.price;
+        if (this.product['stock']) {
+          this.totalStock = this.product['stock'];
+        } else  {
+          this.totalStock = 1;
+        }
+        if (this.quantityForm.get('stock').value) {
+          const quantity = this.quantityForm.get('stock').value;
+          this.totalPrice =  this.priceProduct * quantity;
+        } else {
+          this.totalPrice = this.priceProduct;
+        }
+        this.product.used
+          ? (this.usedProduct = 'Usado')
+          : (this.usedProduct = 'Nuevo');
+        if (this.product['photoList']) {
+          this.photoProduct = this.product['photoList'].url || this.product['photoList'][0].url;
+        }
+        this.idNumberSeller = this.product.user['id-number'];
+        this.idUserSellerDb = this.product.user['id'];
+        this.currencyProduct = this.product.currency;
+        this.initFormBuy();
+        this.changeDetectorRef.markForCheck();
       } else  {
-        this.totalStock = 1;
+        this.redirectErrorPage();
       }
-      if (this.quantityForm.get('stock').value) {
-        const quantity = this.quantityForm.get('stock').value;
-        this.totalPrice =  this.priceProduct * quantity;
-      } else {
-        this.totalPrice = this.priceProduct;
-      }
-      this.product.used
-        ? (this.usedProduct = 'Usado')
-        : (this.usedProduct = 'Nuevo');
-      if (this.product['photoList']) {
-        this.photoProduct = this.product['photoList'].url || this.product['photoList'][0].url;
-      }
-      this.idNumberSeller = this.product.user['id-number'];
-      this.idUserSellerDb = this.product.user['id'];
-      this.currencyProduct = this.product.currency;
-      this.initFormBuy();
-      this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();

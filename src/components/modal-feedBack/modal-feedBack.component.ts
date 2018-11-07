@@ -41,13 +41,20 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    let countryId = '1';
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      countryId = '9';
+    }else {
+      countryId = '1';
+    }
     if (this.feedBackForm.valid) {
       const email = this.feedBackForm.get('email').value;
       const comment = this.feedBackForm.get('comment').value;
       const params = {
         'correo': email,
         'mensaje': comment,
-        'pais': '1'
+        'pais': countryId
       };
       this.modalService.sendEmail(params) .subscribe(
         state => {
