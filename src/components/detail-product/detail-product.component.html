@@ -207,7 +207,7 @@
           </div>
           <div class="btn-two-container" *ngIf="products && checkBAMBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
               <div class="btn-item">
-                  <button class="botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
+                  <button class="botons gtmFinanciar" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
                     <span class="icon-credit"></span> Financiar
                   </button>
               </div>
