@@ -87,6 +87,13 @@ export class FinanceBamComponent implements OnInit {
       };
       this.productsService.creditBAM(params).subscribe((response) => {
         this.successMessage = true;
+        this.gapush(
+          'send',
+          'event',
+          'Productos',
+          'ClicFinanciacion',
+          'EnviarExitoso'
+        );
         this.changeDetectorRef.markForCheck();
       },
       (error) => {
@@ -96,6 +103,19 @@ export class FinanceBamComponent implements OnInit {
       this.validateAllFormFields(this.sendInfoPrice);
       this.changeDetectorRef.markForCheck();
     }
+  }
+
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   validateAllFormFields(formGroup: FormGroup) {

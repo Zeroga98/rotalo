@@ -14,7 +14,7 @@
               <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
               <div class="container" *ngIf="!transactionSuccess">
                 <div class="buy-detail">
-                  <p>Revisa el detalle de tu producto.</p>
+                  <p>Revisa el detalle de tu producto</p>
                <!--<p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p> -->
                 </div>
                 <ol class="steps-buy-product">
@@ -226,7 +226,7 @@
                     </div>
                   </div>
                   <div *ngIf="errorMessage" class="error-message">
-                    {{errorMessage}}
+                   <div class="alert"></div> {{errorMessage}}
                   </div>
                 </div>
               </div>

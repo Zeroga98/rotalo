@@ -1,4 +1,5 @@
 export const IMGS_BANNER = [
+  './assets/img/banner/black_friday.jpg',
   './assets/img/banner/10k.gif',
   './assets/img/banner/banner_Actualizaciones.gif',
   './assets/img/banner/banner_aliados.jpg',

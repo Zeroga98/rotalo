@@ -463,7 +463,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('rotalo_banner')) {
+    if (imageUrl.includes('black_friday')) {
       return true;
     }
     return false;
@@ -479,6 +479,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         };
         this.getCoupon (emailObject, id);
       }
+    }
+  }
+
+  public redirectPromo (imageUrl) {
+    if (this.isExclusiveOffer(imageUrl)) {
+
     }
   }
 
