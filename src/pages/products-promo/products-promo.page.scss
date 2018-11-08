@@ -143,10 +143,17 @@
     text-align: center;
     font-size: 1.5rem;
   }
-  .img-banner {
-    width: 100%;
-    height: auto;
+  .item-banner {
+    position: relative;
+    .img-banner {
+      width: 100%;
+      height: auto;
+    }
   }
+  .info-countdown {
+    position: absolute;
+  }
+
 }
 
 :host {
