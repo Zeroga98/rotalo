@@ -836,7 +836,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   get showOptionsVehicles () {
     if (this.photosForm.get('category').value == 6) {
-      if (this.photosForm.get('subcategory-id').value != 55) {
+      if (this.photosForm.get('subcategory-id').value != 11) {
         return false;
       }
     }
