@@ -1,4 +1,4 @@
-import { FeedService } from './feed.service';
+import { FeedPromoService } from './feedPromo.service';
 import { CountryInterface } from './../../components/select-country/country.interface';
 import { CityInterface } from './../../commons/interfaces/city.interface';
 import { NavigationService } from './../products/navigation.service';
@@ -6,17 +6,14 @@ import { Router } from '@angular/router';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Observable } from 'rxjs/Observable';
 import {
   Component,
   OnInit,
   ElementRef,
   ViewChild,
-  Renderer2,
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  EventEmitter,
   ViewChildren,
   QueryList,
   AfterViewInit
@@ -29,8 +26,6 @@ import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
 import { StatesRequestEnum } from '../../commons/states-request.enum';
 import { UtilsService } from '../../util/utils.service';
-import { MASONRY_CONFIG } from './masonry.config';
-import { setTimeout } from 'timers';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
@@ -41,15 +36,14 @@ import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 
 
 @Component({
-  selector: 'products-feed',
-  templateUrl: 'products-feed.page.html',
-  styleUrls: ['products-feed.page.scss'],
+  selector: 'products-promo',
+  templateUrl: 'products-promo.page.html',
+  styleUrls: ['products-promo.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
+export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   public carouselConfig: NgxCarousel;
   public carouselProductsConfig: NgxCarousel;
-  public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
@@ -64,7 +58,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   private currentFilter: Object;
   @ViewChild('backTop', { read: ElementRef })
   backTop: ElementRef;
-  @ViewChild('masonryRef') masonryRef: any;
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
@@ -80,14 +73,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public idCountry = 1;
   constructor(
     private productsService: ProductsService,
-    private rendered: Renderer2,
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
-    private feedService: FeedService,
+    private feedService: FeedPromoService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
-    private loginService: LoginService,
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
     private userService: UserService,
@@ -96,12 +87,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
-    // this.imagesBanner = IMGS_BANNER_PROMO;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER;
-
-    /*Promo fecha determinada para cierta comunidad*/
-    //
     this.addPromoBannerColombia();
   }
 
@@ -116,7 +103,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-    // this.setScrollEvent();
   }
 
   ngOnDestroy(): void {
@@ -160,7 +146,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-
   loadFeaturedProduct(countryId, communityId) {
     if (!this.productsService.getFeatureProducts()) {
       this.productsService.featuredProduct(countryId, communityId).subscribe(
@@ -189,7 +174,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
     return results;
   }
-
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
@@ -234,13 +218,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
-  }
-
-  LeerDatos(): Observable<Response> {
-    // Se declara cómo va a ser la llamada
-    // ocultando los pormenores a los consumidores
-    return
-    // En este momento aún no se efectuó la llamada
   }
 
   async loadProducts(params: Object = {}) {
@@ -419,7 +396,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
     this.waitNewPage = false;
-   // this.updateMasonry();
   }
 
   addNewPage(newProducts) {

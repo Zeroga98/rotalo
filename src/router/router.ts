@@ -35,6 +35,7 @@ import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-que
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
 import { LoginPage } from '../pages/login/login.page';
 import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
+import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 
 export const appRouter: Routes = [
   {
@@ -123,6 +124,10 @@ export const appRouter: Routes = [
         {
           path: ROUTES.PRODUCTS.ERROR,
           component: ErrorPageComponent,
+        },
+        {
+          path: ROUTES.PRODUCTS.PROMO,
+          component: ProductsPromoPage,
         },
         {
             path: '',

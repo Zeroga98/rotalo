@@ -351,7 +351,7 @@
 :host(.product-feed) {
 
   .container-product {
-    height: 500px;
+    height: 525px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transform: scale(1);
   }
@@ -372,6 +372,7 @@
     margin-bottom: 0;
     line-height: 16px;
     padding-left: 1rem;
+    min-height: 32px;
   }
 
   .container-product .container-price {

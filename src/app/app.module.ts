@@ -148,6 +148,8 @@ import { CompanySliderComponent } from '../components/company-slider/company-sli
 import { ModalVideoService } from '../components/modal-video/modal-video.service';
 import { ModalVideoComponent } from '../components/modal-video/modal-video.component';
 import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
+import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
+import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
 
 @NgModule({
   declarations: [
@@ -236,6 +238,7 @@ import { FinanceBamComponent } from '../components/financeBam/financeBam.compone
     CompanySliderComponent,
     ModalVideoComponent,
     FinanceBamComponent,
+    ProductsPromoPage
   ],
   imports: [
     BrowserModule,
@@ -269,6 +272,7 @@ import { FinanceBamComponent } from '../components/financeBam/financeBam.compone
     BuyService,
     LoansService,
     FeedService,
+    FeedPromoService,
     ToolbarService,
     OfferService,
     RecoverService,

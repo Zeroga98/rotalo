@@ -26,7 +26,8 @@ export const ROUTES = {
         BUY: 'buy',
         SIMULATECREDIT: 'simulate-credit',
         FINANCEBAM: 'finance',
-        ERROR: 'error'
+        ERROR: 'error',
+        PROMO: 'promo'
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',
