@@ -64,13 +64,14 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   public groupFeaturedProducts:  Array<any> = [];
   public couponService;
   public community: any;
-  readonly defaultImage: string = "../assets/img/product-no-image.png";
+  readonly defaultImage: string = '../assets/img/product-no-image.png';
   private currentUrl = '';
   public pageNumber: number = 1;
   public totalPages: number = 100;
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
   public  showPagination = false;
   public idCountry = 1;
+  public counter = '';
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -85,14 +86,10 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
-    this.showBanner = this.configFiltersSubcategory === undefined;
-    this.carouselConfig = CAROUSEL_CONFIG;
-    this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-    this.imagesBanner = IMGS_BANNER;
-    this.addPromoBannerColombia();
   }
 
    ngOnInit() {
+    this.countDown();
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
@@ -128,51 +125,27 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  async addPromoBanner() {
-    this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'Grupo Bancolombia') {
-      this.imagesBanner = IMGS_BANNER_PROMO;
-    }
-  }
+  countDown() {
+    const countDownDate = new Date('Nov 26, 2018 23:59:59').getTime();
+    const that = this;
+    const x = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
 
-  addPromoBannerColombia() {
-    this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      this.imagesBanner = IMGS_BANNER_GUATEMALA;
-    }else {
-     this.imagesBanner = IMGS_BANNER;
-     // this.imagesBanner = IMGS_BANNER;
-     this.addPromoBanner();
-    }
-  }
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-  loadFeaturedProduct(countryId, communityId) {
-    if (!this.productsService.getFeatureProducts()) {
-      this.productsService.featuredProduct(countryId, communityId).subscribe(
-        (response) => {
-          if (response.body) {
-          this.featuredproducts = response.body.productos;
-          this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
-          this.productsService.setFeatureProducts(this.groupFeaturedProducts);
-          this.changeDetectorRef.markForCheck();
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } else {
-      this.groupFeaturedProducts = this.productsService.getFeatureProducts();
-      this.changeDetectorRef.markForCheck();
-    }
-  }
+    const hours = h > 9 ? '' + h : '0' + h;
+    const minutes = m > 9 ? '' + m : '0' + m;
+    const seconds = s > 9 ? '' + s : '0' + s;
 
-  chunkArray(myArray, chunk_size) {
-    const results = [];
-    while (myArray.length) {
-      results.push(myArray.splice(0, chunk_size));
+    that.counter = hours + ': ' + minutes + ': ' + seconds;
+    that.changeDetectorRef.markForCheck();
+    if (distance < 0) {
+        clearInterval(x);
     }
-    return results;
+    }, 1000);
   }
 
   updateSrc(evt) {
@@ -198,24 +171,6 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
 
   loadProductsUser(countryId) {
     this.countrySelected = { id: countryId };
-    if (this.isSuperUser()) {
-      this.currentFilter = {
-        'pais': countryId,
-        'comunidad': -1,
-        'cantidad': 24,
-        'pagina': 1
-      };
-      this.loadFeaturedProduct(countryId, -1);
-    }else {
-      this.currentFilter = Object.assign({}, this.currentFilter, {
-        'filter[country]': countryId,
-        'page[size]': 24,
-        'page[number]': 1
-      });
-      this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
-    }
-
-    this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
   }
@@ -325,16 +280,6 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
     }
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
-  }
-
-  changeCommunity(community: any) {
-    if (this.isSuperUser()) {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'comunidad': community.id });
-    }else {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'filter[community]': community.id });
-    }
   }
 
   selectedCategory(category: CategoryInterface) {

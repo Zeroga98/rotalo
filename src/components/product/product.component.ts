@@ -106,7 +106,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (product.city) {
       const city = product.city;
       const state = city.state;
-      return `${city.name}, ${state.name}`;
+      return `${city.name},  ${state.name}`;
     }
   }
   selectProduct() {

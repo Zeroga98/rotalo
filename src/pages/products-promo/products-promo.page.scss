@@ -152,6 +152,17 @@
   }
   .info-countdown {
     position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 10%;
+    p {
+      color: white;
+      font-size: 1.2vw;
+    }
+    .counter {
+      font-size: 3vw;
+    }
   }
 
 }
@@ -201,6 +212,26 @@
       font-weight: bold;
       font-size: 1.2rem;
       padding: 10px 10px;
+    }
+  }
+}
+
+:host {
+  .card-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    justify-content: space-around;
+  }
+  .card-container {
+    .item {
+      width: 30%;
+      cursor: pointer;
+      img {
+        width: 100%;
+      }
     }
   }
 }
@@ -279,68 +310,6 @@
       width: 43%;
     }
 
-  }
-
-  @media screen and (max-width: 470px) {
-    .featured-section {
-      .featured-container {
-        width: 92%;
-        .header-featured {
-          h3 {
-            font-size: 1.4rem;
-          }
-        }
-      }
-      .featured-cards {
-        justify-content: space-between;
-      }
-      .featured-card {
-        width: 48%;
-        .item__wrapper {
-          height: auto;
-          margin: 0 auto 30px;
-          .item__card {
-            height: auto;
-            .item__image-container {
-              height: 137px;
-            }
-            .item__content {
-              .item__name {
-                font-size: 1.2rem;
-              }
-              .item__location {
-                font-size: 1.0rem;
-                line-height: 12px;
-              }
-              .item_info-user {
-                opacity: 1;
-                visibility: visible;
-                transition: visibility .1s .1s;
-                .icon-container {
-                  width: 2.8rem;
-                  height: 2.8rem;
-                }
-                .info-user {
-                  .name-text {
-                    font-size: 1.0rem;
-                    line-height: 12px;
-                  }
-                  .company-text {
-                    font-size: 0.8rem;
-                    line-height: 10px;
-                  }
-                }
-              }
-            }
-          }
-          .item__card:hover {
-            height: auto;
-            z-index: 2;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-          }
-        }
-      }
-    }
   }
 }
 

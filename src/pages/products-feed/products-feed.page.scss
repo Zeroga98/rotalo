@@ -242,6 +242,7 @@
               overflow: hidden;
               max-height: 3.6rem;
               line-height: 1.8rem;
+              min-height: 36px;
             }
             .item__price-block {
               color: #FF3646;
@@ -259,7 +260,7 @@
               display: flex;
               align-items: center;
               border-top: 1px solid rgba(51, 51, 51, .1);
-              padding-top: 2px;
+              padding-top: 7px;
               opacity: 0;
               visibility: hidden;
               transition: .1s ease-out;
@@ -269,6 +270,7 @@
                 color: white;
                 width: 3rem;
                 height: 3rem;
+                min-width: 3rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -288,12 +290,20 @@
                   font-weight: bold;
                   font-size: 1.4rem;
                   line-height: 17px;
+                  width: 90%;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                 }
                 .company-text {
                   color: #707070;
                   font-weight: bold;
                   font-size: 1.2rem;
                   line-height: 15px;
+                  width: 90%;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap
                 }
               }
             }

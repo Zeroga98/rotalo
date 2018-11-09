@@ -70,7 +70,7 @@
                                           {{featuredproduct.price | currency:"$":0 | removeDigits}}
                                       </span>
                                       <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ' && idCountry != 9">
-                                          {{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}
+                                          {{featuredproduct.price | currency:"$":0 | removeDigits}}
                                       </span>
                                       <span *ngIf=" featuredproduct.price == 0">Gratis</span>
                                     </div>
