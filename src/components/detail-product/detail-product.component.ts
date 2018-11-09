@@ -489,7 +489,7 @@ export class DetailProductComponent implements OnInit {
   get showOptionsVehicles() {
     if (this.products) {
       if (this.products.subcategory.category.id == 6) {
-        if (this.products.subcategory.id != 55) {
+        if (this.products.subcategory.id != 11) {
           return false;
         }
       }

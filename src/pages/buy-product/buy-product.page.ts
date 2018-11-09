@@ -386,7 +386,7 @@ export class BuyProductPage implements OnInit {
   get showOptionsVehicles() {
     if (this.product) {
       if (this.product.subcategory.category.id == 6) {
-        if (this.product.subcategory.id != 55) {
+        if (this.product.subcategory.id != 11) {
           return false;
         }
       }
