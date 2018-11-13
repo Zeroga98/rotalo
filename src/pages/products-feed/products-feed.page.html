@@ -43,8 +43,8 @@
                           <div *ngIf= "featuredproduct" class="item__wrapper">
                               <div class="item__card">
                                   <div class="item__image-container">
-                                    <div *ngIf="featuredproduct['is-low-price'] && featuredproduct['featuredType'] == 'isLowPrice'" class="container-low-price">
-                                      <!--<p>$ REBAJÓ</p>-->
+                                    <div [ngClass]="isPromoDate? 'container-black-friday' : ''" *ngIf="(featuredproduct['special-date'] && featuredproduct['special-date'].active) || featuredproduct['is-low-price'] && featuredproduct['featuredType'] == 'isLowPrice'" class="container-low-price">
+                                      <p *ngIf="!isPromoDate">$ REBAJÓ</p>
                                     </div>
                                     <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
                                         <p>TRENDING</p>

@@ -1,8 +1,8 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <a>
   <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-      <div *ngIf="product['is-low-price']" class="container-low-price">
-        <!--  <p>$ REBAJÓ</p> -->
+      <div [ngClass]="isPromoDate? 'container-black-friday' : ''" *ngIf="product['is-low-price'] || isActivePromo" class="container-low-price ">
+        <p *ngIf="!isPromoDate">$ REBAJÓ</p>
       </div>
     <div *ngIf="isProductSelling" class="options-container">
       <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>

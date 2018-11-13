@@ -20,6 +20,7 @@ import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
 import { NavigationService } from "../../pages/products/navigation.service";
+import { START_DATE_BF, END_DATE_BF } from "../../commons/constants/dates-promos.contants";
 
 @Component({
   selector: "product",
@@ -47,6 +48,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public productChecked: String = "active";
   public idUser: string = this.currentSessionSevice.getIdUser();
   public idCountry = 1;
+  public startDate = START_DATE_BF;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
 
   constructor(
     private render: Renderer2,
@@ -81,6 +85,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.masonryInfo.layout();
     }
   }
+
+  get isActivePromo() {
+    if (this.product['special-date'] && this.product['special-date'].active) {
+      return true;
+    }
+    return false;
+  }
+
+
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
@@ -180,4 +193,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.modalService.open(id);
     }
   }
+
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+
 }

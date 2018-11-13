@@ -255,6 +255,9 @@
               font-size: 1.4rem;
               line-height: 17px;
               padding-bottom: 2px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
             .item_info-user {
               display: flex;
@@ -285,12 +288,15 @@
                 }
               }
               .info-user {
+                width: 90%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 .name-text {
                   color: #707070;
                   font-weight: bold;
                   font-size: 1.4rem;
                   line-height: 17px;
-                  width: 90%;
                   overflow: hidden;
                   text-overflow: ellipsis;
                   white-space: nowrap;
@@ -300,7 +306,6 @@
                   font-weight: bold;
                   font-size: 1.2rem;
                   line-height: 15px;
-                  width: 90%;
                   overflow: hidden;
                   text-overflow: ellipsis;
                   white-space: nowrap
@@ -364,8 +369,7 @@
     left: 0;
     width: 104px;
     height: 40px;
-  //  background: url(../../assets/img/img_insignia_precio.svg);
-  background: url(../../assets/img/img_etiqueta_bf.png);
+    background: url(../../assets/img/img_insignia_precio.svg);
     background-size: 104px 40px;
     p {
       color: #FFFFFF;
@@ -373,6 +377,11 @@
       font-size: 1.2rem;
       padding: 10px 10px;
     }
+  }
+
+  .container-black-friday {
+    background: url(../../assets/img/img_etiqueta_bf.png);
+    background-size: 104px 40px;
   }
 }
 
@@ -404,7 +413,7 @@
     p {
       color: #FFFFFF;
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1rem;
       padding: 10px 10px;
     }
   }

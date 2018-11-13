@@ -17,6 +17,8 @@ import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
+import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
+
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -81,7 +83,9 @@ export class FormProductComponent implements OnInit, OnChanges {
   public errorState = false;
   public errorCity = false;
   public communityName = '';
-
+  public startDate = START_DATE_BF;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
 
   constructor(
     private router: Router,
@@ -618,6 +622,8 @@ export class FormProductComponent implements OnInit, OnChanges {
     const request = {
       tipo: 1
     };
+    let checkNewPrice = false;
+    let newPrice = '';
 
     if (config['subcategory'].name == 'Carros') {
       request.tipo = 1;
@@ -659,7 +665,9 @@ export class FormProductComponent implements OnInit, OnChanges {
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
     model = config['model'] ? config['model'] : '';
     stock = config['stock'] ? config['stock'] : 1;
+    newPrice = config['newPrice'] ? config['newPrice'] : null;
 
+    checkNewPrice  = config['checkNewPrice'] ? config['checkNewPrice'] : false;
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -704,6 +712,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       'air-conditioner': [airConditioner, []],
       'abs-brakes': [absBrakes, []],
       'unique-owner': [uniqueOwner, []],
+      'checkNewPrice': [checkNewPrice, []],
+      'newPrice': [newPrice, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
 
@@ -749,6 +759,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     const product = {
       name: null,
       price: null,
+      newPrice: null,
       currency: currency,
       'subcategory': {id : ''},
       stock: 1,
@@ -758,6 +769,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       description: null,
       'publish-until': objectDate,
       negotiable: true,
+      checkNewPrice: false,
       category: ''
     };
 
@@ -868,6 +880,14 @@ export class FormProductComponent implements OnInit, OnChanges {
         this.photosForm.patchValue({stock: stock});
       }
     }
+  }
+
+  get isNewPriceShow() {
+    if (this.photosForm.get('sell-type').value == 'VENTA' &&
+    (this.photosForm.get('price').value || this.photosForm.get('price').value > 0)) {
+      return true;
+    }
+    return false;
   }
 
 }

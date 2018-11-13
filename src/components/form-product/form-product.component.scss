@@ -261,6 +261,15 @@
       .currency-select {
         margin-bottom: 20px;
       }
+
+      .info-price {
+        max-width: 313px;
+        padding: 20px;
+        background-color: #E6E1EC;
+        border-radius: 17px;
+        color: #0A0A0A;
+        font-size: 1.8rem;
+      }
     }
   }
 
@@ -336,13 +345,7 @@
   }
 
 }
-/*
-:host {
-  .form-theme .form-group.valid .form-control {
-    border-bottom: 2px solid #0FBBD8;
-  }
-}
-*/
+
 @media screen and (max-width: 850px) {
   :host {
     .container-form {

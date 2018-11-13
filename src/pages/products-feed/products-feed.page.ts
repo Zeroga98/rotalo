@@ -38,6 +38,7 @@ import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.s
 import { UserService } from '../../services/user.service';
 import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
+import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
 
 
 @Component({
@@ -78,6 +79,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
   public  showPagination = false;
   public idCountry = 1;
+  public startDate = START_DATE_BF;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
+
   constructor(
     private productsService: ProductsService,
     private rendered: Renderer2,
@@ -497,6 +502,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.changeDetectorRef.markForCheck();
     },
     (error) => {console.log(error); } );
+  }
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
   }
 
 

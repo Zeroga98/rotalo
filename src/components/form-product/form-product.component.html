@@ -172,7 +172,7 @@
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
                         <label class="label-title">Precio (con los pies en la tierra)*</label>
-                        <input [attr.disabled]="disabledField ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price"
                           placeholder="15.000.000"
                           maxlength="50" autocomplete="off">
@@ -191,6 +191,29 @@
                         </label>
                         <span class="check-label">Recibo ofertas</span>
                       </div>
+                    </div>
+                </div>
+                <div *ngIf="isNewPriceShow" class="form-group">
+                    <div class="label-title check-offer">
+                        <label for="checkNewPrice" class="material-checkbox container-check">
+                          <input type="checkbox" id="checkNewPrice" name="checkNewPrice" formControlName="checkNewPrice">
+                          <span class="checkmark"></span>
+                        </label>
+                        <span class="check-label">Precio especial por Black Friday</span>
+                    </div>
+                    <div class="price-container">
+                        <input class="form-control input-price" name="newPrice" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                          placeholder="15.000.000"
+                          formControlName="newPrice"
+                          maxlength="50" autocomplete="off">
+                        <span class="error-msg">Este campo es requerido</span>
+                        <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                    </div>
+                </div>
+                <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">
+                    <div class="info-price">
+                        Tu producto se destacará con la etiqueta BLACK FRIDAY y solo destacará con este precio del 23 al 26 de noviembre.
                     </div>
                 </div>
             </div>
