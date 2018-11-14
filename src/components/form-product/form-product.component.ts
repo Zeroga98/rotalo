@@ -883,8 +883,15 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get isNewPriceShow() {
-    if (this.photosForm.get('sell-type').value == 'VENTA' &&
+    if (this.isPromoDate && this.photosForm.get('sell-type').value == 'VENTA' &&
     (this.photosForm.get('price').value || this.photosForm.get('price').value > 0)) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
       return true;
     }
     return false;

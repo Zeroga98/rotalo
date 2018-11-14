@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
-import { IMGS_BANNER, IMGS_BANNER_GUATEMALA } from '../../commons/constants/banner-imgs.contants';
+import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
@@ -36,7 +36,7 @@ import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
-import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import { IMGS_BANNER_PROMO, IMGS_BANNER_PROMO_BANCOLOMBIA, IMGS_BANNER_GUATEMALA_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
 
@@ -107,7 +107,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
     /*Promo fecha determinada para cierta comunidad*/
     //
-    this.addPromoBannerColombia();
+    this.addPromoBanner();
   }
 
    ngOnInit() {
@@ -147,21 +147,32 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  async addPromoBanner() {
+  async addBancolombiaBanner() {
     this.community = await this.userService.getCommunityUser();
     if (this.community && this.community.name === 'Grupo Bancolombia') {
-      this.imagesBanner = IMGS_BANNER_PROMO;
+      if (this.isPromoDate) {
+        this.imagesBanner = IMGS_BANNER_PROMO_BANCOLOMBIA;
+      } else {
+        this.imagesBanner = IMGS_BANNER_BANCOLOMBIA;
+      }
     }
   }
 
-  addPromoBannerColombia() {
+  addPromoBanner() {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
-      this.imagesBanner = IMGS_BANNER_GUATEMALA;
+      if (this.isPromoDate) {
+        this.imagesBanner = IMGS_BANNER_GUATEMALA_PROMO;
+      } else {
+        this.imagesBanner = IMGS_BANNER_GUATEMALA;
+      }
     }else {
-     this.imagesBanner = IMGS_BANNER;
-     // this.imagesBanner = IMGS_BANNER;
-     this.addPromoBanner();
+      if (this.isPromoDate) {
+        this.imagesBanner = IMGS_BANNER_PROMO;
+      } else {
+        this.imagesBanner = IMGS_BANNER;
+      }
+     this.addBancolombiaBanner();
     }
   }
 
