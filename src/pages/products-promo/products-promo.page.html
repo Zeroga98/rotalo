@@ -43,7 +43,7 @@
           </product>
         </div>
       </div>
-      <pagination-controls *ngIf="showPagination" class="promo has-text-centered" responsive="true" previousLabel="Anterior"
+      <pagination-controls *ngIf="showPagination && !showAnyProductsMessage" class="promo has-text-centered" responsive="true" previousLabel="Anterior"
         nextLabel="Siguiente" (pageChange)="getPage($event)">
       </pagination-controls>
     </div>

@@ -580,6 +580,28 @@
   .info-container {
     width: 100%;
   }
+
+  .btns-container .btn-item-full {
+    width: 100%;
+  }
+
+  .product{
+    .low-price {
+      .valor-product {
+        color:#A2A2A2;
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
+
 }
 /* The switch - the box around the switch-slider */
 

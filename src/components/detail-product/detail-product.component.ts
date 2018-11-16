@@ -26,6 +26,8 @@ import { MessagesService } from '../../services/messages.service';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
 import { BuyService } from '../../services/buy.service';
+import { NavigationService } from '../../pages/products/navigation.service';
+import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -74,7 +76,10 @@ export class DetailProductComponent implements OnInit {
   private currentEmail;
   public countryId;
   public totalStock = 1;
-
+  public idCountry = 1;
+  public startDate = START_DATE_BF;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -94,9 +99,17 @@ export class DetailProductComponent implements OnInit {
     private messagesService: MessagesService,
     private shareInfoChatService: ShareInfoChatService,
     private fb: FormBuilder,
-    private buyService: BuyService
+    private buyService: BuyService,
+    private navigationService: NavigationService,
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSessionSevice.currentUser()['countryId'];
+    }
+    this.idCountry = countryId;
   }
 
   ngOnInit() {
@@ -527,6 +540,19 @@ export class DetailProductComponent implements OnInit {
   }
 
 
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isActivePromo() {
+    if (this.products['specialDate'] && this.products['specialDate'].active) {
+      return true;
+    }
+    return false;
+  }
 
 
 

@@ -69,6 +69,20 @@ export class ProductsService {
       });
     }
 
+    getProductsPromo(idUser, params) {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/productos/rebajados';
+      return this.http.get(url, { headers: headers,  params: params }).toPromise()
+      .then((response: any) => {
+      if (response.body.totalProductos) {
+        this.setTotalProducts (response.body.totalProductos);
+      }
+      return response.body.productos;
+      });
+    }
+
     getProductsById(id: number): Promise<any> {
       const url = `${this.url}/${id}`;
       return this.http

@@ -196,19 +196,23 @@
                 <div *ngIf="isNewPriceShow" class="form-group">
                     <div class="label-title check-offer">
                         <label for="checkNewPrice" class="material-checkbox container-check">
-                          <input type="checkbox" id="checkNewPrice" name="checkNewPrice" formControlName="checkNewPrice">
+                          <input
+                          (change) = "checkNewPriceChange()"
+                          type="checkbox" id="checkNewPrice" name="checkNewPrice" formControlName="checkNewPrice">
                           <span class="checkmark"></span>
                         </label>
                         <span class="check-label">Precio especial por Black Friday</span>
                     </div>
                     <div class="price-container">
-                        <input class="form-control input-price" name="newPrice" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        <input
+                        [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null"
+                        class="form-control input-price" name="special-price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                           placeholder="15.000.000"
-                          formControlName="newPrice"
+                          formControlName="special-price"
                           maxlength="50" autocomplete="off">
-                        <span class="error-msg">Este campo es requerido</span>
-                        <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                        <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
+                        <span *ngIf="isErrorCategoryNewPrice"  class="error-msg">Selecciona una categoria</span>
                     </div>
                 </div>
                 <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">

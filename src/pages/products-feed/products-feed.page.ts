@@ -36,7 +36,11 @@ import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
-import { IMGS_BANNER_PROMO, IMGS_BANNER_PROMO_BANCOLOMBIA, IMGS_BANNER_GUATEMALA_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import {
+  IMGS_BANNER_PROMO,
+  IMGS_BANNER_PROMO_BANCOLOMBIA,
+  IMGS_BANNER_GUATEMALA_PROMO
+} from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
 
@@ -161,11 +165,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   addPromoBanner() {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
-      if (this.isPromoDate) {
-        this.imagesBanner = IMGS_BANNER_GUATEMALA_PROMO;
-      } else {
-        this.imagesBanner = IMGS_BANNER_GUATEMALA;
-      }
+      this.imagesBanner = IMGS_BANNER_GUATEMALA;
     }else {
       if (this.isPromoDate) {
         this.imagesBanner = IMGS_BANNER_PROMO;
@@ -517,6 +517,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   get isPromoDate() {
     if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  isActivePromo(product) {
+    if (product['special-date'] && product['special-date'].active
+    || product['specialDate'] && product['specialDate'].active) {
       return true;
     }
     return false;

@@ -351,6 +351,20 @@
     background: url(../../assets/img/img_etiqueta_bf.png);
     background-size: 140px 54px;
   }
+
+
+  .low-price {
+    color:#A2A2A2;
+    text-decoration: line-through;
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
 }
 
 :host(.product-feed) {
@@ -369,6 +383,7 @@
 
   .product-info{
     padding-left: 1rem;
+    padding-right: 1rem;
     padding-bottom: 1rem;
   }
 

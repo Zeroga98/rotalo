@@ -32,6 +32,13 @@ function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   return { 'price': true };
 }
 
+function isCategorySelected( c: AbstractControl ): { [key: string]: boolean } | null {
+  if (this.categorySelected) {
+    return null;
+  }
+  return { isCategory: true };
+}
+
 @Component({
   selector: 'form-product',
   templateUrl: './form-product.component.html',
@@ -86,7 +93,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   public startDate = START_DATE_BF;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
-
+  public categorySelected;
+  public maxValueNewPrice = 0;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -181,6 +189,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
     this.photosForm.patchValue({stock: 1});
+    this.photosForm.patchValue({checkNewPrice: false});
+    this.removeValidatorNewPrice();
     if (evt === 'GRATIS') {
       this.photosForm.patchValue({price: 0});
       this.photosForm.patchValue({'negotiable': false});
@@ -576,6 +586,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   selectedComunity(idCategory: number ) {
+    this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = '';
     this.subCategory = null;
@@ -588,6 +599,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
     }
+    this.photosForm.patchValue({checkNewPrice: false});
+    this.removeValidatorNewPrice();
   }
 
   selectedSubcategory(idSubcategory) {
@@ -665,7 +678,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
     model = config['model'] ? config['model'] : '';
     stock = config['stock'] ? config['stock'] : 1;
-    newPrice = config['newPrice'] ? config['newPrice'] : null;
+    newPrice = config['special-price'] ? config['special-price'] : null;
 
     checkNewPrice  = config['checkNewPrice'] ? config['checkNewPrice'] : false;
     if (config['sell-type'] === 'GRATIS') {
@@ -713,7 +726,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       'abs-brakes': [absBrakes, []],
       'unique-owner': [uniqueOwner, []],
       'checkNewPrice': [checkNewPrice, []],
-      'newPrice': [newPrice, []],
+      'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
 
@@ -759,7 +772,7 @@ export class FormProductComponent implements OnInit, OnChanges {
     const product = {
       name: null,
       price: null,
-      newPrice: null,
+      'special-price': null,
       currency: currency,
       'subcategory': {id : ''},
       stock: 1,
@@ -895,6 +908,53 @@ export class FormProductComponent implements OnInit, OnChanges {
       return true;
     }
     return false;
+  }
+
+
+  checkNewPriceChange() {
+    if (this.categorySelected && this.photosForm.get('checkNewPrice').value && this.photosForm.get('price').value ) {
+      const newPrice = this.photosForm.get('special-price');
+      const category = this.findCategory(this.categorySelected);
+      const percentagePrice = category['porcentajeMinimoBajoPrecio'];
+      const price = this.photosForm.get('price').value ;
+      const maxNewPrice = (price * percentagePrice) / 100;
+      this.maxValueNewPrice = maxNewPrice;
+      newPrice.clearValidators();
+      newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
+      newPrice.updateValueAndValidity();
+      this.photosForm.patchValue({'special-price': maxNewPrice});
+      this.changeDetectorRef.markForCheck();
+    } else  {
+      this.removeValidatorNewPrice();
+      if (!this.categorySelected ) {
+        debugger
+        this.photosForm.patchValue({'checkNewPrice': false});
+        const newPrice = this.photosForm.get('special-price');
+        newPrice.clearValidators();
+        newPrice.setErrors({ 'invalid': true });
+        newPrice.markAsDirty({ onlySelf: true });
+        newPrice.markAsTouched({ onlySelf: true });
+        newPrice.setValidators([Validators.required, isCategorySelected.bind(this)]);
+        newPrice.updateValueAndValidity();
+        console.log(newPrice);
+        this.changeDetectorRef.markForCheck();
+      }
+    }
+  }
+
+  get isErrorCategoryNewPrice() {
+    const newPrice = this.photosForm.get('special-price');
+    if (newPrice.errors && newPrice.errors.isCategory) {
+      return true;
+    }
+    return false;
+  }
+
+  removeValidatorNewPrice() {
+    const newPrice = this.photosForm.get('special-price');
+    this.photosForm.patchValue({'special-price': null});
+    newPrice.clearValidators();
+    newPrice.updateValueAndValidity();
   }
 
 }

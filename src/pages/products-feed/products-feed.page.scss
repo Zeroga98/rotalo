@@ -84,12 +84,13 @@
     .masonry {
       width: 100%;
       max-width: 100%;
+      min-height: 500px;
       margin: auto;
       .grid-item {
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-between;
+      //  justify-content: space-between;
       }
       product {
         cursor: pointer;
@@ -417,6 +418,20 @@
       padding: 10px 10px;
     }
   }
+
+
+  .low-price {
+    color:#A2A2A2;
+    text-decoration: line-through;
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
 }
 
 :host {

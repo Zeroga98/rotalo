@@ -40,6 +40,7 @@ export class CategoriesService {
               name: category.nombre,
               subcategories: this.changeNameSubcategory(category.subcategorias),
               productsActives: category.productosActivos,
+              porcentajeMinimoBajoPrecio: category.porcentajeMinimoBajoPrecio,
               url: category.url
             };
             return interfaceCategory;

@@ -157,17 +157,27 @@
         </div>
 
         <div class="btns-container">
-          <div class="btn-item">
-            <div *ngIf="products.price!='0' && products.currency == 'GTQ'" class="valor-product">{{products.price |
-              currency:"Q":0| removeDigits }}</div>
-            <div *ngIf="products.price!='0' && products.currency != 'GTQ' && countryId == 9" class="valor-product">{{products.price
-              | currency:"$":0 | removeDigits }}</div>
-            <div *ngIf="products.price!='0' && products.currency != 'GTQ' && countryId != 9" class="valor-product">{{products.price
-              | currency:"$":0 | removeDigits }} {{ products.currency }}</div>
-            <div *ngIf="products.price =='0'" class="valor-product">Gratis</div>
-          </div>
-
-
+            <div [ngClass]="products['is-low-price'] || isActivePromo? 'btn-item-full' : ''" class="btn-item ">
+            <div class="price-container">
+              <div>
+                <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
+                  {{products.price | currency:"Q":0 | removeDigits}}</span>
+                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
+                  {{products.price | currency:"$":0 | removeDigits}}</span>
+                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
+                  {{products.price | currency:"$":0 | removeDigits}}</span>
+                <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
+              </div>
+              <div [ngClass]="products['is-low-price'] || isActivePromo? 'low-price' : ''" *ngIf="products['previousPrice'] && isPromoDate && isActivePromo || products['previousPrice'] && products['is-low-price']">
+                <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
+                  {{products['previousPrice'] | currency:"Q":0 | removeDigits}}</span>
+                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
+                  {{products['previousPrice'] | currency:"$":0 | removeDigits}}</span>
+                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
+                  {{products['previousPrice'] | currency:"$":0 | removeDigits}}</span>
+              </div>
+            </div>
+            </div>
           <div *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate" class="full-width quantity-container">
             <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
                 <div  class="form-group">

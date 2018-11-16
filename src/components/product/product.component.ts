@@ -87,7 +87,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   get isActivePromo() {
-    if (this.product['special-date'] && this.product['special-date'].active) {
+    if (this.product['special-date'] && this.product['special-date'].active
+    || this.product['specialDate'] && this.product['specialDate'].active) {
       return true;
     }
     return false;

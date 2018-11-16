@@ -126,20 +126,18 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   countDown() {
-    const countDownDate = new Date('Nov 26, 2018 23:59:59').getTime();
+    const countDownDate = new Date('Nov 30, 2018 23:59:59').getTime();
     const that = this;
     const x = setInterval(function() {
     const now = new Date().getTime();
     const distance = countDownDate - now;
-
-    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = d * 24 + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((distance % (1000 * 60)) / 1000);
-
     const hours = h > 9 ? '' + h : '0' + h;
     const minutes = m > 9 ? '' + m : '0' + m;
     const seconds = s > 9 ? '' + s : '0' + s;
-
     that.counter = hours + ': ' + minutes + ': ' + seconds;
     that.changeDetectorRef.markForCheck();
     if (distance < 0) {
@@ -179,7 +177,6 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-
       if (this.productsService.products.length > 0) {
         this.products = this.productsService.products;
         this.currentPage = this.productsService.currentPage;
@@ -187,11 +184,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        if (this.isSuperUser()) {
-          products = await this.productsService.getProductsSuper(this.userId, params);
-        }else {
-          products = await this.productsService.getProducts(params);
-        }
+        products = await this.productsService.getProductsPromo(this.userId, params);
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();
@@ -267,17 +260,10 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
 
   getPage(page: number) {
     this.pageNumber = page;
-    if (this.isSuperUser()) {
-      this.routineUpdateProducts(
-        { 'pagina': page },
-        page
-      );
-    }else {
-      this.routineUpdateProducts(
-        { 'page[number]': page },
-        page
-      );
-    }
+    this.routineUpdateProducts(
+      { 'pagina': page },
+      page
+    );
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
   }
