@@ -212,7 +212,7 @@
                           formControlName="special-price"
                           maxlength="50" autocomplete="off">
                         <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
-                        <span *ngIf="isErrorCategoryNewPrice"  class="error-msg">Selecciona una categoria</span>
+                        <span *ngIf="isErrorCategoryNewPrice"  class="error-msg">Debe seleccionar una categoría</span>
                     </div>
                 </div>
                 <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">

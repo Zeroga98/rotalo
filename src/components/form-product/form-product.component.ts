@@ -927,7 +927,6 @@ export class FormProductComponent implements OnInit, OnChanges {
     } else  {
       this.removeValidatorNewPrice();
       if (!this.categorySelected ) {
-        debugger
         this.photosForm.patchValue({'checkNewPrice': false});
         const newPrice = this.photosForm.get('special-price');
         newPrice.clearValidators();
