@@ -296,6 +296,18 @@
     background: url(../../assets/img/importante.svg);
     background-size: 20px 20px;
   }
+
+  .form-theme .form-control.ng-touched.ng-dirty.ng-invalid.quantity-style {
+    border-left: 1px solid #ED2F3C;
+    border-right: 1px solid #ED2F3C;
+  }
+
+  .steps-buy-product li span.error-msg {
+    position: absolute;
+    padding-left: 0px;
+    color: #d61320;
+  }
+
 }
 
 /**Estilos para opciones de pago**/

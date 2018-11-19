@@ -134,7 +134,7 @@ export class DetailProductComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [{ value: 1, disabled: true }, [Validators.required]]
+        stock: [1 , [Validators.required, Validators.min(1), Validators.max(1)]]
       }
     );
   }
@@ -237,6 +237,12 @@ export class DetailProductComponent implements OnInit {
         } else  {
           this.totalStock = 1;
         }
+        const price = this.quantityForm.get('stock');
+        price.clearValidators();
+        price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
+        price.updateValueAndValidity();
+
+
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {
           this.firstName = fullName[0];

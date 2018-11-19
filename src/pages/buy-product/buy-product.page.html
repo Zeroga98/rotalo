@@ -49,14 +49,16 @@
                                           </button>
                                         </span>
                                         <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="1" maxlength="9999"
+                                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="0" maxlength="5"
                                           autocomplete="off">
                                         <span class="input-group-btn">
                                           <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
                                             <span>+</span>
                                           </button>
                                         </span>
+                                       
                                       </div>
+                                      <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser menor igual a {{totalStock}}</span>
                                     </div>
                               </form>
                           </div>

@@ -703,7 +703,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       price: [config.price, [Validators.required]],
       currency: [config.currency, [Validators.required]],
       'subcategory-id': [config['subcategory'].id, [Validators.required]],
-      'stock': [{ value: stock, disabled: true }, [Validators.required]],
+      'stock': [stock, [Validators.required, Validators.min(1), Validators.max(9999)]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
       'sell-type': [config['sell-type'], [Validators.required]],
@@ -917,7 +917,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       const category = this.findCategory(this.categorySelected);
       const percentagePrice = category['porcentajeMinimoBajoPrecio'];
       const price = this.photosForm.get('price').value ;
-      const maxNewPrice = (price * percentagePrice) / 100;
+      let maxNewPrice = (price * percentagePrice) / 100;
+      maxNewPrice = price - maxNewPrice;
+      maxNewPrice = Math.floor(maxNewPrice);
       this.maxValueNewPrice = maxNewPrice;
       newPrice.clearValidators();
       newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
@@ -935,7 +937,6 @@ export class FormProductComponent implements OnInit, OnChanges {
         newPrice.markAsTouched({ onlySelf: true });
         newPrice.setValidators([Validators.required, isCategorySelected.bind(this)]);
         newPrice.updateValueAndValidity();
-        console.log(newPrice);
         this.changeDetectorRef.markForCheck();
       }
     }

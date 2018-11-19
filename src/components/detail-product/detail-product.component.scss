@@ -852,7 +852,8 @@ input:checked+.switch-slider:before {
 
   .form-control.quantity-style {
     text-align: center !important;
-    padding: 6px 8px;
+    font-size: 1.6rem;
+    padding: 6px 6px;
     background: white;
     border: 0 solid #A2A2A2;
     border-radius: 0;
@@ -864,6 +865,18 @@ input:checked+.switch-slider:before {
     height: 36px;
   }
 
+  .form-theme .form-control.ng-touched.ng-dirty.ng-invalid.quantity-style {
+    border-left: 1px solid #ED2F3C;
+    border-right: 1px solid #ED2F3C;
+  }
+
+  .product {
+    .form-theme .error-msg {
+      padding-left: 0px; 
+      color: #d61320;
+      font-size: 1.4rem;
+    }
+  }
 
 }
 

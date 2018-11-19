@@ -405,6 +405,9 @@
       display: block;
     }
   }
+  .form-theme .form-control.ng-touched.ng-invalid ~ .error-msg.error-stock {
+    width: 250px;
+  }
 }
 
 
@@ -859,7 +862,7 @@
 
   .container-form form .form-control.quantity-style {
     text-align: center !important;
-    padding: 6px 8px;
+    padding: 6px 6px;
     background: white;
     border: 0 solid #A2A2A2;
     border-radius: 0;

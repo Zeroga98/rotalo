@@ -105,7 +105,7 @@ export class BuyProductPage implements OnInit {
     }
     this.quantityForm = this.fb.group(
       {
-        stock: [{ value: this.quantity, disabled: true }, [Validators.required]]
+        stock: [this.quantity, [Validators.required, Validators.min(1), Validators.max(1)]]
       }
     );
   }
@@ -165,6 +165,13 @@ export class BuyProductPage implements OnInit {
         } else  {
           this.totalStock = 1;
         }
+
+        const price = this.quantityForm.get('stock');
+        price.clearValidators();
+        price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
+        price.updateValueAndValidity();
+
+
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
           this.totalPrice =  this.priceProduct * quantity;
