@@ -42,7 +42,7 @@ import {
   IMGS_BANNER_GUATEMALA_PROMO
 } from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
-import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 
 @Component({
@@ -83,7 +83,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
   public  showPagination = false;
   public idCountry = 1;
-  public startDate = START_DATE_BF;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
 
@@ -515,7 +516,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     (error) => {console.log(error); } );
   }
 
+
   get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
     if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
       return true;
     }

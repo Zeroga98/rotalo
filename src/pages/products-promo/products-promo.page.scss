@@ -164,6 +164,13 @@
       font-size: 3vw;
     }
   }
+  .img-mobile {
+    display: none;
+  }
+
+  .mobile.card-container {
+    display:none;
+  }
 
 }
 
@@ -229,8 +236,11 @@
     .item {
       width: 30%;
       cursor: pointer;
+      margin: 0 auto;
       img {
         width: 100%;
+        min-width: 192px;
+        border-radius: 20px;
       }
     }
   }
@@ -320,5 +330,36 @@
         display: none !important;
       }
     }
+  }
+}
+
+@media screen and (max-width: 670px) {
+  :host {
+    .desktop.card-container{
+      display:none;
+    }
+    .mobile.card-container {
+      display:block;
+    }
+  }
+}
+
+@media screen and (max-width: 377px) {
+  :host {
+    .img-desktop {
+      display:none;
+    }
+    .img-mobile {
+      display:block;
+    }
+
+    .info-countdown p {
+      font-size: 2.5vw;
+    }
+
+    .info-countdown .counter {
+      font-size: 4vw;
+    }
+
   }
 }

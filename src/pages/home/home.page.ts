@@ -232,7 +232,8 @@ export class HomePage implements OnInit {
       , error => {
         console.log(error);
           if (error.error) {
-            if ( error.error.status == '603' || error.error.status == '604'||  error.error.status == '608') {
+            if ( error.error.status == '603' || error.error.status == '604'
+            ||  error.error.status == '608' ||  error.error.status == '606') {
               this.errorMessage = error.error.message;
               this.errorMessageDoc = '';
             } else if (error.error.status == '612' || error.error.status == '613') {

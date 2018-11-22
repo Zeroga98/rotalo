@@ -22,6 +22,7 @@
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
                 <select  name="category-id" class="category form-control" (change)="selectedComunity($event.target.value)"
+                (click) = "resetPromo()"
                   #categorySelect formControlName="category">
                   <option value="" selected="true" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
@@ -163,7 +164,9 @@
                         <span>+</span>
                       </button>
                     </span>
-                    <span class="error-stock error-msg">Este campo debe ser menor igual a 9999</span>
+                    <span class="error-stock error-msg">
+                      Este campo debe ser mayor o igual a 1.
+                    </span>
                   </div>
                 </div>
             </div>
@@ -209,7 +212,7 @@
                         [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null"
                         class="form-control input-price" name="special-price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                          placeholder="15.000.000"
+                          placeholder=""
                           formControlName="special-price"
                           maxlength="50" autocomplete="off">
                         <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
@@ -218,7 +221,7 @@
                 </div>
                 <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">
                     <div class="info-price">
-                        Tu producto se destacará con la etiqueta BLACK DAYS del 23 al 30 de noviembre, después volverá a tener precio original.
+                        Tu producto se destacará con la etiqueta BLACK DAYS del 23 al 30 de noviembre, después volverá a tener el precio original.
                     </div>
                 </div>
             </div>

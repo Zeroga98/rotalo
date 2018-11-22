@@ -17,7 +17,7 @@ import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
-import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -90,7 +90,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   public errorState = false;
   public errorCity = false;
   public communityName = '';
-  public startDate = START_DATE_BF;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public categorySelected;
@@ -179,11 +180,11 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get isColombia(){
-    return this.countryId === 1;
+    return this.countryId == 1;
   }
 
   get isGuatemala(){
-    return this.countryId === 9;
+    return this.countryId == 9;
   }
 
   changeKindOfProduct(evt) {
@@ -210,7 +211,6 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
-
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
@@ -263,7 +263,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       const publishDate = {
           'published-at': new Date()
       };
-       // const photosIds2 = { 'photo-ids': ['10083'] };
+        // const photosIds2 = { 'photo-ids': ['10083'] };
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
@@ -284,6 +284,10 @@ export class FormProductComponent implements OnInit, OnChanges {
       delete params['air-conditioner'];
       delete params['abs-brakes'];
       delete params['unique-owner'];
+      if (!this.photosForm.get('checkNewPrice').value) {
+        delete params['special-price'];
+      }
+      delete params['checkNewPrice'];
       if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
           const vehicle  = {
             'vehicle-type': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
@@ -311,6 +315,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       };
 
       this.publish.emit(request);
+
+
     } else {
       this.validateAllFormFields(this.photosForm);
       if (this.photosUploaded.length <= 0) {
@@ -599,6 +605,9 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
     }
+  }
+
+  resetPromo() {
     this.photosForm.patchValue({checkNewPrice: false});
     this.removeValidatorNewPrice();
   }
@@ -615,7 +624,6 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   private setInitialForm(config: ProductInterface) {
-
     let typeVehicle = '';
     let model = '';
     let lineId = '';
@@ -636,7 +644,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       tipo: 1
     };
     let checkNewPrice = false;
-    let newPrice = '';
+    let newPrice;
 
     if (config['subcategory'].name == 'Carros') {
       request.tipo = 1;
@@ -678,9 +686,8 @@ export class FormProductComponent implements OnInit, OnChanges {
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
     model = config['model'] ? config['model'] : '';
     stock = config['stock'] ? config['stock'] : 1;
-    newPrice = config['special-price'] ? config['special-price'] : null;
 
-    checkNewPrice  = config['checkNewPrice'] ? config['checkNewPrice'] : false;
+
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -696,6 +703,12 @@ export class FormProductComponent implements OnInit, OnChanges {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
+      }
+
+      if (this.isActivePromo(this.product)) {
+        newPrice = config.price;
+        config.price = config['oldPrice'] ? config['oldPrice'] : null;
+        checkNewPrice = true;
       }
     }
     this.photosForm = this.fb.group({
@@ -729,6 +742,17 @@ export class FormProductComponent implements OnInit, OnChanges {
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
+
+    if (this.product) {
+      if (this.isActivePromo(this.product)) {
+        const price = this.photosForm.get('special-price').value;
+        this.maxValueNewPrice = price;
+        const specialPrice = this.photosForm.get('special-price');
+        specialPrice.clearValidators();
+        specialPrice.setValidators([Validators.required, Validators.max(this.maxValueNewPrice)]);
+        specialPrice.updateValueAndValidity();
+      }
+    }
 
   //  this.changeDetectorRef.markForCheck();
   }
@@ -896,7 +920,7 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get isNewPriceShow() {
-    if (this.isPromoDate && this.photosForm.get('sell-type').value == 'VENTA' &&
+    if (!this.isGuatemala && this.isPromoDate && this.photosForm.get('sell-type').value == 'VENTA' &&
     (this.photosForm.get('price').value || this.photosForm.get('price').value > 0)) {
       return true;
     }
@@ -917,6 +941,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       const category = this.findCategory(this.categorySelected);
       const percentagePrice = category['porcentajeMinimoBajoPrecio'];
       const price = this.photosForm.get('price').value ;
+
       let maxNewPrice = (price * percentagePrice) / 100;
       maxNewPrice = price - maxNewPrice;
       maxNewPrice = Math.floor(maxNewPrice);
@@ -924,7 +949,7 @@ export class FormProductComponent implements OnInit, OnChanges {
       newPrice.clearValidators();
       newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
       newPrice.updateValueAndValidity();
-      this.photosForm.patchValue({'special-price': maxNewPrice});
+      this.photosForm.patchValue({ 'special-price': maxNewPrice });
       this.changeDetectorRef.markForCheck();
     } else  {
       this.removeValidatorNewPrice();
@@ -955,6 +980,14 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.photosForm.patchValue({'special-price': null});
     newPrice.clearValidators();
     newPrice.updateValueAndValidity();
+  }
+
+  isActivePromo(product) {
+    if (product['special-date'] && product['special-date'].active
+    || product['specialDate'] && product['specialDate'].active) {
+      return true;
+    }
+    return false;
   }
 
 }

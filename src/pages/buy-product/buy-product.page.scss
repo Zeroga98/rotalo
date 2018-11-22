@@ -24,6 +24,9 @@
     padding: 4rem 0;
     .container {
       width: 100%;
+      .container-header.product {
+        min-height: 270px;
+      }
       .container-header {
         position: relative;
         right: 3%;
@@ -205,6 +208,11 @@
   }
 }
 
+:host {
+  .category-container,   .container-offer .container .container-header .price{
+    min-height: 145px;
+  }
+}
 
 :host {
   .input-group {
@@ -267,7 +275,7 @@
 
   .form-control.quantity-style {
     text-align: center !important;
-    padding: 6px 8px;
+    padding: 6px 6px;
     background: white;
     border: 0 solid #A2A2A2;
     border-radius: 0;
@@ -303,10 +311,11 @@
   }
 
   .steps-buy-product li span.error-msg {
-    position: absolute;
+    width: 130px;
     padding-left: 0px;
     color: #d61320;
   }
+
 
 }
 
@@ -474,6 +483,17 @@
       width: 100%;
       margin: 2% 3%;
     }
+
+    .steps-buy-product li span.error-msg {
+      width: 100%;
+      position: relative;
+    }
+
+    .category-container,   .container-offer .container .container-header .price{
+      min-height: auto;
+    }
+
+
   }
 
   @media (max-width: 400px) {

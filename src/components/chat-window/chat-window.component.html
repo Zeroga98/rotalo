@@ -111,12 +111,23 @@
                         <p class="notification-text">
                           <span class="highlight bold clickable">{{message.compra.nombreUsuario}}</span>
                           <span *ngIf="message.producto.tipoVenta === 'GRATIS'">te ha pedido </span>
-                          <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado</span>
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}</span>
-                          - Pago: {{paymentTypes[message.compra.tipoPago]}}
+                          <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado el producto: </span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
+                          <br>
+                          <span>Precio: {{ (message.compra.monto | currency:' ':0 | removeDigits) }}</span>
+                          <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} unidades
+                            -
+                          </span>
+                          <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
+                            Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ':0 | removeDigits}}
+                          </span>.
+                          <br>
+                          <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
+                          <br>
+                          <span class="notification-text" *ngIf="message.status">{{message.status}}</span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
-                        <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
+
                         <div class="notification-buttons" *ngIf="!message.status">
                           <div class="button-item">
                             <button class="button button-secondary" (click)="acceptPurchase(message)">
@@ -245,7 +256,7 @@
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
 
-                      <!-- INICIO NOTIFICACIÓN SUFI APROVADO -->
+                      <!-- INICIO NOTIFICACIÓN SUFI APROBADO -->
                       <div *ngIf="message.tipoNotificacion == 'sufi_approved'" class="notifications-item">
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">
@@ -257,7 +268,7 @@
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
-                      <!-- FIN NOTIFICACIÓN SUFI APROVADO -->
+                      <!-- FIN NOTIFICACIÓN SUFI APROBADO -->
 
                       <!-- INICIO NOTIFICACIÓN SUFI RECHAZADO -->
                       <div *ngIf="message.tipoNotificacion == 'sufi_declined'" class="notifications-item">

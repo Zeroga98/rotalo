@@ -1,13 +1,23 @@
 <div class="notifications-item">
     <span class="icon icon-warning notification-icon"></span>
     <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
+        <span>Se ha registrado tu compra a</span>
         <span class="highlight bold clickable"(click)="clickUser()">
             {{notification.producto.nombreUsuario}}
         </span>
-        <span>ha confirmado tu compra</span>
+        <span> de </span>
         <span class="highlight bold clickable" (click)="goToDetail(notification.producto.idProducto)">
-            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto  | currency:'$':0 | removeDigits) + ' pesos.'}}
+            {{ notification.producto.nombreProducto + '. '}}
         </span>
+        <br>
+        <span>Precio: {{ (notification.compra.monto  | currency:' ':0 | removeDigits) }}</span>
+        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} unidades
+          -
+        </span>
+        <span *ngIf="notification.compra.unidadesCompradas" class="highlight bold">
+          Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ':0 | removeDigits}}
+        </span>
+
     </p>
     <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
         <span>Has pedido a</span>

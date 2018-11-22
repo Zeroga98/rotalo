@@ -44,9 +44,9 @@
                               <div class="item__card">
                                   <div class="item__image-container">
                                     <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''"
-                                    *ngIf="featuredproduct['is-low-price'] || isActivePromo(featuredproduct)"
+                                    *ngIf="featuredproduct['is-low-price'] || isPromoDate&&isActivePromo(featuredproduct)"
                                      class="container-low-price">
-                                      <p *ngIf="!isPromoDate && idCountry == 9">$ REBAJÓ</p>
+                                      <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
                                     </div>
                                     <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
                                         <p>TRENDING</p>
@@ -79,7 +79,7 @@
                                           <span *ngIf=" featuredproduct.price == 0">Gratis</span>
                                         </div>
                                         <div [ngClass]="featuredproduct['is-low-price'] || isActivePromo(featuredproduct)? 'low-price' : ''"
-                                        *ngIf="featuredproduct['previousPrice'] && isPromoDate && isActivePromo(featuredproduct) || featuredproduct['previousPrice'] && featuredproduct['is-low-price']">
+                                        *ngIf="featuredproduct['previousPrice'] && isPromoDateBefore && isActivePromo(featuredproduct) || featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price']">
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency == 'GTQ'" class="name">{{featuredproduct['previousPrice']
                                             | currency:"Q":0 | removeDigits}}</span>
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency != 'GTQ' && idCountry == 9" class="name">{{featuredproduct['previousPrice']

@@ -20,7 +20,7 @@ import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
 import { NavigationService } from "../../pages/products/navigation.service";
-import { START_DATE_BF, END_DATE_BF } from "../../commons/constants/dates-promos.contants";
+import { START_DATE_BF, END_DATE_BF, START_DATE } from "../../commons/constants/dates-promos.contants";
 
 @Component({
   selector: "product",
@@ -48,7 +48,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public productChecked: String = "active";
   public idUser: string = this.currentSessionSevice.getIdUser();
   public idCountry = 1;
-  public startDate = START_DATE_BF;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
 
@@ -197,6 +198,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
 
   get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
     if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
       return true;
     }
