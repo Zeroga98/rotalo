@@ -78,7 +78,7 @@
                                           </span>
                                           <span *ngIf=" featuredproduct.price == 0">Gratis</span>
                                         </div>
-                                        <div [ngClass]="featuredproduct['is-low-price'] || isActivePromo(featuredproduct)? 'low-price' : ''"
+                                        <div [ngClass]="featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price'] || isActivePromo(featuredproduct)? 'low-price' : ''"
                                         *ngIf="featuredproduct['previousPrice'] && isPromoDateBefore && isActivePromo(featuredproduct) || featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price']">
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency == 'GTQ'" class="name">{{featuredproduct['previousPrice']
                                             | currency:"Q":0 | removeDigits}}</span>

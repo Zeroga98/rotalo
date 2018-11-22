@@ -151,6 +151,7 @@ import { FinanceBamComponent } from '../components/financeBam/financeBam.compone
 import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
