@@ -1,8 +1,9 @@
 :host {
-
+  width: 55%;
   .modal-share-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
    }
 
   .modal-background {
@@ -25,6 +26,7 @@
     background-color: #FF3646;
     position: relative;
     margin: 0 auto;
+    height: 100%;
   }
 
   .md-content-upload h3 {
@@ -39,7 +41,7 @@
   }
 
   .md-content-upload>div {
-    padding: 3rem 1rem 12rem;
+    padding: 3rem 1rem;
     margin: 0;
   }
 
@@ -72,36 +74,13 @@
     }
   }
 
-  .icon-send {
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin: 0 auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url(../../assets/img/enviar.svg);
-    background-size: 20px 20px;
-    position: absolute;
-  }
-
   .img-modal-pc {
-    width: 80%;
+    width: 70%;
   }
 
 }
 
 :host {
-
-  .icon-check-modal{
-    display: inline-block;
-    margin-right: 10px;
-    vertical-align: middle;
-    width: 25px;
-    height: 25px;
-    background: url(../../assets/img/ic_modal_check.svg);
-    background-size: 25px 25px;
-  }
 
   .modal-upload{
     width: 55%;
@@ -116,24 +95,9 @@
     padding: 35px;
     position: relative;
     .info-container{
-      position: relative;
-      height: 100%;
-      border: 1px dashed #707070;
-      .info {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
+
     }
-    .information-text{
-      margin: 0 auto;
-      margin-top: 15px;
-      width: 70%;
-      p{
-        font-size: 1.4rem;
-        color: #404040;
-      }
-    }
+
     .close-container {
       cursor: pointer;
       font-size: 2.5rem;
@@ -155,6 +119,7 @@
     .share-product-container {
       margin: 0 auto;
       width: 85%;
+
 
       .share-product {
         display: inline-block;
@@ -197,28 +162,6 @@
         bottom: 0;
         top: 0;
       }
-    }
-    .success-text {
-      color: #00AAC7;
-      font-weight: bold;
-    }
-
-    .icon-email {
-      margin: 0 auto;
-      width: 20px;
-      height: 20px;
-      background: url(../../assets/img/enviar.svg);
-      background-size: 20px 20px;
-    }
-
-    .help-block {
-      position: absolute;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      font-size: 1.7rem;
-      color: #FFFFFF;
-      padding: 0;
     }
   }
 
@@ -275,21 +218,6 @@
 
     .modal-info .information-text {
       width: 100%;
-    }
-
-    .md-content-upload .share-product-container .icon-container .button-share {
-      width: 30px;
-      height: 30px;
-    }
-
-    .form-theme .icon-email {
-      width: 15px;
-      height: 15px;
-      background-size: 15px 15px;
-    }
-
-    .form-theme .help-block {
-      font-size: 1rem;
     }
 
      .md-content-upload > div {

@@ -17,7 +17,7 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
-      if (event.target.className == 'md-overlay') {
+      if (event.target.className == 'md-overlay-promo') {
         this.close();
       }
     }
@@ -48,12 +48,12 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
 
   open(): void {
     this.element.classList.add('md-show');
-    document.body.classList.add('modal-open');
+    document.body.classList.add('modal-open-promo');
   }
 
   close(): void {
     this.element.classList.remove('md-show');
-    document.body.classList.remove('modal-open');
+    document.body.classList.remove('modal-open-promo');
   }
 
 }
