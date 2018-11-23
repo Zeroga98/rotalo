@@ -1,5 +1,14 @@
 :host {
-  width: 55%;
+  width: 100%;
+  background: url("../../assets/img/december_promo/img_fondo_modal.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 40px;
+
+  .modal-container {
+    width: 100%;
+
+  }
+
   .modal-share-container {
     display: flex;
     flex-wrap: wrap;
@@ -169,6 +178,8 @@
 
 @media (max-width: 1000px) {
   :host {
+    width: auto;
+    background-size: auto 100%;
 
     .modal-share-container {
       width: 300px;
@@ -226,4 +237,5 @@
 
   }
 }
+
 

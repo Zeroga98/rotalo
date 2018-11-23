@@ -1,8 +1,8 @@
-import { CountryInterface } from "./../select-country/country.interface";
-import { ChangeDetectorRef, HostListener } from "@angular/core";
-import { NotificationsService } from "./../../services/notifications.service";
-import { Router } from "@angular/router";
-import { ROUTES } from "./../../router/routes";
+import { CountryInterface } from './../select-country/country.interface';
+import { ChangeDetectorRef, HostListener } from '@angular/core';
+import { NotificationsService } from './../../services/notifications.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { ROUTES } from './../../router/routes';
 import {
   Component,
   OnInit,
@@ -11,18 +11,18 @@ import {
   OnDestroy,
   Input,
   ChangeDetectionStrategy
-} from "@angular/core";
-import { MessagesService } from "../../services/messages.service";
-import { NavigationService } from "../../pages/products/navigation.service";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { UserService } from "../../services/user.service";
-import { CollectionSelectService } from "../../services/collection-select.service";
-import { LoginService } from "../../services/login/login.service";
-import { ProductsService } from "../../services/products.service";
+} from '@angular/core';
+import { MessagesService } from '../../services/messages.service';
+import { NavigationService } from '../../pages/products/navigation.service';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { UserService } from '../../services/user.service';
+import { CollectionSelectService } from '../../services/collection-select.service';
+import { LoginService } from '../../services/login/login.service';
+import { ProductsService } from '../../services/products.service';
 @Component({
-  selector: "navigation-top",
-  templateUrl: "./navigation-top.component.html",
-  styleUrls: ["./navigation-top.component.scss"],
+  selector: 'navigation-top',
+  templateUrl: './navigation-top.component.html',
+  styleUrls: ['./navigation-top.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationTopComponent implements OnInit, OnDestroy {
@@ -43,6 +43,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public screenWidth;
   private readonly timeToCheckNotification: number = 5000;
   showDropdownMenu = false;
+  public showAnimation = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -83,6 +84,18 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     if (this.navigationService.getNotificationHobbies()) {
       this.notificationHobby = this.navigationService.getNotificationHobbies();
     }
+    let path = {
+      'rutaRenoEscondido':  this.router.url
+    };
+    this.messagesService.setUnreadNotificationParam(path);
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        path = {
+          'rutaRenoEscondido':  this.router.url
+        };
+        this.messagesService.setUnreadNotificationParam(path);
+      }
+    });
   }
 
   async getCountries() {
@@ -127,6 +140,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
+          this.showAnimation = state.body.informacionReno.dibujarRenoRuta;
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);

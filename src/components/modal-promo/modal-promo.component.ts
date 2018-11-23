@@ -13,7 +13,7 @@ import { ROUTES } from '../../router/routes';
 export class ModalPromoComponent implements OnInit , OnDestroy{
   @Input() id: string;
   private element: any;
-
+  public isWinner = false;
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
