@@ -1,17 +1,15 @@
 import { ROUTES } from './../../router/routes';
 import { UtilsService } from './../../util/utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserInterface } from './../../commons/interfaces/user.interface';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserRequestInterface } from '../../commons/interfaces/user-request.interface';
-import { TypeDocumentsService } from '../../services/type-documents.service';
-import { SavePasswordService } from './save-password.service';
 import { ProductsService } from '../../services/products.service';
 import { ActivationService } from '../../services/activation.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { MessagesService } from '../../services/messages.service';
+import { CollectionSelectService } from '../../services/collection-select.service';
+import { TypeDocumentsService } from '../../services/type-documents.service';
 
 @Component({
   selector: 'signup-page',
@@ -43,34 +41,23 @@ export class SignUpPage implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private typeDocumentsService: TypeDocumentsService,
     private activationService: ActivationService,
     private currenSession: CurrentSessionService,
     private messagesService: MessagesService,
     private utilsService: UtilsService,
-    private productsService: ProductsService
-  ) {}
+    private collectionService: CollectionSelectService,
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
-      'type-document-id': new FormControl('', null),
-      'id-number': new FormControl('', [Validators.required]),
+      identification: new FormControl({value: '', disabled: true}, [Validators.required]),
       email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
       cellphone: new FormControl('', [Validators.required])
     });
-    this.route.queryParamMap.subscribe(params => {
-      this.paramsUrl = params['params'];
-      this.setCountry(this.paramsUrl.country);
-      let email = this.paramsUrl.email;
-      email = email.replace(' ', '+');
-      email = email.replace(/\s+/g, '+');
-      this.registerForm.patchValue({ name: this.paramsUrl.name });
-      this.registerForm.patchValue({ email: email });
-      this.codeSignup =  this.paramsUrl.code;
-      this.userCountry = this.paramsUrl.country;
-      this.loadTypeDocument(this.paramsUrl.country);
-    });
+    this.getCountries();
   }
 
   setCountry(idCountry) {
@@ -79,7 +66,7 @@ export class SignUpPage implements OnInit {
         name: 'Colombia',
         id: '1'
       };
-    } else {
+    } else if (idCountry == '9')  {
       this.country = {
         name: 'Guatemala',
         id: '9'
@@ -87,16 +74,26 @@ export class SignUpPage implements OnInit {
     }
   }
 
-  async loadTypeDocument(idCountry) {
+  async getCountries() {
     try {
-      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-      this.typeDocumentsFilter = this.filterDocuments(
-        this.typeDocuments, idCountry
-      );
+      await this.collectionService.isReady();
+      this.route.queryParamMap.subscribe(params => {
+        this.paramsUrl = params['params'];
+        this.setCountry(this.paramsUrl.country);
+        let email = this.paramsUrl.email;
+        email = email.replace(' ', '+');
+        email = email.replace(/\s+/g, '+');
+        this.registerForm.patchValue({ name: this.paramsUrl.name });
+        this.registerForm.patchValue({ email: email });
+        this.registerForm.patchValue({ identification: this.paramsUrl.documentType + ' ' + this.paramsUrl.document });
+        this.codeSignup =  this.paramsUrl.code;
+        this.userCountry = this.paramsUrl.country;
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
+
 
   filterDocuments(typeDocuments, idCountry) {
     const documents = typeDocuments.filter(
@@ -210,9 +207,6 @@ export class SignUpPage implements OnInit {
         if (this.state && !this.city['id']) {
           this.errorCity = true;
         }
-        if (!this.registerForm.get('type-document-id').value) {
-          this.errorTypeDocument = true;
-        }
       }
   }
 
@@ -231,8 +225,6 @@ export class SignUpPage implements OnInit {
   buildParamsUserRequest() {
     const params = {
       'idCiudad': this.city['id'],
-      'idTipoDocumento': this.registerForm.get('type-document-id').value,
-      'numeroDocumento': this.registerForm.get('id-number').value,
       'celular': this.registerForm.get('cellphone').value,
       'codigoActivacion': this.codeSignup
     };
@@ -265,42 +257,9 @@ export class SignUpPage implements OnInit {
   setValidationId(): void {
     if (this.country) {
       const idCountry = this.country.name;
-      const idDocumentControl = this.registerForm.get('id-number');
       const phoneNumberControl = this.registerForm.get('cellphone');
-      const documentObject = this.findNameDocumentType();
-      let documentName;
-      if (documentObject) {
-        documentName = documentObject['name-document'];
-        idDocumentControl.clearValidators();
-        phoneNumberControl.clearValidators();
-      }
       switch (idCountry) {
         case 'Colombia': {
-          if (documentName == 'Cédula de ciudadanía') {
-            idDocumentControl.setValidators([
-              Validators.pattern('^((\\d{6})|(\\d{8})|(\\d{10})|(\\d{12}))?$'),
-              Validators.required
-            ]);
-            this.errorMessageId =
-              'El campo no cumple con el formato de cédula.';
-          } else if (documentName == 'Cédula de extranjería') {
-            idDocumentControl.setValidators([
-              Validators.minLength(3),
-              Validators.maxLength(15),
-              Validators.pattern('^[0-9]+$'),
-              Validators.required
-            ]);
-            this.errorMessageId =
-              'El campo no cumple con el formato de cédula.';
-          } else if (documentName == 'Pasaporte') {
-            idDocumentControl.setValidators([
-              Validators.minLength(5),
-              Validators.maxLength(36),
-              Validators.required
-            ]);
-            this.errorMessageId =
-              'El campo no cumple con el formato de Pasaporte.';
-          }
           phoneNumberControl.setValidators([Validators.required]);
           this.registerForm.get('cellphone').setValidators([Validators.required]);
           phoneNumberControl.setValidators([
@@ -309,23 +268,7 @@ export class SignUpPage implements OnInit {
           ]);
           break;
         }
-        case 'Panama': {
-          idDocumentControl.setValidators([
-            Validators.pattern(
-              '^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\\d{1,4})-(\\d{1,5})$'
-            ),
-            Validators.required
-          ]);
-          phoneNumberControl.setValidators([Validators.required]);
-          this.errorMessageId = 'El campo no cumple con el formato.';
-          break;
-        }
         case 'Guatemala': {
-          idDocumentControl.setValidators([
-           // Validators.pattern('^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'),
-           Validators.pattern('^[0-9]{13}$'),
-            Validators.required
-          ]);
           phoneNumberControl.setValidators([
             Validators.required,
             Validators.pattern(/^\d{8}$/)
@@ -334,29 +277,11 @@ export class SignUpPage implements OnInit {
           break;
         }
         default: {
-          idDocumentControl.setValidators([Validators.required]);
           phoneNumberControl.setValidators([Validators.required]);
           break;
         }
       }
-      idDocumentControl.updateValueAndValidity();
       phoneNumberControl.updateValueAndValidity();
-    }
-  }
-
-  findNameDocumentType() {
-    let data;
-    if (this.typeDocuments) {
-      data = this.typeDocuments.find(resource => {
-        return resource.id === this.documentId;
-      });
-    }
-    return data;
-  }
-
-  validateTypeDocument() {
-    if (this.registerForm.get('type-document-id').value) {
-      this.errorTypeDocument = false;
     }
   }
 

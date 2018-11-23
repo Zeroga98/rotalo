@@ -9,13 +9,17 @@ export class BuyService {
   private readonly urlNewPurchase = this.configurationService.getBaseUrl() + "/purchases/create_and_confirm";
   private readonly urlNequi = this.configurationService.getBaseSapiUrl() + "/pagos/nequi/notificaciones";
   private readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  private quantityProduct;
   constructor(
     private httpClient: HttpClient,
     private configurationService: ConfigurationService
   ) {}
 
-  buyProduct(params): Promise<any> {
-    return this.httpClient.post(this.urlNewPurchase, this.buildParams(params)).toPromise();
+  buyProduct(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/compras`;
+    return this.httpClient.post(url, params, { headers: headers}).map( (response: any) => response);
   }
 
   buyProductNequi(params) {
@@ -82,4 +86,13 @@ export class BuyService {
       }
     };
   }
+
+  public getQuantityProduct() {
+    return this.quantityProduct;
+  }
+
+  public setQuantityProduct(quantityProduct) {
+    this.quantityProduct = quantityProduct;
+  }
+
 }

@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="menu_login_container">
-          <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
+          <form id="loginForm" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
                     <input
@@ -53,7 +53,7 @@
                             Este campo es obligatorio.
                         </span>
                         <span *ngIf="loginForm.get('password').errors?.minlength && !loginForm.get('password').pristine">
-                            El campo no cumple la longitud mínima.
+                            Debe tener mínimo 6 caracteres
                         </span>
                     </span>
                 </span>

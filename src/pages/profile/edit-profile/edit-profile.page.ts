@@ -68,7 +68,12 @@ export class EditProfilePage implements OnInit {
     this.userEdit = await this.userService.getInfoUser();
     this.photo = this.userEdit.photo;
     this.photoExist(this.photo);
-    this.loadTypeDocuments();
+    const currentUrl  = window.location.href;
+    if (currentUrl.includes('gt')) {
+      this.loadTypeDocuments(9);
+    } else {
+      this.loadTypeDocuments(1);
+    }
     this.onInfoRetrieved(this.userEdit);
   }
 
@@ -230,17 +235,24 @@ export class EditProfilePage implements OnInit {
       });
   }
 
-  async loadTypeDocuments() {
-    try {
-      this.typeDocuments = await this.typeDocumentsService.getTypeDocument();
-      if (this.userEdit && this.userEdit['type-document-id']) {
-        const document = this.typeDocuments.filter(value => {
-          return value.id === this.userEdit['type-document-id'].toString();
-        });
-        this.typeDocument = document[0]['name-document'];
+  loadTypeDocuments(idCountry) {
+    const countryDocument = {
+      'pais': idCountry
+    };
+    this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
+      if (response.status == 0) {
+        this.typeDocuments = response.body.documentType;
+        if (this.userEdit && this.userEdit['type-document-id']) {
+          const document = this.typeDocuments.filter(value => {
+            return value.id == this.userEdit['type-document-id'].toString();
+          });
+          this.typeDocument = document[0]['nameDocument'];
+        }
+        this.showSpinner = false;
       }
-      this.showSpinner = false;
-    } catch (error) {}
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   onSubmit() {

@@ -1,0 +1,12 @@
+.promo  {
+  .ngx-pagination a {
+    color:white;
+  }
+  .ngx-pagination a:hover {
+    background-color: transparent;
+  }
+  .ngx-pagination .current {
+    background-color: #333333;
+  }
+}
+

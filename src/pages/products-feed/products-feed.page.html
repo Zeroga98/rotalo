@@ -1,8 +1,8 @@
 <div class="md-overlay"></div>
 <div class="md-overlay-red"></div>
 
- <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
-<modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket>
+<modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
+<!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
 
 <toolbar
 (selectedCommunity)="changeCommunity($event)"
@@ -21,7 +21,7 @@
 <ngx-carousel class="carousel-theme" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
       <div class="item-banner">
-        <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "openModalCupon(image, 'custom-modal-3')" [src]="image">
+        <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "redirectPromo(image)" [src]="image">
       </div>
   </ngx-item>
   <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev"></span>
@@ -43,8 +43,10 @@
                           <div *ngIf= "featuredproduct" class="item__wrapper">
                               <div class="item__card">
                                   <div class="item__image-container">
-                                    <div *ngIf="featuredproduct['is-low-price'] && featuredproduct['featuredType'] == 'isLowPrice'" class="container-low-price">
-                                      <p>$ REBAJÓ</p>
+                                    <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''"
+                                    *ngIf="featuredproduct['is-low-price'] || isPromoDate&&isActivePromo(featuredproduct)"
+                                     class="container-low-price">
+                                      <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
                                     </div>
                                     <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
                                         <p>TRENDING</p>
@@ -63,9 +65,32 @@
                                       </span>
                                     </div>
                                     <div class="item__price-block">
-                                      <span *ngIf=" featuredproduct.price != 0">{{featuredproduct.price | currency:"$":0 | removeDigits}} {{ featuredproduct.currency }}</span>
-                                      <span *ngIf=" featuredproduct.price == 0">Gratis</span>
+                                      <div class="price-container">
+                                        <div>
+                                          <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency == 'GTQ'">
+                                            {{featuredproduct.price | currency:"Q":0 | removeDigits}}
+                                          </span>
+                                          <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ' && idCountry == 9">
+                                            {{featuredproduct.price | currency:"$":0 | removeDigits}}
+                                          </span>
+                                          <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ' && idCountry != 9">
+                                            {{featuredproduct.price | currency:"$":0 | removeDigits}}
+                                          </span>
+                                          <span *ngIf=" featuredproduct.price == 0">Gratis</span>
+                                        </div>
+                                        <div [ngClass]="featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price'] || isActivePromo(featuredproduct)? 'low-price' : ''"
+                                        *ngIf="featuredproduct['previousPrice'] && isPromoDateBefore && isActivePromo(featuredproduct) || featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price']">
+                                          <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency == 'GTQ'" class="name">{{featuredproduct['previousPrice']
+                                            | currency:"Q":0 | removeDigits}}</span>
+                                          <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency != 'GTQ' && idCountry == 9" class="name">{{featuredproduct['previousPrice']
+                                            | currency:"$":0 | removeDigits}}</span>
+                                          <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency != 'GTQ' && idCountry == 1" class="name">{{featuredproduct['previousPrice']
+                                            | currency:"$":0 | removeDigits}}</span>
+                                        </div>
+                                      </div>
                                     </div>
+
+
                                     <div class="item__location">
                                         <span class="icon-location"></span>
                                         <span>{{getLocation(featuredproduct)}}</span>

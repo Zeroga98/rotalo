@@ -1,0 +1,142 @@
+<div class="container-finance">
+  <div *ngIf="product" class="container-form">
+    <h1 class="desktop">Para financiar este producto valida esta información</h1>
+    <div class="container-info">
+      <div class="desktop info-list">
+        <div class="row">
+          <p class="title">
+            Nombre
+          </p>
+          <p *ngIf="nameUser">
+            {{nameUser}}
+          </p>
+        </div>
+        <div class="row">
+          <p class="title">
+            Tipo de documento
+          </p>
+          <p *ngIf="typeDocument">
+            {{typeDocument}}
+          </p>
+        </div>
+        <div class="row">
+            <p class="title">
+              Número de documento
+            </p>
+            <p *ngIf="documentNumber">
+            {{documentNumber}}
+            </p>
+        </div>
+        <div class="row">
+            <p class="title">
+              Correo electrónico
+            </p>
+            <p *ngIf="email">
+              {{email}}
+            </p>
+        </div>
+        <div class="row">
+            <p class="title">
+              Celular
+            </p>
+            <p *ngIf="cellphone">
+              {{cellphone}}
+            </p>
+        </div>
+      </div>
+      <div class="info-form">
+        <div class="container-header">
+          <div class="image">
+            <img [src]="photoProduct">
+          </div>
+          <div>
+            <div class="title">{{product.name}}</div>
+            <div class="price">
+                <span>
+                    Precio:
+                  </span>
+              <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$":0 | removeDigits }}</div>
+              <div *ngIf="product.currency == 'GTQ'">{{priceProduct | currency:"Q":0 | removeDigits }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile info-list">
+            <h1 class="mobile">Para financiar este producto valida esta información</h1>
+            <div class="row">
+              <p class="title">
+                Nombre
+              </p>
+              <p *ngIf="nameUser">
+                {{nameUser}}
+              </p>
+            </div>
+            <div class="row">
+              <p class="title">
+                Tipo de documento
+              </p>
+              <p *ngIf="typeDocument">
+                {{typeDocument}}
+              </p>
+            </div>
+            <div class="row">
+                <p class="title">
+                  Número de documento
+                </p>
+                <p *ngIf="documentNumber">
+                {{documentNumber}}
+                </p>
+            </div>
+            <div class="row">
+                <p class="title">
+                  Correo electrónico
+                </p>
+                <p *ngIf="email">
+                  {{email}}
+                </p>
+            </div>
+            <div class="row">
+                <p class="title">
+                  Celular
+                </p>
+                <p *ngIf="cellphone">
+                  {{cellphone}}
+                </p>
+            </div>
+          </div>
+        <div class="form-container">
+          <div>
+            <h1>¿Cuánto te gustaría financiar?</h1>
+            <div class="material-design">
+              <form (ngSubmit)="financeProduct()" [formGroup]="sendInfoPrice" class="form-theme">
+                <div class="input-container" *ngIf="product.price!='0' && product.currency != 'GTQ'">
+                  <input
+                    formControlName="price"
+                    (click) = "successMessage=false"
+                    class="input__field form-control input-price" name="price" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="$25.000.000" maxlength="50"
+                    autocomplete="off">
+                    <span *ngIf="!successMessage" class="help-block error-msg"> Este campo debe ser menor o igual a  {{priceProduct | currency:"$":0| removeDigits}}</span>
+                    <span class="successMessage" *ngIf="successMessage">¡Hemos enviado tu solicitud! Te contactaremos en un plazo de 5 días.</span>
+                </div>
+                <div class="input-container" *ngIf="product.price!='0' && product.currency == 'GTQ'">
+                    <input
+                      formControlName="price"
+                      (click) = "successMessage=false"
+                      class="input__field form-control input-price" name="price" currencyMask [options]="{prefix: 'Q' , align: 'left', precision: 0}"
+                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Q25.000.000" maxlength="50"
+                      autocomplete="off">
+                      <span *ngIf="!successMessage" class="help-block error-msg"> Este campo debe ser menor o igual a  {{priceProduct | currency:"Q":0| removeDigits}}</span>
+                      <span class="successMessage" *ngIf="successMessage">¡Hemos enviado tu solicitud! Te contactaremos en un plazo de 5 días.</span>
+                  </div>
+                <div class="btn-container">
+                    <custom-button  class="btn--square" type="submit" text="Enviar"></custom-button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<custom-footer></custom-footer>

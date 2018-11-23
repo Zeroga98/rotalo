@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
-import { IMGS_BANNER } from '../../commons/constants/banner-imgs.contants';
+import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
@@ -36,8 +36,13 @@ import { LoginService } from '../../services/login/login.service';
 import { ModalShareProductService } from '../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../components/modal-ticket/modal-ticket.service';
 import { UserService } from '../../services/user.service';
-import { IMGS_BANNER_PROMO } from '../../commons/constants/banner-imgs-promo.constants';
+import {
+  IMGS_BANNER_PROMO,
+  IMGS_BANNER_PROMO_BANCOLOMBIA,
+  IMGS_BANNER_GUATEMALA_PROMO
+} from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 
 @Component({
@@ -77,6 +82,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public totalPages: number = 100;
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
   public  showPagination = false;
+  public idCountry = 1;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
 
   constructor(
     private productsService: ProductsService,
@@ -101,8 +111,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.imagesBanner = IMGS_BANNER;
 
     /*Promo fecha determinada para cierta comunidad*/
-    // this.addPromoBanner();
-    this.addPromoBannerColombia();
+    //
+    this.addPromoBanner();
   }
 
    ngOnInit() {
@@ -112,6 +122,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
+
+    this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     // this.setScrollEvent();
@@ -140,22 +152,31 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  /*async addPromoBanner() {
+  async addBancolombiaBanner() {
     this.community = await this.userService.getCommunityUser();
     if (this.community && this.community.name === 'Grupo Bancolombia') {
-      this.imagesBanner = IMGS_BANNER_PROMO;
-    }
-  }*/
-
-  addPromoBannerColombia() {
-    this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      this.imagesBanner = IMGS_BANNER;
-    }else {
-     this.imagesBanner = IMGS_BANNER_PROMO;
-     // this.imagesBanner = IMGS_BANNER;
+      if (this.isPromoDate) {
+        this.imagesBanner = IMGS_BANNER_PROMO_BANCOLOMBIA;
+      } else {
+        this.imagesBanner = IMGS_BANNER_BANCOLOMBIA;
+      }
     }
   }
+
+  addPromoBanner() {
+    this.currentUrl = window.location.href;
+    if (this.currentUrl.includes('gt')) {
+      this.imagesBanner = IMGS_BANNER_GUATEMALA;
+    }else {
+      if (this.isPromoDate) {
+        this.imagesBanner = IMGS_BANNER_PROMO;
+      } else {
+        this.imagesBanner = IMGS_BANNER;
+      }
+     this.addBancolombiaBanner();
+    }
+  }
+
 
   loadFeaturedProduct(countryId, communityId) {
     if (!this.productsService.getFeatureProducts()) {
@@ -459,7 +480,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('rotalo_banner')) {
+    if (imageUrl.includes('black_friday')) {
       return true;
     }
     return false;
@@ -478,6 +499,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  public redirectPromo (imageUrl) {
+    if (this.isExclusiveOffer(imageUrl)) {
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.PROMO}`
+      ]);
+    }
+  }
+
   public getCoupon (email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {
       this.couponService = response.body.cupon;
@@ -485,6 +514,29 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.changeDetectorRef.markForCheck();
     },
     (error) => {console.log(error); } );
+  }
+
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  isActivePromo(product) {
+    if (product['special-date'] && product['special-date'].active
+    || product['specialDate'] && product['specialDate'].active) {
+      return true;
+    }
+    return false;
   }
 
 

@@ -69,12 +69,33 @@ export class ProductsService {
       });
     }
 
+    getProductsPromo(idUser, params) {
+      let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/productos/rebajados';
+      return this.http.get(url, { headers: headers,  params: params }).toPromise()
+      .then((response: any) => {
+      if (response.body.totalProductos) {
+        this.setTotalProducts (response.body.totalProductos);
+      }
+      return response.body.productos;
+      });
+    }
+
     getProductsById(id: number): Promise<any> {
       const url = `${this.url}/${id}`;
       return this.http
         .get(url)
         .toPromise()
         .then((response: any) => response.data);
+    }
+
+    getProductsByIdDetail(id: number) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${id}`;
+      return this.http.get(url, { headers: headers }).map((response: any) => response);
     }
 
     deleteProduct(id: number | string): Promise<any> {
@@ -108,6 +129,13 @@ export class ProductsService {
         .then((response: any) => response.data);
     }
 
+    updateProductForm(id: number | string, params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/productos/${id}`;
+      return this.http.put(url, params, { headers: headers }).map((response: any) => response);
+    }
+
     updateProductStatus(idUser, id: number | string, params): Promise<any> {
       let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       jsonSapiHeaders = Object.assign(jsonSapiHeaders, {userId: idUser} );
@@ -121,6 +149,13 @@ export class ProductsService {
 
     saveProducts(params): Promise<any> {
         return this.http.post(this.url, this._buildParams(params)).toPromise();
+    }
+
+    saveProductsForm(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/productos';
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
 
     private _buildParams(params): any {
@@ -215,6 +250,13 @@ export class ProductsService {
 
     getFeatureProducts() {
       return  this.featuredProducts ;
+    }
+
+    creditBAM(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = `${this.urlSapi}/creditos/bam`;
+      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
     }
 
 }

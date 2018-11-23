@@ -23,9 +23,11 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 import { CurrentSessionService } from '../../services/current-session.service';
 import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
 import { BuyService } from '../../services/buy.service';
+import { NavigationService } from '../../pages/products/navigation.service';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -57,6 +59,7 @@ export class DetailProductComponent implements OnInit {
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
   public sendInfoProduct;
+  public quantityForm;
   public showInputShare = true;
   public messageSuccess: boolean;
   public messageError: boolean;
@@ -71,6 +74,14 @@ export class DetailProductComponent implements OnInit {
   public screenHeight;
   public screenWidth;
   private currentEmail;
+  public countryId;
+  public totalStock = 1;
+  public idCountry = 1;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -90,17 +101,27 @@ export class DetailProductComponent implements OnInit {
     private messagesService: MessagesService,
     private shareInfoChatService: ShareInfoChatService,
     private fb: FormBuilder,
-    private buyService:BuyService
+    private buyService: BuyService,
+    private navigationService: NavigationService,
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSessionSevice.currentUser()['countryId'];
+    }
+    this.idCountry = countryId;
   }
 
   ngOnInit() {
     const currentUser = this.currentSessionSevice.currentUser();
     if (currentUser) {
       this.currentEmail = currentUser.email;
+      this.countryId =  currentUser.countryId;
     }
     this.initShareForm();
+    this.initQuantityForm();
     this.loadProduct();
   }
 
@@ -108,6 +129,14 @@ export class DetailProductComponent implements OnInit {
     this.sendInfoProduct = this.fb.group(
       {
         email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+      }
+    );
+  }
+
+  initQuantityForm() {
+    this.quantityForm = this.fb.group(
+      {
+        stock: [1 , [Validators.required, Validators.min(1), Validators.max(1)]]
       }
     );
   }
@@ -200,37 +229,47 @@ export class DetailProductComponent implements OnInit {
     ]);
   }
 
-  async loadProduct() {
-    try {
-      this.products = await this.productsService.getProductsById(
-        this.idProduct
-      );
-      const fullName = this.products.user.name.split(' ');
-      if (this.products.user.name) {
-        this.firstName = fullName[0];
-      }
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.products = reponse.body.productos[0];
+        this.totalStock = this.products.stock;
+        if (this.products['stock']) {
+          this.totalStock = this.products['stock'];
+        } else  {
+          this.totalStock = 1;
+        }
+        const price = this.quantityForm.get('stock');
+        price.clearValidators();
+        price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
+        price.updateValueAndValidity();
 
-      this.onLoadProduct(this.products);
-      this.productIsSold(this.products);
-      if (this.products.photos !== undefined) {
-        this.productsPhotos = [].concat(this.products.photos);
-        this.products.photos = this.productsPhotos;
+
+        const fullName = this.products.user.name.split(' ');
+        if (this.products.user.name) {
+          this.firstName = fullName[0];
+          this.onLoadProduct(this.products);
+          this.productIsSold(this.products);
+          if (this.products.photoList) {
+            this.productsPhotos = [].concat(this.products.photoList);
+            this.products.photoList = this.productsPhotos;
+          }
+          if (this.products.photoList) {
+            this.conversation = {
+              photo: this.products.photoList[0].url,
+              name: this.products.user.name
+            };
+          }
+          this.productChecked = this.products.status;
+          this.productStatus = this.products.status === 'active';
+          this.visitorCounter();
+          this.changeDetectorRef.markForCheck();
+        }
       }
-      if (this.products.photos) {
-        this.conversation = {
-          photo: this.products.photos[0].url,
-          name: this.products.user.name
-        };
-      }
-      this.productChecked = this.products.status;
-      this.productStatus = this.products.status === 'active';
-      this.visitorCounter();
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      if (error.status === 404) {
-        this.redirectErrorPage();
-      }
-    }
+    } ,
+    (error) => {
+      console.log(error);
+    });
   }
 
   productIsSold(product) {
@@ -250,7 +289,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   getUrlImge() {
-    return 'url(' + this.products.user.photo.url + ')';
+    return 'url(' + this.products.user.photos.url + ')';
   }
 
   saveCheck() {
@@ -278,11 +317,11 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if ( this.products && this.products['type-vehicle'] && this.products['model']) {
+    if ( this.products && this.products['typeVehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
-      const type = this.products['type-vehicle'];
+      const type = this.products['typeVehicle'];
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
@@ -297,6 +336,23 @@ export class DetailProductComponent implements OnInit {
     return false;
   }
 
+  checkBAMBotton() {
+    if (this.products) {
+      const priceVehicle = this.products.price;
+      const currency = this.products.currency;
+      const currentUser = this.currentSessionSevice.currentUser();
+      const countryId = Number(currentUser['countryId']);
+      if (this.products['sell-type'] === 'VENTA') {
+        if (countryId === 9 && currency == 'GTQ' && priceVehicle >= 5000) {
+          return true;
+        } else if (countryId === 9 && currency == 'USD' && priceVehicle >= 650) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
@@ -306,15 +362,15 @@ export class DetailProductComponent implements OnInit {
   }
 
   validateSession() {
-    return this.products && this.products.user.id === this.idUser;
+    return this.products && this.products.user.id == this.idUser;
   }
 
   isSellProcess() {
-    return this.products && this.products.status === 'sell_process';
+    return this.products && this.products.status == 'sell_process';
   }
 
   isSold() {
-    return this.products && this.products.status === 'sold';
+    return this.products && this.products.status == 'sold';
   }
 
   async deleteProduct(product: ProductInterface) {
@@ -344,8 +400,26 @@ export class DetailProductComponent implements OnInit {
   }
 
   buyProduct(id: number | string) {
+    if (!this.formIsInValid) {
+      let quantity = 1;
+      if (this.quantityForm.get('stock').value) {
+        quantity = this.quantityForm.get('stock').value;
+      }
+      const quantityProduct = {
+        idProduct: id,
+        quantity: quantity
+      };
+      this.buyService.setQuantityProduct(quantityProduct);
+      const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+        ROUTES.PRODUCTS.BUY
+      }/${id}`;
+      this.router.navigate([urlBuyProduct]);
+    }
+  }
+
+  creditProduct(id: number | string) {
     const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
-      ROUTES.PRODUCTS.BUY
+      ROUTES.PRODUCTS.FINANCEBAM
     }/${id}`;
     this.router.navigate([urlBuyProduct]);
   }
@@ -402,7 +476,8 @@ export class DetailProductComponent implements OnInit {
       title: product.name,
       price: product.price,
       'product-id': product.id,
-      type: product['sell-type']
+      type: product['sell-type'],
+      currency: product.currency
     };
 }
 
@@ -413,5 +488,93 @@ export class DetailProductComponent implements OnInit {
       this.showInputShare = true;
     }
   }
+
+  motoHasCharacteristics() {
+   if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
+    if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
+      return true;
+    }
+   }
+   return false;
+  }
+
+  autoHasCharacteristics() {
+    if (this.products.vehicle && this.products.vehicle.vehicleType == 'AUTO') {
+     if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
+     this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
+       return true;
+     }
+    }
+    return false;
+   }
+
+
+  get showOptionsVehicles() {
+    if (this.products) {
+      if (this.products.subcategory.category.id == 6) {
+        if (this.products.subcategory.id != 11) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  get showOptionEstate () {
+    if (this.products) {
+      if (this.products.subcategory.category.id == 7) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  addStock() {
+    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value < this.totalStock) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = ++stock;
+        this.quantityForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+  minusStock() {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
+      if (this.quantityForm.get('stock').value > 1) {
+        let stock =  this.quantityForm.get('stock').value;
+        stock = --stock;
+        this.quantityForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isActivePromo() {
+    if (this.products['specialDate'] && this.products['specialDate'].active) {
+      return true;
+    }
+    return false;
+  }
+
+  get formIsInValid() {
+    return this.quantityForm.invalid;
+  }
+
+
 
 }

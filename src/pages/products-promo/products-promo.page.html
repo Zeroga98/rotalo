@@ -1,0 +1,91 @@
+<div class="md-overlay"></div>
+<div class="md-overlay-red"></div>
+
+<modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
+<!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
+
+<div class="item-banner">
+
+  <div class="info-countdown">
+    <p>Quedan</p>
+    <p class="counter">{{counter}}</p>
+    <p>Horas de grandes descuentos</p>
+  </div>
+
+  <img class="img-banner img-desktop" src="./assets/img/banner_promo/promo.jpg" alt="black friday">
+  <img class="img-banner img-mobile" src="./assets/img/banner_promo/promo_mobile.png" alt="black friday">
+</div>
+<div class="desktop card-container">
+  <div class="item gtmEbiko">
+    <a class="gtmEbiko" target="_blank" href="https://www.rotalo.com.co/products/show/5713">
+      <img  class="gtmEbiko" src="./assets/img/promo_cards/ebiko.png" alt="ebiko">
+    </a>
+  </div>
+  <div class="item gtmRigo">
+    <a class="gtmRigo" target="_blank" href="https://gorigogo.com">
+      <img class="gtmRigo" src="./assets/img/promo_cards/rigo.png" alt="rigo">
+    </a>
+  </div>
+  <div class="item gtmWesura">
+      <a class="gtmWesura" target="_blank" href="http://rotalo.wesura.com/">
+        <img class="gtmWesura" src="./assets/img/promo_cards/wesura.png" alt="wesura">
+      </a>
+  </div>
+</div>
+
+<div class="mobile card-container">
+    <ngx-carousel  [inputs]="carouselConfig">
+        <ngx-item  class="gtmEbiko" NgxCarouselItem >
+            <div  class="item gtmEbiko img-container">
+                <a class="gtmEbiko" target="_blank" href="https://www.rotalo.com.co/products/show/5713">
+                  <img class="gtmEbiko" src="./assets/img/promo_cards/ebiko.png" alt="ebiko">
+                </a>
+              </div>
+        </ngx-item>
+        <ngx-item class="gtmRigo" NgxCarouselItem >
+            <div class="gtmRigo item img-container">
+                <a class="gtmRigo" target="_blank" href="https://gorigogo.com">
+                  <img class="gtmRigo" src="./assets/img/promo_cards/rigo.png" alt="rigo">
+                </a>
+              </div>
+        </ngx-item>
+        <ngx-item class="gtmWesura" NgxCarouselItem >
+            <div class="gtmWesura item img-container">
+                <a class="gtmWesura" target="_blank" href="http://rotalo.wesura.com/">
+                  <img class="gtmWesura" src="./assets/img/promo_cards/wesura.png" alt="wesura">
+                </a>
+              </div>
+        </ngx-item>
+        <span NgxCarouselPrev class="hide arrow arrow-prev"></span>
+        <span NgxCarouselNext class="hide arrow arrow-next"></span>
+    </ngx-carousel>
+</div>
+
+
+
+
+<div>
+  <div class="container-spinner" *ngIf="isSpinnerShow">
+    <custom-spinner></custom-spinner>
+  </div>
+  <div class="msg-no-products" *ngIf="showAnyProductsMessage">
+    ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
+  </div>
+  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+    <div class="list">
+      <div class="masonry">
+        <div class="grid-item">
+          <product #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
+            class="product-feed" [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
+            [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
+            [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'" id="{{product.id}}">
+          </product>
+        </div>
+      </div>
+      <pagination-controls *ngIf="showPagination && !showAnyProductsMessage" class="promo has-text-centered" responsive="true" previousLabel="Anterior"
+        nextLabel="Siguiente" (pageChange)="getPage($event)">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+<custom-footer></custom-footer>

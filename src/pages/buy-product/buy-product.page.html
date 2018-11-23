@@ -1,8 +1,8 @@
-<div class="container-bar-offer">
+<!--<div class="container-bar-offer">
   <div class="container">
     <h1 class="offer-head-title">{{titlePurchase}}</h1>
   </div>
-</div>
+</div>-->
 <div *ngIf="product">
   <modal-buy-info  [statusProduct]="product.status" [idProduct]="product.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)"></modal-buy-info>
   <div  class="buy-product-container">
@@ -14,17 +14,17 @@
               <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
               <div class="container" *ngIf="!transactionSuccess">
                 <div class="buy-detail">
-                  <p>Revisa el detalle de tu producto.</p>
+                  <p>Revisa el detalle de tu producto</p>
                <!--<p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p> -->
                 </div>
                 <ol class="steps-buy-product">
                   <li>
-                    <span>¿Qué vas a comprar?</span>
-                    <div class="container-header">
+                    <span>Revisa el detalle de tu producto</span>
+                    <div class="container-header product">
                       <div class="image">
                         <img [src]="photoProduct">
                       </div>
-                      <div>
+                      <div class="category-container">
                         <div class="title">{{product.name}}</div>
                         <div class="category">
                           <span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
@@ -32,8 +32,44 @@
                           <span>Condición:</span> {{usedProduct}}</div>
                       </div>
                       <div class="price">
-                        <div>{{priceProduct | currency:"$":0 | removeDigits }}</div>
+                        <div class="title">Precio</div>
+                        <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$":0 | removeDigits }}</div>
+                        <div *ngIf="product.currency == 'GTQ' && idCountry == 9">{{priceProduct | currency:"Q":0 | removeDigits }}</div>
                       </div>
+                      <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
+                          <div class="title-quantity">Cantidad</div>
+                        <!--  <div class="text-center">{{quantity}}</div> -->
+                        <div class="full-width quantity-container">
+                              <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"  #form>
+                                  <div  class="form-group">
+                                      <div class="input-group quantity-wrapper">
+                                        <span class="input-group-btn">
+                                          <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                            <span>-</span>
+                                          </button>
+                                        </span>
+                                        <input
+                                        (blur)="changeTotalValue()"
+                                        type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="0" maxlength="5"
+                                        autocomplete="off">
+                                        <span class="input-group-btn">
+                                          <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                            <span>+</span>
+                                          </button>
+                                        </span>
+
+                                      </div>
+                                      <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
+                                    </div>
+                              </form>
+                          </div>
+                      </div>
+                        <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
+                            <div class="title">Total</div>
+                            <div class="total-price" *ngIf="product.currency != 'GTQ'">{{totalPrice | currency:"$":0 | removeDigits }}</div>
+                            <div class="total-price" *ngIf="product.currency == 'GTQ' && idCountry == 9">{{totalPrice | currency:"Q":0 | removeDigits }}</div>
+                          </div>
                     </div>
                   </li>
                   <li>
@@ -192,6 +228,9 @@
                     <div *ngIf="product && product['sell-type'] !='ALQUILA'" class="button">
                         <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton" class="gtmCompConfirmComp" type="submit"  text="Confirmar compra" ></custom-button>
                     </div>
+                  </div>
+                  <div *ngIf="errorMessage" class="error-message">
+                   <div class="alert"></div> {{errorMessage}}
                   </div>
                 </div>
               </div>

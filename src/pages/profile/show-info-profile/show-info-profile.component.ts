@@ -51,7 +51,10 @@ export class ShowInfoProfileComponent implements OnInit {
     });
     this.resumeRotaloCenterService.resumeRotaloCenter(userId).subscribe(
       state => {
-        this.mainRanking = state.body.calificacionGeneral;
+
+        if (state.body) {
+          this.mainRanking = state.body.calificacionGeneral;
+        }
       },
       error => console.log(error)
     );

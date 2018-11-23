@@ -12,7 +12,8 @@ export class PurchaseAcceptedComponent {
 	@Input() notification;
 	@Output() userClicked: EventEmitter<any> = new EventEmitter();
 	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
-  constructor(private productsService: ProductsService, private router: Router) { }
+  constructor(private productsService: ProductsService, private router: Router) {
+  }
 
   async productReceived(id: number) {
     try {

@@ -25,25 +25,37 @@ export class ProductEditPage implements OnInit {
     this.loadProduct();
   }
 
-  async loadProduct() {
+  /*async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       this.redirectIfisNotOwner(this.product);
       this.changeDetectorRef.markForCheck();
     } catch (error) {}
-  }
+  }*/
 
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.redirectIfisNotOwner(this.product);
+        this.changeDetectorRef.markForCheck();
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
+  }
 
   redirectIfisNotOwner(product) {
     const idUser = this.currentSessionService.getIdUser();
-    if (product.user.id !== idUser) {
+    if (product.user.id != idUser) {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
     }
   }
 
-  async updatePhoto(event) {
+  /*async updatePhoto(event) {
     try {
       const response = await this.productsService.updateProduct(this.idProduct, event);
       this.router.navigate([
@@ -54,5 +66,24 @@ export class ProductEditPage implements OnInit {
     } catch (error) {
       console.error("Error: ", error);
     }
+  }*/
+
+
+  updatePhoto(event) {
+    this.productsService.updateProductForm(this.idProduct, event).subscribe((response) => {
+      this.router.navigate([
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
+      ]);
+      this.productsService.products = [];
+      this.changeDetectorRef.markForCheck();
+    },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+
+  /*updatePhoto(event) {
+
+  }*/
 }

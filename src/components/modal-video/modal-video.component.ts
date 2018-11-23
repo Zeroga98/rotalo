@@ -10,12 +10,10 @@ import { ModalVideoService } from './modal-video.service';
 export class ModalVideoComponent implements OnInit, OnDestroy {
   @Input() id: string;
   private element: any;
+  public showColombiaVideo = true;
 
   @HostListener('document:click', ['$event']) clickout(event) {
-    /* alert(event);
-     alert(event.target);*/
      if (event.target && event.target.className) {
-      // alert(event.target.className);
        if (event.target.className == 'md-overlay') {
          this.close();
        }
@@ -25,6 +23,7 @@ export class ModalVideoComponent implements OnInit, OnDestroy {
     private modalService: ModalVideoService,
     private el: ElementRef,
   ) {
+    this.checkIfIsColombiaVideo();
     this.element = el.nativeElement;
   }
 
@@ -40,10 +39,17 @@ export class ModalVideoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.modalService.remove(this.id);
-    /*if (this.element) {
-      this.element.remove();
-    }*/
+    // this.element.remove();
     this.element = undefined;
+  }
+
+  checkIfIsColombiaVideo() {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      this.showColombiaVideo = false;
+    } else {
+      this.showColombiaVideo = true;
+    }
   }
 
   open(): void {

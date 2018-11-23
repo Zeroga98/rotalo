@@ -16,6 +16,9 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
+import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -27,6 +30,13 @@ function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
     return null;
   }
   return { 'price': true };
+}
+
+function isCategorySelected( c: AbstractControl ): { [key: string]: boolean } | null {
+  if (this.categorySelected) {
+    return null;
+  }
+  return { isCategory: true };
 }
 
 @Component({
@@ -45,8 +55,17 @@ export class FormProductComponent implements OnInit, OnChanges {
   categories: Array<CategoryInterface> = [];
   subCategories: Array<SubcategoryInterface> = [];
   subCategory: SubcategoryInterface;
-  modelsVehicle: Array<any> = [];
+  yearsVehicle: Array<any> = [];
+  transmissionList: Array<any> = LISTA_TRANSMISION;
+  colorList: Array<any> = COLOR;
+  vehicleNumberList: Array<any> = PLACA;
+  cylinderList: Array<any> = CILINDRAJE;
+  combustibleList: Array<any> = COMBUSTIBLE;
+  carMakeList: Array<any> = COMBUSTIBLE;
   vehicleProperties: Array<any> = ['Particular', 'Público'];
+  modelList: Array<any> = [];
+  brandsList: Array<any> = [];
+  linesList: Array<any> = [];
   currentSubcategory: String = '';
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
@@ -71,8 +90,12 @@ export class FormProductComponent implements OnInit, OnChanges {
   public errorState = false;
   public errorCity = false;
   public communityName = '';
-  public showOptions = true;
-
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
+  public categorySelected;
+  public maxValueNewPrice = 0;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -113,8 +136,8 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.getCountries();
       const interval = setInterval(() => {
         if (this.categories.length > 0) {
-          if (this.product.photos) {
-            this.saveInitialPhotos(this.product.photos);
+          if (this.product['photoList']) {
+            this.saveInitialPhotos(this.product['photoList']);
           }
           this.setCategoryDefault(this.product.subcategory);
           clearInterval(interval);
@@ -134,9 +157,11 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   onInfoRetrieved(user): void {
-    this.country = user.city.state.country;
-    this.stateValue =  user.city.state;
-    this.cityValue = user.city;
+    if (user) {
+      this.country = user.city.state.country;
+      this.stateValue =  user.city.state;
+      this.cityValue = user.city;
+    }
     if (this.product &&  this.country) {
       this.product.city.state.country =  this.country;
       this.stateValue =  this.product.city.state;
@@ -155,15 +180,18 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   get isColombia(){
-    return this.countryId === 1;
+    return this.countryId == 1;
   }
 
   get isGuatemala(){
-    return this.countryId === 9;
+    return this.countryId == 9;
   }
 
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
+    this.photosForm.patchValue({stock: 1});
+    this.photosForm.patchValue({checkNewPrice: false});
+    this.removeValidatorNewPrice();
     if (evt === 'GRATIS') {
       this.photosForm.patchValue({price: 0});
       this.photosForm.patchValue({'negotiable': false});
@@ -182,7 +210,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   }
 
   async publishPhoto(form) {
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0) {
+    this.setValidationVehicle();
+    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.getPhotosIds() };
       let dateMoment: any;
 
@@ -200,6 +229,7 @@ export class FormProductComponent implements OnInit, OnChanges {
           'negotiable': true
         };
       } else {
+
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -218,26 +248,74 @@ export class FormProductComponent implements OnInit, OnChanges {
             };
           }
         }
+
       }
       let params;
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
-          "city-id": this.city["id"]
+          'city-id': this.city['id']
         });
         if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
           delete params['publish-until'];
         }
       } else {
-        const publishDate = {
+
+      const publishDate = {
           'published-at': new Date()
-        };
+      };
+        // const photosIds2 = { 'photo-ids': ['10083'] };
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
-          "city-id": this.city["id"]
+          'city-id': this.city['id']
         });
+
       }
       this.photosUploaded.length = 0;
-      delete params['category'];
-      this.publish.emit(params);
+      /**Mejora hacer nested formgroups**/
+      delete params['line-id'];
+      delete params['transmission'];
+      delete params['color'];
+      delete params['license-plate'];
+      delete params['mileage'];
+      delete params['displacement'];
+      delete params['gas'];
+      delete params['carMake'];
+      delete params['type-of-seat'];
+      delete params['airbag'];
+      delete params['air-conditioner'];
+      delete params['abs-brakes'];
+      delete params['unique-owner'];
+      if (!this.photosForm.get('checkNewPrice').value) {
+        delete params['special-price'];
+      }
+      delete params['checkNewPrice'];
+      if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
+          const vehicle  = {
+            'vehicle-type': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
+            'line-id': this.photosForm.get('line-id').value,
+            'transmission': this.photosForm.get('transmission').value,
+            'color': this.photosForm.get('color').value,
+            'license-plate': this.photosForm.get('license-plate').value,
+            'mileage': this.photosForm.get('mileage').value,
+            'displacement': this.photosForm.get('displacement').value,
+            'gas': this.photosForm.get('gas').value,
+            'type-of-seat': this.photosForm.get('type-of-seat').value,
+            'airbag': this.photosForm.get('airbag').value,
+            'air-conditioner': this.photosForm.get('air-conditioner').value,
+            'abs-brakes': this.photosForm.get('abs-brakes').value,
+            'unique-owner': this.photosForm.get('unique-owner').value
+          };
+          params.vehicle = vehicle;
+
+      }
+      params.stock = this.photosForm.get('stock').value;
+      const request = {
+        'data': {
+          'attributes': params
+        }
+      };
+
+      this.publish.emit(request);
+
 
     } else {
       this.validateAllFormFields(this.photosForm);
@@ -251,8 +329,26 @@ export class FormProductComponent implements OnInit, OnChanges {
       if (!this.city['id']) {
         this.errorCity = true;
       }
+      this.scrollToError();
     }
   }
+
+  scrollToError() {
+    /**El numero 3 puede cambiar en caso que se agreguen nuevos campos al formulario**/
+    const elements = document.getElementsByClassName('ng-invalid');
+    if (this.errorUploadImg || this.errorMaxImg) {
+      const element = document.getElementById('image-upload');
+      element.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    } else if (!this.product && elements && elements[3]) {
+      elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }else if (this.product && elements && elements[1]) {
+      elements[1].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }else if (this.errorState || this.errorCity) {
+      const element = document.getElementById('select-cities');
+      element.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  }
+
 
   validateState() {
     if (this.state['id']) {
@@ -341,17 +437,128 @@ export class FormProductComponent implements OnInit, OnChanges {
     }
   }
 
+  resetFormsVehicle() {
+    this.photosForm.patchValue({stock: 1});
+    this.photosForm.patchValue({'line-id': ''});
+    this.photosForm.patchValue({'carMake': ''});
+    let sellType = '';
+      sellType = this.photosForm.get('sell-type').value;
+      if (sellType != 'VENTA' && sellType != 'ALQUILA') {
+        this.photosForm.patchValue({'sell-type': 'VENTA'});
+    }
+    this.disabledField = false;
+    this.photosForm.controls['negotiable'].enable();
+  }
+
   setValidationVehicle() {
     const typeVehicleControl = this.photosForm.get('type-vehicle');
     const model = this.photosForm.get('model');
+    const lineId = this.photosForm.get('line-id');
+    const transmission = this.photosForm.get('transmission');
+    const color = this.photosForm.get('color');
+    const licensePlate = this.photosForm.get('license-plate');
+    const mileage = this.photosForm.get('mileage');
+    const displacement = this.photosForm.get('displacement');
+    const gas = this.photosForm.get('gas');
+    const carMake = this.photosForm.get('carMake');
+    const kindSeat = this.photosForm.get('type-of-seat');
+    const airbag = this.photosForm.get('airbag');
+    const airConditioner = this.photosForm.get('air-conditioner');
+    const absBrakes = this.photosForm.get('abs-brakes');
+    const uniqueOwner = this.photosForm.get('unique-owner');
     typeVehicleControl.clearValidators();
     model.clearValidators();
+    lineId.clearValidators();
+    transmission.clearValidators();
+    color.clearValidators();
+    licensePlate.clearValidators();
+    mileage.clearValidators();
+    displacement.clearValidators();
+    gas.clearValidators();
+    carMake.clearValidators();
+    kindSeat.clearValidators();
+    airbag.clearValidators();
+    airConditioner.clearValidators();
+    absBrakes.clearValidators();
+    uniqueOwner.clearValidators();
+
     if (this.subcategoryIsVehicle()) {
-      typeVehicleControl.setValidators([Validators.required]);
+      carMake.setValidators([Validators.required]);
+      lineId.setValidators([Validators.required]);
+      mileage.setValidators([Validators.required]);
+      gas.setValidators([Validators.required]);
+      color.setValidators([Validators.required]);
+      transmission.setValidators([Validators.required]);
+      licensePlate.setValidators([Validators.required]);
       model.setValidators([Validators.required]);
+      typeVehicleControl.setValidators([Validators.required]);
+      const request = {
+        tipo: 1
+      };
+      if (!this.collectionService.getBrandsCars()) {
+        this.collectionService.getVehicles(request).subscribe((response) => {
+          if (response.body) {
+            this.brandsList = response.body.brands;
+            this.collectionService.setBrandsCars(this.brandsList);
+          }
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.brandsList = this.collectionService.getBrandsCars();
+      }
+    } else if (this.subcategoryIsMotos()) {
+      carMake.setValidators([Validators.required]);
+      lineId.setValidators([Validators.required]);
+      mileage.setValidators([Validators.required]);
+      displacement.setValidators([Validators.required]);
+      color.setValidators([Validators.required]);
+      model.setValidators([Validators.required]);
+      const request = {
+        tipo: 2
+      };
+      if (!this.collectionService.getBrandsMotos()) {
+        this.collectionService.getVehicles(request).subscribe((response) => {
+          if (response.body) {
+            this.brandsList = response.body.brands;
+            this.collectionService.setBrandsMotos(this.brandsList);
+          }
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.brandsList = this.collectionService.getBrandsMotos();
+      }
     }
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
+    lineId.updateValueAndValidity();
+    transmission.updateValueAndValidity();
+    color.updateValueAndValidity();
+    licensePlate.updateValueAndValidity();
+    mileage.updateValueAndValidity();
+    displacement.updateValueAndValidity();
+    gas.updateValueAndValidity();
+    carMake.updateValueAndValidity();
+    kindSeat.updateValueAndValidity();
+    airbag.updateValueAndValidity();
+    airConditioner.updateValueAndValidity();
+    absBrakes.updateValueAndValidity();
+    uniqueOwner.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  setLinesVehicle (id) {
+    if (this.brandsList) {
+      const brands = this.brandsList.filter(value => {
+        return value.id == id;
+      });
+    this.photosForm.patchValue({'line-id': ''});
+     if (brands && brands.length > 0) {
+      this.modelList = brands[0].lines;
+     }
+     this.changeDetectorRef.markForCheck();
+    }
   }
 
   closeModal() {
@@ -373,17 +580,36 @@ export class FormProductComponent implements OnInit, OnChanges {
     return false;
   }
 
+  subcategoryIsMotos(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Motos') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   selectedComunity(idCategory: number ) {
+    this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.currentSubcategory = '';
     this.subCategory = null;
-    this.showOptions = true;
     if (idCategory == 7 || idCategory == 6) {
-      this.photosForm.patchValue({'sell-type': 'VENTA'});
-      this.showOptions = false;
+      let sellType = '';
+      sellType = this.photosForm.get('sell-type').value;
+      if (sellType != 'VENTA' && sellType != 'ALQUILA') {
+        this.photosForm.patchValue({'sell-type': 'VENTA'});
+      }
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
     }
+  }
+
+  resetPromo() {
+    this.photosForm.patchValue({checkNewPrice: false});
+    this.removeValidatorNewPrice();
   }
 
   selectedSubcategory(idSubcategory) {
@@ -393,18 +619,74 @@ export class FormProductComponent implements OnInit, OnChanges {
   loadYearsModelVehicle() {
     const years = (new Date()).getFullYear() - 1968;
     for (let i = 0; i < years; i++) {
-      this.modelsVehicle.push((new Date()).getFullYear() + 1 - i);
+      this.yearsVehicle.push((new Date()).getFullYear() + 1 - i);
     }
   }
 
   private setInitialForm(config: ProductInterface) {
     let typeVehicle = '';
     let model = '';
+    let lineId = '';
+    let transmission = '';
+    let color = '';
+    let licensePlate = '';
+    let mileage = 0;
+    let displacement = '';
+    let gas = '';
+    let carMake = '';
+    let kindSeat = 'TELA';
+    let airbag = '';
+    let airConditioner = '';
+    let absBrakes = '';
+    let uniqueOwner = '';
+    let stock = 1;
+    const request = {
+      tipo: 1
+    };
+    let checkNewPrice = false;
+    let newPrice;
 
-    if (config['type-vehicle'] && config['model']) {
-      typeVehicle = config['type-vehicle'];
-      model = config['model'];
+    if (config['subcategory'].name == 'Carros') {
+      request.tipo = 1;
+    } else if (config['subcategory'].name == 'Motos') {
+      request.tipo = 2;
     }
+    this.collectionService.getVehicles(request).subscribe((response) => {
+      if (response.body) {
+        this.brandsList = response.body.brands;
+        if (config['vehicle']) {
+          const vehicle  = config['vehicle'];
+          carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
+          lineId = vehicle['line'] ? vehicle['line'].id : '';
+          this.setLinesVehicle(carMake);
+          this.photosForm.patchValue({'line-id': lineId});
+        }
+      }
+    }, (error) => {
+      console.log(error);
+    });
+
+    if (config['vehicle']) {
+      const vehicle  = config['vehicle'];
+      transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
+      color = vehicle['color'] ? vehicle['color'] : '';
+      licensePlate = vehicle['licensePlate'] ? vehicle['licensePlate'] : '';
+      mileage = vehicle['mileage'] ? vehicle['mileage'] : 0;
+      displacement  = vehicle['displacement'] ? vehicle['displacement'] : '';
+      gas = vehicle['gas'] ? vehicle['gas'] : '';
+      kindSeat = vehicle['typeOfSeat'] ? vehicle['typeOfSeat'] : '';
+      airbag = vehicle['airbag'] ? vehicle['airbag'] : '';
+      airConditioner = vehicle['airConditioner'] ? vehicle['airConditioner'] : '';
+      absBrakes = vehicle['absBrakes'] ? vehicle['absBrakes'] : '';
+      uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
+      carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
+      lineId = vehicle['line'] ? vehicle['line'].id : '';
+    }
+
+    typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
+    model = config['model'] ? config['model'] : '';
+    stock = config['stock'] ? config['stock'] : 1;
+
 
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
@@ -417,11 +699,24 @@ export class FormProductComponent implements OnInit, OnChanges {
       this.photosForm.controls['negotiable'].disable();
     }
 
+    if (this.product) {
+      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
+        this.photosForm.get('category').disable();
+        this.photosForm.get('subcategory-id').disable();
+      }
+
+      if (this.isActivePromo(this.product)) {
+        newPrice = config.price;
+        config.price = config['oldPrice'] ? config['oldPrice'] : null;
+        checkNewPrice = true;
+      }
+    }
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
       currency: [config.currency, [Validators.required]],
-      'subcategory-id': [config['subcategory-id'], [Validators.required]],
+      'subcategory-id': [config['subcategory'].id, [Validators.required]],
+      'stock': [stock, [Validators.required, Validators.min(1), Validators.max(9999)]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
       'sell-type': [config['sell-type'], [Validators.required]],
@@ -430,17 +725,44 @@ export class FormProductComponent implements OnInit, OnChanges {
       'publish-until': [config['publish-until'], []],
       'type-vehicle': [typeVehicle, []],
       'model': [model, []],
+      'line-id': [lineId, []],
+      'transmission': [transmission, []],
+      'color': [color, []],
+      'license-plate': [licensePlate, []],
+      'mileage': [mileage, []],
+      'displacement': [displacement, []],
+      'gas': [gas, []],
+      'carMake': [carMake, []],
+      'type-of-seat': [kindSeat, []],
+      'airbag': [airbag, []],
+      'air-conditioner': [airConditioner, []],
+      'abs-brakes': [absBrakes, []],
+      'unique-owner': [uniqueOwner, []],
+      'checkNewPrice': [checkNewPrice, []],
+      'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
     }, { validator: validatePrice });
+
+    if (this.product) {
+      if (this.isActivePromo(this.product)) {
+        const price = this.photosForm.get('special-price').value;
+        this.maxValueNewPrice = price;
+        const specialPrice = this.photosForm.get('special-price');
+        specialPrice.clearValidators();
+        specialPrice.setValidators([Validators.required, Validators.max(this.maxValueNewPrice)]);
+        specialPrice.updateValueAndValidity();
+      }
+    }
+
+  //  this.changeDetectorRef.markForCheck();
   }
 
   private getInitialConfig(): ProductInterface {
     const date = new Date();
-    date.setMonth(date.getMonth() + 2);
     let objectDate = {
       date: {
           year: date.getFullYear(),
-          month: date.getMonth(),
+          month: date.getMonth() + 2,
           day: date.getDate()
         }
     };
@@ -455,8 +777,8 @@ export class FormProductComponent implements OnInit, OnChanges {
           }
       };
       this.product['publish-until'] = objectDate;
-
     }
+
     /**Moneda por defecto**/
     let currency = 'COP';
     switch (this.countryId) {
@@ -471,17 +793,20 @@ export class FormProductComponent implements OnInit, OnChanges {
         break;
     }
 
-    const product: ProductInterface = {
+    const product = {
       name: null,
       price: null,
+      'special-price': null,
       currency: currency,
-      'subcategory-id': '',
+      'subcategory': {id : ''},
+      stock: 1,
       used: false,
       visible: true,
       'sell-type': 'VENTA',
       description: null,
       'publish-until': objectDate,
       negotiable: true,
+      checkNewPrice: false,
       category: ''
     };
 
@@ -558,5 +883,111 @@ export class FormProductComponent implements OnInit, OnChanges {
     return this.photosForm.invalid;
   }
 
+  get showOptionsVehicles () {
+    if (this.photosForm.get('category').value == 6) {
+      if (this.photosForm.get('subcategory-id').value != 11) {
+        return false;
+      }
+    }
+    return true;
+  }
+  get showOptionEstate () {
+    if (this.photosForm.get('category').value == 7) {
+      return false;
+    }
+    return true;
+  }
+
+
+  addStock() {
+    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value < 9999) {
+        let stock =  this.photosForm.get('stock').value;
+        stock = ++stock;
+        this.photosForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+  minusStock() {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
+      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value > 1) {
+        let stock =  this.photosForm.get('stock').value;
+        stock = --stock;
+        this.photosForm.patchValue({stock: stock});
+      }
+    }
+  }
+
+  get isNewPriceShow() {
+    if (!this.isGuatemala && this.isPromoDate && this.photosForm.get('sell-type').value == 'VENTA' &&
+    (this.photosForm.get('price').value || this.photosForm.get('price').value > 0)) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+
+  checkNewPriceChange() {
+    if (this.categorySelected && this.photosForm.get('checkNewPrice').value && this.photosForm.get('price').value ) {
+      const newPrice = this.photosForm.get('special-price');
+      const category = this.findCategory(this.categorySelected);
+      const percentagePrice = category['porcentajeMinimoBajoPrecio'];
+      const price = this.photosForm.get('price').value ;
+
+      let maxNewPrice = (price * percentagePrice) / 100;
+      maxNewPrice = price - maxNewPrice;
+      maxNewPrice = Math.floor(maxNewPrice);
+      this.maxValueNewPrice = maxNewPrice;
+      newPrice.clearValidators();
+      newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
+      newPrice.updateValueAndValidity();
+      this.photosForm.patchValue({ 'special-price': maxNewPrice });
+      this.changeDetectorRef.markForCheck();
+    } else  {
+      this.removeValidatorNewPrice();
+      if (!this.categorySelected ) {
+        this.photosForm.patchValue({'checkNewPrice': false});
+        const newPrice = this.photosForm.get('special-price');
+        newPrice.clearValidators();
+        newPrice.setErrors({ 'invalid': true });
+        newPrice.markAsDirty({ onlySelf: true });
+        newPrice.markAsTouched({ onlySelf: true });
+        newPrice.setValidators([Validators.required, isCategorySelected.bind(this)]);
+        newPrice.updateValueAndValidity();
+        this.changeDetectorRef.markForCheck();
+      }
+    }
+  }
+
+  get isErrorCategoryNewPrice() {
+    const newPrice = this.photosForm.get('special-price');
+    if (newPrice.errors && newPrice.errors.isCategory) {
+      return true;
+    }
+    return false;
+  }
+
+  removeValidatorNewPrice() {
+    const newPrice = this.photosForm.get('special-price');
+    this.photosForm.patchValue({'special-price': null});
+    newPrice.clearValidators();
+    newPrice.updateValueAndValidity();
+  }
+
+  isActivePromo(product) {
+    if (product['special-date'] && product['special-date'].active
+    || product['specialDate'] && product['specialDate'].active) {
+      return true;
+    }
+    return false;
+  }
 
 }

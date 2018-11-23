@@ -17,6 +17,7 @@
           {{errorMessage}}
         </span>
       </div>
+
       <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
@@ -50,10 +51,20 @@
         </span>
       </div>
 
+      <div class="input-readonly material-input text-center">
+          <span [ngClass]="{'input--filled': registerForm.get('identification').value}" class="text-left input input--label-md">
+            <input [ngClass]="{'invalid': registerForm.get('identification').invalid && !registerForm.get('identification').pristine}"
+              formControlName="identification" name="identification" maxlength="50" class="input__field input__field--label-md" id="txt-identification" type="text"
+              autocomplete="off" />
+            <label class="input__label input__label--label-md">
+              <span class="input__label-content input__label-content--label-md" data-content="Número de identificación">Número de identificación</span>
+            </label>
+          </span>
+      </div>
+
       <div class="select-country form-group">
         <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event; setValidationId()"></select-country>
       </div>
-
       <div class="row-two">
         <div class="form-group column">
           <select-states [ngClass]="{'invalid': errorState}"  class="white-theme-select material-select" [country]="country" (selected)="state=$event; validateState()"></select-states>
@@ -63,37 +74,6 @@
           <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
           <span class="error-msg">Este campo es requerido.</span>
         </div>
-      </div>
-
-      <div class="row-two">
-        <div class="form-group column type-document" [ngClass]="{'valid': registerForm.get('type-document-id').value}">
-          <select [ngClass]="{'invalid': errorTypeDocument}" class="select-text form-control currency-select" name="type-id" formControlName="type-document-id" (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
-            <option value="" disabled></option>
-            <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['name-document']}}</option>
-          </select>
-					<label class="select-label">Tipo de documento
-          </label>
-          <span class="error-msg">Este campo es requerido.</span>
-        </div>
-
-        <div class="material-input text-center column">
-            <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="text-left input input--label-md">
-              <input [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine}"
-                formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--label-md" id="txt-id-number" type="text"
-                autocomplete="off"/>
-              <label class="input__label input__label--label-md">
-                <span class="input__label-content input__label-content--label-md" data-content="Número">Número</span>
-              </label>
-            </span>
-            <span class="help-block">
-                <span *ngIf="registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
-                    Este campo es requerido.
-                </span>
-                <span *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid ">
-                    {{errorMessageId}}
-                </span>
-            </span>
-          </div>
       </div>
 
       <div class="material-input text-center">

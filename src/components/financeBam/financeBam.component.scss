@@ -1,0 +1,188 @@
+:host {
+  display: block;
+  height: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 100px;
+   custom-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+
+  .desktop {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+
+}
+
+
+:host {
+  .container-form {
+    padding: 50px 0;
+    width: 90%;
+    margin: 0px auto;
+    max-width: 1200px;
+    h1 {
+      font-size: 2.4rem;
+      color: #272727;
+      margin-bottom: 50px;
+    }
+    .container-info {
+      display: flex;
+    }
+
+    .info-list {
+      border: 1px solid #E5E5E5;
+      padding: 20px 2%;
+      border-radius: 8px;
+      .row {
+        padding: 8px 0;
+        background-image: url(assets/img/ic_check_registro.svg);
+        background-position: 99% center;
+        background-size: 25px 25px;
+        background-repeat: no-repeat;
+        background-color: white;
+        .title {
+          font-size:1.6rem;
+        }
+        p {
+          font-size:1.8rem;
+          color: #272727;
+          padding: 2px 0;
+        }
+      }
+    }
+
+    .info-list {
+      width: 40%;
+    }
+    .info-form{
+      width: 60%;
+    }
+
+  }
+}
+
+:host {
+  .info-form {
+    padding: 0px 5%;
+    .container-header{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+      .image {
+        width: auto;
+        margin-right: 2rem;
+        img {
+          width: auto;
+          height: auto;
+          max-height: 15rem;
+        }
+      }
+    }
+    .title{
+      color: #272727;
+      font-size: 2.4rem;
+      font-weight: bold;
+    }
+
+    .price {
+      color: #272727;
+      font-size: 3.0rem;
+      div {
+        color: #FF4958;
+      }
+    }
+
+  }
+}
+
+:host {
+  .material-design .input-price{
+    border: 1px solid #A2A2A2;
+    border-radius: 10px;
+  }
+
+  .material-design .input-price.ng-touched.ng-dirty.ng-invalid {
+    border-color: #ED2F3C;
+  }
+
+  .material-design .input-price:focus {
+    border-color: #0fbbd8;
+  }
+
+  .form-container {
+    h1 {
+      margin-bottom: 1.6rem;
+    }
+    .input-container, .btn-container {
+      width: 50%;
+    }
+    .input-container {
+      position: relative;
+    }
+    .help-block {
+      position: absolute;
+    }
+    .btn-container {
+      max-width: 270.07px;
+      margin-top: 4rem;
+    }
+  }
+
+  .successMessage{
+    position: absolute;
+    padding-left: 12px;
+    font-size: 1.4rem;
+    color: #0fbbd8;
+    font-weight: bold;
+  }
+
+}
+
+@media (max-width: 880px) {
+    :host {
+      .container-form .container-info {
+        flex-direction: column;
+      }
+      .desktop {
+        display: none;
+      }
+      .mobile {
+        display: block;
+      }
+      .container-form .info-form, .container-form .info-list {
+        width: 100%;
+      }
+      .container-form {
+        padding: 40px 5%;
+      }
+      .form-container .input-container,  .form-container .btn-container {
+        width: 100%;
+      }
+      .container-form .info-list .row {
+        background-size: 16px 16px;
+      }
+      .container-form .info-list {
+        padding: 10px 5%;
+      }
+
+      .container-form h1.mobile {
+        margin: 0;
+      }
+
+      .form-container h1, .container-form h1.mobile,  .info-form .title, .info-form .price {
+        font-size: 1.8rem;
+      }
+
+      .info-form .container-header {
+        margin-bottom: 2rem;
+      }
+
+    }
+}

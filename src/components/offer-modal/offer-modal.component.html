@@ -5,7 +5,8 @@
 		</div>
 		<div class="text">
 			<div class="title">{{config?.title}}</div>
-			<div class="price">Precio actual: {{config?.price | currency:"$":0 | removeDigits}}</div>
+      <div class="price" *ngIf="config.currency != 'GTQ'">Precio actual: {{config?.price | currency:"$":0 | removeDigits}}</div>
+      <div class="price" *ngIf="config.currency == 'GTQ'">Precio actual: {{config?.price | currency:"Q":0 | removeDigits}}</div>
 		</div>
 	</div>
 	<div modal-body class="container-body">
@@ -20,9 +21,12 @@
 					onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 					<span *ngIf="errorInForm" class="help-block"> {{msgError}} </span>
 				</div>
-				<div *ngIf="config.type == 'SUBASTA'" class="copy-subasta">
+				<div *ngIf="config.currency != 'GTQ' &&  config.type == 'SUBASTA'" class="copy-subasta">
 					Tu oferta debe ser mayor o igual a {{minValue | currency:"$":0 | removeDigits}}
-				</div>
+        </div>
+        <div *ngIf="config.currency == 'GTQ' && config.type == 'SUBASTA'" class="copy-subasta">
+            Tu oferta debe ser mayor o igual a {{minValue | currency:"Q":0 | removeDigits}}
+        </div>
 			</form>
 		</div>
 		<div *ngIf="isReadyResponse" class="msg-success">

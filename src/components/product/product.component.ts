@@ -19,6 +19,8 @@ import { ROUTES } from "../../router/routes";
 import { Router } from "@angular/router";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
+import { NavigationService } from "../../pages/products/navigation.service";
+import { START_DATE_BF, END_DATE_BF, START_DATE } from "../../commons/constants/dates-promos.contants";
 
 @Component({
   selector: "product",
@@ -45,6 +47,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public productStatus: boolean = false;
   public productChecked: String = "active";
   public idUser: string = this.currentSessionSevice.getIdUser();
+  public idCountry = 1;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
+  public endDate = END_DATE_BF;
+  public courrentDate = new Date();
+
   constructor(
     private render: Renderer2,
     private productsService: ProductsService,
@@ -52,7 +60,16 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     private router: Router,
     private currentSessionSevice: CurrentSessionService,
     private modalService: ModalShareProductService,
-  ) {}
+    private navigationService: NavigationService,
+  ) {
+    let countryId;
+    if (this.navigationService.getCurrentCountryId()) {
+      countryId = this.navigationService.getCurrentCountryId();
+    }else {
+      countryId = this.currentSessionSevice.currentUser()['countryId'];
+    }
+    this.idCountry = countryId;
+  }
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
@@ -69,6 +86,16 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.masonryInfo.layout();
     }
   }
+
+  get isActivePromo() {
+    if (this.product['special-date'] && this.product['special-date'].active
+    || this.product['specialDate'] && this.product['specialDate'].active) {
+      return true;
+    }
+    return false;
+  }
+
+
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
@@ -91,9 +118,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   getLocation(product): string {
-    const city = product.city;
-    const state = city.state;
-    return `${city.name}, ${state.name}`;
+    if (product.city) {
+      const city = product.city;
+      const state = city.state;
+      return `${city.name},  ${state.name}`;
+    }
   }
   selectProduct() {
     this.selected.emit(this.product);
@@ -166,4 +195,21 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.modalService.open(id);
     }
   }
+
+
+  get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
+    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+
 }

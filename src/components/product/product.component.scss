@@ -27,7 +27,7 @@
       position: relative;
       color: $red;
       font-size: 3.2rem;
-      font-weight: bold;
+      //font-weight: bold;
       margin-bottom: 5px;
       line-height: 32px;
     }
@@ -107,6 +107,7 @@
       .icon-container {
         width: 4rem;
         height: 4rem;
+        min-width: 4rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -331,7 +332,7 @@
 :host {
   .container-low-price {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     width: 140px;
     height: 54px;
@@ -345,12 +346,31 @@
       padding: 13px 15px;
     }
   }
+
+  .container-black-friday {
+    background: url(../../assets/img/img_etiqueta_bf.png);
+    background-size: 140px 54px;
+  }
+
+
+  .low-price {
+    color:#A2A2A2;
+    text-decoration: line-through;
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
 }
 
 :host(.product-feed) {
 
   .container-product {
-    height: 500px;
+    height: 490px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transform: scale(1);
   }
@@ -363,6 +383,8 @@
 
   .product-info{
     padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
   }
 
   .container-product .container-name {
@@ -371,6 +393,7 @@
     margin-bottom: 0;
     line-height: 16px;
     padding-left: 1rem;
+    min-height: 32px;
   }
 
   .container-product .container-price {
@@ -383,6 +406,17 @@
   .container-product .container-status {
     color: #A2A2A2;
     margin-bottom: 0;
+    display: inline-block;
+  }
+
+  .container-product .container-status + .container-status{
+    margin-left: 7%;
+  }
+
+  .container-status {
+    .icon-margin {
+      margin-right: 10px;
+    }
   }
 
   .container-product .container-location ,
@@ -393,10 +427,18 @@
     margin-bottom: 0;
   }
 
+  .user-info-container {
+    width: 100%;
+  }
+
   .container-product .container-info-user .name-text {
     color: #707070;
     font-size: 1.4rem;
     line-height: 1.6rem;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .container-product .container-info-user .company-text {

@@ -207,6 +207,14 @@
     content: "\e81f";
   }
 
+  .icon-eye:before {
+    content: "\e822";
+  }
+
+  .icon-detail-off:before {
+    content: "\e800";
+  }
+
   .icon-chevron-thin-left:before {
     font-family: "toolkit-entypo";
     content: "\EA4A";
@@ -231,5 +239,9 @@
 
   .icon-chevron-thin-right:before {
     content: "\EA4B";
+  }
+
+  .icon-credit:before {
+    content: "\e823";
   }
 

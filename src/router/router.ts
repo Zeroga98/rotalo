@@ -34,6 +34,8 @@ import { ShowInfoProfileComponent } from '../pages/profile/show-info-profile/sho
 import { FrequentlyAskedQuestionsComponent } from '../pages/frequently-asked-questions/frequently-asked-questions.component';
 import { NotificationConfirmation } from '../pages/notification-confirmation/notification-confirmation';
 import { LoginPage } from '../pages/login/login.page';
+import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
+import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 
 export const appRouter: Routes = [
   {
@@ -116,8 +118,16 @@ export const appRouter: Routes = [
           component: SimulateCreditPage,
         },
         {
+          path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
+          component: FinanceBamComponent,
+        },
+        {
           path: ROUTES.PRODUCTS.ERROR,
           component: ErrorPageComponent,
+        },
+        {
+          path: ROUTES.PRODUCTS.PROMO,
+          component: ProductsPromoPage,
         },
         {
             path: '',
