@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalPromoProductService } from '../modal-promo/modal-promoProduct.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { ModalPromoProductService } from '../modal-promo/modal-promoProduct.serv
   styleUrls: ['./promo-animation.component.scss']
 })
 export class PromoAnimationComponent implements OnInit {
+  @Input() promoCode;
 
   constructor(private modalService: ModalPromoProductService) { }
 
@@ -14,8 +15,19 @@ export class PromoAnimationComponent implements OnInit {
   }
 
   openModalPromo(id: string) {
-    this.modalService.open(id);
+    const params = {
+      code: this.promoCode
+    };
+    this.modalService.consultPromo(params).subscribe((response) => {
+      console.log(response);
+      this.modalService.open(id, true);
+    }, (error) => {
+      console.log(error);
+      this.modalService.open(id, false);
+    });
   }
+
+
 
 
 }

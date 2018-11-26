@@ -1,10 +1,17 @@
 import { Injectable } from "@angular/core";
+import { ConfigurationService } from "../../services/configuration.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class ModalPromoProductService {
   private modals: any[] = [];
   private productId;
-  constructor() {}
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  public isWinner;
+  constructor(
+    private http: HttpClient,
+    private configurationService: ConfigurationService,
+  ) {}
   setProductId(productId) {
     this.productId = productId;
   }
@@ -21,7 +28,7 @@ export class ModalPromoProductService {
     this.modals = this.modals.filter(x => x.id !== id);
   }
 
-  open(id: string) {
+  open(id: string, isWinner) {
     const modal: any = this.modals.filter(x => x.id === id)[0];
     modal.open();
   }
@@ -32,4 +39,12 @@ export class ModalPromoProductService {
       modal.close();
     }
   }
+
+  consultPromo(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/promo-reno`;
+    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
 }

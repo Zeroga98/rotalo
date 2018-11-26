@@ -44,6 +44,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   private readonly timeToCheckNotification: number = 5000;
   showDropdownMenu = false;
   public showAnimation = false;
+  public promoCode = '';
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -141,6 +142,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       state => {
         if (state && state.body) {
           this.showAnimation = state.body.informacionReno.dibujarRenoRuta;
+          this.promoCode = state.body.informacionReno.codigoReno;
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);
