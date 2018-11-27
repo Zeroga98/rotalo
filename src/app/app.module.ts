@@ -151,6 +151,21 @@ import { FinanceBamComponent } from '../components/financeBam/financeBam.compone
 import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
 
+
+
+//Componentes y páginas del micrositio
+import { NavigationTopMicrositeComponent } from '../microsite/components-microsite/navigation-top-microsite/navigation-top-microsite.component';
+import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
+import { ProductsMicrositeService } from '../microsite/services-microsite/back/products-microsite.service';
+import { ConfigurationMicrositeService } from '../microsite/services-microsite/configuration/configuration-microsite.service';
+import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page'
+import { FeedMicrositeService } from '../microsite/pages-microsite/products-microsite/feedMicrosite.service';
+import { ProductMicrositeComponent } from '../microsite/components-microsite/product-microsite/product-microsite.component';
+import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
+import { DetailProductMicrositeComponent } from '../microsite/components-microsite/detail-product-microsite/detail-product-microsite.component';
+import { BannerLatiendaComponent } from '../microsite/components-microsite/banner-latienda/banner-latienda.component';
+import { ShoppingCarService } from '../microsite/services-microsite/front/shopping-car.service';
+import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -238,7 +253,15 @@ import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
     CompanySliderComponent,
     ModalVideoComponent,
     FinanceBamComponent,
-    ProductsPromoPage
+    ProductsPromoPage,
+    NavigationTopMicrositeComponent,
+    DetalleProductoMicrositioComponent,
+    CarMicrositePage,
+    ProductsMicrositePage,
+    ProductMicrositeComponent,
+    DetailProductMicrositeComponent,
+    BannerLatiendaComponent,
+    BackArrowMicrositeComponent
   ],
   imports: [
     BrowserModule,
@@ -324,7 +347,11 @@ import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
       provide: HTTP_INTERCEPTORS,
       useClass: NormalizeInterceptor,
       multi: true
-    }
+    },
+    ProductsMicrositeService,
+    ConfigurationMicrositeService,
+    FeedMicrositeService,
+    ShoppingCarService
   ],
   bootstrap: [AppComponent]
 })
