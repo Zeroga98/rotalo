@@ -180,4 +180,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.productsService.scroll = undefined;
   }
 
+  get isColombiaCountry() {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('co')) {
+      return true;
+    }
+    return false;
+  }
+
 }
