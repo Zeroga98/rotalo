@@ -1,0 +1,127 @@
+<navigation-top-microsite></navigation-top-microsite>
+<banner-latienda></banner-latienda>
+
+<div class="general-container">
+    <div class="container-info-user">
+        <div class="info-title">
+            <p>Mi carrito de compras</p>
+        </div>
+        <div class="info-user-box">
+            <div class="info-title-box">
+                <p>1. Verifica tu información personal</p>
+            </div>
+            <div class="label-title-form">Nombre</div>
+            <div class="row-form">
+                <div class="row-value">{{ nameUser }}</div>
+                <div class="icon-checked">
+                    <span class="circle-check"></span>
+                </div>
+            </div>
+            <div class="label-title-form">Tipo de documento</div>
+            <div class="row-form">
+                <div class="row-value">{{ typeDocument }}</div>
+                <div class="icon-checked"></div>
+            </div>
+            <div class="label-title-form">Número de doc.</div>
+            <div class="row-form">
+                <div class="row-value">{{ documentNumber }}</div>
+                <div class="icon-checked"></div>
+            </div>
+            <div class="label-title-form">Correo electrónico</div>
+            <div class="row-form">
+                <div class="row-value">{{ email }}</div>
+                <div class="icon-checked"></div>
+            </div>
+            <div class="label-title-form">Celular</div>
+            <div class="row-form">
+                <div class="row-value">{{ cellphone }}</div>
+                <div class="icon-checked"></div>
+            </div>
+
+            <div class="form-info">
+                <div class="info-title-box">
+                    <p>2. Agrega tu dirección de envío</p>
+                </div>
+                <div class="form-container">
+                    <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+                        <div class="row-two">
+                            <div class="form-group column">
+                                <select-states [ngClass]="{'invalid': errorState}" class="white-theme-select material-select" [country]="country" (selected)="state=$event; validateState()"></select-states>
+                                <span class="error-msg">Este campo es requerido.</span>
+                            </div>
+                            <div class="form-group column">
+                                <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                                <span class="error-msg">Este campo es requerido.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>
+                                <input [ngClass]="{'invalid': registerForm.get('address').invalid && !registerForm.get('address').pristine}" name="address"
+                                    formControlName="address" type="text" id="txt-address" autocomplete="off" />
+                                <label>
+                                    <span data-content="direccion">Dirección</span>
+                                </label>
+                            </span>
+                            <span>
+                                <span *ngIf="registerForm.get('address').touched && registerForm.get('address').invalid && !registerForm.get('address').pristine
+                                && !registerForm.get('address').errors['pattern']">
+                                    Este campo es requerido.
+                                </span>
+                                <span *ngIf="registerForm.get('address').touched && registerForm.get('address').invalid && !registerForm.get('address').pristine
+                                && registerForm.get('address').errors['pattern']">
+                                    El campo no cumple con el formato de teléfono.
+                                </span>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
+                                    formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                    maxlength="10" id="txt-cellphone" autocomplete="off" />
+                                <label>
+                                    <span data-content="Celular">Celular</span>
+                                </label>
+                            </span>
+                            <span>
+                                <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+                                && !registerForm.get('cellphone').errors['pattern']">
+                                    Este campo es requerido.
+                                </span>
+                                <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+                                && registerForm.get('cellphone').errors['pattern']">
+                                    El campo no cumple con el formato de teléfono.
+                                </span>
+                            </span>
+                        </div>
+                        <div class="btn-signup">
+                            <button class="btn primary" type="submit">Comprar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contaider-products">
+        <div class="title-products">
+            <div class="title-added-products">
+                <p>Artículos añadidos al carrito:</p>
+            </div>
+            <div class="btn-delete-product">
+                <span class="icon-delete"></span>
+            </div>
+        </div>
+        <div class="container-cards">
+            <div *ngFor="let product of products">
+                {{ product.name }} - {{ product.totalPrice }}
+            </div>
+        </div>
+        <div class="container-price"></div>
+        <div class="buttons-section"></div>
+    </div>
+</div>
+
+<!--
+<div *ngFor="let product of products">
+    {{ product | json }}
+</div>
+-->

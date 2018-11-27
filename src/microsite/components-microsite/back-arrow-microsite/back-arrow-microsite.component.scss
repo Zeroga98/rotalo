@@ -1,0 +1,22 @@
+:host{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin-right: 30px;
+    
+    .back-arrow {
+        height: inherit;
+        width: inherit;
+        border-radius: 50%;
+        background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
+        background-size: 50% 50%;
+        background-position: center;
+        cursor: pointer;
+        margin-right: 40px;
+
+        &:hover {
+          background: url(../../assets/img/iconos/ic_arrow_back_hover.svg) no-repeat;
+          background-size: contain;
+        }
+      } 
+}

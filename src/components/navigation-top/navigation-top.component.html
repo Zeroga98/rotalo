@@ -1,46 +1,56 @@
-<div class="md-overlay-promo"></div>
-<promo-animation [promoCode] = 'promoCode' *ngIf="showAnimation && isColombiaCountry"></promo-animation>
-<modal-promo  class="md-modal-center md-effect-1" id="custom-modal-promo" *ngIf="isColombiaCountry"></modal-promo>
 <nav>
-  <div class="container">
-    <div class="navbar-header">
-      <div class="flexbox center-center">
-        <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
-        <div class="container-offer">
-          <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
-            <div class="gtmSubeTuOferta outside-circle">
-              <div class="gtmSubeTuOferta inside-circle">
-                <span class="gtmSubeTuOferta icon-tag"></span>
-              </div>
-              <label class="gtmSubeTuOferta">Sube tu oferta</label>
-            </div>
+    <div class="container">
+      <div class="navbar-header">
+        <div class="divisor-left">
+          <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
+          <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
+            <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
+            <h1 class="sr-only">rótalo</h1>
           </a>
         </div>
+        <div class="divisor-right">
+          <ul class="list-options">
+            <li class="gtmCentroRotalo rotalo-center">
+              <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
+                <span class="gtmCentroRotalo text-rotalo">
+                  Centro Rótalo
+                  <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
+                </span>
+              </a>
+            </li>
+            <li class="perfil-container gtmPerfil">
+              <div (click)="onActivateMenu()" class="container-perfil">
+                <span class="gtmPerfil icon-account-header">
+                </span>
+                <p>Perfil</p>
+                <span *ngIf="hobbyNotification" class="noti-circle">1</span>
+              </div>
+              <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
+                <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
+                <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
+              </div>
+            </li>
+            <li class="car-container disabled">
+              <div class="container-car">
+                <span class="icon-shopping-car">
+                </span>
+                <p>Carrito</p>
+              </div>
+            </li>
+          </ul>
+          <div class="flexbox center-center">
+            <div class="container-offer">
+              <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
+                <div class="gtmSubeTuOferta outside-circle">
+                  <div class="gtmSubeTuOferta inside-circle">
+                    <span>+</span>
+                  </div>
+                  <label class="gtmSubeTuOferta">Subir oferta</label>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
-        <img class="gtmLogoRotalo" src="./assets/img/logo-white.svg" alt="brand">
-        <h1 class="sr-only">rótalo</h1>
-      </a>
-      <ul class="list-options">
-        <li class="gtmCentroRotalo">
-          <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
-            <span class="gtmCentroRotalo icon-rotalo">
-              <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
-            </span>
-          </a>
-        </li>
-        <li class="perfil-container gtmPerfil">
-          <div (click)="onActivateMenu()">
-            <span class="gtmPerfil icon-account">
-              <span  *ngIf="hobbyNotification" class="noti-circle">1</span>
-            </span>
-          </div>
-          <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
-              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
-          </div>
-        </li>
-      </ul>
     </div>
-  </div>
-</nav>
+  </nav>
