@@ -31,6 +31,7 @@ export class CarMicrositePage implements OnInit {
   public errorMessage = '';
   public errorState = false;
   public errorCity = false;
+  public carTotalPrice = 0;
 
   public registerForm: FormGroup;
 
@@ -44,6 +45,7 @@ export class CarMicrositePage implements OnInit {
   ngOnInit() {
     this.products = this.car.getProducts();
     console.log(this.products);
+    this.getCarTotalPrice();
     
     this.setCountry();
     this.initForm();
@@ -157,5 +159,8 @@ export class CarMicrositePage implements OnInit {
     if (this.state &&  this.city['id']) {
       this.errorCity = false;
     }
+  }
+
+  getCarTotalPrice() { 
   }
 }
