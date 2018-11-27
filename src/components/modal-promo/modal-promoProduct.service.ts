@@ -30,7 +30,7 @@ export class ModalPromoProductService {
 
   open(id: string, isWinner) {
     const modal: any = this.modals.filter(x => x.id === id)[0];
-    modal.open();
+    modal.open(isWinner);
   }
 
   close(id: string) {

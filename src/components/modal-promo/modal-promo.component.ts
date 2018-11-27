@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ModalPromoProductService } from './modal-promoProduct.service';
 import { ProductsService } from '../../services/products.service';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -26,6 +26,7 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
 
   constructor(private modalService: ModalPromoProductService,
     private el: ElementRef,
+    private changeRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService) {
       this.element = el.nativeElement;
     }
@@ -46,9 +47,11 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
     this.element = undefined;
   }
 
-  open(): void {
+  open(isWinner): void {
+    this.isWinner = isWinner;
     this.element.classList.add('md-show');
     document.body.classList.add('modal-open-promo');
+    this.changeRef.markForCheck();
   }
 
   close(): void {
