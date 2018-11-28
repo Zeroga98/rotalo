@@ -21,6 +21,7 @@ import { LoginService } from '../../services/login/login.service';
 import { ProductsService } from '../../services/products.service';
 import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
+import { NavigationTopService } from './navigation-top.service';
 @Component({
   selector: 'navigation-top',
   templateUrl: './navigation-top.component.html',
@@ -56,6 +57,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @ViewChild('closeMenuLabel', { read: ElementRef }) closeMenuLabel: ElementRef;
   @ViewChild('categoriesMenu', { read: ElementRef }) categoriesMenu: ElementRef;
   @ViewChild('autoCompleteBox', { read: ElementRef }) autoCompleteBox: ElementRef;
+  public autoCompleteOptions: Array<string> = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -79,6 +81,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private collectionService: CollectionSelectService,
     private loginService: LoginService,
     private productsService: ProductsService,
+    private navigationTopService:NavigationTopService,
   ) {
     this.onResize();
   }
@@ -113,6 +116,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     } else {
       this.communities = this.userService.getCommunitiesCurrent();
     }
+    this.autoCompleteOptions = this.navigationTopService.getAutoCompleteOptions();
   }
 
   async getCommunities() {
@@ -217,24 +221,34 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   selectedCategory(category: CategoryInterface) {
     this._closeMenu();
-    this.categorySelected.emit(category);
+    // this.categorySelected.emit(category);
+    this.navigationTopService.changeCategory(category);
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
     this._closeMenu();
-    this.subCategorySelected.emit(subCategory);
+   // this.subCategorySelected.emit(subCategory);
+    this.navigationTopService.changeSubCategory(subCategory);
   }
 
   openCategories(evt) {
     this.categoriesMenu.nativeElement.classList.toggle('opened');
-   // this.closeMenu.nativeElement.classList.toggle('icon-menu');
-    this.closeMenu.nativeElement.classList.toggle('gtmCategorias');
-    this.closeMenuLabel.nativeElement.classList.toggle('gtmCategorias');
+  }
+
+  changeSelectComunidad(evt) {
+    let name;
+     if (evt.target.selectedOptions) {
+      name = evt.target.selectedOptions[0].text;
+    } else {
+      name = evt.target.options[evt.target.selectedIndex].text;
+    }
+    const id = evt.target.value;
+    this.navigationTopService.changeCommunity({ name, id });
+    this.changeDetector.markForCheck();
   }
 
   private _closeMenu() {
     this.categoriesMenu.nativeElement.classList.remove('opened');
-    this.closeMenu.nativeElement.classList.add('icon-menu');
   }
 
 }

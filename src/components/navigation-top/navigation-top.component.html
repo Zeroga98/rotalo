@@ -17,7 +17,7 @@
         <div class="divisor-right">
           <ul class="list-options">
             <li>
-                <a class="categories" #closeMenu (click)="openCategories($event)">
+                <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
                     <span>
                       Categorías
                     </span>
@@ -26,7 +26,7 @@
             <li>
                 <div class="toolbar__filters">
                     <div class="select-community">
-                      <select name="community">
+                      <select name="community" (change)="changeSelectComunidad($event)">
                         <option selected value disabled>Comunidades</option>
                         <option value="-1">Todas</option>
                         <option *ngFor="let community of communities" value="{{community.id}}" >{{community.nombre}}

@@ -43,6 +43,7 @@ import {
 } from '../../commons/constants/banner-imgs-promo.constants';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 
 
 @Component({
@@ -101,6 +102,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
     private userService: UserService,
+    private navigationTopService: NavigationTopService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -126,7 +128,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-    // this.setScrollEvent();
+    this.communitySubscription();
+    this.categorySubscription();
+    this.subCategorySubscription();
   }
 
   ngOnDestroy(): void {
@@ -139,7 +143,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.productsService.products.length > 0) {
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
-        debugger
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
@@ -368,6 +371,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     window.scrollTo(0, 0);
   }
 
+
+  communitySubscription() {
+    this.navigationTopService.currentEventCommunity.subscribe(event => {
+      if (event) {
+        this.changeCommunity(event);
+      }
+    });
+  }
+
   changeCommunity(community: any) {
     if (this.isSuperUser()) {
       this.loadFeaturedProduct(this.countrySelected.id, community.id);
@@ -377,6 +389,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.routineUpdateProducts({ 'filter[community]': community.id });
     }
   }
+
+  categorySubscription() {
+    this.navigationTopService.currentEventCategory.subscribe(event => {
+      if (event) {
+        this.selectedCategory(event);
+      }
+    });
+  }
+
 
   selectedCategory(category: CategoryInterface) {
     this.setconfigFiltersSubcategory({
@@ -396,6 +417,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       ROUTES.PRODUCTS.SHOW
       }/${product.id}`;
     this.router.navigate([routeDetailProduct]);
+  }
+
+  subCategorySubscription() {
+    this.navigationTopService.currentEventSubCategory.subscribe(event => {
+      if (event) {
+        this.selectedSubCategory(event);
+      }
+    });
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
