@@ -1,5 +1,5 @@
 import { CountryInterface } from './../select-country/country.interface';
-import { ChangeDetectorRef, HostListener } from '@angular/core';
+import { ChangeDetectorRef, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { NotificationsService } from './../../services/notifications.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ROUTES } from './../../router/routes';
@@ -19,6 +19,8 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LoginService } from '../../services/login/login.service';
 import { ProductsService } from '../../services/products.service';
+import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from '../../commons/interfaces/category.interface';
 @Component({
   selector: 'navigation-top',
   templateUrl: './navigation-top.component.html',
@@ -45,6 +47,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   showDropdownMenu = false;
   public showAnimation = false;
   public promoCode = '';
+  public communities;
+  @Output() selectedCommunity: EventEmitter<any> = new EventEmitter();
+  @Output() tagsChanged: EventEmitter<Array<string>> = new EventEmitter();
+  @Output() categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
+  @Output() subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
+  @ViewChild('closeMenu', { read: ElementRef }) closeMenu: ElementRef;
+  @ViewChild('closeMenuLabel', { read: ElementRef }) closeMenuLabel: ElementRef;
+  @ViewChild('categoriesMenu', { read: ElementRef }) categoriesMenu: ElementRef;
+  @ViewChild('autoCompleteBox', { read: ElementRef }) autoCompleteBox: ElementRef;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -97,6 +108,21 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         this.messagesService.setUnreadNotificationParam(path);
       }
     });
+    if (!this.userService.getCommunitiesCurrent()) {
+      this.getCommunities();
+    } else {
+      this.communities = this.userService.getCommunitiesCurrent();
+    }
+  }
+
+  async getCommunities() {
+    try {
+      const communities = await this.userService.getCommunities();
+      this.communities = communities.communities;
+      this.userService.setCommunities(this.communities);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async getCountries() {
@@ -186,6 +212,29 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+
+
+  selectedCategory(category: CategoryInterface) {
+    this._closeMenu();
+    this.categorySelected.emit(category);
+  }
+
+  selectedSubCategory(subCategory: SubcategoryInterface) {
+    this._closeMenu();
+    this.subCategorySelected.emit(subCategory);
+  }
+
+  openCategories(evt) {
+    this.categoriesMenu.nativeElement.classList.toggle('opened');
+   // this.closeMenu.nativeElement.classList.toggle('icon-menu');
+    this.closeMenu.nativeElement.classList.toggle('gtmCategorias');
+    this.closeMenuLabel.nativeElement.classList.toggle('gtmCategorias');
+  }
+
+  private _closeMenu() {
+    this.categoriesMenu.nativeElement.classList.remove('opened');
+    this.closeMenu.nativeElement.classList.add('icon-menu');
   }
 
 }

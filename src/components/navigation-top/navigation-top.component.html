@@ -1,15 +1,39 @@
 <nav>
     <div class="container">
-      <div class="navbar-header">
+      <div class="navbar-header material-design form-theme">
         <div class="divisor-left">
           <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
           <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
             <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
             <h1 class="sr-only">rótalo</h1>
           </a>
+          <div class="search-container">
+              <input class="form-control" type="text" name="search">
+              <div class="search-icon">
+              </div>
+          </div>
+
         </div>
         <div class="divisor-right">
           <ul class="list-options">
+            <li>
+                <a class="categories" #closeMenu (click)="openCategories($event)">
+                    <span>
+                      Categorías
+                    </span>
+                </a>
+            </li>
+            <li>
+                <div class="toolbar__filters">
+                    <div class="select-community">
+                      <select name="community">
+                        <option selected value disabled>Comunidades</option>
+                        <option value="-1">Todas</option>
+                        <option *ngFor="let community of communities" value="{{community.id}}" >{{community.nombre}}
+                      </select>
+                    </div>
+                  </div>
+            </li>
             <li class="gtmCentroRotalo rotalo-center">
               <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
                 <span class="gtmCentroRotalo text-rotalo">
@@ -53,4 +77,5 @@
         </div>
       </div>
     </div>
+    <categories-menu #categoriesMenu (categorySelected)= "selectedCategory($event)" (subCategorySelected)= "selectedSubCategory($event)"></categories-menu>
   </nav>

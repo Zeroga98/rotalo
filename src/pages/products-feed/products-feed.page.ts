@@ -139,6 +139,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.productsService.products.length > 0) {
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
+        debugger
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
