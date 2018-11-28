@@ -81,6 +81,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   public startDate = START_DATE_BF;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
+  public showModalExist: boolean = false;;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -551,11 +552,19 @@ export class DetailProductMicrositeComponent implements OnInit {
     product.quantity = this.quantityForm.get('stock').value;
     product.totalPrice = product.quantity * product.price;
 
-    this.car.addProduct(product);
+    if(this.car.addProduct(product)) {
+      this.router.navigate([
+        `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+      ]);
+    } else {
+      this.showModalExist = true;
+    }    
+  }
+
+  goToShoppingCar() {
+    this.showModalExist = false;
     this.router.navigate([
       `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
     ]);
   }
-
-
 }

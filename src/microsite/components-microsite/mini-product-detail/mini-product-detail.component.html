@@ -1,0 +1,58 @@
+<div class="mini-producto-detail">
+    <div class="product-info">
+        <div class="container-info">
+            <div class="primary-info">
+                <div class="title-image-product">
+                    <div class="img-product-section">
+                        <div class="container-product__image">
+                            <img src="{{productPhoto}}">
+                        </div>
+                    </div>
+                    <div class="title-ptoduct">
+                        <div class="title-text">
+                            <p>
+                                {{ product.name }}
+                            </p>
+                        </div>
+                        <div class="unitary-price">
+                            <p>
+                                {{ product.price | currency:"$":0 | removeDigits }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="quantity-info">
+                    <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
+                        <div class="form-group">
+                            <label class="label-title">Cantidad</label>
+                            <div class="input-group quantity-wrapper">
+                                <span class="input-group-btn">
+                                    <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                        <span>-</span>
+                                    </button>
+                                </span>
+                                <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
+                                    placeholder="0" maxlength="5" autocomplete="off" (blur)="onChange($event)">
+                                <span class="input-group-btn">
+                                    <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                        <span>+</span>
+                                    </button>
+                                </span>
+                            </div>
+                            <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">¡Oh no! solo hay {{totalStock}} unidades disponibles.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="secondary-info">
+                <div class="price-info">
+                    <div class="total-price">Total: {{ product.quantity * product.price | currency:"$":0 | removeDigits }}</div>
+                </div>
+                <div class="check-section">
+                    <div [ngClass]="{'selected': classCheckSelected}" (click)="clickCheckProduct()"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -166,6 +166,7 @@ import { DetailProductMicrositeComponent } from '../microsite/components-microsi
 import { BannerLatiendaComponent } from '../microsite/components-microsite/banner-latienda/banner-latienda.component';
 import { ShoppingCarService } from '../microsite/services-microsite/front/shopping-car.service';
 import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
+import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -261,7 +262,8 @@ import { BackArrowMicrositeComponent } from '../microsite/components-microsite/b
     ProductMicrositeComponent,
     DetailProductMicrositeComponent,
     BannerLatiendaComponent,
-    BackArrowMicrositeComponent
+    BackArrowMicrositeComponent,
+    MiniProductDetailComponent
   ],
   imports: [
     BrowserModule,

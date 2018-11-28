@@ -32,6 +32,8 @@ export class CarMicrositePage implements OnInit {
   public errorState = false;
   public errorCity = false;
   public carTotalPrice = 0;
+  public carSubTotalPrice = 0;
+  public carTotalIva = 0;
 
   public registerForm: FormGroup;
 
@@ -46,17 +48,40 @@ export class CarMicrositePage implements OnInit {
     this.products = this.car.getProducts();
     console.log(this.products);
     this.getCarTotalPrice();
-    
+
     this.setCountry();
     this.initForm();
     this.loadUserInfo();
   }
 
+  getDocument(id) {
+    console.log(id)
+    switch (id) {
+      case 1: {
+        this.typeDocument = "CC"
+        break;
+      }
+      case 2: {
+        this.typeDocument = "CE"
+        break;
+      }
+      case 3: {
+        this.typeDocument = "PA"
+        break;
+      }
+      default:
+        break;
+    }
+
+    return this.typeDocument;
+  }
+
   async loadUserInfo() {
     try {
       this.currentUser = await this.userService.getInfoUser();
+      console.log(this.currentUser);
       this.nameUser = this.currentUser.name;
-      this.typeDocument = 'DPI';
+      this.typeDocument = this.getDocument(this.currentUser['type-document-id']);
       this.documentNumber = this.currentUser['id-number'];
       this.userId = this.currentUser.id;
       this.email = this.currentUser.email;
@@ -141,8 +166,8 @@ export class CarMicrositePage implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-       control.markAsDirty({ onlySelf: true });
-       control.markAsTouched({ onlySelf: true });
+        control.markAsDirty({ onlySelf: true });
+        control.markAsTouched({ onlySelf: true });
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }
@@ -156,11 +181,33 @@ export class CarMicrositePage implements OnInit {
   }
 
   validateCity() {
-    if (this.state &&  this.city['id']) {
+    if (this.state && this.city['id']) {
       this.errorCity = false;
     }
   }
 
-  getCarTotalPrice() { 
+  getCarTotalPrice() {
+    this.carTotalPrice = 0;
+    this.products.forEach(element => {
+      this.carTotalPrice += element.totalPrice;
+    });
+    this.carTotalIva = Math.round(this.carTotalPrice - (this.carTotalPrice / 1.19));
+    this.carSubTotalPrice = this.carTotalPrice - this.carTotalIva;
+  }
+
+  goToMicrosite() {
+    this.router.navigate([`/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
+  }
+
+  deleteCheckedProducts() {
+    this.car.deleteCheckedProducts();
+    this.products = this.car.getProducts();
+    this.getCarTotalPrice();
+  }
+
+  changeQuantity(stock: number, product) {
+    this.car.updateProductQuantity(product.id, stock);
+    this.products = this.car.getProducts();
+    this.getCarTotalPrice();
   }
 }
