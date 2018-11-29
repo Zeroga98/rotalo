@@ -16,7 +16,6 @@ import { ShoppingCarService } from '../../services-microsite/front/shopping-car.
 export class MiniProductDetailComponent implements OnInit {
 
   @Input() product;
-  @Output() minusQuantity = new EventEmitter();
   @Output() changeQuantity: EventEmitter<number> = new EventEmitter();
 
   public carouselConfig: NgxCarousel;

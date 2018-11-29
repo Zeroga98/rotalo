@@ -8,7 +8,7 @@
                             <img src="{{productPhoto}}">
                         </div>
                     </div>
-                    <div class="title-ptoduct">
+                    <div class="title-product">
                         <div class="title-text">
                             <p>
                                 {{ product.name }}
@@ -47,7 +47,9 @@
             </div>
             <div class="secondary-info">
                 <div class="price-info">
-                    <div class="total-price">Total: {{ product.quantity * product.price | currency:"$":0 | removeDigits }}</div>
+                    <div class="total-price">Total: 
+                        <br class="next-line">
+                        {{ product.quantity * product.price | currency:"$":0 | removeDigits }}</div>
                 </div>
                 <div class="check-section">
                     <div [ngClass]="{'selected': classCheckSelected}" (click)="clickCheckProduct()"></div>
