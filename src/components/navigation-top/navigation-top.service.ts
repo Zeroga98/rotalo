@@ -13,6 +13,9 @@ export class NavigationTopService {
   private eventSourceSubCategory = new BehaviorSubject<any>(null);
   currentEventSubCategory = this.eventSourceSubCategory.asObservable();
 
+  private eventSourceSearch = new BehaviorSubject<any>(null);
+  currentEventSearch = this.eventSourceSearch.asObservable();
+
   constructor() { }
   private autoCompleteOptions: Array<string> = [];
 
@@ -24,7 +27,7 @@ export class NavigationTopService {
     this.autoCompleteOptions = options;
   }
 
-  addOptions(option: string): Array<string> {
+  addOptions(option): Array<string> {
     if (this.autoCompleteOptions.indexOf(option) == -1) this.autoCompleteOptions.push(option);
     return this.autoCompleteOptions;
   }
@@ -39,6 +42,10 @@ export class NavigationTopService {
 
   changeSubCategory(event) {
     this.eventSourceSubCategory.next(event);
+  }
+
+  changeSearch(event) {
+    this.eventSourceSearch.next(event);
   }
 
 }

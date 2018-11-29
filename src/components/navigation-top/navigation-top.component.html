@@ -8,9 +8,13 @@
             <h1 class="sr-only">rótalo</h1>
           </a>
           <div class="search-container">
-              <input class="form-control" type="text" name="search">
-              <div class="search-icon">
-              </div>
+            <form (ngSubmit)="onSubmitSearch()">
+              <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+              <button class="button-search" type="submit">
+                <div class="search-icon">
+                </div>
+              </button>
+            </form>
           </div>
 
         </div>

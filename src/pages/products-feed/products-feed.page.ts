@@ -131,6 +131,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.communitySubscription();
     this.categorySubscription();
     this.subCategorySubscription();
+    this.searchSubscription();
   }
 
   ngOnDestroy(): void {
@@ -307,9 +308,18 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     return this.currentFilter;
   }
 
-  searchByTags(evt: Array<string>) {
-    if (evt.length > 0) {
-      const filterValue = evt.join('+');
+
+  searchSubscription() {
+    this.navigationTopService.currentEventSearch.subscribe(event => {
+     if (event != null || event!= undefined) {
+        this.searchByTags(event);
+     }
+    });
+  }
+
+  searchByTags(evt) {
+    if (evt) {
+      const filterValue = evt;
       this.setconfigFiltersSubcategory(null);
       this.routineUpdateProducts({
         'filter[search]': filterValue,

@@ -58,6 +58,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @ViewChild('categoriesMenu', { read: ElementRef }) categoriesMenu: ElementRef;
   @ViewChild('autoCompleteBox', { read: ElementRef }) autoCompleteBox: ElementRef;
   public autoCompleteOptions: Array<string> = [];
+  public tags: Array<string> = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -245,6 +246,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     const id = evt.target.value;
     this.navigationTopService.changeCommunity({ name, id });
     this.changeDetector.markForCheck();
+  }
+
+  onSubmitSearch() {
+    this.changeTags();
+  }
+
+  changeTags() {
+    this.autoCompleteOptions = this.navigationTopService.addOptions(this.tags);
+    this.navigationTopService.changeSearch(this.tags);
   }
 
   private _closeMenu() {

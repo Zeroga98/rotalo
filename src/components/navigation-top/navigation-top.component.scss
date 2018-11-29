@@ -286,12 +286,21 @@
     min-width: 275px;
     padding-right: 30px;
   }
-  .search-icon {
+  .button-search {
     position: absolute;
-    top: 9px;
-    right: 9px;
+    border-radius: 50%;
+    top: 3px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+  }
+  .button-search:hover {
+    background-color: #EEEEEE;
+  }
+  .search-icon {
     width: 18px;
     height: 18px;
+    margin: 0 auto;
     background: url(../../assets/img/iconos/ic_header_search.svg);
     background-position: 92% center;
     background-size: 18px 18px;
@@ -323,6 +332,13 @@
     background-position: 95% center;
     background-size: 10px 10px;
     background-repeat: no-repeat;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
   }
 
 }
