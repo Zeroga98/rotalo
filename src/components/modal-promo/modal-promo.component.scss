@@ -106,10 +106,6 @@
     background: #FFFFFF;
     padding: 35px;
     position: relative;
-    .info-container{
-
-    }
-
     .close-container {
       cursor: pointer;
       font-size: 2.5rem;
@@ -152,6 +148,14 @@
           background-color: #C61B27;
         }
       }
+    }
+  }
+  .terms-link{
+    .share-description {
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: #FFFFFF;
+      text-decoration: underline;
     }
   }
 }
