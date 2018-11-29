@@ -1,85 +1,125 @@
 <nav>
-    <div class="container">
-      <div class="navbar-header material-design form-theme">
-        <div class="divisor-left">
-          <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
-          <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
-            <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
-            <h1 class="sr-only">rótalo</h1>
-          </a>
-          <div class="search-container">
-            <form (ngSubmit)="onSubmitSearch()">
-              <input [(ngModel)]="tags" class="form-control" type="text" name="search">
-              <button class="button-search" type="submit">
-                <div class="search-icon">
-                </div>
-              </button>
-            </form>
-          </div>
-
+  <div class="container">
+    <div class="navbar-header material-design form-theme">
+      <div class="divisor-left">
+        <back-arrow class="white" *ngIf="!hideBackArrow"></back-arrow>
+        <a class="gtmLogoRotalo navbar-brand" (click)="goToHome()">
+          <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
+          <h1 class="sr-only">rótalo</h1>
+        </a>
+        <div class="search-container desktop">
+          <form (ngSubmit)="onSubmitSearch()">
+            <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+            <button class="button-search" type="submit">
+              <div class="search-icon">
+              </div>
+            </button>
+          </form>
         </div>
-        <div class="divisor-right">
-          <ul class="list-options">
-            <li>
-                <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
-                    <span>
-                      Categorías
-                    </span>
-                </a>
-            </li>
-            <li>
-                <div class="toolbar__filters">
-                    <div class="select-community">
-                      <select name="community" (change)="changeSelectComunidad($event)">
-                        <option selected value disabled>Comunidades</option>
-                        <option value="-1">Todas</option>
-                        <option *ngFor="let community of communities" value="{{community.id}}" >{{community.nombre}}
-                      </select>
-                    </div>
-                  </div>
-            </li>
-            <li class="gtmCentroRotalo rotalo-center">
-              <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
-                <span class="gtmCentroRotalo text-rotalo">
-                  Centro Rótalo
-                  <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
-                </span>
-              </a>
-            </li>
-            <li class="perfil-container gtmPerfil">
-              <div (click)="onActivateMenu()" class="container-perfil">
-                <span class="gtmPerfil icon-account-header">
-                </span>
-                <p>Perfil</p>
-                <span *ngIf="hobbyNotification" class="noti-circle">1</span>
+
+      </div>
+      <div class="divisor-right">
+        <ul class="list-options">
+          <li class="desktop">
+            <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
+              <span>
+                Categorías
+              </span>
+            </a>
+          </li>
+          <li class="desktop">
+            <div class="toolbar__filters">
+              <div class="select-community">
+                <select name="community" (change)="changeSelectComunidad($event)">
+                  <option selected value disabled>Comunidades</option>
+                  <option value="-1">Todas</option>
+                  <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
+                </select>
               </div>
-              <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-                <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
-                <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
-              </div>
-            </li>
-            <li class="car-container disabled">
-              <div class="container-car">
-                <span class="icon-shopping-car">
-                </span>
-                <p>Carrito</p>
-              </div>
-            </li>
-          </ul>
-          <div class="flexbox center-center">
-            <div class="container-offer">
-              <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
-                <div class="gtmSubeTuOferta outside-circle">
-                  <div class="gtmSubeTuOferta inside-circle">
-                    <span>+</span>
-                  </div>
-                  <label class="gtmSubeTuOferta">Subir oferta</label>
-                </div>
-              </a>
             </div>
+          </li>
+          <li class="gtmCentroRotalo rotalo-center">
+            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
+              <span class="gtmCentroRotalo text-rotalo">
+                Centro Rótalo
+                <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
+              </span>
+              <span class="gtmCentroRotalo icon-rotalo">
+                <span class="noti-circle">{{messagesUnRead}}</span>
+              </span>
+            </a>
+          </li>
+          <li class="perfil-container gtmPerfil">
+            <div (click)="onActivateMenu()" class="container-perfil">
+              <span class="gtmPerfil icon-account-header">
+              </span>
+              <p>Perfil</p>
+              <span *ngIf="hobbyNotification" class="noti-circle">1</span>
+            </div>
+            <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
+              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
+              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
+            </div>
+          </li>
+          <li class="car-container disabled">
+            <div class="container-car">
+              <span class="icon-shopping-car">
+              </span>
+              <p>Carrito</p>
+            </div>
+          </li>
+        </ul>
+        <div class="flexbox center-center">
+          <div class="container-offer">
+            <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
+              <div class="gtmSubeTuOferta outside-circle">
+                <div class="gtmSubeTuOferta inside-circle">
+                  <span>+</span>
+                </div>
+                <label class="gtmSubeTuOferta">Subir oferta</label>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <categories-menu #categoriesMenu (categorySelected)= "selectedCategory($event)" (subCategorySelected)= "selectedSubCategory($event)"></categories-menu>
-  </nav>
+  </div>
+  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"></categories-menu>
+</nav>
+<div class="navbar-header material-design form-theme toolbar">
+  <div class="toolbar-container">
+    <div class="divisor-left">
+      <div class="search-container">
+        <form (ngSubmit)="onSubmitSearch()">
+          <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+          <button class="button-search" type="submit">
+            <div class="search-icon">
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="divisor-right">
+      <ul class="list-options">
+        <li>
+          <div class="toolbar__filters">
+            <div class="select-community">
+              <select name="community" (change)="changeSelectComunidad($event)">
+                <option selected value disabled>Comunidades</option>
+                <option value="-1">Todas</option>
+                <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
+              </select>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
+            <span>
+              Categorías
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

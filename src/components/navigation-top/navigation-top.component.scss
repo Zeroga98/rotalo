@@ -276,6 +276,7 @@
     color: #707070;
     padding-right: 3rem;
     font-size: 1.6rem;
+    background-color: transparent;
   }
   .search-container {
     position: relative;
@@ -343,21 +344,71 @@
 
 }
 
+:host {
+  .navbar-header .list-options li .icon-rotalo {
+    display: none;
+    width: 18px;
+    height: 18px;
+    background-image: url(../../assets/img/rotalo-center.svg);
+    background-size: 18px 18px;
+  }
+   .navbar-header .list-options li .icon-rotalo {
+    position: relative;
+  }
 
+  .navbar-header .list-options li .icon-rotalo .noti-circle {
+    top: 7px;
+    right: -10px;
+  }
+}
 
-@media screen and (max-width: 930px) {
+@media screen and (max-width: 1200px) {
   :host {
-    .navbar-header {
-      .list-options {
-        li:not(:last-child) {
-          margin-right: 3rem;
-        }
+    .container-car {
+      p {
+        display: none;
       }
+    }
+    .container-perfil {
+      p {
+        display: none;
+      }
+    }
+    .text-rotalo {
+        display: none;
+    }
+
+    .navbar-header .list-options li .icon-rotalo
+    {
+      display: block;
+    }
+
+    .navbar-header .list-options li.rotalo-center {
+      padding-right: 0;
     }
   }
 }
 
-@media screen and (max-width: 700px) {
+:host {
+  .toolbar {
+    display: none;
+    background-color: #cacaca;
+  }
+  .toolbar-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 1080px) {
   :host {
     .container-offer {
       position: fixed;
@@ -379,34 +430,55 @@
       }
     }
     .navbar-header {
-      padding: 2rem 0;
+
       .navbar-brand {
         width: 20%;
         min-width: 8rem;
       }
     }
+    .list-options{
+      padding: 0;
+    }
   }
 }
 
+@media screen and (max-width: 890px) {
+  :host {
+    .navbar-header.toolbar {
+      display: block;
+      padding: 0;
+    }
+    .desktop {
+      display: none;
+    }
+     .navbar-header .list-options li.desktop {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 930px) {
+  :host {
+    .navbar-header {
+      .list-options {
+        li:not(:last-child) {
+          margin-right: 3rem;
+        }
+      }
+    }
+  }
+}
+
+
+
 @media screen and (max-width: 400px) {
   :host {
-    .container {
-      width: 95%;
-    }
     .navbar-header {
       .back-arrow {
         width: 3rem;
         height: 3rem;
       }
-      .list-options {
-        padding-left: 10px;
-        li {
-          font-size: 2rem;
-        }
-        li:not(:last-child) {
-          margin-right: 2rem;
-        }
-      }
+
     }
   }
 }

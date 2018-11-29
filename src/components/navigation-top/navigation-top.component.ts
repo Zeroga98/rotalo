@@ -103,7 +103,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     let path = {
       'rutaRenoEscondido':  this.router.url
     };
+
     this.messagesService.setUnreadNotificationParam(path);
+
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         path = {
@@ -112,6 +114,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         this.messagesService.setUnreadNotificationParam(path);
       }
     });
+
+
     if (!this.userService.getCommunitiesCurrent()) {
       this.getCommunities();
     } else {
@@ -259,6 +263,10 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   private _closeMenu() {
     this.categoriesMenu.nativeElement.classList.remove('opened');
+  }
+
+  isFiltersShow() {
+
   }
 
 }

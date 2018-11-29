@@ -62,7 +62,14 @@ export const IMGS_COMPANIES = [
   {
     url: './assets/img/logos_company/casa_britanica@2x.png',
     name: 'casa_britanica'
-  }]
+  }
+  ,
+
+  {
+    url: './assets/img/logos_company/magnum.png',
+    name: 'magnum'
+  }
+]
 
 ];
 
@@ -129,7 +136,12 @@ export const IMGS_COMPANIES_MOBILE = [
   [{
     url: './assets/img/logos_company/casa_britanica@2x.png',
     name: 'casa_britanica'
-  }]
+  },
+  {
+    url: './assets/img/logos_company/magnum.png',
+    name: 'magnum'
+  }
+]
 
 ];
 
