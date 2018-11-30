@@ -59,6 +59,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @ViewChild('autoCompleteBox', { read: ElementRef }) autoCompleteBox: ElementRef;
   public autoCompleteOptions: Array<string> = [];
   public tags: Array<string> = [];
+  public showOptions;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -103,7 +104,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     let path = {
       'rutaRenoEscondido':  this.router.url
     };
+    if (this.router.url == '/products/home') {
 
+    }
     this.messagesService.setUnreadNotificationParam(path);
 
     this.router.events.subscribe((event: any) => {

@@ -442,7 +442,7 @@
   }
 }
 
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 900px) {
   :host {
     .navbar-header.toolbar {
       display: block;
@@ -469,6 +469,20 @@
   }
 }
 
+@media screen and (max-width: 625px) {
+  :host {
+    .toolbar-container {
+      justify-content: center;
+      flex-direction: column;
+    }
+    .divisor-right.mobile{
+      .list-options {
+        margin-right: 0px;
+        margin-top: 10px;
+      }
+    }
+  }
+}
 
 
 @media screen and (max-width: 400px) {
