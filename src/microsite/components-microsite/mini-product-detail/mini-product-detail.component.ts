@@ -26,6 +26,7 @@ export class MiniProductDetailComponent implements OnInit {
   public totalStock;
   classCheckSelected = false;
   ngOnInit() {
+    console.log(this.product)
     this.initProductInfo();
     this.initQuantityForm();
   }
@@ -38,9 +39,9 @@ export class MiniProductDetailComponent implements OnInit {
   }
 
   initProductInfo() {
-    this.productsPhotos = [].concat(this.product.photoList);
+    this.productsPhotos = [].concat(this.product.product.photos);
     this.productPhoto = this.productsPhotos[0].url;
-    this.totalStock = this.product.stock;
+    this.totalStock = this.product.product.stock;
     this.initialQuantity = this.product.quantity;
   }
 
@@ -53,7 +54,7 @@ export class MiniProductDetailComponent implements OnInit {
   }
 
   addStock() {
-    if (this.quantityForm.get('stock').value < this.product.stock) {
+    if (this.quantityForm.get('stock').value < this.totalStock) {
       let stock = this.quantityForm.get('stock').value;
       stock = ++stock;
       this.quantityForm.patchValue({ stock: stock });
@@ -72,7 +73,7 @@ export class MiniProductDetailComponent implements OnInit {
 
   clickCheckProduct() {
     this.classCheckSelected = !this.classCheckSelected;
-    this.car.checkProduct(this.product, this.classCheckSelected);
+    this.car.checkProduct(this.product.product.id, this.classCheckSelected);
   }
 
   onChange(event) {

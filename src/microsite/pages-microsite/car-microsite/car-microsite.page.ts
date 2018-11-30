@@ -105,7 +105,6 @@ export class CarMicrositePage implements OnInit {
   async loadUserInfo() {
     try {
       this.currentUser = await this.userService.getInfoUser();
-      console.log(this.currentUser);
       this.nameUser = this.currentUser.name;
       this.typeDocument = this.getDocument(this.currentUser['type-document-id']);
       this.documentNumber = this.currentUser['id-number'];
@@ -215,7 +214,7 @@ export class CarMicrositePage implements OnInit {
   getCarTotalPrice() {
     this.carTotalPrice = 0;
     this.products.forEach(element => {
-      this.carTotalPrice += element.totalPrice;
+      this.carTotalPrice += element.quantity * element.product.price;
     });
     this.carTotalIva = Math.round(this.carTotalPrice - (this.carTotalPrice / 1.19));
     this.carSubTotalPrice = this.carTotalPrice - this.carTotalIva;
@@ -226,9 +225,10 @@ export class CarMicrositePage implements OnInit {
   }
 
   deleteCheckedProducts() {
-    this.car.deleteCheckedProducts();
-    this.products = this.car.getProducts();
-    this.getCarTotalPrice();
+    console.log(this.car.getCheckedProducts());
+    //this.car.deleteCheckedProducts();
+    //this.products = this.car.getProducts();
+    //this.getCarTotalPrice();
   }
 
   changeQuantity(stock: number, product) {
@@ -265,14 +265,13 @@ export class CarMicrositePage implements OnInit {
   async loadProducts() {
     const params = this.getParamsToProducts();
     try {
-      alert("entra")
       var response = await this.back.getCarProducts(params);
-      alert("sale")
-      console.log(response);
+      response.carroCompras.commerceItems.forEach(element => {
+        this.products.push(element);        
+      });
+      this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      console.log("error")
-      console.log(error);
       this.changeDetectorRef.markForCheck();
     }
     this.changeDetectorRef.markForCheck();

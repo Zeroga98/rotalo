@@ -83,13 +83,23 @@ export class ProductsMicrositeService {
       }); 
   }
 
+  deleteProductToBD(body, params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/carritos/productos/eliminar';
+    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        return response;
+      }); 
+  }
+
   getCarProducts(params): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos';
     return this.http.get(url, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
-        return response.body.carroCompras;
+        return response.body;
       });
   }
 
