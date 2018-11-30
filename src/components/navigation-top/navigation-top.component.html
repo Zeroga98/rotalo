@@ -7,7 +7,7 @@
           <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
           <h1 class="sr-only">rótalo</h1>
         </a>
-        <div class="search-container desktop">
+        <div *ngIf="showOptions" class="search-container desktop">
           <form (ngSubmit)="onSubmitSearch()">
             <input [(ngModel)]="tags" class="form-control" type="text" name="search">
             <button class="button-search" type="submit">
@@ -20,14 +20,14 @@
       </div>
       <div class="divisor-right">
         <ul class="list-options">
-          <li class="desktop">
+          <li *ngIf="showOptions" class="desktop">
             <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
               <span>
                 Categorías
               </span>
             </a>
           </li>
-          <li class="desktop">
+          <li *ngIf="showOptions" class="desktop">
             <div class="toolbar__filters">
               <div class="select-community">
                 <select name="community" (change)="changeSelectComunidad($event)">
@@ -86,7 +86,7 @@
   </div>
   <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"></categories-menu>
 </nav>
-<div class="navbar-header material-design form-theme toolbar">
+<div *ngIf="showOptions" class="navbar-header material-design form-theme toolbar">
   <div class="toolbar-container">
     <div class="divisor-left">
       <div class="search-container">

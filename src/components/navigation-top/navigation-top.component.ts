@@ -98,15 +98,21 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     if (this.navigationService.getMessagesUnRead()) {
       this.messagesUnRead = this.navigationService.getMessagesUnRead();
     }
+
     if (this.navigationService.getNotificationHobbies()) {
       this.notificationHobby = this.navigationService.getNotificationHobbies();
     }
+
     let path = {
       'rutaRenoEscondido':  this.router.url
     };
-    if (this.router.url == '/products/home') {
 
+    if (this.router.url == `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`) {
+      this.showOptions = true;
+    } else {
+      this.showOptions = false;
     }
+
     this.messagesService.setUnreadNotificationParam(path);
 
     this.router.events.subscribe((event: any) => {
@@ -114,6 +120,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         path = {
           'rutaRenoEscondido':  this.router.url
         };
+        if (this.router.url == '/products/home') {
+          this.showOptions = true;
+        } else {
+          this.showOptions = false;
+        }
         this.messagesService.setUnreadNotificationParam(path);
       }
     });
