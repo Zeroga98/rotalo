@@ -1,7 +1,17 @@
 <navigation-top-microsite></navigation-top-microsite>
 <banner-latienda></banner-latienda>
-
-<form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+<div *ngIf="products.length == 0" class="no-products">
+    <div class="info-title">
+        <p>Mi carrito de compras</p>
+    </div>
+    <div class="container-load-car">
+        <div class="img-shopping-car"></div>
+        <div class="text-empty">Este carrito se encuentra vacío</div>
+        <div class="text-start-load">¡Empieza a llenarlo!</div>
+        <button class="btn-back-microsite" (click)="goToMicrosite()">Volver</button>
+    </div>
+</div>
+<form *ngIf="products.length > 0" role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
     <div class="general-container">
         <div class="container-info-user">
             <div class="info-title">
@@ -9,43 +19,47 @@
             </div>
             <div class="info-user-box">
                 <div class="user-info">
-                    <div class="info-title-box">
+                    <div class="info-title-box" (click)="hideInfoText()">
                         <p>1. Verifica tu información personal</p>
+                        <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showInfo}"></div>
                     </div>
-                    <div class="label-title-form">Nombre</div>
-                    <div class="row-form">
-                        <div class="row-value">{{ nameUser }}</div>
-                        <div class="icon-checked">
-                            <span class="circle-check"></span>
+                    <div class="info-container" *ngIf="showInfo">
+                        <div class="label-title-form">Nombre</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ nameUser }}</div>
+                            <div class="icon-checked">
+                                <span class="circle-check"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="label-title-form">Tipo de documento</div>
-                    <div class="row-form">
-                        <div class="row-value">{{ typeDocument }}</div>
-                        <div class="icon-checked"></div>
-                    </div>
-                    <div class="label-title-form">Número de doc.</div>
-                    <div class="row-form">
-                        <div class="row-value">{{ documentNumber }}</div>
-                        <div class="icon-checked"></div>
-                    </div>
-                    <div class="label-title-form">Correo electrónico</div>
-                    <div class="row-form">
-                        <div class="row-value">{{ email }}</div>
-                        <div class="icon-checked"></div>
-                    </div>
-                    <div class="label-title-form">Celular</div>
-                    <div class="row-form">
-                        <div class="row-value">{{ cellphone }}</div>
-                        <div class="icon-checked"></div>
+                        <div class="label-title-form">Tipo de documento</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ typeDocument }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Número de doc.</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ documentNumber }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Correo electrónico</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ email }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Celular</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ cellphone }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-info">
-                    <div class="info-title-box">
+                    <div class="info-title-box" (click)="hideFormText()">
                         <p>2. Agrega tu dirección de envío</p>
+                        <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showForm}"></div>
                     </div>
-                    <div class="form-container">
+                    <div class="form-container" *ngIf="showForm">
                         <div class="row-two">
                             <div class="form-group column">
                                 <label class="label-input">Departamento*</label>
@@ -102,7 +116,8 @@
         <div class="container-products">
             <div class="title-products">
                 <div class="title-added-products">
-                    <p>Artículos añadidos al carrito:</p>
+                    <p>
+                        <span class="showSpanResponsive">3. </span> Artículos añadidos al carrito:</p>
                 </div>
                 <div class="btn-delete-product" (click)="deleteCheckedProducts()">
                     <span class="icon-delete"></span>

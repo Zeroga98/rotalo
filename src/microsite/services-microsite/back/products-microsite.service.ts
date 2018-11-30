@@ -44,19 +44,6 @@ export class ProductsMicrositeService {
     return this.urlDetailProduct;
   }
 
-  getProducts(params): Promise<any> {
-    return this.http
-      .get(this.url, { params: params })
-      .toPromise()
-      .then((response: any) => {
-        if (response.meta) {
-          this.setTotalProducts(response.meta['record-count']);
-        }
-        response.data.lastPage = response.links.next === undefined;
-        return response.data;
-      });
-  }
-
   getProductsSuper(idUser, params) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
@@ -84,6 +71,22 @@ export class ProductsMicrositeService {
         return response.body.productos;
       });
   }
+
+ /* addProductToBD(body, params): Promise<any> {
+    alert("Add to bd") 
+    /* let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser, codTienda: '1' });
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/productos/productos-tienda';
+    return this.http.get(url, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        if (response.body.totalProductos) {
+          this.setTotalProducts(response.body.totalProductos);
+        }
+        return response.body.productos;
+      }); 
+  }
+ */
 
   getProductsById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
@@ -237,28 +240,4 @@ export class ProductsMicrositeService {
       }
     }
   }
-
-  featuredProduct(countryId, communityId) {
-    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const headers = new HttpHeaders(jsonSapiHeaders);
-    const url =
-      `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=${communityId}&cantidad=5&pagina=1`;
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
-  }
-
-  setFeatureProducts(featuredProducts) {
-    this.featuredProducts = featuredProducts;
-  }
-
-  getFeatureProducts() {
-    return this.featuredProducts;
-  }
-
-  creditBAM(params) {
-    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/creditos/bam`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
-  }
-
 }

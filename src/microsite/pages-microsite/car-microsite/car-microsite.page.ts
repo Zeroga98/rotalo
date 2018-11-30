@@ -1,7 +1,8 @@
 import {
   Component,
   OnInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  HostListener
 } from '@angular/core';
 import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
 import { UserService } from '../../../services/user.service';
@@ -35,6 +36,11 @@ export class CarMicrositePage implements OnInit {
   public carSubTotalPrice = 0;
   public carTotalIva = 0;
 
+  showForm: boolean;
+  showInfo: boolean;
+  canHide: boolean;
+  viewWidth: number;
+
   public registerForm: FormGroup;
 
   constructor(
@@ -44,14 +50,21 @@ export class CarMicrositePage implements OnInit {
     private router: Router
   ) { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.setWidthParams();
+  }
+
   ngOnInit() {
     this.products = this.car.getProducts();
-    console.log(this.products);
+    console.log(this.products)
+    console.log(this.products.length);
     this.getCarTotalPrice();
 
     this.setCountry();
     this.initForm();
     this.loadUserInfo();
+    this.setWidthParams();
   }
 
   getDocument(id) {
@@ -61,12 +74,20 @@ export class CarMicrositePage implements OnInit {
         this.typeDocument = "CC"
         break;
       }
-      case 2: {
+      case 4: {
         this.typeDocument = "CE"
         break;
       }
-      case 3: {
+      case 5: {
         this.typeDocument = "PA"
+        break;
+      }
+      case 6: {
+        this.typeDocument = "CIP"
+        break;
+      }
+      case 7: {
+        this.typeDocument = "DPI"
         break;
       }
       default:
@@ -209,5 +230,30 @@ export class CarMicrositePage implements OnInit {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
     this.getCarTotalPrice();
+  }
+
+  setWidthParams() {
+    this.viewWidth = window.innerWidth;
+    if (this.viewWidth > 975) {
+      this.showForm = true;
+      this.showInfo = true;
+      this.canHide = false;
+    } else {
+      this.showForm = false;
+      this.showInfo = false;
+      this.canHide = true;
+    }
+  }
+
+  hideFormText() {
+    if (this.canHide) {
+      this.showForm = !this.showForm;
+    }
+  }
+
+  hideInfoText() {
+    if (this.canHide) {
+      this.showInfo = !this.showInfo;
+    }
   }
 }

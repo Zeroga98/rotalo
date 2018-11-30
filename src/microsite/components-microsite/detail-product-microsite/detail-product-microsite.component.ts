@@ -28,7 +28,8 @@ import { ShareInfoChatService } from '../../../components/chat-thread/shareInfoC
 import { BuyService } from '../../../services/buy.service';
 import { NavigationService } from '../../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-promos.contants';
-import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service'
+import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -103,7 +104,8 @@ export class DetailProductMicrositeComponent implements OnInit {
     private fb: FormBuilder,
     private buyService: BuyService,
     private navigationService: NavigationService,
-    private car: ShoppingCarService
+    private car: ShoppingCarService,
+    private back: ProductsMicrositeService
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
@@ -548,10 +550,8 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   addToShoppingCar(product) {
-
     product.quantity = this.quantityForm.get('stock').value;
     product.totalPrice = product.quantity * product.price;
-
     if(this.car.addProduct(product)) {
       this.router.navigate([
         `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
@@ -559,6 +559,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     } else {
       this.showModalExist = true;
     }    
+    //this.back.addProductToBD(product.id, );
   }
 
   goToShoppingCar() {
