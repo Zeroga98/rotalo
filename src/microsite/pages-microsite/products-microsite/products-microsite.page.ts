@@ -62,7 +62,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   private currentUrl = '';
   public pageNumber: number = 1;
   public totalPages: number = 100;
-  @ViewChildren('productsEnd') endForRender: QueryList<any>;
+  @ViewChildren('productsFinish') endForRender: QueryList<any>;
   public showPagination = false;
   public idCountry = 1;
   public counter = '';
@@ -102,16 +102,16 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.showPagination = true;
+
     if (this.productsService.products.length > 0) {
       console.log(this.endForRender);
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
-        debugger
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
     }
-    this.changeDetectorRef.markForCheck();
+  this.changeDetectorRef.markForCheck();
   }
 
   ngForRender() {
@@ -170,7 +170,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   async loadProducts(params: Object = {}) {
     try {
-      debugger
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       if (this.productsService.products.length > 0) {
@@ -181,8 +180,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       } else {
         let products;
         products = await this.productsService.getProductsMicrosite(this.userId, params);
-        debugger
         this.updateProducts(products);
+        this.changeDetectorRef.markForCheck();
       }
       this.totalPages = this.productsService.getTotalProducts();
       this.stateRequest = this.statesRequestEnum.success;
@@ -201,7 +200,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setScroll(event) {
-    debugger
     this.productsService.setProductLocation(this.products, event.id, this.currentPage);
   }
 
