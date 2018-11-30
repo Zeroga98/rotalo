@@ -19,7 +19,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
-import { ProductsService } from '../../../services/products.service';
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service'
 import { ROUTES } from './../../../router/routes';
 import { Subscription } from 'rxjs';
 import { StatesRequestEnum } from '../../../commons/states-request.enum';
@@ -55,7 +55,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   private userId = this.currentSession.getIdUser();
   public showAnyProductsMessage = false;
   public featuredproducts: Array<ProductInterface> = [];
-  public groupFeaturedProducts:  Array<any> = [];
+  public groupFeaturedProducts: Array<any> = [];
   public couponService;
   public community: any;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
@@ -63,11 +63,11 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public pageNumber: number = 1;
   public totalPages: number = 100;
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
- 
+  public showPagination = false;
   public idCountry = 1;
   public counter = '';
   constructor(
-    private productsService: ProductsService,
+    private productsService: ProductsMicrositeService,
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
@@ -75,18 +75,18 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
     private modalService: ModalShareProductService,
-    private modalTicketService: ModalTicketService
+    private modalTicketService: ModalTicketService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.countDown();
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
 
@@ -101,9 +101,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.showPagination = true;
     if (this.productsService.products.length > 0) {
+      console.log(this.endForRender);
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
+        debugger
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
@@ -120,21 +123,21 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   countDown() {
     const countDownDate = new Date('Nov 30, 2018 23:59:59').getTime();
     const that = this;
-    const x = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = countDownDate - now;
-    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const h = d * 24 + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((distance % (1000 * 60)) / 1000);
-    const hours = h > 9 ? '' + h : '0' + h;
-    const minutes = m > 9 ? '' + m : '0' + m;
-    const seconds = s > 9 ? '' + s : '0' + s;
-    that.counter = hours + ': ' + minutes + ': ' + seconds;
-    that.changeDetectorRef.markForCheck();
-    if (distance < 0) {
+    const x = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const h = d * 24 + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((distance % (1000 * 60)) / 1000);
+      const hours = h > 9 ? '' + h : '0' + h;
+      const minutes = m > 9 ? '' + m : '0' + m;
+      const seconds = s > 9 ? '' + s : '0' + s;
+      that.counter = hours + ': ' + minutes + ': ' + seconds;
+      that.changeDetectorRef.markForCheck();
+      if (distance < 0) {
         clearInterval(x);
-    }
+      }
     }, 1000);
   }
 
@@ -167,6 +170,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   async loadProducts(params: Object = {}) {
     try {
+      debugger
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       if (this.productsService.products.length > 0) {
@@ -176,7 +180,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        products = await this.productsService.getProductsPromo(this.userId, params);
+        products = await this.productsService.getProductsMicrosite(this.userId, params);
+        debugger
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();
@@ -189,13 +194,14 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.products.length <= 0) {
       this.showAnyProductsMessage = true;
-    }else {
+    } else {
       this.showAnyProductsMessage = false;
     }
     this.changeDetectorRef.markForCheck();
   }
 
   setScroll(event) {
+    debugger
     this.productsService.setProductLocation(this.products, event.id, this.currentPage);
   }
 
@@ -216,7 +222,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
         delete this.currentFilter['filter[search]'];
-      }else {
+      } else {
         this.currentFilter = {
           'filter[status]': 'active',
           'filter[country]': 1,
@@ -335,7 +341,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
     if (this.isSuperUser()) {
-      return {'pagina': numberPage };
+      return { 'pagina': numberPage };
     }
     return { 'page[number]': numberPage };
   }
@@ -368,20 +374,20 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     return false;
   }
 
-  public openModalCupon (imageUrl, id: string) {
+  public openModalCupon(imageUrl, id: string) {
     if (this.isExclusiveOffer(imageUrl)) {
       const currentUser = this.currentSession.currentUser();
       if (currentUser) {
         const emailObject = {
           'convenio': 2,
-          'correo' : currentUser.email
+          'correo': currentUser.email
         };
-        this.getCoupon (emailObject, id);
+        this.getCoupon(emailObject, id);
       }
     }
   }
 
-  public redirectPromo (imageUrl) {
+  public redirectPromo(imageUrl) {
     if (this.isExclusiveOffer(imageUrl)) {
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.PROMO}`
@@ -389,13 +395,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public getCoupon (email, id: string) {
+  public getCoupon(email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {
       this.couponService = response.body.cupon;
       this.modalTicketService.open(id);
       this.changeDetectorRef.markForCheck();
     },
-    (error) => {console.log(error); } );
+      (error) => { console.log(error); });
   }
 
 

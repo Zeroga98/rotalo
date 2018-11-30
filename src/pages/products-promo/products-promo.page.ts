@@ -109,10 +109,13 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    debugger
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
+      console.log(this.endForRender);
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
+        debugger
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
@@ -176,6 +179,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
 
   async loadProducts(params: Object = {}) {
     try {
+      debugger
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
       if (this.productsService.products.length > 0) {
@@ -186,6 +190,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
       } else {
         let products;
         products = await this.productsService.getProductsPromo(this.userId, params);
+        debugger
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();
@@ -324,6 +329,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private updateProducts(newProducts: Array<ProductInterface>) {
+    debugger
     this.waitNewPage
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
@@ -337,6 +343,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   private routineUpdateProducts(filter: Object = {}, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
     filter = Object.assign({}, filter, this.getPageFilter(numberPage));
+    debugger
     const newFilter = this.updateCurrentFilter(filter);
     this.loadProducts(newFilter);
   }

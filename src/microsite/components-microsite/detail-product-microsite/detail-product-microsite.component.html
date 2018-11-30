@@ -39,7 +39,7 @@
           </ngx-carousel>
         </div>
         <div class="description">
-          <p class="description-title">Descripción</p> 
+          <p class="description-title">Descripción</p>
           {{products.description}}</div>
       </div>
     </div>
@@ -61,17 +61,9 @@
                   {{products.price | currency:"$":0 | removeDigits}}</span>
                 <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
-              <div [ngClass]="products['is-low-price'] || isActivePromo? 'low-price' : ''" *ngIf="products['previousPrice'] && isPromoDate && isActivePromo || products['previousPrice'] && products['is-low-price']">
-                <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
-                  {{products['previousPrice'] | currency:"Q":0 | removeDigits}}</span>
-                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
-                  {{products['previousPrice'] | currency:"$":0 | removeDigits}}</span>
-                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
-                  {{products['previousPrice'] | currency:"$":0 | removeDigits}}</span>
-              </div>
             </div>
           </div>
-          <div *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate" class="full-width quantity-container">
+          <div class="full-width quantity-container">
             <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
               <div class="form-group">
                 <label class="label-title">Cantidad</label>
@@ -105,6 +97,11 @@
           </div>
           <div *ngIf="validateSession()" class="total-stock quantity-on-stock">
             ({{totalStock}} disponibles)
+          </div>
+          <div class="product-info-ubicacion">
+            <div class="visit contTipo">
+              <span class="icon icon-eye"></span> {{visitsNumber}} visitas
+            </div>
           </div>
         </div>
         <div class="info-section">
@@ -191,5 +188,14 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div *ngIf="showModalExist" class="back-modal">
+  <div class="modal-exist">
+    <div class="text-modal-exist">Ya habías agregado este producto al carrito</div>
+    <div class="section-button">
+      <button class="btn-go-car" (click)="goToShoppingCar()">Ir al carrito</button>
+    </div>
   </div>
 </div>

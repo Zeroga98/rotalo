@@ -269,7 +269,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-
+      debugger
       if (this.productsService.products.length > 0) {
         this.products = this.productsService.products;
         this.currentPage = this.productsService.currentPage;
@@ -282,6 +282,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         }else {
           products = await this.productsService.getProducts(params);
         }
+        debugger
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();

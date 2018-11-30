@@ -302,18 +302,21 @@
     }
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 600px) {
 
     .container-masonry {
       padding: 4rem 0;
      }
 
-    .container-masonry .masonry .grid-item{
-      justify-content: center;
-    }
-
     .container-masonry .masonry product-microsite {
       width: 43%;
+    }
+
+    .emotional-banner {
+      background: url(../../assets/img/iconos_mobile/img_banner_mobile.png) no-repeat;
+      background-size: contain;
+      width: 100%;
+      height: 92.9vw;
     }
 
   }
