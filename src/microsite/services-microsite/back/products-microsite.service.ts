@@ -72,21 +72,26 @@ export class ProductsMicrositeService {
       });
   }
 
- /* addProductToBD(body, params): Promise<any> {
-    alert("Add to bd") 
-    /* let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser, codTienda: '1' });
+  addProductToBD(body, params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = this.urlSapi + '/productos/productos-tienda';
-    return this.http.get(url, { headers: headers, params: params }).toPromise()
+    const url = this.urlSapi + '/carritos/productos';
+    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
-        if (response.body.totalProductos) {
-          this.setTotalProducts(response.body.totalProductos);
-        }
+        console.log(response)
         return response.body.productos;
       }); 
   }
- */
+
+  getCarProducts(params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/carritos';
+    return this.http.get(url, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        return response.body.carroCompras;
+      });
+  }
 
   getProductsById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;

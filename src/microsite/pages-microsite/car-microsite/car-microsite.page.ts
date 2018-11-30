@@ -9,6 +9,8 @@ import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service'
 
 @Component({
   selector: 'car-microsite',
@@ -35,6 +37,7 @@ export class CarMicrositePage implements OnInit {
   public carTotalPrice = 0;
   public carSubTotalPrice = 0;
   public carTotalIva = 0;
+  private currentFilter: Object;
 
   showForm: boolean;
   showInfo: boolean;
@@ -47,8 +50,12 @@ export class CarMicrositePage implements OnInit {
     private car: ShoppingCarService,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router
-  ) { }
+    private router: Router,
+    private feedService: FeedMicrositeService,
+    private back: ProductsMicrositeService
+  ) {
+    this.currentFilter = this.feedService.getCurrentFilter();
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -57,18 +64,16 @@ export class CarMicrositePage implements OnInit {
 
   ngOnInit() {
     this.products = this.car.getProducts();
-    console.log(this.products)
-    console.log(this.products.length);
     this.getCarTotalPrice();
 
     this.setCountry();
     this.initForm();
     this.loadUserInfo();
+    this.loadProducts();
     this.setWidthParams();
   }
 
   getDocument(id) {
-    console.log(id)
     switch (id) {
       case 1: {
         this.typeDocument = "CC"
@@ -239,7 +244,7 @@ export class CarMicrositePage implements OnInit {
       this.showInfo = true;
       this.canHide = false;
     } else {
-      this.showForm = false;
+      this.showForm = true;
       this.showInfo = false;
       this.canHide = true;
     }
@@ -255,5 +260,25 @@ export class CarMicrositePage implements OnInit {
     if (this.canHide) {
       this.showInfo = !this.showInfo;
     }
+  }
+
+  async loadProducts() {
+    const params = this.getParamsToProducts();
+    try {
+      alert("entra")
+      var response = await this.back.getCarProducts(params);
+      alert("sale")
+      console.log(response);
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.log("error")
+      console.log(error);
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
+  getParamsToProducts() {
+    return this.currentFilter;
   }
 }

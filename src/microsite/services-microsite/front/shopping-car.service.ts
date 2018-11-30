@@ -27,7 +27,6 @@ export class ShoppingCarService {
   }
 
   getProducts() {
-    console.log(this.products);
     return this.products;
   }
 
