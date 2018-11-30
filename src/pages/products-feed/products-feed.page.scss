@@ -334,6 +334,43 @@
 
 
 :host {
+      .carousel-inner {
+        position: relative;
+        width: 100%;
+      }
+      .carousel-arrow {
+        background: #ffffff;
+        border-radius: 100px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        color: #707070;
+        cursor: pointer;
+        height: 34px;
+        width: 34px;
+        top: 45%;
+        position: absolute;
+        z-index: 99;
+        text-align: center;
+        transform: translateY(-50%);
+        transition: all 0.3s ease-in;
+        opacity: 1;
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 2rem;
+        }
+      }
+      .carousel-arrow__next {
+        right: 0px;
+      }
+      .carousel-arrow__prev {
+        left: 0px;
+
+      }
+}
+
+
+:host {
   .icon-share-container{
     cursor: pointer;
     z-index: 3;

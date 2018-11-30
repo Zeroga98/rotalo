@@ -18,8 +18,10 @@
         <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "redirectPromo(image)" [src]="image">
       </div>
   </ngx-item>
-  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev"></span>
-  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next"></span>
+  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
+  </span>
+  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
+  </span>
 </ngx-carousel>
 
 <div *ngIf="groupFeaturedProducts.length != 0 && showBanner && !configFiltersSubcategory" class="featured-section">
@@ -110,8 +112,12 @@
                     </div>
                   </div>
             </ngx-item>
-            <span NgxCarouselPrev class="arrow arrow-prev"></span>
-            <span NgxCarouselNext class="arrow arrow-next"></span>
+            <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+                <span class="icon icon-chevron-thin-left"></span>
+            </span>
+            <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+                <span class="icon icon-chevron-thin-right"></span>
+            </span>
         </ngx-carousel>
       </div>
     </div>
