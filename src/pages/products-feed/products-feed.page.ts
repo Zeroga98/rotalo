@@ -579,5 +579,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     return false;
   }
 
+  goToBancolombiaShop() {
+    const routeBancolombiaShop =  `${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    this.router.navigate([routeBancolombiaShop]);
+  }
+
 
 }

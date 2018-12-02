@@ -152,8 +152,8 @@
 
 :host {
   .featured-section {
-    background-color: #F4F4F4;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);
+   /* background-color: #F4F4F4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);*/
     min-height: 480px;
     .featured-container {
       max-width: 1200px;
@@ -357,6 +357,7 @@
         justify-content: center;
         align-items: center;
         .icon {
+          color: #0FBBD8;
           font-size: 2rem;
         }
       }
@@ -420,6 +421,18 @@
   .container-black-friday {
     background: url(../../assets/img/img_etiqueta_bf.png);
     background-size: 104px 40px;
+  }
+}
+
+
+:host {
+  .featured-section.bancolombia-site {
+    min-height: auto;
+    img {
+      cursor: pointer;
+      width: 100%;
+      height: auto;
+    }
   }
 }
 
