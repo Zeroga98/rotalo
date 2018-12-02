@@ -1,6 +1,6 @@
 <div class="md-overlay-promo"></div>
-<promo-animation [promoCode] = 'promoCode'  *ngIf="showAnimation && isColombiaCountry" ></promo-animation>
-<modal-promo  class="md-modal-center md-effect-1" id="custom-modal-promo" *ngIf="isColombiaCountry"></modal-promo>
+<promo-animation (click)="hideAnimation()"   *ngIf="showAnimation && isColombiaCountry" [promoCode] = 'promoCode'  ></promo-animation>
+<modal-promo  class="md-modal-center md-effect-1"  *ngIf="isColombiaCountry" id="custom-modal-promo" ></modal-promo>
 <nav>
   <div class="container">
     <div class="navbar-header">

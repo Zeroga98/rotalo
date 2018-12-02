@@ -188,4 +188,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  hideAnimation() {
+    this.showAnimation = false;
+    this.changeDetector.markForCheck();
+  }
+
 }
