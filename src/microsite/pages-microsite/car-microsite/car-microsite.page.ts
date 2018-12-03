@@ -304,7 +304,7 @@ export class CarMicrositePage implements OnInit {
   }
 
   pay() {
-    const publicKey = 'pub_test_CYgwfGUNiOxIWh4WRJnfOsCu4FIxhy8p';
+   /* const publicKey = 'pub_test_CYgwfGUNiOxIWh4WRJnfOsCu4FIxhy8p';
     const privateKey = 'prv_test_jAK3LXACf8ewSNJmhW86aa9I2b1NX3fb';
     const uniqueReference = 'asdf456468342384562';
     const redirectUrl = 'http://facebook.com';
@@ -317,6 +317,6 @@ export class CarMicrositePage implements OnInit {
         publicKey: publicKey,
         redirectUrl: redirectUrl
     });
-    checkout.open(() => {});
+    checkout.open(() => {});*/
   }
 }

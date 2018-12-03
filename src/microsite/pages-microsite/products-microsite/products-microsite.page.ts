@@ -102,14 +102,17 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.showPagination = true;
-
+    debugger
     if (this.productsService.products.length > 0) {
       console.log(this.endForRender);
       this.endForRender.notifyOnChanges();
+      console.log(this.endForRender);
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
+      console.log(this.endForRender);
+      this.changeDetectorRef.markForCheck();
     }
   this.changeDetectorRef.markForCheck();
   }
