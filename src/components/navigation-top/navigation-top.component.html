@@ -64,7 +64,7 @@
               <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
             </div>
           </li>
-          <li class="car-container disabled">
+          <li [ngClass]="isBancolombiaShop?  'cart-active': 'disabled'" (click)="goToShoppingCar()" class="car-container">
             <div class="container-car">
               <span class="icon-shopping-car">
               </span>
@@ -73,8 +73,8 @@
           </li>
         </ul>
         <div class="flexbox center-center">
-          <div class="container-offer">
-            <a (click)="initScrollProduct()" class="upload-offer-button" routerLink="/products/form">
+          <div [ngClass]= "isBancolombiaShop?  'disabled': '' " class="container-offer">
+            <a (click)="initScrollProduct(); goToUploadProduct()" class="upload-offer-button">
               <div class="gtmSubeTuOferta outside-circle">
                 <div class="gtmSubeTuOferta inside-circle">
                   <span>+</span>

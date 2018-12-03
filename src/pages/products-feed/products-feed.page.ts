@@ -142,7 +142,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
-      console.log(this.endForRender);
       this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
@@ -580,7 +579,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goToBancolombiaShop() {
-    const routeBancolombiaShop =  `${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    const routeBancolombiaShop =  `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     this.router.navigate([routeBancolombiaShop]);
   }
 

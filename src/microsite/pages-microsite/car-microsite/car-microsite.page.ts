@@ -9,6 +9,8 @@ import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service'
 
 @Component({
   selector: 'car-microsite',
@@ -35,6 +37,7 @@ export class CarMicrositePage implements OnInit {
   public carTotalPrice = 0;
   public carSubTotalPrice = 0;
   public carTotalIva = 0;
+  private currentFilter: Object;
 
   showForm: boolean;
   showInfo: boolean;
@@ -47,8 +50,12 @@ export class CarMicrositePage implements OnInit {
     private car: ShoppingCarService,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router
-  ) { }
+    private router: Router,
+    private feedService: FeedMicrositeService,
+    private back: ProductsMicrositeService
+  ) {
+    this.currentFilter = this.feedService.getCurrentFilter();
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -57,18 +64,16 @@ export class CarMicrositePage implements OnInit {
 
   ngOnInit() {
     this.products = this.car.getProducts();
-    console.log(this.products)
-    console.log(this.products.length);
     this.getCarTotalPrice();
 
     this.setCountry();
     this.initForm();
     this.loadUserInfo();
+    this.loadProducts();
     this.setWidthParams();
   }
 
   getDocument(id) {
-    console.log(id)
     switch (id) {
       case 1: {
         this.typeDocument = "CC"
@@ -100,7 +105,6 @@ export class CarMicrositePage implements OnInit {
   async loadUserInfo() {
     try {
       this.currentUser = await this.userService.getInfoUser();
-      console.log(this.currentUser);
       this.nameUser = this.currentUser.name;
       this.typeDocument = this.getDocument(this.currentUser['type-document-id']);
       this.documentNumber = this.currentUser['id-number'];
@@ -210,20 +214,22 @@ export class CarMicrositePage implements OnInit {
   getCarTotalPrice() {
     this.carTotalPrice = 0;
     this.products.forEach(element => {
-      this.carTotalPrice += element.totalPrice;
+      this.carTotalPrice += element.quantity * element.product.price;
     });
     this.carTotalIva = Math.round(this.carTotalPrice - (this.carTotalPrice / 1.19));
     this.carSubTotalPrice = this.carTotalPrice - this.carTotalIva;
   }
 
   goToMicrosite() {
-    this.router.navigate([`/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
+    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
   }
 
   deleteCheckedProducts() {
+
     this.car.deleteCheckedProducts();
-    this.products = this.car.getProducts();
-    this.getCarTotalPrice();
+    //this.car.deleteCheckedProducts();
+    //this.products = this.car.getProducts();
+    //this.getCarTotalPrice();
   }
 
   changeQuantity(stock: number, product) {
@@ -239,7 +245,7 @@ export class CarMicrositePage implements OnInit {
       this.showInfo = true;
       this.canHide = false;
     } else {
-      this.showForm = false;
+      this.showForm = true;
       this.showInfo = false;
       this.canHide = true;
     }
@@ -255,5 +261,26 @@ export class CarMicrositePage implements OnInit {
     if (this.canHide) {
       this.showInfo = !this.showInfo;
     }
+  }
+
+  async loadProducts() {
+    const params = this.getParamsToProducts();
+    try {
+      const response = await this.back.getCarProducts(params);
+      this.products = [];
+      response.carroCompras.commerceItems.forEach(element => {
+        this.products.push(element);
+      });
+
+      this.getCarTotalPrice();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
+  getParamsToProducts() {
+    return this.currentFilter;
   }
 }

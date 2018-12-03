@@ -9,15 +9,15 @@ import { ProductsService } from '../products.service';
 @Injectable()
 export class AuthGuardService implements CanActivate {
   constructor(private loginService: LoginService,
-              private router: Router, private productsService: ProductsService ) {
-              }
+    private router: Router, private productsService: ProductsService) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.checkLoggedIn();
   }
 
   checkLoggedIn(): boolean {
-    if ( this.loginService.isLoggedIn()) {
+    if (this.loginService.isLoggedIn()) {
       return true;
     }
     const urlCurrent = window.location.href;

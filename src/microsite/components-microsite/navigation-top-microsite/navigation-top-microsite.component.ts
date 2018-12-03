@@ -179,6 +179,6 @@ export class NavigationTopMicrositeComponent implements OnInit, OnDestroy {
   }
 
   goToShoppingCar() {
-    this.router.navigate([`/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`])
+    this.router.navigate([`/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`]);
   }
 }

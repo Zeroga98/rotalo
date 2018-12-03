@@ -30,8 +30,9 @@ import { NavigationService } from '../../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-promos.contants';
 import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
+import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
 
-function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
+function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
   if (email.value == this.currentEmail) {
     return { emailError: true };
@@ -70,7 +71,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-  public  showButtons = false;
+  public showButtons = false;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
   public firstName = '';
   public screenHeight;
@@ -82,7 +83,8 @@ export class DetailProductMicrositeComponent implements OnInit {
   public startDate = START_DATE_BF;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
-  public showModalExist: boolean = false;;
+  public showModalExist: boolean = false;
+  private currentFilter: Object;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -105,13 +107,16 @@ export class DetailProductMicrositeComponent implements OnInit {
     private buyService: BuyService,
     private navigationService: NavigationService,
     private car: ShoppingCarService,
-    private back: ProductsMicrositeService
+    private back: ProductsMicrositeService,
+    private feedService: FeedMicrositeService,
   ) {
+    this.currentFilter = this.feedService.getCurrentFilter();
+
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
     this.idCountry = countryId;
@@ -121,7 +126,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     const currentUser = this.currentSessionSevice.currentUser();
     if (currentUser) {
       this.currentEmail = currentUser.email;
-      this.countryId =  currentUser.countryId;
+      this.countryId = currentUser.countryId;
     }
     this.initShareForm();
     this.initQuantityForm();
@@ -131,7 +136,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
       {
-        email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+        email: ['', [Validators.required, isEmailOwner.bind(this), Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
       }
     );
   }
@@ -139,7 +144,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [1 , [Validators.required, Validators.min(1), Validators.max(1)]]
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(1)]]
       }
     );
   }
@@ -150,7 +155,7 @@ export class DetailProductMicrositeComponent implements OnInit {
         this.visitsNumber = response.body.visitas;
         this.changeDetectorRef.markForCheck();
       }
-    }, (error) => {console.log(error); });
+    }, (error) => { console.log(error); });
   }
 
   clickArrow() {
@@ -163,7 +168,7 @@ export class DetailProductMicrositeComponent implements OnInit {
         correo: this.sendInfoProduct.get('email').value
       };
       this.productsService
-        .shareProduct(params,  this.products.id)
+        .shareProduct(params, this.products.id)
         .then(response => {
           this.messageSuccess = true;
           this.sendInfoProduct.reset();
@@ -236,10 +241,12 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        console.log(this.products['sell-type']);
+        
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
-        } else  {
+        } else {
           this.totalStock = 1;
         }
         const price = this.quantityForm.get('stock');
@@ -269,10 +276,10 @@ export class DetailProductMicrositeComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         }
       }
-    } ,
-    (error) => {
-      console.log(error);
-    });
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
   productIsSold(product) {
@@ -298,14 +305,14 @@ export class DetailProductMicrositeComponent implements OnInit {
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-    ? (this.productChecked = 'active')
-    : (this.productChecked = 'inactive');
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
     const params = {
       estado: this.productStatus ? 'active' : 'inactive'
     };
     this.productsService
       .updateProductStatus(this.idUser, this.products.id, params)
-      .then(response => {});
+      .then(response => { });
   }
 
   changeStatusBuy() {
@@ -320,7 +327,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if ( this.products && this.products['typeVehicle'] && this.products['model']) {
+    if (this.products && this.products['typeVehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
@@ -329,7 +336,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
 
-      if ( this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
+      if (this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
         priceVehicle >= this.minVehicleValue &&
         priceVehicle <= this.maxVehicleValue
       ) {
@@ -359,7 +366,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
-        new Date(new Date().toDateString()) ||
+      new Date(new Date().toDateString()) ||
       this.products.status === 'expired'
     );
   }
@@ -387,7 +394,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   editProduct(product: ProductInterface) {
@@ -405,7 +412,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   creditProduct(id: number | string) {
     const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.FINANCEBAM
-    }/${id}`;
+      }/${id}`;
     this.router.navigate([urlBuyProduct]);
   }
 
@@ -413,12 +420,12 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.buyService.rentProduct(id).subscribe((response) => {
       const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.BUY
-      }/${id}`;
+        }/${id}`;
       this.router.navigate([urlBuyProduct]);
     }
-    , (error) => {
-      console.log(error);
-    });
+      , (error) => {
+        console.log(error);
+      });
   }
 
   async showBuyModal() {
@@ -446,7 +453,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   openSimulateCreditSufi(id: number | string) {
     const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
-    }/${id}`;
+      }/${id}`;
     this.router.navigate([urlSimulateCredit]);
   }
 
@@ -464,7 +471,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       type: product['sell-type'],
       currency: product.currency
     };
-}
+  }
 
   validateMobile() {
     if (this.screenWidth <= 750) {
@@ -475,23 +482,23 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   motoHasCharacteristics() {
-   if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
-    if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
-      return true;
+    if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
+      if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
+        return true;
+      }
     }
-   }
-   return false;
+    return false;
   }
 
   autoHasCharacteristics() {
     if (this.products.vehicle && this.products.vehicle.vehicleType == 'AUTO') {
-     if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
-     this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
-       return true;
-     }
+      if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
+        this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
+        return true;
+      }
     }
     return false;
-   }
+  }
 
 
   get showOptionsVehicles() {
@@ -504,7 +511,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       return true;
     }
   }
-  get showOptionEstate () {
+  get showOptionEstate() {
     if (this.products) {
       if (this.products.subcategory.category.id == 7) {
         return false;
@@ -515,11 +522,11 @@ export class DetailProductMicrositeComponent implements OnInit {
 
 
   addStock() {
-    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value < this.totalStock) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = ++stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
       }
     }
   }
@@ -527,9 +534,9 @@ export class DetailProductMicrositeComponent implements OnInit {
   minusStock() {
     if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value > 1) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = --stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
       }
     }
   }
@@ -551,15 +558,22 @@ export class DetailProductMicrositeComponent implements OnInit {
 
   addToShoppingCar(product) {
     product.quantity = this.quantityForm.get('stock').value;
-    product.totalPrice = product.quantity * product.price;
-    if(this.car.addProduct(product)) {
+    var body =
+    {
+      productos: [
+        {
+          "idProducto": product.id,
+          "cantidad": this.quantityForm.get('stock').value,
+          "adicionar": true
+          }
+      ]
+    }; 
+    const params = this.getParamsToProducts();
+    if (this.back.addProductToBD(body, params)) {
       this.router.navigate([
-        `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
       ]);
-    } else {
-      this.showModalExist = true;
     }    
-    //this.back.addProductToBD(product.id, );
   }
 
   goToShoppingCar() {
@@ -567,5 +581,9 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.router.navigate([
       `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
     ]);
+  }
+
+  getParamsToProducts() {
+    return this.currentFilter;
   }
 }

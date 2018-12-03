@@ -8,6 +8,7 @@ import { ProductInterface } from "../../../commons/interfaces/product.interface"
 @Injectable()
 export class ShoppingCarService {
   public products: Array<any> = [];
+  public checkedProducts: Array<any> = [];
 
   constructor(
   ) { }
@@ -17,38 +18,44 @@ export class ShoppingCarService {
     this.products.forEach(element => {
       if (element.id == product.id) {
         exist = true;
-      }  
+      }
     });
     if (!exist) {
-      this.products.push(product);  
+      this.products.push(product);
     }
-    
     return !exist;
   }
 
   getProducts() {
-    console.log(this.products);
     return this.products;
   }
 
   deleteCheckedProducts() {
-    var i = 0;
-    while (i < this.products.length) {
-      if (this.products[i].checked == true) {
-        this.products.splice(i, 1);
-      } else {
-        i++;
-      }
+    var json = 
+    { 
+      idProductos: this.checkedProducts
     }
-    console.log(this.products)
+
+    console.log(json);    
   }
 
-  checkProduct(product, val) {
-    this.products.forEach(element => {
-      if (element.id == product.id) {
-        element.checked = val;
+  checkProduct(id, isChecked) {
+    if (isChecked) {
+      this.checkedProducts.push(id);
+    } else {
+      var i = 0;
+      while (i < this.checkedProducts.length) {
+        if (this.checkedProducts[i] == id) {
+          this.checkedProducts.splice(i, 1);
+        } else {
+          i++;
+        }
       }
-    });
+    }
+  }
+
+  getCheckedProducts() {
+    return this.checkedProducts;
   }
 
   updateProductQuantity(id, quantity) {

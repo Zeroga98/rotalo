@@ -360,6 +360,33 @@
     top: 7px;
     right: -10px;
   }
+
+  .navbar-header .list-options li.cart-active{
+    color: #0FBBD8;
+    cursor: pointer;
+    &:hover{
+      font-weight: bold;
+    }
+  }
+
+  .navbar-header .disabled .upload-offer-button .outside-circle {
+    background-color: #E5E5E5;
+    color: #707070;
+    cursor: not-allowed;
+  }
+
+  .navbar-header .disabled .upload-offer-button .outside-circle .inside-circle{
+    background-color: #B0B0B0;
+  }
+
+  .navbar-header .disabled .upload-offer-button .outside-circle label {
+    cursor: not-allowed;
+  }
+
+  .navbar-header .list-options li.car-container.cart-active .container-car .icon-shopping-car {
+    background: url(../../assets/img/iconos/ic_header_carrito_activo.svg);
+  }
+
 }
 
 @media screen and (max-width: 1200px) {
@@ -436,8 +463,13 @@
         min-width: 8rem;
       }
     }
+
     .list-options{
       padding: 0;
+    }
+
+    .navbar-header .list-options {
+      margin-right: 0px;
     }
   }
 }

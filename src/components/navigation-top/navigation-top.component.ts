@@ -60,6 +60,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public autoCompleteOptions: Array<string> = [];
   public tags: Array<string> = [];
   public showOptions;
+  public isBancolombiaShop;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -112,7 +113,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     } else {
       this.showOptions = false;
     }
-
+    this.isBancolombiaShopValidation();
     this.messagesService.setUnreadNotificationParam(path);
 
     this.router.events.subscribe((event: any) => {
@@ -125,6 +126,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         } else {
           this.showOptions = false;
         }
+        this.isBancolombiaShopValidation();
         this.messagesService.setUnreadNotificationParam(path);
       }
     });
@@ -136,6 +138,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.communities = this.userService.getCommunitiesCurrent();
     }
     this.autoCompleteOptions = this.navigationTopService.getAutoCompleteOptions();
+  }
+
+  isBancolombiaShopValidation() {
+    if (this.router.url.includes('microsite')) {
+      this.isBancolombiaShop = true;
+    } else {
+      this.isBancolombiaShop = false;
+    }
   }
 
   async getCommunities() {
@@ -229,6 +239,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.productsService.scroll = undefined;
   }
 
+  goToUploadProduct() {
+    if (!this.isBancolombiaShop) {
+      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
+        ROUTES.PRODUCTS.UPLOAD}`]);
+    }
+  }
+
   get isColombiaCountry() {
     const currentUrl = window.location.href;
     if (currentUrl.includes('co')) {
@@ -272,6 +289,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeTags() {
     this.autoCompleteOptions = this.navigationTopService.addOptions(this.tags);
+    this.gapush(
+      'send',
+      'event',
+      'Productos',
+      'Busqueda',
+      this.tags
+    );
     this.navigationTopService.changeSearch(this.tags);
   }
 
@@ -282,6 +306,24 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   hideAnimation() {
     this.showAnimation = false;
     this.changeDetector.markForCheck();
+  }
+
+  goToShoppingCar() {
+    if (this.isBancolombiaShop) {
+      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`]);
+    }
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
 }

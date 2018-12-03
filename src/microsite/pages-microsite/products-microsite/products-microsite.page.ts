@@ -278,7 +278,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   selectProduct(product: ProductInterface) {
-    const routeDetailProduct = `${ROUTES.MICROSITE.LINK}/${
+    const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
       ROUTES.MICROSITE.DETAIL
       }/${product.id}`;
     this.router.navigate([routeDetailProduct]);
