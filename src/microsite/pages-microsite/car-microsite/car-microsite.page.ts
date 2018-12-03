@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
-import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service'
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
+import { windowService } from '../../services-microsite/front/window.service';
 
 @Component({
   selector: 'car-microsite',
@@ -53,7 +54,8 @@ export class CarMicrositePage implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private feedService: FeedMicrositeService,
-    private back: ProductsMicrositeService
+    private back: ProductsMicrositeService,
+    private window: windowService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
   }
@@ -263,7 +265,7 @@ export class CarMicrositePage implements OnInit {
       var response = await this.back.getCarProducts(params);
       this.products = [];
       response.carroCompras.commerceItems.forEach(element => {
-        this.products.push(element);        
+        this.products.push(element);
       });
       this.car.setProducts(this.products);
       this.products = this.car.getProducts();
@@ -286,11 +288,11 @@ export class CarMicrositePage implements OnInit {
     const params = this.getParamsToProducts();
     try {
       console.log(this.car.getCheckedProducts());
-      
+
       var response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
       this.car.initCheckedList();
       this.loadProducts();
-      
+
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.changeDetectorRef.markForCheck();
@@ -302,22 +304,47 @@ export class CarMicrositePage implements OnInit {
     return this.currentFilter;
   }
 
-  pay() {
-    let publicKey = 'pub_test_CYgwfGUNiOxIWh4WRJnfOsCu4FIxhy8p';
-    let privateKey = 'prv_test_jAK3LXACf8ewSNJmhW86aa9I2b1NX3fb';
-    let uniqueReference = 'asdf456468342384562';
-    let redirectUrl = 'http://facebook.com';
-    let currency = 'COP';
-    let amount = '50000'; 
-    
-    let checkout = new WayboxCheckout({
-      currency: currency,
-        amountInCents: amount,
-        reference: uniqueReference,
-        publicKey: publicKey,
-        redirectUrl: redirectUrl
-    })
-
-    checkout.open(() => {});
+  async pay() {
+    let jsonProducts = []
+    this.products.forEach(element => {
+      jsonProducts.push(
+        {
+          "nombre": element.product.name,
+          "precio": element.product.price * element.quantity
+          ,
+          "talla": "M",
+          "color": "rosa",
+          "numeroUnidades": element.quantity
+        }
+      )
+    });
+    let json = {
+      "totalOrder": this.carTotalPrice,
+      "cliente": {
+        "nombre": this.nameUser,
+        "tipoDocumento": this.typeDocument,
+        "numeroDocumento": this.documentNumber,
+        "correoElectronico": this.email,
+        "numeroCelular": this.cellphone
+      },
+      "datosDireccion": {
+        "departamento": "Antioquia",
+        "ciudad": "Medellin",
+        "direccion": this.registerForm.get('address').value,
+        "numeroContacto": this.registerForm.get('cellphone').value
+      },
+      "listaProductos": jsonProducts
+    }
+    console.log(json);
+    const params = this.getParamsToProducts();
+    try {
+      var response = await this.back.getOrden(json, params);
+      console.log(response);
+      this.window.nativeWindow.pagar(this.carTotalPrice);
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
   }
 }

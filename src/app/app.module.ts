@@ -167,6 +167,7 @@ import { BannerLatiendaComponent } from '../microsite/components-microsite/banne
 import { ShoppingCarService } from '../microsite/services-microsite/front/shopping-car.service';
 import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
 import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
+import { windowService } from '../microsite/services-microsite/front/window.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -325,6 +326,7 @@ import { MiniProductDetailComponent } from '../microsite/components-microsite/mi
     ModalUploadProductService,
     ModalTicketService,
     ModalVideoService,
+    windowService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
