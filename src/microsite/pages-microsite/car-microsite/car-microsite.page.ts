@@ -221,11 +221,13 @@ export class CarMicrositePage implements OnInit {
   }
 
   goToMicrosite() {
-    this.router.navigate([`/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
+    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
   }
 
   deleteCheckedProducts() {
-    console.log(this.car.getCheckedProducts());
+
+    this.car.deleteCheckedProducts();
+    console.log(this.car.getCheckedProducts())
     //this.car.deleteCheckedProducts();
     //this.products = this.car.getProducts();
     //this.getCarTotalPrice();
@@ -266,9 +268,13 @@ export class CarMicrositePage implements OnInit {
     const params = this.getParamsToProducts();
     try {
       var response = await this.back.getCarProducts(params);
+      this.products = [];
       response.carroCompras.commerceItems.forEach(element => {
         this.products.push(element);        
       });
+
+      console.log(this.products)
+
       this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
     } catch (error) {

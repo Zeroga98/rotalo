@@ -90,7 +90,7 @@
             </form>
           </div>
           <div class="btn-item">
-            <button class="gtmProdComprar botons" (click)="addToShoppingCar(products)">
+            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA'" (click)="addToShoppingCar(products)">
               <span class="icon-shop_car"></span>
               Agregar al carrito
             </button>

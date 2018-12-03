@@ -26,7 +26,6 @@ export class MiniProductDetailComponent implements OnInit {
   public totalStock;
   classCheckSelected = false;
   ngOnInit() {
-    console.log(this.product)
     this.initProductInfo();
     this.initQuantityForm();
   }

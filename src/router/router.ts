@@ -135,6 +135,38 @@ export const appRouter: Routes = [
         component: ProductsPromoPage,
       },
       {
+        path: ROUTES.MICROSITE.LINK,
+        canActivate: [AuthGuardService],
+        children: [
+          {
+            path: ROUTES.MICROSITE.FEED,
+            component: ProductsMicrositePage,
+          },
+          {
+            path: ROUTES.MICROSITE.DETAIL,
+            component: DetalleProductoMicrositioComponent,
+          },
+          {
+            path: `${ROUTES.MICROSITE.DETAIL}/:id`,
+            component: DetalleProductoMicrositioComponent,
+          },
+          {
+            path: ROUTES.MICROSITE.CAR,
+            component: CarMicrositePage,
+          },
+          {
+            path: '',
+            redirectTo: ROUTES.MICROSITE.FEED,
+            pathMatch: 'full'
+          },
+          {
+            path: '**',
+            redirectTo: ROUTES.MICROSITE.FEED,
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: ROUTES.PRODUCTS.FEED,
         pathMatch: 'full'
@@ -183,48 +215,6 @@ export const appRouter: Routes = [
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
-
-
-
-
-
-
-  /////////////////////////////////////
-
-  {
-    path: ROUTES.MICROSITE.LINK,
-    children: [
-      {
-        path: ROUTES.MICROSITE.FEED,
-        component: ProductsMicrositePage,
-      },
-      {
-        path: ROUTES.MICROSITE.DETAIL,
-        component: DetalleProductoMicrositioComponent,
-      },
-      {
-        path: `${ROUTES.MICROSITE.DETAIL}/:id`,
-        component: DetalleProductoMicrositioComponent,
-      },
-      {
-        path: ROUTES.MICROSITE.CAR,
-        component: CarMicrositePage,
-      },
-      {
-        path: '',
-        redirectTo: ROUTES.MICROSITE.FEED,
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        redirectTo: ROUTES.MICROSITE.FEED,
-        pathMatch: 'full'
-      }
-    ]
-  },
-
-  /////////////////////////////////////
-
 
 
 

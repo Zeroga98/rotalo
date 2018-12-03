@@ -241,6 +241,8 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        console.log(this.products['sell-type']);
+        
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
@@ -556,14 +558,6 @@ export class DetailProductMicrositeComponent implements OnInit {
 
   addToShoppingCar(product) {
     product.quantity = this.quantityForm.get('stock').value;
-    product.totalPrice = product.quantity * product.price;
-    /* if (this.car.addProduct(product)) {
-      this.router.navigate([
-        `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-      ]);
-    } else {
-      this.showModalExist = true;
-    } */
     var body =
     {
       productos: [
@@ -574,12 +568,12 @@ export class DetailProductMicrositeComponent implements OnInit {
           }
       ]
     }; 
-    
     const params = this.getParamsToProducts();
-    this.back.addProductToBD(body, params);
-    this.router.navigate([
-      `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-    ]);
+    if (this.back.addProductToBD(body, params)) {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+      ]);
+    }    
   }
 
   goToShoppingCar() {

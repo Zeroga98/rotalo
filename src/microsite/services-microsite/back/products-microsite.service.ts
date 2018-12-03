@@ -78,7 +78,6 @@ export class ProductsMicrositeService {
     const url = this.urlSapi + '/carritos/productos';
     return this.http.post(url, body, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
-        console.log(response)
         return response.body.productos;
       }); 
   }
@@ -235,6 +234,10 @@ export class ProductsMicrositeService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/referidos/${token}`;
     return this.http.put(url, { headers: headers }).map((response: any) => response);
+  }
+
+  initProducts() {
+    this.products = [];
   }
 
   setProductLocation(products, name, currentPage) {

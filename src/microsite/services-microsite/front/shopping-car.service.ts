@@ -23,7 +23,6 @@ export class ShoppingCarService {
     if (!exist) {
       this.products.push(product);
     }
-
     return !exist;
   }
 
@@ -32,24 +31,21 @@ export class ShoppingCarService {
   }
 
   deleteCheckedProducts() {
-    var i = 0;
-    while (i < this.products.length) {
-      if (this.products[i].checked == true) {
-        this.products.splice(i, 1);
-      } else {
-        i++;
-      }
+    var json = 
+    { 
+      idProductos: this.checkedProducts
     }
-    console.log(this.products)
+
+    console.log(json);    
   }
 
   checkProduct(id, isChecked) {
     if (isChecked) {
-      this.checkedProducts.push({ "idProducto": id });
+      this.checkedProducts.push(id);
     } else {
       var i = 0;
       while (i < this.checkedProducts.length) {
-        if (this.checkedProducts[i].idProducto == id) {
+        if (this.checkedProducts[i] == id) {
           this.checkedProducts.splice(i, 1);
         } else {
           i++;
