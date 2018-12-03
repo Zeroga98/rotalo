@@ -129,7 +129,6 @@ export class DetailProductMicrositeComponent implements OnInit {
       this.countryId = currentUser.countryId;
     }
     this.initShareForm();
-    this.initQuantityForm();
     this.loadProduct();
   }
 
@@ -144,7 +143,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [1, [Validators.required, Validators.min(1), Validators.max(1)]]
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.products.stock)]]
       }
     );
   }
@@ -241,19 +240,18 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-        console.log(this.products['sell-type']);
-        
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
         } else {
           this.totalStock = 1;
         }
-        const price = this.quantityForm.get('stock');
-        price.clearValidators();
-        price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
-        price.updateValueAndValidity();
-
+        this.initQuantityForm();
+        /*      const price = this.quantityForm.get('stock');
+              price.clearValidators();
+              price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
+              price.updateValueAndValidity();
+      */
 
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {
@@ -557,23 +555,24 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   addToShoppingCar(product) {
-    product.quantity = this.quantityForm.get('stock').value;
-    var body =
-    {
-      productos: [
-        {
-          "idProducto": product.id,
-          "cantidad": this.quantityForm.get('stock').value,
-          "adicionar": true
-          }
-      ]
-    }; 
     const params = this.getParamsToProducts();
-    if (this.back.addProductToBD(body, params)) {
-      this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-      ]);
-    }    
+    if (this.quantityForm.get('stock').value <= this.totalStock) {
+      var body =
+      {
+        productos: [
+          {
+            "idProducto": product.id,
+            "cantidad": this.quantityForm.get('stock').value,
+            "adicionar": true
+          }
+        ]
+      };
+      if (this.back.addProductToBD(body, params)) {
+        this.router.navigate([
+          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+        ]);
+      }
+    }
   }
 
   goToShoppingCar() {

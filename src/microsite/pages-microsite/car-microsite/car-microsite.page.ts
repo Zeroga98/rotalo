@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
-import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service'
+import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
+
+
+
 
 @Component({
   selector: 'car-microsite',
@@ -38,6 +41,7 @@ export class CarMicrositePage implements OnInit {
   public carSubTotalPrice = 0;
   public carTotalIva = 0;
   private currentFilter: Object;
+  showView: string;
 
   showForm: boolean;
   showInfo: boolean;
@@ -224,14 +228,6 @@ export class CarMicrositePage implements OnInit {
     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`]);
   }
 
-  deleteCheckedProducts() {
-
-    this.car.deleteCheckedProducts();
-    //this.car.deleteCheckedProducts();
-    //this.products = this.car.getProducts();
-    //this.getCarTotalPrice();
-  }
-
   changeQuantity(stock: number, product) {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
@@ -264,6 +260,7 @@ export class CarMicrositePage implements OnInit {
   }
 
   async loadProducts() {
+    this.showView = "loading";
     const params = this.getParamsToProducts();
     try {
       const response = await this.back.getCarProducts(params);
@@ -271,6 +268,14 @@ export class CarMicrositePage implements OnInit {
       response.carroCompras.commerceItems.forEach(element => {
         this.products.push(element);
       });
+      this.car.setProducts(this.products);
+      this.products = this.car.getProducts();
+
+      if (this.products.length == 0) {
+        this.showView = "noProducts";
+      } else {
+        this.showView = "Products";
+      }
 
       this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
@@ -280,7 +285,38 @@ export class CarMicrositePage implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+  async deleteCheckedProducts() {
+    const params = this.getParamsToProducts();
+    try {
+      console.log(this.car.getCheckedProducts());
+      const response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
+      this.car.initCheckedList();
+      this.loadProducts();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
   getParamsToProducts() {
     return this.currentFilter;
+  }
+
+  pay() {
+    const publicKey = 'pub_test_CYgwfGUNiOxIWh4WRJnfOsCu4FIxhy8p';
+    const privateKey = 'prv_test_jAK3LXACf8ewSNJmhW86aa9I2b1NX3fb';
+    const uniqueReference = 'asdf456468342384562';
+    const redirectUrl = 'http://facebook.com';
+    const currency = 'COP';
+    const amount = '50000';
+    const checkout = new WayboxCheckout({
+      currency: currency,
+        amountInCents: amount,
+        reference: uniqueReference,
+        publicKey: publicKey,
+        redirectUrl: redirectUrl
+    });
+    checkout.open(() => {});
   }
 }

@@ -86,6 +86,7 @@ export class ProductsMicrositeService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos/productos/eliminar';
+    console.log(body);
     return this.http.post(url, body, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
         return response;

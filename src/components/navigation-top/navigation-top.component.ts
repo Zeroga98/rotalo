@@ -22,6 +22,7 @@ import { ProductsService } from '../../services/products.service';
 import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
+
 @Component({
   selector: 'navigation-top',
   templateUrl: './navigation-top.component.html',
@@ -292,8 +293,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.gapush(
       'send',
       'event',
-      'Productos',
-      'Busqueda',
+      'Home',
+      'ClickBusqueda',
       this.tags
     );
     this.navigationTopService.changeSearch(this.tags);

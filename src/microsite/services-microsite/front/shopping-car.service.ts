@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { ConfigurationService } from "../../../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 import { ProductInterface } from "../../../commons/interfaces/product.interface";
+import { ProductsMicrositeService } from "../back/products-microsite.service";
 
 @Injectable()
 export class ShoppingCarService {
@@ -11,32 +12,15 @@ export class ShoppingCarService {
   public checkedProducts: Array<any> = [];
 
   constructor(
+    private back: ProductsMicrositeService
   ) { }
 
-  addProduct(product: any) {
-    var exist: boolean = false;
-    this.products.forEach(element => {
-      if (element.id == product.id) {
-        exist = true;
-      }
-    });
-    if (!exist) {
-      this.products.push(product);
-    }
-    return !exist;
+  setProducts(products) {
+    this.products = products;    
   }
 
   getProducts() {
     return this.products;
-  }
-
-  deleteCheckedProducts() {
-    var json = 
-    { 
-      idProductos: this.checkedProducts
-    }
-
-    console.log(json);    
   }
 
   checkProduct(id, isChecked) {
@@ -55,7 +39,15 @@ export class ShoppingCarService {
   }
 
   getCheckedProducts() {
-    return this.checkedProducts;
+    var json = 
+    { 
+      idProductos: this.checkedProducts
+    }
+    return json;
+  }
+
+  initCheckedList() {
+    this.checkedProducts = [];
   }
 
   updateProductQuantity(id, quantity) {

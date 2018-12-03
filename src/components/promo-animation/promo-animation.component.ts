@@ -19,14 +19,37 @@ export class PromoAnimationComponent implements OnInit {
       code: this.promoCode
     };
     this.modalService.consultPromo(params).subscribe((response) => {
-      console.log(response);
       this.modalService.open(id, true);
+      this.gapush(
+        'send',
+        'event',
+        'Concurso',
+        'ClickReno',
+        'Exitoso'
+      );
     }, (error) => {
       this.modalService.open(id, false);
     });
+    this.gapush(
+      'send',
+      'event',
+      'Concurso',
+      'ClickReno',
+      'NoExitoso'
+    );
   }
 
-
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
 
 
 }
