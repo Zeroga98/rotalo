@@ -1,6 +1,9 @@
 <navigation-top-microsite></navigation-top-microsite>
 <banner-latienda></banner-latienda>
-<div *ngIf="products.length == 0" class="no-products">
+<div  *ngIf="showView == 'loading'" class="spinner">
+    <custom-spinner></custom-spinner>
+</div>
+<div *ngIf="showView == 'noProducts'" class="no-products">
     <div class="info-title">
         <p>Mi carrito de compras</p>
     </div>
@@ -11,7 +14,7 @@
         <button class="btn-back-microsite" (click)="goToMicrosite()">Volver</button>
     </div>
 </div>
-<form *ngIf="products.length > 0" role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+<form *ngIf="showView == 'Products'" role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
     <div class="general-container">
         <div class="container-info-user">
             <div class="info-title">
@@ -146,7 +149,7 @@
             </div>
             <div class="buttons-section">
                 <button class="btn-go-microsite" (click)="goToMicrosite()">Seguir comprando</button>
-                <button class="btn-buy" type="submit">Comprar</button>
+                <button class="btn-buy" type="submit" (click)="pay()">Comprar</button>
             </div>
 
             <div class="info-send-section">
