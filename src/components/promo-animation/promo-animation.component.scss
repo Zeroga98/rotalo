@@ -1,0 +1,14 @@
+:host {
+  position: fixed;
+  bottom: 0rem;
+  right: 0rem;
+  z-index: 99998;
+
+  .img-container {
+    img {
+      width: 70%;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+  }
+}

@@ -150,6 +150,9 @@ import { ModalVideoComponent } from '../components/modal-video/modal-video.compo
 import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
 import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
+import { PromoAnimationComponent } from '../components/promo-animation/promo-animation.component';
+import { ModalPromoComponent } from '../components/modal-promo/modal-promo.component';
+import { ModalPromoProductService } from '../components/modal-promo/modal-promoProduct.service';
 
 
 @NgModule({
@@ -239,7 +242,9 @@ import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
     CompanySliderComponent,
     ModalVideoComponent,
     FinanceBamComponent,
-    ProductsPromoPage
+    ProductsPromoPage,
+    PromoAnimationComponent,
+    ModalPromoComponent
   ],
   imports: [
     BrowserModule,
@@ -301,6 +306,7 @@ import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
     ModalUploadProductService,
     ModalTicketService,
     ModalVideoService,
+    ModalPromoProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

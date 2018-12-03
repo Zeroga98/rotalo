@@ -1,0 +1,248 @@
+:host {
+  width: 100%;
+  background: url("../../assets/img/december_promo/img_fondo_modal.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 40px;
+
+  .modal-container {
+    width: 100%;
+
+  }
+
+  .modal-share-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   }
+
+  .modal-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    opacity: 0;
+    background: rgba(143, 27, 15, 0.8);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+
+  /* Content styles */
+  .md-content-upload {
+    background-color: #FF3646;
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .md-content-upload h3 {
+    margin: 0;
+    padding: 0.4em;
+    text-align: center;
+    font-size: 2.4em;
+    font-weight: 300;
+    opacity: 0.8;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px 3px 0 0;
+  }
+
+  .md-content-upload>div {
+    padding: 3rem 1rem;
+    margin: 0;
+  }
+
+  .md-content-upload>div p {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1.6rem;
+    color: #777777;
+  }
+
+  .md-content-upload>div ul {
+    margin: 0;
+    padding: 0 0 30px 20px;
+  }
+
+  .md-content-upload>div ul li {
+    padding: 5px 0;
+  }
+
+  .md-content-upload{
+    .close-container{
+      padding: 15px 20px 10px 10px;
+      text-align: right;
+      .icon-circle-cancel{
+        cursor: pointer;
+        display: none;
+        color: #FFFFFF;
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .img-modal-pc {
+    width: 70%;
+  }
+  .img-modal-lost {
+    width: 60%;
+  }
+
+}
+
+:host {
+
+  .modal-upload{
+    width: 55%;
+    min-width: 300px;
+  }
+
+  .modal-info {
+    width: 45%;
+    min-width: 300px;
+    text-align: center;
+    background: #FFFFFF;
+    padding: 35px;
+    position: relative;
+    .close-container {
+      cursor: pointer;
+      font-size: 2.5rem;
+      position: absolute;
+      top: 5px;
+      right: 8px;
+    }
+  }
+}
+
+:host.md-show .modal-background {
+  opacity: 1;
+  visibility: visible;
+}
+
+:host {
+  .md-content-upload{
+    text-align: center;
+    .share-product-container {
+      margin: 0 auto;
+      width: 85%;
+
+
+      .share-product {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.9rem;
+        font-weight: bold;
+        color: #FFFFFF;
+      }
+
+      .share-description {
+        font-size: 1.6rem;
+        color: #FFFFFF;
+      }
+      .icon-container {
+        .button-share {
+          width: 44px;
+          height: 45px;
+          background-color: #C61B27;
+        }
+      }
+    }
+  }
+  .terms-link{
+    .share-description {
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+  }
+}
+
+:host {
+  .form-theme {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .form-group {
+      margin-bottom: 5px;
+      position: relative;
+      .form-control {
+        height: 45px;
+      }
+      .icon-container {
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        bottom: 0;
+        top: 0;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 1000px) {
+  :host {
+    width: auto;
+    background-size: auto 100%;
+
+    .modal-share-container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    .modal,
+    .modal-info {
+      width: 100%;
+    }
+
+    .modal-info {
+      min-height: 210px;
+      .close-container {
+        display: none;
+      }
+    }
+
+    .md-content-upload .close-container .icon-circle-cancel {
+      display: block;
+    }
+
+    .md-content-upload .close-container {
+      padding: 5px;
+    }
+
+    .md-content-upload .share-product-container .share-product {
+      font-size: 1.2rem;
+    }
+
+    .md-content-upload .share-product-container .share-description {
+      font-size: 1.0rem;
+    }
+
+    .form-theme .form-group .form-control {
+      height: 30px;
+      font-size: 1.0rem;
+    }
+
+     .modal-info .information-text p {
+      font-size: 1.0rem;
+     }
+
+     .modal-info .info-container {
+      border: none;
+     }
+
+    .modal-info .information-text {
+      width: 100%;
+    }
+
+     .md-content-upload > div {
+      padding: 0rem 1rem 4rem;
+    }
+
+  }
+}
+
+
