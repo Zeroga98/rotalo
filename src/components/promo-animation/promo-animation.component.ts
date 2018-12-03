@@ -50,7 +50,4 @@ export class PromoAnimationComponent implements OnInit {
     };
     window['dataLayer'].push(paramsGa);
   }
-
-
-
 }
