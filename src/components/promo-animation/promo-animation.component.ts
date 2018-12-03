@@ -22,7 +22,6 @@ export class PromoAnimationComponent implements OnInit {
       console.log(response);
       this.modalService.open(id, true);
     }, (error) => {
-      console.log(error);
       this.modalService.open(id, false);
     });
   }

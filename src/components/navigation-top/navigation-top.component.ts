@@ -279,8 +279,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.categoriesMenu.nativeElement.classList.remove('opened');
   }
 
-  isFiltersShow() {
-
+  hideAnimation() {
+    this.showAnimation = false;
+    this.changeDetector.markForCheck();
   }
 
 }

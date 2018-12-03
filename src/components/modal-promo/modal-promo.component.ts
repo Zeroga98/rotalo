@@ -23,11 +23,11 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
     }
   }
 
-
   constructor(private modalService: ModalPromoProductService,
     private el: ElementRef,
     private changeRef: ChangeDetectorRef,
-    private currentSessionSevice: CurrentSessionService) {
+    private currentSessionSevice: CurrentSessionService,
+    private router: Router) {
       this.element = el.nativeElement;
     }
 
@@ -57,6 +57,13 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
   close(): void {
     this.element.classList.remove('md-show');
     document.body.classList.remove('modal-open-promo');
+  }
+
+  goToTerms() {
+    this.close();
+    this.router.navigate([
+      `/${ROUTES.TERMS}`
+    ]);
   }
 
 }
