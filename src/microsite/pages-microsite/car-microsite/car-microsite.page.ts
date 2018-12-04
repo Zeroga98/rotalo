@@ -294,8 +294,10 @@ export class CarMicrositePage implements OnInit {
   async deleteCheckedProducts() {
     const params = this.getParamsToProducts();
     try {
-      console.log(this.car.getCheckedProducts());
       const response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
+      const quantityCart = await this.car.getCartInfo();
+      this.car.setTotalCartProducts(quantityCart);
+      this.car.changCartNumber(quantityCart);
       this.car.initCheckedList();
       this.loadProducts();
       this.changeDetectorRef.markForCheck();
@@ -340,11 +342,9 @@ export class CarMicrositePage implements OnInit {
       },
       'listaProductos': jsonProducts
     };
-    console.log(json);
     const params = this.getParamsToProducts();
     try {
       const response = await this.back.getOrden(json, params);
-      console.log(response);
       this.window.nativeWindow.pagar(this.carTotalPrice);
       this.changeDetectorRef.markForCheck();
     } catch (error) {

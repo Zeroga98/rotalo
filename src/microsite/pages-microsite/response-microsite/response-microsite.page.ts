@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class ResponseMicrositePage implements OnInit {
-  
+
   success = false;
   loading = false;
   titleSuccess = "¡Felicitaciones!";
@@ -26,7 +26,7 @@ export class ResponseMicrositePage implements OnInit {
 
   ngOnInit() {
     if (this.success) {
-      this.title = this.titleSuccess;  
+      this.title = this.titleSuccess;
       this.subtitle = this.subtitleSuccess;
     } else {
       this.title = this.titleError;

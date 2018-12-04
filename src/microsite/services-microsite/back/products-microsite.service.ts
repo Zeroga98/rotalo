@@ -12,7 +12,7 @@ import { ConfigurationMicrositeService } from '../configuration/configuration-mi
 
 @Injectable()
 export class ProductsMicrositeService {
-  readonly url = this.configurationService.getBaseUrl() + '/productos/productos-tienda';
+  readonly url = this.configurationService.getBaseUrl();
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public scroll: any;
   public products: Array<ProductInterface> = [];

@@ -554,7 +554,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     return false;
   }
 
-  addToShoppingCar(product) {
+  async addToShoppingCar(product) {
     const params = this.getParamsToProducts();
     if (this.quantityForm.get('stock').value <= this.totalStock) {
       const body = {
@@ -567,10 +567,16 @@ export class DetailProductMicrositeComponent implements OnInit {
         ]
       };
       if (this.back.addProductToBD(body, params)) {
-        this.router.navigate([
-          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-        ]);
-        console.log(`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`);
+        try {
+          this.router.navigate([
+            `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+          ]);
+          const quantityCart = await this.car.getCartInfo();
+          this.car.setTotalCartProducts(quantityCart);
+          this.car.changCartNumber(quantityCart);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
   }

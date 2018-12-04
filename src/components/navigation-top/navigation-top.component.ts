@@ -22,6 +22,7 @@ import { ProductsService } from '../../services/products.service';
 import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
+import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
 
 @Component({
   selector: 'navigation-top',
@@ -62,6 +63,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public tags: Array<string> = [];
   public showOptions;
   public isBancolombiaShop;
+  public totalCart = 0;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -86,6 +88,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private productsService: ProductsService,
     private navigationTopService:NavigationTopService,
+    private shoppingCarService: ShoppingCarService,
   ) {
     this.onResize();
   }
@@ -139,11 +142,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.communities = this.userService.getCommunitiesCurrent();
     }
     this.autoCompleteOptions = this.navigationTopService.getAutoCompleteOptions();
+    this.cartNumberSubscription();
   }
 
   isBancolombiaShopValidation() {
-    if (this.router.url.includes('microsite')) {
+    if (this.router.url.includes(`${ROUTES.MICROSITE.LINK}`)) {
       this.isBancolombiaShop = true;
+      this.getTotalProductsCart();
     } else {
       this.isBancolombiaShop = false;
     }
@@ -157,6 +162,24 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async getTotalProductsCart() {
+    try {
+      if (!this.shoppingCarService.getTotalCartProducts()) {
+        const quantityCart = await this.shoppingCarService.getCartInfo();
+        this.totalCart = quantityCart;
+      } else  {
+        this.totalCart = this.shoppingCarService.getTotalCartProducts();
+      }
+      this.changeDetector.markForCheck();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  get cartAvailable(): boolean {
+    return this.totalCart > 0;
   }
 
   async getCountries() {
@@ -330,6 +353,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       etiqueta: label
     };
     window['dataLayer'].push(paramsGa);
+  }
+
+  cartNumberSubscription() {
+    this.shoppingCarService.currentEventCart.subscribe(event => {
+      if (event) {
+        this.totalCart = event;
+        this.changeDetector.markForCheck();
+      }
+    });
   }
 
 }

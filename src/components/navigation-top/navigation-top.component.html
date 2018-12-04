@@ -69,6 +69,7 @@
               <span class="icon-shopping-car">
               </span>
               <p>Carrito</p>
+              <span *ngIf="isBancolombiaShop && cartAvailable" class="noti-circle">{{totalCart}}</span>
             </div>
           </li>
         </ul>

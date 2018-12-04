@@ -146,7 +146,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-
+          position: relative;
           .icon-shopping-car {
             margin-right: 5px;
             width: 16px;
@@ -163,7 +163,6 @@
           justify-content: center;
           align-items: center;
           cursor: pointer;
-
           p {
             color: #0FBBD8;
           }
