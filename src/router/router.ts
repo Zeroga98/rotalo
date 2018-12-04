@@ -39,6 +39,7 @@ import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
 import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page'
 import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
+import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 
 
 export const appRouter: Routes = [
@@ -153,6 +154,10 @@ export const appRouter: Routes = [
           {
             path: ROUTES.MICROSITE.CAR,
             component: CarMicrositePage,
+          },
+          {
+            path: ROUTES.MICROSITE.RESPONSE,
+            component: ResponseMicrositePage,
           },
           {
             path: '',

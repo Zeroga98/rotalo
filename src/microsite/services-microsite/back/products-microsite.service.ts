@@ -26,7 +26,7 @@ export class ProductsMicrositeService {
     private configurationService: ConfigurationService,
     private userService: UserService,
     private router: Router,
-    ) { }
+  ) { }
 
   setTotalProducts(total) {
     this.totalProducts = total;
@@ -258,5 +258,36 @@ export class ProductsMicrositeService {
         this.scroll = undefined;
       }
     }
+  }
+
+  getOrden(body, params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { codTienda: '1' });
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/pagos/orden';
+    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        return response;
+      });
+  }
+
+  getParamsFromWaybox(id, params) {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/transactions/' + id;
+    return this.http.get(url, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        return response;
+      });
+  }
+
+  finalizarOrden(body, params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/pagos/finalizar-orden';
+    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        return response;
+      });
   }
 }

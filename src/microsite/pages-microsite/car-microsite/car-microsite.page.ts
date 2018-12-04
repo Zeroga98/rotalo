@@ -11,9 +11,7 @@ import { ROUTES } from '../../../router/routes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
-
-
-
+import { windowService } from '../../services-microsite/front/window.service';
 
 @Component({
   selector: 'car-microsite',
@@ -22,7 +20,7 @@ import { ProductsMicrositeService } from '../../services-microsite/back/products
 })
 export class CarMicrositePage implements OnInit {
 
-  public products: Array<any>
+  public products: Array<any>;
   public errorsSubmit: Array<any> = [];
   public currentUser;
   public nameUser;
@@ -56,7 +54,8 @@ export class CarMicrositePage implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private feedService: FeedMicrositeService,
-    private back: ProductsMicrositeService
+    private back: ProductsMicrositeService,
+    private window: windowService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
   }
@@ -80,23 +79,23 @@ export class CarMicrositePage implements OnInit {
   getDocument(id) {
     switch (id) {
       case 1: {
-        this.typeDocument = "CC"
+        this.typeDocument = 'CC';
         break;
       }
       case 4: {
-        this.typeDocument = "CE"
+        this.typeDocument = 'CE';
         break;
       }
       case 5: {
-        this.typeDocument = "PA"
+        this.typeDocument = 'PA';
         break;
       }
       case 6: {
-        this.typeDocument = "CIP"
+        this.typeDocument = 'CIP';
         break;
       }
       case 7: {
-        this.typeDocument = "DPI"
+        this.typeDocument = 'DPI';
         break;
       }
       default:
@@ -260,7 +259,7 @@ export class CarMicrositePage implements OnInit {
   }
 
   async loadProducts() {
-    this.showView = "loading";
+    this.showView = 'loading';
     const params = this.getParamsToProducts();
     try {
       const response = await this.back.getCarProducts(params);
@@ -272,9 +271,9 @@ export class CarMicrositePage implements OnInit {
       this.products = this.car.getProducts();
 
       if (this.products.length == 0) {
-        this.showView = "noProducts";
+        this.showView = 'noProducts';
       } else {
-        this.showView = "Products";
+        this.showView = 'Products';
       }
 
       this.getCarTotalPrice();
@@ -303,20 +302,47 @@ export class CarMicrositePage implements OnInit {
     return this.currentFilter;
   }
 
-  pay() {
-   /* const publicKey = 'pub_test_CYgwfGUNiOxIWh4WRJnfOsCu4FIxhy8p';
-    const privateKey = 'prv_test_jAK3LXACf8ewSNJmhW86aa9I2b1NX3fb';
-    const uniqueReference = 'asdf456468342384562';
-    const redirectUrl = 'http://facebook.com';
-    const currency = 'COP';
-    const amount = '50000';
-    const checkout = new WayboxCheckout({
-      currency: currency,
-        amountInCents: amount,
-        reference: uniqueReference,
-        publicKey: publicKey,
-        redirectUrl: redirectUrl
+  async pay() {
+    const jsonProducts = [];
+    this.products.forEach(element => {
+      jsonProducts.push(
+        {
+          'nombre': element.product.name,
+          'precio': element.product.price * element.quantity
+          ,
+          'talla': 'M',
+          'color': 'rosa',
+          'numeroUnidades': element.quantity
+        }
+      );
     });
-    checkout.open(() => {});*/
+    const json = {
+      'totalOrder': this.carTotalPrice,
+      'cliente': {
+        'nombre': this.nameUser,
+        'tipoDocumento': this.typeDocument,
+        'numeroDocumento': this.documentNumber,
+        'correoElectronico': this.email,
+        'numeroCelular': this.cellphone
+      },
+      'datosDireccion': {
+        'departamento': 'Antioquia',
+        'ciudad': 'Medellin',
+        'direccion': this.registerForm.get('address').value,
+        'numeroContacto': this.registerForm.get('cellphone').value
+      },
+      'listaProductos': jsonProducts
+    };
+    console.log(json);
+    const params = this.getParamsToProducts();
+    try {
+      const response = await this.back.getOrden(json, params);
+      console.log(response);
+      this.window.nativeWindow.pagar(this.carTotalPrice);
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
   }
 }

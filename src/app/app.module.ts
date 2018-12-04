@@ -170,7 +170,8 @@ import { ShoppingCarService } from '../microsite/services-microsite/front/shoppi
 import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
 import { NavigationTopService } from '../components/navigation-top/navigation-top.service';
 import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
-
+import { windowService } from '../microsite/services-microsite/front/window.service';
+import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 @NgModule({
   declarations: [
     AppComponent,
@@ -269,7 +270,8 @@ import { MiniProductDetailComponent } from '../microsite/components-microsite/mi
     DetailProductMicrositeComponent,
     BannerLatiendaComponent,
     BackArrowMicrositeComponent,
-    MiniProductDetailComponent
+    MiniProductDetailComponent,
+    ResponseMicrositePage
   ],
   imports: [
     BrowserModule,
@@ -361,7 +363,8 @@ import { MiniProductDetailComponent } from '../microsite/components-microsite/mi
     ProductsMicrositeService,
     ConfigurationMicrositeService,
     FeedMicrositeService,
-    ShoppingCarService
+    ShoppingCarService,
+    windowService
   ],
   bootstrap: [AppComponent]
 })

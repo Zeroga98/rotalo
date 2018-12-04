@@ -54,7 +54,6 @@ export class ShoppingCarService {
     this.products.forEach(element => {
       if (element.id == id) {
         element.quantity = quantity;
-        element.totalPrice = element.price * element.quantity;
       }
     });
   }
