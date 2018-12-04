@@ -43,6 +43,7 @@ export const ROUTES = {
         LINK: 'microsite',
         FEED: 'home',
         DETAIL: 'details',
-        CAR: 'cart'
+        CAR: 'cart',
+        RESPONSE: 'resp'
     }
 };

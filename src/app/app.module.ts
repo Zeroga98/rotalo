@@ -168,6 +168,7 @@ import { ShoppingCarService } from '../microsite/services-microsite/front/shoppi
 import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
 import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
 import { windowService } from '../microsite/services-microsite/front/window.service';
+import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 @NgModule({
   declarations: [
     AppComponent,
@@ -264,7 +265,8 @@ import { windowService } from '../microsite/services-microsite/front/window.serv
     DetailProductMicrositeComponent,
     BannerLatiendaComponent,
     BackArrowMicrositeComponent,
-    MiniProductDetailComponent
+    MiniProductDetailComponent,
+    ResponseMicrositePage
   ],
   imports: [
     BrowserModule,
@@ -326,7 +328,6 @@ import { windowService } from '../microsite/services-microsite/front/window.serv
     ModalUploadProductService,
     ModalTicketService,
     ModalVideoService,
-    windowService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
@@ -355,7 +356,8 @@ import { windowService } from '../microsite/services-microsite/front/window.serv
     ProductsMicrositeService,
     ConfigurationMicrositeService,
     FeedMicrositeService,
-    ShoppingCarService
+    ShoppingCarService,
+    windowService
   ],
   bootstrap: [AppComponent]
 })
