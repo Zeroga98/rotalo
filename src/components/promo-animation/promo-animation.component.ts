@@ -19,7 +19,6 @@ export class PromoAnimationComponent implements OnInit {
       code: this.promoCode
     };
     this.modalService.consultPromo(params).subscribe((response) => {
-      this.modalService.open(id, true);
       this.gapush(
         'send',
         'event',
@@ -27,16 +26,17 @@ export class PromoAnimationComponent implements OnInit {
         'ClickReno',
         'Exitoso'
       );
+      this.modalService.open(id, true);
     }, (error) => {
+      this.gapush(
+        'send',
+        'event',
+        'Concurso',
+        'ClickReno',
+        'NoExitoso'
+      );
       this.modalService.open(id, false);
     });
-    this.gapush(
-      'send',
-      'event',
-      'Concurso',
-      'ClickReno',
-      'NoExitoso'
-    );
   }
 
   gapush(method, type, category, action, label) {
@@ -50,6 +50,4 @@ export class PromoAnimationComponent implements OnInit {
     };
     window['dataLayer'].push(paramsGa);
   }
-
-
 }

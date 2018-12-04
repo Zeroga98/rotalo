@@ -557,13 +557,12 @@ export class DetailProductMicrositeComponent implements OnInit {
   addToShoppingCar(product) {
     const params = this.getParamsToProducts();
     if (this.quantityForm.get('stock').value <= this.totalStock) {
-      var body =
-      {
+      const body = {
         productos: [
           {
-            "idProducto": product.id,
-            "cantidad": this.quantityForm.get('stock').value,
-            "adicionar": true
+            'idProducto': product.id,
+            'cantidad': this.quantityForm.get('stock').value,
+            'adicionar': true
           }
         ]
       };
@@ -571,6 +570,7 @@ export class DetailProductMicrositeComponent implements OnInit {
         this.router.navigate([
           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
         ]);
+        console.log(`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`);
       }
     }
   }

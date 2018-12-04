@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { windowService } from '../../services-microsite/front/window.service';
+import { CollectionSelectService } from '../../../services/collection-select.service';
 
 @Component({
   selector: 'car-microsite',
@@ -29,7 +30,7 @@ export class CarMicrositePage implements OnInit {
   public userId;
   public email;
   public cellphone;
-  public country;
+  public country: Object = {};
   public city;
   public state;
   public errorMessage = '';
@@ -55,8 +56,10 @@ export class CarMicrositePage implements OnInit {
     private router: Router,
     private feedService: FeedMicrositeService,
     private back: ProductsMicrositeService,
-    private window: windowService
+    private window: windowService,
+    private collectionService: CollectionSelectService,
   ) {
+    this.getCountries();
     this.currentFilter = this.feedService.getCurrentFilter();
   }
 
@@ -68,8 +71,6 @@ export class CarMicrositePage implements OnInit {
   ngOnInit() {
     this.products = this.car.getProducts();
     this.getCarTotalPrice();
-
-    this.setCountry();
     this.initForm();
     this.loadUserInfo();
     this.loadProducts();
@@ -133,11 +134,17 @@ export class CarMicrositePage implements OnInit {
     });
   }
 
-  setCountry() {
-    this.country = {
-      name: 'Colombia',
-      id: '1'
-    };
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.country = {
+        name: 'Colombia',
+        id: '1'
+      };
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async onSubmit() {

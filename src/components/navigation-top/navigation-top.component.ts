@@ -184,9 +184,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    `/${url}` === this.router.url
-      ? location.reload()
-      : this.router.navigate([url]);
+    const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.DETAIL}`;
+    const urlMicrosite  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    console.log(this.router.url);
+    if (this.router.url.includes(urlMicrositeProduct)) {
+      this.router.navigate([urlMicrosite]);
+    } else {
+      `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
+    }
   }
 
   get messageAvailable(): boolean {
