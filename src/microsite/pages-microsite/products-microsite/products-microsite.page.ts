@@ -62,7 +62,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   private currentUrl = '';
   public pageNumber: number = 1;
   public totalPages: number = 100;
-  @ViewChildren('productsEnd') endForRender: QueryList<any>;
+  @ViewChildren('productsFinish') endForRender: QueryList<ElementRef>;
   public showPagination = false;
   public idCountry = 1;
   public counter = '';
@@ -93,6 +93,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
+
   }
 
   ngOnDestroy(): void {
@@ -103,11 +104,11 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
-      this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
+      this.endForRender.notifyOnChanges();
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -179,6 +180,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         let products;
         products = await this.productsService.getProductsMicrosite(this.userId, params);
         this.updateProducts(products);
+        this.changeDetectorRef.markForCheck();
       }
       this.totalPages = this.productsService.getTotalProducts();
       this.stateRequest = this.statesRequestEnum.success;

@@ -1,0 +1,57 @@
+<div class="modal-container">
+  <div class="modal-share-container">
+    <div class="modal-upload">
+      <div class="md-content-upload">
+        <div class="close-container">
+          <span (click)="close()" class="icon-circle-cancel"></span>
+        </div>
+        <div class="share-product-container">
+          <div *ngIf="isWinner">
+            <p class="share-product">¡Felicitaciones!</p>
+          </div>
+          <div *ngIf="!isWinner">
+            <p class="share-product">¡Oh no, se te adelantaron!</p>
+          </div>
+          <div *ngIf="isWinner">
+              <div>
+                  <p class="share-description">
+                    Encontraste a Rodolfo el reno de Rótalo. Has ganado una tarjeta recargada con
+                    <span class="bold">$300.000 pesos</span>
+                  </p>
+                </div>
+                <div>
+                  <p class="share-description">
+                    Nos comunicaremos contigo para entregarte presencialmente tu tarjeta regalo.
+                  </p>
+                </div>
+          </div>
+          <div *ngIf="!isWinner">
+              <div>
+                  <p class="share-description">
+                    Alguien encontró a Rodolfo el reno de Rótalo antes que tú. ¡No importa! sigue buscando son 6 renos en total.
+                  </p>
+                </div>
+          </div>
+        </div>
+        <div class="terms-link">
+            <a (click) = "goToTerms()" class="share-description">
+                Consulta términos y condiciones
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-info">
+      <div class="close-container">
+        <span (click)="close()" class="icon-circle-cancel"></span>
+      </div>
+      <div class="info-container">
+        <div *ngIf="isWinner" class="info">
+          <img class="img-modal-pc" src="../../assets/img/december_promo/ic_reno_ganaste.png" alt="reno_ganaste">
+        </div>
+        <div *ngIf="!isWinner" class="info">
+          <img class="img-modal-lost" src="../../assets/img/december_promo/ic_reno_perdiste.png" alt="reno_perdiste">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

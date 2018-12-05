@@ -238,27 +238,30 @@ export class BuyProductPage implements OnInit {
   }
 
   buyProductCash() {
-    this.disableButton = true;
-    this.buyService.buyProduct(this.buildParams()).subscribe((response) => {
-      this.transactionSuccess = true;
-      this.productsService.scroll = undefined;
-      this.changeDetectorRef.markForCheck();
-    },
-    (error) => {
-      if (error.error) {
-        if (error.error.status == '404') {
+    // this.disableButton = true;
+    if (!this.formIsInValid) {
+      this.buyService.buyProduct(this.buildParams()).subscribe((response) => {
+        this.transactionSuccess = true;
+        this.productsService.scroll = undefined;
+        this.changeDetectorRef.markForCheck();
+      },
+      (error) => {
+        if (error.error) {
+          if (error.error.status == '404') {
+            this.disableButton = false;
+            this.redirectErrorPage();
+          } else {
+            this.errorMessage = '';
+            this.errorMessage = error.error.message;
+          }
+          this.changeDetectorRef.markForCheck();
+        } else {
           this.disableButton = false;
           this.redirectErrorPage();
-        } else {
-          this.errorMessage = '';
-          this.errorMessage = error.error.message;
         }
-        this.changeDetectorRef.markForCheck();
-      } else {
-        this.disableButton = false;
-        this.redirectErrorPage();
-      }
-    });
+      });
+    }
+
   }
 
   showMessageModal(evt) {
@@ -418,6 +421,7 @@ export class BuyProductPage implements OnInit {
         this.quantityForm.patchValue({stock: stock});
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
+          this.quantity = quantity;
           this.totalPrice =  this.priceProduct * quantity;
         } else {
           this.totalPrice = this.priceProduct;
@@ -434,6 +438,7 @@ export class BuyProductPage implements OnInit {
         this.quantityForm.patchValue({stock: stock});
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
+          this.quantity = quantity;
           this.totalPrice =  this.priceProduct * quantity;
         } else {
           this.totalPrice = this.priceProduct;
@@ -442,6 +447,19 @@ export class BuyProductPage implements OnInit {
     }
   }
 
+  get formIsInValid() {
+    return this.quantityForm.invalid;
+  }
+
+  changeTotalValue() {
+    if (this.quantityForm.get('stock').value && this.quantityForm.get('stock').valid) {
+      const quantity = this.quantityForm.get('stock').value;
+      this.quantity = quantity;
+      this.totalPrice =  this.priceProduct * quantity;
+    } else {
+      this.totalPrice = this.priceProduct;
+    }
+  }
 
 
 }

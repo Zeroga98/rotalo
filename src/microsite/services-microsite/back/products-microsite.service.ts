@@ -12,7 +12,7 @@ import { ConfigurationMicrositeService } from '../configuration/configuration-mi
 
 @Injectable()
 export class ProductsMicrositeService {
-  readonly url = this.configurationService.getBaseUrl() + '/productos/productos-tienda';
+  readonly url = this.configurationService.getBaseUrl();
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public scroll: any;
   public products: Array<ProductInterface> = [];
@@ -73,7 +73,7 @@ export class ProductsMicrositeService {
   }
 
   addProductToBD(body, params): Promise<any> {
-    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos/productos';
     return this.http.post(url, body, { headers: headers, params: params }).toPromise()
@@ -83,10 +83,9 @@ export class ProductsMicrositeService {
   }
 
   deleteProductToBD(body, params): Promise<any> {
-    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos/productos/eliminar';
-    console.log(body);
     return this.http.post(url, body, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
         return response;
@@ -94,7 +93,7 @@ export class ProductsMicrositeService {
   }
 
   getCarProducts(params): Promise<any> {
-    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos';
     return this.http.get(url, { headers: headers, params: params }).toPromise()

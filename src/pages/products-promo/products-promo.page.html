@@ -9,22 +9,61 @@
   <div class="info-countdown">
     <p>Quedan</p>
     <p class="counter">{{counter}}</p>
-    <p>De grandes descuentos</p>
+    <p>Horas de grandes descuentos</p>
   </div>
 
-  <img class="img-banner" src="./assets/img/banner_promo/promo.jpg" alt="black friday">
+  <img class="img-banner img-desktop" src="./assets/img/banner_promo/promo.jpg" alt="black friday">
+  <img class="img-banner img-mobile" src="./assets/img/banner_promo/promo_mobile.png" alt="black friday">
 </div>
-<div class="card-container">
-  <div class="item">
-    <img src="./assets/img/promo_cards/banner_we_sura_3.png" alt="we_sura">
+<div class="desktop card-container">
+  <div class="item gtmEbiko">
+    <a class="gtmEbiko" target="_blank" href="https://www.rotalo.com.co/products/show/5713">
+      <img  class="gtmEbiko" src="./assets/img/promo_cards/ebiko.png" alt="ebiko">
+    </a>
   </div>
-  <div class="item">
-    <img src="./assets/img/promo_cards/banner_we_sura_2.png" alt="we_sura">
+  <div class="item gtmRigo">
+    <a class="gtmRigo" target="_blank" href="https://gorigogo.com">
+      <img class="gtmRigo" src="./assets/img/promo_cards/rigo.png" alt="rigo">
+    </a>
   </div>
-  <div class="item">
-    <img src="./assets/img/promo_cards/banner_we_sura.png" alt="we_sura">
+  <div class="item gtmWesura">
+      <a class="gtmWesura" target="_blank" href="http://rotalo.wesura.com/">
+        <img class="gtmWesura" src="./assets/img/promo_cards/wesura.png" alt="wesura">
+      </a>
   </div>
 </div>
+
+<div class="mobile card-container">
+    <ngx-carousel  [inputs]="carouselConfig">
+        <ngx-item  class="gtmEbiko" NgxCarouselItem >
+            <div  class="item gtmEbiko img-container">
+                <a class="gtmEbiko" target="_blank" href="https://www.rotalo.com.co/products/show/5713">
+                  <img class="gtmEbiko" src="./assets/img/promo_cards/ebiko.png" alt="ebiko">
+                </a>
+              </div>
+        </ngx-item>
+        <ngx-item class="gtmRigo" NgxCarouselItem >
+            <div class="gtmRigo item img-container">
+                <a class="gtmRigo" target="_blank" href="https://gorigogo.com">
+                  <img class="gtmRigo" src="./assets/img/promo_cards/rigo.png" alt="rigo">
+                </a>
+              </div>
+        </ngx-item>
+        <ngx-item class="gtmWesura" NgxCarouselItem >
+            <div class="gtmWesura item img-container">
+                <a class="gtmWesura" target="_blank" href="http://rotalo.wesura.com/">
+                  <img class="gtmWesura" src="./assets/img/promo_cards/wesura.png" alt="wesura">
+                </a>
+              </div>
+        </ngx-item>
+        <span NgxCarouselPrev class="hide arrow arrow-prev"></span>
+        <span NgxCarouselNext class="hide arrow arrow-next"></span>
+    </ngx-carousel>
+</div>
+
+
+
+
 <div>
   <div class="container-spinner" *ngIf="isSpinnerShow">
     <custom-spinner></custom-spinner>

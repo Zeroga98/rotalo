@@ -4,8 +4,8 @@
 
 
 
-    <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="product['is-low-price'] || isActivePromo" class="container-low-price ">
-        <p *ngIf="!isPromoDate && idCountry == 9">$ REBAJÓ</p>
+    <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="product['is-low-price'] || isPromoDate&&isActivePromo" class="container-low-price ">
+        <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
     </div>
 
 
@@ -38,12 +38,12 @@
                   <span *ngIf="product.price != 0 && product.currency != 'GTQ' && idCountry == 1" class="name">{{product.price | currency:"$":0 | removeDigits}}</span>
                   <span *ngIf="product.price == 0" class="name">Gratis</span>
               </div>
-              <div  [ngClass]="product['is-low-price'] || isActivePromo? 'low-price' : ''" *ngIf="product['previous-price'] && isPromoDate && isActivePromo || product['previous-price'] && product['is-low-price']">
+              <div  [ngClass]="product['previous-price'] && product['previous-price'] >  product['price'] || isActivePromo? 'low-price' : ''" *ngIf="product['previous-price'] && isPromoDateBefore && isActivePromo || product['previous-price'] && product['previous-price'] >  product['price']">
                   <span *ngIf="product['previous-price'] != 0 && product.currency == 'GTQ'" class="name">{{product['previous-price'] | currency:"Q":0 | removeDigits}}</span>
                   <span *ngIf="product['previous-price'] != 0 && product.currency != 'GTQ' && idCountry == 9" class="name">{{product['previous-price'] | currency:"$":0 | removeDigits}}</span>
                   <span *ngIf="product['previous-price'] != 0 && product.currency != 'GTQ' && idCountry == 1" class="name">{{product['previous-price'] | currency:"$":0 | removeDigits}}</span>
               </div>
-              <div  [ngClass]="product['is-low-price'] || isActivePromo? 'low-price' : ''" *ngIf="product['previousPrice'] && isPromoDate && isActivePromo || product['previousPrice'] && product['is-low-price']">
+              <div  [ngClass]="product['previousPrice'] && product['previousPrice'] >  product['price'] || isActivePromo? 'low-price' : ''" *ngIf="product['previousPrice'] && isPromoDateBefore && isActivePromo || product['previousPrice'] && product['previousPrice'] >  product['price']">
                   <span *ngIf="product['previousPrice'] != 0 && product.currency == 'GTQ'" class="name">{{product['previousPrice'] | currency:"Q":0 | removeDigits}}</span>
                   <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 9" class="name">{{product['previousPrice'] | currency:"$":0 | removeDigits}}</span>
                   <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 1" class="name">{{product['previousPrice'] | currency:"$":0 | removeDigits}}</span>

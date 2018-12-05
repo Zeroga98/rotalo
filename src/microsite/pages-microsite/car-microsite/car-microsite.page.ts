@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedMicrositeService } from '../products-microsite/feedMicrosite.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { windowService } from '../../services-microsite/front/window.service';
+import { CollectionSelectService } from '../../../services/collection-select.service';
 
 @Component({
   selector: 'car-microsite',
@@ -20,7 +21,7 @@ import { windowService } from '../../services-microsite/front/window.service';
 })
 export class CarMicrositePage implements OnInit {
 
-  public products: Array<any>
+  public products: Array<any>;
   public errorsSubmit: Array<any> = [];
   public currentUser;
   public nameUser;
@@ -29,7 +30,7 @@ export class CarMicrositePage implements OnInit {
   public userId;
   public email;
   public cellphone;
-  public country;
+  public country: Object = {};
   public city;
   public state;
   public errorMessage = '';
@@ -55,8 +56,10 @@ export class CarMicrositePage implements OnInit {
     private router: Router,
     private feedService: FeedMicrositeService,
     private back: ProductsMicrositeService,
-    private window: windowService
+    private window: windowService,
+    private collectionService: CollectionSelectService,
   ) {
+    this.getCountries();
     this.currentFilter = this.feedService.getCurrentFilter();
   }
 
@@ -68,8 +71,6 @@ export class CarMicrositePage implements OnInit {
   ngOnInit() {
     this.products = this.car.getProducts();
     this.getCarTotalPrice();
-
-    this.setCountry();
     this.initForm();
     this.loadUserInfo();
     this.loadProducts();
@@ -79,23 +80,23 @@ export class CarMicrositePage implements OnInit {
   getDocument(id) {
     switch (id) {
       case 1: {
-        this.typeDocument = "CC"
+        this.typeDocument = 'CC';
         break;
       }
       case 4: {
-        this.typeDocument = "CE"
+        this.typeDocument = 'CE';
         break;
       }
       case 5: {
-        this.typeDocument = "PA"
+        this.typeDocument = 'PA';
         break;
       }
       case 6: {
-        this.typeDocument = "CIP"
+        this.typeDocument = 'CIP';
         break;
       }
       case 7: {
-        this.typeDocument = "DPI"
+        this.typeDocument = 'DPI';
         break;
       }
       default:
@@ -133,11 +134,17 @@ export class CarMicrositePage implements OnInit {
     });
   }
 
-  setCountry() {
-    this.country = {
-      name: 'Colombia',
-      id: '1'
-    };
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.country = {
+        name: 'Colombia',
+        id: '1'
+      };
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async onSubmit() {
@@ -259,10 +266,10 @@ export class CarMicrositePage implements OnInit {
   }
 
   async loadProducts() {
-    this.showView = "loading";
+    this.showView = 'loading';
     const params = this.getParamsToProducts();
     try {
-      var response = await this.back.getCarProducts(params);
+      const response = await this.back.getCarProducts(params);
       this.products = [];
       response.carroCompras.commerceItems.forEach(element => {
         this.products.push(element);
@@ -271,9 +278,9 @@ export class CarMicrositePage implements OnInit {
       this.products = this.car.getProducts();
 
       if (this.products.length == 0) {
-        this.showView = "noProducts";
+        this.showView = 'noProducts';
       } else {
-        this.showView = "Products";
+        this.showView = 'Products';
       }
 
       this.getCarTotalPrice();
@@ -287,12 +294,12 @@ export class CarMicrositePage implements OnInit {
   async deleteCheckedProducts() {
     const params = this.getParamsToProducts();
     try {
-      console.log(this.car.getCheckedProducts());
-
-      var response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
+      const response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
+      const quantityCart = await this.car.getCartInfo();
+      this.car.setTotalCartProducts(quantityCart);
+      this.car.changCartNumber(quantityCart);
       this.car.initCheckedList();
       this.loadProducts();
-
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.changeDetectorRef.markForCheck();
@@ -305,41 +312,39 @@ export class CarMicrositePage implements OnInit {
   }
 
   async pay() {
-    let jsonProducts = []
+    const jsonProducts = [];
     this.products.forEach(element => {
       jsonProducts.push(
         {
-          "nombre": element.product.name,
-          "precio": element.product.price * element.quantity
+          'nombre': element.product.name,
+          'precio': element.product.price * element.quantity
           ,
-          "talla": "M",
-          "color": "rosa",
-          "numeroUnidades": element.quantity
+          'talla': 'M',
+          'color': 'rosa',
+          'numeroUnidades': element.quantity
         }
-      )
+      );
     });
-    let json = {
-      "totalOrder": this.carTotalPrice,
-      "cliente": {
-        "nombre": this.nameUser,
-        "tipoDocumento": this.typeDocument,
-        "numeroDocumento": this.documentNumber,
-        "correoElectronico": this.email,
-        "numeroCelular": this.cellphone
+    const json = {
+      'totalOrder': this.carTotalPrice,
+      'cliente': {
+        'nombre': this.nameUser,
+        'tipoDocumento': this.typeDocument,
+        'numeroDocumento': this.documentNumber,
+        'correoElectronico': this.email,
+        'numeroCelular': this.cellphone
       },
-      "datosDireccion": {
-        "departamento": "Antioquia",
-        "ciudad": "Medellin",
-        "direccion": this.registerForm.get('address').value,
-        "numeroContacto": this.registerForm.get('cellphone').value
+      'datosDireccion': {
+        'departamento': 'Antioquia',
+        'ciudad': 'Medellin',
+        'direccion': this.registerForm.get('address').value,
+        'numeroContacto': this.registerForm.get('cellphone').value
       },
-      "listaProductos": jsonProducts
-    }
-    console.log(json);
+      'listaProductos': jsonProducts
+    };
     const params = this.getParamsToProducts();
     try {
-      var response = await this.back.getOrden(json, params);
-      console.log(response);
+      const response = await this.back.getOrden(json, params);
       this.window.nativeWindow.pagar(this.carTotalPrice);
       this.changeDetectorRef.markForCheck();
     } catch (error) {

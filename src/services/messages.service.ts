@@ -13,6 +13,9 @@ export class MessagesService {
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     private readonly timeToCheckNotification: number = 10000;
     private readonly timeToCheckUnreadNotification: number = 20000;
+    private path = {
+      'rutaRenoEscondido':  ''
+    };
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
     getConversation(): Promise<any> {
@@ -35,6 +38,14 @@ export class MessagesService {
                     .toPromise();
     }
 
+    setUnreadNotificationParam(path) {
+      this.path = path;
+    }
+
+    getUnreadNotificationParam() {
+      return this.path;
+    }
+
     getMessagesUnred(idUser): Observable<any> {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
@@ -42,7 +53,7 @@ export class MessagesService {
       const url = this.urlSapi + '/centro/rotalo/notificaciones-sin-leer';
 
       return Observable.timer(0, this.timeToCheckUnreadNotification)
-      .concatMap(() =>  this.http.get(url, { headers: headers }))
+      .concatMap(() =>  this.http.put(url, this.getUnreadNotificationParam() , { headers: headers }))
       .map((response: any) => response);
     }
 

@@ -86,6 +86,7 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+    this.carouselConfig = CAROUSEL_CONFIG;
   }
 
    ngOnInit() {

@@ -5,18 +5,27 @@ import { ConfigurationService } from "../../../services/configuration.service";
 import 'rxjs/add/operator/mergeMap';
 import { ProductInterface } from "../../../commons/interfaces/product.interface";
 import { ProductsMicrositeService } from "../back/products-microsite.service";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ShoppingCarService {
   public products: Array<any> = [];
   public checkedProducts: Array<any> = [];
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  private totalProductsCart;
+  private eventSourceCart = new BehaviorSubject<any>(null);
+  currentEventCart = this.eventSourceCart.asObservable();
+
+
 
   constructor(
+    private http: HttpClient,
+    private configurationService: ConfigurationService,
     private back: ProductsMicrositeService
   ) { }
 
   setProducts(products) {
-    this.products = products;    
+    this.products = products;
   }
 
   getProducts() {
@@ -27,7 +36,7 @@ export class ShoppingCarService {
     if (isChecked) {
       this.checkedProducts.push(id);
     } else {
-      var i = 0;
+      let i = 0;
       while (i < this.checkedProducts.length) {
         if (this.checkedProducts[i] == id) {
           this.checkedProducts.splice(i, 1);
@@ -39,10 +48,9 @@ export class ShoppingCarService {
   }
 
   getCheckedProducts() {
-    var json = 
-    { 
+    const json = {
       idProductos: this.checkedProducts
-    }
+    };
     return json;
   }
 
@@ -57,4 +65,28 @@ export class ShoppingCarService {
       }
     });
   }
+
+  getCartInfo() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/carritos/productos/cantidades';
+    return this.http.get(url, { headers: headers }).toPromise()
+      .then((response: any) => {
+        this.setTotalCartProducts(response.body.cantidadProductos);
+        return response.body.cantidadProductos;
+      });
+  }
+
+  setTotalCartProducts(totalCarts) {
+    this.totalProductsCart = totalCarts;
+  }
+
+  getTotalCartProducts() {
+    return this.totalProductsCart;
+  }
+
+  changCartNumber(event) {
+    this.eventSourceCart.next(event);
+  }
+
 }

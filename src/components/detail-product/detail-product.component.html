@@ -16,9 +16,8 @@
             <img src="/assets/img/product-no-image.png">
           </div>
         </div>
-        <div class="description">{{products.description}}</div>
-        <div>
-          tabla
+        <div class="description">
+          {{products.description}}
         </div>
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
@@ -41,7 +40,10 @@
             </span>
           </ngx-carousel>
         </div>
-        <div class="description">{{products.description}}</div>
+        <div class="tabla-container description">
+          <h1>Descripción</h1>
+          {{products.description}}
+        </div>
         <div *ngIf="products.vehicle" class="tabla-container">
           <h1>Características</h1>
           <table class="table-info">
@@ -157,7 +159,7 @@
         </div>
 
         <div class="btns-container">
-            <div [ngClass]="products['is-low-price'] || isActivePromo? 'btn-item-full' : ''" class="btn-item ">
+            <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''" class="btn-item ">
             <div class="price-container">
               <div>
                 <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
@@ -168,7 +170,7 @@
                   {{products.price | currency:"$":0 | removeDigits}}</span>
                 <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
-              <div [ngClass]="products['is-low-price'] || isActivePromo? 'low-price' : ''" *ngIf="products['previousPrice'] && isPromoDate && isActivePromo || products['previousPrice'] && products['is-low-price']">
+              <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''" *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
                 <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
                   {{products['previousPrice'] | currency:"Q":0 | removeDigits}}</span>
                 <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
@@ -200,7 +202,7 @@
                     <span class="quantity-on-stock">
                         ({{totalStock}} disponibles)
                     </span>
-                    <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser menor igual a {{totalStock}}</span>
+                    <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
                 </div>
             </form>
           </div>

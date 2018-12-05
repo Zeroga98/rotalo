@@ -23,11 +23,11 @@ import { ConversationInterface } from '../../commons/interfaces/conversation.int
 import { CurrentSessionService } from '../../services/current-session.service';
 import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
 import { BuyService } from '../../services/buy.service';
 import { NavigationService } from '../../pages/products/navigation.service';
-import { START_DATE_BF, END_DATE_BF } from '../../commons/constants/dates-promos.contants';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -77,9 +77,11 @@ export class DetailProductComponent implements OnInit {
   public countryId;
   public totalStock = 1;
   public idCountry = 1;
-  public startDate = START_DATE_BF;
+  public startDateBf = START_DATE_BF;
+  public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -398,19 +400,21 @@ export class DetailProductComponent implements OnInit {
   }
 
   buyProduct(id: number | string) {
-    let quantity = 1;
-    if (this.quantityForm.get('stock').value) {
-      quantity = this.quantityForm.get('stock').value;
+    if (!this.formIsInValid) {
+      let quantity = 1;
+      if (this.quantityForm.get('stock').value) {
+        quantity = this.quantityForm.get('stock').value;
+      }
+      const quantityProduct = {
+        idProduct: id,
+        quantity: quantity
+      };
+      this.buyService.setQuantityProduct(quantityProduct);
+      const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+        ROUTES.PRODUCTS.BUY
+      }/${id}`;
+      this.router.navigate([urlBuyProduct]);
     }
-    const quantityProduct = {
-      idProduct: id,
-      quantity: quantity
-    };
-    this.buyService.setQuantityProduct(quantityProduct);
-    const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
-      ROUTES.PRODUCTS.BUY
-    }/${id}`;
-    this.router.navigate([urlBuyProduct]);
   }
 
   creditProduct(id: number | string) {
@@ -547,6 +551,13 @@ export class DetailProductComponent implements OnInit {
 
 
   get isPromoDate() {
+    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+      return true;
+    }
+    return false;
+  }
+
+  get isPromoDateBefore() {
     if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
       return true;
     }
@@ -558,6 +569,10 @@ export class DetailProductComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  get formIsInValid() {
+    return this.quantityForm.invalid;
   }
 
 

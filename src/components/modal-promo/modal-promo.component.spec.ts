@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { NavigationTopMicrositeComponent } from './navigation-top-microsite.component';
+import { ModalPromoComponent } from './modal-promo.component';
 
-describe('NavigationTopComponent', () => {
-  let component: NavigationTopMicrositeComponent;
-  let fixture: ComponentFixture<NavigationTopMicrositeComponent>;
+describe('ModalPromoComponent', () => {
+  let component: ModalPromoComponent;
+  let fixture: ComponentFixture<ModalPromoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationTopMicrositeComponent ]
+      declarations: [ ModalPromoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigationTopMicrositeComponent);
+    fixture = TestBed.createComponent(ModalPromoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -26,4 +26,3 @@ describe('NavigationTopComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

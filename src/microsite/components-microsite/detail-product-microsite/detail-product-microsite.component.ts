@@ -141,7 +141,6 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   initQuantityForm() {
-    console.log(this.products.stock)
     this.quantityForm = this.fb.group(
       {
         stock: [1, [Validators.required, Validators.min(1), Validators.max(this.products.stock)]]
@@ -555,23 +554,29 @@ export class DetailProductMicrositeComponent implements OnInit {
     return false;
   }
 
-  addToShoppingCar(product) {
+  async addToShoppingCar(product) {
     const params = this.getParamsToProducts();
     if (this.quantityForm.get('stock').value <= this.totalStock) {
-      var body =
-      {
+      const body = {
         productos: [
           {
-            "idProducto": product.id,
-            "cantidad": this.quantityForm.get('stock').value,
-            "adicionar": true
+            'idProducto': product.id,
+            'cantidad': this.quantityForm.get('stock').value,
+            'adicionar': true
           }
         ]
       };
       if (this.back.addProductToBD(body, params)) {
-        this.router.navigate([
-          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-        ]);
+        try {
+          this.router.navigate([
+            `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
+          ]);
+          const quantityCart = await this.car.getCartInfo();
+          this.car.setTotalCartProducts(quantityCart);
+          this.car.changCartNumber(quantityCart);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
   }
