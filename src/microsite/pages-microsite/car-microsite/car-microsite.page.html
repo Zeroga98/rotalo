@@ -121,13 +121,13 @@
                     <p>
                         <span class="showSpanResponsive">3. </span> Artículos añadidos al carrito:</p>
                 </div>
-                <div class="btn-delete-product" (click)="deleteCheckedProducts()">
+                <div class="btn-delete-product" (click)="deleteCheckedProducts()" [ngClass]="{'disabled': disabledButton}">
                     <span class="icon-delete"></span>
                 </div>
             </div>
             <div class="container-cards">
                 <div *ngFor="let product of products">
-                    <mini-product-detail [product]="product" (changeQuantity)="changeQuantity($event, product)"></mini-product-detail>
+                    <mini-product-detail [product]="product" (changeQuantity)="changeQuantity($event, product)" (updateButtonStatus)="updateButtonStatus()"></mini-product-detail>
                 </div>
             </div>
             <div class="container-price">
@@ -161,7 +161,7 @@
                     <div class="info-label">
                         <div class="icon-label icon-watch"></div>
                         <div class="text-label">Devoluciones aplican
-                            <span>términos y condiciones.</span>
+                            <span (click)="goToTerms()">términos y condiciones.</span>
                         </div>
                     </div>
                 </div>
