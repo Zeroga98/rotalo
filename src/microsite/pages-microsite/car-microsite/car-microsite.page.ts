@@ -314,12 +314,19 @@ export class CarMicrositePage implements OnInit {
   async pay() {
     if (!this.formIsInvalid) {
       try {
-        let response = await this.back.addProductToBD(this.generateJson());
+        //Verificar la cantidad de los productos
+        const response = await this.back.addProductToBD(this.generateJson());
         try {
+          //Generarla orden de waybox
           const response = await this.back.getOrden(this.generateJsonToWaybox());
-          console.log(response);
-          
-          //this.window.nativeWindow.pagar(this.carTotalPrice);
+          try {
+            //Una vez se genere la orden, se reserva el stock
+            const response = await this.back.reserveStock();
+            this.window.nativeWindow.pagar(this.carTotalPrice, response.body.publicKey, response.body.referenciaOrden, response.body.urlRedireccion);
+            this.changeDetectorRef.markForCheck();
+          } catch (error) {
+            this.changeDetectorRef.markForCheck();
+          }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
           this.changeDetectorRef.markForCheck();
