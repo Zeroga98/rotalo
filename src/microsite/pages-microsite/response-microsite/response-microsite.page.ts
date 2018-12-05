@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { Router } from '@angular/router';
+import { windowService } from '../../services-microsite/front/window.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class ResponseMicrositePage implements OnInit {
 
   success = false;
-  loading = false;
+  loading = true;
   titleSuccess = "¡Felicitaciones!";
   titleError = "¡Malas noticias!";
   subtitleSuccess = "Tu compra fue increiblemente exitosa";
@@ -21,7 +22,8 @@ export class ResponseMicrositePage implements OnInit {
   subtitle: string;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private window: windowService,
   ) {}
 
   ngOnInit() {
@@ -32,6 +34,8 @@ export class ResponseMicrositePage implements OnInit {
       this.title = this.titleError;
       this.subtitle = this.subtitleError;
     }
+
+    console.log(this.window.nativeWindow.getWayboxResponse());
   }
 
   goToMicrosite() {
