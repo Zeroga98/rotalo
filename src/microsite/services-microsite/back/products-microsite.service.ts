@@ -289,4 +289,14 @@ export class ProductsMicrositeService {
         return response;
       });
   }
+
+  reserveStock(): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/carritos/productos/reservas';
+    return this.http.put(url, { headers: headers }).toPromise()
+      .then((response: any) => {
+        return response;
+      });
+  }
 }
