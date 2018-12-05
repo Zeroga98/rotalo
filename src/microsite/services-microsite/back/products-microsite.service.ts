@@ -72,31 +72,31 @@ export class ProductsMicrositeService {
       });
   }
 
-  addProductToBD(body, params): Promise<any> {
+  addProductToBD(body): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos/productos';
-    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+    return this.http.post(url, body, { headers: headers }).toPromise()
       .then((response: any) => {
-        return response.body.productos;
+        return response.body;
       });
   }
 
-  deleteProductToBD(body, params): Promise<any> {
+  deleteProductToBD(body): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos/productos/eliminar';
-    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+    return this.http.post(url, body, { headers: headers }).toPromise()
       .then((response: any) => {
         return response;
       });
   }
 
-  getCarProducts(params): Promise<any> {
+  getCarProducts(): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/carritos';
-    return this.http.get(url, { headers: headers, params: params }).toPromise()
+    return this.http.get(url, { headers: headers }).toPromise()
       .then((response: any) => {
         return response.body;
       });
@@ -259,32 +259,32 @@ export class ProductsMicrositeService {
     }
   }
 
-  getOrden(body, params): Promise<any> {
+  getOrden(body,): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { codTienda: '1' });
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/pagos/orden';
-    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+    return this.http.post(url, body, { headers: headers }).toPromise()
       .then((response: any) => {
         return response;
       });
   }
 
-  getParamsFromWaybox(id, params) {
+  getParamsFromWaybox(id) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/transactions/' + id;
-    return this.http.get(url, { headers: headers, params: params }).toPromise()
+    return this.http.get(url, { headers: headers }).toPromise()
       .then((response: any) => {
         return response;
       });
   }
 
-  finalizarOrden(body, params): Promise<any> {
+  finalizarOrden(body): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/pagos/finalizar-orden';
-    return this.http.post(url, body, { headers: headers, params: params }).toPromise()
+    return this.http.post(url, body, { headers: headers }).toPromise()
       .then((response: any) => {
         return response;
       });

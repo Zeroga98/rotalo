@@ -455,9 +455,18 @@
                 width: 100%;
             }
 
+            input.invalid {
+                border: 2px solid #FF3646;
+            }
+
             .mt-25 {
                 margin-top: 25px;
             }
+        }
+
+        .messageError {
+            color: #FF3646;
+            font-size: 1.4rem;
         }
     }
 }

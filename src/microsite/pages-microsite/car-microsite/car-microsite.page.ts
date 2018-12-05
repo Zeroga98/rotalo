@@ -47,6 +47,8 @@ export class CarMicrositePage implements OnInit {
   canHide: boolean;
   viewWidth: number;
 
+  productWithError = [];
+
   public registerForm: FormGroup;
 
   constructor(
@@ -267,9 +269,8 @@ export class CarMicrositePage implements OnInit {
 
   async loadProducts() {
     this.showView = 'loading';
-    const params = this.getParamsToProducts();
     try {
-      const response = await this.back.getCarProducts(params);
+      const response = await this.back.getCarProducts();
       this.products = [];
       response.carroCompras.commerceItems.forEach(element => {
         this.products.push(element);
@@ -292,9 +293,8 @@ export class CarMicrositePage implements OnInit {
   }
 
   async deleteCheckedProducts() {
-    const params = this.getParamsToProducts();
     try {
-      const response = await this.back.deleteProductToBD(this.car.getCheckedProducts(), params);
+      const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
       const quantityCart = await this.car.getCartInfo();
       this.car.setTotalCartProducts(quantityCart);
       this.car.changCartNumber(quantityCart);
@@ -312,6 +312,56 @@ export class CarMicrositePage implements OnInit {
   }
 
   async pay() {
+    if (!this.formIsInvalid) {
+      try {
+        let response = await this.back.addProductToBD(this.generateJson());
+        try {
+          const response = await this.back.getOrden(this.generateJsonToWaybox());
+          console.log(response);
+          
+          //this.window.nativeWindow.pagar(this.carTotalPrice);
+          this.changeDetectorRef.markForCheck();
+        } catch (error) {
+          this.changeDetectorRef.markForCheck();
+        }
+        this.changeDetectorRef.markForCheck();
+      } catch (error) {
+        this.generateProductWithError(error);
+        console.log(this.productWithError)
+        this.changeDetectorRef.markForCheck();
+      }
+    }
+  }
+
+  generateJson() {
+    const body = {
+      productos: []
+    }
+
+    this.products.forEach(element => {
+      body.productos.push(
+        {
+          'idProducto': element.product.id,
+          'cantidad': element.quantity,
+          'adicionar': false
+        }
+      )
+    });
+    return body;
+  }
+
+  generateProductWithError(error) {
+    error.error.body.productosConErrores.forEach(element => {
+      this.productWithError.push(
+        {
+          mensajeError: element.mensajeError,
+          productId: element.producto.id
+        }
+      )
+    });
+  }
+
+  generateJsonToWaybox() {
     const jsonProducts = [];
     this.products.forEach(element => {
       jsonProducts.push(
@@ -319,8 +369,8 @@ export class CarMicrositePage implements OnInit {
           'nombre': element.product.name,
           'precio': element.product.price * element.quantity
           ,
-          'talla': 'M',
-          'color': 'rosa',
+          'talla': '',
+          'color': '',
           'numeroUnidades': element.quantity
         }
       );
@@ -335,21 +385,14 @@ export class CarMicrositePage implements OnInit {
         'numeroCelular': this.cellphone
       },
       'datosDireccion': {
-        'departamento': 'Antioquia',
-        'ciudad': 'Medellin',
+        'departamento': this.state.name,
+        'ciudad': this.city.name,
         'direccion': this.registerForm.get('address').value,
         'numeroContacto': this.registerForm.get('cellphone').value
       },
       'listaProductos': jsonProducts
     };
-    const params = this.getParamsToProducts();
-    try {
-      const response = await this.back.getOrden(json, params);
-      this.window.nativeWindow.pagar(this.carTotalPrice);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      this.changeDetectorRef.markForCheck();
-    }
-    this.changeDetectorRef.markForCheck();
+
+    return json;
   }
 }
