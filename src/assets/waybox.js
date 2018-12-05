@@ -1,7 +1,4 @@
 function pagar(amount, publicKey, referenciaOrden, urlRedireccion) {
-    
-    
-    
     let checkout = new WayboxCheckout({
         currency: 'COP',
         amountInCents: amount + '00',
@@ -9,5 +6,7 @@ function pagar(amount, publicKey, referenciaOrden, urlRedireccion) {
         publicKey: publicKey,
         redirectUrl: urlRedireccion
       })    
-    checkout.open(() => {});
+    checkout.open((e) => {
+        console.log(e);
+    });
 }

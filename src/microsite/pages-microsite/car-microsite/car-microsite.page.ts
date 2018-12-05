@@ -340,11 +340,11 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         const response = await this.back.addProductToBD(this.generateJson());
         try {
           //Generarla orden de waybox
-          const response = await this.back.getOrden(this.generateJsonToWaybox());
+          const response_orden = await this.back.getOrden(this.generateJsonToWaybox());
           try {
             //Una vez se genere la orden, se reserva el stock
             const response = await this.back.reserveStock();
-            this.window.nativeWindow.pagar(this.carTotalPrice, response.body.publicKey, response.body.referenciaOrden, response.body.urlRedireccion);
+            this.window.nativeWindow.pagar(this.carTotalPrice, response_orden.body.publicKey, response_orden.body.referenciaOrden, response_orden.body.urlRedireccion);
             this.changeDetectorRef.markForCheck();
           } catch (error) {
             this.changeDetectorRef.markForCheck();
