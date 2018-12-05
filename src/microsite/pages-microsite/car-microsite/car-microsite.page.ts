@@ -336,15 +336,16 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   async pay() {
     if (!this.formIsInvalid) {
       try {
-        //Verificar la cantidad de los productos
-        const response = await this.back.addProductToBD(this.generateJson());
+        // Verificar la cantidad de los productos
+        const response_add = await this.back.addProductToBD(this.generateJson());
         try {
-          //Generarla orden de waybox
-          const response = await this.back.getOrden(this.generateJsonToWaybox());
+          // Generarla orden de waybox
+          const response_order = await this.back.getOrden(this.generateJsonToWaybox());
           try {
-            //Una vez se genere la orden, se reserva el stock
+            // Una vez se genere la orden, se reserva el stock
             const response = await this.back.reserveStock();
-            this.window.nativeWindow.pagar(this.carTotalPrice, response.body.publicKey, response.body.referenciaOrden, response.body.urlRedireccion);
+            this.window.nativeWindow.pagar
+            (this.carTotalPrice, response_order.body.publicKey, response_order.body.referenciaOrden, response_order.body.urlRedireccion);
             this.changeDetectorRef.markForCheck();
           } catch (error) {
             this.changeDetectorRef.markForCheck();
@@ -356,7 +357,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         this.changeDetectorRef.markForCheck();
       } catch (error) {
         this.generateProductWithError(error);
-        console.log(this.productWithError)
         this.changeDetectorRef.markForCheck();
       }
     }

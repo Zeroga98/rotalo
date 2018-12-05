@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ResponseMicrositePage implements OnInit {
 
   success = false;
-  loading = false;
+  loading = true;
   titleSuccess = '¡Felicitaciones!';
   titleError = '¡Malas noticias!';
   subtitleSuccess = 'Tu compra fue increiblemente exitosa';
