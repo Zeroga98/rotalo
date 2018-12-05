@@ -17,6 +17,7 @@ export class MiniProductDetailComponent implements OnInit {
 
   @Input() product;
   @Output() changeQuantity: EventEmitter<number> = new EventEmitter();
+  @Output() updateButtonStatus = new EventEmitter();
 
   public carouselConfig: NgxCarousel;
   public productsPhotos: any;
@@ -73,6 +74,7 @@ export class MiniProductDetailComponent implements OnInit {
   clickCheckProduct() {
     this.classCheckSelected = !this.classCheckSelected;
     this.car.checkProduct(this.product.product.id, this.classCheckSelected);
+    this.updateButtonStatus.emit();
   }
 
   onChange(event) {

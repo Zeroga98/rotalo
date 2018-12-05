@@ -233,6 +233,11 @@
                     background: #0CB2CE;
                 }
             }
+
+            .btn-delete-product.disabled {
+                background: #B0B0B0;
+                cursor: default;
+            }
         }
 
         .container-price {

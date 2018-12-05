@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ChangeDetectorRef,
   HostListener
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { CollectionSelectService } from '../../../services/collection-select.ser
   templateUrl: 'car-microsite.page.html',
   styleUrls: ['car-microsite.page.scss']
 })
-export class CarMicrositePage implements OnInit {
+export class CarMicrositePage implements OnInit, OnDestroy {
 
   public products: Array<any>;
   public errorsSubmit: Array<any> = [];
@@ -48,6 +49,7 @@ export class CarMicrositePage implements OnInit {
   viewWidth: number;
 
   productWithError = [];
+  disabledButton;
 
   public registerForm: FormGroup;
 
@@ -77,6 +79,23 @@ export class CarMicrositePage implements OnInit {
     this.loadUserInfo();
     this.loadProducts();
     this.setWidthParams();
+  }
+
+  ngOnDestroy() {
+    this.updateProducts();
+  }
+
+  async updateProducts() {
+    try {
+      //Verificar la cantidad de los productos
+      const response = await this.back.addProductToBD(this.generateJson());
+      console.log(response);
+
+    } catch (error) {
+      console.log(error);
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
   }
 
   getDocument(id) {
@@ -282,6 +301,7 @@ export class CarMicrositePage implements OnInit {
         this.showView = 'noProducts';
       } else {
         this.showView = 'Products';
+        this.disableButton();
       }
 
       this.getCarTotalPrice();
@@ -293,18 +313,20 @@ export class CarMicrositePage implements OnInit {
   }
 
   async deleteCheckedProducts() {
-    try {
-      const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
-      const quantityCart = await this.car.getCartInfo();
-      this.car.setTotalCartProducts(quantityCart);
-      this.car.changCartNumber(quantityCart);
-      this.car.initCheckedList();
-      this.loadProducts();
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
+    if (!this.disabledButton) {
+      try {
+        const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
+        const quantityCart = await this.car.getCartInfo();
+        this.car.setTotalCartProducts(quantityCart);
+        this.car.changCartNumber(quantityCart);
+        this.car.initCheckedList();
+        this.loadProducts();
+        this.changeDetectorRef.markForCheck();
+      } catch (error) {
+        this.changeDetectorRef.markForCheck();
+      }
       this.changeDetectorRef.markForCheck();
     }
-    this.changeDetectorRef.markForCheck();
   }
 
   getParamsToProducts() {
@@ -401,5 +423,22 @@ export class CarMicrositePage implements OnInit {
     };
 
     return json;
+  }
+
+  disableButton() {
+    this.disabledButton = true;
+  }
+
+  updateButtonStatus() {
+    const checkedProducts = this.car.getCheckedProducts();
+    if (checkedProducts.idProductos.length == 0) {
+      this.disabledButton = true;
+    } else {
+      this.disabledButton = false;
+    }
+  }
+
+  goToTerms() {
+    this.router.navigate([`/${ROUTES.TERMS}`]);
   }
 }
