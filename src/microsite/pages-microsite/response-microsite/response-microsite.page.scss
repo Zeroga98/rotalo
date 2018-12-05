@@ -5,7 +5,7 @@
 .container, .spinner {
     width: 90vw;
     margin: 0 auto;
-    height: calc(100vh - 8.4vw - 60px - 100px - 30px);
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -88,13 +88,8 @@
 
 @media screen and (max-width: 736px) { 
     .container, .spinner {
-        height: calc(100vh - 8.4vw - 79px - 100px - 30px);
+        height: 600px;
     }
 }
 
-@media screen and (max-width: 700px) { 
-    .container, .spinner {
-        height: calc(100vh - 25vw - 80px - 100px - 30px);
-    }
-}
 

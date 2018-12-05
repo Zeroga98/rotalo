@@ -207,10 +207,10 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
-    const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.DETAIL}`;
-    const urlMicrosite  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    const urlMicrosite  = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     console.log(this.router.url);
-    if (this.router.url.includes(urlMicrositeProduct)) {
+    if (this.router.url.includes(urlMicrositeProduct) && urlMicrosite != this.router.url) {
       this.router.navigate([urlMicrosite]);
     } else {
       `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
