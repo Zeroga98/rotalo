@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 })
 
 export class ResponseMicrositePage implements OnInit {
-  success = true;
+
+  success = false;
   loading = false;
-  titleSuccess = "¡Felicitaciones!";
-  titleError = "¡Malas noticias!";
-  subtitleSuccess = "Tu compra fue increiblemente exitosa";
-  subtitleError = "Tu compra no se pudo procesar, vuelve a intentarlo";
+  titleSuccess = '¡Felicitaciones!';
+  titleError = '¡Malas noticias!';
+  subtitleSuccess = 'Tu compra fue increiblemente exitosa';
+  subtitleError = 'Tu compra no se pudo procesar, vuelve a intentarlo';
   title: string;
   subtitle: string;
 

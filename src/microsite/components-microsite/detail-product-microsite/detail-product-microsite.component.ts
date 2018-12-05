@@ -555,8 +555,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   async addToShoppingCar(product) {
-    const params = this.getParamsToProducts();
-    if (this.quantityForm.get('stock').value <= this.totalStock) {
+    if (this.quantityForm.get('stock').value > 0 && this.quantityForm.get('stock').value <= this.totalStock) {
       const body = {
         productos: [
           {
@@ -566,7 +565,7 @@ export class DetailProductMicrositeComponent implements OnInit {
           }
         ]
       };
-      if (this.back.addProductToBD(body, params)) {
+      if (this.back.addProductToBD(body)) {
         try {
           this.router.navigate([
             `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`

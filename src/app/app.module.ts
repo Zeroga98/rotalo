@@ -156,7 +156,6 @@ import { ModalPromoProductService } from '../components/modal-promo/modal-promoP
 
 
 //Componentes y páginas del micrositio
-import { NavigationTopMicrositeComponent } from '../microsite/components-microsite/navigation-top-microsite/navigation-top-microsite.component';
 import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
 import { ProductsMicrositeService } from '../microsite/services-microsite/back/products-microsite.service';
 import { ConfigurationMicrositeService } from '../microsite/services-microsite/configuration/configuration-microsite.service';
@@ -262,7 +261,6 @@ import { ResponseMicrositePage } from '../microsite/pages-microsite/response-mic
     ProductsPromoPage,
     PromoAnimationComponent,
     ModalPromoComponent,
-    NavigationTopMicrositeComponent,
     DetalleProductoMicrositioComponent,
     CarMicrositePage,
     ProductsMicrositePage,
