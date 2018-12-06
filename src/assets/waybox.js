@@ -1,5 +1,3 @@
-waybox;
-
 function pagar(amount, publicKey, referenciaOrden, urlRedireccion) {
     let checkout = new WayboxCheckout({
         currency: 'COP',
@@ -7,14 +5,9 @@ function pagar(amount, publicKey, referenciaOrden, urlRedireccion) {
         reference: referenciaOrden,
         publicKey: publicKey,
         redirectUrl: urlRedireccion
-      })    
+    })
     checkout.open((e) => {
-        waybox = e;
-        console.log(waybox);
-        window.location.href = "http://localhost:4200/products/microsite/resp";
+        localStorage.setItem('jsonFromWaybox', JSON.stringify(e));
+        window.location.href = "http://10.25.65.248:4200/products/microsite/response";
     });
-}
-
-function getWayboxResponse() {
-    return waybox;
 }

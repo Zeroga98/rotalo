@@ -75,7 +75,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
     private modalService: ModalShareProductService,
-    private modalTicketService: ModalTicketService,
+    private modalTicketService: ModalTicketService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
@@ -400,6 +400,4 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     },
       (error) => { console.log(error); });
   }
-
-
 }
