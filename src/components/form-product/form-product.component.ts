@@ -759,10 +759,11 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getInitialConfig(): ProductInterface {
     const date = new Date();
+    date.setMonth(date.getMonth() + 2);
     let objectDate = {
       date: {
           year: date.getFullYear(),
-          month: date.getMonth() + 2,
+          month: date.getMonth(),
           day: date.getDate()
         }
     };
