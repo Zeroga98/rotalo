@@ -29,7 +29,9 @@
         .img-shopping-car {
             width: 201px;
             height: 154.87px;
-            background: #eee;
+            background: url(../../assets/img/iconos/ic_carrito_vacio.svg) no-repeat;
+            background-size: contain;
+            background-position: center;
         }
 
         .text-empty {

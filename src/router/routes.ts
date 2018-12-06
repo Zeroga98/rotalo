@@ -44,6 +44,6 @@ export const ROUTES = {
         FEED: 'home',
         DETAIL: 'details',
         CAR: 'cart',
-        RESPONSE: 'resp'
+        RESPONSE: 'response'
     }
 };
