@@ -79,6 +79,7 @@
                                 <label class="label-input">Dirección*</label>
                                 <input [ngClass]="{'invalid': registerForm.get('address').invalid && !registerForm.get('address').pristine}" name="address"
                                     formControlName="address" type="text" id="txt-address" autocomplete="off" placeholder="ejm: Calle 48 C# 12 c07"
+                                    maxlength="100"
                                 />
                             </span>
                             <span class="messageError">
@@ -100,7 +101,7 @@
                                     formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                     maxlength="10" id="txt-cellphone" autocomplete="off" />
                             </span>
-                            <span class="messageError"> 
+                            <span class="messageError">
                                 <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
                                 && !registerForm.get('cellphone').errors['pattern']">
                                     Este campo es requerido.

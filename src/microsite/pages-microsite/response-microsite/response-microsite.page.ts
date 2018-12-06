@@ -33,7 +33,6 @@ export class ResponseMicrositePage implements OnInit {
 
   ngOnInit() {
     this.jsonFromWaybox = JSON.parse(localStorage.getItem('jsonFromWaybox'));
-    console.log(this.jsonFromWaybox)
     this.finalizeTransaction();
   }
 
@@ -53,14 +52,14 @@ export class ResponseMicrositePage implements OnInit {
 
   async finalizeTransaction() {
     try {
-      //Verificar la cantidad de los productos
+      // Verificar la cantidad de los productos
       const response = await this.back.finalizarOrden(this.jsonFromWaybox);
-      this.showSuccessPage()
+      this.showSuccessPage();
       this.cleanShoppingCart();
-
+      this.car.setTotalCartProducts(0);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
-      this.showErrorPage()
+      this.showErrorPage();
       this.changeDetectorRef.markForCheck();
     }
   }
@@ -102,7 +101,7 @@ export class ResponseMicrositePage implements OnInit {
     });
 
     // Se crea el json que se envía el servicio de eliminar del carrito hecho por Jairo
-    let json = {
+    const json = {
       idProductos: []
     };
 

@@ -151,7 +151,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   initForm() {
     this.registerForm = new FormGroup({
       address: new FormControl('', [Validators.required]),
-      cellphone: new FormControl('', [Validators.required])
+      cellphone: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)])
     });
   }
 
@@ -168,22 +168,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     }
   }
 
-  async onSubmit() {
-    if (!this.formIsInvalid) {
-      const params = this.buildParamsUserRequest();
-      this.userService.signup(params).subscribe(
-        response => {
-          this.errorsSubmit = [];
-          this.errorMessage = '';
-        },
-        error => {
-          if (error.status) {
-            console.log(error.status);
-            this.errorMessage = error.error.message;
-          }
-        }
-      );
-    } else {
+  onSubmit() {
+    if (this.formIsInvalid) {
       this.validateAllFormFields(this.registerForm);
       if (this.state && !this.state['id']) {
         this.errorState = true;
@@ -307,6 +293,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
+      if (error.error.status == '600') {
+        this.showView = 'noProducts';
+      }
       this.changeDetectorRef.markForCheck();
     }
     this.changeDetectorRef.markForCheck();
