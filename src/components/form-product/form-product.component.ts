@@ -766,7 +766,6 @@ export class FormProductComponent implements OnInit, OnChanges {
           day: date.getDate()
         }
     };
-
     if (this.product) {
       const publishUntil  = moment(this.product['publish-until']).toDate();
       objectDate = {
@@ -843,7 +842,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getPublishUntilDate(): Date {
     /** El 30 debe ser congifurable DEUDA TECNICA */
-    var date = new Date();
+    const date = new Date();
     date.setDate(date.getDate() + 30);
     return date;
   }

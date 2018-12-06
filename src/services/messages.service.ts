@@ -12,7 +12,7 @@ export class MessagesService {
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     private readonly timeToCheckNotification: number = 10000;
-    private readonly timeToCheckUnreadNotification: number = 20000;
+    private readonly timeToCheckUnreadNotification: number = 50000;
     private path = {
       'rutaRenoEscondido':  ''
     };
