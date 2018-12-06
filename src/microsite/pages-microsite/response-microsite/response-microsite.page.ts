@@ -17,7 +17,7 @@ export class ResponseMicrositePage implements OnInit {
   loading = true;
   titleSuccess = '¡Felicitaciones!';
   titleError = '¡Malas noticias!';
-  subtitleSuccess = 'Tu compra fue increiblemente exitosa';
+  subtitleSuccess = 'Tu compra fue increíblemente exitosa';
   subtitleError = 'Tu compra no se pudo procesar, vuelve a intentarlo';
   title: string;
   subtitle: string;
@@ -33,6 +33,8 @@ export class ResponseMicrositePage implements OnInit {
 
   ngOnInit() {
     this.jsonFromWaybox = JSON.parse(localStorage.getItem('jsonFromWaybox'));
+    console.log(this.jsonFromWaybox)
+    localStorage.removeItem('jsonFromWaybox');
     this.finalizeTransaction();
   }
 
@@ -54,9 +56,13 @@ export class ResponseMicrositePage implements OnInit {
     try {
       // Verificar la cantidad de los productos
       const response = await this.back.finalizarOrden(this.jsonFromWaybox);
-      this.showSuccessPage();
-      this.cleanShoppingCart();
-      this.car.setTotalCartProducts(0);
+      if (this.jsonFromWaybox.transaction.status == "APPROVED") {
+        this.showSuccessPage();
+        this.cleanShoppingCart();
+        this.car.setTotalCartProducts(0);
+      } else {
+        this.showErrorPage();
+      }
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.showErrorPage();

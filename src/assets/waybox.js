@@ -8,6 +8,6 @@ function pagar(amount, publicKey, referenciaOrden, urlRedireccion) {
     })
     checkout.open((e) => {
         localStorage.setItem('jsonFromWaybox', JSON.stringify(e));
-        window.location.href = "http://stg.rotalo.com.co/products/microsite/response";
+        window.location.href = "http://localhost:4200/products/microsite/response";
     });
 }

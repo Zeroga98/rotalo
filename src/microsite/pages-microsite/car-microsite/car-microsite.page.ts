@@ -50,6 +50,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
 
   productWithError = [];
   disabledButton;
+  hasPending = false;
 
   public registerForm: FormGroup;
 
@@ -79,6 +80,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.loadUserInfo();
     this.loadProducts();
     this.setWidthParams();
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy() {
@@ -245,6 +247,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
     this.getCarTotalPrice();
+    this.changeDetectorRef.markForCheck()
   }
 
   setWidthParams() {
@@ -282,14 +285,12 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       });
       this.car.setProducts(this.products);
       this.products = this.car.getProducts();
-
       if (this.products.length == 0) {
         this.showView = 'noProducts';
       } else {
         this.showView = 'Products';
         this.disableButton();
       }
-
       this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -323,6 +324,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
+    this.hasPending = false;
     if (!this.formIsInvalid) {
       try {
         // Verificar la cantidad de los productos
@@ -341,6 +343,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
+          this.hasPending = true;
           this.changeDetectorRef.markForCheck();
         }
         this.changeDetectorRef.markForCheck();
