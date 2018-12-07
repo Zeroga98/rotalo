@@ -1,6 +1,6 @@
 import { ROUTES } from './../../../router/routes';
 import { Router } from '@angular/router';
-import { Component, Output, Input, EventEmitter } from '@angular/core';
+import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 
 @Component({
@@ -8,11 +8,20 @@ import { ProductsService } from '../../../services/products.service';
 	templateUrl: './purchase-accepted.component.html',
 	styleUrls: ['./purchase-accepted.component.scss']
 })
-export class PurchaseAcceptedComponent {
+export class PurchaseAcceptedComponent implements OnInit  {
 	@Input() notification;
 	@Output() userClicked: EventEmitter<any> = new EventEmitter();
-	@Output() onContactSeller: EventEmitter<any> = new EventEmitter();
+  @Output() onContactSeller: EventEmitter<any> = new EventEmitter();
+  public amountPurchase = 0;
   constructor(private productsService: ProductsService, private router: Router) {
+  }
+
+  ngOnInit() {
+    if (this.notification.informacionAdicional) {
+      const obj = JSON.parse(this.notification.informacionAdicional);
+      this.amountPurchase = obj.total_order;
+      console.log(obj);
+    }
   }
 
   async productReceived(id: number) {
@@ -26,8 +35,9 @@ export class PurchaseAcceptedComponent {
     }
   }
 
-	clickUser(){
-		this.userClicked.emit();
+
+clickUser(){
+  this.userClicked.emit();
 	}
 
 	goToDetail(id: number){
@@ -36,6 +46,8 @@ export class PurchaseAcceptedComponent {
 
 	contactSeller(id: number){
 		this.onContactSeller.emit(id);
-	}
+  }
+
+
 
 }
