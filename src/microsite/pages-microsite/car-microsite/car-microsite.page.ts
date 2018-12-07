@@ -386,9 +386,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.products.forEach(element => {
       jsonProducts.push(
         {
+          'idProducto': element.product.id,
           'nombre': element.product.name,
-          'precio': element.product.price * element.quantity
-          ,
+          'precio': element.product.price * element.quantity,
           'talla': '',
           'color': '',
           'numeroUnidades': element.quantity
