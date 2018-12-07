@@ -15,7 +15,7 @@ export class ShoppingCarService {
   private totalProductsCart;
   private eventSourceCart = new BehaviorSubject<any>(null);
   currentEventCart = this.eventSourceCart.asObservable();
-
+  private wayboxJson;
 
 
   constructor(
@@ -23,6 +23,14 @@ export class ShoppingCarService {
     private configurationService: ConfigurationService,
     private back: ProductsMicrositeService
   ) { }
+
+  setWayboxJson(wayboxJson) {
+    this.wayboxJson = wayboxJson;
+  }
+
+  getWayboxJson() {
+    return this.wayboxJson;
+  }
 
   setProducts(products) {
     this.products = products;

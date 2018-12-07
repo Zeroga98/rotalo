@@ -32,9 +32,7 @@ export class ResponseMicrositePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.jsonFromWaybox = JSON.parse(localStorage.getItem('jsonFromWaybox'));
-    console.log(this.jsonFromWaybox)
-    localStorage.removeItem('jsonFromWaybox');
+    this.jsonFromWaybox = this.car.getWayboxJson();
     this.finalizeTransaction();
   }
 

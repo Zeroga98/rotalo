@@ -444,7 +444,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       redirectUrl: urlRedireccion
     });
     checkout.open((e) => {
-      localStorage.setItem('jsonFromWaybox', JSON.stringify(e));
+      this.car.setWayboxJson(e);
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.RESPONSE}`]);
     });
   }
