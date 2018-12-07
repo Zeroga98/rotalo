@@ -14,6 +14,7 @@ import { FeedMicrositeService } from '../products-microsite/feedMicrosite.servic
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { windowService } from '../../services-microsite/front/window.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
+declare var WayboxCheckout: any;
 
 @Component({
   selector: 'car-microsite',
@@ -50,6 +51,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
 
   productWithError = [];
   disabledButton;
+  hasPending = false;
 
   public registerForm: FormGroup;
 
@@ -79,6 +81,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.loadUserInfo();
     this.loadProducts();
     this.setWidthParams();
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy() {
@@ -245,6 +248,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
     this.getCarTotalPrice();
+    this.changeDetectorRef.markForCheck()
   }
 
   setWidthParams() {
@@ -282,14 +286,12 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       });
       this.car.setProducts(this.products);
       this.products = this.car.getProducts();
-
       if (this.products.length == 0) {
         this.showView = 'noProducts';
       } else {
         this.showView = 'Products';
         this.disableButton();
       }
-
       this.getCarTotalPrice();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -323,6 +325,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
+    this.hasPending = false;
     if (!this.formIsInvalid) {
       try {
         // Verificar la cantidad de los productos
@@ -333,7 +336,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           try {
             // Una vez se genere la orden, se reserva el stock
             const response = await this.back.reserveStock();
-            this.window.nativeWindow.pagar
+            this.wayboxPay
             (this.carTotalPrice, response_orden.body.publicKey, response_orden.body.referenciaOrden, response_orden.body.urlRedireccion);
             this.changeDetectorRef.markForCheck();
           } catch (error) {
@@ -341,6 +344,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
+          this.hasPending = true;
           this.changeDetectorRef.markForCheck();
         }
         this.changeDetectorRef.markForCheck();
@@ -430,4 +434,20 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   goToTerms() {
     this.router.navigate([`/${ROUTES.TERMS}`]);
   }
+
+  wayboxPay(amount, publicKey, referenciaOrden, urlRedireccion) {
+    const checkout = new WayboxCheckout({
+      currency: 'COP',
+      amountInCents: amount + '00',
+      reference: referenciaOrden,
+      publicKey: publicKey,
+      redirectUrl: urlRedireccion
+    });
+    checkout.open((e) => {
+      localStorage.setItem('jsonFromWaybox', JSON.stringify(e));
+      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.RESPONSE}`]);
+    });
+  }
+
+
 }
