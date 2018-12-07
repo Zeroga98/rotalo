@@ -51,6 +51,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   productWithError = [];
   disabledButton;
   hasPending = false;
+  emptyMessaje = false;
 
   public registerForm: FormGroup;
 
@@ -79,7 +80,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.initForm();
     this.loadUserInfo();
     this.loadProducts();
-    this.setWidthParams();
+    this.initWidthParams();
     this.changeDetectorRef.markForCheck();
   }
 
@@ -253,9 +254,19 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   setWidthParams() {
     this.viewWidth = window.innerWidth;
     if (this.viewWidth > 975) {
+      this.canHide = false;
       this.showForm = true;
       this.showInfo = true;
-      this.canHide = false;
+    } else {
+      this.canHide = true;
+    }
+  }
+
+  initWidthParams() {
+    this.viewWidth = window.innerWidth;
+    if (this.viewWidth > 975) {
+      this.showForm = true;
+      this.showInfo = true;
     } else {
       this.showForm = true;
       this.showInfo = false;
@@ -325,6 +336,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
 
   async pay() {
     this.hasPending = false;
+    this.emptyMessaje = false;
     if (!this.formIsInvalid) {
       try {
         // Verificar la cantidad de los productos
@@ -351,6 +363,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         this.generateProductWithError(error);
         this.changeDetectorRef.markForCheck();
       }
+    } else {
+      this.emptyMessaje = true;
+      this.showForm = true;
     }
   }
 
