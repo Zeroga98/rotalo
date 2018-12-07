@@ -90,10 +90,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
 
   async updateProducts() {
     try {
-      //Verificar la cantidad de los productos
+      // Verificar la cantidad de los productos
       const response = await this.back.addProductToBD(this.generateJson());
-      console.log(response);
-
     } catch (error) {
       console.log(error);
       this.changeDetectorRef.markForCheck();
@@ -309,7 +307,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
         const quantityCart = await this.car.getCartInfo();
         this.car.setTotalCartProducts(quantityCart);
-        this.car.changCartNumber(quantityCart);
+        this.car.changeCartNumber(quantityCart);
         this.car.initCheckedList();
         this.loadProducts();
         this.changeDetectorRef.markForCheck();

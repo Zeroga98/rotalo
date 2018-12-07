@@ -572,7 +572,7 @@ export class DetailProductMicrositeComponent implements OnInit {
           ]);
           const quantityCart = await this.car.getCartInfo();
           this.car.setTotalCartProducts(quantityCart);
-          this.car.changCartNumber(quantityCart);
+          this.car.changeCartNumber(quantityCart);
         } catch (error) {
           console.error(error);
         }

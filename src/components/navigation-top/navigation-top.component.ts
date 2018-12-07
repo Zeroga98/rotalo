@@ -209,7 +209,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
     const urlMicrosite  = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
-    console.log(this.router.url);
     if (this.router.url.includes(urlMicrositeProduct) && urlMicrosite != this.router.url) {
       this.router.navigate([urlMicrosite]);
     } else {

@@ -93,7 +93,7 @@ export class ShoppingCarService {
     return this.totalProductsCart;
   }
 
-  changCartNumber(event) {
+  changeCartNumber(event) {
     this.eventSourceCart.next(event);
   }
 

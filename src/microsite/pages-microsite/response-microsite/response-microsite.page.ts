@@ -57,6 +57,7 @@ export class ResponseMicrositePage implements OnInit {
       if (this.jsonFromWaybox.transaction.status == "APPROVED") {
         this.showSuccessPage();
         this.cleanShoppingCart();
+        this.car.changeCartNumber(0);
         this.car.setTotalCartProducts(0);
       } else {
         this.showErrorPage();
