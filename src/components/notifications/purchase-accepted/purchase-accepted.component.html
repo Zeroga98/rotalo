@@ -1,6 +1,6 @@
 <div class="notifications-item">
   <span *ngIf="!notification.informacionAdicional">
-      <span class="icon icon-warning notification-icon"></span>
+      <span class="icon icon-flag notification-icon"></span>
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
           <span>Se ha registrado tu compra a</span>
           <span class="highlight bold clickable"(click)="clickUser()">
@@ -39,11 +39,19 @@
               </button>
           </div>
       </div>
-    </span>
+  </span>
   <span *ngIf="notification.informacionAdicional">
-      <span class="icon icon-warning notification-icon"></span>
-      <p class="notification-text">
-          <span>Tu compra por ${{amountPurchase | currency:" ":0 | removeDigits}} en la tienda Bancolombia se ha realizado exitosamente.</span>
+      <span class="icon icon-flag notification-icon"></span>
+      <p class="notification-text align">
+          <span>Tu compra por
+            <span class="highlight bold">
+              ${{amountPurchase | currency:" ":0 | removeDigits}}
+            </span>
+            en la tienda Bancolombia se ha realizado exitosamente.
+          </span>
       </p>
   </span>
+  <small class="notification-date">
+      {{notification.at | amLocale:'es' | amTimeAgo}}
+  </small>
 </div>

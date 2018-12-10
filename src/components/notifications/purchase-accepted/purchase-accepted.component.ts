@@ -4,13 +4,13 @@ import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 
 @Component({
-	selector: 'purchase-accepted',
-	templateUrl: './purchase-accepted.component.html',
-	styleUrls: ['./purchase-accepted.component.scss']
+  selector: 'purchase-accepted',
+  templateUrl: './purchase-accepted.component.html',
+  styleUrls: ['./purchase-accepted.component.scss']
 })
-export class PurchaseAcceptedComponent implements OnInit  {
-	@Input() notification;
-	@Output() userClicked: EventEmitter<any> = new EventEmitter();
+export class PurchaseAcceptedComponent implements OnInit {
+  @Input() notification;
+  @Output() userClicked: EventEmitter<any> = new EventEmitter();
   @Output() onContactSeller: EventEmitter<any> = new EventEmitter();
   public amountPurchase = 0;
   constructor(private productsService: ProductsService, private router: Router) {
@@ -20,7 +20,6 @@ export class PurchaseAcceptedComponent implements OnInit  {
     if (this.notification.informacionAdicional) {
       const obj = JSON.parse(this.notification.informacionAdicional);
       this.amountPurchase = obj.total_order;
-      console.log(obj);
     }
   }
 
@@ -36,16 +35,16 @@ export class PurchaseAcceptedComponent implements OnInit  {
   }
 
 
-clickUser(){
-  this.userClicked.emit();
-	}
+  clickUser() {
+    this.userClicked.emit();
+  }
 
-	goToDetail(id: number){
-		this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
-	}
+  goToDetail(id: number) {
+    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
+  }
 
-	contactSeller(id: number){
-		this.onContactSeller.emit(id);
+  contactSeller(id: number) {
+    this.onContactSeller.emit(id);
   }
 
 

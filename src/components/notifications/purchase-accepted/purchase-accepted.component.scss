@@ -2,4 +2,15 @@
   .notifications-item{
     width: 100%;
   }
+
+  .notification-text.align {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .notification-date {
+    display: block;
+    opacity: 0.7;
+  }
+
 }
