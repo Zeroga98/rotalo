@@ -93,7 +93,7 @@
                       <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
 
                       <!-- INICIO NOTIFICACIÓN OFERTA CANCELADA -->
-                      <div *ngIf="message.tipoNotificacion ==  'offer_regretted'" class="notifications-item">
+                      <div *ngIf="message.tipoNotificacion ==  'offer_regretted' && message.producto" class="notifications-item">
                         <span class="icon icon-warning notification-icon"></span>
                         <p class="notification-text">
                           <span class="highlight bold">{{message.oferta.nombreUsuario}}</span> ha cancelado su oferta

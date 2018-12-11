@@ -1,5 +1,5 @@
 <div class="notifications-item">
-  <span *ngIf="!notification.informacionAdicional">
+  <span *ngIf="!notification.informacionAdicional && notification.producto">
       <span class="icon icon-flag notification-icon"></span>
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
           <span>Se ha registrado tu compra a</span>
