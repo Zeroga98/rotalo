@@ -41,7 +41,8 @@ export class HomePage implements OnInit {
     private router: Router,
     private productsService: ProductsService,
     private typeDocumentsService: TypeDocumentsService
-  ) { }
+  ) {
+   }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({

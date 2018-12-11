@@ -1,0 +1,19 @@
+<banner-latienda></banner-latienda>
+<div *ngIf="loading" class="spinner">
+  <custom-spinner></custom-spinner>
+</div>
+<div *ngIf="!loading" class="container">
+  <div class="info-title">
+      <p>Mi carrito de compras</p>
+  </div>
+  <div class="container-img">
+      <div class="img-monkey" [ngClass]="success ? 'success' : 'error'"></div>
+      <div class="text-empty">{{ title }}</div>
+      <div class="text-start-load">{{ subtitle }}</div>
+      <button class="btn-back-microsite" (click)="goToMicrosite()">Volver</button>
+  </div>
+</div>
+<custom-footer></custom-footer>
+
+
+

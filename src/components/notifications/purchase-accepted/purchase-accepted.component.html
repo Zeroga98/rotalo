@@ -1,41 +1,57 @@
 <div class="notifications-item">
-    <span class="icon icon-warning notification-icon"></span>
-    <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
-        <span>Se ha registrado tu compra a</span>
-        <span class="highlight bold clickable"(click)="clickUser()">
-            {{notification.producto.nombreUsuario}}
-        </span>
-        <span> de </span>
-        <span class="highlight bold clickable" (click)="goToDetail(notification.producto.idProducto)">
-            {{ notification.producto.nombreProducto + '. '}}
-        </span>
-        <br>
-        <span>Precio: {{ (notification.compra.monto  | currency:' ':0 | removeDigits) }}</span>
-        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} unidades
-          -
-        </span>
-        <span *ngIf="notification.compra.unidadesCompradas" class="highlight bold">
-          Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ':0 | removeDigits}}
-        </span>
+  <span *ngIf="!notification.informacionAdicional && notification.producto">
+      <span class="icon icon-flag notification-icon"></span>
+      <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
+          <span>Se ha registrado tu compra a</span>
+          <span class="highlight bold clickable"(click)="clickUser()">
+              {{notification.producto.nombreUsuario}}
+          </span>
+          <span> de </span>
+          <span class="highlight bold clickable" (click)="goToDetail(notification.producto.idProducto)">
+              {{ notification.producto.nombreProducto + '. '}}
+          </span>
+          <br>
+          <span>Precio: {{ (notification.compra.monto  | currency:' ':0 | removeDigits) }}</span>
+          <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} unidades
+            -
+          </span>
+          <span *ngIf="notification.compra.unidadesCompradas" class="highlight bold">
+            Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ':0 | removeDigits}}
+          </span>
 
-    </p>
-    <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
-        <span>Has pedido a</span>
-        <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
-        <span>el artículo</span>
-        <span class="highlight bold clickable">
-            {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
-        </span>
-    </p>
-    <small class="notification-date">
-        {{notification.fechaHora}}
-    </small>
-    <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
-    <div class="notification-buttons" *ngIf="!notification.status">
-        <div class="button-item">
-            <button class="button button-secondary" (click)="productReceived(notification.producto.idProducto)">
-                <span>Recibí el artículo</span>
-            </button>
-        </div>
-    </div>
+      </p>
+      <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
+          <span>Has pedido a</span>
+          <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
+          <span>el artículo</span>
+          <span class="highlight bold clickable">
+              {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+          </span>
+      </p>
+      <small class="notification-date">
+          {{notification.fechaHora}}
+      </small>
+      <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
+      <div class="notification-buttons" *ngIf="!notification.status">
+          <div class="button-item">
+              <button class="button button-secondary" (click)="productReceived(notification.producto.idProducto)">
+                  <span>Recibí el artículo</span>
+              </button>
+          </div>
+      </div>
+  </span>
+  <span *ngIf="notification.informacionAdicional">
+      <span class="icon icon-flag notification-icon"></span>
+      <p class="notification-text align">
+          <span>Tu compra por
+            <span class="highlight bold">
+              ${{amountPurchase | currency:" ":0 | removeDigits}}
+            </span>
+            en la tienda Bancolombia se ha realizado exitosamente.
+          </span>
+      </p>
+  </span>
+  <small class="notification-date">
+      {{notification.at | amLocale:'es' | amTimeAgo}}
+  </small>
 </div>

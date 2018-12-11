@@ -759,14 +759,14 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getInitialConfig(): ProductInterface {
     const date = new Date();
+    date.setMonth(date.getMonth() + 2);
     let objectDate = {
       date: {
           year: date.getFullYear(),
-          month: date.getMonth() + 2,
+          month: date.getMonth(),
           day: date.getDate()
         }
     };
-
     if (this.product) {
       const publishUntil  = moment(this.product['publish-until']).toDate();
       objectDate = {
@@ -843,7 +843,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   private getPublishUntilDate(): Date {
     /** El 30 debe ser congifurable DEUDA TECNICA */
-    var date = new Date();
+    const date = new Date();
     date.setDate(date.getDate() + 30);
     return date;
   }

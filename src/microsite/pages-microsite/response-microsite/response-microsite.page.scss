@@ -1,0 +1,95 @@
+*, *::after, *::before {
+    outline: none;
+}
+
+.container, .spinner {
+    width: 90vw;
+    margin: 0 auto;
+    height: 465px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .info-title {
+        p {
+            font-size: 2.2rem;
+            color: #272727;
+            font-weight: bold;
+            margin-top: 10px;
+        }        
+    }
+
+    .container-img {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .img-monkey {
+            width: 201px;
+            height: 154.87px;
+        }
+
+        .img-monkey.success {
+            background: url(../../assets/img/iconos/ic_felicitaciones_carrito.svg) no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+
+        .img-monkey.error {
+            background: url(../../assets/img/iconos/ic_rechazado_carrito.svg) no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+
+        .text-empty {
+            font-size: 2.4rem;
+            color: #272727;
+            font-weight: bold; 
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .text-start-load {
+            font-size: 2.2rem;
+            color: #B0B0B0; 
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .btn-back-microsite {
+            width: 170px;
+            padding: 8px 0px;
+            border-style: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: 100ms;
+            font-weight: bold;
+            background: white;
+            border: 1px solid #FF3646;
+            color: #FF3646;
+            margin-top: 30px;
+
+            &:hover {
+                background: #bf111c;
+                color: white;
+                border: 1px solid #bf111c;
+            }
+        }
+    }
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 736px) { 
+    .container, .spinner {
+        height: 600px;
+    }
+}
+
+

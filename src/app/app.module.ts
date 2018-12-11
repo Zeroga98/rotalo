@@ -155,6 +155,22 @@ import { ModalPromoComponent } from '../components/modal-promo/modal-promo.compo
 import { ModalPromoProductService } from '../components/modal-promo/modal-promoProduct.service';
 
 
+//Componentes y páginas del micrositio
+import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
+import { ProductsMicrositeService } from '../microsite/services-microsite/back/products-microsite.service';
+import { ConfigurationMicrositeService } from '../microsite/services-microsite/configuration/configuration-microsite.service';
+import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page';
+import { FeedMicrositeService } from '../microsite/pages-microsite/products-microsite/feedMicrosite.service';
+import { ProductMicrositeComponent } from '../microsite/components-microsite/product-microsite/product-microsite.component';
+import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
+import { DetailProductMicrositeComponent } from '../microsite/components-microsite/detail-product-microsite/detail-product-microsite.component';
+import { BannerLatiendaComponent } from '../microsite/components-microsite/banner-latienda/banner-latienda.component';
+import { ShoppingCarService } from '../microsite/services-microsite/front/shopping-car.service';
+import { BackArrowMicrositeComponent } from '../microsite/components-microsite/back-arrow-microsite/back-arrow-microsite.component';
+import { NavigationTopService } from '../components/navigation-top/navigation-top.service';
+import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
+import { windowService } from '../microsite/services-microsite/front/window.service';
+import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 @NgModule({
   declarations: [
     AppComponent,
@@ -244,7 +260,16 @@ import { ModalPromoProductService } from '../components/modal-promo/modal-promoP
     FinanceBamComponent,
     ProductsPromoPage,
     PromoAnimationComponent,
-    ModalPromoComponent
+    ModalPromoComponent,
+    DetalleProductoMicrositioComponent,
+    CarMicrositePage,
+    ProductsMicrositePage,
+    ProductMicrositeComponent,
+    DetailProductMicrositeComponent,
+    BannerLatiendaComponent,
+    BackArrowMicrositeComponent,
+    MiniProductDetailComponent,
+    ResponseMicrositePage
   ],
   imports: [
     BrowserModule,
@@ -307,6 +332,7 @@ import { ModalPromoProductService } from '../components/modal-promo/modal-promoP
     ModalTicketService,
     ModalVideoService,
     ModalPromoProductService,
+    NavigationTopService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
@@ -331,7 +357,12 @@ import { ModalPromoProductService } from '../components/modal-promo/modal-promoP
       provide: HTTP_INTERCEPTORS,
       useClass: NormalizeInterceptor,
       multi: true
-    }
+    },
+    ProductsMicrositeService,
+    ConfigurationMicrositeService,
+    FeedMicrositeService,
+    ShoppingCarService,
+    windowService
   ],
   bootstrap: [AppComponent]
 })

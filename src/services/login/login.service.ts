@@ -22,10 +22,12 @@ export class LoginService {
       resonse => {
         this.currentSessionService.clearSession();
         location.reload();
+        window.scroll(0, 0);
       },
       error => {
         this.currentSessionService.clearSession();
         location.reload();
+        window.scroll(0, 0);
         console.log(error);
       }
     );

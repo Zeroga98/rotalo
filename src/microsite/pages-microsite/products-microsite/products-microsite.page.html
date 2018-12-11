@@ -1,0 +1,36 @@
+<div class="md-overlay"></div>
+<div class="md-overlay-red"></div>
+
+<modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
+<!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
+<banner-latienda></banner-latienda>
+
+<div class="emotional-banner"></div>
+<div class="walcome-messaje">
+  <p>Artículos exclusivos Bancolombia</p>
+</div>
+<div class="background-feed">
+  <div class="container-spinner" *ngIf="isSpinnerShow">
+    <custom-spinner></custom-spinner>
+  </div>
+  <div class="msg-no-products" *ngIf="showAnyProductsMessage">
+    ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
+  </div>
+  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+    <div class="list">
+      <div class="masonry">
+        <div class="grid-item">
+          <product-microsite #productsFinish *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
+            class="product-feed" [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
+            [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
+            [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'" id="{{product.id}}">
+          </product-microsite>
+        </div>
+      </div>
+      <pagination-controls  class="promo has-text-centered" responsive="true" previousLabel="Anterior"
+        nextLabel="Siguiente" (pageChange)="getPage($event)">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+<custom-footer></custom-footer>

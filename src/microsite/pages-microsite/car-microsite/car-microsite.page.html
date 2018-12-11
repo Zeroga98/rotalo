@@ -1,0 +1,192 @@
+<banner-latienda></banner-latienda>
+<div *ngIf="showView == 'loading'" class="spinner">
+    <custom-spinner></custom-spinner>
+</div>
+<div *ngIf="showView == 'noProducts'" class="no-products">
+    <div class="info-title">
+        <p>Mi carrito de compras</p>
+    </div>
+    <div class="container-load-car">
+        <div class="img-shopping-car"></div>
+        <div class="text-empty">Este carrito se encuentra vacío</div>
+        <div class="text-start-load">¡Empieza a llenarlo!</div>
+        <button class="btn-back-microsite" (click)="goToMicrosite()">Volver</button>
+    </div>
+</div>
+<form *ngIf="showView == 'Products'" role="form" [formGroup]="registerForm" name="registerForm" class="form-theme"
+    (ngSubmit)="onSubmit()">
+    <div class="general-container">
+        <div class="container-info-user">
+            <div class="info-title">
+                <p>Mi carrito de compras</p>
+            </div>
+            <div class="info-user-box">
+                <div class="user-info">
+                    <div class="info-title-box" (click)="hideInfoText()">
+                        <p>1. Verifica tu información personal</p>
+                        <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showInfo}"></div>
+                    </div>
+                    <div class="info-container" *ngIf="showInfo">
+                        <div class="label-title-form">Nombre</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ nameUser }}</div>
+                            <div class="icon-checked">
+                                <span class="circle-check"></span>
+                            </div>
+                        </div>
+                        <div class="label-title-form">Tipo de documento</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ typeDocument }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Número de doc.</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ documentNumber }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Correo electrónico</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ email }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                        <div class="label-title-form">Celular</div>
+                        <div class="row-form">
+                            <div class="row-value">{{ cellphone }}</div>
+                            <div class="icon-checked"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-info">
+                    <div class="info-title-box" (click)="hideFormText()">
+                        <p>2. Agrega tu dirección de envío</p>
+                        <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showForm}"></div>
+                    </div>
+                    <div class="form-container" *ngIf="showForm">
+                        <div class="row-two">
+                            <div class="form-group column">
+                                <label class="label-input">Departamento*</label>
+                                <select-states [ngClass]="{'invalid': errorState}" class="white-theme-select material-select"
+                                    [country]="country" (selected)="state=$event; validateState()"></select-states>
+                                <span class="error-msg">Este campo es requerido.</span>
+                            </div>
+                            <div class="form-group column">
+                                <label class="label-input">Ciudad*</label>
+                                <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select"
+                                    [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                                <span class="error-msg">Este campo es requerido.</span>
+                            </div>
+                        </div>
+                        <div class="form-inputs">
+                            <span class="input-container">
+                                <label class="label-input">Dirección*</label>
+                                <input [ngClass]="{'invalid': registerForm.get('address').invalid && !registerForm.get('address').pristine}"
+                                    name="address" formControlName="address" type="text" id="txt-address" autocomplete="off"
+                                    placeholder="ejm: Calle 48 C# 12 c07" maxlength="100" />
+                            </span>
+                            <span class="messageError">
+                                <span *ngIf="registerForm.get('address').touched && registerForm.get('address').invalid && !registerForm.get('address').pristine
+                                && !registerForm.get('address').errors['pattern']">
+                                    Este campo es requerido.
+                                </span>
+                                <span *ngIf="registerForm.get('address').touched && registerForm.get('address').invalid && !registerForm.get('address').pristine
+                                && registerForm.get('address').errors['pattern']">
+                                    El campo no cumple con el formato de teléfono.
+                                </span>
+                            </span>
+                        </div>
+                        <div class="form-inputs">
+                            <span class="input-container">
+                                <label class="label-input mt-25">Número de contacto (Celular)*
+                                </label>
+                                <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}"
+                                    name="cellphone" formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                    maxlength="10" id="txt-cellphone" autocomplete="off" />
+                            </span>
+                            <span class="messageError">
+                                <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+                                && !registerForm.get('cellphone').errors['pattern']">
+                                    Este campo es requerido.
+                                </span>
+                                <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
+                                && registerForm.get('cellphone').errors['pattern']">
+                                    El campo no cumple con el formato de teléfono.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-products">
+            <div class="title-products">
+                <div class="title-added-products">
+                    <p>
+                        <span class="showSpanResponsive">3. </span> Artículos añadidos al carrito:</p>
+                </div>
+                <div class="btn-delete-product" (click)="deleteCheckedProducts()" [ngClass]="{'disabled': disabledButton}">
+                    <span class="icon-delete"></span>
+                </div>
+            </div>
+            <div class="container-cards">
+                <div *ngFor="let product of products">
+                    <mini-product-detail [product]="product" (changeQuantity)="changeQuantity($event, product)"
+                        (updateButtonStatus)="updateButtonStatus()"></mini-product-detail>
+                </div>
+            </div>
+            <div class="container-price">
+                <div class="row-price-container">
+                    <div class="row-text">
+                        <div class="label-text">Subtotal</div>
+                        <div class="label-price">{{ carSubTotalPrice | currency:"$":0 | removeDigits }}</div>
+                    </div>
+                    <div class="row-text">
+                        <div class="label-text">IVA</div>
+                        <div class="label-price">{{ carTotalIva | currency:"$":0 | removeDigits }}</div>
+                    </div>
+                </div>
+                <div class="total-price">
+                    <div class="label-text">TOTAL</div>
+                    <div class="label-price red-text">{{ carTotalPrice | currency:"$":0 | removeDigits }}</div>
+                </div>
+            </div>
+            <div class="buttons-section">
+                <button class="btn-go-microsite" (click)="goToMicrosite()">Seguir comprando</button>
+                <button class="btn-buy" type="submit" id="btn-pagar" (click)="pay()">Comprar</button>
+            </div>
+            <div class="pending-message" *ngIf="hasPending">
+                <p>Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago,
+                    <br />
+                    escríbenos a info@rotalo.com.co</p>
+            </div>
+            <div class="form-empty-message" *ngIf="emptyMessaje">
+                    <p>Debes diligenciar todos los campos obligatorios del formulario</p>
+                </div>
+            <div class="info-send-section">
+                <div class="first-info-section">
+                    <div class="info-label">
+                        <div class="icon-label icon-shopping-car"></div>
+                        <div class="text-label">Envío gratis</div>
+                    </div>
+                    <div class="info-label">
+                        <div class="icon-label icon-watch"></div>
+                        <div class="text-label">Devoluciones aplican
+                            <span (click)="goToTerms()">términos y condiciones.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="second-info-section">
+                    <div class="info-label">
+                        <div class="text-label">Empresa transportadora: Coordinadora. S.A</div>
+                    </div>
+                    <div class="info-label">
+                        <div class="text-label">Entrega hasta 3 días hábiles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="footer-car">
+    <custom-footer></custom-footer>
+</div>

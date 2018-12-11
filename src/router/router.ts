@@ -36,6 +36,11 @@ import { NotificationConfirmation } from '../pages/notification-confirmation/not
 import { LoginPage } from '../pages/login/login.page';
 import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
 import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
+import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
+import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page'
+import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
+import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
+
 
 export const appRouter: Routes = [
   {
@@ -59,7 +64,8 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.INFOROTALOCENTER, component: RotaloCenterComponent },
       { path: ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS, component: NotificationsSettingsPage },
       { path: ROUTES.MENUROTALOCENTER.SOLD, component: SoldPage },
-      { path: `${ROUTES.MENUROTALOCENTER.MESSAGES}`,
+      {
+        path: `${ROUTES.MENUROTALOCENTER.MESSAGES}`,
         component: ChatPageComponent,
         children: [
           { path: ROUTES.MENUROTALOCENTER.FEEDBACK, component: ChatPageComponent },
@@ -93,47 +99,83 @@ export const appRouter: Routes = [
     component: ProductsPage,
     canActivate: [AuthGuardService],
     children: [
-        {
-            path: ROUTES.PRODUCTS.FEED,
-            component: ProductsFeedPage,
-        },
-        {
-          path: ROUTES.PRODUCTS.UPLOAD,
-          component: ProductsUploadPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
-          component: ProductEditPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.SHOW}/:id`,
-          component: DetalleProductoComponent,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.BUY}/:id`,
-          component: BuyProductPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
-          component: SimulateCreditPage,
-        },
-        {
-          path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
-          component: FinanceBamComponent,
-        },
-        {
-          path: ROUTES.PRODUCTS.ERROR,
-          component: ErrorPageComponent,
-        },
-        {
-          path: ROUTES.PRODUCTS.PROMO,
-          component: ProductsPromoPage,
-        },
-        {
+      {
+        path: ROUTES.PRODUCTS.FEED,
+        component: ProductsFeedPage,
+      },
+      {
+        path: ROUTES.PRODUCTS.UPLOAD,
+        component: ProductsUploadPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
+        component: ProductEditPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.SHOW}/:id`,
+        component: DetalleProductoComponent,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.BUY}/:id`,
+        component: BuyProductPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
+        component: SimulateCreditPage,
+      },
+      {
+        path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
+        component: FinanceBamComponent,
+      },
+      {
+        path: ROUTES.PRODUCTS.ERROR,
+        component: ErrorPageComponent,
+      },
+      {
+        path: ROUTES.PRODUCTS.PROMO,
+        component: ProductsPromoPage,
+      },
+      {
+        path: ROUTES.MICROSITE.LINK,
+        canActivate: [AuthGuardService],
+        children: [
+          {
+            path: ROUTES.MICROSITE.FEED,
+            component: ProductsMicrositePage,
+          },
+          {
+            path: ROUTES.MICROSITE.DETAIL,
+            component: DetalleProductoMicrositioComponent,
+          },
+          {
+            path: `${ROUTES.MICROSITE.DETAIL}/:id`,
+            component: DetalleProductoMicrositioComponent,
+          },
+          {
+            path: ROUTES.MICROSITE.CAR,
+            component: CarMicrositePage,
+          },
+          {
+            path: ROUTES.MICROSITE.RESPONSE,
+            component: ResponseMicrositePage,
+          },
+          {
             path: '',
-            redirectTo: ROUTES.PRODUCTS.FEED,
+            redirectTo: ROUTES.MICROSITE.FEED,
             pathMatch: 'full'
-        },
+          },
+          {
+            path: '**',
+            redirectTo: ROUTES.MICROSITE.FEED,
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: ROUTES.PRODUCTS.FEED,
+        pathMatch: 'full'
+      },
     ]
   },
   {
@@ -178,6 +220,54 @@ export const appRouter: Routes = [
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   {
     path: '',

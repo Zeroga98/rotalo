@@ -1,0 +1,8 @@
+<banner-latienda></banner-latienda>
+<div class="container">
+  <detail-product-microsite (notify)='onNotify($event)' *ngIf="!isSpinnerShow" [idProduct]="idProduct" ></detail-product-microsite>
+</div>
+<custom-footer *ngIf="isFooterShow"></custom-footer>
+
+
+

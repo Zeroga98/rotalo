@@ -38,5 +38,12 @@ export const ROUTES = {
         CONVERSATION: 'conversation',
         FEEDBACK: 'feed-back'
     },
-    NOTIFICATIONCONFIRMATION: 'notification-confirmation'
+    NOTIFICATIONCONFIRMATION: 'notification-confirmation',
+    MICROSITE: {
+        LINK: 'microsite',
+        FEED: 'home',
+        DETAIL: 'details',
+        CAR: 'cart',
+        RESPONSE: 'response'
+    }
 };
