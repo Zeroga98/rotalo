@@ -48,78 +48,79 @@
           <h1>Características</h1>
           <table class="table-info">
             <tbody>
-                <tr>
-                    <td class=" ">
-                      <div>
-                          Marca/Modelo
-                          <p *ngIf="products.vehicle.line">{{products.vehicle.line.brand.name}}, {{products.vehicle.line.name}}</p>
-                      </div>
-                    </td>
-                    <td class="padding-cell-left middle-cell">
-                        <div>
-                            Año
-                            <p *ngIf="products.model">{{products.model}}</p>
-                          </div>
-                    </td>
-                    <td class="padding-cell-left">
-                        <div>
-                            Kilometraje
-                            <p *ngIf="products.vehicle.mileage &&  products.vehicle.mileage != 0">{{products.vehicle.mileage | currency:" ":0 | removeDigits }} Km</p>
-                            <p *ngIf="products.vehicle.mileage == 0">0 Km</p>
-                          </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                        <div>
-                            Color
-                            <p *ngIf="products.vehicle.color">{{products.vehicle.color}}</p>
-                        </div>
-                    </td>
-                    <td class="padding-cell-left middle-cell">
-                        <div *ngIf="products.vehicle.gas">
-                            Combustible
-                            <p *ngIf="products.vehicle.gas">{{products.vehicle.gas}}</p>
-                        </div>
-                        <div *ngIf="products.vehicle.displacement">
-                            Cilindraje
-                            <p *ngIf="products.vehicle.displacement">{{products.vehicle.displacement}}</p>
-                        </div>
-                    </td>
-                    <td class="padding-cell-left">
-                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
-                          Tipo de Vehículo
-                          <p *ngIf="products.typeVehicle">{{products.typeVehicle}}</p>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
-                            Placa
-                            <p *ngIf="products.vehicle.licensePlate">*****{{products.vehicle.licensePlate}}</p>
-                          </div>
-                    </td>
-                    <td class="padding-cell-left middle-cell">
-                        <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
-                            Transmisión
-                            <p *ngIf="products.vehicle.transmission">{{products.vehicle.transmission}}</p>
-                        </div>
-                    </td>
-                    <td class="padding-cell-left">
-                        <div>
-                        </div>
-                    </td>
-                  </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Marca/Modelo
+                    <p *ngIf="products.vehicle.line">{{products.vehicle.line.brand.name}}, {{products.vehicle.line.name}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left middle-cell">
+                  <div>
+                    Año
+                    <p *ngIf="products.model">{{products.model}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left">
+                  <div>
+                    Kilometraje
+                    <p *ngIf="products.vehicle.mileage &&  products.vehicle.mileage != 0">{{products.vehicle.mileage |
+                      currency:" ":0 | removeDigits }} Km</p>
+                    <p *ngIf="products.vehicle.mileage == 0">0 Km</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Color
+                    <p *ngIf="products.vehicle.color">{{products.vehicle.color}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left middle-cell">
+                  <div *ngIf="products.vehicle.gas">
+                    Combustible
+                    <p *ngIf="products.vehicle.gas">{{products.vehicle.gas}}</p>
+                  </div>
+                  <div *ngIf="products.vehicle.displacement">
+                    Cilindraje
+                    <p *ngIf="products.vehicle.displacement">{{products.vehicle.displacement}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left">
+                  <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                    Tipo de Vehículo
+                    <p *ngIf="products.typeVehicle">{{products.typeVehicle}}</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                    Placa
+                    <p *ngIf="products.vehicle.licensePlate">*****{{products.vehicle.licensePlate}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left middle-cell">
+                  <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                    Transmisión
+                    <p *ngIf="products.vehicle.transmission">{{products.vehicle.transmission}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left">
+                  <div>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
-          <h1 *ngIf="motoHasCharacteristics() || autoHasCharacteristics()" >Características adicionales</h1>
+          <h1 *ngIf="motoHasCharacteristics() || autoHasCharacteristics()">Características adicionales</h1>
           <div class="additional-info">
             <div *ngIf="products.vehicle.airbag && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
               <div class="img-airbag additional-img"></div>
               <div class="additional-text">Airbag</div>
             </div>
-            <div  *ngIf="products.vehicle.absBrakes" class="additional-container">
+            <div *ngIf="products.vehicle.absBrakes" class="additional-container">
               <div class="img-frenos additional-img"></div>
               <div class="additional-text">Frenos ABS</div>
             </div>
@@ -135,6 +136,33 @@
             <div *ngIf="products.vehicle['uniqueOwner']" class="additional-container">
               <div class="img-unico additional-img"></div>
               <div class="additional-text">Único dueño</div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="IsCategoryImmovables" class="container-simulator">
+          <div class="img-container">
+            <img src="/assets/img/credito_hipotecario.png" alt=" Crédito y leasing de vivienda">
+          </div>
+          <div class="container-info-simulator">
+            <div class="text-container">
+              <h1>Crédito y Leasing de vivienda</h1>
+              <p>
+                Solicita y simula tu financiación
+              </p>
+            </div>
+            <div class="btn-container">
+              <div class="product-btn">
+                <div class="product-btns">
+                  <div class="cont-botons">
+                      <a class="gtmCreditoHipotecario botons"
+                      target="_blank"
+                      href="https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional">
+                        Haciendo clic aquí
+                      </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -206,8 +234,6 @@
                 </div>
             </form>
           </div>
-
-
           <div *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
@@ -377,10 +403,8 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
 </div>

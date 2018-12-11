@@ -575,6 +575,11 @@ export class DetailProductComponent implements OnInit {
     return this.quantityForm.invalid;
   }
 
-
+  get IsCategoryImmovables () {
+    if (this.products && this.products.subcategory && this.products.subcategory.category.name == 'Inmuebles') {
+      return true;
+    }
+    return false;
+  }
 
 }
