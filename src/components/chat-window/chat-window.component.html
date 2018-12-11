@@ -107,41 +107,55 @@
 
                       <!-- INICIO NOTIFICACIÓN NUEVA COMPRA -->
                       <div *ngIf="message.tipoNotificacion == 'new_purchase'" class="notifications-item">
-                        <span class="icon icon-flag notification-icon"></span>
-                        <p class="notification-text">
-                          <span class="highlight bold clickable">{{message.compra.nombreUsuario}}</span>
-                          <span *ngIf="message.producto.tipoVenta === 'GRATIS'">te ha pedido </span>
-                          <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado el producto: </span>
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
-                          <br>
-                          <span>Precio: {{ (message.compra.monto | currency:' ':0 | removeDigits) }}</span>
-                          <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} unidades
-                            -
-                          </span>
-                          <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
-                            Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ':0 | removeDigits}}
-                          </span>.
-                          <br>
-                          <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
-                          <br>
-                          <span class="notification-text" *ngIf="message.status">{{message.status}}</span>
-                        </p>
-                        <small class="notification-date">{{message.fechaHora }}</small>
-
-                        <div class="notification-buttons" *ngIf="!message.status">
-                          <div class="button-item">
-                            <button class="button button-secondary" (click)="acceptPurchase(message)">
-                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">Regalar</span>
-                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Recibí el dinero</span>
-                            </button>
-                          </div>
-                          <div class="button-item">
-                            <button class="button button-primary" (click)="declinePurchase(message)">
-                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">No Regalar</span>
-                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Cancelar Compra</span>
-                            </button>
-                          </div>
-                        </div>
+                        <span *ngIf="!message.informacionAdicional && message.producto">
+                            <span class="icon icon-flag notification-icon"></span>
+                            <p class="notification-text">
+                              <span class="highlight bold clickable">{{message.compra.nombreUsuario}}</span>
+                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">te ha pedido </span>
+                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado el producto: </span>
+                              <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
+                              <br>
+                              <span>Precio: {{ (message.compra.monto | currency:' ':0 | removeDigits) }}</span>
+                              <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} unidades
+                                -
+                              </span>
+                              <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
+                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ':0 | removeDigits}}
+                              </span>.
+                              <br>
+                              <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
+                              <br>
+                              <span class="notification-text" *ngIf="message.status">{{message.status}}</span>
+                            </p>
+                            <small class="notification-date">{{message.fechaHora }}</small>
+                            <div class="notification-buttons" *ngIf="!message.status">
+                              <div class="button-item">
+                                <button class="button button-secondary" (click)="acceptPurchase(message)">
+                                  <span *ngIf="message.producto.tipoVenta === 'GRATIS'">Regalar</span>
+                                  <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Recibí el dinero</span>
+                                </button>
+                              </div>
+                              <div class="button-item">
+                                <button class="button button-primary" (click)="declinePurchase(message)">
+                                  <span *ngIf="message.producto.tipoVenta === 'GRATIS'">No Regalar</span>
+                                  <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">Cancelar Compra</span>
+                                </button>
+                              </div>
+                            </div>
+                        </span>
+                        <span *ngIf="message.informacionAdicional">
+                            <span class="icon icon-flag notification-icon"></span>
+                            <p class="notification-text align">
+                                <span class="highlight bold">{{message.nombreEmisor}}</span>
+                                <span> ha realizado una compra por
+                                  <span class="highlight bold">
+                                    ${{returnTotalPurchase(message) | currency:" ":0 | removeDigits}}
+                                  </span>
+                                  en la Tienda Bancolombia.
+                                </span>
+                            </p>
+                            <small class="notification-date">{{message.fechaHora }}</small>
+                        </span>
                       </div>
                       <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
 
@@ -153,21 +167,33 @@
 
                       <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
                       <div *ngIf="message.tipoNotificacion == 'purchase_declined'" class="notifications-item">
-                        <span class="icon icon-warning notification-icon"></span>
-                        <p class="notification-text" *ngIf="message.producto.tipoVenta !== 'GRATIS'">
-                          <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
-                          <span>ha cancelado tu compra</span>
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
-                          </span>
-                        </p>
-                        <p class="notification-text" *ngIf="message.producto.tipoVenta === 'GRATIS'">
-                          <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
-                          <span>No te ha regalado el artículo</span>
-                          <span class="highlight bold">
-                            {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
-                          </span>
-                        </p>
+                        <span *ngIf="!message.informacionAdicional && message.producto">
+                            <span class="icon icon-warning notification-icon"></span>
+                            <p class="notification-text" *ngIf="message.producto.tipoVenta !== 'GRATIS'">
+                              <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
+                              <span>ha cancelado tu compra</span>
+                              <span class="highlight bold clickable" (click)="goToDetail(message)">
+                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                              </span>
+                            </p>
+                            <p class="notification-text" *ngIf="message.producto.tipoVenta === 'GRATIS'">
+                              <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
+                              <span>No te ha regalado el artículo</span>
+                              <span class="highlight bold">
+                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                              </span>
+                            </p>
+                        </span>
+                        <span *ngIf="message.informacionAdicional">
+                          <span class="icon icon-warning notification-icon"></span>
+                          <p class="notification-text align">
+                              <span>La compra ha sido rechazada por un valor de</span>
+                              <span class="highlight bold">
+                                  ${{returnTotalPurchase(message) | currency:" ":0 | removeDigits}}
+                              </span>
+                              <span> en la Tienda Bancolombia.</span>
+                          </p>
+                        </span>
                         <small class="notification-date">
                           {{message.fechaHora }}
                         </small>

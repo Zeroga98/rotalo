@@ -36,6 +36,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Input() defaultCountryValue: CountryInterface;
   rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   rotaloProfile: string = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
+  rotaloCart: string = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`;
   uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
   isModalMessageShowed: boolean = false;
   listenerNotifications: any;
@@ -338,7 +339,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   goToShoppingCar() {
     if (this.isBancolombiaShop) {
-      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`]);
+      this.router.navigate([this.rotaloCart]);
     }
   }
 
@@ -362,5 +363,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  isActive(tab): boolean {
+    if (this.router.url.includes(tab)) {
+      return true;
+    }
+    return false;
+  }
+
 
 }

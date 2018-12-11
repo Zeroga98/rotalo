@@ -369,4 +369,15 @@ export class ChatWindowComponent
       error => console.log(error)
     );
   }
+
+  returnTotalPurchase(notification) {
+    let amountPurchase = 0;
+    if (notification.informacionAdicional) {
+      const obj = JSON.parse(notification.informacionAdicional);
+      amountPurchase = obj.total_order;
+    }
+    return amountPurchase;
+  }
+
+
 }

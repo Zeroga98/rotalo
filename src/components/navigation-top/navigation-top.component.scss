@@ -182,6 +182,12 @@
       li.disabled {
         color:#B0B0B0;
       }
+      li .active {
+        font-weight: bold;
+        .icon-account-header {
+          background: url(../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
+        }
+      }
     }
   }
 

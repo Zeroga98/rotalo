@@ -42,7 +42,7 @@
             </div>
           </li>
           <li class="gtmCentroRotalo rotalo-center">
-            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter">
+            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
               <span class="gtmCentroRotalo text-rotalo">
                 Centro Rótalo
                 <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
@@ -53,7 +53,7 @@
             </a>
           </li>
           <li class="perfil-container gtmPerfil">
-            <div (click)="onActivateMenu()" class="container-perfil">
+            <div [ngClass]="{active: isActive('profile')}" (click)="onActivateMenu()" class="container-perfil">
               <span class="gtmPerfil icon-account-header">
               </span>
               <p>Perfil</p>
@@ -65,7 +65,7 @@
             </div>
           </li>
           <li [ngClass]="isBancolombiaShop?  'cart-active': 'disabled'" (click)="goToShoppingCar()" class="car-container">
-            <div class="container-car">
+            <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
               </span>
               <p>Carrito</p>

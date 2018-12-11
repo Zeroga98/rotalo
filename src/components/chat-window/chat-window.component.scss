@@ -346,6 +346,14 @@
       }
     }
   }
+
+
+  .notification-text.align {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+
   @media (max-width: 960px) {
     .expired-container{
       .notification-buttons{
