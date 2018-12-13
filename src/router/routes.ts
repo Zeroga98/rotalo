@@ -36,7 +36,8 @@ export const ROUTES = {
         SOLD: 'sold',
         MESSAGES: 'messages',
         CONVERSATION: 'conversation',
-        FEEDBACK: 'feed-back'
+        FEEDBACK: 'feed-back',
+        ADMINORDERS: 'admin-order',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {
