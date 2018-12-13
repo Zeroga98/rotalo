@@ -1,11 +1,11 @@
-import { Observable } from "rxjs/Observable";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { ConfigurationService } from "../../../services/configuration.service";
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ConfigurationService } from '../../../services/configuration.service';
 import 'rxjs/add/operator/mergeMap';
 import { UserService } from './../../../services/user.service';
-import { ProductInterface } from "../../commons-microsite/interfaces/product.interface";
-import { Router } from "@angular/router";
+import { ProductInterface } from '../../commons-microsite/interfaces/product.interface';
+import { Router } from '@angular/router';
 
 import { URLS } from '../../commons-microsite/constants/url-services';
 import { ConfigurationMicrositeService } from '../configuration/configuration-microsite.service';

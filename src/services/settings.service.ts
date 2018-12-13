@@ -19,4 +19,11 @@ export class SettingsService {
     return this.http.get(url, { headers: headers }).map((response: any) => response);
   }
 
+  getOrders(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/admin/ordenes`;
+    return this.http.get(url, { headers: headers, params }).map((response: any) => response);
+  }
+
 }

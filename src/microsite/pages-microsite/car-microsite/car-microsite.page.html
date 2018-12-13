@@ -91,7 +91,7 @@
                                 </span>
                                 <span *ngIf="registerForm.get('address').touched && registerForm.get('address').invalid && !registerForm.get('address').pristine
                                 && registerForm.get('address').errors['pattern']">
-                                    El campo no cumple con el formato de teléfono.
+                                    El campo no cumple con el formato
                                 </span>
                             </span>
                         </div>
@@ -110,7 +110,9 @@
                                 </span>
                                 <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
                                 && registerForm.get('cellphone').errors['pattern']">
-                                    El campo no cumple con el formato de teléfono.
+                                    El campo no cumple con el formato
+                                    <br />
+                                    de teléfono.
                                 </span>
                             </span>
                         </div>
@@ -160,8 +162,8 @@
                     escríbenos a info@rotalo.com.co</p>
             </div>
             <div class="form-empty-message" *ngIf="emptyMessaje">
-                    <p>Debes diligenciar todos los campos obligatorios del formulario</p>
-                </div>
+                <p>Debes diligenciar todos los campos obligatorios del formulario</p>
+            </div>
             <div class="info-send-section">
                 <div class="first-info-section">
                     <div class="info-label">

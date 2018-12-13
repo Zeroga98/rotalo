@@ -22,4 +22,18 @@ export class adminOrdersPage implements OnInit {
      });
 
   }
+  loadOrders(idOrderStatus) {
+    const params = {
+      estado: idOrderStatus
+    };
+    this.settingsService.getOrders(params).subscribe((response) => {
+      console.log(response);
+     });
+  }
+
+  onSelect(ev) {
+    const id = ev.target.value;
+    this.loadOrders(id);
+  }
+
 }

@@ -5,14 +5,16 @@
   <div class="material-design">
     <form class="form-theme">
       <div class="form-group field-form valid">
-        <select class="form-control">
-          <option value="" selected="true" disabled></option>
+        <select
+        (change) = "onSelect($event)"
+        class="form-control">
+          <option value="" selected="true" disabled>Tipo de orden*</option>
           <option value="1">PENDING</option>
           <option value="2">APPROVED</option>
           <option value="3">DECLINED</option>
           <option value="4">VALIDATION</option>
         </select>
-        <label class="label-title">Categoría*</label>
+      <!--  <label class="label-title">Categoría*</label>-->
       </div>
     </form>
     <div class="tabla-container">
@@ -57,8 +59,12 @@
             </td>
             <td class="padding-cell-left">
               <div>
-                Acciones
-                <p>123465</p>
+                <button class="primary" type="submit">
+                  Aprobar
+                </button>
+                <button class="primary-light" type="submit">
+                  Rechazar
+                </button>
               </div>
             </td>
           </tr>

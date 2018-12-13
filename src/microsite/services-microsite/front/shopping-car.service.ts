@@ -32,6 +32,10 @@ export class ShoppingCarService {
     return this.wayboxJson;
   }
 
+  cleanWayboxJson() {
+    this.wayboxJson = null;
+  }
+
   setProducts(products) {
     this.products = products;
   }
