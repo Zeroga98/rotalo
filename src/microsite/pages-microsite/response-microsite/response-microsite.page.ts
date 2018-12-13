@@ -33,6 +33,7 @@ export class ResponseMicrositePage implements OnInit {
 
   ngOnInit() {
     this.jsonFromWaybox = this.car.getWayboxJson();
+    console.log(this.jsonFromWaybox);
     this.finalizeTransaction();
   }
 
@@ -54,7 +55,7 @@ export class ResponseMicrositePage implements OnInit {
     try {
       // Verificar la cantidad de los productos
       const response = await this.back.finalizarOrden(this.jsonFromWaybox);
-      if (this.jsonFromWaybox.transaction.status == "APPROVED") {
+      if (this.jsonFromWaybox.transaction.status === 'APPROVED') {
         this.showSuccessPage();
         this.cleanShoppingCart();
         this.car.changeCartNumber(0);
@@ -67,6 +68,7 @@ export class ResponseMicrositePage implements OnInit {
       this.showErrorPage();
       this.changeDetectorRef.markForCheck();
     }
+    this.car.cleanWayboxJson();
   }
 
   showErrorPage() {

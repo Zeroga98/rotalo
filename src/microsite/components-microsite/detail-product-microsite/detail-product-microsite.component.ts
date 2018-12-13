@@ -565,7 +565,8 @@ export class DetailProductMicrositeComponent implements OnInit {
           }
         ]
       };
-      if (this.back.addProductToBD(body)) {
+      try {
+        const added = await this.back.addProductToBD(body);
         try {
           this.router.navigate([
             `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
@@ -576,6 +577,8 @@ export class DetailProductMicrositeComponent implements OnInit {
         } catch (error) {
           console.error(error);
         }
+      } catch (error) {
+        console.error(error);
       }
     }
   }
