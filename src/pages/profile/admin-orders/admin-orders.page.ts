@@ -10,6 +10,7 @@ export class adminOrdersPage implements OnInit {
 
   public orders: Array<any> = [];
   public typeOrders: Array<any> = [];
+  public noOrders;
   constructor(private settingsService: SettingsService) {
   }
 
@@ -31,6 +32,11 @@ export class adminOrdersPage implements OnInit {
     };
     this.settingsService.getOrders(params).subscribe((response) => {
       this.orders = response.body.ordenes;
+      if (this.orders && this.orders.length > 0) {
+        this.noOrders = false;
+      } else  {
+        this.noOrders = true;
+      }
     }, (error) => {
       console.log(error);
     });

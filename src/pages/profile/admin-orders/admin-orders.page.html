@@ -14,6 +14,9 @@
       <!--  <label class="label-title">Categoría*</label>-->
       </div>
     </form>
+    <div class="msg-no-products" *ngIf="noOrders">
+      ¡Aún no tenemos ordenes en esta categoría!.
+    </div>
     <div *ngIf="orders" class="tabla-container">
       <table class="table-info">
         <tbody>
@@ -24,7 +27,7 @@
                 <p>{{order.idOrder}}</p>
               </div>
             </td>
-            <td class="padding-cell-left middle-cell">
+            <td class="padding-cell-left middle-cell cell">
               <div>
                 Número de referencia
                 <p>{{order.referenceNumber}}</p>
