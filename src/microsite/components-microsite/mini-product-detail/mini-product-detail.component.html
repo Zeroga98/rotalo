@@ -40,7 +40,7 @@
                                     </button>
                                 </span>
                             </div>
-                            <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg" *ngIf="totalStock == 0">¡Oh no! ya no quedan unidades disponibles.</span>
+                            <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg" *ngIf="totalStock == 0">Este producto ya no está disponible</span>
                             <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg" *ngIf="totalStock == 1">¡Oh no! solo hay {{totalStock}} unidad disponible.</span>
                             <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg" *ngIf="totalStock > 1">¡Oh no! solo hay {{totalStock}} unidades disponibles.</span>
                         </div>

@@ -350,7 +350,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
               this.wayboxPay
-              (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
+                (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
               this.disablePayButton = false;
               this.changeDetectorRef.markForCheck();
             } catch (error) {
@@ -365,7 +365,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
-          this.generateProductWithError(error);
+          this.loadProducts();
           this.disablePayButton = false;
           this.changeDetectorRef.markForCheck();
         }
@@ -392,17 +392,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       );
     });
     return body;
-  }
-
-  generateProductWithError(error) {
-    error.error.body.productosConErrores.forEach(element => {
-      this.productWithError.push(
-        {
-          mensajeError: element.mensajeError,
-          productId: element.producto.id
-        }
-      )
-    });
   }
 
   generateJsonToWaybox() {
@@ -470,6 +459,4 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.RESPONSE}`]);
     });
   }
-
-
 }
