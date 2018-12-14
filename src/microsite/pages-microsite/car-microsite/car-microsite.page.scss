@@ -336,6 +336,15 @@
                     border: 1px solid #bf111c;
                 }
             }
+
+            .btn-buy.disabled {
+                background: #B0B0B0;
+                border: 1px solid #B0B0B0;
+
+                &:hover {
+                    cursor: not-allowed;
+                }
+            }
         }
 
         .info-send-section {

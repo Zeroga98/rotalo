@@ -48,6 +48,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   showInfo: boolean;
   canHide: boolean;
   viewWidth: number;
+  disablePayButton = false;
 
   productWithError = [];
   disabledButton;
@@ -334,44 +335,52 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
-    this.hasPending = false;
-    this.emptyMessaje = false;
-    if (!this.formIsInvalid) {
-      try {
-        // Verificar la cantidad de los productos
-        const response_add = await this.back.addProductToBD(this.generateJson());
+    if (!this.disablePayButton) {
+      this.hasPending = false;
+      this.emptyMessaje = false;
+      this.disablePayButton = true;
+      if (!this.formIsInvalid) {
         try {
-          // Generarla orden de waybox
-          const response_orden = await this.back.getOrden(this.generateJsonToWaybox());
+          // Verificar la cantidad de los productos
+          const response_add = await this.back.addProductToBD(this.generateJson());
           try {
-            // Una vez se genere la orden, se reserva el stock
-            const response = await this.back.reserveStock();
-            this.wayboxPay
-            (this.carTotalPrice, response_orden.body.publicKey, response_orden.body.referenciaOrden, response_orden.body.urlRedireccion);
+            // Generarla orden de waybox
+            const orden = await this.back.getOrden(this.generateJsonToWaybox());
+            try {
+              // Una vez se genere la orden, se reserva el stock
+              const response = await this.back.reserveStock();
+              this.wayboxPay
+                (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
+              this.disablePayButton = false;
+              this.changeDetectorRef.markForCheck();
+            } catch (error) {
+              this.disablePayButton = false;
+              this.changeDetectorRef.markForCheck();
+            }
             this.changeDetectorRef.markForCheck();
           } catch (error) {
+            this.hasPending = true;
+            this.disablePayButton = false;
             this.changeDetectorRef.markForCheck();
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
-          this.hasPending = true;
+          this.loadProducts();
+          this.disablePayButton = false;
           this.changeDetectorRef.markForCheck();
         }
-        this.changeDetectorRef.markForCheck();
-      } catch (error) {
-        this.generateProductWithError(error);
-        this.changeDetectorRef.markForCheck();
+      } else {
+        this.emptyMessaje = true;
+        this.showForm = true;
+        this.disablePayButton = false;
       }
-    } else {
-      this.emptyMessaje = true;
-      this.showForm = true;
     }
   }
 
   generateJson() {
     const body = {
       productos: []
-    }
+    };
 
     this.products.forEach(element => {
       body.productos.push(
@@ -380,20 +389,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           'cantidad': element.quantity,
           'adicionar': false
         }
-      )
+      );
     });
     return body;
-  }
-
-  generateProductWithError(error) {
-    error.error.body.productosConErrores.forEach(element => {
-      this.productWithError.push(
-        {
-          mensajeError: element.mensajeError,
-          productId: element.producto.id
-        }
-      )
-    });
   }
 
   generateJsonToWaybox() {
@@ -461,6 +459,4 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.RESPONSE}`]);
     });
   }
-
-
 }

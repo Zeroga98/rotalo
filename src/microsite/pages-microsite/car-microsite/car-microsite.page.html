@@ -154,7 +154,7 @@
             </div>
             <div class="buttons-section">
                 <button class="btn-go-microsite" (click)="goToMicrosite()">Seguir comprando</button>
-                <button class="btn-buy" type="submit" id="btn-pagar" (click)="pay()">Comprar</button>
+                <button class="btn-buy" type="submit" id="btn-pagar" (click)="pay()" [ngClass]="{'disabled': disablePayButton}">Comprar</button>
             </div>
             <div class="pending-message" *ngIf="hasPending">
                 <p>Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago,

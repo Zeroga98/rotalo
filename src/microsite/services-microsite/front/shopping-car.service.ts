@@ -100,5 +100,4 @@ export class ShoppingCarService {
   changeCartNumber(event) {
     this.eventSourceCart.next(event);
   }
-
 }
