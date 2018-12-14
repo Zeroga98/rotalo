@@ -23,7 +23,9 @@ export class SettingsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/admin/ordenes`;
-    return this.http.get(url, { headers: headers, params }).map((response: any) => response);
+    return this.http.get(url, { headers: headers, params }).map((response: any) => {
+      return  response;
+    });
   }
 
 }
