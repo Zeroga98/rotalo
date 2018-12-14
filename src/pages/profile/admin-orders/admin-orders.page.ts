@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SettingsService } from '../../../services/settings.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { SettingsService } from '../../../services/settings.service';
 })
 export class adminOrdersPage implements OnInit {
 
-
+  public orders: Array<any> = [];
+  public typeOrders: Array<any> = [];
   constructor(private settingsService: SettingsService) {
   }
 
@@ -18,22 +19,27 @@ export class adminOrdersPage implements OnInit {
 
   loadTypeOrders() {
     this.settingsService.getTypeOrders().subscribe((response) => {
-      console.log(response);
-     });
-
+      this.typeOrders = response.body.estadosOrdenes;
+    }, (error) => {
+      console.log(error);
+    });
   }
+
   loadOrders(idOrderStatus) {
     const params = {
       estado: idOrderStatus
     };
     this.settingsService.getOrders(params).subscribe((response) => {
-      console.log(response);
-     });
+      this.orders = response.body.ordenes;
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   onSelect(ev) {
     const id = ev.target.value;
     this.loadOrders(id);
   }
+
 
 }

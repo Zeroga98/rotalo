@@ -15,17 +15,15 @@ export class SettingsService {
   getTypeOrders() {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/admin/ordenes/estados`;
+    const url = `${this.urlSapi}/ordenes/estados`;
     return this.http.get(url, { headers: headers }).map((response: any) => response);
   }
 
   getOrders(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/admin/ordenes`;
-    return this.http.get(url, { headers: headers, params }).map((response: any) => {
-      return  response;
-    });
+    const url = `${this.urlSapi}/ordenes`;
+    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
   }
 
 }

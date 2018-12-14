@@ -9,55 +9,46 @@
         (change) = "onSelect($event)"
         class="form-control">
           <option value="" selected="true" disabled>Tipo de orden*</option>
-          <option value="1">PENDING</option>
-          <option value="2">APPROVED</option>
-          <option value="3">DECLINED</option>
-          <option value="4">VALIDATION</option>
+          <option  *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}</option>
         </select>
       <!--  <label class="label-title">Categoría*</label>-->
       </div>
     </form>
-    <div class="tabla-container">
+    <div *ngIf="orders" class="tabla-container">
       <table class="table-info">
         <tbody>
-          <tr>
+          <tr *ngFor="let order of orders">
             <td class=" ">
               <div>
-                ID
-                <p>123456</p>
+                ID Orden
+                <p>{{order.idOrder}}</p>
               </div>
             </td>
             <td class="padding-cell-left middle-cell">
               <div>
                 Número de referencia
-                <p>1234567</p>
+                <p>{{order.referenceNumber}}</p>
               </div>
             </td>
             <td class="padding-cell-left middle-cell">
               <div>
-                User ID
-                <p>123465</p>
+                ID Usuario
+                <p>{{order.userId}}</p>
               </div>
             </td>
             <td class="padding-cell-left middle-cell">
               <div>
                 Traking number
-                <p>123465</p>
-              </div>
-            </td>
-            <td class="padding-cell-left middle-cell">
-              <div>
-                Estado
-                <p>123465</p>
+                <p>{{order.trackingNumber}}</p>
               </div>
             </td>
             <td class="padding-cell-left middle-cell">
               <div>
                 Fecha de creacción
-                <p>123465</p>
+                <p>{{order.createDate | date}}</p>
               </div>
             </td>
-            <td class="padding-cell-left">
+            <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="padding-cell-left">
               <div>
                 <button class="primary" type="submit">
                   Aprobar

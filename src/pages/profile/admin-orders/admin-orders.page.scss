@@ -60,6 +60,7 @@
 
   .form-theme {
     width: 20%;
+    min-width: 146px;
   }
 
   .form-group {
@@ -165,6 +166,7 @@
 
 
   .tabla-container {
+    overflow-x: auto;
     h1 {
       color: #272727;
       font-size: 2.2rem;
@@ -195,8 +197,8 @@
       border-right: 1px dashed #8B8B8B;
     }
 
-    .padding-cell-left {
-      padding-left: 2%;
+    td {
+      padding: 1% ;
     }
 
     .padding-cell-right {
