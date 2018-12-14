@@ -969,7 +969,7 @@ input:checked+.switch-slider:before {
     .product-photos {
       .panel-heading {
         .container-product__image {
-          height: auto;
+          height: 70vw;
         }
       }
     }
@@ -1087,6 +1087,18 @@ input:checked+.switch-slider:before {
 
     .product-info-user {
       padding-top: 20px;
+    }
+  } 
+}
+
+@media screen and (max-width: 600px) {
+  :host {
+    .product-photos {
+      .panel-heading {
+        .container-product__image {
+          height: 110vw;
+        }
+      }
     }
   }
 }
