@@ -164,6 +164,9 @@
             <div class="form-empty-message" *ngIf="emptyMessaje">
                 <p>Debes diligenciar todos los campos obligatorios del formulario</p>
             </div>
+            <div class="form-empty-message" *ngIf="productsWithError">
+                <p>¡Ups! parece que alguno de tus productos ya no se encuentra disponible.</p>
+            </div>
             <div class="info-send-section">
                 <div class="first-info-section">
                     <div class="info-label">
