@@ -30,7 +30,7 @@
           <div class="ico configuration-icon"></div>
           <a>Configuraciones</a>
         </div>
-        <div [routerLink]="adminOrders" class="option" routerLinkActive="active">
+        <div *ngIf="showOptionsOrders" [routerLink]="adminOrders" class="option" routerLinkActive="active">
           <div class="ico configuration-icon"></div>
           <a>Administrador de órdenes</a>
         </div>

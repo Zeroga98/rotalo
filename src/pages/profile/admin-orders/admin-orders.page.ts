@@ -1,5 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SettingsService } from '../../../services/settings.service';
+import { CurrentSessionService } from '../../../services/current-session.service';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../../router/routes';
+
 
 @Component({
   selector: 'admin-orders',
@@ -11,11 +15,20 @@ export class adminOrdersPage implements OnInit {
   public orders: Array<any> = [];
   public typeOrders: Array<any> = [];
   public noOrders;
-  constructor(private settingsService: SettingsService) {
+  constructor(
+    private router: Router,
+    private settingsService: SettingsService,
+    private currentSessionSevice: CurrentSessionService) {
   }
 
   ngOnInit(): void {
     this.loadTypeOrders();
+    const currentUser = this.currentSessionSevice.currentUser();
+    if (currentUser['rol'] != 'superuser') {
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+      ]);
+    }
   }
 
   loadTypeOrders() {
