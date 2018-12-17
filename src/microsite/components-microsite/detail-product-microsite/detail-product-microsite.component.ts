@@ -143,7 +143,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.products.stock), Validators.pattern(/^\d{10}$/)]]
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.products.stock)]]
       }
     );
   }
