@@ -259,7 +259,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     try {
       const response = await this.back.addProductToBD(this.generateJson());
       this.reloadProducts();
-      alert('Hola');
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.reloadProducts();
