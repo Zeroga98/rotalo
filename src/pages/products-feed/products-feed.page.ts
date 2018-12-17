@@ -580,9 +580,27 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   goToBancolombiaShop() {
     window.scroll(0, 0);
+    this.gapush(
+      'send',
+      'event',
+      'Home',
+      'ClicBanner',
+      'Tiendas'
+    );
     const routeBancolombiaShop =  `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     this.router.navigate([routeBancolombiaShop]);
   }
 
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
 
 }

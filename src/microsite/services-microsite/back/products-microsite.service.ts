@@ -20,6 +20,7 @@ export class ProductsMicrositeService {
   private urlDetailProduct;
   private totalProducts = 0;
   private featuredProducts;
+  private urlShopBancolombia;
 
   constructor(
     private http: HttpClient,
@@ -42,6 +43,14 @@ export class ProductsMicrositeService {
 
   getUrlDetailProduct() {
     return this.urlDetailProduct;
+  }
+
+  setUrlShop(url) {
+     this.urlShopBancolombia = url;
+  }
+
+  getUrlShop() {
+    return this.urlShopBancolombia;
   }
 
   getProductsSuper(idUser, params) {

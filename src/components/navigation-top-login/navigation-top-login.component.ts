@@ -8,6 +8,7 @@ import { MessagesService } from '../../services/messages.service';
 import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
+import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class NavigationTopLoginComponent implements    OnInit {
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
     private productsService: ProductsService,
+    private productsMicrositeService: ProductsMicrositeService
   ) {
 
   }
@@ -198,15 +200,18 @@ export class NavigationTopLoginComponent implements    OnInit {
        });
        this.currentSessionService.setSession(userLogin);
        if (this.productsService.getUrlDetailProduct()) {
-         window.location.replace(this.productsService.getUrlDetailProduct());
-       } else {
-         this.router.navigate([
-           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-         ]);
-       }
+        window.location.replace(this.productsService.getUrlDetailProduct());
+      } else if (this.productsMicrositeService.getUrlShop()) {
+        window.location.replace(this.productsMicrositeService.getUrlShop());
+      } else {
+        this.router.navigate([
+          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        ]);
+      }
      } catch (error) {
        console.error(error);
      }
    }
+
 
 }

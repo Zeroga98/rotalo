@@ -13,6 +13,7 @@ import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
 import { ModalFeedBackService } from '../../components/modal-feedBack/modal-feedBack.service';
 import { ProductsService } from '../../services/products.service';
+import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class LoginPage implements OnInit {
     private userService: UserService,
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private productsMicrositeService: ProductsMicrositeService
   ) {}
 
   ngOnInit(): void {
@@ -196,6 +198,8 @@ export class LoginPage implements OnInit {
       this.currentSessionService.setSession(userLogin);
       if (this.productsService.getUrlDetailProduct()) {
         window.location.replace(this.productsService.getUrlDetailProduct());
+      } else if (this.productsMicrositeService.getUrlShop()) {
+        window.location.replace(this.productsMicrositeService.getUrlShop());
       } else {
         this.router.navigate([
           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
