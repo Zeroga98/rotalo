@@ -1,4 +1,4 @@
-import { NgxCarousel } from "ngx-carousel";
+import { NgxCarousel } from 'ngx-carousel';
 
 export const CAROUSEL_CONFIG: NgxCarousel = {
     grid: {

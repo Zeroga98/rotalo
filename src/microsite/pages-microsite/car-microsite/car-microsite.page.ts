@@ -54,6 +54,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   disabledButton;
   hasPending = false;
   emptyMessaje = false;
+  hasANewQuantity = false;
 
   public registerForm: FormGroup;
 
@@ -247,8 +248,24 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   changeQuantity(stock: number, product) {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
+    if (this.hasANewQuantity) {
+      this.updateProductsQuantity();
+    }
     this.getCarTotalPrice();
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
+  }
+
+  async updateProductsQuantity() {
+    try {
+      const response = await this.back.addProductToBD(this.generateJson());
+      this.reloadProducts();
+      alert('Hola');
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.reloadProducts();
+      this.changeDetectorRef.markForCheck();
+    }
+    this.hasANewQuantity = false;
   }
 
   setWidthParams() {
@@ -313,6 +330,32 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.changeDetectorRef.markForCheck();
   }
 
+  async reloadProducts() {
+    try {
+      const response = await this.back.getCarProducts();
+      this.products = [];
+      response.carroCompras.commerceItems.forEach(element => {
+        this.products.push(element);
+      });
+      this.car.setProducts(this.products);
+      this.products = this.car.getProducts();
+      if (this.products.length === 0) {
+        this.showView = 'noProducts';
+      } else {
+        this.showView = 'Products';
+        this.disableButton();
+        this.getCarTotalPrice();
+      }
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      if (error.error.status == '600') {
+        this.showView = 'noProducts';
+      }
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
   async deleteCheckedProducts() {
     if (!this.disabledButton) {
       try {
@@ -321,7 +364,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         this.car.setTotalCartProducts(quantityCart);
         this.car.changeCartNumber(quantityCart);
         this.car.initCheckedList();
-        this.loadProducts();
+        this.reloadProducts();
+        this.disabledButton = true;
         this.changeDetectorRef.markForCheck();
       } catch (error) {
         this.changeDetectorRef.markForCheck();
@@ -349,6 +393,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
             try {
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
+              this.hasANewQuantity = true;
               this.wayboxPay
                 (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
               this.disablePayButton = false;
@@ -365,7 +410,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
-          this.loadProducts();
+          this.reloadProducts();
+          this.hasANewQuantity = true;
           this.disablePayButton = false;
           this.changeDetectorRef.markForCheck();
         }
