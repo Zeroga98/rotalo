@@ -30,7 +30,7 @@ export class PurchaseAcceptedComponent implements OnInit {
     } catch (error) {
       console.error(error);
       console.error('Ha ocurrido un error');
-     // alert('Ha ocurrido un error: ' + error.error.errors[0]);
+
     }
   }
 

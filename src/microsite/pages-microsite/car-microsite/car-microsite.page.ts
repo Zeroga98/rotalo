@@ -55,6 +55,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   hasPending = false;
   emptyMessaje = false;
   hasANewQuantity = false;
+  productsWithError = false;
 
   public registerForm: FormGroup;
 
@@ -382,6 +383,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.hasPending = false;
       this.emptyMessaje = false;
       this.disablePayButton = true;
+      this.productsWithError = false;
       if (!this.formIsInvalid) {
         try {
           // Verificar la cantidad de los productos
@@ -412,6 +414,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           this.reloadProducts();
           this.hasANewQuantity = true;
           this.disablePayButton = false;
+          this.productsWithError = true;
           this.changeDetectorRef.markForCheck();
         }
       } else {
