@@ -53,10 +53,14 @@
             </td>
             <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="padding-cell-left">
               <div>
-                <button class="primary" type="submit">
+                <button
+                (click)="changeStatusOrder(order.referenceNumber,2)"
+                 class="primary" type="submit">
                   Aprobar
                 </button>
-                <button class="primary-light" type="submit">
+                <button
+                (click)="changeStatusOrder(order.referenceNumber, 3)"
+                 class="primary-light" type="submit">
                   Rechazar
                 </button>
               </div>

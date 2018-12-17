@@ -60,5 +60,17 @@ export class adminOrdersPage implements OnInit {
     this.loadOrders(id);
   }
 
+  changeStatusOrder(reference , estado) {
+    const params = {
+      'reference': reference,
+      'estado': estado
+    };
+    this.settingsService.changeStatusOrders(params).subscribe((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
 
 }
