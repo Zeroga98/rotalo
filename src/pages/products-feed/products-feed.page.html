@@ -151,7 +151,7 @@
                   [showField] = "true"
                   [product]="product"
                   (selected)="selectProduct($event); setScroll($event)"
-                  [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'"
+                  [colourCompany]="product['sellerCompanyColor']  ? product['sellerCompanyColor'] : '#FF3646'"
                   id="{{product.product_id}}"
                   >
               </product>

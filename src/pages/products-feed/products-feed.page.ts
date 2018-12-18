@@ -142,11 +142,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
-      this.endForRender.notifyOnChanges();
+      //this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
+      this.endForRender.notifyOnChanges();
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -246,7 +247,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.loadFeaturedProduct(countryId, -1);
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
-        'search': 'product_country_id::' + countryId,
+        'product_country_id' : countryId,
         'size': 24,
         'number': 1
       });
@@ -302,7 +303,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setScroll(event) {
-    this.productsService.setProductLocation(this.products, event.id, this.currentPage);
+    this.productsService.setProductLocation(this.products, event['product_id'], this.currentPage);
   }
 
   getParamsToProducts() {
@@ -323,13 +324,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       const filterValue = evt;
       this.setconfigFiltersSubcategory(null);
       this.routineUpdateProducts({
-        'filter[search]': filterValue,
-        'filter[subcategory_id]': undefined,
-        'filter[category]': undefined
+        'product_name':  filterValue,
+       /* 'filter[subcategory_id]': undefined,
+        'filter[category]': undefined*/
       });
       this.showBanner = false;
     } else {
-      if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
+     /* if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
         delete this.currentFilter['filter[search]'];
       }else {
         this.currentFilter = {
@@ -340,14 +341,19 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
           'page[number]': 1,
           'filter[search]': null
         };
-      }
+      }*/
+      this.currentFilter = {
+        'product_country_id': 1,
+        'size': 24,
+        'number': 1
+      };
       this.routineUpdateProducts({});
       this.showBanner = true;
     }
   }
 
   filteBySellType(sellType: string) {
-    this.routineUpdateProducts({ 'filter[sell_type]': sellType.toUpperCase() });
+    this.routineUpdateProducts({ 'product_sell_type': sellType.toUpperCase() });
   }
 
   filterBySort(sort: string) {
@@ -355,13 +361,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   filterByState(state) {
-    this.routineUpdateProducts({ 'filter[state]': state.id });
+    this.routineUpdateProducts({ 'product_state_id': state.id });
   }
 
   filterByCity(city: CityInterface) {
     this.routineUpdateProducts({
-      'filter[city]': city.id,
-      'filter[state]': undefined
+      'product_city_id': city.id,
+      'product_state_id': undefined
     });
   }
 
@@ -397,7 +403,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.routineUpdateProducts({ 'comunidad': community.id });
     }else {
       this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'filter[community]': community.id });
+      this.routineUpdateProducts({ 'seller_community_id': community.id });
     }
   }
 
@@ -418,8 +424,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       icon: category.icon
     });
     this.routineUpdateProducts({
-      'filter[category]': category.id,
-      'filter[subcategory_id]': undefined
+      'product_category_id': category.id,
+      'product_subcategory_id': undefined
     });
   }
 
@@ -446,8 +452,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       icon: subCategory.category.icon
     });
     this.routineUpdateProducts({
-      'filter[subcategory_id]': subCategory.id,
-      'filter[category]': undefined
+      'product_subcategory_id': subCategory.id,
+      'product_category_id': undefined
     });
   }
 
@@ -467,7 +473,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         this.showBanner = true;
         this.currentFilter = this.feedService.getInitialFilter();
         this.feedService.setConfigFiltersSubcategory(this.currentFilter);
-        this.routineUpdateProducts({ 'filter[country]': country.id });
+        this.routineUpdateProducts({ 'product_country_id': country.id });
       }
     );
   }
