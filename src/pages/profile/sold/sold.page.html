@@ -30,7 +30,7 @@
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSold of productsSold">
               <div class="product-container">
-                <product  [masonryInfo]="masonryRef" [isProductSold]="true" [isProductSelling]="false" [showField]="false" [product]="productSold"></product>
+                <product-rotalo-center  [masonryInfo]="masonryRef" [isProductSold]="true" [isProductSelling]="false" [showField]="false" [product]="productSold"></product-rotalo-center>
               </div>
             </masonry-brick>
           </masonry>
@@ -50,7 +50,7 @@
           <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productPurchased of productsPurchased">
               <div class="product-container">
-                <product [masonryInfo]="masonryRef" [isProductPurchased]="true" [isProductSelling]="false" [showField]="false" [product]="productPurchased"></product>
+                <product-rotalo-center [masonryInfo]="masonryRef" [isProductPurchased]="true" [isProductSelling]="false" [showField]="false" [product]="productPurchased"></product-rotalo-center>
               </div>
             </masonry-brick>
           </masonry>

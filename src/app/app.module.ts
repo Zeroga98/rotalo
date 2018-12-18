@@ -172,6 +172,8 @@ import { MiniProductDetailComponent } from '../microsite/components-microsite/mi
 import { windowService } from '../microsite/services-microsite/front/window.service';
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
+import { ModalDetailComponent } from '../microsite/components-microsite/modal-detail/modal-detail.component';
+import { ProductRotaloCenterComponent } from '../components/product-rotalo-center/product-rotalo-center.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -271,7 +273,9 @@ import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page
     BackArrowMicrositeComponent,
     MiniProductDetailComponent,
     ResponseMicrositePage,
-    adminOrdersPage
+    adminOrdersPage,
+    ModalDetailComponent,
+    ProductRotaloCenterComponent
   ],
   imports: [
     BrowserModule,
