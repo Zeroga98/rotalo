@@ -359,19 +359,29 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   async deleteCheckedProducts() {
     if (!this.disabledButton) {
       try {
-        const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
-        const quantityCart = await this.car.getCartInfo();
-        this.car.setTotalCartProducts(quantityCart);
-        this.car.changeCartNumber(quantityCart);
-        this.car.initCheckedList();
-        this.reloadProducts();
-        this.disabledButton = true;
-        this.changeDetectorRef.markForCheck();
+        const response_add = await this.back.addProductToBD(this.generateJson());
+        try {
+          this.deleteAndReload();
+          this.changeDetectorRef.markForCheck();
+        } catch (error) {
+          this.changeDetectorRef.markForCheck();
+        }
       } catch (error) {
+        this.deleteAndReload();
         this.changeDetectorRef.markForCheck();
       }
       this.changeDetectorRef.markForCheck();
     }
+  }
+
+  async deleteAndReload() {
+    const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
+    const quantityCart = await this.car.getCartInfo();
+    this.car.setTotalCartProducts(quantityCart);
+    this.car.changeCartNumber(quantityCart);
+    this.car.initCheckedList();
+    this.reloadProducts();
+    this.disabledButton = true;
   }
 
   getParamsToProducts() {

@@ -19,7 +19,7 @@
   <div class="container--app">
     <div id="sold" *ngIf="currentTab === 'selling'">
       <div *ngIf="isSpinnerShow" class="spinner">
-          <custom-spinner ></custom-spinner>
+        <custom-spinner></custom-spinner>
       </div>
       <div *ngIf="showEmptyProduct" class="products-empty">
         <div>
@@ -39,10 +39,12 @@
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyProduct">
         <div class="container-masonry">
-          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
+            [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productSelling of products">
               <div class="product-container">
-                  <product (updateProducts)= "updateInfoSelling($event)"  [masonryInfo]="masonryRef" [isProductSelling]="true" [showField]="false" [product]="productSelling"></product>
+                <product-rotalo-center (updateProducts)="updateInfoSelling($event)" [masonryInfo]="masonryRef"
+                  [isProductSelling]="true" [showField]="false" [product]="productSelling"></product-rotalo-center>
               </div>
             </masonry-brick>
           </masonry>
@@ -50,20 +52,22 @@
       </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'expired'">
-        <div *ngIf="isSpinnerShow" class="spinner">
-            <custom-spinner ></custom-spinner>
-        </div>
+      <div *ngIf="isSpinnerShow" class="spinner">
+        <custom-spinner></custom-spinner>
+      </div>
       <div *ngIf="showEmptyExpired" class="products-empty">
         <div class="ico ico-expired"></div>
         <p class="text">No tienes productos vencidos.</p>
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyExpired">
         <div class="container-masonry">
-          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
+          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
+            [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">
-                <div class="product-container">
-                    <product  [masonryInfo]="masonryRef" [expiredProduct] = "true" [isProductSelling]="true" [showField]="false" [product]="productExpired"></product>
-                </div>
+              <div class="product-container">
+                <product-rotalo-center [masonryInfo]="masonryRef" [expiredProduct]="true" [isProductSelling]="true" [showField]="false"
+                  [product]="productExpired"></product-rotalo-center>
+              </div>
             </masonry-brick>
           </masonry>
         </div>
