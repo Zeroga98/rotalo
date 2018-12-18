@@ -246,11 +246,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.loadFeaturedProduct(countryId, -1);
     }else {
       this.currentFilter = Object.assign({}, this.currentFilter, {
-        'filter[country]': countryId,
-        'page[size]': 24,
-        'page[number]': 1
+        'search': 'product_country_id::' + countryId,
+        'size': 24,
+        'number': 1
       });
-      this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
+      this.loadFeaturedProduct(countryId, -1);
     }
 
     this.feedService.setCurrentFilter(this.currentFilter);
@@ -279,7 +279,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         if (this.isSuperUser()) {
           products = await this.productsService.getProductsSuper(this.userId, params);
         }else {
-          products = await this.productsService.getProducts(params);
+         // products = await this.productsService.getProducts(params);
+         products = await this.productsService.loadProducts(params);
+
         }
         this.updateProducts(products);
       }
@@ -372,7 +374,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       );
     }else {
       this.routineUpdateProducts(
-        { 'page[number]': page },
+        { 'number': page },
         page
       );
     }
@@ -424,7 +426,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-      }/${product.id}`;
+      }/${product['product_id']}`;
     this.router.navigate([routeDetailProduct]);
   }
 
@@ -494,7 +496,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.isSuperUser()) {
       return {'pagina': numberPage };
     }
-    return { 'page[number]': numberPage };
+    return { 'number': numberPage };
   }
 
   private updateCurrentFilter(filter = {}) {

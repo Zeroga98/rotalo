@@ -55,6 +55,21 @@ export class ProductsService {
       });
   }
 
+  loadProducts(params): Promise<any> {
+    const url = this.urlSapi + '/productos/feed?';
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .get(url, { headers: headers, params: params})
+      .toPromise()
+      .then((response: any) => {
+        if (response.body.totalProductos) {
+          this.setTotalProducts(response.body.totalProductos);
+        }
+        return response.body.productos;
+      });
+  }
+
   getProductsSuper(idUser, params) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
