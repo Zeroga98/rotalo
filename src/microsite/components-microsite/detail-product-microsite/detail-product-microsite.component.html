@@ -1,3 +1,4 @@
+<app-modal-detail [product]="productForModal" (closeModal)="closeModal()" *ngIf="showModalBuy"></app-modal-detail>
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
@@ -192,14 +193,5 @@
       </div>
     </div>
 
-  </div>
-</div>
-
-<div *ngIf="showModalExist" class="back-modal">
-  <div class="modal-exist">
-    <div class="text-modal-exist">Ya habías agregado este producto al carrito</div>
-    <div class="section-button">
-      <button class="btn-go-car" (click)="goToShoppingCar()">Ir al carrito</button>
-    </div>
   </div>
 </div>

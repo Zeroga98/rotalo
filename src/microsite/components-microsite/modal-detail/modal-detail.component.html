@@ -1,0 +1,27 @@
+<div class="back-modal">
+    <div class="modal-detail">
+        <div class="button-close-modal" (click)="closeModalBuy()">
+            <p>x</p>
+        </div>
+        <div class="section-title">
+            <p>Tu producto se añadió correctamente al carrito</p>
+        </div>
+        <div class="section-info">
+            <div class="product-info">
+                <div class="product-img">
+                    <img src="{{productPhoto}}">
+                </div>
+                <div class="product-details">
+                    <div class="title-product">{{ product.name }}</div>
+                    <div class="price-product">{{ product.price | currency:"$":0 | removeDigits }}</div>
+                    <div class="quantity">Cantidad: {{ product.quantity }}
+                    </div>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button type="button" class="btn-go-cart" (click)="goToShoppingCart()">Ver carrito</button>
+                <button type="button" class="btn-go-microsite" (click)="goToMicrositeFeed()">Seguir comprando</button>
+            </div>
+        </div>
+    </div>
+</div>
