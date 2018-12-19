@@ -15,6 +15,12 @@ export class adminOrdersPage implements OnInit {
   public orders: Array<any> = [];
   public typeOrders: Array<any> = [];
   public noOrders;
+  public selectChanged = false;
+  public description: string;
+  public showModalDescription: boolean;
+  public referenceNumber;
+  public statusOrder;
+
   constructor(
     private router: Router,
     private settingsService: SettingsService,
@@ -47,7 +53,8 @@ export class adminOrdersPage implements OnInit {
       this.orders = response.body.ordenes;
       if (this.orders && this.orders.length > 0) {
         this.noOrders = false;
-      } else  {
+        this.selectChanged = true;
+      } else {
         this.noOrders = true;
       }
     }, (error) => {
@@ -60,14 +67,19 @@ export class adminOrdersPage implements OnInit {
     this.loadOrders(id);
   }
 
-  changeStatusOrder(reference, estado) {
+  changeStatusOrder() {
     const params = {
-      'reference': reference,
-      'estado': estado
+      'referencia': this.referenceNumber,
+      'estado': this.statusOrder,
+      'descripcion': this.description
     };
     this.settingsService.changeStatusOrders(params).subscribe((response) => {
+      this.showModalDescription = false;
       alert(response.message);
-      this.filterOrder(reference);
+      this.filterOrder(this.referenceNumber);
+      this.referenceNumber = null;
+      this.statusOrder = null;
+      this.description = null;
     }, (error) => {
       console.log(error);
     });
@@ -77,5 +89,16 @@ export class adminOrdersPage implements OnInit {
     this.orders = this.orders.filter(order => order.referenceNumber != reference);
   }
 
+  openModal(referencia, estado) {
+    this.referenceNumber = referencia;
+    this.statusOrder = estado;
+    this.showModalDescription = true;
+  }
 
+  closeModal() {
+    this.showModalDescription = false;
+    this.referenceNumber = null;
+    this.statusOrder = null;
+    this.description = null;
+  }
 }
