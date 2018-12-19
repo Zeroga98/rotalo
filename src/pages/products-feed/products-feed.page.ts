@@ -282,8 +282,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         }else {
          // products = await this.productsService.getProducts(params);
          products = await this.productsService.loadProducts(params);
-
         }
+
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();

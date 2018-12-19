@@ -144,7 +144,7 @@
   <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
       <div class="list">
           <div class="masonry">
-            <div class="grid-item">
+            <div *ngIf="!isSuperUser()" class="grid-item">
               <product  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
                   [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
                   [isProductSelling]="false"
@@ -156,15 +156,27 @@
                   >
               </product>
             </div>
+            <div *ngIf="isSuperUser()" class="grid-item">
+              <product-rotalo-center  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
+                  [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
+                  [isProductSelling]="false"
+                  [showField] = "true"
+                  [product]="product"
+                  (selected)="selectProduct($event); setScroll($event)"
+                  [colourCompany]="product['sellerCompanyColor']  ? product['sellerCompanyColor'] : '#FF3646'"
+                  id="{{product.product_id}}"
+                  >
+              </product-rotalo-center>
+            </div>
           </div>
-          <pagination-controls
-          *ngIf= "showPagination"
-          class="has-text-centered"
-          responsive="true"
-          previousLabel="Anterior"
-          nextLabel="Siguiente"
-          (pageChange)="getPage($event)">
-          </pagination-controls>
+            <pagination-controls
+            *ngIf= "showPagination"
+            class="has-text-centered"
+            responsive="true"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            (pageChange)="getPage($event)">
+            </pagination-controls>
       </div>
   </div>
 </div>
