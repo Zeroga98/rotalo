@@ -233,8 +233,8 @@ export class ProductsService {
   }
 
   setProductLocation(products, name, currentPage) {
-    this.scroll = name;
     this.products = products;
+    this.scroll = name;
     this.currentPage = currentPage;
   }
 

@@ -158,13 +158,13 @@
             </div>
             <div *ngIf="isSuperUser()" class="grid-item">
               <product-rotalo-center  #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }" class="product-feed"
-                  [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
+                  [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
                   [isProductSelling]="false"
                   [showField] = "true"
                   [product]="product"
-                  (selected)="selectProduct($event); setScroll($event)"
-                  [colourCompany]="product['sellerCompanyColor']  ? product['sellerCompanyColor'] : '#FF3646'"
-                  id="{{product.product_id}}"
+                  (selected)="selectProductSuperUser($event); setScrollSuperUser($event)"
+                  [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'"
+                  id="{{product.id}}"
                   >
               </product-rotalo-center>
             </div>

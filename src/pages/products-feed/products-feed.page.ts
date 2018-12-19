@@ -142,7 +142,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
-      //this.endForRender.notifyOnChanges();
+      // this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
@@ -306,6 +306,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.productsService.setProductLocation(this.products, event['product_id'], this.currentPage);
   }
 
+  setScrollSuperUser(event) {
+    console.log(event);
+    this.productsService.setProductLocation(this.products, event['id'], this.currentPage);
+  }
+
   getParamsToProducts() {
     return this.currentFilter;
   }
@@ -433,6 +438,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
       }/${product['product_id']}`;
+    this.router.navigate([routeDetailProduct]);
+  }
+
+  selectProductSuperUser(product: ProductInterface) {
+    const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+      }/${product['id']}`;
     this.router.navigate([routeDetailProduct]);
   }
 
