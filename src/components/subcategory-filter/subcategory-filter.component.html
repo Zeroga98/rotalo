@@ -10,8 +10,8 @@
 		<div class="pub-form container-selects form-theme">
 			<select class="form-control" (change)="changeSort($event)">
 				<option value="" disabled>Ordenar por</option>
-				<option selected value="-published-at">Public. recientes</option>
-				<option value="published-at">Public. antiguas</option>
+				<option selected value="-published_at">Public. recientes</option>
+				<option value="published_at">Public. antiguas</option>
 			</select>
 			<select-states  [country]="country" (selected)="changeState($event)"></select-states>
 			<select-cities  *ngIf="state" [state]="state" (selected)="changeCity($event)"></select-cities>

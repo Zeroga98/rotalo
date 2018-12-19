@@ -240,23 +240,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   loadProductsUser(countryId) {
     this.countrySelected = { id: countryId };
-    if (this.isSuperUser()) {
-      this.currentFilter = {
-        'pais': countryId,
-        'comunidad': -1,
-        'cantidad': 24,
-        'pagina': 1
-      };
-      this.loadFeaturedProduct(countryId, -1);
-    }else {
-      this.currentFilter = Object.assign({}, this.currentFilter, {
-        'product_country_id' : countryId,
-        'size': 24,
-        'number': 1
-      });
-      this.loadFeaturedProduct(countryId, -1);
-    }
-
+    this.currentFilter = Object.assign({}, this.currentFilter, {
+      'product_country_id' : countryId,
+      'size': 24,
+      'number': 1
+    });
+    this.loadFeaturedProduct(countryId, -1);
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
@@ -280,13 +269,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        if (this.isSuperUser()) {
-          products = await this.productsService.getProductsSuper(this.userId, params);
-        }else {
-         // products = await this.productsService.getProducts(params);
-         products = await this.productsService.loadProducts(params);
-        }
-
+        products = await this.productsService.loadProducts(params);
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();
@@ -310,7 +293,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setScrollSuperUser(event) {
-    console.log(event);
     this.productsService.setProductLocation(this.products, event['id'], this.currentPage);
   }
 
@@ -381,17 +363,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   getPage(page: number) {
     this.pageNumber = page;
-    if (this.isSuperUser()) {
-      this.routineUpdateProducts(
-        { 'pagina': page },
-        page
-      );
-    }else {
-      this.routineUpdateProducts(
-        { 'number': page },
-        page
-      );
-    }
+    this.routineUpdateProducts(
+      { 'number': page },
+      page
+    );
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
   }
@@ -406,18 +381,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeCommunity(community: any) {
-    if (this.isSuperUser()) {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'comunidad': community.id });
-    }else {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
+    this.loadFeaturedProduct(this.countrySelected.id, community.id);
       if (community.id == -1) {
         delete this.currentFilter['seller_community_id'];
         this.routineUpdateProducts({});
       } else {
         this.routineUpdateProducts({ 'seller_community_id': community.id });
       }
-    }
   }
 
   categorySubscription() {
@@ -519,9 +489,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
-    if (this.isSuperUser()) {
-      return {'pagina': numberPage };
-    }
     return { 'number': numberPage };
   }
 
