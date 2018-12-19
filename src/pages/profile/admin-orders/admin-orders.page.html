@@ -5,69 +5,76 @@
   <div class="material-design">
     <form class="form-theme">
       <div class="form-group field-form valid">
-        <select
-        (change) = "onSelect($event)"
-        class="form-control">
+        <select (change)="onSelect($event)" class="form-control">
           <option value="" selected="true" disabled>Tipo de orden*</option>
-          <option  *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}</option>
+          <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}</option>
         </select>
-      <!--  <label class="label-title">Categoría*</label>-->
+        <!--  <label class="label-title">Categoría*</label>-->
       </div>
     </form>
     <div class="msg-no-products" *ngIf="noOrders">
       ¡Aún no tenemos ordenes en esta categoría!.
     </div>
-    <div *ngIf="orders" class="tabla-container">
-      <table class="table-info">
-        <tbody>
+    <table *ngIf="!noOrders && selectChanged" class="table-orders-title">
+      <tbody class="table-body">
+        <tr>
+          <th class="order-id">ID orden</th>
+          <th class="order-ref">Número de referencia</th>
+          <th class="order-user">ID usuario</th>
+          <th class="order-num">Tracking number</th>
+          <th class="order-date">Fecha de creación</th>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="orders" class="tabla-orders-container">
+      <table *ngIf="!noOrders && selectChanged" class="table-orders-info">
+        <tbody class="table-body">
           <tr *ngFor="let order of orders">
-            <td class=" ">
-              <div>
-                ID Orden
-                <p>{{order.idOrder}}</p>
-              </div>
+            <td class="order-id">
+              <p>{{order.idOrder}}</p>
             </td>
-            <td class="padding-cell-left middle-cell cell">
-              <div>
-                Número de referencia
-                <p>{{order.referenceNumber}}</p>
-              </div>
+            <td class="order-ref">
+              <p>{{order.referenceNumber}}</p>
             </td>
-            <td class="padding-cell-left middle-cell">
-              <div>
-                ID Usuario
-                <p>{{order.userId}}</p>
-              </div>
+            <td class="order-user">
+              <p>{{order.userId}}</p>
             </td>
-            <td class="padding-cell-left middle-cell">
-              <div>
-                Traking number
-                <p>{{order.trackingNumber}}</p>
-              </div>
+            <td class="order-num">
+              <p>{{order.trackingNumber}}</p>
             </td>
-            <td class="padding-cell-left middle-cell">
-              <div>
-                Fecha de creacción
-                <p>{{order.createDate | date}}</p>
-              </div>
+            <td class="order-date">
+              <p>{{order.createDate | date}}</p>
             </td>
-            <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="padding-cell-left">
-              <div>
-                <button
-                (click)="changeStatusOrder(order.referenceNumber,2)"
-                 class="primary" type="submit">
-                  Aprobar
+            <td class="buttons-section">
+              <div *ngIf="order.orderStatus.name == 'VALIDATION'">
+                <button (click)="openModal(order.referenceNumber,2)" class="primary" type="submit">
+                  <p>Aprobar</p>
                 </button>
-                <button
-                (click)="changeStatusOrder(order.referenceNumber, 3)"
-                 class="primary-light" type="submit">
-                  Rechazar
+                <button (click)="openModal(order.referenceNumber, 3)" class="primary-light" type="submit">
+                  <p>Rechazar</p>
+                  <p class="responsive-button">x</p>
                 </button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="back-modal" *ngIf="showModalDescription">
+  <div class="modal-detail">
+    <div class="button-close-modal" (click)="closeModal()">
+      <p>x</p>
+    </div>
+    <div class="section-text">
+      <p>Agrega una descripción</p>
+      <textarea id="description" [(ngModel)]='description'>
+        </textarea>
+    </div>
+    <div class="buttons-container">
+      <button type="button" class="btn-go-confirm" (click)="changeStatusOrder()">Confirmar</button>
     </div>
   </div>
 </div>

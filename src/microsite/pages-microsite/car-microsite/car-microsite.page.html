@@ -157,9 +157,7 @@
                 <button class="btn-buy" type="submit" id="btn-pagar" (click)="pay()" [ngClass]="{'disabled': disablePayButton}">Comprar</button>
             </div>
             <div class="pending-message" *ngIf="hasPending">
-                <p>Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago,
-                    <br />
-                    escríbenos a info@rotalo.com.co</p>
+                <p>{{ errorPending }}</p>
             </div>
             <div class="form-empty-message" *ngIf="emptyMessaje">
                 <p>Debes diligenciar todos los campos obligatorios del formulario</p>

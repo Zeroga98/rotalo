@@ -56,6 +56,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   emptyMessaje = false;
   hasANewQuantity = false;
   productsWithError = false;
+  errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
 
   public registerForm: FormGroup;
 
@@ -417,6 +418,11 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           } catch (error) {
             this.hasPending = true;
             this.disablePayButton = false;
+            if (error.status === 500) {
+              this.errorPending = 'Error interno';
+            } else {
+              this.errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
+            }
             this.changeDetectorRef.markForCheck();
           }
           this.changeDetectorRef.markForCheck();
