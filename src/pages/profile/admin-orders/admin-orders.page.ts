@@ -16,10 +16,11 @@ export class adminOrdersPage implements OnInit {
   public typeOrders: Array<any> = [];
   public noOrders;
   public selectChanged = false;
-  public description: string;
+  public description = '';
   public showModalDescription: boolean;
   public referenceNumber;
   public statusOrder;
+  public isEmpty: boolean = false;
 
   constructor(
     private router: Router,
@@ -68,21 +69,26 @@ export class adminOrdersPage implements OnInit {
   }
 
   changeStatusOrder() {
-    const params = {
-      'referencia': this.referenceNumber,
-      'estado': this.statusOrder,
-      'descripcion': this.description
-    };
-    this.settingsService.changeStatusOrders(params).subscribe((response) => {
-      this.showModalDescription = false;
-      alert(response.message);
-      this.filterOrder(this.referenceNumber);
-      this.referenceNumber = null;
-      this.statusOrder = null;
-      this.description = null;
-    }, (error) => {
-      console.log(error);
-    });
+    if (this.description.length === 0) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+      const params = {
+        'referencia': this.referenceNumber,
+        'estado': this.statusOrder,
+        'descripcion': this.description
+      };
+      this.settingsService.changeStatusOrders(params).subscribe((response) => {
+        this.showModalDescription = false;
+        alert(response.message);
+        this.filterOrder(this.referenceNumber);
+        this.referenceNumber = null;
+        this.statusOrder = null;
+        this.description = null;
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 
   filterOrder(reference) {

@@ -415,14 +415,20 @@ export class CarMicrositePage implements OnInit, OnDestroy {
               this.changeDetectorRef.markForCheck();
             }
             this.changeDetectorRef.markForCheck();
+
+
+
           } catch (error) {
             this.hasPending = true;
             this.disablePayButton = false;
-            if (error.status === 500) {
-              this.errorPending = 'Error interno';
+            console.log(error)
+            if (error.error.status === 500) {
+              this.errorPending = '¡Ups! parece que algo ha salido mal, cominícate con info@rotalo.com.';
             } else {
               this.errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
             }
+
+
             this.changeDetectorRef.markForCheck();
           }
           this.changeDetectorRef.markForCheck();

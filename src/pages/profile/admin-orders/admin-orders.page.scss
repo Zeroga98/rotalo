@@ -478,6 +478,11 @@
           width: 500px;
           height: 100px;
         }
+
+        .msj-error {
+          color: #ed2f3c;
+          font-size: 14px;
+        }
       }
 
       .buttons-container {
@@ -621,7 +626,7 @@
         .section-text {  
           textarea {
             width: 250px;
-            height: 300px;
+            height: 130px;
           }
         }
       }

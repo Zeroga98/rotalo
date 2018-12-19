@@ -70,8 +70,11 @@
     </div>
     <div class="section-text">
       <p>Agrega una descripción</p>
-      <textarea id="description" [(ngModel)]='description'>
+      <textarea id="description" [(ngModel)]='description' maxlength="100">
         </textarea>
+        <span class="msj-error" *ngIf="isEmpty">
+          Este campo es obligatorio
+        </span>
     </div>
     <div class="buttons-container">
       <button type="button" class="btn-go-confirm" (click)="changeStatusOrder()">Confirmar</button>
