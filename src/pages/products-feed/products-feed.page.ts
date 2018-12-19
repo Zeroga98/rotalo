@@ -88,6 +88,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
+  public showBannerToShop;
 
   constructor(
     private productsService: ProductsService,
@@ -173,7 +174,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER_GUATEMALA;
+      this.showBannerToShop = false;
     }else {
+      this.showBannerToShop = true;
       if (this.isPromoDate) {
         this.imagesBanner = IMGS_BANNER_PROMO;
       } else {
@@ -408,7 +411,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.routineUpdateProducts({ 'comunidad': community.id });
     }else {
       this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'seller_community_id': community.id });
+      if (community.id == -1) {
+        delete this.currentFilter['seller_community_id'];
+        this.routineUpdateProducts({});
+      } else {
+        this.routineUpdateProducts({ 'seller_community_id': community.id });
+      }
     }
   }
 
