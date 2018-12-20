@@ -313,30 +313,22 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (evt) {
       const filterValue = evt;
       this.setconfigFiltersSubcategory(null);
+      delete this.currentFilter['product_subcategory_id'];
+      delete this.currentFilter['product_category_id'];
       this.routineUpdateProducts({
-        'product_name':  filterValue,
-       /* 'filter[subcategory_id]': undefined,
-        'filter[category]': undefined*/
+        'product_name':  filterValue
       });
       this.showBanner = false;
     } else {
-     /* if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
-        delete this.currentFilter['filter[search]'];
+      if (this.currentFilter['product_subcategory_id'] || this.currentFilter['product_category_id']) {
+        delete this.currentFilter['product_name'];
       }else {
         this.currentFilter = {
-          'filter[status]': 'active',
-          'filter[country]': 1,
-          'filter[community]': -1,
-          'page[size]': 24,
-          'page[number]': 1,
-          'filter[search]': null
+          'product_country_id': 1,
+          'size': 24,
+          'number': 1
         };
-      }*/
-      this.currentFilter = {
-        'product_country_id': 1,
-        'size': 24,
-        'number': 1
-      };
+      }
       this.routineUpdateProducts({});
       this.showBanner = true;
     }

@@ -329,7 +329,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.navigationTopService.changeSearch(this.tags);
   }
 
-  private _closeMenu() {
+  public _closeMenu() {
     this.categoriesMenu.nativeElement.classList.remove('opened');
     document.getElementById('back-categories').classList.remove('opened');
   }
