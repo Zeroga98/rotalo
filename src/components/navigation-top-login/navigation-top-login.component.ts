@@ -52,7 +52,6 @@ export class NavigationTopLoginComponent implements    OnInit {
       : this.router.navigate([url]);
   }
 
-
   markAsTouched(control) {
     control.markAsTouched();
     this.errorLogin = '';

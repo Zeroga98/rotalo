@@ -313,12 +313,27 @@
     background-repeat: no-repeat;
   }
 
- categories-menu {
+  .back-categories {
+    width: 100%;
+    background: transparent;
+    position: fixed;
+    z-index: 999999999;
+    max-height: 0;
+    top: 0;
+    left: 0;
+
+    &.opened {
+      min-height: 100vh;
+      transition: max-height 0.5s;
+    }
+  } 
+
+  categories-menu {
     position: absolute;
     top: 100%;
     left: 5%;
     background: white;
-    z-index: 9999999;
+    z-index: 999999999;
     width: 90%;
     border-radius: 1rem;
     overflow: hidden;

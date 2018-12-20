@@ -298,6 +298,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   openCategories(evt) {
     this.categoriesMenu.nativeElement.classList.toggle('opened');
+    document.getElementById('back-categories').classList.toggle('opened');
   }
 
   changeSelectComunidad(evt) {
@@ -330,6 +331,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   private _closeMenu() {
     this.categoriesMenu.nativeElement.classList.remove('opened');
+    document.getElementById('back-categories').classList.remove('opened');
   }
 
   hideAnimation() {
