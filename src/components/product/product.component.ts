@@ -190,8 +190,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
    shareProduct(id: string) {
-    if (this.product.id) {
-      this.modalService.setProductId(this.product.id);
+    if (this.product['product_id']) {
+      this.modalService.setProductId(this.product['product_id']);
       this.modalService.open(id);
     }
   }

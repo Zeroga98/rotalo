@@ -194,6 +194,7 @@
 
  .navbar-header .list-options li.rotalo-center{
     padding-right: 2.5rem;
+    min-width: 124px;
   }
 
   .perfil-container {
@@ -279,6 +280,7 @@
     color: #707070;
     padding-right: 3rem;
     font-size: 1.6rem;
+    max-width: 135px;
     background-color: transparent;
   }
   .search-container {
@@ -287,7 +289,7 @@
   .material-design input[type=text].form-control {
     border: 1px solid #B0B0B0;
     border-radius: 12px;
-    min-width: 275px;
+    min-width: 260px;
     padding-right: 30px;
   }
   .button-search {
@@ -392,7 +394,7 @@
 
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1262px) {
   :host {
     .container-car {
       p {
@@ -415,6 +417,7 @@
 
     .navbar-header .list-options li.rotalo-center {
       padding-right: 0;
+      min-width: auto;
     }
 
     .navbar-header .list-options li .noti-circle {
