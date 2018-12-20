@@ -360,7 +360,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   async deleteCheckedProducts() {
     if (!this.disabledButton) {
       try {
-        const response_add = await this.back.addProductToBD(this.generateJson());
+        const response_add = await this.back.addProductToBD(this.generateJsonWithValidProducts());
         try {
           this.deleteAndReload();
           this.changeDetectorRef.markForCheck();
@@ -452,6 +452,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       productos: []
     };
 
+    console.log(this.products);
     this.products.forEach(element => {
       body.productos.push(
         {
@@ -460,6 +461,25 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           'adicionar': false
         }
       );
+    });
+    return body;
+  }
+
+  generateJsonWithValidProducts() {
+    const body = {
+      productos: []
+    };
+
+    this.products.forEach(element => {
+      if (element.quantity <= element.product.stock) {
+        body.productos.push(
+          {
+            'idProducto': element.product.id,
+            'cantidad': element.quantity,
+            'adicionar': false
+          }
+        );
+      }
     });
     return body;
   }
