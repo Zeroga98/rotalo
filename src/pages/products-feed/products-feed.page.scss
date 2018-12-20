@@ -175,8 +175,8 @@
         }
         .star-img {
           vertical-align: middle;
-          width: 56px;
-          height: 56px;
+          width: 45px;
+          height: 45px;
         }
       }
     }
@@ -441,6 +441,16 @@
   :host {
     .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
       width: 31%;
+    }
+  }
+  :host {
+    .carousel-arrow__next {
+      right: 0px;
+    }
+
+    .carousel-arrow__prev {
+      left: 0px;
+
     }
   }
 }
