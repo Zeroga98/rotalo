@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -16,7 +16,7 @@ import { ProductsMicrositeService } from '../../microsite/services-microsite/bac
   templateUrl: './navigation-top-login.component.html',
   styleUrls: ['./navigation-top-login.component.scss']
 })
-export class NavigationTopLoginComponent implements    OnInit {
+export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
@@ -43,6 +43,13 @@ export class NavigationTopLoginComponent implements    OnInit {
         Validators.minLength(6)
       ])
     });
+
+  }
+
+  ngAfterViewInit(): void {
+   //
+  /*  console.log( document.getElementById('txt-email'));
+    document.getElementById('txt-email').click();*/
   }
 
   goToHome() {
