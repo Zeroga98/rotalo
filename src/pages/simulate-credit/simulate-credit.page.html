@@ -11,40 +11,38 @@
         <div class="info-product">
           <div class="row-section init-section">
             <div class="row">
-              <div class="form-group"
-               [ngClass]="{'valid': simulateForm.get('credit-value').valid}">
+              <div class="form-group" [ngClass]="{'valid': simulateForm.get('credit-value').valid}">
                 <div>
                   <label class="label-title">¿Cuánto cuesta el carro que quieres?</label>
                   <input class="form-control input-price" name="credit-value" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="credit-value"
                     placeholder="15.000.000" maxlength="18" autocomplete="off">
                   <span class="error-msg" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
-                      <span *ngIf="simulateForm.get('credit-value').errors['required']">
-                        Este campo es obligatorio.
-                      </span>
-                      <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
-                        El campo no cumple con el valor mínimo $10,000,000
-                      </span>
-                      <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
-                        El campo no cumple con el valor máximo $5,000,000,000
-                      </span>
+                    <span *ngIf="simulateForm.get('credit-value').errors['required']">
+                      Este campo es obligatorio.
+                    </span>
+                    <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
+                      El campo no cumple con el valor mínimo $10,000,000
+                    </span>
+                    <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
+                      El campo no cumple con el valor máximo $5,000,000,000
+                    </span>
                   </span>
                 </div>
               </div>
               <div class="form-group" [ngClass]="{'valid': simulateForm.get('initial-quota').valid}">
                 <div>
                   <label class="label-title">¿Cuánto dinero tienes para la cuota inicial?</label>
-                  <input 
-                  [ngClass]="{'ng-invalid': simulateForm.errors}"
-                  currencyMask [options]="{align: 'left', precision: 0}" class="form-control input-price" name="initial-quota"
-                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="initial-quota" placeholder="10.000"
-                    maxlength="18" autocomplete="off">
+                  <input [ngClass]="{'ng-invalid': simulateForm.errors}" currencyMask [options]="{align: 'left', precision: 0}"
+                    class="form-control input-price" name="initial-quota" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                    formControlName="initial-quota" placeholder="10.000" maxlength="18" autocomplete="off">
                   <span class="help-block">
                     <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
                       Este campo es obligatorio.
                     </span>
                     <span *ngIf="simulateForm.errors">
-                      El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$":0 | removeDigits}}
+                      El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$":0
+                      | removeDigits}}
                     </span>
                   </span>
                 </div>
@@ -52,8 +50,7 @@
               <div class="form-group" [ngClass]="{'valid': simulateForm.get('term-months').value}">
                 <div>
                   <label class="label-title">¿En cuántas cuotas te gustaría pagarlo?</label>
-                  <select class="form-control"
-                    name="term-months" formControlName="term-months">
+                  <select class="form-control" name="term-months" formControlName="term-months">
                     <option value="" disabled></option>
                     <option value="{{timetoPay}}" *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
                   </select>
@@ -62,13 +59,206 @@
               </div>
             </div>
           </div>
-       
+
         </div>
       </div>
     </div>
-
     <div class="actions-form">
-      <custom-button  buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid" class="button" type="submit" text="Simular"></custom-button>
+      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid" class="button" type="submit"
+        text="Simular"></custom-button>
     </div>
   </form>
+
+<div>
+    <div>
+        <div class="title-form">
+          <div class="numberCircle">2</div>
+          <div class="step-info">
+            <h1>Sufi te ofrece las siguientes opciones</h1>
+          </div>
+        </div>
+        <div class="sufi-info">
+          <div class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan tradicional</p>
+              </div>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                12 Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $84.000.00
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div>
+              <small>*Aplican términos y condiciones</small>
+            </div>
+          </div>
+          <div class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan cuotas extra</p>
+              </div>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                12 Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $84.000.00
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Cuotas semestrales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $84.000.00
+                </strong>
+              </p>
+            </div>
+            <div>
+              <small>*Aplican términos y condiciones</small>
+            </div>
+          </div>
+          <div class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan periodo de gracia</p>
+              </div>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                12 Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $84.000.00
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                72 cuotas a partir del mes 13
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  $23,674,921.69
+                </strong>
+              </p>
+            </div>
+            <div>
+              <small>*Aplican términos y condiciones</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+          <div class="title-form">
+              <div class="numberCircle">3</div>
+              <div class="step-info">
+                <h1>¿Te gustó?</h1>
+                <p>
+                  Completa esta información para ponernos en contacto contigo.
+                </p>
+                <p class="msg-field-required">
+                    *Estos campos son obligatorios
+                </p>
+              </div>
+            </div>
+      </div>
+</div>
+
+
+
+
+
+
 </div>

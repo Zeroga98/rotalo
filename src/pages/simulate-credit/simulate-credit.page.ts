@@ -206,13 +206,35 @@ export class SimulateCreditPage implements OnInit {
     });
   }
 
-  async loadProduct() {
-    try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
-      this.showPage = true;
-      this.populatePreciVehicle(this.product);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.showPage = true;
+        this.populatePreciVehicle(this.product);
+        this.validateMonths();
+        this.changeDetectorRef.markForCheck();
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
+  }
+
+  validateMonths() {
+    if (this.product) {
+      const currentYear = new Date().getFullYear();
+      const modelo = this.product['model'];
+      const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if (this.product['vehicle'] && this.product['vehicle'].line.brand) {
+        nameBrandMoto = this.product['vehicle'].line.brand.name;
+      }
+
+      if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
+        this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+      }
+    }
   }
 
   populatePhoneUser(phone): void {
