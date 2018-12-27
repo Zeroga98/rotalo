@@ -1,159 +1,74 @@
-<custom-spinner *ngIf="!showPage"></custom-spinner>
-<sufi-modal *ngIf="showModalCredit" (close)="closeModal()"></sufi-modal>
-<div class="container-bar-offer">
-  <div class="container">
-    <h1 class="offer-head-title">Sufi te presta</h1>
+<div class="container-form">
+  <div class="title-form">
+    <div class="numberCircle">1</div>
+    <div class="step-info">
+      <h1>Simula tu crédito con Sufi, marca Grupo Bancolombia</h1>
+    </div>
   </div>
-</div>
-<div *ngIf="showPage" class="container-form">
-  <div *ngIf="showSimulator" class="title-form">
-    <span>Sufi es la marca creada por Grupo Bancolombia para que siempre puedas conseguir lo que quieres a tu medida y sin complicaciones. <br>
-      Sea cual sea tu elección, tenemos diferentes productos y planes de financiación para que sin duda encuentres el vehículo
-      ideal y llegues tan lejos como esperas.
-    </span>
-  </div>
-  <form *ngIf="showSimulator" role="form" [formGroup]="simulateForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
+  <form role="form" [formGroup]="simulateForm" name="registerForm" class="form-theme" (ngSubmit)="onSubmit()">
     <div class="container-step">
-      <div class="step-number">
-        <span class="number">Simula tu crédito</span>
-      </div>
-      <div class="info-product">
-        <div class="form-group">
-          <p class="text-label">¿Cuál es el valor del carro?*</p>
-          <input currencyMask
-          [options]="{align: 'left', precision: 0}"
-          [ngClass]="{'invalid': simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine}"
-          class="form-control margin-text" formControlName="credit-value" maxlength="18">
-          <span class="help-block" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
-            <span *ngIf="simulateForm.get('credit-value').errors['required']">
-              Este campo es obligatorio.
-            </span>
-            <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
-              El campo no cumple con el valor mínimo $10,000,000
-            </span>
-            <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
-              El campo no cumple con el valor máximo $5,000,000,000
-            </span>
-          </span>
-        </div>
-        <div class="form-group">
-          <p class="text-label">¿Cuánto dinero tienes para la cuota inicial?*</p>
-          <input currencyMask
-          [options]="{align: 'left', precision: 0}"
-          [ngClass]="{'invalid': simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine}"
-          class="form-control margin-text"
-          formControlName="initial-quota"  maxlength="18">
-          <span class="help-block">
-            <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
-              Este campo es obligatorio.
-            </span>
-            <span *ngIf="simulateForm.errors">
-              El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$":0 | removeDigits}}
-            </span>
-          </span>
-        </div>
-      </div>
-      <div class="form-group">
-        <p class="text-label range">¿En cuánto tiempo quieres pagarlo?*</p>
-        <div class="slidecontainer">
-          <input
-          id= "rangeTimetoPay"
-          [(ngModel)]="rangeTimeToPay"
-          formControlName="term-months"
-          type="range" min="1" max="72"
-          class="slider">
-          <p>{{rangeTimeToPay}} mes
-            <span class="additional-text" *ngIf="rangeTimeToPay > '1'">es</span>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="actions-form">
-      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid" class="button" type="submit" text="Simula tu crédito"></custom-button>
-    </div>
-  </form>
-  <form *ngIf="!showSimulator" role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">
-    <div class="container-step">
-      <div class="step-number">
-        <span class="number">Tu crédito con Sufi te presta</span>
-        <div class="step-number">
-          Para la simulación que acabas de realizar, utilizamos una tasa representativa del {{interestRate}}% nominal mes vencido,
-          equivalente a 13,35% efectivo anual.
-          <br> Esta cuota incluye el valor del seguro de vida.
-        </div>
-      </div>
-      <div class="form-group">
-        <p class="result-simulation">{{rangeTimeToPay}} cuotas mensuales: {{resultCredit  | currency:"$":0 | removeDigits}}</p>
-      </div>
-      <div class="form-group">
-        <p class="info-simulation">Esta información es suministrada en atención a la solicitud que el cliente ha efectuado a Bancolombia S.A., la misma
-          se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia
-          S.A. Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que
-          han sido establecidas para la fecha en que se realiza. La cuota indicada está compuesta por seguro de vida, intereses
-          y capital. La cuota es fija, la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del
-          vehículo. </p>
-      </div>
-    </div>
-    <div class="container-step">
-      <div class="step-number">
-        <span class="number">¿Te gustó?</span>
-        <div class="step-number">
-          Necesitamos que nos confirmes un número telefónico para contactarte, además el horario perfecto para hacerlo.
-        </div>
-      </div>
-      <div class="info-product">
-        <div class="form-group">
-          <p class="text-label">¿Cuál es tu número de contacto?*</p>
-          <input maxlength="10" class="margin-text form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="phone-user"
-            [ngClass]="{'invalid': contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine}">
-          <span *ngIf="contactUser.get('phone-user').invalid && !contactUser.get('phone-user').pristine" class="help-block">
-            <span *ngIf="contactUser.get('phone-user').errors['required']">
-              Este campo es obligatorio.
-            </span>
-            <span *ngIf="!contactUser.get('phone-user').errors['required'] && contactUser.get('phone-user').dirty">
-              El campo no cumple con el minimo número de digitos.
-            </span>
-          </span>
-        </div>
-        <div class="form-group">
-          <select class="margin-text form-control" formControlName="hour-contact" required>
-            <option value="" disabled>¿En qué horario quieres que te contactemos?*</option>
-            <option>Mañana</option>
-            <option>Tarde</option>
-            <option>Noche</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="checkbox custom-control custom-checkbox check-info">
-          <div>
-            <label>
-              <input formControlName="check-authorization" id="checkInfo" name="info-credit" type="checkbox">
-              <span class="custom-control-indicator custom-control-indicator--top">
-              </span>
-            </label>
-            <span class="text-info">Confirmo que autorizo consultar mi información para evaluar mis datos en crédito según la
-              <a (click)="showMessageBank = true">política de Bancolombia.</a>
-            </span>
+      <div class="material-design container-step">
+        <div class="info-product">
+          <div class="row-section init-section">
+            <div class="row">
+              <div class="form-group"
+               [ngClass]="{'valid': simulateForm.get('credit-value').valid}">
+                <div>
+                  <label class="label-title">¿Cuánto cuesta el carro que quieres?</label>
+                  <input class="form-control input-price" name="credit-value" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="credit-value"
+                    placeholder="15.000.000" maxlength="18" autocomplete="off">
+                  <span class="error-msg" *ngIf="simulateForm.get('credit-value').invalid && !simulateForm.get('credit-value').pristine">
+                      <span *ngIf="simulateForm.get('credit-value').errors['required']">
+                        Este campo es obligatorio.
+                      </span>
+                      <span *ngIf="!simulateForm.get('credit-value').errors['required'] && simulateForm.get('credit-value').errors['priceValueMin']">
+                        El campo no cumple con el valor mínimo $10,000,000
+                      </span>
+                      <span *ngIf="simulateForm.get('credit-value').errors['priceValueMax']">
+                        El campo no cumple con el valor máximo $5,000,000,000
+                      </span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group" [ngClass]="{'valid': simulateForm.get('initial-quota').valid}">
+                <div>
+                  <label class="label-title">¿Cuánto dinero tienes para la cuota inicial?</label>
+                  <input 
+                  [ngClass]="{'ng-invalid': simulateForm.errors}"
+                  currencyMask [options]="{align: 'left', precision: 0}" class="form-control input-price" name="initial-quota"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="initial-quota" placeholder="10.000"
+                    maxlength="18" autocomplete="off">
+                  <span class="help-block">
+                    <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
+                      Este campo es obligatorio.
+                    </span>
+                    <span *ngIf="simulateForm.errors">
+                      El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$":0 | removeDigits}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group" [ngClass]="{'valid': simulateForm.get('term-months').value}">
+                <div>
+                  <label class="label-title">¿En cuántas cuotas te gustaría pagarlo?</label>
+                  <select class="form-control"
+                    name="term-months" formControlName="term-months">
+                    <option value="" disabled></option>
+                    <option value="{{timetoPay}}" *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div *ngIf="showMessageBank" class="message-bank">
-          <span>DECLARACIÓN Y AUTORIZACIÓN PARA CONSULTAR, REPORTAR Y COMPARTIR INFORMACIÓN.</span> Autorizo a BANCOLOMBIA S.A.
-          y a las entidades que pertenezcan a su Grupo Empresarial, para que conserven la información aquí suministrada,
-          la compartan entre ellas, me contacten con el fin de ofrecerme sus productos y servicios; y para que, con el fin
-          de evaluar la posibilidad de otorgarme los mismos, consulten y procesen mi información ante las entidades de consulta
-          de bases de datos u Operadores de Información y Riesgo. El resultado del análisis para acceder al producto, le
-          será informado a través de alguno de los medios de contacto que nos ha suministrado.
+       
         </div>
       </div>
     </div>
+
     <div class="actions-form">
-      <custom-button buttonClass="gtmSufiTePrestaEnvSolic primary" [disabled]="formContactValid" type="submit" text="Solicíta ya"></custom-button>
-    </div>
-    <div class="actions-form">
-      <span (click)="showSimulator = !showSimulator; showMessageBank = false" class="text-info">
-        <a>Simula otra vez</a>
-      </span>
+      <custom-button  buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid" class="button" type="submit" text="Simular"></custom-button>
     </div>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, HostListener } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 
 import {
   FormControl,
@@ -6,18 +6,18 @@ import {
   FormGroup,
   Validators,
   AbstractControl
-} from "@angular/forms";
-import { Router } from "@angular/router";
-import { ProductInterface } from "../../commons/interfaces/product.interface";
-import { ProductsService } from "../../services/products.service";
-import { SettingsService } from "../../services/settings.service";
-import { SimulateCreditService } from "../../services/simulate-credit.service";
-import { ROUTES } from "../../router/routes";
-import { UserService } from "../../services/user.service";
-import { UserInterface } from "../../commons/interfaces/user.interface";
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductInterface } from '../../commons/interfaces/product.interface';
+import { ProductsService } from '../../services/products.service';
+import { SettingsService } from '../../services/settings.service';
+import { SimulateCreditService } from '../../services/simulate-credit.service';
+import { ROUTES } from '../../router/routes';
+import { UserService } from '../../services/user.service';
+import { UserInterface } from '../../commons/interfaces/user.interface';
 
 /**Validator**/
-function princeVehicleValidatorMax(
+function priceVehicleValidatorMax(
   c: AbstractControl
 ): { [key: string]: boolean } | null {
   const priceValue = c.value;
@@ -27,7 +27,7 @@ function princeVehicleValidatorMax(
   return null;
 }
 
-function princeVehicleValidatorMin(
+function priceVehicleValidatorMin(
   c: AbstractControl
 ): { [key: string]: boolean } | null {
   const priceValue = c.value;
@@ -49,8 +49,8 @@ function initialFeeValidator(
 
 function feeValidator(c: AbstractControl): { [key: string]: boolean } | null {
   const formValues = c;
-  const initialFee: number = formValues.value["initial-quota"];
-  const priceVehicle: number = formValues.value["credit-value"];
+  const initialFee: number = formValues.value['initial-quota'];
+  const priceVehicle: number = formValues.value['credit-value'];
   if (Number(initialFee) > Number(priceVehicle)) {
     return { initialFeeValidation: true };
   }
@@ -59,24 +59,24 @@ function feeValidator(c: AbstractControl): { [key: string]: boolean } | null {
 
 function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
   const checkValues = c;
-  if (checkValues.value === "" || checkValues.value === false) {
+  if (checkValues.value === '' || checkValues.value === false) {
     return { checkBank: true };
   }
   return null;
 }
 
 @Component({
-  selector: "simulate-credit",
-  templateUrl: "./simulate-credit.page.html",
-  styleUrls: ["./simulate-credit.page.scss"]
+  selector: 'simulate-credit',
+  templateUrl: './simulate-credit.page.html',
+  styleUrls: ['./simulate-credit.page.scss']
 })
 export class SimulateCreditPage implements OnInit {
   [x: string]: any;
-  rangeTimeToPay = "1";
+  rangeTimeToPay = '1';
   simulateForm: FormGroup;
   contactUser: FormGroup;
   product: ProductInterface;
-  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
   showSimulator = true;
   priceVehicle: number;
   showMessageBank: boolean;
@@ -85,6 +85,7 @@ export class SimulateCreditPage implements OnInit {
   showModalCredit: boolean;
   currentUser;
   showPage: boolean;
+  rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -110,27 +111,27 @@ export class SimulateCreditPage implements OnInit {
   ngOnInit(): void {
     this.simulateForm = this.fb.group(
       {
-        "credit-value": [
-          "",
+        'credit-value': [
+          '',
           [
             Validators.required,
-            princeVehicleValidatorMax,
-            princeVehicleValidatorMin
+            priceVehicleValidatorMax,
+            priceVehicleValidatorMin
           ]
         ],
-        "initial-quota": ["0", [Validators.required, initialFeeValidator]],
-        "term-months": ["", Validators.required]
+        'initial-quota': ['0', [Validators.required, initialFeeValidator]],
+        'term-months': [12, Validators.required]
       },
       { validator: feeValidator }
     );
 
     this.contactUser = this.fb.group({
-      "phone-user": [
-        "",
+      'phone-user': [
+        '',
         [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
       ],
-      "hour-contact": ["", Validators.required],
-      "check-authorization": ["", [Validators.required, checkValidator]]
+      'hour-contact': ['', Validators.required],
+      'check-authorization': ['', [Validators.required, checkValidator]]
     });
     this.loadProduct();
     this.loadInterestRate();
@@ -145,8 +146,8 @@ export class SimulateCreditPage implements OnInit {
   }
 
   simulateCredit() {
-    const priceVehicle = this.simulateForm.get("credit-value").value;
-    const initialFee = this.simulateForm.get("initial-quota").value;
+    const priceVehicle = this.simulateForm.get('credit-value').value;
+    const initialFee = this.simulateForm.get('initial-quota').value;
     const requestedAmount = priceVehicle - initialFee;
     const interestRate = this.interestRate / 100;
     const rangeTimeToPay = Number(this.rangeTimeToPay);
@@ -159,17 +160,17 @@ export class SimulateCreditPage implements OnInit {
   creditRequest() {
     delete  this.contactUser.value['check-authorization'];
     const dataVehicle = {
-        "id-product": this.idProduct,
-        "value-quota": this.resultCredit,
-        "type-vehicle": this.product['type-vehicle'],
-        "model": this.product['model'],
-        "vehicle":this.product['name'],
-        "rate": 1
+        'id-product': this.idProduct,
+        'value-quota': this.resultCredit,
+        'type-vehicle': this.product['type-vehicle'],
+        'model': this.product['model'],
+        'vehicle': this.product['name'],
+        'rate': 1
     };
     const params = Object.assign({}, dataVehicle, this.simulateForm.value, this.contactUser.value);
     const infoVehicle = {
       data: {
-        type: "simulate_credits",
+        type: 'simulate_credits',
         attributes: params
       }
     };
@@ -201,7 +202,7 @@ export class SimulateCreditPage implements OnInit {
 
   populatePreciVehicle(product): void {
     this.simulateForm.patchValue({
-      "credit-value": product.price
+      'credit-value': product.price
     });
   }
 
@@ -216,7 +217,7 @@ export class SimulateCreditPage implements OnInit {
 
   populatePhoneUser(phone): void {
     this.contactUser.patchValue({
-      "phone-user": phone
+      'phone-user': phone
     });
   }
 
@@ -231,7 +232,7 @@ export class SimulateCreditPage implements OnInit {
     this.settingsService.getSettings().then(response => {
       const settingObject = response.find(function (setting) { return setting.name === 'tasa_interes_nominal'; });
       let interest = settingObject.value;
-      interest = interest.replace(",", ".");
+      interest = interest.replace(',', '.');
       this.interestRate = Number(interest);
     })
     .catch(httpErrorResponse => {});
