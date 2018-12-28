@@ -130,7 +130,7 @@ export class SimulateCreditPage implements OnInit {
         '',
         [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
       ],
-      'hour-contact': ['', Validators.required],
+      'hour-contact': ['Mañana', Validators.required],
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
     this.loadProduct();

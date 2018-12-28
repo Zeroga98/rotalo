@@ -126,6 +126,10 @@
           }
         }
 
+        .row-margin {
+          padding: 20px 4%;
+        }
+
         .form-group {
           //width: 26%;
           width: 30%;
@@ -396,6 +400,86 @@
 }
 
 
+:host {
+
+    .info-title-box {
+      color: #272727;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .label-title-form {
+      color: #707070;
+      font-size: 1.6rem;
+      margin-top: 2.0rem;
+    }
+
+    .row-form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .row-value {
+        color: #707070;
+        font-size: 1.8rem;
+      }
+
+      .icon-checked {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: relative;
+        background: #EEEEEE;
+      }
+
+      .icon-checked::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 7px;
+        top: 4.5px;
+        width: 5px;
+        height: 10px;
+        border: solid #707070;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+
+    .group-line {
+      padding-bottom: 15px;
+      border-bottom: #E5E5E5 solid 1px;
+    }
+
+    .cellphone-container {
+      position: relative;
+      .add-digits {
+        position: absolute;
+        color: #0FBBD8;
+        bottom: 7px;
+        font-size: 1.8rem;
+        padding: 7px 0 0 12px;
+      }
+      .form-control {
+        padding-left: 50px;
+      }
+    }
+
+    .terms {
+      margin: 25px auto;
+      p {
+        font-size: 1.6rem;
+        color: #383838;
+        line-height: 2.4rem;
+      }
+    }
+
+}
+
+
 @media screen and (max-width: 1000px) {
   :host {
     .sufi-info .col {
@@ -513,7 +597,6 @@
   }
 
   .row-section {
-    border-bottom: #d0d0d0 dashed 1px;
     padding: 20px 0;
   }
 
@@ -548,9 +631,6 @@
 }
 
 .material-design {
-  .check-offer{
-    padding-left: 12px;
-  }
 
   .subcategory-container{
     position: absolute;
