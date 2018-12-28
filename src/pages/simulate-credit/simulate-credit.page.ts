@@ -72,20 +72,28 @@ function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
 })
 export class SimulateCreditPage implements OnInit {
   [x: string]: any;
-  rangeTimeToPay = '1';
-  simulateForm: FormGroup;
-  contactUser: FormGroup;
-  product: ProductInterface;
-  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-  showSimulator = true;
-  priceVehicle: number;
-  showMessageBank: boolean;
-  interestRate: number;
-  resultCredit: number;
-  showModalCredit: boolean;
-  currentUser;
-  showPage: boolean;
-  rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public rangeTimeToPay = '1';
+  public simulateForm: FormGroup;
+  public contactUser: FormGroup;
+  public product: ProductInterface;
+  public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
+  public showSimulator = true;
+  public priceVehicle: number;
+  public showMessageBank: boolean;
+  public interestRate: number;
+  public resultCredit: number;
+  public showModalCredit: boolean;
+  public currentUser;
+  public showPage: boolean;
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public nameUser;
+  public typeDocument;
+  public documentNumber;
+  public userId;
+  public email;
+  public cellphone;
+  public stateName;
+  public cityName;
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -126,10 +134,9 @@ export class SimulateCreditPage implements OnInit {
     );
 
     this.contactUser = this.fb.group({
-      'phone-user': [
-        '',
-        [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
+      'phone-user': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
       ],
+      'salary': ['', Validators.required],
       'hour-contact': ['Mañana', Validators.required],
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
@@ -142,7 +149,20 @@ export class SimulateCreditPage implements OnInit {
     if (!this.formIsInValid) {
       this.simulateCredit();
       this.showSimulator = !this.showSimulator;
+    } else {
+      this.validateAllFormFields(this.simulateForm);
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
   simulateCredit() {
@@ -246,8 +266,46 @@ export class SimulateCreditPage implements OnInit {
   async loadCurrentUser() {
     try {
       this.currentUser = await this.userService.getInfoUser();
+      this.nameUser = this.currentUser.name;
+      this.typeDocument = this.getDocument(this.currentUser['type-document-id']);
+      this.documentNumber = this.currentUser['id-number'];
+      this.userId = this.currentUser.id;
+      this.email = this.currentUser.email;
+      if (this.currentUser.city) {
+        this.stateName = this.currentUser.city.state.name;
+        this.cityName = this.currentUser.city.name;
+      }
       this.populatePhoneUser(this.currentUser.cellphone);
     } catch (error) {}
+  }
+
+  getDocument(id) {
+    switch (id) {
+      case 1: {
+        this.typeDocument = 'CC';
+        break;
+      }
+      case 4: {
+        this.typeDocument = 'CE';
+        break;
+      }
+      case 5: {
+        this.typeDocument = 'PA';
+        break;
+      }
+      case 6: {
+        this.typeDocument = 'CIP';
+        break;
+      }
+      case 7: {
+        this.typeDocument = 'DPI';
+        break;
+      }
+      default:
+        break;
+    }
+
+    return this.typeDocument;
   }
 
   loadInterestRate() {
