@@ -46,7 +46,8 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('creditos')
       && !req.url.includes('carrito')
       && !req.url.includes('orden')
-      && !req.url.includes('ordenes');
+      && !req.url.includes('ordenes')
+      && !req.url.includes('sufi');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {

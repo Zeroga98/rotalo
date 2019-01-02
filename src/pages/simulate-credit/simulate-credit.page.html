@@ -68,7 +68,7 @@
         text="Simular"></custom-button>
     </div>
   </form>
-  <div>
+  <div *ngIf="showSimulator">
     <div>
       <div class="title-form">
         <div class="numberCircle">2</div>
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="sufi-info">
-        <div class="col">
+        <div  [ngClass]="!showThirdPlan ?  'offset-col': ''" class="col">
           <div class="title-plan">
             <div>
               <p>Plan tradicional</p>
@@ -85,11 +85,11 @@
           </div>
           <div class="val">
             <p class="col-cell">
-              12 Cuotas mensuales de
+              {{simulatePlan.cuotasPlanUno}} Cuotas mensuales de
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.valorPlanUno | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -99,7 +99,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $84.000.00
+                {{simulatePlan.seguroDeVida | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -109,7 +109,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.totalPlanUno | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -125,11 +125,11 @@
           </div>
           <div class="val">
             <p class="col-cell">
-              12 Cuotas mensuales de
+              {{simulatePlan.cuotasPlanDos}} Cuotas mensuales de
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.valorPlanDos | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -139,7 +139,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $84.000.00
+                {{simulatePlan.seguroDeVida | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -149,7 +149,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.totalPlanDos | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -159,7 +159,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $84.000.00
+                {{simulatePlan.extraPlanDos | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -167,7 +167,7 @@
             <small>*Aplican términos y condiciones</small>
           </div>
         </div>
-        <div class="col">
+        <div *ngIf="showThirdPlan" class="col">
           <div class="title-plan">
             <div>
               <p>Plan periodo de gracia</p>
@@ -175,11 +175,11 @@
           </div>
           <div class="val">
             <p class="col-cell">
-              12 Cuotas mensuales de
+              {{simulatePlan.cuotasPlanTres}} Cuotas mensuales de
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.valorPlanTres | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -189,7 +189,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $84.000.00
+                {{simulatePlan.seguroDeVida | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -199,17 +199,17 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.subTotalPlanTres | currency:"$":0}}
               </strong>
             </p>
           </div>
           <div class="val">
             <p class="col-cell">
-              72 cuotas a partir del mes 13
+              {{simulatePlan.cuotasExtraPlanTres}} cuotas a partir del mes 13
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.extraPlanTres | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -219,7 +219,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.seguroDeVida | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -229,7 +229,7 @@
             </p>
             <p class="col-cell text-right">
               <strong>
-                $23,674,921.69
+                {{simulatePlan.totalPlanTres | currency:"$":0}}
               </strong>
             </p>
           </div>
@@ -388,7 +388,7 @@
       </form>
     </div>
   </div>
-  <div class="terms">
+  <div *ngIf="showSimulator" class="terms">
     <p>
       Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se realiza. La cuota indicada está compuesta por seguro de vida, intereses y capital. La cuota es fija, la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del vehículo. Recuerda que para esta simulación se utilizó una tasa representativa del 1.05 % nominal mes vencido, equivalente a 13.35% efectivo anual. Si el plazo que quieres es de 84 meses, ten presente que debes ser empleado o pensionado, o si vas a financiar un usado, puedes ser también independiente, trasportador, profesional independiente o rentista de capital. El carro usado debe tener menos de 5 años de antigüedad. Lo que vas a prestar debe ser menor o igual al 80% del valor comercial del carro. No aplica para marcas chinas o indias. Solo aplica para modalidad de crédito, no operaciones de leasing. *Créditos sin preaprobados en minutos solo aplica para canales físicos.
     </p>

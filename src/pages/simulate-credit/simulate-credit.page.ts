@@ -77,7 +77,7 @@ export class SimulateCreditPage implements OnInit {
   public contactUser: FormGroup;
   public product: ProductInterface;
   public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-  public showSimulator = true;
+  public showSimulator = false;
   public priceVehicle: number;
   public showMessageBank: boolean;
   public interestRate: number;
@@ -94,6 +94,8 @@ export class SimulateCreditPage implements OnInit {
   public cellphone;
   public stateName;
   public cityName;
+  public simulatePlan;
+  public showThirdPlan = false;
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -148,7 +150,6 @@ export class SimulateCreditPage implements OnInit {
   onSubmit() {
     if (!this.formIsInValid) {
       this.simulateCredit();
-      this.showSimulator = !this.showSimulator;
     } else {
       this.validateAllFormFields(this.simulateForm);
     }
@@ -168,38 +169,26 @@ export class SimulateCreditPage implements OnInit {
   simulateCredit() {
     const priceVehicle = this.simulateForm.get('credit-value').value;
     const initialFee = this.simulateForm.get('initial-quota').value;
-    const requestedAmount = priceVehicle - initialFee;
-    const interestRate = this.interestRate / 100;
-    const rangeTimeToPay = Number(this.rangeTimeToPay);
-    const operation_one = (requestedAmount *  interestRate );
-    const operation_two = (1 + interestRate);
-    const operation_three = Math.pow(operation_two , -rangeTimeToPay);
-    this.resultCredit = (operation_one / (1 - operation_three)) + ((requestedAmount / 1000000) * 1200);
-  }
-
-  creditRequest() {
-    delete  this.contactUser.value['check-authorization'];
-    const dataVehicle = {
-        'id-product': this.idProduct,
-        'value-quota': this.resultCredit,
-        'type-vehicle': this.product['type-vehicle'],
-        'model': this.product['model'],
-        'vehicle': this.product['name'],
-        'rate': 1
-    };
-    const params = Object.assign({}, dataVehicle, this.simulateForm.value, this.contactUser.value);
+    let termMonths = this.simulateForm.get('term-months').value;
+    termMonths = Number(termMonths);
     const infoVehicle = {
-      data: {
-        type: 'simulate_credits',
-        attributes: params
-      }
+      'productId': this.idProduct,
+      'valorAFinanciar': priceVehicle,
+      'cuotaInicial': initialFee,
+      'plazo': termMonths
     };
-
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-      this.showModalCredit = true;
+      this.showSimulator = true;
+      if (this.simulateForm.get('term-months').value != 12) {
+        this.showThirdPlan = true;
+      }
+      this.simulatePlan = response.body;
       this.changeDetectorRef.markForCheck();
     })
     .catch(httpErrorResponse => {});
+  }
+
+  creditRequest() {
   }
 
   closeModal() {
