@@ -18,7 +18,7 @@ constructor(private http: HttpClient,
   sendSimulateCredit(infoVehicle) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url =  this.urlSapi + '/sufi/simular';
+    const url =  this.urlSapi + '/sufi/enviar';
     return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
   }
 

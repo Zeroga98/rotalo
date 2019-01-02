@@ -1,3 +1,4 @@
+<success-credit *ngIf="showModalCredit"  (closeModal)="closeModal()"></success-credit>
 <div class="container-form">
   <div class="title-form">
     <div class="numberCircle">1</div>
@@ -375,6 +376,11 @@
                       <span class="checkmark"></span>
                     </label>
                     <span class="check-label">Acepto términos y condiciones y ley de Habeas data.</span>
+                    <div>
+                      <span
+                      [ngStyle]="{'display': contactUser.get('check-authorization').invalid && contactUser.get('check-authorization').touched ? 'block' : 'none' }"
+                      class="error-msg">Este campo es requerido</span>
+                    </div>
                   </div>
                 </div>
               </div>

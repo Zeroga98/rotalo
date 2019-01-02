@@ -138,7 +138,7 @@ export class SimulateCreditPage implements OnInit {
     this.contactUser = this.fb.group({
       'phone-user': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
       ],
-      'salary': ['', Validators.required],
+      'salary': [0, Validators.required],
       'hour-contact': ['Mañana', Validators.required],
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
@@ -189,10 +189,36 @@ export class SimulateCreditPage implements OnInit {
   }
 
   creditRequest() {
+    if (this.contactUser.valid) {
+      const priceVehicle = this.simulateForm.get('credit-value').value;
+      const initialFee = this.simulateForm.get('initial-quota').value;
+      let termMonths = this.simulateForm.get('term-months').value;
+      termMonths = Number(termMonths);
+      const phone = this.contactUser.get('phone-user').value;
+      const salary = this.contactUser.get('salary').value;
+      const hourContact = this.contactUser.get('hour-contact').value;
+
+      let infoVehicle = {
+        'productId': this.idProduct,
+        'valorAFinanciar': priceVehicle,
+        'cuotaInicial': initialFee,
+        'plazo': termMonths,
+        'telefono': phone,
+        'horarioDeContacto': hourContact,
+        'ingresos': salary
+      };
+      infoVehicle = Object.assign(infoVehicle, this.simulatePlan);
+      this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
+        this.showModalCredit = true;
+        this.changeDetectorRef.markForCheck();
+      })
+        .catch(httpErrorResponse => { });
+    } else {
+      this.validateAllFormFields(this.contactUser);
+    }
   }
 
   closeModal() {
-     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
      this.showModalCredit = false;
   }
 
@@ -306,4 +332,6 @@ export class SimulateCreditPage implements OnInit {
     })
     .catch(httpErrorResponse => {});
   }
+
+
 }

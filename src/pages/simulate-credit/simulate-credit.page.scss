@@ -480,7 +480,9 @@
     }
 
     .cellphone-container {
-      position: relative;
+      input {
+        position: relative;
+      }
       .add-digits {
         position: absolute;
         color: #0FBBD8;
@@ -501,7 +503,6 @@
         line-height: 2.4rem;
       }
     }
-
 }
 
 

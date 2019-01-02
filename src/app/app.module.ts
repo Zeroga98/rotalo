@@ -174,6 +174,7 @@ import { ResponseMicrositePage } from '../microsite/pages-microsite/response-mic
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
 import { ModalDetailComponent } from '../microsite/components-microsite/modal-detail/modal-detail.component';
 import { ProductRotaloCenterComponent } from '../components/product-rotalo-center/product-rotalo-center.component';
+import { SuccessCreditComponent } from '../components/success-credit/success-credit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -275,7 +276,8 @@ import { ProductRotaloCenterComponent } from '../components/product-rotalo-cente
     ResponseMicrositePage,
     adminOrdersPage,
     ModalDetailComponent,
-    ProductRotaloCenterComponent
+    ProductRotaloCenterComponent,
+    SuccessCreditComponent
   ],
   imports: [
     BrowserModule,
