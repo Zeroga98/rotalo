@@ -72,20 +72,30 @@ function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
 })
 export class SimulateCreditPage implements OnInit {
   [x: string]: any;
-  rangeTimeToPay = '1';
-  simulateForm: FormGroup;
-  contactUser: FormGroup;
-  product: ProductInterface;
-  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-  showSimulator = true;
-  priceVehicle: number;
-  showMessageBank: boolean;
-  interestRate: number;
-  resultCredit: number;
-  showModalCredit: boolean;
-  currentUser;
-  showPage: boolean;
-  rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public rangeTimeToPay = '1';
+  public simulateForm: FormGroup;
+  public contactUser: FormGroup;
+  public product: ProductInterface;
+  public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
+  public showSimulator = false;
+  public priceVehicle: number;
+  public showMessageBank: boolean;
+  public interestRate: number;
+  public resultCredit: number;
+  public showModalCredit: boolean;
+  public currentUser;
+  public showPage: boolean;
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public nameUser;
+  public typeDocument;
+  public documentNumber;
+  public userId;
+  public email;
+  public cellphone;
+  public stateName;
+  public cityName;
+  public simulatePlan;
+  public showThirdPlan = false;
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -126,11 +136,10 @@ export class SimulateCreditPage implements OnInit {
     );
 
     this.contactUser = this.fb.group({
-      'phone-user': [
-        '',
-        [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
+      'phone-user': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
       ],
-      'hour-contact': ['', Validators.required],
+      'salary': [0, Validators.required],
+      'hour-contact': ['Mañana', Validators.required],
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
     this.loadProduct();
@@ -141,49 +150,75 @@ export class SimulateCreditPage implements OnInit {
   onSubmit() {
     if (!this.formIsInValid) {
       this.simulateCredit();
-      this.showSimulator = !this.showSimulator;
+    } else {
+      this.validateAllFormFields(this.simulateForm);
     }
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
   simulateCredit() {
     const priceVehicle = this.simulateForm.get('credit-value').value;
     const initialFee = this.simulateForm.get('initial-quota').value;
-    const requestedAmount = priceVehicle - initialFee;
-    const interestRate = this.interestRate / 100;
-    const rangeTimeToPay = Number(this.rangeTimeToPay);
-    const operation_one = (requestedAmount *  interestRate );
-    const operation_two = (1 + interestRate);
-    const operation_three = Math.pow(operation_two , -rangeTimeToPay);
-    this.resultCredit = (operation_one / (1 - operation_three)) + ((requestedAmount / 1000000) * 1200);
-  }
-
-  creditRequest() {
-    delete  this.contactUser.value['check-authorization'];
-    const dataVehicle = {
-        'id-product': this.idProduct,
-        'value-quota': this.resultCredit,
-        'type-vehicle': this.product['type-vehicle'],
-        'model': this.product['model'],
-        'vehicle': this.product['name'],
-        'rate': 1
-    };
-    const params = Object.assign({}, dataVehicle, this.simulateForm.value, this.contactUser.value);
+    let termMonths = this.simulateForm.get('term-months').value;
+    termMonths = Number(termMonths);
     const infoVehicle = {
-      data: {
-        type: 'simulate_credits',
-        attributes: params
-      }
+      'productId': this.idProduct,
+      'valorAFinanciar': priceVehicle,
+      'cuotaInicial': initialFee,
+      'plazo': termMonths
     };
-
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-      this.showModalCredit = true;
+      this.showSimulator = true;
+      if (this.simulateForm.get('term-months').value != 12) {
+        this.showThirdPlan = true;
+      }
+      this.simulatePlan = response.body;
       this.changeDetectorRef.markForCheck();
     })
     .catch(httpErrorResponse => {});
   }
 
+  creditRequest() {
+    if (this.contactUser.valid) {
+      const priceVehicle = this.simulateForm.get('credit-value').value;
+      const initialFee = this.simulateForm.get('initial-quota').value;
+      let termMonths = this.simulateForm.get('term-months').value;
+      termMonths = Number(termMonths);
+      const phone = this.contactUser.get('phone-user').value;
+      const salary = this.contactUser.get('salary').value;
+      const hourContact = this.contactUser.get('hour-contact').value;
+
+      let infoVehicle = {
+        'productId': this.idProduct,
+        'valorAFinanciar': priceVehicle,
+        'cuotaInicial': initialFee,
+        'plazo': termMonths,
+        'telefono': phone,
+        'horarioDeContacto': hourContact,
+        'ingresos': salary
+      };
+      infoVehicle = Object.assign(infoVehicle, this.simulatePlan);
+      this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
+        this.showModalCredit = true;
+        this.changeDetectorRef.markForCheck();
+      })
+        .catch(httpErrorResponse => { });
+    } else {
+      this.validateAllFormFields(this.contactUser);
+    }
+  }
+
   closeModal() {
-     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
      this.showModalCredit = false;
   }
 
@@ -206,13 +241,35 @@ export class SimulateCreditPage implements OnInit {
     });
   }
 
-  async loadProduct() {
-    try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
-      this.showPage = true;
-      this.populatePreciVehicle(this.product);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {}
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.showPage = true;
+        this.populatePreciVehicle(this.product);
+        this.validateMonths();
+        this.changeDetectorRef.markForCheck();
+      }
+    } ,
+    (error) => {
+      console.log(error);
+    });
+  }
+
+  validateMonths() {
+    if (this.product) {
+      const currentYear = new Date().getFullYear();
+      const modelo = this.product['model'];
+      const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if (this.product['vehicle'] && this.product['vehicle'].line.brand) {
+        nameBrandMoto = this.product['vehicle'].line.brand.name;
+      }
+
+      if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
+        this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+      }
+    }
   }
 
   populatePhoneUser(phone): void {
@@ -224,8 +281,46 @@ export class SimulateCreditPage implements OnInit {
   async loadCurrentUser() {
     try {
       this.currentUser = await this.userService.getInfoUser();
+      this.nameUser = this.currentUser.name;
+      this.typeDocument = this.getDocument(this.currentUser['type-document-id']);
+      this.documentNumber = this.currentUser['id-number'];
+      this.userId = this.currentUser.id;
+      this.email = this.currentUser.email;
+      if (this.currentUser.city) {
+        this.stateName = this.currentUser.city.state.name;
+        this.cityName = this.currentUser.city.name;
+      }
       this.populatePhoneUser(this.currentUser.cellphone);
     } catch (error) {}
+  }
+
+  getDocument(id) {
+    switch (id) {
+      case 1: {
+        this.typeDocument = 'CC';
+        break;
+      }
+      case 4: {
+        this.typeDocument = 'CE';
+        break;
+      }
+      case 5: {
+        this.typeDocument = 'PA';
+        break;
+      }
+      case 6: {
+        this.typeDocument = 'CIP';
+        break;
+      }
+      case 7: {
+        this.typeDocument = 'DPI';
+        break;
+      }
+      default:
+        break;
+    }
+
+    return this.typeDocument;
   }
 
   loadInterestRate() {
@@ -237,4 +332,6 @@ export class SimulateCreditPage implements OnInit {
     })
     .catch(httpErrorResponse => {});
   }
+
+
 }

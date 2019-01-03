@@ -34,8 +34,8 @@
       <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
       <div class="notification-buttons" *ngIf="!notification.status">
           <div class="button-item">
-              <button class="button button-secondary" (click)="productReceived(notification.producto.idProducto)">
-                  <span>Recibí el artículo</span>
+              <button class="button button-secondary gtmCentrRotRecibiProducto" (click)="productReceived(notification.producto.idProducto)">
+                  <span class="gtmCentrRotRecibiProducto">Recibí el artículo</span>
               </button>
           </div>
       </div>
