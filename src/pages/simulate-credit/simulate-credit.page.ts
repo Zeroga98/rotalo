@@ -220,6 +220,8 @@ export class SimulateCreditPage implements OnInit {
 
   closeModal() {
      this.showModalCredit = false;
+     window.scrollTo(0, 0);
+     document.body.scrollTop = 0;
   }
 
   get formIsInValid(): boolean {
