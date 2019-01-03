@@ -588,4 +588,10 @@ export class DetailProductComponent implements OnInit {
     return false;
   }
 
+  goToHipotecario () {
+    window.open(
+      'https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional'
+      , '_blank');
+  }
+
 }

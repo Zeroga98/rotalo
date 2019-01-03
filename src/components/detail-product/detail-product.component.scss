@@ -785,6 +785,26 @@ input:checked+.switch-slider:before {
       font-size: 1.4rem;
     }
   }
+
+  .icon-banco{
+    margin: 0 5px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background-size: 20px 20px;
+    background-image: url(../../assets/img/iconos/ic_bancolombia.png);
+  }
+
+  .btns-container .btn-item.credit-leasing {
+    width: 50%;
+  }
+
+ .btns-container .btn-item .botons.gtmCreditoHipotecario {
+    max-width: 220px;
+    justify-content: start;
+  }
+
 }
 
 :host {
@@ -971,6 +991,22 @@ input:checked+.switch-slider:before {
   }
 }
 
+@media screen and (max-width: 863px) {
+  :host {
+    .btns-container .btn-two-container {
+      flex-wrap: wrap;
+    }
+  
+    .btns-container .btn-item.credit-leasing {
+      width: 100%
+    }
+
+    .creditImmovables{}
+
+
+  }
+}
+
 @media screen and (max-width: 750px) {
   :host {
     .product *{
@@ -998,6 +1034,15 @@ input:checked+.switch-slider:before {
           margin: 0 auto;
         }
       }
+    }
+
+    .btns-container .btn-item.credit-leasing {
+      width: 100%;
+    }
+
+    .btns-container .btn-item .botons.gtmCreditoHipotecario {
+      max-width: 264px;
+      justify-content: center;
     }
 
    .product-btn .product-btns .botons {

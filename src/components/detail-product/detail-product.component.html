@@ -255,8 +255,8 @@
                   <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
               </div>
-            </div>
-          <div *ngIf="products && !checkBAMBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] == 'ALQUILA'" class="btn-item">
+          </div>
+          <div *ngIf="products && !checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] == 'ALQUILA'" class="btn-item">
             <button class="gtmProdAlquilar botons" (click)="rentProduct(products.id)">
               <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
               interesa
@@ -277,6 +277,31 @@
               </button>
             </div>
           </div>
+
+
+          <div class="btn-two-container creditImmovables" *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
+            <div class="credit-leasing btn-item">
+              <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
+                <div class="icon-banco"></div>Simula Crédito o Leasing
+              </button>
+            </div>
+            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'" class="btn-item">
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+                <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+              </button>
+              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
+                <span class="icon-ofert-detalle"></span> Hacer oferta
+              </button>
+            </div>
+            <div *ngIf="products && products['sell-type'] == 'ALQUILA'" class="btn-item">
+              <button  class="gtmProdAlquilar  botons" (click)="rentProduct(products.id)">
+                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
+                interesa
+              </button>
+            </div>
+          </div>
+
+
           <div class="btn-two-container" *ngIf="products && validateSession() && !isSold()">
             <div class="btn-item">
               <button class="botons" (click)="deleteProduct(products)">
