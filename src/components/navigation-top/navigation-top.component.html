@@ -64,7 +64,7 @@
               <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
             </div>
           </li>
-          <li [ngClass]="isBancolombiaShop?  'cart-active': 'disabled'" (click)="goToShoppingCar()" class="car-container">
+          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
               </span>

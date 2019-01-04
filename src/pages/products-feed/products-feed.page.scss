@@ -5,6 +5,10 @@
   position: relative;
   padding-bottom: 100px;
 
+  .carousel-theme.mobile {
+    display: none;
+  }
+
   custom-footer {
     position: absolute;
     width: 100%;
@@ -437,12 +441,7 @@
   }
 }
 
-@media screen and (max-width: 1110px) {
-  :host {
-    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
-      width: 31%;
-    }
-  }
+@media screen and (max-width: 1220px) {
   :host {
     .carousel-arrow__next {
       right: 0px;
@@ -453,6 +452,15 @@
 
     }
   }
+}
+
+@media screen and (max-width: 1110px) {
+  :host {
+    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
+      width: 31%;
+    }
+  }
+
 }
 
 @media screen and (max-width: 952px) {
@@ -496,6 +504,7 @@
 }
 
 :host {
+
   @media screen and (max-width: 890px) {
     .featured-section {
       .featured-container {
@@ -506,19 +515,32 @@
       width: 25%;
     }
   }
+
   @media screen and (max-width: 760px) {
     .featured-section .featured-card .item__wrapper {
       margin: 0 auto 45px;
     }
+
 
     .featured-section {
       .featured-container {
         max-width: 700px;
       }
     }
+
+
     .featured-section .featured-card {
       width: 50%;
     }
+
+    .carousel-theme.desktop {
+      display: none;
+    }
+
+    .carousel-theme.mobile {
+      display: block;
+    }
+
   }
 
   @media screen and (max-width: 500px) {

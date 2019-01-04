@@ -12,8 +12,20 @@
 (onFilterByCity)="filterByCity($event)"
 (onFilterByState)="filterByState($event)"></subcategory-filter>
 
-<ngx-carousel class="carousel-theme" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
+<ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
+      <div class="item-banner">
+        <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "redirectPromo(image)" [src]="image">
+      </div>
+  </ngx-item>
+  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
+  </span>
+  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
+  </span>
+</ngx-carousel>
+
+<ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
+  <ngx-item NgxCarouselItem *ngFor="let image of imagesBannerMobile">
       <div class="item-banner">
         <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "redirectPromo(image)" [src]="image">
       </div>

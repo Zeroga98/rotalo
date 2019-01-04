@@ -178,14 +178,24 @@ export class SimulateCreditPage implements OnInit {
       'plazo': termMonths
     };
     this.simulateCreditService.simulateCredit(infoVehicle).then(response => {
-      this.showSimulator = true;
+      this.simulatePlan = response.body;
       if (this.simulateForm.get('term-months').value != 12) {
         this.showThirdPlan = true;
+      } else {
+        this.showThirdPlan = false;
       }
-      this.simulatePlan = response.body;
+      this.showSimulator = true;
+      this.scrollIntoTable();
       this.changeDetectorRef.markForCheck();
     })
     .catch(httpErrorResponse => {});
+  }
+
+  scrollIntoTable() {
+    setTimeout(function(){
+      const elmnt = document.getElementById('table-simulator');
+      elmnt.scrollIntoView({block: 'start', behavior: 'smooth'});
+    }, 200);
   }
 
   creditRequest() {

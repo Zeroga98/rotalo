@@ -92,8 +92,8 @@
     .list-options {
       display: flex;
       color: #707070;
-      margin-right: 30px;
-
+      //margin-right: 35px;
+      padding-right: 45px;
       li {
         font-size: 1.5rem;
         display: flex;
@@ -219,6 +219,7 @@
     &:hover {
 
       p {
+        font-weight: bold;
         color: #414141;
       }
 
@@ -289,7 +290,8 @@
   .material-design input[type=text].form-control {
     border: 1px solid #B0B0B0;
     border-radius: 12px;
-    min-width: 260px;
+    min-width: 345px;
+    //min-width: 260px;
     padding-right: 30px;
   }
   .button-search {
@@ -326,7 +328,7 @@
       min-height: 100vh;
       transition: max-height 0.5s;
     }
-  } 
+  }
 
   categories-menu {
     position: absolute;
@@ -409,7 +411,28 @@
 
 }
 
-@media screen and (max-width: 1262px) {
+
+:host {
+  .toolbar {
+    display: none;
+    background-color: #cacaca;
+  }
+  .toolbar-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+  }
+}
+
+
+@media screen and (max-width: 1276px) {
   :host {
     .container-car {
       p {
@@ -443,22 +466,11 @@
   }
 }
 
-:host {
-  .toolbar {
-    display: none;
-    background-color: #cacaca;
-  }
-  .toolbar-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-size: 1.2rem;
-    padding: 1.5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex-wrap: wrap;
+@media screen and (max-width: 1120px) {
+  :host {
+    .material-design input[type=text].form-control {
+      min-width: 260px;
+    }
   }
 }
 
@@ -513,6 +525,12 @@
      .navbar-header .list-options li.desktop {
       display: none;
     }
+
+    .navbar-header .list-options {
+      padding-right: 0px;
+    }
+
+
   }
 }
 

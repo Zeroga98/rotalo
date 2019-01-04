@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
-import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA } from '../../commons/constants/banner-imgs.contants';
+import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA, IMGS_BANNER_MOBILE } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
@@ -57,6 +57,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
+  public imagesBannerMobile: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
   private _subscriptionCountryChanges: Subscription;
@@ -112,7 +113,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     // this.imagesBanner = IMGS_BANNER_PROMO;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER;
-
+    this.imagesBannerMobile = IMGS_BANNER_MOBILE;
     /*Promo fecha determinada para cierta comunidad*/
     //
     this.addPromoBanner();
@@ -174,6 +175,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER_GUATEMALA;
+      this.imagesBannerMobile = IMGS_BANNER_GUATEMALA;
       this.showBannerToShop = false;
     }else {
       this.showBannerToShop = true;

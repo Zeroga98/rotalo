@@ -69,329 +69,331 @@
         text="Simular"></custom-button>
     </div>
   </form>
-  <div *ngIf="showSimulator">
-    <div>
-      <div class="title-form">
-        <div class="numberCircle">2</div>
-        <div class="step-info">
-          <h1>Sufi te ofrece las siguientes opciones</h1>
+  <div id="table-simulator">
+    <div *ngIf="showSimulator">
+      <div>
+        <div class="title-form">
+          <div class="numberCircle">2</div>
+          <div class="step-info">
+            <h1>Sufi te ofrece las siguientes opciones</h1>
+          </div>
         </div>
-      </div>
-      <div class="sufi-info">
-        <div  [ngClass]="!showThirdPlan ?  'offset-col': ''" class="col">
-          <div class="title-plan">
+        <div class="sufi-info">
+          <div  [ngClass]="!showThirdPlan ?  'offset-col': ''" class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan tradicional</p>
+              </div>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                {{simulatePlan.cuotasPlanUno}} Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.valorPlanUno | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.seguroDeVida | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.totalPlanUno | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
             <div>
-              <p>Plan tradicional</p>
+              <small>*Aplican términos y condiciones</small>
             </div>
           </div>
-          <div class="val">
-            <p class="col-cell">
-              {{simulatePlan.cuotasPlanUno}} Cuotas mensuales de
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.valorPlanUno | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              Seguro de vida
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.seguroDeVida | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              <strong class="result">Total</strong>
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.totalPlanUno | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div>
-            <small>*Aplican términos y condiciones</small>
-          </div>
-        </div>
-        <div class="col">
-          <div class="title-plan">
+          <div class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan cuotas extra</p>
+              </div>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                {{simulatePlan.cuotasPlanDos}} Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.valorPlanDos | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.seguroDeVida | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.totalPlanDos | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Cuotas semestrales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.extraPlanDos | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
             <div>
-              <p>Plan cuotas extra</p>
+              <small>*Aplican términos y condiciones</small>
             </div>
           </div>
-          <div class="val">
-            <p class="col-cell">
-              {{simulatePlan.cuotasPlanDos}} Cuotas mensuales de
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.valorPlanDos | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              Seguro de vida
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.seguroDeVida | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              <strong class="result">Total</strong>
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.totalPlanDos | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              Cuotas semestrales de
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.extraPlanDos | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div>
-            <small>*Aplican términos y condiciones</small>
-          </div>
-        </div>
-        <div *ngIf="showThirdPlan" class="col">
-          <div class="title-plan">
-            <div>
-              <p>Plan periodo de gracia</p>
+          <div *ngIf="showThirdPlan" class="col">
+            <div class="title-plan">
+              <div>
+                <p>Plan periodo de gracia</p>
+              </div>
             </div>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              {{simulatePlan.cuotasPlanTres}} Cuotas mensuales de
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.valorPlanTres | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              Seguro de vida
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.seguroDeVida | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              <strong class="result">Total</strong>
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.subTotalPlanTres | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              {{simulatePlan.cuotasExtraPlanTres}} cuotas a partir del mes 13
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.extraPlanTres | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              Seguro de vida
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.seguroDeVida | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div class="val">
-            <p class="col-cell">
-              <strong class="result">Total</strong>
-            </p>
-            <p class="col-cell text-right">
-              <strong>
-                {{simulatePlan.totalPlanTres | currency:"$":0}}
-              </strong>
-            </p>
-          </div>
-          <div>
-            <small>*Aplican términos y condiciones</small>
+            <div class="val">
+              <p class="col-cell">
+                {{simulatePlan.cuotasPlanTres}} Cuotas mensuales de
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.valorPlanTres | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.seguroDeVida | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.subTotalPlanTres | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                {{simulatePlan.cuotasExtraPlanTres}} cuotas a partir del mes 13
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.extraPlanTres | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                Seguro de vida
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.seguroDeVida | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div class="val">
+              <p class="col-cell">
+                <strong class="result">Total</strong>
+              </p>
+              <p class="col-cell text-right">
+                <strong>
+                  {{simulatePlan.totalPlanTres | currency:"$":0}}
+                </strong>
+              </p>
+            </div>
+            <div>
+              <small>*Aplican términos y condiciones</small>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="contact-step">
-      <div class="title-form">
-        <div class="numberCircle">3</div>
-        <div class="step-info">
-          <h1>¿Te gustó?</h1>
-          <p>
-            Completa esta información para ponernos en contacto contigo.
-          </p>
-          <p class="msg-field-required">
-            *Estos campos son obligatorios
-          </p>
+      <div class="contact-step">
+        <div class="title-form">
+          <div class="numberCircle">3</div>
+          <div class="step-info">
+            <h1>¿Te gustó?</h1>
+            <p>
+              Completa esta información para ponernos en contacto contigo.
+            </p>
+            <p class="msg-field-required">
+              *Estos campos son obligatorios
+            </p>
+          </div>
         </div>
-      </div>
-      <form role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">
-        <div class="container-step">
-          <div class="material-design container-step">
-            <div class="info-product">
-              <div class="row-section row-margin">
-                <div class="row">
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Nombre</div>
-                      <div class="row-form">
-                        <div class="row-value">{{nameUser}}</div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
+        <form role="form" class="form-theme" [formGroup]="contactUser" name="contactForm" (ngSubmit)="creditRequest()">
+          <div class="container-step">
+            <div class="material-design container-step">
+              <div class="info-product">
+                <div class="row-section row-margin">
+                  <div class="row">
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Nombre</div>
+                        <div class="row-form">
+                          <div class="row-value">{{nameUser}}</div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Tipo de documento</div>
+                        <div class="row-form">
+                          <div class="row-value">{{typeDocument}}</div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Número de doc.</div>
+                        <div class="row-form">
+                          <div class="row-value">{{documentNumber}}</div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Tipo de documento</div>
-                      <div class="row-form">
-                        <div class="row-value">{{typeDocument}}</div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
+                  <div class="row">
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Correo electrónico</div>
+                        <div class="row-form">
+                          <div class="row-value">
+                            <p>
+                                {{email}}
+                            </p>
+                          </div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Departamento</div>
+                        <div class="row-form">
+                          <div class="row-value">{{stateName}}</div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group group-line">
+                      <div>
+                        <div class="label-title-form">Ciudad</div>
+                        <div class="row-form">
+                          <div class="row-value">{{cityName}}</div>
+                          <div class="icon-checked">
+                            <span class="circle-check"></span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Número de doc.</div>
-                      <div class="row-form">
-                        <div class="row-value">{{documentNumber}}</div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
-                        </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="cellphone-container">
+                        <label class="label-title">Celular*</label>
+                        <input
+                        formControlName="phone-user"
+                        name="phone-user"
+                        class="form-control input-price" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                        maxlength="10" autocomplete="off">
+                        <label class="add-digits">+57</label>
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label class="label-title">Ingresos mensuales*</label>
+                        <input
+                        formControlName="salary"
+                        name="salary"
+                        class="form-control input-price" name="salary" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="12" autocomplete="off">
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'valid': contactUser.get('hour-contact').value}">
+                      <div>
+                        <label class="label-title">¿En qué horario quieres que te llamemos?</label>
+                        <select class="form-control" name="hour-contact" formControlName="hour-contact">
+                          <option value="" disabled></option>
+                          <option value="Mañana">Mañana</option>
+                          <option value="Tarde">Tarde</option>
+                          <option value="Noche">Noche</option>
+                        </select>
+                        <span class="error-msg">Este campo es requerido</span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Correo electrónico</div>
-                      <div class="row-form">
-                        <div class="row-value">
-                          <p>
-                              {{email}}
-                          </p>
-                        </div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
-                        </div>
+                  <div>
+                    <div class="check-offer">
+                      <label for="checkTerms" class="material-checkbox container-check">
+                        <input type="checkbox" id="checkTerms" name="check-authorization" formControlName="check-authorization" checked>
+                        <span class="checkmark"></span>
+                      </label>
+                      <span class="check-label">Acepto términos y condiciones y ley de Habeas data.</span>
+                      <div>
+                        <span
+                        [ngStyle]="{'display': contactUser.get('check-authorization').invalid && contactUser.get('check-authorization').touched ? 'block' : 'none' }"
+                        class="error-msg">Este campo es requerido</span>
                       </div>
-                    </div>
-                  </div>
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Departamento</div>
-                      <div class="row-form">
-                        <div class="row-value">{{stateName}}</div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group group-line">
-                    <div>
-                      <div class="label-title-form">Ciudad</div>
-                      <div class="row-form">
-                        <div class="row-value">{{cityName}}</div>
-                        <div class="icon-checked">
-                          <span class="circle-check"></span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group">
-                    <div class="cellphone-container">
-                      <label class="label-title">Celular*</label>
-                      <input
-                      formControlName="phone-user"
-                      name="phone-user"
-                      class="form-control input-price" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                      maxlength="10" autocomplete="off">
-                      <label class="add-digits">+57</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div>
-                      <label class="label-title">Ingresos mensuales*</label>
-                      <input
-                      formControlName="salary"
-                      name="salary"
-                      class="form-control input-price" name="salary" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
-                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="12" autocomplete="off">
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                  <div class="form-group" [ngClass]="{'valid': contactUser.get('hour-contact').value}">
-                    <div>
-                      <label class="label-title">¿En cuántas cuotas te gustaría pagarlo?</label>
-                      <select class="form-control" name="hour-contact" formControlName="hour-contact">
-                        <option value="" disabled></option>
-                        <option value="Mañana">Mañana</option>
-                        <option value="Tarde">Tarde</option>
-                        <option value="Noche">Noche</option>
-                      </select>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="check-offer">
-                    <label for="checkTerms" class="material-checkbox container-check">
-                      <input type="checkbox" id="checkTerms" name="check-authorization" formControlName="check-authorization" checked>
-                      <span class="checkmark"></span>
-                    </label>
-                    <span class="check-label">Acepto términos y condiciones y ley de Habeas data.</span>
-                    <div>
-                      <span
-                      [ngStyle]="{'display': contactUser.get('check-authorization').invalid && contactUser.get('check-authorization').touched ? 'block' : 'none' }"
-                      class="error-msg">Este campo es requerido</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="actions-form">
-            <custom-button buttonClass="gtmSufiTePrestaEnvSolic primary"  class="button" type="submit"
-              text="Enviar"></custom-button>
-        </div>
-      </form>
+          <div class="actions-form">
+              <custom-button buttonClass="gtmSufiTePrestaEnvSolic primary"  class="button" type="submit"
+                text="Enviar"></custom-button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <div *ngIf="showSimulator" class="terms">
