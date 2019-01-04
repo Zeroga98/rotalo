@@ -996,14 +996,13 @@ input:checked+.switch-slider:before {
     .btns-container .btn-two-container {
       flex-wrap: wrap;
     }
-  
-    .btns-container .btn-item.credit-leasing {
-      width: 100%
+
+    .btns-container .creditImmovables .btn-item ,  .btns-container .creditImmovables .btn-item.credit-leasing {
+      width: 100%;
     }
-
-    .creditImmovables{}
-
-
+    .btns-container .creditImmovables .btn-item .botons{
+      max-width: 220px;
+    }
   }
 }
 
@@ -1045,10 +1044,10 @@ input:checked+.switch-slider:before {
       justify-content: center;
     }
 
-   .product-btn .product-btns .botons {
-    width: 100%;
-    max-width: 264px;
-   }
+   .btns-container .creditImmovables .btn-item .botons{
+      width: 100%;
+      max-width: 264px;
+    }
 
     .row-container {
       .column {

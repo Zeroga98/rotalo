@@ -139,33 +139,6 @@
             </div>
           </div>
         </div>
-
-        <div *ngIf="isCategoryImmovables" class="container-simulator">
-          <div class="img-container">
-            <img src="/assets/img/credito_hipotecario.png" alt=" Crédito y leasing de vivienda">
-          </div>
-          <div class="container-info-simulator">
-            <div class="text-container">
-              <h1>Crédito y Leasing de vivienda</h1>
-              <p>
-                Solicita y simula tu financiación
-              </p>
-            </div>
-            <div class="btn-container">
-              <div class="product-btn">
-                <div class="product-btns">
-                  <div class="cont-botons">
-                      <a class="gtmCreditoHipotecario botons"
-                      target="_blank"
-                      href="https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional">
-                        Haciendo clic aquí
-                      </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -234,7 +207,7 @@
                 </div>
             </form>
           </div>
-          <div *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
+          <div *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
               <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{
@@ -244,7 +217,7 @@
               <span class="icon-ofert-detalle"></span> Hacer oferta
             </button>
           </div>
-          <div class="btn-two-container" *ngIf="products && checkBAMBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
+          <div class="btn-two-container" *ngIf="products && checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
               <div class="btn-item">
                   <button class="botons gtmFinanciar" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
                     <span class="icon-credit gtmFinanciar"></span> Financiar
