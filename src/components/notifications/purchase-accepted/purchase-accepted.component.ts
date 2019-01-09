@@ -25,12 +25,11 @@ export class PurchaseAcceptedComponent implements OnInit {
 
   async productReceived(id: number) {
     try {
-      const response = await this.productsService.receiveProduct(id, { id });
+      const response = await this.productsService.receiveProduct(id);
       this.notification.status = 'Has recibido el producto';
     } catch (error) {
       console.error(error);
       console.error('Ha ocurrido un error');
-
     }
   }
 

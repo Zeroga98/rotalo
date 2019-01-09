@@ -137,8 +137,8 @@ export class MessagesService {
               }
           break;
           case 'purchase_accepted':
-              if (notification.producto && notification.producto.recibido) {
-                switch (notification.producto.recibido) {
+              if (notification.check_received) {
+                switch (notification.check_received) {
                   case true:
                     status =  'Has recibido el producto';
                     break;

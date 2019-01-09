@@ -33,6 +33,7 @@
   }
 
   ngx-carousel.carousel-featured {
+    z-index: 0;
     ngx-item {
       min-height: 38rem;
     }
@@ -159,7 +160,7 @@
   .featured-section {
    /* background-color: #F4F4F4;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);*/
-    min-height: 455px;
+    min-height: 450px;
     .featured-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -366,9 +367,11 @@
           font-size: 2rem;
         }
       }
+
       .carousel-arrow__next {
         right: -15px;
       }
+
       .carousel-arrow__prev {
         left: -15px;
 

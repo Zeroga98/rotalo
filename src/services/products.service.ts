@@ -136,6 +136,7 @@ export class ProductsService {
       });
   }
 
+  /*
   receiveProduct(id: number, data): Promise<any> {
     const url = `${this.url}/deliver`;
     const params = {
@@ -145,6 +146,16 @@ export class ProductsService {
       }
     };
     return this.http.post(url, params).toPromise();
+  }*/
+
+  receiveProduct(id): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/recibido`;
+    const params = {
+      notificationId: id
+    };
+    return this.http.post(url, params, { headers: headers }).toPromise();
   }
 
   updateProduct(id: number | string, params): Promise<any> {
