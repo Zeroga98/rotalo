@@ -1,8 +1,10 @@
 <div class="back-categories" (click)="clickCloseMenu()"></div>
+<div class="close-container">
+    <div class="button-close-modal" (click)="clickCloseMenu()">
+        <p>x</p>
+      </div>
+</div>
 <div class="categories-container">
-  <div class="button-close-modal" (click)="clickCloseMenu()">
-    <p>x</p>
-  </div>
   <div class="category" *ngFor="let category of categories">
     <div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.productsActives != 0 ?  category.color: ''">
       <span [ngClass]="category.icon"></span>

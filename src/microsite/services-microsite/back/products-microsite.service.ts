@@ -127,9 +127,11 @@ export class ProductsMicrositeService {
   }
 
   deleteProduct(id: number | string): Promise<any> {
-    const url = `${this.url}/${id}`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/${id}`;
     return this.http
-      .delete(url)
+      .delete(url, { headers: headers })
       .toPromise()
       .then((response: any) => {
         this.userService.updateInfoUser();

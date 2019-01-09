@@ -159,11 +159,11 @@
   .featured-section {
    /* background-color: #F4F4F4;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);*/
-    min-height: 480px;
+    min-height: 455px;
     .featured-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 35px 0;
+      padding: 20px 0;
       padding-bottom: 0;
       .header-featured {
         margin-bottom: 15px;
@@ -351,7 +351,7 @@
         cursor: pointer;
         height: 34px;
         width: 34px;
-        top: 45%;
+        top: 40%;
         position: absolute;
         z-index: 99;
         text-align: center;

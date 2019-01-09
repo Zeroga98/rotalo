@@ -89,4 +89,12 @@ export class SellingPage implements OnInit {
       this.loadProductsExpired();
     }
   }
+
+  updateExpired($event) {
+    if ($event) {
+      location.reload();
+    }
+  }
+
+
 }

@@ -67,7 +67,7 @@ export class MiniProductDetailComponent implements OnInit {
       let stock = this.quantityForm.get('stock').value;
       stock = --stock;
       this.quantityForm.patchValue({ stock: stock });
-      this.changeQuantity.emit(stock)
+      this.changeQuantity.emit(stock);
     }
   }
 
@@ -78,7 +78,7 @@ export class MiniProductDetailComponent implements OnInit {
   }
 
   onChange(event) {
-    let stock = this.quantityForm.get('stock').value;
-    this.changeQuantity.emit(stock)
+    const stock = this.quantityForm.get('stock').value;
+    this.changeQuantity.emit(stock);
   }
 }

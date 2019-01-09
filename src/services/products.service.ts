@@ -113,10 +113,23 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).map((response: any) => response);
   }
 
-  deleteProduct(id: number | string): Promise<any> {
+
+  deleteProductRuby(id: number | string): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http
       .delete(url)
+      .toPromise()
+      .then((response: any) => {
+        this.userService.updateInfoUser();
+      });
+  }
+
+  deleteProduct(id: number | string): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/${id}`;
+    return this.http
+      .delete(url, { headers: headers })
       .toPromise()
       .then((response: any) => {
         this.userService.updateInfoUser();

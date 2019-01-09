@@ -142,6 +142,7 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
+      this.changeDetectorRef.markForCheck();
     } catch (error) {}
   }
 

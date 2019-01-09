@@ -65,7 +65,9 @@
             [infiniteScrollDistance]="0.5">
             <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">
               <div class="product-container">
-                <product-rotalo-center [masonryInfo]="masonryRef" [expiredProduct]="true" [isProductSelling]="true" [showField]="false"
+                <product-rotalo-center 
+                (updateProducts)="updateExpired($event)"
+                [masonryInfo]="masonryRef" [expiredProduct]="true" [isProductSelling]="true" [showField]="false"
                   [product]="productExpired"></product-rotalo-center>
               </div>
             </masonry-brick>
