@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -20,6 +20,8 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
+  @ViewChild('email') email: ElementRef;
+  @ViewChild('pass') pass: ElementRef;
 
   constructor(
     private loginService: LoginService,
@@ -50,6 +52,11 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
    //
   /*  console.log( document.getElementById('txt-email'));
     document.getElementById('txt-email').click();*/
+   /* this.email.nativeElement.focus();
+    setTimeout(function(){
+
+      this.pass.nativeElement.focus();
+    }.bind(this), 3000);*/
   }
 
   goToHome() {

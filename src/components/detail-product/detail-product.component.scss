@@ -600,9 +600,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-
-
-
 }
 /* The switch - the box around the switch-slider */
 
@@ -939,6 +936,21 @@ input:checked+.switch-slider:before {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  :host {
+    .btns-container .btn-two-container {
+      flex-wrap: wrap;
+    }
+
+    .btns-container .creditImmovables .btn-item ,  .btns-container .creditImmovables .btn-item.credit-leasing {
+      width: 100%;
+    }
+    .btns-container .creditImmovables .btn-item .botons{
+      max-width: 220px;
+    }
+  }
+}
+
 @media screen and (max-width: 750px) {
   :host {
     .container {
@@ -988,21 +1000,6 @@ input:checked+.switch-slider:before {
   }
   .additional-info {
     margin-bottom: 40px;
-  }
-}
-
-@media screen and (max-width: 863px) {
-  :host {
-    .btns-container .btn-two-container {
-      flex-wrap: wrap;
-    }
-
-    .btns-container .creditImmovables .btn-item ,  .btns-container .creditImmovables .btn-item.credit-leasing {
-      width: 100%;
-    }
-    .btns-container .creditImmovables .btn-item .botons{
-      max-width: 220px;
-    }
   }
 }
 
