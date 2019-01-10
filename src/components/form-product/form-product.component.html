@@ -176,7 +176,7 @@
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
                         <label class="label-title">Precio (con los pies en la tierra)*</label>
-                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price"
                           placeholder="15.000.000"
                           maxlength="50" autocomplete="off">

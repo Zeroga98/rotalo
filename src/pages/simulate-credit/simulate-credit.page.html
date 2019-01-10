@@ -34,7 +34,7 @@
               <div class="form-group" [ngClass]="{'valid': simulateForm.get('initial-quota').valid}">
                 <div>
                   <label class="label-title">¿Cuánto dinero tienes para la cuota inicial?</label>
-                  <input [ngClass]="{'ng-invalid': simulateForm.errors}" currencyMask [options]="{align: 'left', precision: 0}"
+                  <input [ngClass]="{'ng-invalid': simulateForm.errors}" currencyMask [options]="{align: 'left', precision: 0, allowNegative: false}"
                     class="form-control input-price" name="initial-quota" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                     formControlName="initial-quota" placeholder="10.000" maxlength="18" autocomplete="off">
                   <span class="help-block">
@@ -352,7 +352,7 @@
                         <input
                         formControlName="salary"
                         name="salary"
-                        class="form-control input-price" name="salary" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
+                        class="form-control input-price" name="salary" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0, allowNegative: false}"
                         onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="12" autocomplete="off">
                         <span class="error-msg">Este campo es requerido</span>
                       </div>
