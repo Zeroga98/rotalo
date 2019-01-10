@@ -28,9 +28,9 @@
               {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
           </span>
       </p>
-      <small class="notification-date">
+<!--      <small class="notification-date">
           {{notification.fechaHora}}
-      </small>
+      </small> -->
       <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
       <div class="notification-buttons" *ngIf="!notification.status">
           <div class="button-item">

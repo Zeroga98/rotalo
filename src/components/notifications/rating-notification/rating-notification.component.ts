@@ -59,6 +59,8 @@ export class RatingNotificationComponent implements OnInit {
         calidadProducto: this.rateSeller.get('quality').value,
         amabilidadAtencion: this.rateSeller.get('attention').value
       };
+      this.disableButton = true;
+      this.hideButton = true;
       this.messagesService
         .rateSeller(params, this.currentSessionService.getIdUser())
         .subscribe(response => {
