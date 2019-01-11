@@ -376,7 +376,7 @@
                         <input type="checkbox" id="checkTerms" name="check-authorization" formControlName="check-authorization" checked>
                         <span class="checkmark"></span>
                       </label>
-                      <span class="check-label">Acepto términos y condiciones y ley de Habeas data.</span>
+                      <span class="check-label">Autorización para consultar, reportar y compartir información.</span>
                       <div>
                         <span
                         [ngStyle]="{'display': contactUser.get('check-authorization').invalid && contactUser.get('check-authorization').touched ? 'block' : 'none' }"
@@ -385,7 +385,8 @@
                     </div>
                   </div>
                   <div class="terms">
-                    <accordion class="accordion" [questions]='infoAccept'></accordion>
+                    <accordion class="desktop accordion" [questions]='infoAccept'></accordion>
+                    <accordion class="mobile accordion" [questions]='infoAcceptMobile'></accordion>
                   </div>
                 </div>
               </div>

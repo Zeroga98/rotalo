@@ -405,10 +405,10 @@
         position: relative;
         min-height: 1px;
         padding-left: 15px;
-       // padding-right: 15px;
       }
       .text-right {
         text-align: right;
+        padding-right: 15px;
       }
       small {
         color: #383838;
@@ -503,6 +503,12 @@
         line-height: 2.4rem;
       }
     }
+}
+
+:host {
+  .mobile.accordion {
+    display: none;
+  }
 }
 
 
@@ -1036,6 +1042,19 @@
   :host {
     .container-form form .info-product .form-group {
       width: 100%;
+    }
+    .desktop.accordion {
+      display: none;
+    }
+    .mobile.accordion {
+      display: block;
+    }
+    .container-form form .actions-form {
+      margin-bottom: 4rem;
+    }
+    .container-form form .info-product .row-margin {
+      padding: 20px 0;
+      padding-bottom: 0;
     }
   }
 }
