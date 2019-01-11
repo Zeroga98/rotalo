@@ -165,3 +165,44 @@
     margin-left: -1em
   }
 }
+
+.accordion:host {
+  .ac-container label {
+    font-weight: normal;
+    padding: 10px 20px;
+    color: #383838;
+    font-size: 1.6rem;
+    border-radius: 12px;
+  }
+  .question {
+    margin-bottom: 15px;
+  }
+  .ac-container input:checked + label {
+    color: #383838;
+    background: #fff;
+    border: 1px solid #A2A2A2;
+  }
+   .answer p {
+    color: #383838;
+    font-size: 1.6rem;
+  }
+
+  .icon::before,
+  .icon::after {
+    display: none;
+  }
+
+  .icon {
+    background-image: url(../../assets/img/arrow.svg);
+    background-position: 92% center;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    appearance: none;
+    transform: rotate(0deg);
+  }
+
+  .ac-container input:checked + label .icon, [_nghost-c29] .ac-container input:checked + label:hover .icon {
+    transform: scale(1, -1);
+  }
+
+}

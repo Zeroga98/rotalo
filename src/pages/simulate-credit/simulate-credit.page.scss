@@ -405,7 +405,7 @@
         position: relative;
         min-height: 1px;
         padding-left: 15px;
-        padding-right: 15px;
+       // padding-right: 15px;
       }
       .text-right {
         text-align: right;
@@ -485,9 +485,9 @@
       }
       .add-digits {
         position: absolute;
-        color: #0FBBD8;
-        bottom: 7px;
-        font-size: 1.8rem;
+        color: #383838;
+        font-size: 1.6rem;
+        bottom: 9px;
         padding: 7px 0 0 12px;
       }
       .form-control {
@@ -532,6 +532,28 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 615px) {
+  :host {
+    .container-form .title-form .numberCircle {
+      width: 30px;
+      height: 30px;
+      font-size: 1.4rem;
+    }
+    .container-form .title-form h1 {
+      font-size: 1.8rem;
+    }
+
+    .material-design .label-title{
+      font-size: 1.6rem;
+    }
+
+    .material-design .form-control {
+      font-size: 1.5rem;
+    }
+
   }
 }
 

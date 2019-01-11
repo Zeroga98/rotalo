@@ -96,6 +96,18 @@ export class SimulateCreditPage implements OnInit {
   public cityName;
   public simulatePlan;
   public showThirdPlan = false;
+  public infoAccept = [
+    {
+    answer: `<p>DECLARACIÓN Y AUTORIZACIÓN PARA CONSULTAR, REPORTAR Y COMPARTIR INFORMACIÓN. Autorizo a BANCOLOMBIA S.A. y a las entidades que pertenezcan a su Grupo Empresarial, para que conserven la información aquí suministrada, la compartan entre ellas, me contacten con el fin de ofrecerme sus productos y servicios; y para que, con el fin de evaluar la posibilidad de otorgarme los mismos, consulten y procesen mi información ante las entidades de consulta de bases de datos u Operadores de Información y Riesgo. El resultado del análisis para acceder al producto, le será informado a través de alguno de los medios de contacto que nos ha suministrado.</p>`,
+    id: 1,
+    question: 'Declaración y autorización para consultar, reportar y compartir información.',
+    sequence: 1} ,
+    {
+      answer: `<p>Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se realiza. La cuota indicada está compuesta por seguro de vida, intereses y capital. La cuota es fija, la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del vehículo. <br> Recuerda que para esta simulación se utilizó una tasa representativa del 1.05 % nominal mes vencido, equivalente a 13.35% efectivo anual. <br>Si el plazo que quieres es de 84 meses, ten presente que debes ser empleado o pensionado, o si vas a financiar un usado, puedes ser también independiente, trasportador, profesional independiente o rentista de capital. El carro usado debe tener menos de 5 años de antigüedad. Lo que vas a prestar debe ser menor o igual al 80% del valor comercial del carro. No aplica para marcas chinas o indias.</p>`,
+      id: 2,
+      question: 'Asegúrate de leer esto ¡Es importante!',
+      sequence: 2}
+  ];
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {

@@ -14,7 +14,7 @@
             <div class="row">
               <div class="form-group" [ngClass]="{'valid': simulateForm.get('credit-value').valid}">
                 <div>
-                  <label class="label-title">¿Cuánto cuesta el carro que quieres?</label>
+                  <label class="label-title">¿Cuánto cuesta el vehículo que quieres?</label>
                   <input class="form-control input-price" name="credit-value" currencyMask [options]="{prefix: '$' , align: 'left', precision: 0}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="credit-value"
                     placeholder="15.000.000" maxlength="18" autocomplete="off">
@@ -384,6 +384,9 @@
                       </div>
                     </div>
                   </div>
+                  <div class="terms">
+                    <accordion class="accordion" [questions]='infoAccept'></accordion>
+                  </div>
                 </div>
               </div>
             </div>
@@ -395,16 +398,6 @@
         </form>
       </div>
     </div>
-  </div>
-  <div *ngIf="showSimulator" class="terms">
-    <p>
-      Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se realiza. La cuota indicada está compuesta por seguro de vida, intereses y capital. La cuota es fija, la tasa es variable y por lo tanto el plazo estimado. La cuota no incluye seguro del vehículo. Recuerda que para esta simulación se utilizó una tasa representativa del 1.05 % nominal mes vencido, equivalente a 13.35% efectivo anual. Si el plazo que quieres es de 84 meses, ten presente que debes ser empleado o pensionado, o si vas a financiar un usado, puedes ser también independiente, trasportador, profesional independiente o rentista de capital. El carro usado debe tener menos de 5 años de antigüedad. Lo que vas a prestar debe ser menor o igual al 80% del valor comercial del carro. No aplica para marcas chinas o indias. Solo aplica para modalidad de crédito, no operaciones de leasing. *Créditos sin preaprobados en minutos solo aplica para canales físicos.
-    </p>
-    <br>
-    <p>
-      Para consultar los concesionarios aliados donde aplica este tipo de crédito,
-     <a target="_blank" href="https://sufi.grupobancolombia.com/wps/portal/sufi/credito-para-lo-que-necesitas/vehiculos/aliados-credito-vehiculo">ingresa aquí.</a>
-    </p>
   </div>
 </div>
 <custom-footer></custom-footer>
