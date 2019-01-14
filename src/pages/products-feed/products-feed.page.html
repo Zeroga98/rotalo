@@ -18,10 +18,16 @@
         <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click) = "redirectPromo(image)" [src]="image">
       </div>
   </ngx-item>
-  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
+
+  <span NgxCarouselPrev class="arrow-container left">
+    <span  class="gtmBannerRotFlechas arrow arrow-prev">
+    </span>
   </span>
-  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
+  <span NgxCarouselNext class="arrow-container right">
+    <span  class="gtmBannerRotFlechas arrow arrow-next">
+    </span>
   </span>
+
 </ngx-carousel>
 
 <ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
@@ -142,7 +148,8 @@
           Conoce la tienda Bancolombia
         </h3>
       </div>
-      <img (click) = "goToBancolombiaShop()" src="../../assets/img/banner/img_banner_tienda.jpg" alt="micrositio bancolombia">
+      <img class="desktop" (click) = "goToBancolombiaShop()" src="../../assets/img/banner/img_banner_tienda.jpg" alt="micrositio bancolombia">
+      <img class="mobile" (click) = "goToBancolombiaShop()" src="../../assets/img/banner/mobile/banner_mobile.png" alt="micrositio bancolombia">
     </div>
   </div>
 

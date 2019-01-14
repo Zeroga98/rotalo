@@ -9,6 +9,10 @@
     display: none;
   }
 
+  .featured-section.bancolombia-site img.mobile {
+    display: none;
+  }
+
   custom-footer {
     position: absolute;
     width: 100%;
@@ -50,13 +54,13 @@
     .arrow {
       display: inline-block !important;
       border: 0;
-      border-bottom: 4px solid white;
-      border-left: 4px solid white;
+      border-bottom: 3px solid white;
+      border-left: 3px solid white;
       z-index: 1;
-      top: 46%;
-      left: 2rem;
-      width: 30px;
-      height: 30px;
+      top: 35%;
+      left: 1.3rem;
+      width: 12px;
+      height: 12px;
       transform: rotate(45deg);
       border-radius: 1px;
       position: absolute;
@@ -64,10 +68,35 @@
     }
     .arrow-next {
       // left: unset;
+      display: block;
+      right: 1.3rem;
       left: auto;
-      right: 2rem;
       transform: rotate(-135deg);
     }
+  }
+
+  .arrow-container {
+    background: #969696;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+    position: absolute;
+    text-align: center;
+    left: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-in 0s;
+    opacity: 0.6;
+    justify-content: center;
+    align-items: center;
+    display: block;
+  }
+
+  .arrow-container.right {
+    display: block;
+    right: 1rem;
+    left: auto;
   }
 
   ngx-carousel.carousel-featured {
@@ -95,7 +124,7 @@
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-      //  justify-content: space-between;
+        justify-content: space-around;
       }
       product, product-rotalo-center{
         cursor: pointer;
@@ -336,6 +365,9 @@
       }
     }
   }
+  .featured-section.bancolombia-site .featured-container{
+    padding: 0;
+  }
 }
 
 
@@ -440,6 +472,7 @@
       cursor: pointer;
       width: 100%;
       height: auto;
+      padding: 0 8px;
     }
   }
 }
@@ -544,6 +577,14 @@
       display: block;
     }
 
+    .featured-section.bancolombia-site img.desktop {
+      display: none;
+    }
+
+    .featured-section.bancolombia-site img.mobile {
+      display: block;
+    }
+
   }
 
   @media screen and (max-width: 500px) {
@@ -639,6 +680,9 @@
       .arrow {
         display: none !important;
       }
+    }
+    .arrow-container {
+      display: none !important;
     }
   }
 }

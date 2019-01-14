@@ -20,6 +20,8 @@
     margin: 0 auto;
     .title-form {
       margin-bottom: 2rem;
+      white-space: nowrap;
+      width: 100%;
       h1 {
         color: #272727;
         font-size: 2.4rem;
@@ -44,6 +46,10 @@
       }
       .step-info {
         margin-left: 10px;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        width: 85%;
       }
       .numberCircle, .step-info{
         display: inline-block;
@@ -912,6 +918,28 @@
     .material-design .select-cities select-cities {
       position: relative;
     }
+  }
+}
+
+@media screen and (max-width: 615px) {
+  :host {
+    .container-form .title-form .numberCircle {
+      width: 30px;
+      height: 30px;
+      font-size: 1.4rem;
+    }
+    .container-form .title-form h1 {
+      font-size: 1.8rem;
+    }
+
+    .material-design .label-title{
+      font-size: 1.6rem;
+    }
+
+    .material-design .form-control {
+      font-size: 1.5rem;
+    }
+
   }
 }
 
