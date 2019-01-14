@@ -146,6 +146,7 @@
 
         .row-margin {
           padding: 20px 4%;
+          padding-bottom: 0;
         }
 
         .form-group {
@@ -179,7 +180,6 @@
             color: #536570;
             display: flex;
             align-items: center;
-
             .container-check {
               margin-right: .7rem;
               display: inline-block;
@@ -423,6 +423,9 @@
 
     }
   }
+  .check-offer{
+    margin: 10px 0;
+  }
 }
 
 
@@ -483,6 +486,7 @@
     .group-line {
       padding-bottom: 15px;
       border-bottom: #E5E5E5 solid 1px;
+      margin-bottom: 5px;
     }
 
     .cellphone-container {
@@ -566,6 +570,10 @@
       font-size: 1.5rem;
     }
 
+    .sufi-info .col .val p {
+      font-size: 1.4rem;
+    }
+
   }
 }
 
@@ -644,7 +652,11 @@
     font-size: 1.8rem;
     padding: 10px 0;
     display: block;
-    min-height: 64px;
+    min-height: 45px;
+  }
+
+  .label-title-red {
+    color: #FF3646;
   }
 
   .form-control {
@@ -1049,15 +1061,23 @@
     .container-form form .info-product .form-group {
       width: 100%;
     }
+
     .desktop.accordion {
       display: none;
     }
+
     .mobile.accordion {
       display: block;
     }
+
+    .mobile.accordion {
+      display: block;
+    }
+
     .container-form form .actions-form {
       margin-bottom: 4rem;
     }
+
     .container-form form .info-product .row-margin {
       padding: 20px 0;
       padding-bottom: 0;

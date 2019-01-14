@@ -336,7 +336,7 @@
                   <div class="row">
                     <div class="form-group">
                       <div class="cellphone-container">
-                        <label class="label-title">Celular*</label>
+                        <label class="label-title label-title-red">Celular*</label>
                         <input
                         formControlName="phone-user"
                         name="phone-user"
@@ -348,7 +348,7 @@
                     </div>
                     <div class="form-group">
                       <div>
-                        <label class="label-title">Ingresos mensuales*</label>
+                        <label class="label-title label-title-red">Ingresos mensuales</label>
                         <input
                         formControlName="salary"
                         name="salary"
@@ -359,7 +359,7 @@
                     </div>
                     <div class="form-group" [ngClass]="{'valid': contactUser.get('hour-contact').value}">
                       <div>
-                        <label class="label-title">¿En qué horario quieres que te llamemos?</label>
+                        <label class="label-title label-title-red">¿En qué horario quieres que te llamemos?</label>
                         <select class="form-control" name="hour-contact" formControlName="hour-contact">
                           <option value="" disabled></option>
                           <option value="Mañana">Mañana</option>
