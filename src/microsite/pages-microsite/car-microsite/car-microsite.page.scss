@@ -176,6 +176,7 @@
 
             .form-info {
                 margin-top: 20px;
+                width: 100%;
 
                 .info-title-box {
                     color: #272727;
@@ -335,6 +336,15 @@
                     border: 1px solid #bf111c;
                 }
             }
+
+            .btn-buy.disabled {
+                background: #B0B0B0;
+                border: 1px solid #B0B0B0;
+
+                &:hover {
+                    cursor: not-allowed;
+                }
+            }
         }
 
         .info-send-section {
@@ -468,7 +478,7 @@
                 border-style: none;
                 border: 1px solid #A2A2A2;
                 font-size: 18px;
-                color: #A2A2A2;
+                color: #383838;
                 margin-top: 25px;
                 width: 100%;
             }

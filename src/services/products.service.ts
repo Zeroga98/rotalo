@@ -55,6 +55,21 @@ export class ProductsService {
       });
   }
 
+  loadProducts(params): Promise<any> {
+    const url = this.urlSapi + '/productos/feed?';
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .get(url, { headers: headers, params: params})
+      .toPromise()
+      .then((response: any) => {
+        if (response.body.totalProductos) {
+          this.setTotalProducts(response.body.totalProductos);
+        }
+        return response.body.productos;
+      });
+  }
+
   getProductsSuper(idUser, params) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
@@ -98,7 +113,8 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).map((response: any) => response);
   }
 
-  deleteProduct(id: number | string): Promise<any> {
+
+  deleteProductRuby(id: number | string): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http
       .delete(url)
@@ -108,6 +124,19 @@ export class ProductsService {
       });
   }
 
+  deleteProduct(id: number | string): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/${id}`;
+    return this.http
+      .delete(url, { headers: headers })
+      .toPromise()
+      .then((response: any) => {
+        this.userService.updateInfoUser();
+      });
+  }
+
+  /*
   receiveProduct(id: number, data): Promise<any> {
     const url = `${this.url}/deliver`;
     const params = {
@@ -117,6 +146,16 @@ export class ProductsService {
       }
     };
     return this.http.post(url, params).toPromise();
+  }*/
+
+  receiveProduct(id): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/recibido`;
+    const params = {
+      notificationId: id
+    };
+    return this.http.post(url, params, { headers: headers }).toPromise();
   }
 
   updateProduct(id: number | string, params): Promise<any> {
@@ -218,8 +257,8 @@ export class ProductsService {
   }
 
   setProductLocation(products, name, currentPage) {
-    this.scroll = name;
     this.products = products;
+    this.scroll = name;
     this.currentPage = currentPage;
   }
 

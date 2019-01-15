@@ -40,6 +40,7 @@ import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car
 import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page'
 import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
+import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
 
 
 export const appRouter: Routes = [
@@ -75,6 +76,7 @@ export const appRouter: Routes = [
         path: ROUTES.MENUROTALOCENTER.SELLING,
         component: SellingPage,
       },
+      { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

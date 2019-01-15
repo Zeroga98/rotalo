@@ -32,10 +32,9 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
   private currentEmail;
 
   @HostListener('document:click', ['$event']) clickout(event) {
-   /* alert(event);
-    alert(event.target);*/
+
     if (event.target && event.target.className) {
-     // alert(event.target.className);
+
       if (event.target.className == 'md-overlay') {
         this.close();
       }

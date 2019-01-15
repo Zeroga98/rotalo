@@ -1,3 +1,4 @@
+<app-modal-detail [product]="productForModal" (closeModal)="closeModal()" *ngIf="showModalBuy"></app-modal-detail>
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
@@ -40,7 +41,8 @@
         </div>
         <div class="description">
           <p class="description-title">Descripción</p>
-          {{products.description}}</div>
+          {{products.description}}
+        </div>
       </div>
     </div>
 
@@ -64,7 +66,8 @@
             </div>
           </div>
           <div class="full-width quantity-container">
-            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)" #form>
+            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)"
+              #form>
               <div class="form-group">
                 <label class="label-title">Cantidad</label>
                 <div class="input-group quantity-wrapper">
@@ -73,9 +76,9 @@
                       <span>-</span>
                     </button>
                   </span>
-                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="0"
-                    maxlength="5" autocomplete="off">
+                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock"
+                    currencyMask [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                    formControlName="stock" placeholder="0" maxlength="5" autocomplete="off">
                   <span class="input-group-btn">
                     <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
                       <span>+</span>
@@ -85,7 +88,8 @@
                 <span class="quantity-on-stock">
                   ({{totalStock}} disponibles)
                 </span>
-                <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser menor igual a {{totalStock}}</span>
+                <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este
+                  campo debe ser mayor a 0 y menor o igual a {{totalStock}}</span>
               </div>
             </form>
           </div>
@@ -118,7 +122,8 @@
                 </div>
                 <div *ngIf="products.user.company" class="media-middle product-info-user--data">
                   <p class="name-user">{{products.user.name}}</p>
-                  <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}} -
+                  <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}}
+                    -
                     <span [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
                   </p>
                 </div>
@@ -188,14 +193,5 @@
       </div>
     </div>
 
-  </div>
-</div>
-
-<div *ngIf="showModalExist" class="back-modal">
-  <div class="modal-exist">
-    <div class="text-modal-exist">Ya habías agregado este producto al carrito</div>
-    <div class="section-button">
-      <button class="btn-go-car" (click)="goToShoppingCar()">Ir al carrito</button>
-    </div>
   </div>
 </div>

@@ -92,10 +92,10 @@
     .list-options {
       display: flex;
       color: #707070;
-      margin-right: 30px;
-
+      //margin-right: 35px;
+      padding-right: 45px;
       li {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -194,6 +194,7 @@
 
  .navbar-header .list-options li.rotalo-center{
     padding-right: 2.5rem;
+    min-width: 124px;
   }
 
   .perfil-container {
@@ -218,6 +219,7 @@
     &:hover {
 
       p {
+        font-weight: bold;
         color: #414141;
       }
 
@@ -279,6 +281,7 @@
     color: #707070;
     padding-right: 3rem;
     font-size: 1.6rem;
+    max-width: 135px;
     background-color: transparent;
   }
   .search-container {
@@ -287,7 +290,8 @@
   .material-design input[type=text].form-control {
     border: 1px solid #B0B0B0;
     border-radius: 12px;
-    min-width: 275px;
+    min-width: 345px;
+    //min-width: 260px;
     padding-right: 30px;
   }
   .button-search {
@@ -311,12 +315,27 @@
     background-repeat: no-repeat;
   }
 
- categories-menu {
+  .back-categories {
+    width: 100%;
+    background: transparent;
+    position: fixed;
+    z-index: 999999999;
+    max-height: 0;
+    top: 0;
+    left: 0;
+
+    &.opened {
+      min-height: 100vh;
+      transition: max-height 0.5s;
+    }
+  }
+
+  categories-menu {
     position: absolute;
     top: 100%;
     left: 5%;
     background: white;
-    z-index: 9999999;
+    z-index: 1000000000;
     width: 90%;
     border-radius: 1rem;
     overflow: hidden;
@@ -392,7 +411,28 @@
 
 }
 
-@media screen and (max-width: 1200px) {
+
+:host {
+  .toolbar {
+    display: none;
+    background-color: #cacaca;
+  }
+  .toolbar-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+  }
+}
+
+
+@media screen and (max-width: 1276px) {
   :host {
     .container-car {
       p {
@@ -415,6 +455,7 @@
 
     .navbar-header .list-options li.rotalo-center {
       padding-right: 0;
+      min-width: auto;
     }
 
     .navbar-header .list-options li .noti-circle {
@@ -422,26 +463,14 @@
       right: -10px;
     }
 
-
   }
 }
 
-:host {
-  .toolbar {
-    display: none;
-    background-color: #cacaca;
-  }
-  .toolbar-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-size: 1.2rem;
-    padding: 1.5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex-wrap: wrap;
+@media screen and (max-width: 1120px) {
+  :host {
+    .material-design input[type=text].form-control {
+      min-width: 260px;
+    }
   }
 }
 
@@ -496,6 +525,12 @@
      .navbar-header .list-options li.desktop {
       display: none;
     }
+
+    .navbar-header .list-options {
+      padding-right: 0px;
+    }
+
+
   }
 }
 

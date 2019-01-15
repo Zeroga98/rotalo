@@ -48,11 +48,15 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   showInfo: boolean;
   canHide: boolean;
   viewWidth: number;
+  disablePayButton = false;
 
   productWithError = [];
   disabledButton;
   hasPending = false;
   emptyMessaje = false;
+  hasANewQuantity = false;
+  productsWithError = false;
+  errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
 
   public registerForm: FormGroup;
 
@@ -246,8 +250,23 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   changeQuantity(stock: number, product) {
     this.car.updateProductQuantity(product.id, stock);
     this.products = this.car.getProducts();
+    if (this.hasANewQuantity) {
+      this.updateProductsQuantity();
+    }
     this.getCarTotalPrice();
-    this.changeDetectorRef.markForCheck()
+    this.changeDetectorRef.markForCheck();
+  }
+
+  async updateProductsQuantity() {
+    try {
+      const response = await this.back.addProductToBD(this.generateJson());
+      this.reloadProducts();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.reloadProducts();
+      this.changeDetectorRef.markForCheck();
+    }
+    this.hasANewQuantity = false;
   }
 
   setWidthParams() {
@@ -312,21 +331,58 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.changeDetectorRef.markForCheck();
   }
 
+  async reloadProducts() {
+    try {
+      const response = await this.back.getCarProducts();
+      this.products = [];
+      response.carroCompras.commerceItems.forEach(element => {
+        this.products.push(element);
+      });
+      this.car.setProducts(this.products);
+      this.products = this.car.getProducts();
+      if (this.products.length === 0) {
+        this.showView = 'noProducts';
+      } else {
+        this.showView = 'Products';
+        this.disableButton();
+        this.getCarTotalPrice();
+      }
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      if (error.error.status == '600') {
+        this.showView = 'noProducts';
+      }
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
   async deleteCheckedProducts() {
     if (!this.disabledButton) {
       try {
-        const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
-        const quantityCart = await this.car.getCartInfo();
-        this.car.setTotalCartProducts(quantityCart);
-        this.car.changeCartNumber(quantityCart);
-        this.car.initCheckedList();
-        this.loadProducts();
-        this.changeDetectorRef.markForCheck();
+        const response_add = await this.back.addProductToBD(this.generateJsonWithValidProducts());
+        try {
+          this.deleteAndReload();
+          this.changeDetectorRef.markForCheck();
+        } catch (error) {
+          this.changeDetectorRef.markForCheck();
+        }
       } catch (error) {
+        this.deleteAndReload();
         this.changeDetectorRef.markForCheck();
       }
       this.changeDetectorRef.markForCheck();
     }
+  }
+
+  async deleteAndReload() {
+    const response = await this.back.deleteProductToBD(this.car.getCheckedProducts());
+    const quantityCart = await this.car.getCartInfo();
+    this.car.setTotalCartProducts(quantityCart);
+    this.car.changeCartNumber(quantityCart);
+    this.car.initCheckedList();
+    this.reloadProducts();
+    this.disabledButton = true;
   }
 
   getParamsToProducts() {
@@ -334,45 +390,69 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
-    this.hasPending = false;
-    this.emptyMessaje = false;
-    if (!this.formIsInvalid) {
-      try {
-        // Verificar la cantidad de los productos
-        const response_add = await this.back.addProductToBD(this.generateJson());
+    if (!this.disablePayButton) {
+      this.hasPending = false;
+      this.emptyMessaje = false;
+      this.disablePayButton = true;
+      this.productsWithError = false;
+      if (!this.formIsInvalid) {
         try {
-          // Generarla orden de waybox
-          const response_orden = await this.back.getOrden(this.generateJsonToWaybox());
+          // Verificar la cantidad de los productos
+          const response_add = await this.back.addProductToBD(this.generateJson());
           try {
-            // Una vez se genere la orden, se reserva el stock
-            const response = await this.back.reserveStock();
-            this.wayboxPay
-            (this.carTotalPrice, response_orden.body.publicKey, response_orden.body.referenciaOrden, response_orden.body.urlRedireccion);
+            // Generarla orden de waybox
+            const orden = await this.back.getOrden(this.generateJsonToWaybox());
+            try {
+              // Una vez se genere la orden, se reserva el stock
+              const response = await this.back.reserveStock();
+              this.hasANewQuantity = true;
+              this.wayboxPay
+                (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
+              this.disablePayButton = false;
+              this.changeDetectorRef.markForCheck();
+            } catch (error) {
+              this.disablePayButton = false;
+              this.changeDetectorRef.markForCheck();
+            }
             this.changeDetectorRef.markForCheck();
+
+
+
           } catch (error) {
+            this.hasPending = true;
+            this.disablePayButton = false;
+            console.log(error)
+            if (error.error.status === 500) {
+              this.errorPending = '¡Ups! parece que algo ha salido mal, cominícate con info@rotalo.com.';
+            } else {
+              this.errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
+            }
+
+
             this.changeDetectorRef.markForCheck();
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
-          this.hasPending = true;
+          this.reloadProducts();
+          this.hasANewQuantity = true;
+          this.disablePayButton = false;
+          this.productsWithError = true;
           this.changeDetectorRef.markForCheck();
         }
-        this.changeDetectorRef.markForCheck();
-      } catch (error) {
-        this.generateProductWithError(error);
-        this.changeDetectorRef.markForCheck();
+      } else {
+        this.emptyMessaje = true;
+        this.showForm = true;
+        this.disablePayButton = false;
       }
-    } else {
-      this.emptyMessaje = true;
-      this.showForm = true;
     }
   }
 
   generateJson() {
     const body = {
       productos: []
-    }
+    };
 
+    console.log(this.products);
     this.products.forEach(element => {
       body.productos.push(
         {
@@ -380,20 +460,28 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           'cantidad': element.quantity,
           'adicionar': false
         }
-      )
+      );
     });
     return body;
   }
 
-  generateProductWithError(error) {
-    error.error.body.productosConErrores.forEach(element => {
-      this.productWithError.push(
-        {
-          mensajeError: element.mensajeError,
-          productId: element.producto.id
-        }
-      )
+  generateJsonWithValidProducts() {
+    const body = {
+      productos: []
+    };
+
+    this.products.forEach(element => {
+      if (element.quantity <= element.product.stock) {
+        body.productos.push(
+          {
+            'idProducto': element.product.id,
+            'cantidad': element.quantity,
+            'adicionar': false
+          }
+        );
+      }
     });
+    return body;
   }
 
   generateJsonToWaybox() {
@@ -461,6 +549,4 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.RESPONSE}`]);
     });
   }
-
-
 }

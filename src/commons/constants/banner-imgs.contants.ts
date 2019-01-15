@@ -1,8 +1,13 @@
 export const IMGS_BANNER = [
- // './assets/img/banner/10k.gif',
- './assets/img/banner/banner_reno.gif',
- './assets/img/banner/banner_ganadoras.jpg',
-  './assets/img/banner/banner_actualizaciones.jpg'
+  './assets/img/banner/hipotecario.jpg',
+  './assets/img/banner/banner_aliados.jpg',
+  './assets/img/banner/banner_promo.jpg',
+];
+
+export const IMGS_BANNER_MOBILE = [
+  './assets/img/banner/mobile/hipotecario_mobile.jpg',
+  './assets/img/banner/mobile/banner_aliados_mobile.jpg',
+  './assets/img/banner/mobile/banner_promo_mobile.jpg',
 ];
 
 export const IMGS_BANNER_GUATEMALA = [
@@ -10,9 +15,7 @@ export const IMGS_BANNER_GUATEMALA = [
 ];
 
 export const IMGS_BANNER_BANCOLOMBIA = [
- // './assets/img/banner/10k.gif',
- './assets/img/banner/banner_reno.gif',
- './assets/img/banner/banner_ganadoras.jpg',
-  './assets/img/banner/banner_actualizaciones.jpg',
-  './assets/img/banner/fondos_de_empleados.jpg'
+  './assets/img/banner/hipotecario.jpg',
+  './assets/img/banner/banner_aliados.jpg',
+  './assets/img/banner/banner_promo.jpg',
 ];

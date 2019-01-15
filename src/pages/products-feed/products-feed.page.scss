@@ -5,6 +5,14 @@
   position: relative;
   padding-bottom: 100px;
 
+  .carousel-theme.mobile {
+    display: none;
+  }
+
+  .featured-section.bancolombia-site img.mobile {
+    display: none;
+  }
+
   custom-footer {
     position: absolute;
     width: 100%;
@@ -29,6 +37,7 @@
   }
 
   ngx-carousel.carousel-featured {
+    z-index: 0;
     ngx-item {
       min-height: 38rem;
     }
@@ -45,13 +54,13 @@
     .arrow {
       display: inline-block !important;
       border: 0;
-      border-bottom: 4px solid white;
-      border-left: 4px solid white;
+      border-bottom: 3px solid white;
+      border-left: 3px solid white;
       z-index: 1;
-      top: 46%;
-      left: 2rem;
-      width: 30px;
-      height: 30px;
+      top: 35%;
+      left: 1.3rem;
+      width: 12px;
+      height: 12px;
       transform: rotate(45deg);
       border-radius: 1px;
       position: absolute;
@@ -59,10 +68,35 @@
     }
     .arrow-next {
       // left: unset;
+      display: block;
+      right: 1.3rem;
       left: auto;
-      right: 2rem;
       transform: rotate(-135deg);
     }
+  }
+
+  .arrow-container {
+    background: #969696;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+    position: absolute;
+    text-align: center;
+    left: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-in 0s;
+    opacity: 0.6;
+    justify-content: center;
+    align-items: center;
+    display: block;
+  }
+
+  .arrow-container.right {
+    display: block;
+    right: 1rem;
+    left: auto;
   }
 
   ngx-carousel.carousel-featured {
@@ -90,9 +124,9 @@
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-      //  justify-content: space-between;
+        justify-content: space-around;
       }
-      product {
+      product, product-rotalo-center{
         cursor: pointer;
         text-align: left;
         width: 23%;
@@ -100,6 +134,7 @@
         margin: 0 1rem 2.5rem;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
+
     }
   }
   .container-spinner {
@@ -154,11 +189,11 @@
   .featured-section {
    /* background-color: #F4F4F4;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);*/
-    min-height: 480px;
+    min-height: 450px;
     .featured-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 35px 0;
+      padding: 20px 0;
       padding-bottom: 0;
       .header-featured {
         margin-bottom: 15px;
@@ -174,8 +209,8 @@
         }
         .star-img {
           vertical-align: middle;
-          width: 56px;
-          height: 56px;
+          width: 45px;
+          height: 45px;
         }
       }
     }
@@ -329,6 +364,9 @@
       }
     }
   }
+  .featured-section.bancolombia-site .featured-container{
+    padding: 0;
+  }
 }
 
 
@@ -345,7 +383,7 @@
         cursor: pointer;
         height: 34px;
         width: 34px;
-        top: 45%;
+        top: 40%;
         position: absolute;
         z-index: 99;
         text-align: center;
@@ -360,9 +398,11 @@
           font-size: 2rem;
         }
       }
+
       .carousel-arrow__next {
         right: -15px;
       }
+
       .carousel-arrow__prev {
         left: -15px;
 
@@ -431,21 +471,36 @@
       cursor: pointer;
       width: 100%;
       height: auto;
+      padding: 0 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  :host {
+    .carousel-arrow__next {
+      right: 0px;
+    }
+
+    .carousel-arrow__prev {
+      left: 0px;
+
     }
   }
 }
 
 @media screen and (max-width: 1110px) {
   :host {
-    .container-masonry .masonry product {
+    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
       width: 31%;
     }
   }
+
 }
 
 @media screen and (max-width: 952px) {
   :host {
-    .container-masonry .masonry product {
+    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
       width: 45%;
     }
   }
@@ -484,6 +539,7 @@
 }
 
 :host {
+
   @media screen and (max-width: 890px) {
     .featured-section {
       .featured-container {
@@ -494,19 +550,40 @@
       width: 25%;
     }
   }
+
   @media screen and (max-width: 760px) {
     .featured-section .featured-card .item__wrapper {
       margin: 0 auto 45px;
     }
+
 
     .featured-section {
       .featured-container {
         max-width: 700px;
       }
     }
+
+
     .featured-section .featured-card {
       width: 50%;
     }
+
+    .carousel-theme.desktop {
+      display: none;
+    }
+
+    .carousel-theme.mobile {
+      display: block;
+    }
+
+    .featured-section.bancolombia-site img.desktop {
+      display: none;
+    }
+
+    .featured-section.bancolombia-site img.mobile {
+      display: block;
+    }
+
   }
 
   @media screen and (max-width: 500px) {
@@ -519,7 +596,7 @@
       justify-content: center;
     }
 
-    .container-masonry .masonry product {
+    .container-masonry .masonry product,  .container-masonry .masonry product-rotalo-center{
       width: 43%;
     }
 
@@ -602,6 +679,9 @@
       .arrow {
         display: none !important;
       }
+    }
+    .arrow-container {
+      display: none !important;
     }
   }
 }

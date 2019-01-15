@@ -27,19 +27,6 @@
 }
 
 :host {
-  ngx-carousel{
-    .company-container{
-      .img-container{
-        img.argos , img.fec, img.fabricato, img.nutresa, img.tuya, img.noel{
-          width: 50%;
-        }
-      }
-    }
-  }
-}
-
-
-:host {
   ngx-carousel {
     position: relative;
     padding: 0 6%;

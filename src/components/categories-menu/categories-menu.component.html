@@ -1,3 +1,9 @@
+<div class="back-categories" (click)="clickCloseMenu()"></div>
+<div class="close-container">
+    <div class="button-close-modal" (click)="clickCloseMenu()">
+        <p>x</p>
+      </div>
+</div>
 <div class="categories-container">
   <div class="category" *ngFor="let category of categories">
     <div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.productsActives != 0 ?  category.color: ''">
@@ -9,8 +15,10 @@
     </div>
     <div class="sub-categories">
       <ul>
-        <li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(subcategory,category)">
-          <a [ngClass]="subcategory.productsActives != 0 ?  '': 'disabled'" class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}"> {{ subcategory.name }} </a>
+        <li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories"
+          (click)="selectSubCategory(subcategory,category)">
+          <a [ngClass]="subcategory.productsActives != 0 ?  '': 'disabled'" class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}">
+            {{ subcategory.name }} </a>
         </li>
       </ul>
     </div>

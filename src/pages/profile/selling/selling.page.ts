@@ -85,8 +85,17 @@ export class SellingPage implements OnInit {
 
   updateInfoSelling($event) {
     if ($event) {
-      this.getInfoUser();
-      this.loadProductsExpired();
+      location.reload();
+    /*  this.getInfoUser();
+      this.loadProductsExpired();*/
     }
   }
+
+  updateExpired($event) {
+    if ($event) {
+      location.reload();
+    }
+  }
+
+
 }

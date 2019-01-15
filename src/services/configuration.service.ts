@@ -30,7 +30,8 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 */
-/*Produccion*/
+
+  /*Produccion*/
 
 api = {
     protocol: 'https',

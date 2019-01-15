@@ -12,7 +12,7 @@ export class MessagesService {
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     private readonly timeToCheckNotification: number = 10000;
-    private readonly timeToCheckUnreadNotification: number = 50000;
+    private readonly timeToCheckUnreadNotification: number = 70000;
     private path = {
       'rutaRenoEscondido':  ''
     };
@@ -137,8 +137,9 @@ export class MessagesService {
               }
           break;
           case 'purchase_accepted':
-              if (notification.producto && notification.producto.recibido) {
-                switch (notification.producto.recibido) {
+
+              if (notification.checkRecibido) {
+                switch (notification.checkRecibido == 'check_received') {
                   case true:
                     status =  'Has recibido el producto';
                     break;

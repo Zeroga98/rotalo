@@ -23,7 +23,7 @@ import {
 } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
 import { ProductsService } from '../../services/products.service';
-import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA } from '../../commons/constants/banner-imgs.contants';
+import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA, IMGS_BANNER_MOBILE } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
 import { Subscription } from 'rxjs';
@@ -57,6 +57,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public carouselProductsConfig: NgxCarousel;
   public masonryConfig = MASONRY_CONFIG;
   public imagesBanner: Array<string>;
+  public imagesBannerMobile: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
   private _subscriptionCountryChanges: Subscription;
@@ -88,6 +89,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
+  public showBannerToShop;
 
   constructor(
     private productsService: ProductsService,
@@ -111,7 +113,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     // this.imagesBanner = IMGS_BANNER_PROMO;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.imagesBanner = IMGS_BANNER;
-
+    this.imagesBannerMobile = IMGS_BANNER_MOBILE;
     /*Promo fecha determinada para cierta comunidad*/
     //
     this.addPromoBanner();
@@ -142,11 +144,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsService.products.length > 0) {
-      this.endForRender.notifyOnChanges();
+      // this.endForRender.notifyOnChanges();
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
       });
+      this.endForRender.notifyOnChanges();
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -172,7 +175,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.currentUrl = window.location.href;
     if (this.currentUrl.includes('gt')) {
       this.imagesBanner = IMGS_BANNER_GUATEMALA;
+      this.imagesBannerMobile = IMGS_BANNER_GUATEMALA;
+      this.showBannerToShop = false;
     }else {
+      this.showBannerToShop = true;
       if (this.isPromoDate) {
         this.imagesBanner = IMGS_BANNER_PROMO;
       } else {
@@ -236,23 +242,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   loadProductsUser(countryId) {
     this.countrySelected = { id: countryId };
-    if (this.isSuperUser()) {
-      this.currentFilter = {
-        'pais': countryId,
-        'comunidad': -1,
-        'cantidad': 24,
-        'pagina': 1
-      };
-      this.loadFeaturedProduct(countryId, -1);
-    }else {
-      this.currentFilter = Object.assign({}, this.currentFilter, {
-        'filter[country]': countryId,
-        'page[size]': 24,
-        'page[number]': 1
-      });
-      this.loadFeaturedProduct(countryId, this.currentFilter['filter[community]']);
-    }
-
+    this.currentFilter = Object.assign({}, this.currentFilter, {
+      'product_country_id' : countryId,
+      'size': 24,
+      'number': 1
+    });
+    this.loadFeaturedProduct(countryId, -1);
     this.feedService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
     this.loadProducts(params);
@@ -276,11 +271,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        if (this.isSuperUser()) {
-          products = await this.productsService.getProductsSuper(this.userId, params);
-        }else {
-          products = await this.productsService.getProducts(params);
-        }
+        products = await this.productsService.loadProducts(params);
         this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProducts();
@@ -300,7 +291,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setScroll(event) {
-    this.productsService.setProductLocation(this.products, event.id, this.currentPage);
+    this.productsService.setProductLocation(this.products, event['product_id'], this.currentPage);
+  }
+
+  setScrollSuperUser(event) {
+    this.productsService.setProductLocation(this.products, event['id'], this.currentPage);
   }
 
   getParamsToProducts() {
@@ -320,23 +315,20 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     if (evt) {
       const filterValue = evt;
       this.setconfigFiltersSubcategory(null);
+      delete this.currentFilter['product_subcategory_id'];
+      delete this.currentFilter['product_category_id'];
       this.routineUpdateProducts({
-        'filter[search]': filterValue,
-        'filter[subcategory_id]': undefined,
-        'filter[category]': undefined
+        'product_name':  filterValue
       });
       this.showBanner = false;
     } else {
-      if (this.currentFilter['filter[subcategory_id]'] || this.currentFilter['filter[category]']) {
-        delete this.currentFilter['filter[search]'];
+      if (this.currentFilter['product_subcategory_id'] || this.currentFilter['product_category_id']) {
+        delete this.currentFilter['product_name'];
       }else {
         this.currentFilter = {
-          'filter[status]': 'active',
-          'filter[country]': 1,
-          'filter[community]': -1,
-          'page[size]': 24,
-          'page[number]': 1,
-          'filter[search]': null
+          'product_country_id': 1,
+          'size': 24,
+          'number': 1
         };
       }
       this.routineUpdateProducts({});
@@ -345,7 +337,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   filteBySellType(sellType: string) {
-    this.routineUpdateProducts({ 'filter[sell_type]': sellType.toUpperCase() });
+    this.routineUpdateProducts({ 'product_sell_type': sellType.toUpperCase() });
   }
 
   filterBySort(sort: string) {
@@ -353,29 +345,22 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   filterByState(state) {
-    this.routineUpdateProducts({ 'filter[state]': state.id });
+    this.routineUpdateProducts({ 'product_state_id': state.id });
   }
 
   filterByCity(city: CityInterface) {
     this.routineUpdateProducts({
-      'filter[city]': city.id,
-      'filter[state]': undefined
+      'product_city_id': city.id,
+      'product_state_id': undefined
     });
   }
 
   getPage(page: number) {
     this.pageNumber = page;
-    if (this.isSuperUser()) {
-      this.routineUpdateProducts(
-        { 'pagina': page },
-        page
-      );
-    }else {
-      this.routineUpdateProducts(
-        { 'page[number]': page },
-        page
-      );
-    }
+    this.routineUpdateProducts(
+      { 'number': page },
+      page
+    );
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
   }
@@ -390,13 +375,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeCommunity(community: any) {
-    if (this.isSuperUser()) {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'comunidad': community.id });
-    }else {
-      this.loadFeaturedProduct(this.countrySelected.id, community.id);
-      this.routineUpdateProducts({ 'filter[community]': community.id });
-    }
+    this.loadFeaturedProduct(this.countrySelected.id, community.id);
+      if (community.id == -1) {
+        delete this.currentFilter['seller_community_id'];
+        this.routineUpdateProducts({});
+      } else {
+        this.routineUpdateProducts({ 'seller_community_id': community.id });
+      }
   }
 
   categorySubscription() {
@@ -416,15 +401,22 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       icon: category.icon
     });
     this.routineUpdateProducts({
-      'filter[category]': category.id,
-      'filter[subcategory_id]': undefined
+      'product_category_id': category.id,
+      'product_subcategory_id': undefined
     });
   }
 
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-      }/${product.id}`;
+      }/${product['product_id']}`;
+    this.router.navigate([routeDetailProduct]);
+  }
+
+  selectProductSuperUser(product: ProductInterface) {
+    const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+      }/${product['id']}`;
     this.router.navigate([routeDetailProduct]);
   }
 
@@ -444,8 +436,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       icon: subCategory.category.icon
     });
     this.routineUpdateProducts({
-      'filter[subcategory_id]': subCategory.id,
-      'filter[category]': undefined
+      'product_subcategory_id': subCategory.id,
+      'product_category_id': undefined
     });
   }
 
@@ -465,7 +457,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         this.showBanner = true;
         this.currentFilter = this.feedService.getInitialFilter();
         this.feedService.setConfigFiltersSubcategory(this.currentFilter);
-        this.routineUpdateProducts({ 'filter[country]': country.id });
+        this.routineUpdateProducts({ 'product_country_id': country.id });
       }
     );
   }
@@ -491,10 +483,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
-    if (this.isSuperUser()) {
-      return {'pagina': numberPage };
-    }
-    return { 'page[number]': numberPage };
+    return { 'number': numberPage };
   }
 
   private updateCurrentFilter(filter = {}) {
@@ -580,9 +569,27 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   goToBancolombiaShop() {
     window.scroll(0, 0);
+    this.gapush(
+      'send',
+      'event',
+      'Home',
+      'ClicBanner',
+      'Tiendas'
+    );
     const routeBancolombiaShop =  `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     this.router.navigate([routeBancolombiaShop]);
   }
 
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
 
 }

@@ -64,7 +64,7 @@
               <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
             </div>
           </li>
-          <li [ngClass]="isBancolombiaShop?  'cart-active': 'disabled'" (click)="goToShoppingCar()" class="car-container">
+          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
               </span>
@@ -88,7 +88,8 @@
       </div>
     </div>
   </div>
-  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"></categories-menu>
+  <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
+  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)" (closeMenu)="_closeMenu()"></categories-menu>
 </nav>
 <div *ngIf="showOptions" class="navbar-header material-design form-theme toolbar">
   <div class="toolbar-container">

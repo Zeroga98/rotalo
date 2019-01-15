@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -8,6 +8,7 @@ import { MessagesService } from '../../services/messages.service';
 import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
+import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
 
 
 @Component({
@@ -15,10 +16,12 @@ import { ROUTES } from '../../router/routes';
   templateUrl: './navigation-top-login.component.html',
   styleUrls: ['./navigation-top-login.component.scss']
 })
-export class NavigationTopLoginComponent implements    OnInit {
+export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   public loginForm: FormGroup;
   public errorLogin: String;
   private userCountry: any;
+  @ViewChild('email') email: ElementRef;
+  @ViewChild('pass') pass: ElementRef;
 
   constructor(
     private loginService: LoginService,
@@ -29,6 +32,7 @@ export class NavigationTopLoginComponent implements    OnInit {
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
     private productsService: ProductsService,
+    private productsMicrositeService: ProductsMicrositeService
   ) {
 
   }
@@ -41,6 +45,11 @@ export class NavigationTopLoginComponent implements    OnInit {
         Validators.minLength(6)
       ])
     });
+
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   goToHome() {
@@ -49,7 +58,6 @@ export class NavigationTopLoginComponent implements    OnInit {
       ? location.reload()
       : this.router.navigate([url]);
   }
-
 
   markAsTouched(control) {
     control.markAsTouched();
@@ -198,15 +206,18 @@ export class NavigationTopLoginComponent implements    OnInit {
        });
        this.currentSessionService.setSession(userLogin);
        if (this.productsService.getUrlDetailProduct()) {
-         window.location.replace(this.productsService.getUrlDetailProduct());
-       } else {
-         this.router.navigate([
-           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-         ]);
-       }
+        window.location.replace(this.productsService.getUrlDetailProduct());
+      } else if (this.productsMicrositeService.getUrlShop()) {
+        window.location.replace(this.productsMicrositeService.getUrlShop());
+      } else {
+        this.router.navigate([
+          `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
+        ]);
+      }
      } catch (error) {
        console.error(error);
      }
    }
+
 
 }

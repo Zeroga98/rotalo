@@ -10,14 +10,15 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, Chang
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesMenuComponent implements OnInit {
-  @Output()categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
-  @Output()subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
+  @Output() categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
+  @Output() subCategorySelected: EventEmitter<SubcategoryInterface> = new EventEmitter();
+  @Output() closeMenu = new EventEmitter();
 
   categories: any;
 
   constructor(
     private categoriesService: CategoriesService,
-    private changeDetectorRef: ChangeDetectorRef) {}
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     if (this.categoriesService.getCategoriesActive()) {
@@ -32,6 +33,7 @@ export class CategoriesMenuComponent implements OnInit {
         console.log(error);
       });
     }
+    this.clickCloseMenu();
   }
 
   selectCategory(category: any) {
@@ -45,5 +47,9 @@ export class CategoriesMenuComponent implements OnInit {
       subCategory.category = category;
       this.subCategorySelected.emit(subCategory);
     }
+  }
+
+  clickCloseMenu() {
+    this.closeMenu.emit();
   }
 }

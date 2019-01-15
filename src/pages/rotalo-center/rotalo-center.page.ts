@@ -13,6 +13,7 @@ import { NavigationService } from '../products/navigation.service';
 })
 export class RotaloCenterPage implements OnInit  {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
+  public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
   public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   public messages = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
@@ -21,6 +22,7 @@ export class RotaloCenterPage implements OnInit  {
   public screenWidth;
   public showMenu: boolean = true;
   public messagesUnRead: number = 0;
+  public showOptionsOrders;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -33,7 +35,9 @@ export class RotaloCenterPage implements OnInit  {
 
   constructor(public router: Router,
     private navigationService: NavigationService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private currentSessionSevice: CurrentSessionService
+    ) {
     this.onResize();
     this.router.events.subscribe((val) => {
       this.validateMobileMenu();
@@ -48,12 +52,16 @@ export class RotaloCenterPage implements OnInit  {
       }else {
         this.showMenu = false;
       }
-    }else{
+    }else {
       this.showMenu = true;
     }
   }
 
   ngOnInit() {
+    const currentUser = this.currentSessionSevice.currentUser();
+    if (currentUser['rol'] == 'superuser') {
+      this.showOptionsOrders = true;
+    }
   }
 
   get messageAvailable(): boolean {

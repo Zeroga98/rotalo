@@ -83,8 +83,9 @@ export class DetailProductMicrositeComponent implements OnInit {
   public startDate = START_DATE_BF;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
-  public showModalExist: boolean = false;
   private currentFilter: Object;
+  showModalBuy = false;
+  productForModal = {};
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -565,23 +566,29 @@ export class DetailProductMicrositeComponent implements OnInit {
           }
         ]
       };
-      if (this.back.addProductToBD(body)) {
+      try {
+        const added = await this.back.addProductToBD(body);
         try {
-          this.router.navigate([
-            `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
-          ]);
+          this.productForModal = {
+            'name': product.name,
+            'quantity': this.quantityForm.get('stock').value,
+            'price': this.quantityForm.get('stock').value * product.price,
+            'photos': product.photoList
+          };
+          this.showModalBuy = true;
           const quantityCart = await this.car.getCartInfo();
           this.car.setTotalCartProducts(quantityCart);
           this.car.changeCartNumber(quantityCart);
         } catch (error) {
           console.error(error);
         }
+      } catch (error) {
+        console.error(error);
       }
     }
   }
 
   goToShoppingCar() {
-    this.showModalExist = false;
     this.router.navigate([
       `/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`
     ]);
@@ -589,5 +596,9 @@ export class DetailProductMicrositeComponent implements OnInit {
 
   getParamsToProducts() {
     return this.currentFilter;
+  }
+
+  closeModal() {
+    this.showModalBuy = false;
   }
 }

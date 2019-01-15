@@ -118,11 +118,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   getLocation(product): string {
-    if (product.city) {
-      const city = product.city;
-      const state = city.state;
-      return `${city.name},  ${state.name}`;
-    }
+    // if (product.city) {
+    //   const city = product.city;
+    // const state = city.state;
+    return `${product['product_city_name']},  ${product['product_state_name']}`;
+    // }
   }
   selectProduct() {
     this.selected.emit(this.product);
@@ -190,8 +190,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
    shareProduct(id: string) {
-    if (this.product.id) {
-      this.modalService.setProductId(this.product.id);
+    if (this.product['product_id']) {
+      this.modalService.setProductId(this.product['product_id']);
       this.modalService.open(id);
     }
   }

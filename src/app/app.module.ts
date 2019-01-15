@@ -171,6 +171,10 @@ import { NavigationTopService } from '../components/navigation-top/navigation-to
 import { MiniProductDetailComponent } from '../microsite/components-microsite/mini-product-detail/mini-product-detail.component';
 import { windowService } from '../microsite/services-microsite/front/window.service';
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
+import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
+import { ModalDetailComponent } from '../microsite/components-microsite/modal-detail/modal-detail.component';
+import { ProductRotaloCenterComponent } from '../components/product-rotalo-center/product-rotalo-center.component';
+import { SuccessCreditComponent } from '../components/success-credit/success-credit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -269,7 +273,11 @@ import { ResponseMicrositePage } from '../microsite/pages-microsite/response-mic
     BannerLatiendaComponent,
     BackArrowMicrositeComponent,
     MiniProductDetailComponent,
-    ResponseMicrositePage
+    ResponseMicrositePage,
+    adminOrdersPage,
+    ModalDetailComponent,
+    ProductRotaloCenterComponent,
+    SuccessCreditComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,7 @@
             Cuéntanos todo sobre tu producto
         </p>
         <p class="msg-field-required">
-            *Estos campos son obligatorios
+            *Campos obligatorios
         </p>
     </div>
   </div>
@@ -176,7 +176,7 @@
                     <div>
                       <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
                         <label class="label-title">Precio (con los pies en la tierra)*</label>
-                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                           onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price"
                           placeholder="15.000.000"
                           maxlength="50" autocomplete="off">
@@ -252,7 +252,7 @@
                   <div class="step-info">
                       <h1>Todos los que buscan un vehículo, necesitan esta información</h1>
                       <p class="msg-field-required">
-                          *Estos campos son obligatorios
+                          *Campos obligatorios
                       </p>
                   </div>
               </div>
@@ -401,7 +401,7 @@
                   <div class="step-info">
                       <h1>Por último agrega la información de la publicación</h1>
                       <p class="msg-field-required">
-                          *Estos campos son obligatorios
+                          *Campos obligatorios
                       </p>
                   </div>
               </div>

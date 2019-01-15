@@ -317,18 +317,24 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if ( this.products && this.products['typeVehicle'] && this.products['model']) {
+    if ( this.products  && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
       const type = this.products['typeVehicle'];
-      const currentYear = new Date().getFullYear() + 1;
+      const currentYear = new Date().getFullYear();
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if (this.products.vehicle && this.products.vehicle.line.brand) {
+        nameBrandMoto = this.products.vehicle.line.brand.name;
+      }
 
-      if ( this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
+      if ((this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
         priceVehicle >= this.minVehicleValue &&
-        priceVehicle <= this.maxVehicleValue
+        priceVehicle <= this.maxVehicleValue)
+        || (this.products.subcategory.name === 'Motos' && differenceYear <= 5  && countryId === 1 &&
+        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW')
       ) {
         return true;
       }
@@ -575,6 +581,17 @@ export class DetailProductComponent implements OnInit {
     return this.quantityForm.invalid;
   }
 
+  get isCategoryImmovables () {
+    if (this.products && this.products.subcategory && this.products.subcategory.category.name == 'Inmuebles') {
+      return true;
+    }
+    return false;
+  }
 
+  goToHipotecario () {
+    window.open(
+      'https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional'
+      , '_blank');
+  }
 
 }

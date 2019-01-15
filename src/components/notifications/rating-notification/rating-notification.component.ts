@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { MessagesService } from '../../../services/messages.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
@@ -31,7 +31,8 @@ export class RatingNotificationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private messagesService: MessagesService,
-    private currentSessionService: CurrentSessionService
+    private currentSessionService: CurrentSessionService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -58,11 +59,14 @@ export class RatingNotificationComponent implements OnInit {
         calidadProducto: this.rateSeller.get('quality').value,
         amabilidadAtencion: this.rateSeller.get('attention').value
       };
+      this.disableButton = true;
+      this.hideButton = true;
       this.messagesService
         .rateSeller(params, this.currentSessionService.getIdUser())
         .subscribe(response => {
           this.disableButton = true;
           this.hideButton = true;
+          this.changeDetectorRef.markForCheck();
         });
     }
   }
