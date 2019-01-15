@@ -78,6 +78,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.productStatus = this.product.status === 'active';
     if (this.product['product_manual_feature']) {
       this.starSelected = true;
+      this.productsService.countProductChecked(this.starSelected);
     }
     this.changeDetectorRef.markForCheck();
   }
