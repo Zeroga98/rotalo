@@ -49,14 +49,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-   //
-  /*  console.log( document.getElementById('txt-email'));
-    document.getElementById('txt-email').click();*/
-   /* this.email.nativeElement.focus();
-    setTimeout(function(){
 
-      this.pass.nativeElement.focus();
-    }.bind(this), 3000);*/
   }
 
   goToHome() {

@@ -1,6 +1,6 @@
 <nav>
   <div class="container material-register">
-    <div #navbar class="navbar-header">
+    <div #navbar class="navbar-header" >
       <div class="flexbox center-center">
         <div class="container-logo">
           <a  class="brand-container" (click)="goToHome()">
@@ -13,9 +13,8 @@
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
                     <input
-
                     #email
-                    (click)="markAsTouched(loginForm.get('email'))"
+                    (click)="markAsTouched(loginForm.get('email'));"
                     [ngClass]="{'invalid': loginForm.get('email').invalid && !loginForm.get('email').pristine}"
                     formControlName="email"
                     maxlength="64"
