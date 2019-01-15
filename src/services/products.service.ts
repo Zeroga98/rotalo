@@ -18,6 +18,7 @@ export class ProductsService {
   private urlDetailProduct;
   private totalProducts = 0;
   private featuredProducts;
+  private counterProductChecked = 0;
 
   constructor(
     private http: HttpClient,
@@ -296,6 +297,18 @@ export class ProductsService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/creditos/bam`;
     return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
+  countProductChecked(starSelected) {
+    if (starSelected) {
+      this.counterProductChecked++;
+    } else {
+      this.counterProductChecked--;
+    }
+  }
+
+  getCounterProductChecked() {
+    return this.counterProductChecked;
   }
 
 }

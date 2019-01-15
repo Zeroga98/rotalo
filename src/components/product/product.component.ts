@@ -52,6 +52,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
+  public starSelected = false;
 
   constructor(
     private render: Renderer2,
@@ -69,11 +70,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
     this.idCountry = countryId;
+
   }
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
-    this.productStatus = this.product.status === "active";
+    this.productStatus = this.product.status === 'active';
+    if (this.product['product_manual_feature']) {
+      this.starSelected = true;
+    }
     this.changeDetectorRef.markForCheck();
   }
 
@@ -196,7 +201,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-
   get isPromoDate() {
     if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
       return true;
@@ -209,6 +213,23 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       return true;
     }
     return false;
+  }
+
+  isSuperUser() {
+    if (this.currentSessionSevice.currentUser()['rol'] && this.currentSessionSevice.currentUser()['rol'] === 'superuser') {
+      return true;
+    }
+    return false;
+  }
+
+  checkStar() {
+    if (!this.starSelected && this.productsService.getCounterProductChecked() < 5) {
+      this.starSelected = true;
+      this.productsService.countProductChecked(this.starSelected);
+    } else if (this.starSelected) {
+      this.starSelected = false;
+      this.productsService.countProductChecked(this.starSelected);
+    }
   }
 
 

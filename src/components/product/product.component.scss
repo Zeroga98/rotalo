@@ -148,6 +148,7 @@
     .republish {
       background: url(../../assets/img/actualizar.svg);
     }
+
     .opacity-container:after {
       content: "";
       background: rgba(0, 0, 0, 0.22);
@@ -160,16 +161,27 @@
       bottom: 0;
     }
   }
+  .container-product {
+    .star {
+      background: url(../../assets/img/estrella_marcador.svg);
+    }
+    .star.active {
+      background: url(../../assets/img/estrella_marcador_relleno.svg);
+    }
+  }
+
   .container-photo {
     .options-container {
       position: absolute;
       z-index: 1;
+      top: 0;
       right: 0;
       display: flex;
       padding: 5px;
       .delete,
       .edit,
-      .republish {
+      .republish,
+      .star {
         cursor: pointer;
         padding: 2px;
         margin: 3px;

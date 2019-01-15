@@ -1,21 +1,29 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <a>
-  <div (click)="selectProduct()"  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-    <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="product['product_is_low_price'] || isPromoDate && isActivePromo" class="container-low-price ">
-        <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
+  <div  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
+    <div (click)="selectProduct()">
+        <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="product['product_is_low_price'] || isPromoDate && isActivePromo" class="container-low-price ">
+            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
+        </div>
+
+        <div *ngIf="isProductSelling" class="options-container">
+          <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
+          <div class="delete" (click)="deleteProduct(product)"></div>
+          <div class="edit" (click)="editProduct(product)"></div>
+        </div>
+
+        <div *ngIf="isProductSold" class="options-container">
+            <div class="republish" (click)="republishSold(product)"></div>
+        </div>
+
+        <!--<img [src]="product.photos.url" [alt]="product.name">-->
+        <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']" (error)="updateSrc($event)">
+        <img (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
+        <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
-    <div *ngIf="isProductSelling" class="options-container">
-      <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
-      <div class="delete" (click)="deleteProduct(product)"></div>
-      <div class="edit" (click)="editProduct(product)"></div>
+    <div  (click)="checkStar()" class="options-container">
+        <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
     </div>
-    <div *ngIf="isProductSold" class="options-container">
-        <div class="republish" (click)="republishSold(product)"></div>
-    </div>
-    <!--<img [src]="product.photos.url" [alt]="product.name">-->
-    <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']" (error)="updateSrc($event)">
-    <img (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
-    <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
   </div>
   <div  class="container-name">
     <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling  && !isProductSold" class="gtmCompartirProducto icon-share-container">
