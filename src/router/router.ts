@@ -41,6 +41,7 @@ import { ProductsMicrositePage } from '../microsite/pages-microsite/products-mic
 import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
+import { FeaturedProductsComponent } from '../pages/profile/featured-products/featured-products.component';
 
 
 export const appRouter: Routes = [
@@ -77,6 +78,7 @@ export const appRouter: Routes = [
         component: SellingPage,
       },
       { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
+      {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

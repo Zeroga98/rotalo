@@ -30,9 +30,16 @@
           <div class="ico configuration-icon"></div>
           <a>Configuraciones</a>
         </div>
-        <div *ngIf="showOptionsOrders" [routerLink]="adminOrders" class="option" routerLinkActive="active">
-          <div class="ico configuration-icon"></div>
-          <a>Administrador de órdenes</a>
+        <div *ngIf="isSuperUser()" class="option">
+          <h3>Administrador</h3>
+        </div>
+        <div *ngIf="isSuperUser()" [routerLink]="featuredProduct" class="option" routerLinkActive="active">
+            <div class="ico featured-icon"></div>
+            <a>Destacados</a>
+          </div>
+        <div *ngIf="isSuperUser()" [routerLink]="adminOrders" class="option" routerLinkActive="active">
+          <div class="ico shop-icon"></div>
+          <a>Órdenes tienda</a>
         </div>
       </div>
     </div>

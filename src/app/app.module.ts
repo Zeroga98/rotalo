@@ -153,7 +153,7 @@ import { FeedPromoService } from '../pages/products-promo/feedPromo.service';
 import { PromoAnimationComponent } from '../components/promo-animation/promo-animation.component';
 import { ModalPromoComponent } from '../components/modal-promo/modal-promo.component';
 import { ModalPromoProductService } from '../components/modal-promo/modal-promoProduct.service';
-
+import { FeaturedProductsComponent } from '../pages/profile/featured-products/featured-products.component';
 
 //Componentes y páginas del micrositio
 import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
@@ -175,6 +175,7 @@ import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page
 import { ModalDetailComponent } from '../microsite/components-microsite/modal-detail/modal-detail.component';
 import { ProductRotaloCenterComponent } from '../components/product-rotalo-center/product-rotalo-center.component';
 import { SuccessCreditComponent } from '../components/success-credit/success-credit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -277,7 +278,8 @@ import { SuccessCreditComponent } from '../components/success-credit/success-cre
     adminOrdersPage,
     ModalDetailComponent,
     ProductRotaloCenterComponent,
-    SuccessCreditComponent
+    SuccessCreditComponent,
+    FeaturedProductsComponent
   ],
   imports: [
     BrowserModule,

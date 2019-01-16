@@ -71,6 +71,18 @@ export class ProductsService {
       });
   }
 
+  loadFeaturedSelectedProducts() {
+    const url = this.urlSapi + '/productos/destacados/manuales';
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .get(url, { headers: headers})
+      .toPromise()
+      .then((response: any) => {
+        return response.body.productos;
+      });
+  }
+
   getProductsSuper(idUser, params) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });

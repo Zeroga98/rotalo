@@ -14,6 +14,7 @@ import { NavigationService } from '../products/navigation.service';
 export class RotaloCenterPage implements OnInit  {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
+  public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
   public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
   public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   public messages = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
@@ -22,7 +23,7 @@ export class RotaloCenterPage implements OnInit  {
   public screenWidth;
   public showMenu: boolean = true;
   public messagesUnRead: number = 0;
-  public showOptionsOrders;
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -58,10 +59,6 @@ export class RotaloCenterPage implements OnInit  {
   }
 
   ngOnInit() {
-    const currentUser = this.currentSessionSevice.currentUser();
-    if (currentUser['rol'] == 'superuser') {
-      this.showOptionsOrders = true;
-    }
   }
 
   get messageAvailable(): boolean {
@@ -78,6 +75,13 @@ export class RotaloCenterPage implements OnInit  {
     return (
       this.router.url === `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
     );
+  }
+
+  isSuperUser() {
+    if (this.currentSessionSevice.currentUser()['rol'] && this.currentSessionSevice.currentUser()['rol'] === 'superuser') {
+      return true;
+    }
+    return false;
   }
 
 }

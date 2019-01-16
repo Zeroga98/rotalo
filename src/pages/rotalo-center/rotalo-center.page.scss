@@ -100,6 +100,17 @@
           position: relative;
           padding-left: 5%;
         }
+
+        .option {
+          h3 {
+            color: #B2B2B2;
+            margin-right: 15px;
+            font-size: 2.2rem;
+            font-weight: normal;
+            padding: 10px 0;
+            border-bottom: 1px solid #B2B2B2;
+          }
+        }
         .ico {
           position: absolute;
           top: 50%;
@@ -128,6 +139,18 @@
           width: 30px;
           height: 30px;
           background: url(../../assets/img/configuracion.svg);
+          background-size: 30px 30px;
+        }
+        .shop-icon {
+          width: 30px;
+          height: 30px;
+          background: url(../../assets/img/ic_tienda_cr.svg);
+          background-size: 30px 30px;
+        }
+        .featured-icon {
+          width: 30px;
+          height: 30px;
+          background: url(../../assets/img/ic_destacados_cr.svg);
           background-size: 30px 30px;
         }
       }

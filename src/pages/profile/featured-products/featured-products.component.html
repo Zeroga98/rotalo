@@ -1,0 +1,23 @@
+<div class="info-container">
+    <div class="tittle main-title">
+      <h1 class="text ">Admin. Destacados</h1>
+    </div>
+    <div class="container-masonry">
+        <div class="list">
+            <div class="masonry">
+              <div class="grid-item">
+               <product  *ngFor="let product of products " class="product-feed"
+                    [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
+                    [isProductSelling]="false"
+                    [showField] = "true"
+                    [product]="product"
+                    (selected)="selectProduct($event);"
+                    [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'"
+                    id="{{product.product_id}}"
+                    >
+                </product>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -21,7 +21,7 @@
         <img (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
         <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
-    <div  (click)="checkStar()" class="options-container">
+    <div *ngIf="isSuperUser()" (click)="checkStar()" class="options-container">
         <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
     </div>
   </div>
