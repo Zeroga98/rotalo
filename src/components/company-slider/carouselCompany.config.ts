@@ -2,13 +2,13 @@ import { NgxCarousel } from "ngx-carousel";
 
 export const CAROUSEL_COMPANY_CONFIG: NgxCarousel = {
     grid: {
-        xs: 1,
-        sm: 1,
-        md: 1,
-        lg: 1,
+        xs: 3,
+        sm: 3,
+        md: 4,
+        lg: 4,
         all: 0
     },
-    slide: 1,
+    slide: 4,
     speed: 900,
     interval: 7000,
     point: {

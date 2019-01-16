@@ -1,11 +1,4 @@
 :host {
-  .mobile {
-    display: none;
-  }
-}
-
-
-:host {
   width: 100%;
   .company-slider-section{
     width: 90%;
@@ -80,9 +73,9 @@
     }
 
     .company-container{
-      width: 25%;
+      width: 100%;
       .img-container{
-        margin: 2px;
+        margin: 0 auto;
         width: 200px;
         height: 200px;
         display: flex;
@@ -95,21 +88,6 @@
       }
     }
 
-  }
-}
-
-
-@media screen and (max-width: 780px) {
-  :host {
-    .desktop {
-      display: none;
-    }
-    .mobile {
-      display: block;
-    }
-    ngx-carousel .company-container {
-      width: 50%;
-    }
   }
 }
 
