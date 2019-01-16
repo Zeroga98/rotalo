@@ -195,7 +195,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         (response) => {
           if (response.body) {
           this.featuredproducts = response.body.productos;
-          this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
+         // this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
           this.productsService.setFeatureProducts(this.groupFeaturedProducts);
           this.changeDetectorRef.markForCheck();
           }

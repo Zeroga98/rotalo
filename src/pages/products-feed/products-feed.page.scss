@@ -220,9 +220,10 @@
       flex-flow: row wrap;
     }
     .featured-card {
-      width: 20%;
+      width: 100%;
       .item__wrapper {
-        margin: 0 8px 20px;
+        margin: 0 auto;
+        margin-bottom: 20px;
         max-width: 224px;
         height: 318px;
         .item__card {
@@ -546,9 +547,7 @@
         max-width: 800px;
       }
     }
-    .featured-section .featured-card {
-      width: 25%;
-    }
+
   }
 
   @media screen and (max-width: 760px) {
@@ -561,11 +560,6 @@
       .featured-container {
         max-width: 700px;
       }
-    }
-
-
-    .featured-section .featured-card {
-      width: 50%;
     }
 
     .carousel-theme.desktop {
@@ -603,6 +597,18 @@
   }
 
   @media screen and (max-width: 470px) {
+
+    //    min-height: 400px;
+    //height: 400px;
+    .featured-section.featured-products {
+      min-height: 400px;
+      height: 400px;
+    }
+
+    ngx-carousel.carousel-featured ngx-item {
+      min-height: auto;
+    }
+
     .featured-section {
       .featured-container {
         width: 92%;
@@ -616,7 +622,7 @@
         justify-content: space-between;
       }
       .featured-card {
-        width: 48%;
+
         .item__wrapper {
           height: auto;
           margin: 0 auto 30px;
@@ -662,6 +668,11 @@
         }
       }
     }
+
+    .container-masonry {
+      width: 100%;
+    }
+
   }
 }
 

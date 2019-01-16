@@ -42,18 +42,18 @@
   </span>
 </ngx-carousel>
 
-<div *ngIf="groupFeaturedProducts.length != 0 && showBanner && !configFiltersSubcategory" class="featured-section">
+<div *ngIf="featuredproducts.length != 0 && showBanner && !configFiltersSubcategory" class="featured-products featured-section">
     <div class="featured-container">
       <div class="row-featured">
         <div class="header-featured">
           <img class="star-img" src="../../assets/img/estrella.gif" alt="estrella">
           <h3>Artículos destacados</h3>
         </div>
-        <ngx-carousel class="carousel-featured" *ngIf="groupFeaturedProducts.length != 0" [inputs]="carouselProductsConfig">
-            <ngx-item NgxCarouselItem *ngFor="let groupfeaturedProduct of groupFeaturedProducts">
+        <ngx-carousel class="carousel-featured" *ngIf="featuredproducts.length != 0" [inputs]="carouselProductsConfig">
+            <ngx-item NgxCarouselItem *ngFor="let featuredproduct of featuredproducts">
                 <div class="carousel-container">
                     <div  class="featured-cards">
-                      <div *ngFor="let featuredproduct of groupfeaturedProduct" class="featured-card">
+                      <div class="featured-card">
                           <div *ngIf= "featuredproduct" class="item__wrapper">
                               <div class="item__card">
                                   <div class="item__image-container">
@@ -104,7 +104,6 @@
                                       </div>
                                     </div>
 
-
                                     <div class="item__location">
                                         <span class="icon-location"></span>
                                         <span>{{getLocation(featuredproduct)}}</span>
@@ -128,7 +127,8 @@
                             </div>
                       </div>
                     </div>
-                  </div>
+                </div>
+
             </ngx-item>
             <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
                 <span class="icon icon-chevron-thin-left"></span>
