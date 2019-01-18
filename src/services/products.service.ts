@@ -19,6 +19,7 @@ export class ProductsService {
   private totalProducts = 0;
   private featuredProducts;
   private counterProductChecked = 0;
+  private paramsProductChecked  = {'data': []};
 
   constructor(
     private http: HttpClient,
@@ -281,6 +282,13 @@ export class ProductsService {
     return this.http.put(url, { headers: headers }).map((response: any) => response);
   }
 
+  reOrderProductChecked(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/destacados/manuales/reordenar`;
+    return this.http.post(url, params, { headers: headers }).toPromise().then((response: any) => response);
+  }
+
   setProductLocation(products, name, currentPage) {
     this.products = products;
     this.scroll = name;
@@ -331,8 +339,25 @@ export class ProductsService {
     }
   }
 
+  setCounterProductChecked(counterProductChecked) {
+    this.counterProductChecked = counterProductChecked;
+  }
+
   getCounterProductChecked() {
     return this.counterProductChecked;
+  }
+
+  addCheckedProductArray(product) {
+    this.paramsProductChecked.data.push(product);
+    this.paramsProductChecked.data.filter(param => param != product);
+  }
+
+  getCheckedProductArray() {
+    return this.paramsProductChecked;
+  }
+
+  setCheckedProductArray(data) {
+    return this.paramsProductChecked.data = data;
   }
 
 }

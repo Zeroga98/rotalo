@@ -43,6 +43,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() colourCompany: string;
   @Input() numberOrder = '';
 
+
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
 
@@ -58,7 +59,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public courrentDate = new Date();
   public starSelected = false;
   private currentUrl = '';
- 
+
 
   constructor(
     private render: Renderer2,
@@ -81,7 +82,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   ngAfterContentInit() {
     this.productChecked = this.product.status;
     this.productStatus = this.product.status === 'active';
-    if (this.product['product_manual_feature']) {
+    if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
       this.productsService.countProductChecked(this.starSelected);
     }
@@ -158,7 +159,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   async removeMarkProduct(product: ProductInterface) {
     try {
-      const result = confirm("¿Seguro quieres desmarcar esta publicación?");
+      const result = confirm('¿Seguro quieres desmarcar esta publicación?');
       if (!result) {
         return;
       }
@@ -244,6 +245,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   checkStar() {
     if (!this.starSelected && this.productsService.getCounterProductChecked() < 5) {
+      console.log(this.productsService.getCounterProductChecked());
       this.starSelected = true;
       this.productsService.countProductChecked(this.starSelected);
       this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
@@ -262,6 +264,17 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     } else {
       alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
     }
+  }
+
+  changeCheckProduct(event) {
+   const id = event.target.value;
+   const productParams = this.productsService.getCheckedProductArray().data;
+   productParams.map(productParam => {
+    if (this.product['product_id'] == productParam.productId) {
+      productParam.posicion = Number(id);
+    }
+   });
+   console.log(productParams);
   }
 
 

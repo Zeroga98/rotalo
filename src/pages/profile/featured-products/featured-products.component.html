@@ -2,6 +2,19 @@
     <div class="tittle main-title">
       <h1 class="text ">Admin. Destacados</h1>
     </div>
+    <div id="flashMessage" class="flashMessage">
+        <div *ngIf="successChange" class="alert alert-success text--center" role="success">
+          <p>
+            <span class="icon-check alert-icon"></span> Se guardaron las posiciones</p>
+        </div>
+        <div *ngIf="errorChange" class="alert alert-danger" role="alert">
+          <ul>
+            <li>
+              <span>{{errorChange}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     <div *ngIf="products.length != 0" class="container-masonry">
         <div class="list">
             <div class="masonry">
@@ -24,9 +37,9 @@
         </div>
     </div>
     <div *ngIf="products.length != 0" class="btn-accept">
-      <custom-button type="submit" text="Guardar"></custom-button>
+      <custom-button (click)="saveOrder()" type="submit" text="Guardar"></custom-button>
     </div>
     <div  class="msg-no-products" *ngIf="showEmpty">
       ¡Aún no tenemos productos seleccionados!
-    </div>
+   </div>
   </div>

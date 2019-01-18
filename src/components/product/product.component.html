@@ -135,7 +135,8 @@
 </a>
 <form *ngIf="isProductChecked" class="form-theme">
     <div class="form-group field-form valid">
-      <select 
+      <select
+        (change) = 'changeCheckProduct($event)'
         name="orderSelect"
         [(ngModel)]="numberOrder"
         class="form-control">

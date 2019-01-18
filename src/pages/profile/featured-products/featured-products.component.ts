@@ -1,29 +1,48 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { Router } from '@angular/router';
 import { ProductInterface } from '../../../commons/interfaces/product.interface';
 import { ProductsService } from '../../../services/products.service';
+import { UtilsService } from '../../../util/utils.service';
 
 @Component({
   selector: 'featured-products',
   templateUrl: './featured-products.component.html',
   styleUrls: ['./featured-products.component.scss']
 })
-export class FeaturedProductsComponent implements OnInit {
+export class FeaturedProductsComponent implements OnInit, OnDestroy {
   public products: Array<ProductInterface> = [];
   constructor(
+    private utilsService: UtilsService,
     private changeDetectorRef: ChangeDetectorRef,
     private productsService: ProductsService,
     private router: Router) { }
     public showEmpty;
+    public errorChange;
+    public successChange;
 
   ngOnInit() {
     this.loadProducts();
   }
 
+  ngOnDestroy(): void {
+    this.productsService.setCheckedProductArray([]);
+  }
+
   async loadProducts() {
     try {
-      this.products = await this.productsService.loadFeaturedSelectedProducts();
+      this.productsService.setCheckedProductArray([]);
+      this.products  = await this.productsService.loadFeaturedSelectedProducts();
+      const paramsProduct = this.products;
+      paramsProduct.map((product, index) => {
+        const newParam = {
+          'productId': product['product_id'],
+          'posicion':  index + 1
+        };
+        this.productsService.addCheckedProductArray(newParam);
+        return newParam;
+      });
+      console.log(this.productsService.getCheckedProductArray());
       if (this.products.length == 0) {
         this.showEmpty = true;
       }
@@ -49,8 +68,21 @@ export class FeaturedProductsComponent implements OnInit {
     this.router.navigate([routeDetailProduct]);
   }
 
-  saveOrder() {
-    
+  async  saveOrder() {
+    try {
+      this.errorChange = '';
+      this.successChange = false;
+      await this.productsService.reOrderProductChecked(this.productsService.getCheckedProductArray());
+      this.loadProducts();
+      this.successChange = true;
+      this.utilsService.goToTopWindow(20, 600);
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      console.log(error);
+      this.errorChange = error.error.message;
+      this.utilsService.goToTopWindow(20, 600);
+      this.changeDetectorRef.markForCheck();
+    }
   }
 
 }
