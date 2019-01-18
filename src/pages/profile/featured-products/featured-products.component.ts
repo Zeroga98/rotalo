@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { Router } from '@angular/router';
 import { ProductInterface } from '../../../commons/interfaces/product.interface';
@@ -12,11 +12,34 @@ import { ProductsService } from '../../../services/products.service';
 export class FeaturedProductsComponent implements OnInit {
   public products: Array<ProductInterface> = [];
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private productsService: ProductsService,
     private router: Router) { }
+    public showEmpty;
 
   ngOnInit() {
     this.loadProducts();
+  }
+
+  async loadProducts() {
+    try {
+      this.products = await this.productsService.loadFeaturedSelectedProducts();
+      if (this.products.length == 0) {
+        this.showEmpty = true;
+      }
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.showEmpty = true;
+      console.log(error);
+      this.changeDetectorRef.markForCheck();
+    }
+
+  }
+
+  updateProduct($event) {
+    if ($event) {
+      this.loadProducts();
+    }
   }
 
   selectProduct(product: ProductInterface) {
@@ -26,13 +49,8 @@ export class FeaturedProductsComponent implements OnInit {
     this.router.navigate([routeDetailProduct]);
   }
 
-  async loadProducts() {
-    try {
-      this.products = await this.productsService.loadFeaturedSelectedProducts();
-    } catch (error) {
-      console.log(error);
-    }
-
+  saveOrder() {
+    
   }
 
 }

@@ -1,32 +1,36 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <a>
-  <div  [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-    <div (click)="selectProduct()">
-        <div [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="product['product_is_low_price'] || isPromoDate && isActivePromo" class="container-low-price ">
+  <div  [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
+    <div>
+        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)" class="container-low-price ">
             <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
         </div>
 
-        <div *ngIf="isProductSelling" class="options-container">
+        <div *ngIf="isProductSelling&&!isProductChecked" class="options-container">
           <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
           <div class="delete" (click)="deleteProduct(product)"></div>
           <div class="edit" (click)="editProduct(product)"></div>
         </div>
 
-        <div *ngIf="isProductSold" class="options-container">
+        <div *ngIf="isProductSold&&!isProductChecked" class="options-container">
             <div class="republish" (click)="republishSold(product)"></div>
         </div>
 
+        <div *ngIf="isProductChecked" class="options-container">
+          <div class="delete" (click)="removeMarkProduct(product)"></div>
+        </div>
+
         <!--<img [src]="product.photos.url" [alt]="product.name">-->
-        <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']" (error)="updateSrc($event)">
-        <img (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
+        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']" (error)="updateSrc($event)">
+        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
         <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
-    <div *ngIf="isSuperUser()" (click)="checkStar()" class="options-container">
+    <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
         <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
     </div>
   </div>
   <div  class="container-name">
-    <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling  && !isProductSold" class="gtmCompartirProducto icon-share-container">
+    <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling  && !isProductSold &&!isProductChecked" class="gtmCompartirProducto icon-share-container">
       <div class="gtmCompartirProducto icon-share">
       </div>
     </div>
@@ -53,58 +57,58 @@
               </div>
           </div>
       </div>
-        <div *ngIf="product['product_sell_type'] && showField" class="container-status">
+        <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
             <span class="icon-margin">$</span>
             <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
-          </div>
-          <div class="container-status">
+        </div>
+        <div *ngIf="!isProductChecked" class="container-status">
             <span class="icon icon-tag icon-margin"></span>
             <span  class="name">{{product['product_used'] ? 'Usado' : 'Nuevo'}}</span>
-         </div>
-          <div *ngIf="showField" class="container-location">
+        </div>
+          <div *ngIf="showField && !isProductChecked" class="container-location">
             <span class="icon-location"></span>
             <span>{{getLocation(product)}}</span>
           </div>
-          <div *ngIf="!showField" class="container-date">
+          <div *ngIf="!showField && !isProductChecked" class="container-date">
             <span class="icon-calendar"></span>
             <p>
               <span>Fecha de Publicación</span>
               {{product['product_published_at'] | date}}</p>
           </div>
-          <div *ngIf="isProductSelling" class="container-date">
+          <div *ngIf="isProductSelling && !isProductChecked" class="container-date">
             <span class="icon-calendar"></span>
             <p>
               <span>Fecha de Caducación</span>
               {{product['publish-until'] | date}}</p>
           </div>
-          <div *ngIf="isProductSold" class="container-date">
+          <div *ngIf="isProductSold && !isProductChecked" class="container-date">
             <span class="icon-calendar"></span>
             <p>
               <span>Fecha de venta</span>
               {{product['received-at'] | date}}</p>
           </div>
-          <div *ngIf="isProductPurchased" class="container-date">
+          <div *ngIf="isProductPurchased && !isProductChecked" class="container-date">
             <span class="icon-calendar"></span>
             <p>
               <span>Fecha de compra</span>
               {{product['received-at'] | date}}</p>
           </div>
 
-          <div *ngIf="isProductSold && product.comprador" class="container-date">
+          <div *ngIf="isProductSold && product.comprador && !isProductChecked" class="container-date">
             <span class="icon-account"></span>
             <p>
               <span>Comprador</span>
                 {{product.comprador}}
           </div>
 
-          <div *ngIf="product.user && isProductPurchased" class="container-date">
+          <div *ngIf="product.user && isProductPurchased && !isProductChecked" class="container-date">
             <span class="icon-account"></span>
             <p>
               <span>Vendedor</span>
               {{product.user.name}}
           </div>
   </div>
-  <div  (click)="selectProduct()" *ngIf="showField" class="container-info-user">
+  <div  (click)="selectProduct()" *ngIf="showField && !isProductChecked" class="container-info-user">
     <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
       <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
       <img  *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">
@@ -117,7 +121,7 @@
         </p>
       </div>
   </div>
-  <div *ngIf="isProductSelling && !expiredProduct" class="media">
+  <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="media">
     <div class="media-left media-middle">
       <label class="switch">
         <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
@@ -129,4 +133,19 @@
     </div>
   </div>
 </a>
+<form *ngIf="isProductChecked" class="form-theme">
+    <div class="form-group field-form valid">
+      <select 
+        name="orderSelect"
+        [(ngModel)]="numberOrder"
+        class="form-control">
+        <option value="" selected="true" disabled>Orden*</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+  </form>
 </div>

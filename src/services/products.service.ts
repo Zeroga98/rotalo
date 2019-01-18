@@ -71,6 +71,7 @@ export class ProductsService {
       });
   }
 
+
   loadFeaturedSelectedProducts() {
     const url = this.urlSapi + '/productos/destacados/manuales';
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -81,6 +82,16 @@ export class ProductsService {
       .then((response: any) => {
         return response.body.productos;
       });
+  }
+
+  selectFeaturedProduct(id: number, productSelect) {
+    const params = {
+      destacar: productSelect
+    };
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/${id}/destacados`;
+    return this.http.put(url, params, { headers: headers }).map((response: any) => response);
   }
 
   getProductsSuper(idUser, params) {
@@ -149,17 +160,18 @@ export class ProductsService {
       });
   }
 
-  /*
-  receiveProduct(id: number, data): Promise<any> {
-    const url = `${this.url}/deliver`;
+
+  removeMarkProduct(id: number | string): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
     const params = {
-      data: {
-        id,
-        type: 'products'
-      }
     };
-    return this.http.post(url, params).toPromise();
-  }*/
+    const url = `${this.urlSapi}/productos/destacados/manuales/eliminar/${id}`;
+    return this.http
+      .post(url, params, { headers: headers })
+      .toPromise();
+  }
+
 
   receiveProduct(id): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();

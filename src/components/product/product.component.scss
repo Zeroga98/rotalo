@@ -486,6 +486,11 @@
   }
 }
 
+:host(.basic-product) {
+  .container-product {
+    height: auto;
+  }
+}
 
 @media screen and (max-width: 500px) {
   :host(.product-feed) {

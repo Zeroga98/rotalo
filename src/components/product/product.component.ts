@@ -34,14 +34,18 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() masonryInfo;
   @Input() showField: boolean;
   @Input() isProductSelling: boolean;
+  @Input() isProductChecked: boolean;
   @Input() expiredProduct: boolean;
   @Input() isProductSold: boolean;
   @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @Output() updateProducts:  EventEmitter<any> = new EventEmitter();
   @Input() colourCompany: string;
+  @Input() numberOrder = '';
+
   @ViewChild("containerProducts", { read: ElementRef })
   containerProducts: ElementRef;
+
   readonly defaultImage: string = "../assets/img/product-no-image.png";
   private readonly limitSize: number = 220;
   public productStatus: boolean = false;
@@ -53,6 +57,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public starSelected = false;
+  private currentUrl = '';
+ 
 
   constructor(
     private render: Renderer2,
@@ -69,7 +75,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
-    this.idCountry = countryId;
 
   }
 
@@ -151,6 +156,20 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     } catch (error) {}
   }
 
+  async removeMarkProduct(product: ProductInterface) {
+    try {
+      const result = confirm("¿Seguro quieres desmarcar esta publicación?");
+      if (!result) {
+        return;
+      }
+      const response = await this.productsService.removeMarkProduct(product['product_id']);
+      this.updateProducts.emit(true);
+      this.router.navigate([
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`
+      ]);
+    } catch (error) {}
+  }
+
   editProduct(product: ProductInterface) {
     this.router.navigate([
       `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
@@ -227,9 +246,21 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (!this.starSelected && this.productsService.getCounterProductChecked() < 5) {
       this.starSelected = true;
       this.productsService.countProductChecked(this.starSelected);
+      this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
+      },
+      (error) => {
+        console.log(error);
+      });
     } else if (this.starSelected) {
       this.starSelected = false;
+      this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
+      },
+      (error) => {
+        console.log(error);
+      });
       this.productsService.countProductChecked(this.starSelected);
+    } else {
+      alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
     }
   }
 

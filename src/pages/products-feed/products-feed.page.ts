@@ -196,7 +196,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
           if (response.body) {
           this.featuredproducts = response.body.productos;
          // this.groupFeaturedProducts = this.chunkArray(this.featuredproducts, 5);
-          this.productsService.setFeatureProducts(this.groupFeaturedProducts);
+          this.productsService.setFeatureProducts(this.featuredproducts);
           this.changeDetectorRef.markForCheck();
           }
         },
@@ -205,7 +205,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         }
       );
     } else {
-      this.groupFeaturedProducts = this.productsService.getFeatureProducts();
+      this.featuredproducts = this.productsService.getFeatureProducts();
       this.changeDetectorRef.markForCheck();
     }
   }
