@@ -1,0 +1,55 @@
+<div class="info-container">
+  <div class="tittle main-title">
+    <h1 class="text ">Administrador de pre-registro</h1>
+  </div>
+  <div class="material-design">
+    <div class="msg-no-products" *ngIf="noRegisters">
+      ¡Aún no tenemos Pre-registros!.
+    </div>
+    <table *ngIf="!noRegisters" class="table-orders-title">
+      <tbody class="table-body">
+        <tr>
+          <th class="order-id">Nombre</th>
+          <th class="order-ref">Correo</th>
+          <th class="order-user">Tipo documento</th>
+          <th class="order-num">Número documento</th>
+          <th class="order-date">Fecha de creación</th>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="registers" class="tabla-orders-container">
+      <table *ngIf="!noRegisters" class="table-orders-info">
+        <tbody class="table-body">
+          <tr *ngFor="let register of registers">
+            <td class="order-id">
+              <p>{{register.name}}</p>
+            </td>
+            <td class="order-ref">
+              <p>{{register.email}}</p>
+            </td>
+            <td class="order-user">
+              <p>{{register.documentType.nameDocument}}</p>
+            </td>
+            <td class="order-num">
+              <p>{{register.idNumber}}</p>
+            </td>
+            <td class="order-date">
+              <p>{{register.createdAt | date}}</p>
+            </td>
+            <td class="buttons-section">
+              <div>
+                <button (click)="reSendEmail(register)" class="primary" type="submit">
+                  <p>Reenviar correo</p>
+                </button>
+                <button (click)="deletePreRegister(register.id)" class="primary-light" type="submit">
+                  <p>Eliminar</p>
+                  <p class="responsive-button">x</p>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

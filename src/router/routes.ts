@@ -39,6 +39,7 @@ export const ROUTES = {
         FEEDBACK: 'feed-back',
         ADMINORDERS: 'admin-order',
         FEATUREDPRODUCT: 'featured-product',
+        ADMINREGISTER: 'admin-register',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

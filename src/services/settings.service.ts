@@ -26,11 +26,27 @@ export class SettingsService {
     return this.http.post(url, params, { headers: headers }).map((response: any) => response);
   }
 
+  getPreRegisters() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/preregistro`;
+    return this.http.get(url, { headers: headers }).map((response: any) => response);
+  }
+
   changeStatusOrders(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/ordenes/actualizar`;
     return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+  }
+
+  deleteProduct(id: number | string): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/preregistro/${id}`;
+    return this.http
+      .delete(url, { headers: headers })
+      .toPromise();
   }
 
 }

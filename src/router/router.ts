@@ -42,6 +42,7 @@ import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
 import { FeaturedProductsComponent } from '../pages/profile/featured-products/featured-products.component';
+import { AdminRegisterPage } from '../pages/profile/admin-register/admin-register.page';
 
 
 export const appRouter: Routes = [
@@ -78,6 +79,7 @@ export const appRouter: Routes = [
         component: SellingPage,
       },
       { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
+      { path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
       {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
       {
         path: '',
