@@ -144,11 +144,7 @@
         [(ngModel)]="numberOrder"
         class="form-control">
         <option value="" selected="true" disabled>Orden*</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <option *ngFor="let number of numbersOrder" value="{{number}}">{{number}}</option>
       </select>
     </div>
   </form>

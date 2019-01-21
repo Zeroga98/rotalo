@@ -4,8 +4,8 @@ import {
   AfterViewInit,
   Renderer2,
   ChangeDetectorRef
-} from "@angular/core";
-import { ProductInterface } from "./../../commons/interfaces/product.interface";
+} from '@angular/core';
+import { ProductInterface } from './../../commons/interfaces/product.interface';
 import {
   Component,
   Input,
@@ -13,22 +13,21 @@ import {
   EventEmitter,
   Output,
   ViewChild
-} from "@angular/core";
-import { ProductsService } from "../../services/products.service";
-import { ROUTES } from "../../router/routes";
-import { Router } from "@angular/router";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { ModalShareProductService } from "../modal-shareProduct/modal-shareProduct.service";
-import { NavigationService } from "../../pages/products/navigation.service";
-import { START_DATE_BF, END_DATE_BF, START_DATE } from "../../commons/constants/dates-promos.contants";
+} from '@angular/core';
+import { ProductsService } from '../../services/products.service';
+import { ROUTES } from '../../router/routes';
+import { Router } from '@angular/router';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
+import { NavigationService } from '../../pages/products/navigation.service';
+import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 
 @Component({
-  selector: "product",
-  templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.scss"],
+  selector: 'product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() product: ProductInterface;
   @Input() masonryInfo;
@@ -39,18 +38,17 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() isProductSold: boolean;
   @Input() isProductPurchased: boolean;
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
-  @Output() updateProducts:  EventEmitter<any> = new EventEmitter();
+  @Output() updateProducts: EventEmitter<any> = new EventEmitter();
   @Input() colourCompany: string;
   @Input() numberOrder = '';
-
-
-  @ViewChild("containerProducts", { read: ElementRef })
+  @Input() totalProducts = 5;
+  @ViewChild('containerProducts', { read: ElementRef })
   containerProducts: ElementRef;
 
-  readonly defaultImage: string = "../assets/img/product-no-image.png";
+  readonly defaultImage: string = '../assets/img/product-no-image.png';
   private readonly limitSize: number = 220;
   public productStatus: boolean = false;
-  public productChecked: String = "active";
+  public productChecked: String = 'active';
   public idUser: string = this.currentSessionSevice.getIdUser();
   public idCountry = 1;
   public startDateBf = START_DATE_BF;
@@ -59,6 +57,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public courrentDate = new Date();
   public starSelected = false;
   private status = '';
+  public numbersOrder = ['1', '2', '3', '4', '5'];
 
 
   constructor(
@@ -68,15 +67,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     private router: Router,
     private currentSessionSevice: CurrentSessionService,
     private modalService: ModalShareProductService,
-    private navigationService: NavigationService,
+    private navigationService: NavigationService
   ) {
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
-
+    console.log(this.totalProducts);
   }
 
   ngAfterContentInit() {
@@ -92,6 +91,17 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   ngAfterViewInit(): void {
     this.checkSizeCard();
+    this.getArrayOrderNumber();
+  }
+
+  getArrayOrderNumber() {
+    if (this.totalProducts != 5) {
+      const numbers: Array<any> = [];
+      for (let i = 0; i < this.totalProducts; i++) {
+        numbers.push( i + 1 );
+      }
+      this.numbersOrder = numbers;
+    }
   }
 
   triggerMasonryLayout() {
@@ -101,21 +111,22 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   get isActivePromo() {
-    if (this.product['special-date'] && this.product['special-date'].active
-    || this.product['specialDate'] && this.product['specialDate'].active) {
+    if (
+      (this.product['special-date'] && this.product['special-date'].active) ||
+      (this.product['specialDate'] && this.product['specialDate'].active)
+    ) {
       return true;
     }
     return false;
   }
 
-
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
     const params = {
-      estado: this.productStatus ? "active" : "inactive"
+      estado: this.productStatus ? 'active' : 'inactive'
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
@@ -123,7 +134,8 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       .then(response => {
         if (response.status == '0') {
           this.product['published-at'] = response.body.producto['published-at'];
-          this.product['publish-until'] = response.body.producto['publish-until'];
+          this.product['publish-until'] =
+            response.body.producto['publish-until'];
           this.changeDetectorRef.markForCheck();
         }
         this.changeDetectorRef.markForCheck();
@@ -146,7 +158,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   async deleteProduct(product: ProductInterface) {
     try {
-      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      const result = confirm('¿Seguro quieres borrar esta publicación?');
       if (!result) {
         return;
       }
@@ -164,7 +176,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       if (!result) {
         return;
       }
-      const response = await this.productsService.removeMarkProduct(product['product_id']);
+      const response = await this.productsService.removeMarkProduct(
+        product['product_id']
+      );
       this.updateProducts.emit(true);
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`
@@ -211,12 +225,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     setTimeout(() => {
       const elem = this.containerProducts.nativeElement;
       if (elem.offsetWidth <= this.limitSize) {
-        this.render.addClass(elem, "mini-card");
+        this.render.addClass(elem, 'mini-card');
       }
     });
   }
 
-   shareProduct(id: string) {
+  shareProduct(id: string) {
     if (this.product['product_id']) {
       this.modalService.setProductId(this.product['product_id']);
       this.modalService.open(id);
@@ -224,65 +238,87 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   get isPromoDate() {
-    if (this.courrentDate >= this.startDateBf && this.courrentDate <= this.endDate) {
+    if (
+      this.courrentDate >= this.startDateBf &&
+      this.courrentDate <= this.endDate
+    ) {
       return true;
     }
     return false;
   }
 
   get isPromoDateBefore() {
-    if (this.courrentDate >= this.startDate && this.courrentDate <= this.endDate) {
+    if (
+      this.courrentDate >= this.startDate &&
+      this.courrentDate <= this.endDate
+    ) {
       return true;
     }
     return false;
   }
 
   isSuperUser() {
-    if (this.currentSessionSevice.currentUser()['rol'] && this.currentSessionSevice.currentUser()['rol'] === 'superuser') {
+    if (
+      this.currentSessionSevice.currentUser()['rol'] &&
+      this.currentSessionSevice.currentUser()['rol'] === 'superuser'
+    ) {
       return true;
     }
     return false;
   }
 
   checkStar() {
-    if (!this.starSelected && this.productsService.getCounterProductChecked() < 5) {
+    if (
+      !this.starSelected &&
+      this.productsService.getCounterProductChecked() < 5
+    ) {
       this.starSelected = true;
-      this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
-        this.productsService.countProductChecked(true);
-      },
-      (error) => {
-        if (error.error.status == '623') {
-          alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
-          this.starSelected = false;
-          this.changeDetectorRef.markForCheck();
-        }
-        console.log(error);
-      });
+      this.productsService
+        .selectFeaturedProduct(this.product['product_id'], this.starSelected)
+        .subscribe(
+          response => {
+            this.productsService.countProductChecked(true);
+          },
+          error => {
+            if (error.error.status == '623') {
+              alert(
+                '¡Ups! Ya llegaste al límite de los 5 productos destacados.'
+              );
+              this.starSelected = false;
+              this.changeDetectorRef.markForCheck();
+            }
+            console.log(error);
+          }
+        );
     } else if (this.starSelected) {
       this.starSelected = false;
-      this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
-        this.productsService.countProductChecked(this.starSelected);
-      },
-      (error) => {
-        console.log(error);
-      });
+      this.productsService
+        .selectFeaturedProduct(this.product['product_id'], this.starSelected)
+        .subscribe(
+          response => {
+            this.productsService.countProductChecked(this.starSelected);
+          },
+          error => {
+            console.log(error);
+          }
+        );
     } else {
       alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
     }
   }
 
   changeCheckProduct(event) {
-   const id = event.target.value;
-   const productParams = this.productsService.getCheckedProductArray().data;
-   productParams.map(productParam => {
-    if (this.product['product_id'] == productParam.productId) {
-      productParam.posicion = Number(id);
-    }
-   });
-   console.log(productParams);
+    const id = event.target.value;
+    const productParams = this.productsService.getCheckedProductArray().data;
+    productParams.map(productParam => {
+      if (this.product['product_id'] == productParam.productId) {
+        productParam.posicion = Number(id);
+      }
+    });
+    console.log(productParams);
   }
 
-  checkStatusProduct () {
+  checkStatusProduct() {
     switch (this.product['product_status']) {
       case 'expired':
         this.status = 'expirado';
@@ -319,6 +355,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         break;
     }
   }
+
 
 
 }
