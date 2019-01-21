@@ -82,6 +82,7 @@ export class HomePage implements OnInit {
     this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
       if (response.status == 0) {
         this.typeDocumentsFilter = response.body.documentType;
+        console.log(this.typeDocumentsFilter);
        }
     }, (error) => {
       console.log(error);

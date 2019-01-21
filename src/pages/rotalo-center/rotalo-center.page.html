@@ -36,14 +36,14 @@
         <div *ngIf="isSuperUser()" [routerLink]="featuredProduct" class="option" routerLinkActive="active">
             <div class="ico featured-icon"></div>
             <a>Destacados</a>
-          </div>
+        </div>
+        <div *ngIf="isSuperUser()" [routerLink]="adminRegister" class="option" routerLinkActive="active">
+            <div class="ico admin-icon"></div>
+            <a>Pre-registro</a>
+        </div>
         <div *ngIf="isSuperUser()" [routerLink]="adminOrders" class="option" routerLinkActive="active">
           <div class="ico shop-icon"></div>
           <a>Órdenes tienda</a>
-        </div>
-        <div *ngIf="isSuperUser()" [routerLink]="adminRegister" class="option" routerLinkActive="active">
-          <div class="ico shop-icon"></div>
-          <a>Admin de Pre-registro</a>
         </div>
       </div>
     </div>
