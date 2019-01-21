@@ -2,7 +2,7 @@
   <a>
   <div  [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
     <div>
-        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)" class="container-low-price ">
+        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)" class="container-low-price">
             <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
         </div>
 
@@ -27,6 +27,9 @@
     </div>
     <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
         <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
+    </div>
+    <div *ngIf="isSuperUser() && isProductChecked && product['product_status'] != 'active'" class="status-mark">
+        <p>{{status}}</p>
     </div>
   </div>
   <div  class="container-name">

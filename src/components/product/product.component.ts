@@ -58,7 +58,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public starSelected = false;
-  private currentUrl = '';
+  private status = '';
 
 
   constructor(
@@ -81,6 +81,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
+    this.checkStatusProduct();
     this.productStatus = this.product.status === 'active';
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
@@ -245,22 +246,26 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   checkStar() {
     if (!this.starSelected && this.productsService.getCounterProductChecked() < 5) {
-      console.log(this.productsService.getCounterProductChecked());
       this.starSelected = true;
-      this.productsService.countProductChecked(this.starSelected);
       this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
+        this.productsService.countProductChecked(true);
       },
       (error) => {
+        if (error.error.status == '623') {
+          alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
+          this.starSelected = false;
+          this.changeDetectorRef.markForCheck();
+        }
         console.log(error);
       });
     } else if (this.starSelected) {
       this.starSelected = false;
       this.productsService.selectFeaturedProduct(this.product['product_id'],  this.starSelected).subscribe((response) => {
+        this.productsService.countProductChecked(this.starSelected);
       },
       (error) => {
         console.log(error);
       });
-      this.productsService.countProductChecked(this.starSelected);
     } else {
       alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
     }
@@ -275,6 +280,44 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
    });
    console.log(productParams);
+  }
+
+  checkStatusProduct () {
+    switch (this.product['product_status']) {
+      case 'expired':
+        this.status = 'expirado';
+        break;
+      case 'sell_process':
+        this.status = 'en proceso de venta';
+        break;
+      case 'rejected':
+        this.status = 'rechazado';
+        break;
+      case 'auctioned':
+        this.status = 'subastado';
+        break;
+      case 'inactive':
+        this.status = 'inactivo';
+        break;
+      case 'negotiated':
+        this.status = 'negociado';
+        break;
+      case 'sold':
+        this.status = 'vendido';
+        break;
+      case 'purchased':
+        this.status = 'comprado';
+        break;
+      case 'completed':
+        this.status = 'completado';
+        break;
+      case 'accepted':
+        this.status = 'aceptado';
+        break;
+      default:
+        this.status = '';
+        break;
+    }
   }
 
 

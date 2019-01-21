@@ -42,7 +42,7 @@ export class FeaturedProductsComponent implements OnInit, OnDestroy {
         this.productsService.addCheckedProductArray(newParam);
         return newParam;
       });
-      console.log(this.productsService.getCheckedProductArray());
+
       if (this.products.length == 0) {
         this.showEmpty = true;
       }

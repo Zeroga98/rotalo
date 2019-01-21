@@ -66,7 +66,7 @@ export class AdminRegisterPage implements OnInit {
 
   reSendEmail(preregister) {
       const params = {
-        'pais': '1',
+        'pais':  preregister.documentType.countryId,
         'correo': preregister.email
       };
       this.userService.reSendEmail(params).subscribe(response => {
