@@ -20,11 +20,12 @@
                     maxlength="64"
                     class=" input__field input__field--float "
                     id="txt-email"
+                    placeholder="Email corporativo"
                     type="email"/>
-                    <label class="input__label input__label--float">
+                   <!-- <label class="input__label input__label--float">
                       <span class="input__label-content input__label-content--float" data-content="Email corporativo">
                         Email corporativo</span>
-                    </label>
+                    </label>-->
                     <span class="help-block text-left">
                         <span *ngIf="loginForm.get('email').invalid && !loginForm.get('email').pristine">
                           El campo no cumple con el formato de correo.
@@ -45,11 +46,9 @@
                     maxlength="20"
                     class="input__field input__field--float"
                     id="txt-password"
+                    placeholder="Contraseña"
                     type="password"
                     />
-                    <label class="input__label input__label--float">
-                      <span class="input__label-content input__label-content--float" data-content="Contraseña">Contraseña</span>
-                    </label>
                     <span class="help-block">
                         <span *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid && !loginForm.get('password').pristine && !loginForm.get('password').errors?.minlength">
                             Este campo es obligatorio.

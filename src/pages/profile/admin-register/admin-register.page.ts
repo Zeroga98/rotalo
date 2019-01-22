@@ -54,7 +54,7 @@ export class AdminRegisterPage implements OnInit {
 
   async deletePreRegister(id) {
     try {
-      const result = confirm('¿Seguro quieres borrar este registro?');
+      const result = confirm('¿Estás seguro de eliminar este registro?');
       if (!result) {
         return;
       }
@@ -70,7 +70,7 @@ export class AdminRegisterPage implements OnInit {
         'correo': preregister.email
       };
       this.userService.reSendEmail(params).subscribe(response => {
-        alert('El correo fue enviado al usuario');
+        alert('¡El correo se envió con éxito!');
       }, error => {
         console.log(error);
       });

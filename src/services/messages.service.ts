@@ -116,6 +116,9 @@ export class MessagesService {
               }
           break;
           case 'auction_assigned':
+          if (notification.compra) {
+            status = 'Oferta aceptada';
+          }
           if (notification.oferta) {
             switch (notification.oferta.arrepentido) {
               case false:

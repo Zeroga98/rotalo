@@ -37,7 +37,7 @@ import { LoginPage } from '../pages/login/login.page';
 import { FinanceBamComponent } from '../components/financeBam/financeBam.component';
 import { ProductsPromoPage } from '../pages/products-promo/products-promo.page';
 import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
-import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page'
+import { ProductsMicrositePage } from '../microsite/pages-microsite/products-microsite/products-microsite.page';
 import { DetalleProductoMicrositioComponent } from '../microsite/pages-microsite/detalle-producto-microsite/detalle-producto-microsite.component';
 import { ResponseMicrositePage } from '../microsite/pages-microsite/response-microsite/response-microsite.page';
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
@@ -226,55 +226,6 @@ export const appRouter: Routes = [
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   {
     path: '',
     redirectTo: ROUTES.HOME,

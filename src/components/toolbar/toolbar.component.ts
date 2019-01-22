@@ -50,7 +50,7 @@ export class ToolbarComponent implements OnInit {
   async getCommunities() {
     try {
       const communities = await this.userService.getCommunities();
-      this.communities = communities.communities;
+      this.communities = communities.body.comunidades;
       this.userService.setCommunities(this.communities);
     } catch (error) {
       console.error(error);

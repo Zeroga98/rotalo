@@ -578,6 +578,11 @@
       display: block;
     }
 
+    .carousel-arrow__prev, .carousel-arrow__next {
+      display: none !important;
+    }
+
+
   }
 
   @media screen and (max-width: 500px) {
@@ -590,7 +595,12 @@
       justify-content: center;
     }
 
-    .container-masonry .masonry product,  .container-masonry .masonry product-rotalo-center{
+    .container-masonry .masonry product {
+      width: 45%;
+      margin: 0 5px 2.5rem;
+    }
+
+   .container-masonry .masonry product-rotalo-center{
       width: 43%;
     }
 
@@ -611,7 +621,7 @@
 
     .featured-section {
       .featured-container {
-        width: 92%;
+        width: 95%;
         .header-featured {
           h3 {
             font-size: 1.4rem;
@@ -625,7 +635,7 @@
 
         .item__wrapper {
           height: auto;
-          margin: 0 auto 30px;
+          margin: 0 5px 30px;
           .item__card {
             height: auto;
             .item__image-container {

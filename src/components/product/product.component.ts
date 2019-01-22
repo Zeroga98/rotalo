@@ -75,7 +75,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
-    console.log(this.totalProducts);
   }
 
   ngAfterContentInit() {
@@ -321,34 +320,34 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   checkStatusProduct() {
     switch (this.product['product_status']) {
       case 'expired':
-        this.status = 'expirado';
+        this.status = 'Expirado';
         break;
       case 'sell_process':
-        this.status = 'en proceso de venta';
+        this.status = 'En proceso de venta';
         break;
       case 'rejected':
-        this.status = 'rechazado';
+        this.status = 'Rechazado';
         break;
       case 'auctioned':
-        this.status = 'subastado';
+        this.status = 'Subastado';
         break;
       case 'inactive':
-        this.status = 'inactivo';
+        this.status = 'Inactivo';
         break;
       case 'negotiated':
-        this.status = 'negociado';
+        this.status = 'Negociado';
         break;
       case 'sold':
-        this.status = 'vendido';
+        this.status = 'Vendido';
         break;
       case 'purchased':
-        this.status = 'comprado';
+        this.status = 'Comprado';
         break;
       case 'completed':
-        this.status = 'completado';
+        this.status = 'Completado';
         break;
       case 'accepted':
-        this.status = 'aceptado';
+        this.status = 'Aceptado';
         break;
       default:
         this.status = '';

@@ -81,16 +81,13 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
-  getCommunities(): Promise<any>{
+  getCommunities(): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
     this.idUser = this.currentSessionService.getIdUser();
-    const url = `${this.url}/get_communities`;
+    const url = `${this.urlSapi}/perfil/comunidades`;
     return this.httpClient
-    .post(url, {
-      user: {
-        id: this.idUser
-      }
-    })
-    .toPromise();
+    .get(url, { headers: headers }).toPromise();
   }
 
   setCommunities(communities) {

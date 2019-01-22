@@ -91,6 +91,32 @@
   margin-top: 1rem;
 }
 
+.input__field {
+  font-size: 1.6rem;
+}
+
+.input__field::placeholder  {
+  color:#808080;
+  -moz-transition: ease-in 0.3s;
+  -o-transition: ease-in 0.3s;
+  -webkit-transition: ease-in 0.3s;
+  transition: ease-in 0.3s;
+  transform-origin: 0 50%;
+
+}
+
+.input__field:focus::placeholder  {
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  opacity: 0;
+}
+
+.form-theme .help-block {
+  display:block;
+}
+
 :host{
   @media (max-width: 450px) {
     form {
