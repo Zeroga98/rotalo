@@ -138,12 +138,15 @@
 </a>
 <form *ngIf="isProductChecked" class="form-theme">
     <div class="form-group field-form valid">
+      <span class="text-title">
+        Orden:
+      </span>
       <select
         (change) = 'changeCheckProduct($event)'
         name="orderSelect"
         [(ngModel)]="numberOrder"
         class="form-control">
-        <option value="" selected="true" disabled>Orden*</option>
+        <option value="" selected="true" disabled></option>
         <option *ngFor="let number of numbersOrder" value="{{number}}">{{number}}</option>
       </select>
     </div>

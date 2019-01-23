@@ -42,6 +42,7 @@ export class AdminRegisterPage implements OnInit {
   loadRegisters() {
     this.settingsService.getPreRegisters().subscribe((response) => {
       this.registers = response.body.preregistros;
+      console.log(this.registers);
       if (this.registers && this.registers.length > 0) {
         this.noRegisters = false;
       } else {

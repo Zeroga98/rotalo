@@ -6,34 +6,33 @@
     <div class="msg-no-products" *ngIf="noRegisters">
       ¡Aún no tenemos Pre-registros!.
     </div>
-    <table *ngIf="!noRegisters" class="table-orders-title">
-      <tbody class="table-body">
-        <tr>
-          <th class="order-id">Nombre</th>
-          <th class="order-ref">Correo</th>
-          <th class="order-user">Tipo documento</th>
-          <th class="order-num">Número documento</th>
-          <th class="order-date">Fecha de creación</th>
-        </tr>
-      </tbody>
-    </table>
     <div *ngIf="registers" class="tabla-orders-container">
-      <table *ngIf="!noRegisters" class="table-orders-info">
+      <table *ngIf="!noRegisters" class="table-orders-info table-orders-title">
         <tbody class="table-body">
+          <tr class="title-table">
+            <th class="order-user">Nombre</th>
+            <th class="order-user">Correo</th>
+            <th class="order-user">Tipo documento</th>
+            <th class="order-user">Número documento</th>
+            <th class="order-user">Fecha de creación</th>
+          </tr>
+          <div class="margin-table">
+          </div>
           <tr *ngFor="let register of registers">
-            <td class="order-id">
+            <td class="order-user">
               <p>{{register.name}}</p>
             </td>
-            <td class="order-ref">
+            <td class="order-user">
               <p>{{register.email}}</p>
             </td>
             <td class="order-user">
-              <p>{{register.documentType.nameDocument}}</p>
+              <p class="desktop">{{register.documentType.nameDocument}}</p>
+              <p class="mobile">{{register.documentType.abrev}}</p>
             </td>
-            <td class="order-num">
+            <td class="order-user">
               <p>{{register.idNumber}}</p>
             </td>
-            <td class="order-date">
+            <td class="order-user">
               <p>{{register.createdAt | date}}</p>
             </td>
             <td class="buttons-section">
