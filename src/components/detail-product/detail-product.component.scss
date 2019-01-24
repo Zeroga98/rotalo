@@ -257,6 +257,12 @@
       height: 20px;
       background: url(../../assets/img/enviar.svg);
       background-size: 20px 20px;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
     }
   }
   .get-offer {

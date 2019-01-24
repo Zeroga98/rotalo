@@ -608,11 +608,15 @@
 
   @media screen and (max-width: 470px) {
 
-    //    min-height: 400px;
-    //height: 400px;
+    .price-container {
+      flex-direction: column;
+      line-height: 2rem;
+      min-height: 4rem;
+    }
+
     .featured-section.featured-products {
-      min-height: 400px;
-      height: 400px;
+      min-height: 370px;
+      height: 370px;
     }
 
     ngx-carousel.carousel-featured ngx-item {
@@ -644,6 +648,10 @@
             .item__content {
               .item__name {
                 font-size: 1.2rem;
+                min-height: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
               }
               .item__location {
                 font-size: 1.0rem;

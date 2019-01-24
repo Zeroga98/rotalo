@@ -469,6 +469,8 @@
 
   .user-info-container {
     width: 100%;
+    overflow: hidden;
+    position: relative;
   }
 
   .container-product .container-info-user .name-text {
@@ -578,4 +580,6 @@
       }
     }
   }
+
 }
+

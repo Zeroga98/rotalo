@@ -257,6 +257,12 @@
       height: 20px;
       background: url(../../../assets/img/enviar.svg);
       background-size: 20px 20px;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
     }
   }
   .get-offer {
@@ -631,7 +637,7 @@
             background: #bf111c;
             border: 1px solid #bf111c;
           }
-        } 
+        }
       }
     }
   }
@@ -933,7 +939,7 @@ input:checked+.switch-slider:before {
 
   .product {
     .form-theme .error-msg {
-      padding-left: 0px; 
+      padding-left: 0px;
       color: #d61320;
       font-size: 1.4rem;
     }
@@ -1088,7 +1094,7 @@ input:checked+.switch-slider:before {
     .product-info-user {
       padding-top: 20px;
     }
-  } 
+  }
 }
 
 @media screen and (max-width: 600px) {
