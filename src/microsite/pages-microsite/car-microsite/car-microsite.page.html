@@ -153,8 +153,8 @@
                 </div>
             </div>
             <div class="buttons-section">
-                <button class="btn-go-microsite" (click)="goToMicrosite()">Seguir comprando</button>
-                <button class="btn-buy" type="submit" id="btn-pagar" (click)="pay()" [ngClass]="{'disabled': disablePayButton}">Comprar</button>
+                <button class="btn-go-microsite gtmTienCorpCarSigueComprando" (click)="goToMicrosite()">Seguir comprando</button>
+                <button class="btn-buy gtmTienCorpCarComprar" type="submit" id="btn-pagar" (click)="pay()" [ngClass]="{'disabled': disablePayButton}">Comprar</button>
             </div>
             <div class="pending-message" *ngIf="hasPending">
                 <p>{{ errorPending }}</p>
