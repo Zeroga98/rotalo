@@ -90,8 +90,26 @@ export const IMGS_COMPANIES = [
   {
     url: './assets/img/logos_company/19_canales.png',
     name: 'canales'
-  }
+  },
 
+  {
+    url: './assets/img/logos_company/20_riopaila.png',
+    name: 'canales'
+  },
+
+  {
+    url: './assets/img/logos_company/21_amelissa.png',
+    name: 'canales'
+  },
+
+  {
+    url: './assets/img/logos_company/22_doria.png',
+    name: 'canales'
+  },
+  {
+    url: './assets/img/logos_company/23_isagen.png',
+    name: 'canales'
+  }
 ];
 
 
