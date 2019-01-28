@@ -16,7 +16,7 @@
                         </div>
                         <div class="unitary-price">
                             <p>
-                                {{ product.product.price | currency:"$":0 | removeDigits }}
+                                {{ product.product.price | currency:"$" | removeDigits }}
                             </p>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 <div class="price-info">
                     <div class="total-price">Total: 
                         <br class="next-line">
-                        {{ product.quantity * product.product.price | currency:"$":0 | removeDigits }}</div>
+                        {{ product.quantity * product.product.price | currency:"$" | removeDigits }}</div>
                 </div>
                 <div class="check-section">
                     <div [ngClass]="{'selected': classCheckSelected}" (click)="clickCheckProduct()"></div>

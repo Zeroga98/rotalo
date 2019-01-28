@@ -1,8 +1,10 @@
+
+import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/operator/do';
-import {SlimLoadingBarService} from "ng2-slim-loading-bar";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
@@ -14,7 +16,7 @@ export class LoaderInterceptor implements HttpInterceptor {
     // start our loader here
     this._loadingBar.start();
 
-    return next.handle(req).do((event: HttpEvent<any>) => {
+    return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
       // if the event is for http response
       if (event instanceof HttpResponse) {
         // stop our loader here
@@ -24,7 +26,7 @@ export class LoaderInterceptor implements HttpInterceptor {
     }, (err: any) => {
       // if any error (not for just HttpResponse) we stop our loader bar
       this._loadingBar.complete();
-    });
+    }));
   }
 
 }

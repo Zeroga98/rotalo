@@ -3,6 +3,7 @@ import { CategoryInterface } from './../commons/interfaces/category.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from "../services/configuration.service";
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class CategoriesService {
@@ -32,7 +33,8 @@ export class CategoriesService {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
       const url = this.urlSapi + '/categorias';
-      return this.httpClient.get(url, { headers: headers }).map((response: any) => {
+      return this.httpClient.get(url, { headers: headers })
+      .pipe(map((response: any) => {
         if (response.body.categorias) {
            const newCategories = response.body.categorias.map((category) => {
             const interfaceCategory = {
@@ -48,7 +50,7 @@ export class CategoriesService {
          return this._asociateIcon(newCategories);
         }
         return response;
-      } );
+      }));
     }
 
     changeNameSubcategory (subcategories) {
@@ -68,11 +70,11 @@ export class CategoriesService {
         const url = this.configurationService.getBaseUrl() + '/categories';
         return this.httpClient
                     .get(url)
-                    .map( (response: any) => response.data)
+                    .pipe(map( (response: any) => response.data))
                     .toPromise();
     }
 
-    private _asociateIcon(categories:Array<any>): Array<any>{
+    private _asociateIcon(categories: Array<any>): Array<any> {
         return categories.map( (category: any, index: number) => Object.assign(category, CATEGORIES_ICONS[index]));
     }
 

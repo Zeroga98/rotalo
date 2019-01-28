@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import {
   Component,
   OnInit,
@@ -26,7 +26,6 @@ import { ProductsService } from '../../services/products.service';
 import { IMGS_BANNER, IMGS_BANNER_GUATEMALA, IMGS_BANNER_BANCOLOMBIA, IMGS_BANNER_MOBILE } from '../../commons/constants/banner-imgs.contants';
 import { CAROUSEL_CONFIG } from './carousel.config';
 import { ROUTES } from './../../router/routes';
-import { Subscription } from 'rxjs';
 import { StatesRequestEnum } from '../../commons/states-request.enum';
 import { UtilsService } from '../../util/utils.service';
 import { MASONRY_CONFIG } from './masonry.config';

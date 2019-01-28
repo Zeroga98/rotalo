@@ -1,9 +1,11 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { UserInterface } from "./../commons/interfaces/user.interface";
-import { Injectable, Output, EventEmitter } from "@angular/core";
-import { ConfigurationService } from "../services/configuration.service";
-import { CurrentSessionService } from "../services/current-session.service";
-import { UserRequestInterface } from "../commons/interfaces/user-request.interface";
+
+import {map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserInterface } from './../commons/interfaces/user.interface';
+import { Injectable, Output, EventEmitter } from '@angular/core';
+import { ConfigurationService } from '../services/configuration.service';
+import { CurrentSessionService } from '../services/current-session.service';
+import { UserRequestInterface } from '../commons/interfaces/user-request.interface';
 
 @Injectable()
 export class UserService {
@@ -58,7 +60,7 @@ export class UserService {
       .post(this.url, {
         data: {
           attributes: params,
-          type: "users"
+          type: 'users'
         }
       })
       .toPromise();
@@ -68,16 +70,16 @@ export class UserService {
     this.idUser = this.currentSessionService.getIdUser();
     const url = `${this.url}/${this.idUser}`;
     return this.httpClient
-      .get(url)
-      .map((response: any) => response.data)
+      .get(url).pipe(
+      map((response: any) => response.data))
       .toPromise()
       .catch(err => console.error(err));
   }
   getInfomationUser(idUser) {
     const url = `${this.url}/${idUser}`;
     return this.httpClient
-      .get(url)
-      .map((response: any) => response.data)
+      .get(url).pipe(
+      map((response: any) => response.data))
       .toPromise()
       .catch(err => console.error(err));
   }
@@ -103,7 +105,7 @@ export class UserService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url =
     `${this.urlSapi}/preregistro`;
-    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   reSendEmail (params) {
@@ -111,7 +113,7 @@ export class UserService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url =
     `${this.urlSapi}/preregistro/reenvio`;
-    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   signup (params) {
@@ -119,7 +121,7 @@ export class UserService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url =
     `${this.urlSapi}/registro`;
-    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
 }

@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { SessionUserInterface } from "../commons/interfaces/session.interface";
-import { ConfigurationService } from "./configuration.service";
+import { Injectable } from '@angular/core';
+import { SessionUserInterface } from '../commons/interfaces/session.interface';
+import { ConfigurationService } from './configuration.service';
 
 
 

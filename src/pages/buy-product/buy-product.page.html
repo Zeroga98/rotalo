@@ -33,8 +33,8 @@
                       </div>
                       <div class="price">
                         <div class="title">Precio</div>
-                        <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$":0 | removeDigits }}</div>
-                        <div *ngIf="product.currency == 'GTQ' && idCountry == 9">{{priceProduct | currency:"Q":0 | removeDigits }}</div>
+                        <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$" | removeDigits }}</div>
+                        <div *ngIf="product.currency == 'GTQ' && idCountry == 9">{{priceProduct | currency:"Q" | removeDigits }}</div>
                       </div>
                       <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
                           <div class="title-quantity">Cantidad</div>
@@ -67,8 +67,8 @@
                       </div>
                         <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
                             <div class="title">Total</div>
-                            <div class="total-price" *ngIf="product.currency != 'GTQ'">{{totalPrice | currency:"$":0 | removeDigits }}</div>
-                            <div class="total-price" *ngIf="product.currency == 'GTQ' && idCountry == 9">{{totalPrice | currency:"Q":0 | removeDigits }}</div>
+                            <div class="total-price" *ngIf="product.currency != 'GTQ'">{{totalPrice | currency:"$" | removeDigits }}</div>
+                            <div class="total-price" *ngIf="product.currency == 'GTQ' && idCountry == 9">{{totalPrice | currency:"Q" | removeDigits }}</div>
                           </div>
                     </div>
                   </li>
@@ -113,113 +113,8 @@
                         </div>
                       </div>
                   </li>
-                 <!-- <li>
-                    <span>¿Cómo lo vas a pagar?</span>
-                    <div class="buy-detail buy-">
-                      <p>Selecciona una de las formas de pago disponible. Ten en cuenta lo pactado con el vendedor.</p>
-                    </div>
-                    <div [attr.disabled]="!vaproductIsFree() ? null : ''" class="container-header" *ngIf="product">
-                      <div class="cc-selector-2">
-                        <div class="option">
-                          <label class="container-radio">
-                            <input
-                            [attr.disabled]="!vaproductIsFree() ? null : ''"
-                            checked="checked"
-                            id="bank2"
-                            type="radio"
-                            name="payment-type"
-                            value="bank_account_transfer"
-                            formControlName="payment-type"
-                            />
-                            <div class="thumb">
-                              <label class="bancolombia thumb-cc" for="bank2"></label>
-                            </div>
-                            <span class="checkmark"></span>
-                          </label>
-                          <div class="description">
-                            <label>Transferencia Bancolombia</label>
-                          </div>
-                        </div>
-                        <div class="option">
-                          <label class="container-radio">
-                            <input
-                            [attr.disabled]="!vaproductIsFree() ? null : ''"
-                            id="nequi2"
-                            type="radio"
-                            name="payment-type"
-                            value="nequi"
-                            formControlName="payment-type" />
-                            <div class="thumb">
-                              <label class="nequi thumb-cc" for="nequi2"></label>
-                            </div>
-                            <span class="checkmark"></span>
-                          </label>
-                          <div class="description">
-                            <label>Transferencia Nequi</label>
-                          </div>
-                        </div>
-                        <div class="option">
-                          <label class="container-radio">
-                            <input
-                            [attr.disabled]="!vaproductIsFree() ? null : ''"
-                            id="cash2"
-                            type="radio"
-                            name="payment-type"
-                            value="cash"
-                            formControlName="payment-type" />
-                            <div class="thumb">
-                              <label class="cash thumb-cc" for="cash2"></label>
-                            </div>
-                            <span class="checkmark"></span>
-                          </label>
-                          <div class="description">
-                            <label>Efectivo Contraentrega</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="price">
-                        <div>{{pricePayment | currency:"$":0 | removeDigits }}</div>
-                      </div>
-                    </div>
-                    <div *ngIf="payWithBank" class="info-message-bank">
-                        <p>¡Un segundo!</p>
-                        <p> Antes de continuar con tu compra, asegúrate de tener a la mano la información de la
-                            cuenta de destino del vendedor para realizar la trasnferencia.</p>
-                        <p> Si no lo tienes contacta al
-                            vendedor.</p>
-                      </div>
-                  </li>-->
-                  <!--<li>
-                    <span>¿Cómo es la entrega del producto?</span>
-                    <div class="buy-detail buy-">
-                      <p>Selecciona la forma de entrega del producto. Recuerda seleccionar lo pactado con el vendedor.</p>
-                    </div>
-                    <div class="container-header" *ngIf="product">
-                      <div class="cc-selector-2">
-                        <div class="option">
-                          <label class="container-radio">
-                            <input checked="checked" id="person2" type="radio" name="delivery" value="person" />
-                            <div class="thumb">
-                              <label class="person thumb-cc" for="person2"></label>
-                            </div>
-                            <span class="checkmark"></span>
-                          </label>
-                          <div class="description">
-                            <label for="person2">Entrega presencial</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="price">
-                        <div>{{priceDelivery | currency:"$":0 | removeDigits }}</div>
-                      </div>
-                    </div>
-                  </li>-->
                 </ol>
-              <!--  <div class="container-total-price">
-                    <div class="total-price">
-                      <div>Total: <span>{{priceProduct | currency:"$":0 | removeDigits }}</span></div>
-                    </div>
-                </div>-->
+
                 <div class="button-form">
                   <div class="container-button">
                     <div class="button">

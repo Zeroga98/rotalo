@@ -82,24 +82,24 @@
                                       <div class="price-container">
                                         <div>
                                           <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency == 'GTQ'">
-                                            {{featuredproduct.price | currency:"Q":0 | removeDigits}}
+                                            {{featuredproduct.price | currency:"Q" | removeDigits}}
                                           </span>
                                           <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ' && idCountry == 9">
-                                            {{featuredproduct.price | currency:"$":0 | removeDigits}}
+                                            {{featuredproduct.price | currency:"$" | removeDigits}}
                                           </span>
                                           <span *ngIf=" featuredproduct.price != 0 && featuredproduct.currency != 'GTQ' && idCountry != 9">
-                                            {{featuredproduct.price | currency:"$":0 | removeDigits}}
+                                            {{featuredproduct.price | currency:"$" | removeDigits}}
                                           </span>
                                           <span *ngIf=" featuredproduct.price == 0">Gratis</span>
                                         </div>
                                         <div [ngClass]="featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price'] || isActivePromo(featuredproduct)? 'low-price' : ''"
                                         *ngIf="featuredproduct['previousPrice'] && isPromoDateBefore && isActivePromo(featuredproduct) || featuredproduct['previousPrice'] && featuredproduct['previousPrice'] >  featuredproduct['price']">
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency == 'GTQ'" class="name">{{featuredproduct['previousPrice']
-                                            | currency:"Q":0 | removeDigits}}</span>
+                                            | currency:"Q" | removeDigits}}</span>
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency != 'GTQ' && idCountry == 9" class="name">{{featuredproduct['previousPrice']
-                                            | currency:"$":0 | removeDigits}}</span>
+                                            | currency:"$" | removeDigits}}</span>
                                           <span *ngIf="featuredproduct['previousPrice'] != 0 && featuredproduct.currency != 'GTQ' && idCountry == 1" class="name">{{featuredproduct['previousPrice']
-                                            | currency:"$":0 | removeDigits}}</span>
+                                            | currency:"$" | removeDigits}}</span>
                                         </div>
                                       </div>
                                     </div>

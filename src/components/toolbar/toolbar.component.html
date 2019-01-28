@@ -3,7 +3,7 @@
 		<div class="container-icon-search" (click)="showSearchBar($event)">
 			<img class="icon-search" src="./assets/img/search-glass.png" alt="search icon">
 		</div>
-    <rl-tag-input
+ <!--   <rl-tag-input
 		[(ngModel)]="tags"
 		[addOnSpace]="true"
 		[autocomplete]="true"
@@ -11,7 +11,7 @@
 		(addTag)="changeTags()"
 		(focusBar)="showAutocomplateOptions()"
 		(blurBar)="hideAutocomplateOptions()"
-		(removeTag)="changeTags()"></rl-tag-input>
+		(removeTag)="changeTags()"></rl-tag-input>-->
 		<div class="container-options-autocomplete" #autoCompleteBox>
 			<ul>
 				<li *ngFor="let option of autoCompleteOptions" (click)="clickOptionAutocomplete(option)">{{option}}</li>

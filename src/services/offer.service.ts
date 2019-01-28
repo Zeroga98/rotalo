@@ -8,16 +8,16 @@ export class OfferService {
     sendOffer(params): Promise<any> {
         return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
     }
-    acceptOffer(id: number){
+    acceptOffer(id: number) {
         this.sendResponseOffer(id, 'accept');
     }
-    declineOffer(id: number){
+    declineOffer(id: number) {
         this.sendResponseOffer(id, 'decline');
     }
-    regretOffer(id: number){
+    regretOffer(id: number) {
         this.sendResponseOffer(id, 'regret');
     }
-    private sendResponseOffer(id: number, action: string){
+    private sendResponseOffer(id: number, action: string) {
         const url = `${this.url}/${id}/${action}`;
         return this.httpClient.post(url, {
             data: {

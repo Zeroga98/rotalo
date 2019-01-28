@@ -1,6 +1,5 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject ,  Observable } from 'rxjs';
 
 @Injectable()
 export class ShareInfoChatService {

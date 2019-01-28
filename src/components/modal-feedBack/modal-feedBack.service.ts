@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 import { ConfigurationService } from "../../services/configuration.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -34,8 +36,8 @@ export class ModalFeedBackService {
     const headers = new HttpHeaders(headersSapi);
     const url = this.urlSapi + '/general/contactanos';
     return this.http
-      .post(url, params , { headers: headers })
-      .map((response: any) => response);
+      .post(url, params , { headers: headers }).pipe(
+      map((response: any) => response));
   }
 
 }

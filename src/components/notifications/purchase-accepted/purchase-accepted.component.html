@@ -11,12 +11,12 @@
               {{ notification.producto.nombreProducto + '. '}}
           </span>
           <br>
-          <span>Precio: {{ (notification.compra.monto  | currency:' ':0 | removeDigits) }}</span>
+          <span>Precio: {{ (notification.compra.monto  | currency:' ' | removeDigits) }}</span>
           <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} unidades
             -
           </span>
           <span *ngIf="notification.compra.unidadesCompradas" class="highlight bold">
-            Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ':0 | removeDigits}}
+            Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ' | removeDigits}}
           </span>
 
       </p>
@@ -25,7 +25,7 @@
           <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
           <span>el artículo</span>
           <span class="highlight bold clickable">
-              {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+              {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$' | removeDigits) + ' pesos.'}}
           </span>
       </p>
 <!--      <small class="notification-date">
@@ -45,7 +45,7 @@
       <p class="notification-text align">
           <span>Tu compra por
             <span class="highlight bold">
-              ${{amountPurchase | currency:" ":0 | removeDigits}}
+              ${{amountPurchase | currency:" " | removeDigits}}
             </span>
             en la tienda Bancolombia se ha realizado exitosamente.
           </span>

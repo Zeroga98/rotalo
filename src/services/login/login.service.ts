@@ -1,6 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from '../../services/configuration.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 
@@ -37,9 +39,9 @@ export class LoginService {
     const url = this.configurationService.getBaseSapiUrl() + '/sapi/v1/logout' + '?token=' + token;
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.http.get(url, { headers: headers}).map( (response: any) =>
+    return this.http.get(url, { headers: headers}).pipe(map( (response: any) =>
       response
-    );
+    ));
   }
 
 
@@ -50,9 +52,9 @@ export class LoginService {
     const url = this.configurationService.getBaseSapiUrl() + '/sapi/v1/logout';
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.http.post(url, param, { headers: headers}).map( (response: any) =>
+    return this.http.post(url, param, { headers: headers}).pipe(map( (response: any) =>
       response
-    );
+    ));
   }
 
   loginUser(currentUser): Promise<any> {

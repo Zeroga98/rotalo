@@ -45,7 +45,7 @@
                             <span *ngIf="message.producto.tipoVenta !== 'SUBASTA'">para tu</span>
                             <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en subasta</span>
                             <span class="highlight bold clickable" (click)="goToDetail(message)">
-                              {{(message.producto.nombreProducto )+ ': ' + (message.oferta.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                              {{(message.producto.nombreProducto )+ ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}
                             </span>
                           </div>
                         </a>
@@ -67,7 +67,7 @@
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">Tu oferta ha sido aceptada
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0 | removeDigits) + ' pesos.'}}</span>
+                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
                         <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
@@ -86,7 +86,7 @@
                       <div *ngIf="message.tipoNotificacion == 'offer_declined'" class="notifications-item">
                         <span class="icon icon-warning notification-icon"></span>
                         <p class="notification-text">Tu oferta ha sido rechazada
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ' ' +(message.oferta.monto | currency:'$':0 | removeDigits) + ' pesos.'}}</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ' ' +(message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
@@ -98,7 +98,7 @@
                         <p class="notification-text">
                           <span class="highlight bold">{{message.oferta.nombreUsuario}}</span> ha cancelado su oferta
                           <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en tu subasta</span>
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0 | removeDigits) + ' pesos.'}}</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
                       </div>
@@ -115,12 +115,12 @@
                               <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado el producto: </span>
                               <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
                               <br>
-                              <span>Precio: {{ (message.compra.monto | currency:' ':0 | removeDigits) }}</span>
+                              <span>Precio: {{ (message.compra.monto | currency:' ' | removeDigits) }}</span>
                               <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} unidades
                                 -
                               </span>
                               <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
-                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ':0 | removeDigits}}
+                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ' | removeDigits}}
                               </span>.
                               <br>
                               <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
@@ -149,7 +149,7 @@
                                 <span class="highlight bold">{{message.nombreEmisor}}</span>
                                 <span> ha realizado una compra por
                                   <span class="highlight bold">
-                                    ${{returnTotalPurchase(message) | currency:" ":0 | removeDigits}}
+                                    ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
                                   </span>
                                   en la Tienda Bancolombia.
                                 </span>
@@ -173,14 +173,14 @@
                               <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
                               <span>ha cancelado tu compra</span>
                               <span class="highlight bold clickable" (click)="goToDetail(message)">
-                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$' | removeDigits) + ' pesos.'}}
                               </span>
                             </p>
                             <p class="notification-text" *ngIf="message.producto.tipoVenta === 'GRATIS'">
                               <span class="highlight bold">{{message.producto.nombreUsuario}}</span>
                               <span>No te ha regalado el artículo</span>
                               <span class="highlight bold">
-                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                                {{(message.producto.nombreProducto) + ': ' + (message.compra.monto | currency:'$' | removeDigits) + ' pesos.'}}
                               </span>
                             </p>
                         </span>
@@ -189,7 +189,7 @@
                           <p class="notification-text align">
                               <span>La compra ha sido rechazada por un valor de</span>
                               <span class="highlight bold">
-                                  ${{returnTotalPurchase(message) | currency:" ":0 | removeDigits}}
+                                  ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
                               </span>
                               <span> en la Tienda Bancolombia.</span>
                           </p>
@@ -261,7 +261,7 @@
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">
                           Tu producto
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos.'}}</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}</span>
                           ha sido recibido.
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
@@ -275,7 +275,7 @@
                         <p class="notification-text">
                           <span class="highlight bold">{{message['sufi-loan'].nombreUsuario}}</span>
                           quiere comprar
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos'}}</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos'}}</span>
                           y para ello ha solicitado un crédito Sufi.
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
@@ -288,7 +288,7 @@
                         <p class="notification-text">
                           Felicitaciones! Tu crédito con Sufi para la compra del producto
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos '}}
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos '}}
                           </span>
                           ha sido aprobada.
                         </p>
@@ -302,7 +302,7 @@
                         <p class="notification-text">
                           Tu solicitud de crédito Sufi para la compra del producto
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos '}}
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos '}}
                           </span>
                           no fue aprobada.
                         </p>
@@ -315,7 +315,7 @@
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">Has ganado la subasta
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$':0 | removeDigits) + ' pesos.'}}
+                            {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}
                           </span>
                         </p>
                         <small class="notification-date">{{message.fechaHora}}</small>
@@ -337,7 +337,7 @@
                         <p class="notification-text">
                           <span class="highlight bold">{{message.oferta.nombreUsuario}}</span> ha ganado tu subasta
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos.'}}
+                            {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}
                           </span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>
@@ -349,7 +349,7 @@
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">Han superado tu oferta en la subasta del producto
                           <span class="highlight bold clickable" (click)="goToDetail(message)">
-                            {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$':0 | removeDigits) + ' pesos.'}}
+                            {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}
                           </span>
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>

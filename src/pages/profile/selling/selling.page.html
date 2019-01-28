@@ -39,15 +39,15 @@
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyProduct">
         <div class="container-masonry">
-          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
+          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
             [infiniteScrollDistance]="0.5">
-            <masonry-brick class="grid-item" *ngFor="let productSelling of products">
+            <ngxMasonryItem class="grid-item" *ngFor="let productSelling of products">
               <div class="product-container">
                 <product-rotalo-center (updateProducts)="updateInfoSelling($event)" [masonryInfo]="masonryRef"
                   [isProductSelling]="true" [showField]="false" [product]="productSelling"></product-rotalo-center>
               </div>
-            </masonry-brick>
-          </masonry>
+            </ngxMasonryItem>
+          </ngx-masonry>
         </div>
       </div>
     </div>
@@ -61,17 +61,17 @@
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyExpired">
         <div class="container-masonry">
-          <masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
+          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
             [infiniteScrollDistance]="0.5">
-            <masonry-brick class="grid-item" *ngFor="let productExpired of productsExpired">
+            <ngxMasonryItem class="grid-item" *ngFor="let productExpired of productsExpired">
               <div class="product-container">
                 <product-rotalo-center 
                 (updateProducts)="updateExpired($event)"
                 [masonryInfo]="masonryRef" [expiredProduct]="true" [isProductSelling]="true" [showField]="false"
                   [product]="productExpired"></product-rotalo-center>
               </div>
-            </masonry-brick>
-          </masonry>
+            </ngxMasonryItem>
+          </ngx-masonry>
         </div>
       </div>
     </div>

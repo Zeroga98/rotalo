@@ -18,7 +18,7 @@ export class LoansService {
         attributes: {
           amount: amount
         },
-        type: "loan-requests"
+        type: 'loan-requests'
       }
     };
   }

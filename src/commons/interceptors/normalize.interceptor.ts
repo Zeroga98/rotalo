@@ -1,7 +1,9 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+
 
 @Injectable()
 export class NormalizeInterceptor implements HttpInterceptor {
@@ -9,7 +11,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
     constructor() {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).map( (evt: HttpEvent<any> ) => {
+        return next.handle(req).pipe(map( (evt: HttpEvent<any> ) => {
             let newResponse: HttpEvent<any> ;
             if (this.isNecessaryNormalize(req)) {
               if (evt instanceof HttpResponse && evt.body) {
@@ -18,7 +20,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
               }
             }
             return evt;
-        });
+        }));
     }
     /**Valida si el request es de la API de nequi---en este caso no se debe aplicar el interceptor**/
     private isNecessaryNormalize(req: HttpRequest<any>): boolean {

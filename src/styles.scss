@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /*ITCSS settings, tools, generic, elements, objects, utilities*/
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import 'styles/settings/_colors.scss';
 @import 'styles/settings/_variables.scss';
 @import 'styles/settings/_fonts.scss';
@@ -24,4 +25,8 @@
 
 
 
+
+/*
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
 

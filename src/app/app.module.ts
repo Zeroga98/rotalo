@@ -81,7 +81,7 @@ import { NotificationsService } from '../services/notifications.service';
 import { LoggedGuardService } from '../services/login/logged-guard.service';
 import { SimulateCreditPage } from '../pages/simulate-credit/simulate-credit.page';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { MasonryModule, AngularMasonry } from 'angular2-masonry';
+
 
 import { SettingsService } from '../services/settings.service';
 import { SimulateCreditService } from '../services/simulate-credit.service';
@@ -107,7 +107,6 @@ import { RemoveDigitsPipe } from '../commons/pipes/removeDigits.pipe';
 import { ModalTipsComponent } from '../components/modal-tips/modal-tips.component';
 import { FeedService } from '../pages/products-feed/feed.service';
 import { ToolbarService } from '../components/toolbar/toolbar.service';
-import { RlTagInputModule } from '../modules/tags-input/tag-input.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { SavePasswordService } from '../pages/signup/save-password.service';
 import { RotaloCenterPage } from '../pages/rotalo-center/rotalo-center.page';
@@ -176,6 +175,10 @@ import { ModalDetailComponent } from '../microsite/components-microsite/modal-de
 import { ProductRotaloCenterComponent } from '../components/product-rotalo-center/product-rotalo-center.component';
 import { SuccessCreditComponent } from '../components/success-credit/success-credit.component';
 import { AdminRegisterPage } from '../pages/profile/admin-register/admin-register.page';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material';
+import { NgxMasonryModule } from 'ngx-masonry';
+
 
 @NgModule({
   declarations: [
@@ -289,9 +292,7 @@ import { AdminRegisterPage } from '../pages/profile/admin-register/admin-registe
     ReactiveFormsModule,
     MomentModule,
     HttpClientModule,
-    RlTagInputModule,
     NgxCarouselModule,
-    MasonryModule,
     InfiniteScrollModule,
     MyDatePickerModule,
     SlimLoadingBarModule.forRoot(),
@@ -300,7 +301,10 @@ import { AdminRegisterPage } from '../pages/profile/admin-register/admin-registe
     LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule,
     BarRatingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    NgxMasonryModule
   ],
   providers: [
     UserService,

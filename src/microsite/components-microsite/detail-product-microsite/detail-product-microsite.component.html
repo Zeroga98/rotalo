@@ -56,11 +56,11 @@
             <div class="price-container">
               <div>
                 <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
-                  {{products.price | currency:"Q":0 | removeDigits}}</span>
+                  {{products.price | currency:"Q" | removeDigits}}</span>
                 <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
-                  {{products.price | currency:"$":0 | removeDigits}}</span>
+                  {{products.price | currency:"$" | removeDigits}}</span>
                 <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
-                  {{products.price | currency:"$":0 | removeDigits}}</span>
+                  {{products.price | currency:"$" | removeDigits}}</span>
                 <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
             </div>

@@ -1,5 +1,7 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from '../../services/configuration.service';
 
@@ -24,7 +26,7 @@ constructor(private http: HttpClient,
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/registro/recuperar`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
 

@@ -1,11 +1,14 @@
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/mergeMap';
 import { UserInterface } from '../commons/interfaces/user.interface';
 import { ConfigurationService } from '../services/configuration.service';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/concatMap';
+import {map} from 'rxjs/operators';
+
+
 @Injectable()
 export class MessagesService {
     currentUser: UserInterface;
@@ -29,12 +32,12 @@ export class MessagesService {
     }
 
     getConversationsUnread(): Promise<any> {
-        return this.http.get(this.url)
-                    .map( (conversations: any) => conversations.data)
-                    .map( (conversations: any) => {
+        return this.http.get(this.url).pipe(
+                    map( (conversations: any) => conversations.data),
+                    map( (conversations: any) => {
                         conversations = [].concat(conversations);
                         return conversations.filter( (conversation: any) => conversation['unread-count'] > 0);
-                    })
+                    }))
                     .toPromise();
     }
 
@@ -54,7 +57,7 @@ export class MessagesService {
 
       return Observable.timer(0, this.timeToCheckUnreadNotification)
       .concatMap(() =>  this.http.put(url, this.getUnreadNotificationParam() , { headers: headers }))
-      .map((response: any) => response);
+      .pipe(map((response: any) => response));
     }
 
     getMessages(idUser): Observable<any> {
@@ -64,7 +67,7 @@ export class MessagesService {
       const url = this.urlSapi + '/centro/rotalo/notificaciones';
       return Observable.timer(0, this.timeToCheckNotification)
       .concatMap(() =>  this.http.get(url, { headers: headers }))
-      .map((response: any) => {
+      .pipe(map((response: any) => {
         if (response.body.emisarios) {
           response.body.emisarios.map((emisario) => {
             emisario.mensajes.map((mensaje) => {
@@ -75,7 +78,7 @@ export class MessagesService {
           });
         }
         return response;
-      } );
+      } ));
     }
 
     updateSellUnknow(params){
@@ -83,8 +86,8 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/ventas-desconocidas';
       return this.http
-      .put(url, params , { headers: headers })
-      .map((response: any) => response);
+      .put(url, params , { headers: headers }).pipe(
+      map((response: any) => response));
     }
 
 
@@ -182,8 +185,8 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/notificaciones/' + idUserEmit;
       return this.http
-        .get(url, { headers: headers })
-        .map((response: any) => response);
+        .get(url, { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
     sendMessage(params, idUser) {
@@ -192,8 +195,8 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/mensajes';
       return this.http
-        .post(url, params ,{ headers: headers })
-        .map((response: any) => response);
+        .post(url, params , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
     checkNotificationHobbies(idUser) {
@@ -202,8 +205,8 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/notificaciones-intereses';
       return this.http
-        .post(url , { headers: headers })
-        .map((response: any) => response);
+        .post(url , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
     updateMessage(params, idUser) {
@@ -212,8 +215,8 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/notificaciones';
       return this.http
-        .put(url, params , { headers: headers })
-        .map((response: any) => response);
+        .put(url, params , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
     deleteMessage(idConversation, idUser) {
@@ -221,8 +224,8 @@ export class MessagesService {
       headersSapi = Object.assign(headersSapi, {userid: idUser} );
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/conversaciones/' + idConversation;
-      return this.http .delete (url , { headers: headers })
-        .map((response: any) => response);
+      return this.http .delete (url , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
     rateSeller(params, idUser) {
@@ -231,17 +234,17 @@ export class MessagesService {
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/calificaciones';
       return this.http
-        .put(url, params , { headers: headers })
-        .map((response: any) => response);
+        .put(url, params , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
-    notificationConfirmation(params){
-      let headersSapi = this.configurationService.getJsonSapiHeaders();
+    notificationConfirmation(params) {
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/general/envios-correos';
       return this.http
-        .put(url, params , { headers: headers })
-        .map((response: any) => response);
+        .put(url, params , { headers: headers }).pipe(
+        map((response: any) => response));
     }
 
 }

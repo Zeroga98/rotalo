@@ -1,4 +1,6 @@
 
+import {map} from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
@@ -20,7 +22,7 @@ export class TypeDocumentsService {
       const headers = new HttpHeaders(jsonSapiHeaders);
       const urlSapi = `${this.urlSapi}`;
       const url = urlSapi + '/preregistro/tipodocumentos';
-      return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+      return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
     }
 
 }

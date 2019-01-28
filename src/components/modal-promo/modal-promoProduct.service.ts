@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
-import { ConfigurationService } from "../../services/configuration.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { ConfigurationService } from '../../services/configuration.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ModalPromoProductService {
@@ -44,7 +45,8 @@ export class ModalPromoProductService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/promo-reno`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers })
+    .pipe(map((response: any) => response));
   }
 
 }

@@ -1,11 +1,11 @@
 
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { ConfigurationService } from "../../../services/configuration.service";
-import 'rxjs/add/operator/mergeMap';
-import { ProductInterface } from "../../../commons/interfaces/product.interface";
-import { ProductsMicrositeService } from "../back/products-microsite.service";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ConfigurationService } from '../../../services/configuration.service';
+
+import { ProductInterface } from '../../../commons/interfaces/product.interface';
+import { ProductsMicrositeService } from '../back/products-microsite.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ShoppingCarService {

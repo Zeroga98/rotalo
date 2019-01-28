@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
@@ -14,7 +16,7 @@ export class FrequentlyAskedQuestionsService {
     jsonSapiHeaders = Object.assign(jsonSapiHeaders);
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/general/faq?pais=1';
-    return this.http.get(url, { headers: headers }).map((response: any) => response.body);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response.body));
   }
 
 }

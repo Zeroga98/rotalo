@@ -1,13 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ConfigurationService } from "./configuration.service";
+
+import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConfigurationService } from './configuration.service';
 
 
 @Injectable()
 export class BuyService {
-  private readonly url = this.configurationService.getBaseUrl() + "/purchases";
-  private readonly urlNewPurchase = this.configurationService.getBaseUrl() + "/purchases/create_and_confirm";
-  private readonly urlNequi = this.configurationService.getBaseSapiUrl() + "/pagos/nequi/notificaciones";
+  private readonly url = this.configurationService.getBaseUrl() + '/purchases';
+  private readonly urlNewPurchase = this.configurationService.getBaseUrl() + '/purchases/create_and_confirm';
+  private readonly urlNequi = this.configurationService.getBaseSapiUrl() + '/pagos/nequi/notificaciones';
   private readonly urlSapi = this.configurationService.getBaseSapiUrl();
   private quantityProduct;
   constructor(
@@ -19,15 +21,15 @@ export class BuyService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/compras`;
-    return this.httpClient.post(url, params, { headers: headers}).map( (response: any) => response);
+    return this.httpClient.post(url, params, { headers: headers}).pipe(map( (response: any) => response));
   }
 
   buyProductNequi(params) {
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.post(this.urlNequi, params, { headers: headers}).map( (response: any) =>
+    return this.httpClient.post(this.urlNequi, params, { headers: headers}).pipe(map( (response: any) =>
       response
-    );
+    ));
   }
 
   rentProduct (idProducto) {
@@ -36,7 +38,7 @@ export class BuyService {
     const url =
     `${this.urlSapi}/productos/me-interesa/${idProducto}`;
     const params = {};
-    return this.httpClient.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   validateStateNequi(params) {
@@ -45,26 +47,26 @@ export class BuyService {
     `numeroCelular=${params.numeroCelular}&idTransaccion=${params.idTransaccion}&idProducto=${params.idProducto}`;
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.get(url, { headers: headers}).map( (response: any) =>
+    return this.httpClient.get(url, { headers: headers}).pipe(map( (response: any) =>
       response
-    );
+    ));
   }
 
   changeStatusProduct(params) {
     const url = this.configurationService.getBaseSapiUrl() + '/pagos/nequi/estado-producto';
     const jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonNequiHeaders);
-    return this.httpClient.put(url, params, {headers: headers}).map( (response: any) =>
+    return this.httpClient.put(url, params, {headers: headers}).pipe(map( (response: any) =>
       response
-    );
+    ));
   }
 
   confirmPurchase(id) {
-    this.sendResponsePurchase(id, "confirm");
+    this.sendResponsePurchase(id, 'confirm');
   }
 
   declinePurchase(id) {
-    this.sendResponsePurchase(id, "decline");
+    this.sendResponsePurchase(id, 'decline');
   }
 
   private sendResponsePurchase(id: number, action: string) {
@@ -72,7 +74,7 @@ export class BuyService {
     return this.httpClient.post(url, {
         data: {
           id,
-          type: "purchases"
+          type: 'purchases'
         }
       })
       .toPromise();
@@ -82,7 +84,7 @@ export class BuyService {
     return {
       data: {
         attributes: params,
-        type: "purchases"
+        type: 'purchases'
       }
     };
   }

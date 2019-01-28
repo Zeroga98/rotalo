@@ -140,16 +140,16 @@
                 <div class="row-price-container">
                     <div class="row-text">
                         <div class="label-text">Subtotal</div>
-                        <div class="label-price">{{ carSubTotalPrice | currency:"$":0 | removeDigits }}</div>
+                        <div class="label-price">{{ carSubTotalPrice | currency:"$" | removeDigits }}</div>
                     </div>
                     <div class="row-text">
                         <div class="label-text">IVA</div>
-                        <div class="label-price">{{ carTotalIva | currency:"$":0 | removeDigits }}</div>
+                        <div class="label-price">{{ carTotalIva | currency:"$" | removeDigits }}</div>
                     </div>
                 </div>
                 <div class="total-price">
                     <div class="label-text">TOTAL</div>
-                    <div class="label-price red-text">{{ carTotalPrice | currency:"$":0 | removeDigits }}</div>
+                    <div class="label-price red-text">{{ carTotalPrice | currency:"$" | removeDigits }}</div>
                 </div>
             </div>
             <div class="buttons-section">

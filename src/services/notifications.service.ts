@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { NotificationsInterface } from './../commons/interfaces/notifications.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,15 +19,15 @@ export class NotificationsService {
     private getNotificationsFromServer(): Promise<any> {
         const url: string = this.configurationService.getBaseUrl() + '/notifications';
         return this.httpClient
-            .get(url)
-            .map((response: any) => {
+            .get(url).pipe(
+            map((response: any) => {
                 const data = [].concat(response.data);
                 return data.map( (notificacion: NotificationsInterface) => {
                     notificacion.status = this.updateStatusNotification(notificacion);
                     return notificacion;
 
                 });
-            })
+            }))
             .toPromise();
     }
 

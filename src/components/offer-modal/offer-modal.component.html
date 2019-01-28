@@ -5,8 +5,8 @@
 		</div>
 		<div class="text">
 			<div class="title">{{config?.title}}</div>
-      <div class="price" *ngIf="config.currency != 'GTQ'">Precio actual: {{config?.price | currency:"$":0 | removeDigits}}</div>
-      <div class="price" *ngIf="config.currency == 'GTQ'">Precio actual: {{config?.price | currency:"Q":0 | removeDigits}}</div>
+      <div class="price" *ngIf="config.currency != 'GTQ'">Precio actual: {{config?.price | currency:"$" | removeDigits}}</div>
+      <div class="price" *ngIf="config.currency == 'GTQ'">Precio actual: {{config?.price | currency:"Q" | removeDigits}}</div>
 		</div>
 	</div>
 	<div modal-body class="container-body">
@@ -22,10 +22,10 @@
 					<span *ngIf="errorInForm" class="help-block"> {{msgError}} </span>
 				</div>
 				<div *ngIf="config.currency != 'GTQ' &&  config.type == 'SUBASTA'" class="copy-subasta">
-					Tu oferta debe ser mayor o igual a {{minValue | currency:"$":0 | removeDigits}}
+					Tu oferta debe ser mayor o igual a {{minValue | currency:"$" | removeDigits}}
         </div>
         <div *ngIf="config.currency == 'GTQ' && config.type == 'SUBASTA'" class="copy-subasta">
-            Tu oferta debe ser mayor o igual a {{minValue | currency:"Q":0 | removeDigits}}
+            Tu oferta debe ser mayor o igual a {{minValue | currency:"Q" | removeDigits}}
         </div>
 			</form>
 		</div>

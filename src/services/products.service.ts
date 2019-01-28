@@ -1,8 +1,10 @@
-import { Observable } from "rxjs/Observable";
+
+import {map} from 'rxjs/operators';
+import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ConfigurationService } from "../services/configuration.service";
-import 'rxjs/add/operator/mergeMap';
+
 import { UserService } from './user.service';
 import { ProductInterface } from '../commons/interfaces/product.interface';
 import { Router } from "@angular/router";
@@ -92,7 +94,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${id}/destacados`;
-    return this.http.put(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getProductsSuper(idUser, params) {
@@ -135,7 +137,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${id}`;
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
 
@@ -198,7 +200,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${id}`;
-    return this.http.put(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   updateProductStatus(idUser, id: number | string, params): Promise<any> {
@@ -220,7 +222,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/productos';
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   private _buildParams(params): any {
@@ -243,7 +245,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/centro/rotalo/productos';
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getInfoAdditional(idUser) {
@@ -251,14 +253,14 @@ export class ProductsService {
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/centro/rotalo/vendidos-comprados';
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   visitorCounter(productId) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${productId}/visitas`;
-    return this.http.put(url, { headers: headers }).map((response: any) => response);
+    return this.http.put(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   shareProduct(params, productId) {
@@ -279,7 +281,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/referidos/${token}`;
-    return this.http.put(url, { headers: headers }).map((response: any) => response);
+    return this.http.put(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   reOrderProductChecked(params) {
@@ -313,7 +315,7 @@ export class ProductsService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url =
       `${this.urlSapi}/productos/referidos/destacados?ultimasHoras=48&pais=${countryId}&comunidad=${communityId}&cantidad=5&pagina=1`;
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   setFeatureProducts(featuredProducts) {
@@ -328,7 +330,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/creditos/bam`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   countProductChecked(starSelected) {

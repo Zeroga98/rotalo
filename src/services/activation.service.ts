@@ -9,7 +9,7 @@ export class ActivationService {
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    ejecuteActivation(code:string): Promise<any> {
+    ejecuteActivation(code: string): Promise<any> {
         return this.httpClient.post(this.url,
                 {
                     data: {

@@ -34,7 +34,7 @@ export class UtilsService {
     }
 
 
-    public  getOrientation(file, callback) {
+  /*  public  getOrientation(file, callback) {
       const reader = new FileReader();
       reader.onload = function(e: Event) {
 
@@ -69,7 +69,7 @@ export class UtilsService {
           return callback(-1);
       };
       reader.readAsArrayBuffer(file);
-  }
+    }*/
 
   public  resetOrientation(srcBase64, srcOrientation, callback) {
     const img = new Image();

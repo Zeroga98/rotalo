@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from './configuration.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,28 +18,28 @@ export class SettingsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/ordenes/estados`;
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getOrders(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/ordenes`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getPreRegisters() {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/preregistro`;
-    return this.http.get(url, { headers: headers }).map((response: any) => response);
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   changeStatusOrders(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/ordenes/actualizar`;
-    return this.http.post(url, params, { headers: headers }).map((response: any) => response);
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   deleteProduct(id: number | string): Promise<any> {

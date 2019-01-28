@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfigurationService } from "../services/configuration.service";
+import { ConfigurationService } from '../services/configuration.service';
 
 
 @Injectable()
@@ -12,18 +14,6 @@ export class PhotosService {
     getUrlPhotos(): string {
         return this.url;
     }
-/*
-    updatePhoto(file: File): Promise<any> {
-        const formData: FormData = this.buildFormData(file);
-
-        return this.http.post(this.url, formData,
-                    {
-                        headers: new HttpHeaders().delete('Content-Type')
-                    })
-                .toPromise().then((res: any) => {
-                  return res.data;
-                });
-    }*/
 
     updatePhoto(file: File) {
       const formData: FormData = this.buildFormData(file);
@@ -31,7 +21,7 @@ export class PhotosService {
       return this.http.post(this.url, formData,
                   {
                       headers: new HttpHeaders().delete('Content-Type')
-                  }).map ((res: any) => res.data);
+                  }).pipe(map ((res: any) => res.data));
   }
 
     deletePhotoById(id: number): Promise<any> {

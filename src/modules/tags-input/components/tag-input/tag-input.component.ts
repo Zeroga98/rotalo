@@ -1,3 +1,5 @@
+
+import {tap} from 'rxjs/operators';
 import {
   Component,
   ElementRef,
@@ -159,8 +161,8 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
       tagInputField: ''
     });
 
-    this.tagInputSubscription = this.tagInputField.valueChanges
-    .do(value => {
+    this.tagInputSubscription = this.tagInputField.valueChanges.pipe(
+    tap(value => {
       this.autocompleteResults = this.autocompleteItems.filter(item => {
         /**
          * _isTagUnique makes sure to remove items from the autocompelte dropdown if they have
@@ -168,7 +170,7 @@ export class TagInputComponent implements ControlValueAccessor, OnDestroy, OnIni
          */
         return item.toLowerCase().indexOf(value.toLowerCase()) > -1 && this._isTagUnique(item);
       });
-    })
+    }))
     .subscribe();
   }
 

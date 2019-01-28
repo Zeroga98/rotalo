@@ -1,6 +1,8 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ConfigurationService } from "./configuration.service";
+
+import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class ResumeRotaloCenterService {
@@ -15,7 +17,7 @@ export class ResumeRotaloCenterService {
     jsonNequiHeaders = Object.assign(jsonNequiHeaders, {userid: idUser} );
     const headers = new HttpHeaders(jsonNequiHeaders);
     return this.httpClient
-      .get(this.url, { headers: headers })
-      .map((response: any) => response);
+      .get(this.url, { headers: headers }).pipe(
+      map((response: any) => response));
   }
 }
