@@ -35,6 +35,18 @@ image-upload{
     }
 }
 
+.container-box {
+  image-upload {
+    .img-ul .img-ul-container .img-ul-image {
+      width: 120.46px;
+      height: 120.21px;
+    }
+    .img-ul-container[_ngcontent-c16] {
+      padding: 0;
+    }
+  }
+}
+
 @media screen and (max-width: 850px) {
   .img-ul-drag-box-msg{
     display: none !important;

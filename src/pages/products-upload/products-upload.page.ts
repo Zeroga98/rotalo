@@ -1,14 +1,15 @@
-import { ProductsService } from "../../services/products.service";
-import { Router } from "@angular/router";
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
-import { ROUTES } from "../../router/routes";
-import { UserService } from "../../services/user.service";
-import { ModalUploadProductService } from "../../components/modal-uploadProduct/modal-uploadProduct.service";
+import { ProductsService } from '../../services/products.service';
+import { Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { ROUTES } from '../../router/routes';
+import { UserService } from '../../services/user.service';
+import { ModalUploadProductService } from '../../components/modal-uploadProduct/modal-uploadProduct.service';
+
 
 @Component({
-  selector: "roducts-upload",
-  templateUrl: "./products-upload.page.html",
-  styleUrls: ["./products-upload.page.scss"],
+  selector: 'roducts-upload',
+  templateUrl: './products-upload.page.html',
+  styleUrls: ['./products-upload.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsUploadPage implements OnInit, OnDestroy {
@@ -37,7 +38,7 @@ export class ProductsUploadPage implements OnInit, OnDestroy {
         this.shareProduct('custom-modal-3', response.data.id);
       }
     } catch (error) {
-      console.error("Error: ", error);
+      console.error('Error: ', error);
     }
   }*/
 
@@ -51,7 +52,7 @@ export class ProductsUploadPage implements OnInit, OnDestroy {
       }
     },
     (error) => {
-      console.error("Error: ", error);
+      console.error('Error: ', error);
     });
   }
 

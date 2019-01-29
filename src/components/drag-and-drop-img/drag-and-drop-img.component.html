@@ -1,0 +1,8 @@
+<div cdkDropList cdkDropListOrientation="horizontal" class="container-list" (cdkDropListDropped)="drop($event)">
+    <div class="container-box" *ngFor="let imagesPosition of imagesPositions" cdkDrag>
+        <div class="custom-placeholder" *cdkDragPlaceholder></div>
+        <image-upload  id="image-upload" [max]="1" #imageInput [preview]="true" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="''"
+        [dropBoxMessage]="''"  [style]="customStyleImageLoader"
+        (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"></image-upload>
+    </div>
+</div>

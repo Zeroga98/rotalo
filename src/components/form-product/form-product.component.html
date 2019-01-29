@@ -43,10 +43,16 @@
               </div>
             </div>
             <div class="row-img">
+
+
+
                 <div class="step-number">
                     <span class="number"></span>Comparte las mejores imágenes de tu producto, recuerda ¡todo entra por los ojos!.*
                     <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
-                  </div>
+                </div>
+                <drag-and-drop-img></drag-and-drop-img>
+
+
                   <div [ngClass]="{'load-photos': photosCounter > 0}" class="container-prev-photos" *ngIf="photosUploaded">
                     <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
                     <div class="prev-photos" *ngFor="let photo of photosUploaded">
@@ -63,6 +69,9 @@
                       [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
                       (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"></image-upload>
                   </div>
+
+
+
                   <span class="help-block uploadImg" *ngIf="errorUploadImg">
                     ¡Oops, tus imágenes están muy grandes! Deben ser máximo de 10MB. Escríbenos a info@rotalo.co si sigues teniendo problemas.
                   </span>

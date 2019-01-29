@@ -153,6 +153,7 @@ import { PromoAnimationComponent } from '../components/promo-animation/promo-ani
 import { ModalPromoComponent } from '../components/modal-promo/modal-promo.component';
 import { ModalPromoProductService } from '../components/modal-promo/modal-promoProduct.service';
 import { FeaturedProductsComponent } from '../pages/profile/featured-products/featured-products.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 //Componentes y páginas del micrositio
 import { CarMicrositePage } from '../microsite/pages-microsite/car-microsite/car-microsite.page';
@@ -178,6 +179,7 @@ import { AdminRegisterPage } from '../pages/profile/admin-register/admin-registe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
 
 
 @NgModule({
@@ -284,7 +286,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     ProductRotaloCenterComponent,
     SuccessCreditComponent,
     FeaturedProductsComponent,
-    AdminRegisterPage
+    AdminRegisterPage,
+    DragAndDropImgComponent
   ],
   imports: [
     BrowserModule,
@@ -304,7 +307,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    DragDropModule
   ],
   providers: [
     UserService,
