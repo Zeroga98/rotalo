@@ -22,6 +22,7 @@ export class DragAndDropImgComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.imagesPositions, event.previousIndex, event.currentIndex);
+    console.log(this.imagesPositions);
   }
 
   ngOnInit() {

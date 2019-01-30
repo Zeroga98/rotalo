@@ -10,7 +10,7 @@
   }
 
   .container-box {
-    padding: 20px 10px;
+    margin: 20px 10px;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: row;
@@ -21,6 +21,7 @@
     background: white;
     flex-grow: 1;
     flex-basis: 0;
+    max-width: 135px;
   }
 
   .cdk-drag-preview {
@@ -36,12 +37,12 @@
   }
 
   .container-box:first-child {
-    padding-left: 0;
+    margin-left: 0;
   }
 
   .container-box:last-child {
     border: none;
-    padding-right: 0;
+    margin-right: 0;
   }
 
   .container-list.cdk-drop-list-dragging .container-box:not(.cdk-drag-placeholder) {
