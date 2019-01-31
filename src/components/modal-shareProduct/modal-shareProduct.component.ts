@@ -85,12 +85,13 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
         .then(response => {
           this.sendInfoProduct.reset();
           this.messageSuccess = true;
+          /**CompartirEsteProductoExitosoHomeCorporativo**/
           this.gapush(
             'send',
             'event',
             'Productos',
             'ClicInferior',
-            'CompartirEsteProductoExitoso'
+            'CompartirEsteProductoExitosoHome'
           );
           this.changeDetectorRef.markForCheck();
         })

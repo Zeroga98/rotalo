@@ -177,7 +177,7 @@ export class DetailProductMicrositeComponent implements OnInit {
             'event',
             'Productos',
             'ClicInferior',
-            'CompartirEsteProductoExitoso'
+            'CompartirEsteProductoExitosoDetalleCorporativo'
           );
           this.changeDetectorRef.markForCheck();
         })

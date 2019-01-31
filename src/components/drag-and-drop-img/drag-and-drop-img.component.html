@@ -1,8 +1,34 @@
-<div cdkDropList cdkDropListOrientation="horizontal" class="container-list" (cdkDropListDropped)="drop($event)">
-    <div class="container-box" *ngFor="let imagesPosition of imagesPositions" cdkDrag>
-        <div class="custom-placeholder" *cdkDragPlaceholder></div>
-        <image-upload  id="image-upload" [max]="1" #imageInput [preview]="true" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="''"
-        [dropBoxMessage]="''"  [style]="customStyleImageLoader"
-        (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"></image-upload>
+<div class="grid">
+
+    <div class="item">
+      <div class="item-content">
+        One
+      </div>
     </div>
-</div>
+    <div class="item">
+      <div class="item-content">
+        Two
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Three
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Four
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Five
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-content">
+        Six
+      </div>
+    </div>
+  </div>
+

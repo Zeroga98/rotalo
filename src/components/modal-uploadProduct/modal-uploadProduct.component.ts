@@ -86,7 +86,7 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
             'event',
             'Productos',
             'ClicInferior',
-            'CompartirEsteProductoExitoso'
+            'CompartirEsteProductoExitosoOferta'
           );
           this.changeDetectorRef.markForCheck();
         })

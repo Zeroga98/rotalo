@@ -33,6 +33,7 @@
     "core-js": "^2.6.3",
     "hammerjs": "^2.0.8",
     "lite-server": "^2.4.0",
+    "muuri": "^0.7.1",
     "mydatepicker": "^2.6.3",
     "ng-autosize": "^1.1.0",
     "ng-lottie": "^0.3.1",

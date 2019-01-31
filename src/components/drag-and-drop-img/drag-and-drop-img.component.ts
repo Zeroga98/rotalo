@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { IMAGE_STYLES } from './image.constant';
-
+import * as Muuri from 'muuri';
 
 @Component({
   selector: 'drag-and-drop-img',
@@ -9,31 +9,12 @@ import { IMAGE_STYLES } from './image.constant';
   styleUrls: ['./drag-and-drop-img.component.scss']
 })
 export class DragAndDropImgComponent implements OnInit {
-  customStyleImageLoader = IMAGE_STYLES;
+
   constructor() { }
-  imagesPositions = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6'
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.imagesPositions, event.previousIndex, event.currentIndex);
-    console.log(this.imagesPositions);
-  }
-
   ngOnInit() {
-  }
-
-  onUploadImageFinished(event) {
-   console.log(event);
-  }
-
-  onRemoveImage(event) {
-    console.log(event);
+    const grid = new Muuri('.grid', {
+      dragEnabled: true
+    });
   }
 
 }

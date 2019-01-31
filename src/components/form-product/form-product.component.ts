@@ -1,6 +1,6 @@
 import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
-
+import * as Muuri from 'muuri';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -45,7 +45,7 @@ function isCategorySelected( c: AbstractControl ): { [key: string]: boolean } | 
   styleUrls: ['./form-product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormProductComponent implements OnInit, OnChanges {
+export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   @Input() product: ProductInterface;
   @Output() publish: EventEmitter<any> = new EventEmitter();
   @ViewChild('categorySelect', { read: ElementRef }) categorySelectElem: ElementRef;
@@ -96,6 +96,8 @@ export class FormProductComponent implements OnInit, OnChanges {
   public courrentDate = new Date();
   public categorySelected;
   public maxValueNewPrice = 0;
+  public numberOfPhotos = [1, 2, 3, 4, 5, 6];
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -114,6 +116,7 @@ export class FormProductComponent implements OnInit, OnChanges {
 
   async ngOnInit() {
     const currentUser = this.currentSessionSevice.currentUser();
+
     this.countryId = Number(currentUser['countryId']);
     try {
       this.setInitialForm(this.getInitialConfig());
@@ -128,6 +131,16 @@ export class FormProductComponent implements OnInit, OnChanges {
     } catch (error) {
       console.log(error);
     }
+  }
+
+
+  ngAfterViewInit(): void {
+   // let gridd = new Muuri('.placeholder-container', {dragEnabled: true});
+
+    const grid = new Muuri('.grid' , {
+      dragEnabled: true
+    });
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnChanges(): void {
@@ -387,7 +400,9 @@ export class FormProductComponent implements OnInit, OnChanges {
     this.photosService.updatePhoto(event.file).subscribe(
       (response) => {
         const photo = Object.assign({}, response, { file: event.file });
+        console.log(photo);
         this.photosUploaded.push(photo);
+        console.log(this.photosUploaded);
         this.changeDetectorRef.markForCheck();
       },
       (error) => {

@@ -169,7 +169,7 @@ export class DetailProductComponent implements OnInit {
             'event',
             'Productos',
             'ClicInferior',
-            'CompartirEsteProductoExitoso'
+            'CompartirEsteProductoExitosoDetalle'
           );
           this.changeDetectorRef.markForCheck();
         })
