@@ -51,16 +51,17 @@
                     <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
                 </div>
             <!--<drag-and-drop-img></drag-and-drop-img>-->
-
-
                   <div class="container-prev-photos" >
                     <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
                     <div>
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item place-holder">
                             <div class="item-content">
-                              <p>
-                                Agregar
-                              </p>
+                              <div class="wrapper">
+                                  <div class="icon-camera"></div>
+                                  <p>
+                                    Agregar
+                                  </p>
+                              </div>
                             </div>
                           </div>
                     </div>
@@ -68,6 +69,9 @@
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item">
                           <div class="item-content">
                             <div *ngIf="photosUploaded && photosUploaded[numberOfPhoto-1]" class="container-img">
+                                <div class="remove-action">
+                                    <span class="icon-close" (click)="onRemovePreviewImage(photosUploaded[numberOfPhoto-1])"></span>
+                                  </div>
                                 <img [src]="photosUploaded[numberOfPhoto-1]?.url">
                             </div>
                           </div>

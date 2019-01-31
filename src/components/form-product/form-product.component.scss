@@ -961,8 +961,8 @@
   display: block;
   border-radius: 8px;
   position: absolute;
-  width: 150px;
-  height: 152px;
+  width:  120.46px;
+  height: 120.21px;
   margin-right: 1.5rem;
   text-align: center;
   font-size: 1.4rem;
@@ -970,7 +970,6 @@
   color:#D5D5D5;
   z-index: 1;
 }
-
 
 .item.place-holder {
   cursor: pointer;
@@ -1002,6 +1001,7 @@
 }
 
 .item-content {
+  display: table;
   position: relative;
   width: 100%;
   height: 100%;
@@ -1013,11 +1013,56 @@
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    position: relative;
+    &:hover {
+      .remove-action {
+        display: block;
+      }
+    }
+    .remove-action {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.35);
+
+      span {
+        color: white;
+        font-size: 1rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+      }
+    }
     img {
       width: 100%;
       height: auto;
       cursor: move;
     }
+  }
+}
+
+.item-content {
+  .wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.icon-camera {
+  margin: 0 auto;
+  width: 42px;
+  height: 42px;
+  background: url(../../assets/img/ic_camera_upload_gris.svg);
+  background-size: 42px 42px;
+}
+
+.item.place-holder:hover, .item.place-holder:first-child {
+  .icon-camera {
+    background: url(../../assets/img/ic_camera_upload_hover.svg);
+    background-size: 42px 42px;
   }
 }
 
@@ -1028,3 +1073,4 @@
 .item.muuri-item-releasing .item-content {
   // background: #152c43;
 }
+

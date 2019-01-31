@@ -138,7 +138,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
    // let gridd = new Muuri('.placeholder-container', {dragEnabled: true});
 
     const grid = new Muuri('.grid' , {
-      dragEnabled: true
+      dragEnabled: true,
+      layout: 'instant'
     });
     this.changeDetectorRef.markForCheck();
   }
