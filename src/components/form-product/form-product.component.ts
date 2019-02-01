@@ -430,6 +430,14 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
+  uploadFiles() {
+    console.log(this.imageInput);
+    const element: HTMLElement = document.querySelector('input[type="file"]') as HTMLElement;
+    element.click();
+  //  this.imageInput.processUploadedFiles();
+ //   console.log(this.imageInput.processUploadedFiles());
+  }
+
  private findPhotoWithId(file) {
    return this.imageInput.files.find(inputFile => {
     return inputFile.file == file;

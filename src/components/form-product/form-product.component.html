@@ -55,7 +55,8 @@
                     <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
                     <div>
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item place-holder">
-                            <div class="item-content">
+                            <div (click) ="uploadFiles()"  class="item-content">
+                             
                               <div class="wrapper">
                                   <div class="icon-camera"></div>
                                   <p>
@@ -69,10 +70,10 @@
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item">
                           <div class="item-content">
                             <div *ngIf="photosUploaded && photosUploaded[numberOfPhoto-1]" class="container-img">
-                                <div class="remove-action">
-                                    <span class="icon-close" (click)="onRemovePreviewImage(photosUploaded[numberOfPhoto-1])"></span>
-                                  </div>
-                                <img [src]="photosUploaded[numberOfPhoto-1]?.url">
+                                <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhoto-1])" class="remove-action">
+                                    <span class="icon-close"></span>
+                                </div>
+                                <img  [src]="photosUploaded[numberOfPhoto-1]?.url">
                             </div>
                           </div>
                         </div>
@@ -81,7 +82,8 @@
                   <div>
                     <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="'Seleccionar imágenes'"
                       [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                      (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"></image-upload>
+                      (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)">
+                    </image-upload>
                   </div>
 
                   <span class="help-block uploadImg" *ngIf="errorUploadImg">

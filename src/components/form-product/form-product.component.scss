@@ -976,6 +976,7 @@
   position:relative;
   border: 2px dashed #D5D5D5;
   display: inline-block;
+  transition: .25s;
 }
 
 .item.place-holder:hover {
@@ -1003,15 +1004,15 @@
 .item-content {
   display: table;
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 120.46px;
+  height: 120.21px;
   text-align: center;
 }
 
 .item-content {
   .container-img {
-    width: 100%;
-    height: 100%;
+    width: 120.46px;
+    height: 120.21px;
     border-radius: 8px;
     position: relative;
     &:hover {
@@ -1020,27 +1021,32 @@
       }
     }
     .remove-action {
+      cursor: pointer;
+      right: 5px;
+      top: 5px;
       position: absolute;
       display: none;
-      width: 100%;
-      height: 100%;
+      width: 20px;
+      height: 20px;
       z-index: 10;
       background: rgba(0, 0, 0, 0.35);
-
+      border-radius: 50%;
       span {
         cursor: pointer;
         color: white;
         font-size: 1rem;
         position: absolute;
-        top: 1rem;
-        right: 1rem;
-        cursor: pointer;
+        top: 0.5rem;
+        right: 0.5rem;
       }
     }
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
       cursor: move;
+      -o-object-fit: cover;
+      object-fit: cover;
+      border-radius: 8px;
     }
   }
 }
