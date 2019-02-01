@@ -97,6 +97,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public categorySelected;
   public maxValueNewPrice = 0;
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
+  public imagArray;
+  @ViewChild('grid') grid: ElementRef;
 
   constructor(
     private router: Router,
@@ -135,14 +137,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   ngAfterViewInit(): void {
-   // let gridd = new Muuri('.placeholder-container', {dragEnabled: true});
-
-    const grid = new Muuri('.grid' , {
-      dragEnabled: true,
+  const gridHolder = new Muuri('.grid-holder' , {
+      dragEnabled: false,
+      layout: 'instant'
+    });
+   this.imagArray = new Muuri('.grid' , {
+      dragEnabled: false,
       layout: 'instant'
     });
     this.changeDetectorRef.markForCheck();
   }
+
 
   ngOnChanges(): void {
     if (this.product) {
@@ -159,6 +164,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }, 30);
     }
     this.changeDetectorRef.markForCheck();
+  }
+
+  click() {
+    console.log(this.imagArray);
+    console.log(this.imagArray.getItems());
   }
 
   async getInfoUser() {
@@ -394,6 +404,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     });
   }
 
+  removeClassDrag () {
+    const grid  = new Muuri('.grid' , {
+      dragEnabled: true
+    });
+    grid.remove(0);
+    console.log(grid.getItems());
+    grid.getItems().forEach(function (item) {
+      console.log(item);
+    });
+  }
+
   onUploadImageFinished(event) {
     this.errorUploadImg = false;
     this.errorMaxImg = false;
@@ -401,9 +422,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.photosService.updatePhoto(event.file).subscribe(
       (response) => {
         const photo = Object.assign({}, response, { file: event.file });
-        console.log(photo);
         this.photosUploaded.push(photo);
-        console.log(this.photosUploaded);
+        this.removeClassDrag ();
+
+
         this.changeDetectorRef.markForCheck();
       },
       (error) => {

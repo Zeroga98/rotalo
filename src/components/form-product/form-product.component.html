@@ -53,27 +53,28 @@
             <!--<drag-and-drop-img></drag-and-drop-img>-->
                   <div class="container-prev-photos" >
                     <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
-                    <div>
+                    <div id="grid-holder" class="grid-holder">
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item place-holder">
-                            <div (click) ="uploadFiles()"  class="item-content">
-                             
-                              <div class="wrapper">
-                                  <div class="icon-camera"></div>
-                                  <p>
-                                    Agregar
-                                  </p>
+                          <div id = {{numberOfPhoto}} class="item-content">
+                              <div (click) ="uploadFiles()" class="container-wrapper">
+                                  <div class="wrapper">
+                                      <div class="icon-camera"></div>
+                                      <p>
+                                        Agregar
+                                      </p>
+                                  </div>
                               </div>
-                            </div>
                           </div>
+                        </div>
                     </div>
-                    <div class="grid">
+                    <div #grid id="grid" class="grid">
                         <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item">
-                          <div class="item-content">
-                            <div *ngIf="photosUploaded && photosUploaded[numberOfPhoto-1]" class="container-img">
+                          <div class="drag item-content">
+                            <div  class="container-img">
                                 <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhoto-1])" class="remove-action">
                                     <span class="icon-close"></span>
                                 </div>
-                                <img  [src]="photosUploaded[numberOfPhoto-1]?.url">
+                                <img #imagen [src]="photosUploaded[numberOfPhoto-1]?.url">
                             </div>
                           </div>
                         </div>
@@ -82,7 +83,8 @@
                   <div>
                     <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="'Seleccionar imágenes'"
                       [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                      (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)">
+                      (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"
+                      >
                     </image-upload>
                   </div>
 
@@ -93,7 +95,7 @@
                     Escoge al menos una imagen.
                   </span>
             </div>
-            <div class="row row-min">
+            <div (click) = "click()" class="row row-min">
                 <div class="form-group">
                     <label class="label-title">Estado</label>
                    <div>
