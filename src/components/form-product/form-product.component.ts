@@ -1,6 +1,6 @@
 import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
-import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
@@ -99,6 +99,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
   public imagArray;
   @ViewChild('grid') grid: ElementRef;
+  @ViewChildren('photosEnd') endForRender: QueryList<any>;
 
   constructor(
     private router: Router,
@@ -137,14 +138,22 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   ngAfterViewInit(): void {
-  const gridHolder = new Muuri('.grid-holder' , {
-      dragEnabled: false,
-      layout: 'instant'
+    const gridHolder = new Muuri('.grid-holder', {
+      dragEnabled: false
     });
-   this.imagArray = new Muuri('.grid' , {
-      dragEnabled: false,
-      layout: 'instant'
+    this.imagArray = new Muuri('.grid', {
+      dragEnabled: false
     });
+   this.endForRender.changes.subscribe(t => {
+      /*if (this.photosUploaded.length > 0) {
+
+        this.imagArray = new Muuri('.grid', {
+          dragEnabled: true
+        });
+      }*/
+      //  this.changeDetectorRef.markForCheck();
+    });
+    this.endForRender.notifyOnChanges();
     this.changeDetectorRef.markForCheck();
   }
 
@@ -166,10 +175,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
-  click() {
-    console.log(this.imagArray);
-    console.log(this.imagArray.getItems());
-  }
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
@@ -404,15 +409,33 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     });
   }
 
-  removeClassDrag () {
-    const grid  = new Muuri('.grid' , {
+  overFiles () {
+    console.log(true);
+    this.imageInput.onFileOver(true);
+   /* const grid  = new Muuri('.grid' , {
       dragEnabled: true
-    });
-    grid.remove(0);
-    console.log(grid.getItems());
+    });*/
+   // grid.remove(0);
+   /* console.log(grid.getItems());
     grid.getItems().forEach(function (item) {
       console.log(item);
-    });
+    });*/
+  }
+
+ /* onDrop(files: FileList) {
+    console.log(files);
+    event.preventDefault();
+  }*/
+
+  onDrop(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+  }
+
+  onDragOver(event) {
+    console.log(event);
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   onUploadImageFinished(event) {
@@ -423,9 +446,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       (response) => {
         const photo = Object.assign({}, response, { file: event.file });
         this.photosUploaded.push(photo);
-        this.removeClassDrag ();
-
-
+        //  this.removeClassDrag ();
+        this.imagArray = new Muuri('.grid' , {
+          dragEnabled: true
+        });
         this.changeDetectorRef.markForCheck();
       },
       (error) => {
@@ -453,11 +477,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   uploadFiles() {
-    console.log(this.imageInput);
     const element: HTMLElement = document.querySelector('input[type="file"]') as HTMLElement;
     element.click();
-  //  this.imageInput.processUploadedFiles();
- //   console.log(this.imageInput.processUploadedFiles());
   }
 
  private findPhotoWithId(file) {

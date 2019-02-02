@@ -42,51 +42,60 @@
                 </div>
               </div>
             </div>
-            <div class="row-img">
-
-
-
-                <div class="step-number">
-                    <span class="number"></span>Comparte las mejores imágenes de tu producto, recuerda ¡todo entra por los ojos!.*
-                    <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
+            <div
+            (drop)="onDrop($event)"
+            (dragover)="onDragOver($event)"
+            class="row-img">
+            
+              <div class="step-number">
+                <span  class="number"></span>Comparte las mejores imágenes de tu producto, recuerda ¡todo entra por los ojos!.*
+                <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
+              </div>
+              <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']"
+                [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
+                [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)">
+              </image-upload>
+              <!--<drag-and-drop-img></drag-and-drop-img>-->
+              <div class="container-prev-photos">
+                <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
+                <div #grid id="grid" class="grid">
+                  <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" class="item">
+                    <div class="drag item-content">
+                      <div *ngIf="photosUploaded && photosUploaded[numberOfPhotos-1]" class="container-img">
+                        <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhotos-1])" class="remove-action">
+                          <span class="icon-close"></span>
+                        </div>
+                        <img #imagen [src]="photosUploaded[numberOfPhotos-1]?.url">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            <!--<drag-and-drop-img></drag-and-drop-img>-->
-                  <div class="container-prev-photos" >
-                    <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
-                    <div id="grid-holder" class="grid-holder">
-                        <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item place-holder">
-                          <div id = {{numberOfPhoto}} class="item-content">
-                              <div (click) ="uploadFiles()" class="container-wrapper">
-                                  <div class="wrapper">
-                                      <div class="icon-camera"></div>
-                                      <p>
-                                        Agregar
-                                      </p>
-                                  </div>
-                              </div>
+                <div class="grid-wrapper">
+                  <div id="grid-holder" class="grid-holder">
+                    <div *ngFor="let numberOfPhoto of numberOfPhotos" class="item place-holder">
+                      <div id={{numberOfPhoto}} class="item-content">
+                        <div (click)="uploadFiles()" class="container-wrapper">
+                          <div class="wrapper">
+                            <div class="icon-camera"></div>
+                            <p>
+                              Agregar
+                            </p>
                           </div>
                         </div>
-                    </div>
-                    <div #grid id="grid" class="grid">
-                        <div *ngFor="let numberOfPhoto of numberOfPhotos"  class="item">
-                          <div class="drag item-content">
-                            <div  class="container-img">
-                                <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhoto-1])" class="remove-action">
-                                    <span class="icon-close"></span>
-                                </div>
-                                <img #imagen [src]="photosUploaded[numberOfPhoto-1]?.url">
-                            </div>
-                          </div>
-                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']" [buttonCaption]="'Seleccionar imágenes'"
-                      [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                      (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)"
-                      >
-                    </image-upload>
-                  </div>
+                </div>
+              
+
+
+
+
+
+              </div>
+              <div>
+
+              </div>
 
                   <span class="help-block uploadImg" *ngIf="errorUploadImg">
                     ¡Oops, tus imágenes están muy grandes! Deben ser máximo de 10MB. Escríbenos a info@rotalo.co si sigues teniendo problemas.
@@ -95,7 +104,7 @@
                     Escoge al menos una imagen.
                   </span>
             </div>
-            <div (click) = "click()" class="row row-min">
+            <div  class="row row-min">
                 <div class="form-group">
                     <label class="label-title">Estado</label>
                    <div>

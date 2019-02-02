@@ -124,6 +124,7 @@
           }
           .row-img {
             padding: 30px 0;
+            position: relative;
           }
           .row-min {
             min-height: 225px;
@@ -955,6 +956,18 @@
 
 .grid {
   position: relative;
+}
+
+.grid-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: -1;
+  .grid-holder {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
 }
 
 .item {
