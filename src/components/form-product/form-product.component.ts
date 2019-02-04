@@ -438,9 +438,35 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.errorUploadImg = false;
     this.errorMaxImg = false;
     this.photosCounter++;
+    console.log(event.file);
+    this.photosService.uploadPhoto(event.file).subscribe((response) => {
+      console.log(response);
+      const photo = Object.assign({}, response, { file: event.file });
+      console.log(photo);
+      this.photosUploaded.push(photo);
+      //  this.removeClassDrag ();
+      this.imagArray = new Muuri('.grid' , {
+        dragEnabled: true
+      });
+      this.changeDetectorRef.markForCheck();
+    }, (error) => {
+      this.errorUploadImg = true;
+      console.error('Error: ', error);
+      this.changeDetectorRef.markForCheck();
+    },
+    () => {
+      if (this.photosCounter > 0) {
+        this.photosCounter--;
+      }
+    }
+    );
+
+    /*
     this.photosService.updatePhoto(event.file).subscribe(
       (response) => {
+        console.log(response);
         const photo = Object.assign({}, response, { file: event.file });
+        console.log(photo);
         this.photosUploaded.push(photo);
         //  this.removeClassDrag ();
         this.imagArray = new Muuri('.grid' , {
@@ -458,7 +484,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
           this.photosCounter--;
         }
       }
-    );
+    );*/
   }
 
   onRemovePreviewImage(photo) {
@@ -485,7 +511,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async onRemoveImage(file) {
     const photo = this.findPhoto(file);
-    if (photo) {this.removeImageFromServer(photo.id); }
+    if (photo) {this.removeImageFromServer(photo.photoId); }
     this.errorUploadImg = false;
     this.changeDetectorRef.markForCheck();
   }
@@ -1051,6 +1077,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       return true;
     }
     return false;
+  }
+
+
+  loadOrderPhotos () {
+    const order = this.imagArray.getItems().map(item => {
+      if (item.getElement().querySelectorAll('.imagenUpload')) {
+        console.log(item.getElement().querySelectorAll('.imagenUpload').item(0));
+        return item.getElement().querySelectorAll('.imagenUpload').item(0).src;
+      }
+    });
+    console.log(order);
   }
 
 }

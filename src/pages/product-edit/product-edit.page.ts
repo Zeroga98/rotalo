@@ -83,7 +83,4 @@ export class ProductEditPage implements OnInit {
     );
   }
 
-  /*updatePhoto(event) {
-
-  }*/
 }

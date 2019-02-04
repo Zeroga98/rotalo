@@ -48,7 +48,7 @@
                 <span  class="number"></span>Arrastra o agrega tus imágenes aquí . Recuerda elegir bien ¡todo entra por los ojos!
                 <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
               </div>
-              <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']"
+              <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg', 'webp', 'gif']"
                 [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
                 [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)">
               </image-upload>
@@ -56,7 +56,7 @@
               <div class="container-prev-photos">
                 <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
                 <div #grid id="grid" class="grid">
-                  <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" class="item">
+                  <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" data-id="{{numberOfPhotos}}" class="item">
                     <div class="drag item-content">
                       <div
                       (drop)="onDrop($event)"
@@ -68,7 +68,7 @@
                         <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhotos-1])" class="remove-action">
                           <span class="icon-close"></span>
                         </div>
-                        <img #imagen [src]="photosUploaded[numberOfPhotos-1]?.url">
+                        <img class = "imagenUpload"  #imagen [src]="photosUploaded[numberOfPhotos-1]?.urlPhoto">
                       </div>
                     </div>
                   </div>
@@ -94,16 +94,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="tool-tip">
+                <div (click)="loadOrderPhotos()" class="tool-tip">
                   <label>
                       Puedes arrastrar las imágenes para que cambien de posición
                   </label>
                 </div>
               </div>
               <div>
-
               </div>
-
                   <span class="help-block uploadImg" *ngIf="errorUploadImg">
                     Alguna de tus imágenes está un poco pesadas. El peso máximo es 10MB.
                   </span>
