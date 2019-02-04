@@ -1,0 +1,18 @@
+<div class="close-container">
+  <div class="button-close-modal" (click)="close()">
+    <p>x</p>
+  </div>
+</div>
+<div class="modal-container">
+  <div class="icon-question">
+  </div>
+  <div class="description">
+    <p>
+      ¿Estás seguro que quieres eliminar estos mensajes?
+    </p>
+  </div>
+  <div class="btn-container">
+    <button (click) ="save()" mat-flat-button color="primary">Si</button>
+    <button (click)="close()" mat-stroked-button>No</button>
+  </div>
+</div>

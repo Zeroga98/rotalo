@@ -1,0 +1,123 @@
+:host {
+  .description {
+    p {
+      width: 100%;
+      padding: 45px 0px;
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #272727;
+      text-align: center;
+      width: 95%;
+      margin: 0 auto;
+    }
+  }
+
+  .icon-question {
+    width: 200px;
+    height: 200px;
+    background: url(../../../assets/img/ic_pregunta_modal.svg);
+    background-size: 200px 200px;
+    margin: 0 auto;
+  }
+
+  .btn-container {
+    text-align: center;
+
+    button:first-child {
+      margin-right: 5%;
+    }
+    button {
+      width: 100%;
+      height: 40px;
+      max-width: 154px;
+      border-radius: 25px;
+    }
+  }
+
+  .close-container {
+    position: relative;
+    width: 100%;
+    height: 45px;
+  }
+
+  .button-close-modal {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: white;
+    border: 2px solid #A2A2A2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    p {
+      font-size: 2rem;
+      color: #A2A2A2;
+      line-height: 1;
+      font-weight: bold;
+    }
+    &:hover {
+      border: 2px solid #707070;
+      p {
+        color: #707070;
+      }
+    }
+  }
+}
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: #FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+  &:hover {
+    background-color: #FF4655;
+  }
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: #FF3646;
+  &:hover {
+    background-color: #FF3646;
+    color:white;
+  }
+}
+
+.mat-stroked-button {
+  color:#FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+
+@media screen and (max-width: 648px) {
+  :host {
+
+    .description p {
+      padding: 30px 0px;
+    }
+
+    .btn-container {
+      width: 75%;
+      margin: 0 auto;
+      button:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+
+    .button-close-modal{
+      top: 0px;
+      right: 0px;
+    }
+
+    .close-container {
+      position: relative;
+      height: 0;
+    }
+
+  }
+}

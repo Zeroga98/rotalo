@@ -1,5 +1,6 @@
 :host {
   width: 60%;
+  margin-top: 45px;
   .container {
     padding: 10px;
     padding-top: 0;
@@ -374,7 +375,7 @@
 
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     .user-bar .name {
       width: 50%;
     }

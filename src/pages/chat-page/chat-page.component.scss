@@ -41,7 +41,7 @@
       margin-top: 20px;
     }
   }
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     padding: 0 2%;
     .container {
       flex-direction: column;
@@ -51,6 +51,7 @@
       }
       chat-window {
         width: 100%;
+        margin-top: 0;
         position: fixed;
         top: 0;
         right: 0;

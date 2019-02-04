@@ -19,7 +19,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth > 700) {
+    if (this.screenWidth > 800) {
       this.showChatWindow = 'block';
       this.showChatThreads = 'block';
     }else {
@@ -59,7 +59,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   }
 
   receiveOption() {
-    if (this.screenWidth <= 700) {
+    if (this.screenWidth <= 800) {
       this.showChatThreads = 'none';
       this.showChatWindow = 'block';
       window.scroll(0, 0);
@@ -67,7 +67,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
   }
 
   closeWindowChat() {
-    if (this.screenWidth <= 700) {
+    if (this.screenWidth <= 800) {
       this.showChatThreads = 'block';
       this.showChatWindow = 'none';
     }

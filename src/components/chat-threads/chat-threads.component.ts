@@ -114,8 +114,14 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteConversation() {
-    this.openDialog();
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxHeight = '500px';
+    dialogConfig.width = '70%';
+    dialogConfig.height = '90%';
     const container = document.getElementById('conversation-wrap');
     const inputs = container.getElementsByTagName('input');
     const arrayToDelete = [];
@@ -124,32 +130,24 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
         arrayToDelete.push(parseInt(inputs[i].id));
       }
     }
+
     if (arrayToDelete.length > 0) {
       const params = {
         idUsuarios: arrayToDelete
       };
-      this.messagesService.deleteMessage(params).subscribe((response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
+      dialogConfig.data = params;
+      const dialogRef = this.dialog.open(DeleteConversationComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.messagesService.deleteMessage(result).subscribe((response) => {
+            location.reload();
+          },
+          (error) => {
+            console.log(error);
+          });
+        }
       });
     }
-  }
-
-  openDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '300px';
-    dialogConfig.width = '40%';
-  //  dialogConfig.maxWidth = '1088px';
-
-    const dialogRef = this.dialog.open(DeleteConversationComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
 }

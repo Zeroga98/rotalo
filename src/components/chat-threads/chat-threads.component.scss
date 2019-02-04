@@ -54,7 +54,7 @@
       margin-left: 11px;
       margin-right: 11px;
     }
-  
+
     .material-checkbox>input {
       appearance: none;
       -moz-appearance: none;
@@ -76,26 +76,26 @@
       /* Graceful degradation for IE */
       transition: opacity 0.5s, transform 0.5s;
     }
-  
+
     .material-checkbox>input:checked {
       background-color: #808080;
     }
-  
+
     .material-checkbox:active>input {
       opacity: 1;
       transform: scale(0);
       transition: opacity 0s, transform 0s;
     }
-  
+
     .material-checkbox>input:disabled {
       opacity: 0;
     }
-  
+
     .material-checkbox>input:disabled+span {
       color: rgba(0, 0, 0, 0.38);
       cursor: initial;
     }
-  
+
     .material-checkbox>span::before {
       content: "";
       display: inline-block;
@@ -106,34 +106,34 @@
       vertical-align: 0px;
       transition: border-color 0.5s, background-color 0.5s;
     }
-  
+
     .material-checkbox>input:checked+span::before {
       border-color: #808080;
       //background-color: #808080;
     }
-  
+
     .material-checkbox>input:active+span::before {
       border-color: #808080;
     }
-  
+
     .material-checkbox>input:focus+span::before {
       border-color: #808080;
     }
-  
+
     .material-checkbox>input:checked:active+span::before {
       border-color: transparent;
       background-color: rgba(0, 0, 0, 0.42);
     }
-  
+
     .material-checkbox>input:disabled+span::before {
       border-color: rgba(0, 0, 0, 0.26);
     }
-  
+
     .material-checkbox>input:checked:disabled+span::before {
       border-color: transparent;
       background-color: rgba(0, 0, 0, 0.26);
     }
-  
+
     .material-checkbox>span::after {
       content: "";
       display: inline-block;
@@ -148,33 +148,50 @@
       transform: translate(5.5px, 1px) rotate(45deg);
       -ms-transform: translate(5.5px, 2px) rotate(45deg);
     }
-  
+
     .material-checkbox>input:checked+span::after {
       border-color: #808080;
     }
-  
+
     .check-label{
       color: #383838;
       font-size: 1.6rem;
       margin-left: 5px;
     }
-  
+
   }
 
   .trash-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: url(../../assets/img/trash.svg);
-    background-size: 24px 24px;
+    background-size: 20px 20px;
     margin: 0 auto;
   }
 
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   :host {
     .row {
       height: auto;
+    }
+    .selectAll-container{
+      position: relative;
+      height: 45px;
+      .material-checkbox{
+        position: absolute;
+        right: 20px;
+      }
+      .mat-icon-button {
+        position: absolute;
+        right: 65px;
+      }
+    }
+    .checkbox-container {
+      left: auto;
+      right: 0;
+      z-index: 1;
     }
   }
 }
