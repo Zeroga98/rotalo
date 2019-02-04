@@ -420,6 +420,13 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate([routeDetailProduct]);
   }
 
+  getUrlProduct(product: ProductInterface) {
+    const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+      }/${product['id']}`;
+    return routeDetailProduct;
+  }
+
   subCategorySubscription() {
     this.navigationTopService.currentEventSubCategory.subscribe(event => {
       if (event) {

@@ -43,11 +43,9 @@
               </div>
             </div>
             <div
-            (drop)="onDrop($event)"
-            (dragover)="onDragOver($event)"
             class="row-img">
               <div class="step-number">
-                <span  class="number"></span>Comparte las mejores imágenes de tu producto, recuerda ¡todo entra por los ojos!.*
+                <span  class="number"></span>Arrastra o agrega tus imágenes aquí . Recuerda elegir bien ¡todo entra por los ojos!
                 <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
               </div>
               <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg']"
@@ -60,6 +58,12 @@
                 <div #grid id="grid" class="grid">
                   <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" class="item">
                     <div class="drag item-content">
+                      <div 
+                      (drop)="onDrop($event)" 
+                      (dragover)="onDragOver($event)" 
+                      (click)="uploadFiles()" 
+                      class="place-holder-img">
+                      </div>
                       <div *ngIf="photosUploaded && photosUploaded[numberOfPhotos-1]" class="container-img">
                         <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhotos-1])" class="remove-action">
                           <span class="icon-close"></span>
@@ -73,7 +77,11 @@
                   <div id="grid-holder" class="grid-holder">
                     <div *ngFor="let numberOfPhoto of numberOfPhotos" class="item place-holder">
                       <div id={{numberOfPhoto}} class="item-content">
-                        <div (click)="uploadFiles()" class="container-wrapper">
+                        <div 
+                        (drop)="onDrop($event)"
+                        (dragover)="onDragOver($event)" 
+                        (click)="uploadFiles()" 
+                        class="container-wrapper">
                           <div class="wrapper">
                             <div class="icon-camera"></div>
                             <p>
@@ -81,16 +89,16 @@
                             </p>
                           </div>
                         </div>
+                        <span class="title-first" *ngIf ="numberOfPhoto == 1">Foto principal</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-
-
-
-
-
+                <div class="tool-tip">
+                  <label>
+                      Puedes arrastrar las imágenes para que cambien de posición
+                  </label>
+                </div>
               </div>
               <div>
 

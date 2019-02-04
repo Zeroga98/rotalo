@@ -10,6 +10,8 @@ import {
 import { MessagesService } from "../../services/messages.service";
 import { CurrentSessionService } from "../../services/current-session.service";
 import { ShareInfoChatService } from "../chat-thread/shareInfoChat.service";
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { DeleteConversationComponent } from './delete-conversation/delete-conversation.component';
 
 @Component({
   selector: "chat-threads",
@@ -25,11 +27,15 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
   intervalConversation:any;
   subscriptionConversation: any;
   @Output() selectOption: EventEmitter<any> = new EventEmitter();
+  selectAllCheck = false;
+
+
   constructor(
     private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
     private currentSessionService: CurrentSessionService,
-    private shareInfoChatService: ShareInfoChatService
+    private shareInfoChatService: ShareInfoChatService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -61,12 +67,12 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
               this.firstThread = this.threads[0];
               this.shareInfoChatService.setIdConversation(this.firstThread.idEmisario);
               this.shareInfoChatService.changeMessage(this.firstThread);
-            }else {
+            } else {
               const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
                 if (currentThread) {
                   this.shareInfoChatService.changeMessage(currentThread);
                   this.shareInfoChatService.setNewConversation(undefined);
-                }else {
+                } else {
                   this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
                   this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
                 }
@@ -79,7 +85,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
                 const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
                 if (currentThread) {
                   this.shareInfoChatService.changeMessage(currentThread);
-                }else {
+                } else {
                   this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
                   this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
                 }
@@ -98,4 +104,52 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
         return thread.idEmisario == currentThreadId;
     });
   }
+
+  selectAll() {
+    const container = document.getElementById('conversation-wrap');
+    const inputs = container.getElementsByTagName('input');
+    this.selectAllCheck = !this.selectAllCheck;
+    for (let i = 1; i < inputs.length; ++i) {
+      inputs[i].checked = this.selectAllCheck;
+    }
+  }
+
+  deleteConversation() {
+    this.openDialog();
+    const container = document.getElementById('conversation-wrap');
+    const inputs = container.getElementsByTagName('input');
+    const arrayToDelete = [];
+    for (let i = 1; i < inputs.length; ++i) {
+      if (inputs[i].checked == true) {
+        arrayToDelete.push(parseInt(inputs[i].id));
+      }
+    }
+    if (arrayToDelete.length > 0) {
+      const params = {
+        idUsuarios: arrayToDelete
+      };
+      this.messagesService.deleteMessage(params).subscribe((response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      });
+    }
+  }
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.width = '40%';
+  //  dialogConfig.maxWidth = '1088px';
+
+    const dialogRef = this.dialog.open(DeleteConversationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }

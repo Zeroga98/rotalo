@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/concatMap';
 import {map} from 'rxjs/operators';
+import { RequestOptions } from '@angular/http';
 
 
 @Injectable()
@@ -219,12 +220,11 @@ export class MessagesService {
         map((response: any) => response));
     }
 
-    deleteMessage(idConversation, idUser) {
-      let headersSapi = this.configurationService.getJsonSapiHeaders();
-      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+    deleteMessage(params) {
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/conversaciones/' + idConversation;
-      return this.http .delete (url , { headers: headers }).pipe(
+      const url = this.urlSapi + '/centro/rotalo/mensajes';
+      return this.http.put (url , params , { headers: headers }).pipe(
         map((response: any) => response));
     }
 

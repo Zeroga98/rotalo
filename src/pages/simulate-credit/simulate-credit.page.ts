@@ -196,7 +196,7 @@ export class SimulateCreditPage implements OnInit {
     let termMonths = this.simulateForm.get('term-months').value;
     termMonths = Number(termMonths);
     const infoVehicle = {
-      'productId': this.idProduct,
+//      'productId': this.idProduct,
       'valorAFinanciar': priceVehicle,
       'cuotaInicial': initialFee,
       'plazo': termMonths
@@ -216,7 +216,7 @@ export class SimulateCreditPage implements OnInit {
   }
 
   scrollIntoTable() {
-    setTimeout(function(){
+    setTimeout(function() {
       const elmnt = document.getElementById('table-simulator');
       elmnt.scrollIntoView({block: 'start', behavior: 'smooth'});
     }, 200);
@@ -233,7 +233,7 @@ export class SimulateCreditPage implements OnInit {
       const hourContact = this.contactUser.get('hour-contact').value;
 
       let infoVehicle = {
-        'productId': this.idProduct,
+ //       'productId': this.idProduct,
         'valorAFinanciar': priceVehicle,
         'cuotaInicial': initialFee,
         'plazo': termMonths,
@@ -278,18 +278,20 @@ export class SimulateCreditPage implements OnInit {
   }
 
   loadProduct() {
-    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
-      if (reponse.body) {
-        this.product = reponse.body.productos[0];
-        this.showPage = true;
-        this.populatePreciVehicle(this.product);
-        this.validateMonths();
-        this.changeDetectorRef.markForCheck();
-      }
-    } ,
-    (error) => {
-      console.log(error);
-    });
+    if (this.idProduct) {
+      this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+        if (reponse.body) {
+          this.product = reponse.body.productos[0];
+          this.showPage = true;
+          this.populatePreciVehicle(this.product);
+          this.validateMonths();
+          this.changeDetectorRef.markForCheck();
+        }
+      } ,
+      (error) => {
+        console.log(error);
+      });
+    }
   }
 
   validateMonths() {
@@ -301,7 +303,6 @@ export class SimulateCreditPage implements OnInit {
       if (this.product['vehicle'] && this.product['vehicle'].line.brand) {
         nameBrandMoto = this.product['vehicle'].line.brand.name;
       }
-
       if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
         this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
       }

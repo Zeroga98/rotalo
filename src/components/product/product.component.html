@@ -1,11 +1,11 @@
 <div class="container-product" *ngIf="product" #containerProducts>
-  <a>
-  <div  [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
-    <div>
-        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)" class="container-low-price">
-            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
+  <a onclick="return false;" [href]="getUrlProduct(product)">
+    <div [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
+      <div>
+        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"
+          class="container-low-price">
+          <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
         </div>
-
         <div *ngIf="isProductSelling&&!isProductChecked" class="options-container">
           <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
           <div class="delete" (click)="deleteProduct(product)"></div>
@@ -13,139 +13,153 @@
         </div>
 
         <div *ngIf="isProductSold&&!isProductChecked" class="options-container">
-            <div class="republish" (click)="republishSold(product)"></div>
+          <div class="republish" (click)="republishSold(product)"></div>
         </div>
 
         <div *ngIf="isProductChecked" class="options-container">
           <div class="delete" (click)="removeMarkProduct(product)"></div>
         </div>
 
-        <!--<img [src]="product.photos.url" [alt]="product.name">-->
-        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']" (error)="updateSrc($event)">
-        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']" [alt]="product['product_name']"  (error)="updateSrc($event)">
-        <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
-    </div>
-    <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
+        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage"
+          [alt]="product['product_name']" (error)="updateSrc($event)">
+        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']"
+          [alt]="product['product_name']" (error)="updateSrc($event)">
+      </div>
+      <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
         <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
-    </div>
-    <div *ngIf="isSuperUser() && isProductChecked && product['product_status'] != 'active'" class="status-mark">
+      </div>
+      <div *ngIf="isSuperUser() && isProductChecked && product['product_status'] != 'active'" class="status-mark">
         <p>{{status}}</p>
-    </div>
-  </div>
-  <div  class="container-name">
-    <div (click)= "shareProduct('custom-modal-2')"  *ngIf="!isProductSelling  && !isProductSold &&!isProductChecked" class="gtmCompartirProducto icon-share-container">
-      <div class="gtmCompartirProducto icon-share">
       </div>
     </div>
-    <span  (click)="selectProduct()" class="name">{{product['product_name']}}</span>
-  </div>
-  <div class="product-info" (click)="selectProduct()">
-      <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
+    <div class="container-name">
+      <div (click)="shareProduct('custom-modal-2')" *ngIf="!isProductSelling  && !isProductSold &&!isProductChecked"
+        class="gtmCompartirProducto icon-share-container">
+        <div class="gtmCompartirProducto icon-share">
+        </div>
+      </div>
+      <span (click)="selectProduct()" class="name">{{product['product_name']}}</span>
+    </div>
+      <div class="product-info" (click)="selectProduct()">
+        <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
           <div class="price-container">
-              <div>
-                  <span *ngIf="product['product_price'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['product_price'] | currency:"Q" | removeDigits}}</span>
-                  <span *ngIf="product['product_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9" class="name">{{product['product_price'] | currency:"$" | removeDigits}}</span>
-                  <span *ngIf="product['product_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1" class="name">{{product['product_price'] | currency:"$" | removeDigits}}</span>
-                  <span *ngIf="product['product_price'] == 0" class="name">Gratis</span>
-              </div>
-              <div  [ngClass]="product['product_previous_price'] && product['product_previous_price'] >  product['product_price'] || isActivePromo? 'low-price' : ''" *ngIf="product['product_previous_price'] && isPromoDateBefore && isActivePromo || product['product_previous_price'] && product['product_previous_price'] >  product['product_price']">
-                  <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['product_previous_price'] | currency:"Q" | removeDigits}}</span>
-                  <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9" class="name">{{product['product_previous_price'] | currency:"$" | removeDigits}}</span>
-                  <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1" class="name">{{product['product_previous_price'] | currency:"$" | removeDigits}}</span>
-              </div>
-              <div  [ngClass]="product['previousPrice'] && product['previousPrice'] >  product['product_price'] || isActivePromo? 'low-price' : ''" *ngIf="product['previousPrice'] && isPromoDateBefore && isActivePromo || product['previousPrice'] && product['previousPrice'] >  product['product_price']">
-                  <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['previousPrice'] | currency:"Q" | removeDigits}}</span>
-                  <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9" class="name">{{product['previousPrice'] | currency:"$" | removeDigits}}</span>
-                  <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1" class="name">{{product['previousPrice'] | currency:"$" | removeDigits}}</span>
-              </div>
+            <div>
+              <span *ngIf="product['product_price'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['product_price']
+                | currency:"Q" | removeDigits}}</span>
+              <span *ngIf="product['product_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9"
+                class="name">{{product['product_price']
+                | currency:"$" | removeDigits}}</span>
+              <span *ngIf="product['product_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1"
+                class="name">{{product['product_price']
+                | currency:"$" | removeDigits}}</span>
+              <span *ngIf="product['product_price'] == 0" class="name">Gratis</span>
+            </div>
+            <div [ngClass]="product['product_previous_price'] && product['product_previous_price'] >  product['product_price'] || isActivePromo? 'low-price' : ''"
+              *ngIf="product['product_previous_price'] && isPromoDateBefore && isActivePromo || product['product_previous_price'] && product['product_previous_price'] >  product['product_price']">
+              <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['product_previous_price']
+                | currency:"Q" | removeDigits}}</span>
+              <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9"
+                class="name">{{product['product_previous_price'] | currency:"$" | removeDigits}}</span>
+              <span *ngIf="product['product_previous_price'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1"
+                class="name">{{product['product_previous_price'] | currency:"$" | removeDigits}}</span>
+            </div>
+            <div [ngClass]="product['previousPrice'] && product['previousPrice'] >  product['product_price'] || isActivePromo? 'low-price' : ''"
+              *ngIf="product['previousPrice'] && isPromoDateBefore && isActivePromo || product['previousPrice'] && product['previousPrice'] >  product['product_price']">
+              <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['previousPrice']
+                | currency:"Q" | removeDigits}}</span>
+              <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 9"
+                class="name">{{product['previousPrice']
+                | currency:"$" | removeDigits}}</span>
+              <span *ngIf="product['previousPrice'] != 0 && product['product_currency'] != 'GTQ' && idCountry == 1"
+                class="name">{{product['previousPrice']
+                | currency:"$" | removeDigits}}</span>
+            </div>
           </div>
-      </div>
+        </div>
         <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
-            <span class="icon-margin">$</span>
-            <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
+          <span class="icon-margin">$</span>
+          <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
         </div>
         <div *ngIf="!isProductChecked" class="container-status">
-            <span class="icon icon-tag icon-margin"></span>
-            <span  class="name">{{product['product_used'] ? 'Usado' : 'Nuevo'}}</span>
+          <span class="icon icon-tag icon-margin"></span>
+          <span class="name">{{product['product_used'] ? 'Usado' : 'Nuevo'}}</span>
         </div>
-          <div *ngIf="showField && !isProductChecked" class="container-location">
-            <span class="icon-location"></span>
-            <span>{{getLocation(product)}}</span>
-          </div>
-          <div *ngIf="!showField && !isProductChecked" class="container-date">
-            <span class="icon-calendar"></span>
-            <p>
-              <span>Fecha de Publicación</span>
-              {{product['product_published_at'] | date}}</p>
-          </div>
-          <div *ngIf="isProductSelling && !isProductChecked" class="container-date">
-            <span class="icon-calendar"></span>
-            <p>
-              <span>Fecha de Caducación</span>
-              {{product['publish-until'] | date}}</p>
-          </div>
-          <div *ngIf="isProductSold && !isProductChecked" class="container-date">
-            <span class="icon-calendar"></span>
-            <p>
-              <span>Fecha de venta</span>
-              {{product['received-at'] | date}}</p>
-          </div>
-          <div *ngIf="isProductPurchased && !isProductChecked" class="container-date">
-            <span class="icon-calendar"></span>
-            <p>
-              <span>Fecha de compra</span>
-              {{product['received-at'] | date}}</p>
-          </div>
+        <div *ngIf="showField && !isProductChecked" class="container-location">
+          <span class="icon-location"></span>
+          <span>{{getLocation(product)}}</span>
+        </div>
+        <div *ngIf="!showField && !isProductChecked" class="container-date">
+          <span class="icon-calendar"></span>
+          <p>
+            <span>Fecha de Publicación</span>
+            {{product['product_published_at'] | date}}</p>
+        </div>
+        <div *ngIf="isProductSelling && !isProductChecked" class="container-date">
+          <span class="icon-calendar"></span>
+          <p>
+            <span>Fecha de Caducación</span>
+            {{product['publish-until'] | date}}</p>
+        </div>
+        <div *ngIf="isProductSold && !isProductChecked" class="container-date">
+          <span class="icon-calendar"></span>
+          <p>
+            <span>Fecha de venta</span>
+            {{product['received-at'] | date}}</p>
+        </div>
+        <div *ngIf="isProductPurchased && !isProductChecked" class="container-date">
+          <span class="icon-calendar"></span>
+          <p>
+            <span>Fecha de compra</span>
+            {{product['received-at'] | date}}</p>
+        </div>
 
-          <div *ngIf="isProductSold && product.comprador && !isProductChecked" class="container-date">
-            <span class="icon-account"></span>
-            <p>
-              <span>Comprador</span>
-                {{product.comprador}}
-          </div>
+        <div *ngIf="isProductSold && product.comprador && !isProductChecked" class="container-date">
+          <span class="icon-account"></span>
+          <p>
+            <span>Comprador</span>
+            {{product.comprador}}
+        </div>
 
-          <div *ngIf="product.user && isProductPurchased && !isProductChecked" class="container-date">
-            <span class="icon-account"></span>
-            <p>
-              <span>Vendedor</span>
-              {{product.user.name}}
-          </div>
-  </div>
-  <div  (click)="selectProduct()" *ngIf="showField && !isProductChecked" class="container-info-user">
-    <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
-      <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
-      <img  *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">
-    </div>
-      <div class="user-info-container">
-        <p class="name-text">{{product['seller_name']}}</p>
-        <p *ngIf="product['seller_company_name']" class="company-text" [ngStyle]="{'color':colourCompany}">
-          {{product['seller_company_name']}}
-          <span class="comunidad-text"> - {{product['seller_community_name']}}</span>
-        </p>
+        <div *ngIf="product.user && isProductPurchased && !isProductChecked" class="container-date">
+          <span class="icon-account"></span>
+          <p>
+            <span>Vendedor</span>
+            {{product.user.name}}
+        </div>
       </div>
-  </div>
-  <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="media">
-    <div class="media-left media-middle">
-      <label class="switch">
-        <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
-        <div class="switch-slider round"></div>
-      </label>
+      <div (click)="selectProduct()" *ngIf="showField && !isProductChecked" class="container-info-user">
+        <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
+          <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
+          <img *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">
+        </div>
+        <div class="user-info-container">
+          <p class="name-text">{{product['seller_name']}}</p>
+          <p *ngIf="product['seller_company_name']" class="company-text" [ngStyle]="{'color':colourCompany}">
+            {{product['seller_company_name']}}
+            <span class="comunidad-text"> - {{product['seller_community_name']}}</span>
+          </p>
+        </div>
+      </div>
+
+    <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="media">
+      <div class="media-left media-middle">
+        <label class="switch">
+          <input type="checkbox" [checked]="productStatus" (change)="saveCheck()">
+          <div class="switch-slider round"></div>
+        </label>
+      </div>
+      <div class="media-body">
+        <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' :
+          'inactivo' }}</p>
+      </div>
     </div>
-    <div class="media-body">
-      <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' : 'inactivo' }}</p>
-    </div>
-  </div>
-</a>
-<form *ngIf="isProductChecked" class="form-theme">
+  </a>
+  <form *ngIf="isProductChecked" class="form-theme">
     <div class="form-group field-form valid">
       <span class="text-title">
         Orden:
       </span>
-      <select
-        (change) = 'changeCheckProduct($event)'
-        name="orderSelect"
-        [(ngModel)]="numberOrder"
-        class="form-control">
+      <select (change)='changeCheckProduct($event)' name="orderSelect" [(ngModel)]="numberOrder" class="form-control">
         <option value="" selected="true" disabled></option>
         <option *ngFor="let number of numbersOrder" value="{{number}}">{{number}}</option>
       </select>

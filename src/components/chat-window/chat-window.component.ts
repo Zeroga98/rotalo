@@ -174,7 +174,7 @@ export class ChatWindowComponent
       .updateMessage(params, this.userId)
       .subscribe(state => {}, error => console.log(error));
   }
-
+/*
   deleteConversation() {
     const result = confirm('¿Seguro quieres borrar esta conversación?');
     if (!result) {
@@ -194,7 +194,7 @@ export class ChatWindowComponent
           console.log(error);
         }
       );
-  }
+  }*/
 
   goToDetail(notification) {
     const id = notification.producto.idProducto;

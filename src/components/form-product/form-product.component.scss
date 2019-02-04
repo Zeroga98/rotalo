@@ -956,11 +956,13 @@
 
 .grid {
   position: relative;
+  width: 70%;
+  display: inline-block;
 }
 
 .grid-wrapper {
   position: absolute;
-  width: 100%;
+  width: 70%;
   top: 0;
   z-index: -1;
   .grid-holder {
@@ -977,6 +979,7 @@
   width:  120.46px;
   height: 120.21px;
   margin-right: 1.5rem;
+  margin-bottom: 2.5rem;
   text-align: center;
   font-size: 1.4rem;
   font-weight: bold;
@@ -1026,9 +1029,7 @@
     width: 120.46px;
     height: 120.21px;
     border-radius: 8px;
-    /*position: absolute;
-    top: -2px;
-    left: -2px;*/
+    z-index: 1;
     &:hover {
       .remove-action {
         display: block;
@@ -1062,6 +1063,11 @@
       object-fit: cover;
       border-radius: 8px;
     }
+  }
+  .title-first {
+    color: #808080;
+    font-weight: bold;
+    font-size: 1.4rem;
   }
 }
 
@@ -1099,4 +1105,103 @@
 .item.muuri-item-releasing .item-content {
   // background: #152c43;
 }
+
+.place-holder-img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  z-index: -1;
+}
+
+image-upload {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+}
+
+.tool-tip {
+  display: none;
+  border-radius: 17px;
+  background-color: rgba(75, 40, 120, .14);
+  max-width: 313px;
+  min-height: 126px;
+  padding: 37px 33px;
+  vertical-align: top;
+  transition: opacity 1s ease-out;
+  opacity: 0; 
+  label {
+    color: #383838;
+    font-size: 1.8rem;
+  }
+}
+
+.container-prev-photos:hover > .tool-tip {
+  display: inline-block;
+  opacity: 1;
+}
+
+   @media screen and (max-width: 1284px) {
+
+    .grid, .grid-wrapper {
+      width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 869px) {
+    :host {
+      .container-form {
+        padding: 6.6rem 0%;
+      }
+    }
+    .grid,
+    .grid-wrapper {
+      width: 100%;
+    }
+
+    .item {
+      font-size: 1.3rem;
+      margin-right: 1rem;
+    }
+
+    .icon-camera{
+      width: 32.81px;
+      height: 26.67px;
+      background-size: 32.81px 26.67px;
+    }
+
+    .item.place-holder:hover .icon-camera, .item.place-holder:first-child .icon-camera {
+      width: 32.81px;
+      height: 26.67px;
+      background-size: 32.81px 26.67px;
+    }
+
+    .item,
+    .item-content,
+    .item-content .container-img {
+      width: 95.06px;
+      height: 94.86px;
+    }
+
+    .tool-tip , .container-prev-photos:hover > .tool-tip{
+      display: block;
+      min-height: 49px;
+      padding: 13px 18px;
+   
+      opacity: 1;
+    }
+
+    .item-content .title-first {
+      font-size: 1.2rem;
+    }
+
+  }
+
+  @media screen and (max-width: 375px) { 
+    .container-form form .container-prev-photos {
+      width: 95%;
+      margin: 0 auto;
+    }
+  }
+
 

@@ -1,7 +1,25 @@
-
 <div class="row">
-    <div class="conversation-wrap">
-        <chat-thread (selectOption)="receiveOption()" *ngFor="let thread of threads" [thread]="thread">
-        </chat-thread>
+  <div id="conversation-wrap" class="material-design conversation-wrap">
+    <div *ngIf="threads">
+      <label class="material-checkbox container-check">
+        <input [checked]="selectAllCheck" (change)="selectAll()" type="checkbox" id="deleteAll" name="deleteAll">
+        <span class="checkmark"></span>
+      </label>
+      <button (click)="deleteConversation()" mat-icon-button>
+         <div class="trash-icon"></div>
+      </button>
+    </div>
+    <div *ngFor="let thread of threads; let i = index" class="chat-container">
+      <div *ngIf="i != 0" class="checkbox-container">
+        <div>
+          <label class="material-checkbox container-check">
+            <input type="checkbox" id="{{thread.idEmisario}}" name="{{thread.idEmisario}}">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+      <chat-thread (selectOption)="receiveOption()" [thread]="thread">
+      </chat-thread>
     </div>
   </div>
+</div>

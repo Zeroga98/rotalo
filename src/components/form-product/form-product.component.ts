@@ -422,18 +422,14 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     });*/
   }
 
- /* onDrop(files: FileList) {
-    console.log(files);
+  onDrop(event) {
+    this.imageInput.onFileChange(event.dataTransfer.files);
+    event.stopPropagation();
     event.preventDefault();
-  }*/
-
-  onDrop(ev) {
-    ev.stopPropagation();
-    ev.preventDefault();
   }
 
   onDragOver(event) {
-    console.log(event);
+    this.imageInput.onFileOver(true);
     event.stopPropagation();
     event.preventDefault();
   }

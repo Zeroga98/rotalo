@@ -212,5 +212,12 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
     return false;
   }
 
+  getUrlProduct(product: ProductInterface) {
+    const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+      }/${product['id']}`;
+    return routeDetailProduct;
+  }
+
 
 }

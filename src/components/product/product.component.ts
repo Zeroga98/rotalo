@@ -142,15 +142,20 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   getLocation(product): string {
-    // if (product.city) {
-    //   const city = product.city;
-    // const state = city.state;
     return `${product['product_city_name']},  ${product['product_state_name']}`;
-    // }
   }
-  selectProduct() {
+
+  selectProduct(event) {
     this.selected.emit(this.product);
   }
+
+  getUrlProduct(product: ProductInterface) {
+    const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
+      ROUTES.PRODUCTS.SHOW
+      }/${product['product_id']}`;
+    return routeDetailProduct;
+  }
+
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }

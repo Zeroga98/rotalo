@@ -180,6 +180,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
+import { MatIconModule, MatDialog, MatDialogModule } from '@angular/material';
+import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 
 
 @NgModule({
@@ -287,7 +289,8 @@ import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-an
     SuccessCreditComponent,
     FeaturedProductsComponent,
     AdminRegisterPage,
-    DragAndDropImgComponent
+    DragAndDropImgComponent,
+    DeleteConversationComponent
   ],
   imports: [
     BrowserModule,
@@ -308,7 +311,9 @@ import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-an
     BrowserAnimationsModule,
     MaterialModule,
     NgxMasonryModule,
-    DragDropModule
+    DragDropModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [
     UserService,
@@ -384,7 +389,8 @@ import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-an
     ShoppingCarService,
     windowService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteConversationComponent]
 })
 
 export class AppModule { }
