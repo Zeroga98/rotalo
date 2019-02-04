@@ -15,7 +15,7 @@ export class MessagesService {
     currentUser: UserInterface;
     readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
-    private readonly timeToCheckNotification: number = 10000;
+    private readonly timeToCheckNotification: number = 4000;
     private readonly timeToCheckUnreadNotification: number = 70000;
     private path = {
       'rutaRenoEscondido':  ''

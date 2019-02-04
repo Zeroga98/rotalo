@@ -58,10 +58,10 @@
                 <div #grid id="grid" class="grid">
                   <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" class="item">
                     <div class="drag item-content">
-                      <div 
-                      (drop)="onDrop($event)" 
-                      (dragover)="onDragOver($event)" 
-                      (click)="uploadFiles()" 
+                      <div
+                      (drop)="onDrop($event)"
+                      (dragover)="onDragOver($event)"
+                      (click)="uploadFiles()"
                       class="place-holder-img">
                       </div>
                       <div *ngIf="photosUploaded && photosUploaded[numberOfPhotos-1]" class="container-img">
@@ -77,10 +77,10 @@
                   <div id="grid-holder" class="grid-holder">
                     <div *ngFor="let numberOfPhoto of numberOfPhotos" class="item place-holder">
                       <div id={{numberOfPhoto}} class="item-content">
-                        <div 
+                        <div
                         (drop)="onDrop($event)"
-                        (dragover)="onDragOver($event)" 
-                        (click)="uploadFiles()" 
+                        (dragover)="onDragOver($event)"
+                        (click)="uploadFiles()"
                         class="container-wrapper">
                           <div class="wrapper">
                             <div class="icon-camera"></div>
@@ -105,7 +105,7 @@
               </div>
 
                   <span class="help-block uploadImg" *ngIf="errorUploadImg">
-                    ¡Oops, tus imágenes están muy grandes! Deben ser máximo de 10MB. Escríbenos a info@rotalo.co si sigues teniendo problemas.
+                    Alguna de tus imágenes está un poco pesadas. El peso máximo es 10MB.
                   </span>
                   <span  class="help-block uploadImg" *ngIf="errorMaxImg">
                     Escoge al menos una imagen.

@@ -182,7 +182,7 @@ export class EditProfilePage implements OnInit {
     this.editProfileForm.patchValue({
       name: user.name,
       idNumber: user['id-number'],
-      email: user.email,
+      email: user.email.toLowerCase(),
       cellphone: user.cellphone
     });
 

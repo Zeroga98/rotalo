@@ -196,7 +196,7 @@ export class SimulateCreditPage implements OnInit {
     let termMonths = this.simulateForm.get('term-months').value;
     termMonths = Number(termMonths);
     const infoVehicle = {
-//      'productId': this.idProduct,
+      'productId': this.idProduct,
       'valorAFinanciar': priceVehicle,
       'cuotaInicial': initialFee,
       'plazo': termMonths
@@ -233,7 +233,7 @@ export class SimulateCreditPage implements OnInit {
       const hourContact = this.contactUser.get('hour-contact').value;
 
       let infoVehicle = {
- //       'productId': this.idProduct,
+        'productId': this.idProduct,
         'valorAFinanciar': priceVehicle,
         'cuotaInicial': initialFee,
         'plazo': termMonths,

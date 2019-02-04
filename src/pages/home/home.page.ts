@@ -219,7 +219,7 @@ export class HomePage implements OnInit {
       const idDocument: number = +this.registerForm.get('type-document-id').value;
       const params = {
         'pais': this.idCountry,
-        'correo': this.registerForm.get('email').value,
+        'correo': this.registerForm.get('email').value.toLowerCase(),
         'nombres': this.registerForm.get('name').value,
         'contrasena': this.registerForm.get('password').value,
         'idTipoDocumento': idDocument,
