@@ -50,7 +50,7 @@
               </div>
               <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg', 'webp', 'gif']"
                 [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
-                [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" (removed)="onRemoveImage($event.file)">
+                [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" >
               </image-upload>
               <!--<drag-and-drop-img></drag-and-drop-img>-->
               <div class="container-prev-photos">
@@ -94,6 +94,9 @@
                     </div>
                   </div>
                 </div>
+                <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container" >
+                    <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
+                </div>
                 <div class="tool-tip">
                   <label>
                       Puedes arrastrar las imágenes para que cambien de posición
@@ -108,6 +111,9 @@
                   <span  class="help-block uploadImg" *ngIf="errorMaxImg">
                     Escoge al menos una imagen.
                   </span>
+                  <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container" >
+                      <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
+                  </div>
             </div>
             <div  class="row row-min">
                 <div class="form-group">

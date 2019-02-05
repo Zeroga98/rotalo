@@ -66,8 +66,8 @@
                                         <div *ngIf="featuredproduct['featuredType'] == 'mostVisits'" class="container-trending">
                                             <p>TRENDING</p>
                                         </div>
-                                          <img (click)="selectProductSuperUser(featuredproduct)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
-                                          <img (click)="selectProductSuperUser(featuredproduct)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
+                                          <img (click)="selectProductSuperUser(featuredproduct, $event)"  *ngIf="!featuredproduct.photos" [src]="defaultImage" [alt]="featuredproduct.name" (error)="updateSrc($event)">
+                                          <img (click)="selectProductSuperUser(featuredproduct, $event)"  *ngIf="featuredproduct.photos" [src]="featuredproduct.photos?.url || featuredproduct.photos[0].url" [alt]="featuredproduct.name"  (error)="updateSrc($event)">
                                           <div (click)= "shareProduct('custom-modal-2' , featuredproduct)" class="gtmCompartirProducto icon-share-container">
                                               <div class="gtmCompartirProducto icon-share">
                                               </div>
@@ -75,7 +75,7 @@
                                       </div>
                                 </a>
                                   <a onclick="return false;" [href]="getUrlProduct(featuredproduct)">
-                                      <div  (click)="selectProductSuperUser(featuredproduct)" class="item__content">
+                                      <div  (click)="selectProductSuperUser(featuredproduct , $event)" class="item__content">
                                           <div class="item__name">
                                             <span>
                                                 {{featuredproduct.name}}
@@ -106,7 +106,7 @@
                                               </div>
                                             </div>
                                           </div>
-      
+
                                           <div class="item__location">
                                               <span class="icon-location"></span>
                                               <span>{{getLocation(featuredproduct)}}</span>
@@ -127,7 +127,7 @@
                                           </div>
                                         </div>
                                   </a>
-                                 
+
                               </div>
                             </div>
                       </div>

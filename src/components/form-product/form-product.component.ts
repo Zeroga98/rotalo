@@ -401,16 +401,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   overFiles () {
-    console.log(true);
     this.imageInput.onFileOver(true);
-   /* const grid  = new Muuri('.grid' , {
-      dragEnabled: true
-    });*/
-   // grid.remove(0);
-   /* console.log(grid.getItems());
-    grid.getItems().forEach(function (item) {
-      console.log(item);
-    });*/
   }
 
   onDrop(event) {
@@ -432,7 +423,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.photosService.uploadPhoto(event.file).subscribe((response) => {
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
-      //  this.removeClassDrag ();
       this.imagArray = new Muuri('.grid' , {
         dragEnabled: true
       });
@@ -455,10 +445,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     if (photoFile) {
       this.imageInput.deleteFile(photoFile);
     }
-    if (photo && photo.id) {
-      this.removeImageFromServer(photo.id);
+    if (photo && photo.photoId) {
+      this.removeImageFromServer(photo.photoId);
     }
     this.changeDetectorRef.markForCheck();
+  }
+
+  onRemoveAll() {
+    this.photosUploaded = [];
+   /* this.imagArray = new Muuri('.grid', {
+      dragEnabled: false
+    });*/
+    this.imageInput.deleteAll();
   }
 
   uploadFiles() {
@@ -481,7 +479,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async removeImageFromServer(id: number) {
     try {
-      const response = await this.photosService.deletePhotoById(id);
+      const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -938,7 +936,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   private removePhoto(id: number) {
-    this.photosUploaded = this.photosUploaded.filter(photo => photo.id != id);
+    this.photosUploaded = this.photosUploaded.filter(photo => photo.photoId != id);
     if (this.maxNumberImg >= 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberPhotos - (this.photosUploaded.length - this.imageInput.files.length ) ;
     }

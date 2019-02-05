@@ -146,7 +146,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   selectProduct(event) {
-    this.selected.emit(this.product);
+    if (event.ctrlKey) {
+      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
+      window.open(url, '_blank');
+    } else {
+      this.selected.emit(this.product);
+    }
   }
 
   getUrlProduct(product: ProductInterface) {

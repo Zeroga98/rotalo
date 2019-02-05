@@ -85,6 +85,10 @@
     font-size: 2.5rem;
   }
 
+  input[type="email"]{
+    text-transform: lowercase;
+  }
+
 }
 
 .material-register .input {

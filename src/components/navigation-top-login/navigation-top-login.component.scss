@@ -90,6 +90,10 @@
     opacity: 0;
   }
 
+  input[type="email"]{
+    text-transform: lowercase;
+  }
+
 }
 
 @media screen and (max-width: 900px) {

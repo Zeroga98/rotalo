@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       'name': ['', [Validators.required]],
-      'email': ['', [Validators.required, Validators.email]],
+      'email': ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
       'type-document-id': ['', Validators.required],
       'password': ['', [
         Validators.required,

@@ -26,8 +26,7 @@ export class PhotosService {
   }
 
   uploadPhoto(file: File) {
-    const formData: FormData = this.buildFormDataPhotos(file);
-   // const url = 'http://10.125.64.25:8080/api/v1' + '/imagenes/upload';
+  const formData: FormData = this.buildFormDataPhotos(file);
    const url = this.urlSapi + '/imagenes/upload';
     return this.http.post(url, formData,
       {
@@ -41,6 +40,14 @@ export class PhotosService {
       {
         params: new HttpParams().set('data[type]', 'photos')
       }).toPromise();
+  }
+
+  deletePhoto(id: number): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/imagenes/eliminar/${id}`;
+    return this.http.delete(url,
+      { headers: headers }).toPromise().then((response: any) => true);
   }
 
   private buildFormDataPhotos(file: File): FormData {

@@ -2,7 +2,7 @@
   <a onclick="return false;" [href]="getUrlProduct(product)">
     <div [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <div>
-        <div (click)="selectProduct()" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"
+        <div (click)="selectProduct($event)" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"
           class="container-low-price">
           <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
         </div>
@@ -20,9 +20,9 @@
           <div class="delete" (click)="removeMarkProduct(product)"></div>
         </div>
 
-        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage"
+        <img (click)="selectProduct($event)" (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage"
           [alt]="product['product_name']" (error)="updateSrc($event)">
-        <img (click)="selectProduct()" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']"
+        <img (click)="selectProduct($event)" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']"
           [alt]="product['product_name']" (error)="updateSrc($event)">
       </div>
       <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
@@ -38,9 +38,9 @@
         <div class="gtmCompartirProducto icon-share">
         </div>
       </div>
-      <span (click)="selectProduct()" class="name">{{product['product_name']}}</span>
+      <span (click)="selectProduct($event)" class="name">{{product['product_name']}}</span>
     </div>
-      <div class="product-info" (click)="selectProduct()">
+      <div class="product-info" (click)="selectProduct($event)">
         <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
           <div class="price-container">
             <div>
@@ -127,7 +127,7 @@
             {{product.user.name}}
         </div>
       </div>
-      <div (click)="selectProduct()" *ngIf="showField && !isProductChecked" class="container-info-user">
+      <div (click)="selectProduct($event)" *ngIf="showField && !isProductChecked" class="container-info-user">
         <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
           <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
           <img *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">

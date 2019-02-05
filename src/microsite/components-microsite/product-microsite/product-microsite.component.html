@@ -1,6 +1,6 @@
 <div class="container-product" *ngIf="product" #containerProducts>
   <a onclick="return false;" [href]="getUrlProduct(product)">
-    <div (click)="selectProduct()" [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
+    <div (click)="selectProduct($event)" [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <!--<img [src]="product.photos.url" [alt]="product.name">-->
       <img (load)="triggerMasonryLayout()" *ngIf="!product.photos" [src]="defaultImage" [alt]="product.name" (error)="updateSrc($event)">
       <img (load)="triggerMasonryLayout()" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url" [alt]="product.name"
@@ -12,9 +12,9 @@
         <div class="gtmCompartirProducto icon-share">
         </div>
       </div>
-      <span (click)="selectProduct()" class="name">{{product.name}}</span>
+      <span (click)="selectProduct($event)" class="name">{{product.name}}</span>
     </div>
-    <div class="product-info" (click)="selectProduct()">
+    <div class="product-info" (click)="selectProduct($event)">
       <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
         <div class="price-container">
           <div>

@@ -120,8 +120,8 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxHeight = '500px';
-    dialogConfig.width = '70%';
-    dialogConfig.height = '90%';
+    dialogConfig.width = '60%';
+    dialogConfig.height = '70%';
     const container = document.getElementById('conversation-wrap');
     const inputs = container.getElementsByTagName('input');
     const arrayToDelete = [];

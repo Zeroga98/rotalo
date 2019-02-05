@@ -123,9 +123,16 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
       return `${city.name},  ${state.name}`;
     }
   }
-  selectProduct() {
-    this.selected.emit(this.product);
+
+  selectProduct(event) {
+    if (event.ctrlKey) {
+      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['id']}`;
+      window.open(url, '_blank');
+    } else {
+      this.selected.emit(this.product);
+    }
   }
+
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }

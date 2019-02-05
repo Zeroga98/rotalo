@@ -41,7 +41,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+       email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]),
+     // email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(6)
@@ -67,7 +68,7 @@ export class LoginPage implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email').value;
+      const email = this.loginForm.get('email').value.toLowerCase();
       const password = this.loginForm.get('password').value;
       this.login(email, password);
     }else {
@@ -174,7 +175,7 @@ export class LoginPage implements OnInit {
     const currentUrl = window.location.href;
     if (currentUrl.includes('gt')) {
       idCountry = 9;
-    }else {
+    } else {
       idCountry = 1;
     }
       const params = {

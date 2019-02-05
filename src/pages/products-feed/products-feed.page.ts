@@ -392,7 +392,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-
   selectedCategory(category: CategoryInterface) {
     this.setconfigFiltersSubcategory({
       category: category.name,
@@ -413,11 +412,16 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate([routeDetailProduct]);
   }
 
-  selectProductSuperUser(product: ProductInterface) {
-    const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
-      ROUTES.PRODUCTS.SHOW
-      }/${product['id']}`;
-    this.router.navigate([routeDetailProduct]);
+  selectProductSuperUser(product: ProductInterface, event) {
+    if (event.ctrlKey) {
+      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product['id']}`;
+      window.open(url, '_blank');
+    } else {
+      const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
+        ROUTES.PRODUCTS.SHOW
+        }/${product['id']}`;
+      this.router.navigate([routeDetailProduct]);
+    }
   }
 
   getUrlProduct(product: ProductInterface) {
