@@ -23,25 +23,7 @@ export class ProductsUploadPage implements OnInit, OnDestroy {
   ngOnInit() {}
 
   ngOnDestroy(): void {
-
-    /*Se remueve los modales del DOM */
-   /* const element1 = document.getElementById('custom-modal-3');
-    element1.parentNode.removeChild(element1);*/
   }
-
-  /*async publishPhoto(event) {
-    try {
-      const response = await this.productsService.saveProducts(event);
-      this.gapush('send', 'event', 'Ofertas', 'ClicFormularioOferta', 'SubirOfertaExitosa');
-      this.userService.updateInfoUser();
-      if (response.data) {
-        this.shareProduct('custom-modal-3', response.data.id);
-      }
-    } catch (error) {
-      console.error('Error: ', error);
-    }
-  }*/
-
 
   publishPhoto (event) {
     this.productsService.saveProductsForm(event).subscribe((response) => {

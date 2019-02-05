@@ -68,7 +68,7 @@
                         <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhotos-1])" class="remove-action">
                           <span class="icon-close"></span>
                         </div>
-                        <img class = "imagenUpload"  #imagen [src]="photosUploaded[numberOfPhotos-1]?.urlPhoto">
+                        <img class = "imagenUpload" id={{photosUploaded[numberOfPhotos-1]?.photoId}} #imagen [src]="photosUploaded[numberOfPhotos-1]?.urlPhoto">
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="loadOrderPhotos()" class="tool-tip">
+                <div class="tool-tip">
                   <label>
                       Puedes arrastrar las imágenes para que cambien de posición
                   </label>

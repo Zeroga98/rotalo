@@ -145,13 +145,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       dragEnabled: false
     });
    this.endForRender.changes.subscribe(t => {
-      /*if (this.photosUploaded.length > 0) {
-
-        this.imagArray = new Muuri('.grid', {
-          dragEnabled: true
-        });
-      }*/
-      //  this.changeDetectorRef.markForCheck();
     });
     this.endForRender.notifyOnChanges();
     this.changeDetectorRef.markForCheck();
@@ -258,7 +251,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
           'negotiable': true
         };
       } else {
-
         if (this.product) {
           if (this.photosForm.get('sell-type').value === 'GRATIS') {
             dataAdditional = {
@@ -277,7 +269,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
             };
           }
         }
-
       }
       let params;
       if (this.product) {
@@ -438,11 +429,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.errorUploadImg = false;
     this.errorMaxImg = false;
     this.photosCounter++;
-    console.log(event.file);
     this.photosService.uploadPhoto(event.file).subscribe((response) => {
-      console.log(response);
       const photo = Object.assign({}, response, { file: event.file });
-      console.log(photo);
       this.photosUploaded.push(photo);
       //  this.removeClassDrag ();
       this.imagArray = new Muuri('.grid' , {
@@ -460,31 +448,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
     }
     );
-
-    /*
-    this.photosService.updatePhoto(event.file).subscribe(
-      (response) => {
-        console.log(response);
-        const photo = Object.assign({}, response, { file: event.file });
-        console.log(photo);
-        this.photosUploaded.push(photo);
-        //  this.removeClassDrag ();
-        this.imagArray = new Muuri('.grid' , {
-          dragEnabled: true
-        });
-        this.changeDetectorRef.markForCheck();
-      },
-      (error) => {
-        this.errorUploadImg = true;
-        console.error('Error: ', error);
-        this.changeDetectorRef.markForCheck();
-      },
-      () => {
-        if (this.photosCounter > 0) {
-          this.photosCounter--;
-        }
-      }
-    );*/
   }
 
   onRemovePreviewImage(photo) {
@@ -902,9 +865,16 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
-  private getPhotosIds(): Array<string> {
-    return this.photosUploaded.map(photo => {
-      return photo.id.toString(); });
+  private getPhotosIds() /*: Array<string> */{
+    let order = this.loadOrderPhotos();
+    order = order.filter((item) => {
+      return item;
+    });
+    return order.map((photo, index) => {
+      return {
+        'photo-id': photo,
+        'position': index + 1
+      }; });
   }
 
   private setCategoryDefault(subCategory: SubcategoryInterface) {
@@ -950,7 +920,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   private saveInitialPhotos(photos) {
+    photos = photos.map((item) => {
+      const photo = {
+        photoId: item.id,
+        urlPhoto: item.url,
+        position: item.position
+      };
+      return photo;
+    });
     this.photosUploaded = [].concat(photos);
+    this.imagArray = new Muuri('.grid' , {
+      dragEnabled: true
+    });
     if (this.maxNumberImg > 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberImg - this.photosUploaded.length;
     }
@@ -1081,13 +1062,12 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   loadOrderPhotos () {
-    const order = this.imagArray.getItems().map(item => {
-      if (item.getElement().querySelectorAll('.imagenUpload')) {
-        console.log(item.getElement().querySelectorAll('.imagenUpload').item(0));
-        return item.getElement().querySelectorAll('.imagenUpload').item(0).src;
+    const order = this.imagArray.getItems().map((item) => {
+      if (item.getElement().querySelectorAll('.imagenUpload') && item.getElement().querySelectorAll('.imagenUpload').item(0)) {
+        return item.getElement().querySelectorAll('.imagenUpload').item(0).id;
       }
     });
-    console.log(order);
+    return order;
   }
 
 }
