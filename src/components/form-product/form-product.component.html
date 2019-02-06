@@ -97,7 +97,7 @@
                 <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container mobile" >
                     <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
                 </div>
-                <div class="tool-tip">
+                <div (click) = "disableDrag()" class="tool-tip">
                   <label>
                       Puedes arrastrar las imágenes para que cambien de posición
                   </label>

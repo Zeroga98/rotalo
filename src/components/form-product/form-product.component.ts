@@ -481,8 +481,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     try {
       const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
-      this.imagArray.refreshItems();
-      this.imagArray.refreshSortData();
+      this.disableDrag();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);
@@ -1068,6 +1067,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
     });
     return order;
+  }
+
+  disableDrag() {
+  /*  this.imagArray.remove(0);
+    this.imagArray.remove(1);
+    this.imagArray.remove(2);
+    this.imagArray.remove(3);
+    this.imagArray.remove(4);
+    this.imagArray.remove(5);
+    this.imagArray = new Muuri('.grid' , {
+      dragEnabled: true
+    });*/
   }
 
 }
