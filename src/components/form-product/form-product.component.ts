@@ -481,6 +481,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     try {
       const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
+      this.imagArray.refreshItems();
+      this.imagArray.refreshSortData();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);

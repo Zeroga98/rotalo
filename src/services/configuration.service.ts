@@ -16,7 +16,6 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 */
-
   /*Desarrollo*/
 
   api = {
