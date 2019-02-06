@@ -94,7 +94,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container" >
+                <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container mobile" >
                     <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
                 </div>
                 <div class="tool-tip">
@@ -111,7 +111,7 @@
                   <span  class="help-block uploadImg" *ngIf="errorMaxImg">
                     Escoge al menos una imagen.
                   </span>
-                  <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container" >
+                  <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container desktop" >
                       <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
                   </div>
             </div>
