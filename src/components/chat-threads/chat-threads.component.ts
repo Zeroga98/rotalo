@@ -112,6 +112,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     for (let i = 1; i < inputs.length; ++i) {
       inputs[i].checked = this.selectAllCheck;
     }
+    this.changeDetector.markForCheck();
   }
 
 

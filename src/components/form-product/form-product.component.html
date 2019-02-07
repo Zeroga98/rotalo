@@ -48,7 +48,7 @@
                 <span  class="number"></span>Arrastra o agrega tus imágenes aquí . Recuerda elegir bien ¡todo entra por los ojos!
                 <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
               </div>
-              <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg', 'webp', 'gif']"
+              <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg', 'webp']"
                 [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
                 [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" >
               </image-upload>

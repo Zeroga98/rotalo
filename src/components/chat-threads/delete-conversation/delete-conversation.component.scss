@@ -72,6 +72,7 @@
   font-family: 'Lato Regular';
   font-size: 1.6rem;
   font-weight: bold;
+  color:white;
   &:hover {
     background-color: #FF4655;
   }
@@ -91,6 +92,10 @@
   font-size: 1.6rem;
   font-weight: bold;
 }
+
+.cdk-focused , .cdk-mouse-focused {
+   //background-color: white !important;
+ }
 
 
 @media screen and (max-width: 648px) {

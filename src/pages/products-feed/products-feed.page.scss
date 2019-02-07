@@ -187,8 +187,6 @@
 
 :host {
   .featured-section {
-   /* background-color: #F4F4F4;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.16);*/
     min-height: 450px;
     .featured-container {
       max-width: 1200px;
@@ -364,6 +362,14 @@
         }
       }
     }
+    .featured-card {
+      .item__wrapper {
+        a {
+          position: relative;
+          z-index: 1;
+        }
+      }
+    }
   }
   .featured-section.bancolombia-site .featured-container{
     padding: 0;
@@ -410,7 +416,6 @@
       }
 }
 
-
 :host {
   .icon-share-container{
     cursor: pointer;
@@ -450,6 +455,7 @@
     height: 40px;
     background: url(../../assets/img/img_insignia_precio.svg);
     background-size: 104px 40px;
+    z-index: 2;
     p {
       color: #FFFFFF;
       font-weight: bold;
@@ -524,7 +530,6 @@
     }
   }
 
-
   .low-price {
     color:#A2A2A2;
     text-decoration: line-through;
@@ -535,8 +540,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-
-
 }
 
 :host {

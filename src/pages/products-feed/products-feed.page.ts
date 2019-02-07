@@ -603,4 +603,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     window['dataLayer'].push(paramsGa);
   }
 
+  rightClickNewTab (product: ProductInterface, event) {
+    if (event.ctrlKey) {
+      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product['id']}`;
+      window.open(url, '_blank');
+    }
+  }
+
 }
