@@ -182,7 +182,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
 import { MatIconModule, MatDialog, MatDialogModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
-
+import { SortablejsModule } from 'angular-sortablejs';
 
 @NgModule({
   declarations: [
@@ -313,7 +313,8 @@ import { DeleteConversationComponent } from '../components/chat-threads/delete-c
     NgxMasonryModule,
     DragDropModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    SortablejsModule
   ],
   providers: [
     UserService,

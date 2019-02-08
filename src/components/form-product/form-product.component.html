@@ -4,13 +4,13 @@
   <div class="title-form">
     <div class="numberCircle">1</div>
     <div class="step-info">
-        <h1>¿Qué vas a rotar?</h1>
-        <p>
-            Cuéntanos todo sobre tu producto
-        </p>
-        <p class="msg-field-required">
-            *Campos obligatorios
-        </p>
+      <h1>¿Qué vas a rotar?</h1>
+      <p>
+        Cuéntanos todo sobre tu producto
+      </p>
+      <p class="msg-field-required">
+        *Campos obligatorios
+      </p>
     </div>
   </div>
   <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
@@ -21,9 +21,8 @@
           <div class="row-section">
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
-                <select  name="category-id" class="category form-control" (change)="selectedComunity($event.target.value)"
-                (click) = "resetPromo()"
-                  #categorySelect formControlName="category">
+                <select name="category-id" class="category form-control" (change)="selectedComunity($event.target.value)"
+                  (click)="resetPromo()" #categorySelect formControlName="category">
                   <option value="" selected="true" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                 </select>
@@ -32,7 +31,7 @@
               </div>
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                 <div>
-                  <select  [(ngModel)]="currentSubcategory" class="subcategory form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
+                  <select [(ngModel)]="currentSubcategory" class="subcategory form-control" (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
                     <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}</option>
@@ -42,46 +41,24 @@
                 </div>
               </div>
             </div>
-            <div
-            class="row-img">
+            <div class="row-img">
               <div class="step-number">
-                <span  class="number"></span>Arrastra o agrega tus imágenes aquí . Recuerda elegir bien ¡todo entra por los ojos!
+                <span class="number"></span>Arrastra o agrega tus imágenes aquí. ¡Todo entra por los ojos!
                 <span (click)="openModal()" class="util-modal icon-light vertical-align--middle"></span>
               </div>
               <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['jpeg','png', 'jpg', 'webp']"
                 [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
                 [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)" >
               </image-upload>
-              <!--<drag-and-drop-img></drag-and-drop-img>-->
               <div class="container-prev-photos">
-                <custom-spinner *ngIf="photosCounter > 0"></custom-spinner>
-                <div #grid id="grid" class="grid">
-                  <div #photosEnd *ngFor="let numberOfPhotos of numberOfPhotos" data-id="{{numberOfPhotos}}" class="item">
-                    <div class="drag item-content">
-                      <div
-                      (drop)="onDrop($event)"
-                      (dragover)="onDragOver($event)"
-                      (click)="uploadFiles()"
-                      class="place-holder-img">
-                      </div>
-                      <div *ngIf="photosUploaded && photosUploaded[numberOfPhotos-1]" class="container-img">
-                        <div (click)="onRemovePreviewImage(photosUploaded[numberOfPhotos-1])" class="remove-action">
-                          <span class="icon-close"></span>
-                        </div>
-                        <img class = "imagenUpload" id={{photosUploaded[numberOfPhotos-1]?.photoId}} #imagen [src]="photosUploaded[numberOfPhotos-1]?.urlPhoto">
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <custom-spinner *ngIf="photosCounter > 0 && !errorUploadImg && !errorMaxImg"></custom-spinner>
                 <div class="grid-wrapper">
                   <div id="grid-holder" class="grid-holder">
                     <div *ngFor="let numberOfPhoto of numberOfPhotos" class="item place-holder">
                       <div id={{numberOfPhoto}} class="item-content">
                         <div
-                        (drop)="onDrop($event)"
-                        (dragover)="onDragOver($event)"
-                        (click)="uploadFiles()"
-                        class="container-wrapper">
+                        [ngClass]="{'hover': !photosUploaded[numberOfPhoto-1]}"
+                         (drop)="onDrop($event)" (dragover)="onDragOver($event)" (click)="uploadFiles()" class="container-wrapper">
                           <div class="wrapper">
                             <div class="icon-camera"></div>
                             <p>
@@ -89,408 +66,381 @@
                             </p>
                           </div>
                         </div>
-                        <span class="title-first" *ngIf ="numberOfPhoto == 1">Foto principal</span>
+                        <span class="title-first" *ngIf="numberOfPhoto == 1">Foto principal</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container mobile" >
-                    <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
+                <div #grid [sortablejs]="photosUploaded" [sortablejsOptions]="{ animation: 150 }" id="grid" class="grid">
+                  <div #photosEnd *ngFor="let photoUploaded of photosUploaded" id={{photoUploaded?.photoId}} class="item">
+                    <div class="drag item-content">
+                      <div *ngIf="photoUploaded" class="container-img">
+                        <div (click)="onRemovePreviewImage(photoUploaded)" class="remove-action">
+                          <span class="icon-close"></span>
+                        </div>
+                        <img class="imagenUpload" #imagen [src]="photoUploaded?.urlPhoto">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div (click) = "disableDrag()" class="tool-tip">
+                <div class = "error-container">
+                    <span class="help-block uploadImg" *ngIf="errorUploadImg">
+                        ¡Omg! No pudimos subir alguna de tus fotos. Asegúrate de que tenga formato jpg, .jpeg, .png, .webp
+                      </span>
+                      <span class="help-block uploadImg" *ngIf="errorMaxImg">
+                        ¡Ups! Alguna de tus imágenes está un poco pesada. Debe ser máximo de 10MB.
+                      </span>
+                </div>
+                <div  class="btn-container mobile">
+                  <a *ngIf="photosUploaded && photosUploaded.length > 0" (click)="onRemoveAll()"  mat-button routerLink=".">Limpiar todo</a>
+                </div>
+                <div (click) = "loadOrderPhotos()" class="tool-tip">
                   <label>
-                      Puedes arrastrar las imágenes para que cambien de posición
+                      Arrastra las imágenes para elegir el orden en que aparecen.
                   </label>
                 </div>
               </div>
-              <div>
+              <div class="btn-container desktop">
+                <a  *ngIf="photosUploaded && photosUploaded.length > 0"  (click)="onRemoveAll()" mat-button >Limpiar todo</a>
               </div>
-                  <span class="help-block uploadImg" *ngIf="errorUploadImg">
-                    Alguna de tus imágenes está un poco pesadas. El peso máximo es 10MB.
-                  </span>
-                  <span  class="help-block uploadImg" *ngIf="errorMaxImg">
-                    Escoge al menos una imagen.
-                  </span>
-                  <div *ngIf="photosUploaded && photosUploaded.length > 0" class= "btn-container desktop" >
-                      <a (click) ="onRemoveAll()" mat-flat-button>Limpiar todo</a>
-                  </div>
             </div>
-            <div  class="row row-min">
-                <div class="form-group">
-                    <label class="label-title">Estado</label>
-                   <div>
-                        <div class="md-radio">
-                          <input
-                          [value]="false"
-                          formControlName="used"
-                          id="1"
-                          type="radio"
-                          name="used">
-                          <label for="1">Nuevo</label>
-                        </div>
-                        <div  class="md-radio">
-                          <input
-                          [value]="true"
-                          formControlName="used"
-                          id="2"
-                          type="radio"
-                          name="used">
-                          <label for="2">Usado</label>
-                        </div>
-                        <span class="error-msg">Este campo es requerido</span>
-                   </div>
-                </div>
-
-                <div class="form-group">
-                  <label *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="label-title">¿Qué te gustaría hacer con tu vehículo?</label>
-                  <label *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()" class="label-title">¿Qué te gustaría hacer con tu producto?</label>
-                   <div>
-                        <div class="md-radio">
-                          <input
-                          (click)="changeKindOfProduct($event.target.value)"
-                          [attr.disabled]="disabledFieldType ? '' : null"
-                          value="VENTA"
-                          formControlName="sell-type"
-                          id="vender"
-                          type="radio"
-                          name="sell-type">
-                          <label for="vender">Vender</label>
-                        </div>
-                        <div *ngIf="showOptionsVehicles" class="md-radio">
-                            <input
-                            (click)="changeKindOfProduct($event.target.value)"
-                            [attr.disabled]="disabledFieldType ? '' : null"
-                            value="ALQUILA"
-                            formControlName="sell-type"
-                            id="alquilar"
-                            type="radio"
-                            name="sell-type">
-                            <label for="alquilar">Alquilar</label>
-                        </div>
-                        <div  *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
-                          <input
-                          (click)="changeKindOfProduct($event.target.value)"
-                          [attr.disabled]="disabledFieldType ? '' : null"
-                          value="SUBASTA"
-                          formControlName="sell-type"
-                          id="subastar"
-                          type="radio"
-                          name="sell-type">
-                          <label for="subastar">Subastar</label>
-                        </div>
-                        <div  *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
-                            <input
-                            (click)="changeKindOfProduct($event.target.value)"
-                            [attr.disabled]="disabledFieldType ? '' : null"
-                            value="GRATIS"
-                            formControlName="sell-type"
-                            id="regalar"
-                            type="radio"
-                            name="sell-type">
-                            <label for="regalar">Regalar</label>
-                        </div>
-                        <span class="error-msg">Este campo es requerido</span>
-                   </div>
-                </div>
-
-                <div *ngIf="showOptionsVehicles && showOptionEstate" class="form-group">
-                  <label class="label-title">Número de unidades disponibles</label>
-                  <div class="input-group quantity-wrapper">
-                    <span class="input-group-btn">
-                      <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
-                        <span>-</span>
-                      </button>
-                    </span>
-                    <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="1" maxlength="5"
-                      autocomplete="off">
-                    <span class="input-group-btn">
-                      <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
-                        <span>+</span>
-                      </button>
-                    </span>
-                    <span class="error-stock error-msg">
-                      Este campo debe ser mayor o igual a 1.
-                    </span>
+            <div class="row row-min">
+              <div class="form-group">
+                <label class="label-title">Estado</label>
+                <div>
+                  <div class="md-radio">
+                    <input [value]="false" formControlName="used" id="1" type="radio" name="used">
+                    <label for="1">Nuevo</label>
                   </div>
+                  <div class="md-radio">
+                    <input [value]="true" formControlName="used" id="2" type="radio" name="used">
+                    <label for="2">Usado</label>
+                  </div>
+                  <span class="error-msg">Este campo es requerido</span>
                 </div>
+              </div>
+
+              <div class="form-group">
+                <label *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="label-title">¿Qué te gustaría
+                  hacer con tu vehículo?</label>
+                <label *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()" class="label-title">¿Qué te gustaría
+                  hacer con tu producto?</label>
+                <div>
+                  <div class="md-radio">
+                    <input (click)="changeKindOfProduct($event.target.value)" [attr.disabled]="disabledFieldType ? '' : null"
+                      value="VENTA" formControlName="sell-type" id="vender" type="radio" name="sell-type">
+                    <label for="vender">Vender</label>
+                  </div>
+                  <div *ngIf="showOptionsVehicles" class="md-radio">
+                    <input (click)="changeKindOfProduct($event.target.value)" [attr.disabled]="disabledFieldType ? '' : null"
+                      value="ALQUILA" formControlName="sell-type" id="alquilar" type="radio" name="sell-type">
+                    <label for="alquilar">Alquilar</label>
+                  </div>
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
+                    <input (click)="changeKindOfProduct($event.target.value)" [attr.disabled]="disabledFieldType ? '' : null"
+                      value="SUBASTA" formControlName="sell-type" id="subastar" type="radio" name="sell-type">
+                    <label for="subastar">Subastar</label>
+                  </div>
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
+                    <input (click)="changeKindOfProduct($event.target.value)" [attr.disabled]="disabledFieldType ? '' : null"
+                      value="GRATIS" formControlName="sell-type" id="regalar" type="radio" name="sell-type">
+                    <label for="regalar">Regalar</label>
+                  </div>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+              </div>
+
+              <div *ngIf="showOptionsVehicles && showOptionEstate" class="form-group">
+                <label class="label-title">Número de unidades disponibles</label>
+                <div class="input-group quantity-wrapper">
+                  <span class="input-group-btn">
+                    <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                      <span>-</span>
+                    </button>
+                  </span>
+                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock"
+                    currencyMask [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                    formControlName="stock" placeholder="1" maxlength="5" autocomplete="off">
+                  <span class="input-group-btn">
+                    <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                      <span>+</span>
+                    </button>
+                  </span>
+                  <span class="error-stock error-msg">
+                    Este campo debe ser mayor o igual a 1.
+                  </span>
+                </div>
+              </div>
             </div>
             <div class="row">
 
-                <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group" data-input="price">
-                    <div>
-                      <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
-                        <label class="label-title">Precio (con los pies en la tierra)*</label>
-                        <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price" name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
-                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price"
-                          placeholder="15.000.000"
-                          maxlength="50" autocomplete="off">
-                        <span class="error-msg">Este campo es requerido</span>
-                        <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
-                      </div>
-                      <select [ngStyle]="{'display': isColombia ? 'none' : 'block' }"  class="form-control currency-select" name="currency" formControlName="currency">
-                        <option *ngIf="isColombia" value="COP">COP</option>
-                        <option *ngIf="isGuatemala" value="GTQ">GTQ</option>
-                        <option *ngIf="!isColombia" value="USD">USD</option>
-                      </select>
-                      <div class="check-offer">
-                        <label for="checkTerms" class="material-checkbox container-check">
-                          <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
-                          <span class="checkmark"></span>
-                        </label>
-                        <span class="check-label">Recibo ofertas</span>
-                      </div>
-                    </div>
+              <div [ngClass]="{'valid': photosForm.get('price').value || photosForm.get('price').value == 0  }" class="form-group"
+                data-input="price">
+                <div>
+                  <div class="price-container" [ngClass]="{'error-price': validateIfErrorPrice()}">
+                    <label class="label-title">Precio (con los pies en la tierra)*</label>
+                    <input [attr.disabled]="disabledField ||  photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price"
+                      name="price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
+                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="price"
+                      placeholder="15.000.000" maxlength="50" autocomplete="off">
+                    <span class="error-msg">Este campo es requerido</span>
+                    <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                  </div>
+                  <select [ngStyle]="{'display': isColombia ? 'none' : 'block' }" class="form-control currency-select"
+                    name="currency" formControlName="currency">
+                    <option *ngIf="isColombia" value="COP">COP</option>
+                    <option *ngIf="isGuatemala" value="GTQ">GTQ</option>
+                    <option *ngIf="!isColombia" value="USD">USD</option>
+                  </select>
+                  <div class="check-offer">
+                    <label for="checkTerms" class="material-checkbox container-check">
+                      <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
+                      <span class="checkmark"></span>
+                    </label>
+                    <span class="check-label">Recibo ofertas</span>
+                  </div>
                 </div>
-                <div *ngIf="isNewPriceShow" class="form-group">
-                    <div class="label-title check-offer">
-                        <label for="checkNewPrice" class="material-checkbox container-check">
-                          <input
-                          (change) = "checkNewPriceChange()"
-                          type="checkbox" id="checkNewPrice" name="checkNewPrice" formControlName="checkNewPrice">
-                          <span class="checkmark"></span>
-                        </label>
-                        <span class="check-label">Precio especial por Black Friday</span>
-                    </div>
-                    <div class="price-container">
-                        <input
-                        [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null"
-                        class="form-control input-price" name="special-price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                          placeholder=""
-                          formControlName="special-price"
-                          maxlength="50" autocomplete="off">
-                        <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
-                        <span *ngIf="isErrorCategoryNewPrice"  class="error-msg">Debe seleccionar una categoría</span>
-                    </div>
+              </div>
+              <div *ngIf="isNewPriceShow" class="form-group">
+                <div class="label-title check-offer">
+                  <label for="checkNewPrice" class="material-checkbox container-check">
+                    <input (change)="checkNewPriceChange()" type="checkbox" id="checkNewPrice" name="checkNewPrice"
+                      formControlName="checkNewPrice">
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="check-label">Precio especial por Black Friday</span>
                 </div>
-                <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">
-                    <div class="info-price">
-                        Tu producto se destacará con la etiqueta BLACK DAYS del 23 al 30 de noviembre, después volverá a tener el precio original.
-                    </div>
+                <div class="price-container">
+                  <input [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null" class="form-control input-price"
+                    name="special-price" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                    placeholder="" formControlName="special-price" maxlength="50" autocomplete="off">
+                  <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a
+                    {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
+                  <span *ngIf="isErrorCategoryNewPrice" class="error-msg">Debe seleccionar una categoría</span>
                 </div>
+              </div>
+              <div *ngIf="isNewPriceShow && photosForm.get('checkNewPrice').value" class="form-group">
+                <div class="info-price">
+                  Tu producto se destacará con la etiqueta BLACK DAYS del 23 al 30 de noviembre, después volverá a
+                  tener el precio original.
+                </div>
+              </div>
             </div>
             <div class="row">
-                <div class="form-group field-form">
-                    <label  *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()"  class="label-title">¿Dónde está tu vehículo?*</label>
-                    <label  *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()"  class="label-title">¿Dónde está tu producto?*</label>
-                    <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
-                    <span class="error-msg">Este campo es requerido</span>
-                  </div>
-                  <div class="form-group select-cities field-form">
-                    <select-cities id="select-cities" [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
-                    <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div class="date-auction form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'" [ngClass]="{'valid': photosForm.get('sell-type').value}">
-                  <div class="date-container">
-                      <label class="label-title">Fecha de vencimiento</label>
-                      <my-date-picker class="data-picker-theme" name="publish-until" placeholder="Fecha de vencimiento de la subasta" formControlName="publish-until"
-                      [options]="datePickerOptions"></my-date-picker>
-                      <span class="help-block error-msg"> Este campo es requerido </span>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
-              <div class="title-form">
-                  <div class="numberCircle">2</div>
-                  <div class="step-info">
-                      <h1>Todos los que buscan un vehículo, necesitan esta información</h1>
-                      <p class="msg-field-required">
-                          *Campos obligatorios
-                      </p>
-                  </div>
+              <div class="form-group field-form">
+                <label *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="label-title">¿Dónde está tu
+                  vehículo?*</label>
+                <label *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()" class="label-title">¿Dónde está tu
+                  producto?*</label>
+                <select-states [ngClass]="{'invalid': errorState}" class="product-location white-theme-select material-select"
+                  [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
+                <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="row">
-                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('carMake').value}">
-                      <select name="carMake" class="form-control" formControlName="carMake" (change)="setLinesVehicle($event.target.value)">
-                        <option value="" disabled></option>
-                        <option value="{{carMake.id}}" *ngFor="let carMake of brandsList">{{carMake.name}}</option>
-                      </select>
-                      <label class="label-title">Marca*</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                  </div>
-                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('line-id').value}">
-                      <select name="line-id" class="form-control" formControlName="line-id">
-                        <option value="" disabled></option>
-                        <option value="{{model.id}}" *ngFor="let model of modelList">{{model.name}}</option>
-                      </select>
-                      <label class="label-title">Modelo*</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                  </div>
-                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('model').value}">
-                      <select name="model" class="form-control" formControlName="model">
-                        <option value="" disabled></option>
-                        <option value="{{year}}" *ngFor="let year of yearsVehicle">{{year}}</option>
-                      </select>
-                      <label class="label-title">Año*</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                  </div>
+              <div class="form-group select-cities field-form">
+                <select-cities id="select-cities" [ngClass]="{'invalid': errorCity}" class="product-location white-theme-select material-select"
+                  [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="row">
-                <div class="form-group" [ngClass]="{'valid': photosForm.get('mileage').value || photosForm.get('mileage').value == 0}">
-                    <div class="kilometraje-container">
-                      <label class="label-title">Kilometraje*</label>
-                      <input class="form-control input-price" name="mileage" currencyMask
-                        [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                        formControlName="mileage" placeholder="10.000" maxlength="50" autocomplete="off">
-                      <label class="symbol-km">Km</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                      <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
-                    </div>
-                </div>
-                <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('color').value}">
-                    <select name="color" class="form-control" formControlName="color">
-                      <option value="" disabled></option>
-                      <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
-                    </select>
-                    <label class="label-title">Color*</label>
-                    <span class="error-msg">Este campo es requerido</span>
-                </div>
-                 <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('transmission').value}">
-                  <select name="transmission" class="form-control" formControlName="transmission">
-                    <option value="" disabled></option>
-                    <option value="{{transmission}}" *ngFor="let transmission of transmissionList">{{transmission}}</option>
-                  </select>
-                  <label class="label-title">Transmisión*</label>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('displacement').value}">
-                    <select name="displacement" class="form-control" formControlName="displacement">
-                      <option value="" disabled></option>
-                      <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
-                    </select>
-                    <label class="label-title">Cilindraje*</label>
-                    <span class="error-msg">Este campo es requerido</span>
-                </div>
-              </div>
-              <div class="row">
-                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('gas').value}">
-                  <select name="gas" class="form-control" formControlName="gas">
-                    <option value="" disabled></option>
-                    <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
-                  </select>
-                  <label class="label-title">Combustible*</label>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('license-plate').value}">
-                  <select name="license-plate" class="form-control" formControlName="license-plate">
-                    <option value="" disabled></option>
-                    <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
-                  </select>
-                  <label class="label-title">Nº Placa (terminado en)*</label>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-                <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
-                  <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
-                    <option value="" disabled></option>
-                    <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
-                  </select>
-                  <label class="label-title">Tipo de uso*</label>
-                  <span class="error-msg">Este campo es requerido</span>
-                </div>
-              </div>
-          </div>
-          <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
-              <div class="title-form">
-                  <div class="numberCircle">3</div>
-                  <div class="step-info">
-                      <h1>Agrégale esa milla extra a tu producto</h1>
-                      <p>
-                          Cuéntanos acerca de esos detalles que enamoran
-                      </p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div *ngIf="subcategoryIsVehicle()" class="form-group">
-                    <div>
-                        <input formControlName="airbag" type="checkbox" id="id-name--1" name="airbag" class="switch-input">
-                        <label for="id-name--1" class="switch-label">Airbag</label>
-                    </div>
-                    <div>
-                        <input formControlName="air-conditioner" type="checkbox" id="id-name--2" name="air-conditioner" class="switch-input">
-                        <label for="id-name--2" class="switch-label">Aire acondicionado</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                      <div>
-                          <input formControlName="abs-brakes" type="checkbox" id="id-name--3" name="abs-brakes" class="switch-input">
-                          <label for="id-name--3" class="switch-label">Frenos ABS</label>
-                      </div>
-                      <div>
-                          <input formControlName="unique-owner" type="checkbox" id="id-name--4" name="unique-owner" class="switch-input">
-                          <label for="id-name--4" class="switch-label">Único dueño</label>
-                      </div>
-                    </div>
-                  <div  *ngIf="subcategoryIsVehicle()" class="form-group">
-                    <label class="label-title">Tipo de asiento</label>
-                    <div>
-                      <div class="md-radio">
-                        <input value="TELA" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
-                        <label for="kindSeat1">Tela</label>
-                      </div>
-                      <div class="md-radio">
-                        <input value="CUERO" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
-                        <label for="kindSeat2">Cuero
-                        </label>
-                      </div>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                </div>
-          </div>
-          <div class="row-section">
-              <div class="title-form">
-                  <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="numberCircle">4</div>
-                  <div *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()" class="numberCircle">2</div>
-                  <div class="step-info">
-                      <h1>Por último agrega la información de la publicación</h1>
-                      <p class="msg-field-required">
-                          *Campos obligatorios
-                      </p>
-                  </div>
-              </div>
-              <div class="form-group group-full">
-                <label class="label-title">¿Quién puede ver tu publicación?</label>
-                 <div>
-                      <div class="md-radio">
-                        <input
-                        [value]="false"
-                        formControlName="visible"
-                        id="visible1"
-                        type="radio"
-                        name="visible">
-                        <label for="visible1">Mi comunidad - {{communityName}}
-                        </label>
-                      </div>
-                      <div  class="md-radio">
-                        <input
-                        [value]="true"
-                        formControlName="visible"
-                        id="visible2"
-                        type="radio"
-                        name="visible">
-                        <label for="visible2">Todas las comunidades</label>
-                      </div>
-                      <span class="error-msg">Este campo es requerido</span>
-                 </div>
-              </div>
-
-              <div class="row">
-                <div class="form-group half" data-input="name">
-                  <label class="label-title">Título*</label>
-                  <input type="text" class="form-control" name="name" formControlName="name" maxlength="50" placeholder="Inspírate, que impresione con solo leerlo.">
+              <div class="date-auction form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'" [ngClass]="{'valid': photosForm.get('sell-type').value}">
+                <div class="date-container">
+                  <label class="label-title">Fecha de vencimiento</label>
+                  <my-date-picker class="data-picker-theme" name="publish-until" placeholder="Fecha de vencimiento de la subasta"
+                    formControlName="publish-until" [options]="datePickerOptions"></my-date-picker>
                   <span class="help-block error-msg"> Este campo es requerido </span>
                 </div>
               </div>
-              <div class="row">
-                <div class="form-group half">
-                  <label class="label-title">Descripción*</label>
-                  <textarea class="form-control" placeholder="¡Cuéntanos más! termina de cautivar a tu futuro comprador." name="description" formControlName="description"
-                    maxlength="500"></textarea>
+            </div>
+          </div>
+          <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
+            <div class="title-form">
+              <div class="numberCircle">2</div>
+              <div class="step-info">
+                <h1>Todos los que buscan un vehículo, necesitan esta información</h1>
+                <p class="msg-field-required">
+                  *Campos obligatorios
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('carMake').value}">
+                <select name="carMake" class="form-control" formControlName="carMake" (change)="setLinesVehicle($event.target.value)">
+                  <option value="" disabled></option>
+                  <option value="{{carMake.id}}" *ngFor="let carMake of brandsList">{{carMake.name}}</option>
+                </select>
+                <label class="label-title">Marca*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('line-id').value}">
+                <select name="line-id" class="form-control" formControlName="line-id">
+                  <option value="" disabled></option>
+                  <option value="{{model.id}}" *ngFor="let model of modelList">{{model.name}}</option>
+                </select>
+                <label class="label-title">Modelo*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('model').value}">
+                <select name="model" class="form-control" formControlName="model">
+                  <option value="" disabled></option>
+                  <option value="{{year}}" *ngFor="let year of yearsVehicle">{{year}}</option>
+                </select>
+                <label class="label-title">Año*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group" [ngClass]="{'valid': photosForm.get('mileage').value || photosForm.get('mileage').value == 0}">
+                <div class="kilometraje-container">
+                  <label class="label-title">Kilometraje*</label>
+                  <input class="form-control input-price" name="mileage" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="mileage"
+                    placeholder="10.000" maxlength="50" autocomplete="off">
+                  <label class="symbol-km">Km</label>
+                  <span class="error-msg">Este campo es requerido</span>
+                  <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                </div>
+              </div>
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('color').value}">
+                <select name="color" class="form-control" formControlName="color">
+                  <option value="" disabled></option>
+                  <option value="{{color}}" *ngFor="let color of colorList">{{color}}</option>
+                </select>
+                <label class="label-title">Color*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('transmission').value}">
+                <select name="transmission" class="form-control" formControlName="transmission">
+                  <option value="" disabled></option>
+                  <option value="{{transmission}}" *ngFor="let transmission of transmissionList">{{transmission}}</option>
+                </select>
+                <label class="label-title">Transmisión*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div *ngIf="!subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('displacement').value}">
+                <select name="displacement" class="form-control" formControlName="displacement">
+                  <option value="" disabled></option>
+                  <option value="{{cylinder}}" *ngFor="let cylinder of cylinderList">{{cylinder}}</option>
+                </select>
+                <label class="label-title">Cilindraje*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('gas').value}">
+                <select name="gas" class="form-control" formControlName="gas">
+                  <option value="" disabled></option>
+                  <option value="{{combustible}}" *ngFor="let combustible of combustibleList">{{combustible}}</option>
+                </select>
+                <label class="label-title">Combustible*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('license-plate').value}">
+                <select name="license-plate" class="form-control" formControlName="license-plate">
+                  <option value="" disabled></option>
+                  <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}</option>
+                </select>
+                <label class="label-title">Nº Placa (terminado en)*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div *ngIf="subcategoryIsVehicle()" class="form-group field-form" [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
+                <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
+                  <option value="" disabled></option>
+                  <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">{{vehicleProperty}}</option>
+                </select>
+                <label class="label-title">Tipo de uso*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
+            <div class="title-form">
+              <div class="numberCircle">3</div>
+              <div class="step-info">
+                <h1>Agrégale esa milla extra a tu producto</h1>
+                <p>
+                  Cuéntanos acerca de esos detalles que enamoran
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngIf="subcategoryIsVehicle()" class="form-group">
+                <div>
+                  <input formControlName="airbag" type="checkbox" id="id-name--1" name="airbag" class="switch-input">
+                  <label for="id-name--1" class="switch-label">Airbag</label>
+                </div>
+                <div>
+                  <input formControlName="air-conditioner" type="checkbox" id="id-name--2" name="air-conditioner" class="switch-input">
+                  <label for="id-name--2" class="switch-label">Aire acondicionado</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div>
+                  <input formControlName="abs-brakes" type="checkbox" id="id-name--3" name="abs-brakes" class="switch-input">
+                  <label for="id-name--3" class="switch-label">Frenos ABS</label>
+                </div>
+                <div>
+                  <input formControlName="unique-owner" type="checkbox" id="id-name--4" name="unique-owner" class="switch-input">
+                  <label for="id-name--4" class="switch-label">Único dueño</label>
+                </div>
+              </div>
+              <div *ngIf="subcategoryIsVehicle()" class="form-group">
+                <label class="label-title">Tipo de asiento</label>
+                <div>
+                  <div class="md-radio">
+                    <input value="TELA" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
+                    <label for="kindSeat1">Tela</label>
+                  </div>
+                  <div class="md-radio">
+                    <input value="CUERO" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
+                    <label for="kindSeat2">Cuero
+                    </label>
+                  </div>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row-section">
+            <div class="title-form">
+              <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="numberCircle">4</div>
+              <div *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos()" class="numberCircle">2</div>
+              <div class="step-info">
+                <h1>Por último agrega la información de la publicación</h1>
+                <p class="msg-field-required">
+                  *Campos obligatorios
+                </p>
+              </div>
+            </div>
+            <div class="form-group group-full">
+              <label class="label-title">¿Quién puede ver tu publicación?</label>
+              <div>
+                <div class="md-radio">
+                  <input [value]="false" formControlName="visible" id="visible1" type="radio" name="visible">
+                  <label for="visible1">Mi comunidad - {{communityName}}
+                  </label>
+                </div>
+                <div class="md-radio">
+                  <input [value]="true" formControlName="visible" id="visible2" type="radio" name="visible">
+                  <label for="visible2">Todas las comunidades</label>
+                </div>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group half" data-input="name">
+                <label class="label-title">Título*</label>
+                <input type="text" class="form-control" name="name" formControlName="name" maxlength="50" placeholder="Inspírate, que impresione con solo leerlo.">
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group half">
+                <label class="label-title">Descripción*</label>
+                <textarea class="form-control" placeholder="¡Cuéntanos más! termina de cautivar a tu futuro comprador."
+                  name="description" formControlName="description" maxlength="500"></textarea>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
-import * as Muuri from 'muuri';
+
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -97,9 +97,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public categorySelected;
   public maxValueNewPrice = 0;
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
-  public imagArray;
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
+  items = [1, 2, 3, 4, 5];
+
+
 
   constructor(
     private router: Router,
@@ -136,20 +138,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-
   ngAfterViewInit(): void {
-    const gridHolder = new Muuri('.grid-holder', {
-      dragEnabled: false
-    });
-    this.imagArray = new Muuri('.grid', {
-      dragEnabled: false
-    });
-   this.endForRender.changes.subscribe(t => {
-    });
-    this.endForRender.notifyOnChanges();
     this.changeDetectorRef.markForCheck();
   }
-
 
   ngOnChanges(): void {
     if (this.product) {
@@ -234,7 +225,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   async publishPhoto(form) {
     this.setValidationVehicle();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
-      const photosIds = { 'photo-ids': this.getPhotosIds() };
+      const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
 
       if (this.photosForm.value['publish-until'].formatted) {
@@ -417,27 +408,50 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   onUploadImageFinished(event) {
+    console.log(event.file);
     this.errorUploadImg = false;
     this.errorMaxImg = false;
-    this.photosCounter++;
-    this.photosService.uploadPhoto(event.file).subscribe((response) => {
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-      this.imagArray = new Muuri('.grid' , {
-        dragEnabled: true
-      });
-      this.changeDetectorRef.markForCheck();
-    }, (error) => {
-      this.errorUploadImg = true;
-      console.error('Error: ', error);
-      this.changeDetectorRef.markForCheck();
-    },
-    () => {
-      if (this.photosCounter > 0) {
-        this.photosCounter--;
+    if (event.file.type == 'image/jpeg'
+     || event.file.type == 'image/png'
+     || event.file.type == 'image/jpg'
+     || event.file.type == 'image/webp') {
+      if (event.file.size < 10000000) {
+        this.photosCounter++;
+        this.photosService.uploadPhoto(event.file).subscribe((response) => {
+          const photo = Object.assign({}, response, { file: event.file });
+          this.photosUploaded.push(photo);
+          this.changeDetectorRef.markForCheck();
+        }, (error) => {
+          if (error.error && error.error.status) {
+            if (error.error.status == '624') {
+              this.errorUploadImg = true;
+              this.imageInput.deleteFile(event.file);
+            } else if (error.error.status == '625') {
+              this.errorMaxImg = true;
+              this.imageInput.deleteFile(event.file);
+            } else  {
+              this.errorUploadImg = true;
+            }
+          } else {
+            this.errorUploadImg = true;
+          }
+          console.error('Error: ', error);
+          this.changeDetectorRef.markForCheck();
+        },
+          () => {
+            if (this.photosCounter > 0) {
+              this.photosCounter--;
+            }
+          }
+        );
+      } else {
+        this.errorMaxImg = true;
+        this.imageInput.deleteFile(event.file);
       }
+    } else {
+      this.errorUploadImg = true;
+      this.imageInput.deleteFile(event.file);
     }
-    );
   }
 
   onRemovePreviewImage(photo) {
@@ -453,9 +467,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   onRemoveAll() {
     this.photosUploaded = [];
-   /* this.imagArray = new Muuri('.grid', {
-      dragEnabled: false
-    });*/
+    this.maxNumberImg = 6;
     this.imageInput.deleteAll();
   }
 
@@ -481,7 +493,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     try {
       const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
-      this.disableDrag();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);
@@ -864,18 +875,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return Object.assign({}, product, this.product) as ProductInterface;
   }
 
-  private getPhotosIds() /*: Array<string> */{
-    let order = this.loadOrderPhotos();
-    order = order.filter((item) => {
-      return item;
-    });
-    return order.map((photo, index) => {
-      return {
-        'photo-id': photo,
-        'position': index + 1
-      }; });
-  }
-
   private setCategoryDefault(subCategory: SubcategoryInterface) {
     const options = this.categorySelectElem.nativeElement.options;
     const length = options.length;
@@ -928,9 +927,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       return photo;
     });
     this.photosUploaded = [].concat(photos);
-    this.imagArray = new Muuri('.grid' , {
-      dragEnabled: true
-    });
     if (this.maxNumberImg > 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberImg - this.photosUploaded.length;
     }
@@ -1061,24 +1057,15 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   loadOrderPhotos () {
-    const order = this.imagArray.getItems().map((item) => {
-      if (item.getElement().querySelectorAll('.imagenUpload') && item.getElement().querySelectorAll('.imagenUpload').item(0)) {
-        return item.getElement().querySelectorAll('.imagenUpload').item(0).id;
-      }
+    console.log(this.photosUploaded);
+    let order = [];
+    order = this.photosUploaded.map((photo, index) => {
+      return {
+        'photo-id': photo.photoId,
+        'position': index + 1
+      };
     });
     return order;
-  }
-
-  disableDrag() {
-  /*  this.imagArray.remove(0);
-    this.imagArray.remove(1);
-    this.imagArray.remove(2);
-    this.imagArray.remove(3);
-    this.imagArray.remove(4);
-    this.imagArray.remove(5);
-    this.imagArray = new Muuri('.grid' , {
-      dragEnabled: true
-    });*/
   }
 
 }
