@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
-import * as Muuri from 'muuri';
+
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -97,9 +97,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public categorySelected;
   public maxValueNewPrice = 0;
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
-  public imagArray;
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
+  items = [1, 2, 3, 4, 5];
+
+
 
   constructor(
     private router: Router,
@@ -137,16 +139,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
 
+  elimina(item) {
+    this.items = this.items.filter(function(value) {
+      return value != item;
+    });
+  }
+
+  agregar() {
+    this.items.push(100);
+  }
+
   ngAfterViewInit(): void {
-    const gridHolder = new Muuri('.grid-holder', {
-      dragEnabled: false
-    });
-    this.imagArray = new Muuri('.grid', {
-      dragEnabled: false
-    });
-   this.endForRender.changes.subscribe(t => {
-    });
-    this.endForRender.notifyOnChanges();
     this.changeDetectorRef.markForCheck();
   }
 
@@ -423,9 +426,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.photosService.uploadPhoto(event.file).subscribe((response) => {
       const photo = Object.assign({}, response, { file: event.file });
       this.photosUploaded.push(photo);
-      this.imagArray = new Muuri('.grid' , {
-        dragEnabled: true
-      });
       this.changeDetectorRef.markForCheck();
     }, (error) => {
       this.errorUploadImg = true;
@@ -453,9 +453,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   onRemoveAll() {
     this.photosUploaded = [];
-   /* this.imagArray = new Muuri('.grid', {
-      dragEnabled: false
-    });*/
+    this.maxNumberImg = 6;
     this.imageInput.deleteAll();
   }
 
@@ -481,8 +479,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     try {
       const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
-      this.imagArray.refreshItems();
-      this.imagArray.refreshSortData();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);
@@ -929,9 +925,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       return photo;
     });
     this.photosUploaded = [].concat(photos);
-    this.imagArray = new Muuri('.grid' , {
-      dragEnabled: true
-    });
     if (this.maxNumberImg > 0 && this.maxNumberImg <= this.maxNumberPhotos) {
       this.maxNumberImg = this.maxNumberImg - this.photosUploaded.length;
     }
@@ -1062,12 +1055,13 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   loadOrderPhotos () {
-    const order = this.imagArray.getItems().map((item) => {
+   /* const order = this.imagArray.getItems().map((item) => {
       if (item.getElement().querySelectorAll('.imagenUpload') && item.getElement().querySelectorAll('.imagenUpload').item(0)) {
         return item.getElement().querySelectorAll('.imagenUpload').item(0).id;
       }
     });
-    return order;
+    return order;*/
+    return [];
   }
 
 }

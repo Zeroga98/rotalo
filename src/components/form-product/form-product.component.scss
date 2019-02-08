@@ -990,29 +990,28 @@
 }
 
 
-.grid {
-  position: relative;
-  width: 70%;
-  display: inline-block;
+.grid , .grid-holder {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.grid-wrapper {
+.grid {
   position: absolute;
   width: 70%;
   top: 0;
-  z-index: -1;
+}
 
+.grid-wrapper {
+  width: 70%;
   .grid-holder {
     position: relative;
     width: 100%;
-    display: block;
   }
 }
 
 .item {
   display: block;
   border-radius: 8px;
-  position: absolute;
   width: 120.46px;
   height: 120.21px;
   margin-right: 1.5rem;
@@ -1021,7 +1020,6 @@
   font-size: 1.4rem;
   font-weight: bold;
   color: #D5D5D5;
-  z-index: 1;
 }
 
 .item.place-holder {
@@ -1040,6 +1038,13 @@
 .item.place-holder:first-child {
   color: #0FBBD8;
   border: 2px dashed #0FBBD8;
+}
+
+.item.place-holder {
+  .container-wrapper.hover {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .item.muuri-item-dragging {
@@ -1066,8 +1071,6 @@
     width: 120.46px;
     height: 120.21px;
     border-radius: 8px;
-    z-index: 1;
-
     &:hover {
       .remove-action {
         display: block;
@@ -1186,14 +1189,19 @@ image-upload {
   opacity: 1;
 }
 
-.mat-flat-button {
-  background-color: #EAF9FC;
+.mat-button {
+ // background-color: #EAF9FC;
   border-radius: 10px;
   /*  opacity: 0.09;
     filter: alpha(opacity=9);*/
   color: #0FBBD8;
   font-size: 1.6rem;
   font-family: 'Lato Regular';
+}
+
+
+.mat-ripple-element {
+  background-color: orange !important;
 }
 
 @media screen and (max-width: 1284px) {
@@ -1307,4 +1315,17 @@ image-upload {
   .tool-tip {
     max-width: 300px;
   }
+}
+
+
+
+.grid-square {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  background-color: #fff;
+  border: solid 1px rgba(0,0,0,0.2);
+  padding: 10px;
+  margin: 12px;
+  font-size: 20px;
 }
