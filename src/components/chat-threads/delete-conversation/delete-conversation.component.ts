@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -8,7 +8,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class DeleteConversationComponent implements OnInit , AfterViewInit {
   private params;
-  @ViewChild('primary', { read: ElementRef }) primaryButton:ElementRef;
 
   constructor(private dialogRef: MatDialogRef<DeleteConversationComponent>,
   @Inject(MAT_DIALOG_DATA) data) {
@@ -19,8 +18,6 @@ export class DeleteConversationComponent implements OnInit , AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.primaryButton.nativeElement.classList.remove('cdk-focused');
-    this.primaryButton.nativeElement.classList.remove('cdk-mouse-focused');
   }
 
   save() {

@@ -1,5 +1,5 @@
 <div class="close-container">
-  <div class="button-close-modal" (click)="close()">
+  <div id="close" class="button-close-modal" (click)="close()">
     <p>x</p>
   </div>
 </div>
@@ -12,7 +12,7 @@
     </p>
   </div>
   <div class="btn-container">
-    <button #primary (click) ="save()" mat-flat-button color="primary">Si</button>
+    <button (click) ="save()" mat-flat-button color="primary">Si</button>
     <button (click)="close()" mat-stroked-button>No</button>
   </div>
 </div>
