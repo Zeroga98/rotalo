@@ -43,6 +43,8 @@ import { ResponseMicrositePage } from '../microsite/pages-microsite/response-mic
 import { adminOrdersPage } from '../pages/profile/admin-orders/admin-orders.page';
 import { FeaturedProductsComponent } from '../pages/profile/featured-products/featured-products.component';
 import { AdminRegisterPage } from '../pages/profile/admin-register/admin-register.page';
+import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
+import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campaign-upload.component';
 
 
 export const appRouter: Routes = [
@@ -81,6 +83,8 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
       { path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
       {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
+      {path: ROUTES.MENUROTALOCENTER.CAMPAIGN, component: AdminCampaignComponent},
+      {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

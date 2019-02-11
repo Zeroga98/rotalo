@@ -1,0 +1,9 @@
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+
+:host {
+  width: 100%;
+  height: auto;
+  padding: 0 5%;
+  padding-left: 2%;
+}

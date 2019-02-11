@@ -45,6 +45,10 @@
           <div class="ico shop-icon"></div>
           <a>Órdenes tienda</a>
         </div>
+        <div *ngIf="isSuperUser()" [routerLink]="campaign" class="option" routerLinkActive="active">
+          <div class="ico shop-icon"></div>
+          <a>Campañas</a>
+        </div>
       </div>
     </div>
   </div>

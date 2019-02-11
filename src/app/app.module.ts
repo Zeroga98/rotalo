@@ -183,6 +183,9 @@ import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-an
 import { MatIconModule, MatDialog, MatDialogModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 import { SortablejsModule } from 'angular-sortablejs';
+import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
+import { CampaignFormComponent } from '../pages/profile/campaign-form/campaign-form.component';
+import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campaign-upload.component';
 
 @NgModule({
   declarations: [
@@ -290,7 +293,10 @@ import { SortablejsModule } from 'angular-sortablejs';
     FeaturedProductsComponent,
     AdminRegisterPage,
     DragAndDropImgComponent,
-    DeleteConversationComponent
+    DeleteConversationComponent,
+    AdminCampaignComponent,
+    CampaignFormComponent,
+    CampaignUploadComponent
   ],
   imports: [
     BrowserModule,

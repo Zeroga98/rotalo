@@ -40,6 +40,8 @@ export const ROUTES = {
         ADMINORDERS: 'admin-order',
         FEATUREDPRODUCT: 'featured-product',
         ADMINREGISTER: 'admin-register',
+        CAMPAIGN: 'campaign',
+        UPLOAD: 'upload-campaign'
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

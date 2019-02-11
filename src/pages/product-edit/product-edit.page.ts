@@ -25,14 +25,6 @@ export class ProductEditPage implements OnInit {
     this.loadProduct();
   }
 
-  /*async loadProduct() {
-    try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
-      this.redirectIfisNotOwner(this.product);
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {}
-  }*/
-
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
@@ -54,20 +46,6 @@ export class ProductEditPage implements OnInit {
       ]);
     }
   }
-
-  /*async updatePhoto(event) {
-    try {
-      const response = await this.productsService.updateProduct(this.idProduct, event);
-      this.router.navigate([
-        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
-      ]);
-      this.productsService.products = [];
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  }*/
-
 
   updatePhoto(event) {
     this.productsService.updateProductForm(this.idProduct, event).subscribe((response) => {
