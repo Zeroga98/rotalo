@@ -408,7 +408,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   onUploadImageFinished(event) {
-    console.log(event.file);
     this.errorUploadImg = false;
     this.errorMaxImg = false;
     if (event.file.type == 'image/jpeg'

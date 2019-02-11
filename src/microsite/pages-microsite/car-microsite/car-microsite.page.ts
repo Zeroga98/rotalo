@@ -451,8 +451,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     const body = {
       productos: []
     };
-
-    console.log(this.products);
     this.products.forEach(element => {
       body.productos.push(
         {

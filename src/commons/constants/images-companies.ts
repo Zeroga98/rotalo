@@ -94,24 +94,43 @@ export const IMGS_COMPANIES = [
 
   {
     url: './assets/img/logos_company/20_riopaila.png',
-    name: 'canales'
+    name: 'riopaila'
   },
 
   {
     url: './assets/img/logos_company/21_amelissa.png',
-    name: 'canales'
+    name: 'amelissa'
   },
 
   {
     url: './assets/img/logos_company/22_doria.png',
-    name: 'canales'
+    name: 'doria'
   },
   {
     url: './assets/img/logos_company/23_isagen.png',
-    name: 'canales'
+    name: 'isagen'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/24_agenciauto.png',
+    name: 'agenciauto'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/25_autoamerica.png',
+    name: 'autoamerica'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/26_automax.png',
+    name: 'automax'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/27_constructora_londono.png',
+    name: 'constructora_londono'
   }
 ];
-
 
 export const IMGS_COMPANIES_GUATEMALA = [
   {

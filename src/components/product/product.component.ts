@@ -324,7 +324,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         productParam.posicion = Number(id);
       }
     });
-    console.log(productParams);
   }
 
   checkStatusProduct() {

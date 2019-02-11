@@ -33,7 +33,6 @@ export class ResponseMicrositePage implements OnInit {
 
   ngOnInit() {
     this.jsonFromWaybox = this.car.getWayboxJson();
-    console.log(this.jsonFromWaybox);
     this.finalizeTransaction();
   }
 

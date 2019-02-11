@@ -519,7 +519,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('black_friday')) {
+    if (imageUrl.includes('banner_sufi')) {
       return true;
     }
     return false;
@@ -541,7 +541,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public redirectPromo (imageUrl) {
     if (this.isExclusiveOffer(imageUrl)) {
       this.router.navigate([
-        `${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`
+        `${ROUTES.PRODUCTS.LINK}/${
+          ROUTES.PRODUCTS.SIMULATECREDIT
+        }`
       ]);
     }
   }
