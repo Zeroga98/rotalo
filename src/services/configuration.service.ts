@@ -44,6 +44,7 @@ api = {
     inactivityLimit: 86400 // seconds
   };
 
+
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',

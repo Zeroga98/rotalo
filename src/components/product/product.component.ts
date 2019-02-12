@@ -83,7 +83,6 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     this.productStatus = this.product.status === 'active';
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
-      this.productsService.countProductChecked(this.starSelected);
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -277,16 +276,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   checkStar() {
-    if (
-      !this.starSelected &&
-      this.productsService.getCounterProductChecked() < 5
-    ) {
+    if (!this.starSelected) {
       this.starSelected = true;
       this.productsService
         .selectFeaturedProduct(this.product['product_id'], this.starSelected)
         .subscribe(
           response => {
-            this.productsService.countProductChecked(true);
           },
           error => {
             if (error.error.status == '623') {
@@ -305,14 +300,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         .selectFeaturedProduct(this.product['product_id'], this.starSelected)
         .subscribe(
           response => {
-            this.productsService.countProductChecked(this.starSelected);
           },
           error => {
             console.log(error);
           }
         );
-    } else {
-      alert('¡Ups! Ya llegaste al límite de los 5 productos destacados.');
     }
   }
 
