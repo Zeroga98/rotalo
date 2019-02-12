@@ -14,6 +14,11 @@
       <div class="row">
         <div class="dynamic-container">
           <div class="row">
+            <button  mat-icon-button>
+                <div class="trash-icon"></div>
+            </button>
+          </div>
+          <div class="row">
             <div class="form-group field-form">
               <label class="label-title">Comunidad</label>
               <select name="community" class="category form-control">
@@ -55,6 +60,61 @@
           <p><strong>Imágenes de la campaña</strong> (formato .png o .gif máximo 5MG)</p>
         </div>
       </div>
+      <div class="row row-img">
+        <div class="img-sortable">
+          <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['png', 'gif']"
+            [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
+            [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)">
+          </image-upload>
+          <div class="container-prev-photos">
+            <div class="grid-wrapper">
+              <div id="grid-holder" class="grid-holder">
+                <div *ngFor="let numberOfPhoto of numberOfPhotos" class="item place-holder">
+                  <div id={{numberOfPhoto}} class="item-content">
+                    <div [ngClass]="{'hover': !photosUploaded[numberOfPhoto-1]}" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
+                      (click)="uploadFiles()" class="container-wrapper">
+                      <div class="wrapper">
+                        <div class="icon-camera"></div>
+                        <p>
+                          Agregar
+                        </p>
+                      </div>
+                    </div>
+                    <span class="title-first" *ngIf="numberOfPhoto == 1">Sticker</span>
+                    <span class="title-first" *ngIf="numberOfPhoto == 2">Modal Ganaste</span>
+                    <span class="title-first" *ngIf="numberOfPhoto == 3">Modal Perdiste</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div #grid [sortablejs]="photosUploaded" [sortablejsOptions]="{ animation: 150 }" id="grid" class="grid">
+              <div #photosEnd *ngFor="let photoUploaded of photosUploaded" class="item">
+                <div class="drag item-content">
+                  <div *ngIf="photoUploaded" class="container-img">
+                    <div (click)="onRemovePreviewImage(photoUploaded)" class="remove-action">
+                      <span class="icon-close"></span>
+                    </div>
+                    <img class="imagenUpload" #imagen [src]="photoUploaded?.src">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "error-container">
+                <span class="help-block uploadImg" *ngIf="errorUploadImg">
+                    ¡Omg! No pudimos subir alguna de tus fotos. Asegúrate de que tenga formato .png, .gif
+                  </span>
+                  <span class="help-block uploadImg" *ngIf="errorMaxImg">
+                    ¡Ups! Alguna de tus imágenes está un poco pesada. Debe ser máximo de 5MB.
+                  </span>
+            </div>
+            <div class="tool-tip">
+                <label>
+                    Recuerda el tamaño de las imágenes: Sticker: 205 x205 px Modales: 300x300 px
+                </label>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="form-group half">
           <label class="label-title">Texto 1 modal ganador</label>
@@ -70,10 +130,10 @@
         </div>
       </div>
       <div class="row">
-          <div class="btn-container">
-              <button  mat-flat-button color="primary">Programar</button>
-              <button  mat-stroked-button>Cancelar</button>
-          </div>
+        <div class="btn-container">
+          <button mat-flat-button color="primary">Programar</button>
+          <button mat-stroked-button>Cancelar</button>
+        </div>
       </div>
     </div>
   </form>

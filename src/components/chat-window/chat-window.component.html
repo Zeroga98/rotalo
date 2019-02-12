@@ -111,8 +111,8 @@
                             <span class="icon icon-flag notification-icon"></span>
                             <p class="notification-text">
                               <span class="highlight bold clickable">{{message.compra.nombreUsuario}}</span>
-                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'">te ha pedido </span>
-                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'">ha comprado el producto: </span>
+                              <span *ngIf="message.producto.tipoVenta === 'GRATIS'"> te ha pedido </span>
+                              <span *ngIf="message.producto.tipoVenta !== 'GRATIS'"> ha comprado el producto: </span>
                               <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
                               <br>
                               <span>Precio: {{ (message.compra.monto | currency:' ' | removeDigits) }}</span>
@@ -120,8 +120,8 @@
                                 -
                               </span>
                               <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
-                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ' | removeDigits}}
-                              </span>.
+                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ' | removeDigits}}.
+                              </span>
                               <br>
                               <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
                               <br>

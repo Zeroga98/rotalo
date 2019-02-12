@@ -1056,7 +1056,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   loadOrderPhotos () {
-    console.log(this.photosUploaded);
     let order = [];
     order = this.photosUploaded.map((photo, index) => {
       return {
