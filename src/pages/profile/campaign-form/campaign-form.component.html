@@ -1,5 +1,5 @@
 <div class="breadcrumbs">
- <a href="">Campañas</a> > <span>Detalles generales de la campaña</span>
+  <a href="">Campañas</a> > <span>Detalles generales de la campaña</span>
 </div>
 <div class="form-container">
   <form role="form" class="form-theme">
@@ -13,8 +13,67 @@
       </div>
       <div class="row">
         <div class="dynamic-container">
-
+          <div class="row">
+            <div class="form-group field-form">
+              <label class="label-title">Comunidad</label>
+              <select name="community" class="category form-control">
+                <option value="" selected="true" disabled></option>
+              </select>
+              <span class="error-msg">Este campo es requerido</span>
+            </div>
+            <div class="form-group date-auction">
+              <div class="date-container">
+                <label class="label-title">Desde</label>
+                <my-date-picker class="data-picker-theme" name="publish-until" placeholder="dd/mm/aaaa" [options]="datePickerOptions"></my-date-picker>
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+            <div class="form-group date-auction">
+              <div class="date-container">
+                <label class="label-title">Hasta</label>
+                <my-date-picker class="data-picker-theme" name="publish-until" placeholder="dd/mm/aaaa" [options]="datePickerOptions"></my-date-picker>
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group half" data-input="name">
+              <label class="label-title">Link del producto</label>
+              <input type="text" class="form-control" name="titulo" maxlength="50">
+              <span class="help-block error-msg"> Este campo es requerido </span>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="btn-container">
+          <a mat-button>+ Agregar</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="tittle-container">
+          <p><strong>Imágenes de la campaña</strong> (formato .png o .gif máximo 5MG)</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group half">
+          <label class="label-title">Texto 1 modal ganador</label>
+          <textarea class="form-control" placeholder="" name="texto_uno" maxlength="500"></textarea>
+          <span class="error-msg">Este campo es requerido</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group half">
+          <label class="label-title">Texto 2 modal perdedor</label>
+          <textarea class="form-control" placeholder="" name="texto_uno" maxlength="500"></textarea>
+          <span class="error-msg">Este campo es requerido</span>
+        </div>
+      </div>
+      <div class="row">
+          <div class="btn-container">
+              <button  mat-flat-button color="primary">Programar</button>
+              <button  mat-stroked-button>Cancelar</button>
+          </div>
       </div>
     </div>
   </form>

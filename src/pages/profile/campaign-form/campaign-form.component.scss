@@ -30,9 +30,9 @@
   }
 
   .dynamic-container {
-    widows: 100%;
+    width: 100%;
     padding: 30px;
-    border: 1px solid  #ACACAC;
+    border: 1px solid #ACACAC;
     border-radius: 16px;
   }
 
@@ -99,10 +99,36 @@
       width: 100%;
     }
 
-    .form-group.half {
-      width: 50%;
+    .row {
+      .form-group.half {
+        width: 60%;
+      }
     }
 
+    .btn-container {
+      margin: 20px 0;
+      .mat-button {
+        // background-color: #EAF9FC;
+         border-radius: 10px;
+         /*  opacity: 0.09;
+           filter: alpha(opacity=9);*/
+         color: #0FBBD8;
+         font-size: 1.6rem;
+         font-family: 'Lato Regular';
+       }
+    }
+
+    .tittle-container {
+      p {
+        color: #272727;
+        font-size: 2.2rem;
+      }
+    }
+
+    textarea {
+      min-height: 12rem;
+      resize: none;
+    }
   }
 
   .material-design {
@@ -263,4 +289,61 @@
   .form-theme .material-design .input-price:focus {
     border-color: #0FBBD8;
   }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .dynamic-container {
+    .row {
+      .form-group {
+        width: 30%;
+        margin-right: 3%;
+      }
+    }
+  }
+
+}
+
+.btn-container {
+  width: 100%;
+  button {
+    width: 100%;
+    height: 40px;
+    max-width: 240px;
+    border-radius: 25px;
+  }
+}
+
+.btn-container button:first-child {
+  margin-right: 5%;
+}
+
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: #FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.8rem;
+
+  color:white;
+  &:hover {
+    background-color: #FF4655;
+  }
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: #FF3646;
+  &:hover {
+    background-color: #FF3646;
+    color:white;
+  }
+}
+
+.mat-stroked-button {
+  color:#FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.8rem;
+
 }
