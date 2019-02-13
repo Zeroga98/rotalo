@@ -168,6 +168,10 @@ export class CampaignFormComponent implements OnInit {
       this.photosUploaded.map((event) => {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
           this.photosUploadedId.push(response);
+          debugger
+          if (this.photosUploadedId.length == 3) {
+            console.log(this.photosUploadedId);
+          }
         }, (error) => {
           if (error.error && error.error.status) {
             if (error.error.status == '624') {
