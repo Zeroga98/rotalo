@@ -12,4 +12,8 @@ export class CampaignUploadComponent implements OnInit {
   ngOnInit() {
   }
 
+  publishPhoto (event) {
+    console.log(event);
+  }
+
 }

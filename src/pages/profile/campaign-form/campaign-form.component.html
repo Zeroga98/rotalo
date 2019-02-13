@@ -15,9 +15,9 @@
         <div *ngFor="let comunidad of formCampaign.get('campaignsCommunities').controls; let i = index;" class="dynamic-container">
           <div [formGroupName]="i">
             <div class="row">
-              <button (click)="removeCampaign(i)" mat-icon-button>
+              <a (click)="removeCampaign(i)" mat-icon-button>
                 <div class="trash-icon"></div>
-              </button>
+              </a>
             </div>
             <div class="row">
               <div class="form-group field-form">
@@ -139,7 +139,7 @@
       <div class="row">
         <div class="btn-container">
           <button mat-flat-button color="primary">Programar</button>
-          <button mat-stroked-button>Cancelar</button>
+          <a class = "cancel" mat-stroked-button>Cancelar</a>
         </div>
       </div>
     </div>

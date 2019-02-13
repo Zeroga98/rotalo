@@ -322,6 +322,7 @@
     background: url(../../../assets/img/trash.svg);
     background-size: 20px 20px;
     margin: 0 auto;
+    margin-top: 10px;
   }
 
   .form-theme .form-control.ng-touched.ng-pristine.ng-invalid ~ .error-msg, .form-theme select.ng-touched.ng-invalid ~ .error-msg {
@@ -332,7 +333,7 @@
 
 .btn-container {
   width: 100%;
-  button {
+  button, a.cancel {
     width: 100%;
     height: 40px;
     max-width: 240px;

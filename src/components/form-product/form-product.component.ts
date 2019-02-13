@@ -352,9 +352,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       element.scrollIntoView({ block: 'end', behavior: 'smooth' });
     } else if (!this.product && elements && elements[3]) {
       elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
-    }else if (this.product && elements && elements[1]) {
+    } else if (this.product && elements && elements[1]) {
       elements[1].scrollIntoView({ block: 'start', behavior: 'smooth' });
-    }else if (this.errorState || this.errorCity) {
+    } else if (this.errorState || this.errorCity) {
       const element = document.getElementById('select-cities');
       element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
