@@ -35,6 +35,7 @@
     border: 1px solid #ACACAC;
     border-radius: 16px;
     position: relative;
+    margin-bottom: 20px;
   }
 
   .mat-icon-button {
@@ -113,12 +114,9 @@
     }
 
     .btn-container {
-      margin: 20px 0;
+      margin-bottom: 20px;
       .mat-button {
-        // background-color: #EAF9FC;
          border-radius: 10px;
-         /*  opacity: 0.09;
-           filter: alpha(opacity=9);*/
          color: #0FBBD8;
          font-size: 1.6rem;
          font-family: 'Lato Regular';
@@ -325,6 +323,11 @@
     background-size: 20px 20px;
     margin: 0 auto;
   }
+
+  .form-theme .form-control.ng-touched.ng-pristine.ng-invalid ~ .error-msg, .form-theme select.ng-touched.ng-invalid ~ .error-msg {
+    display: block;
+  }
+
 }
 
 .btn-container {

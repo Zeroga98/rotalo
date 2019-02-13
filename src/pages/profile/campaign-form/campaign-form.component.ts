@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DATAPICKER_CONFIG } from '../../../commons/constants/datapicker.config';
 import { IMyDpOptions } from 'mydatepicker';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 import { ImageUploadComponent } from 'angular2-image-upload';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
+import { DATAPICKER_CONFIG_CAMPAIGN } from '../../../commons/constants/datapickerCampaigns';
 
 @Component({
   selector: 'campaign-form',
@@ -10,7 +12,7 @@ import { ImageUploadComponent } from 'angular2-image-upload';
   styleUrls: ['./campaign-form.component.scss']
 })
 export class CampaignFormComponent implements OnInit {
-  public datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG;
+  public datePickerOptions: IMyDpOptions = DATAPICKER_CONFIG_CAMPAIGN;
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
   readonly maxNumberPhotos: number = 3;
   public maxNumberImg = this.maxNumberPhotos;
@@ -18,10 +20,67 @@ export class CampaignFormComponent implements OnInit {
   public photosUploaded: Array<any> = [];
   public errorUploadImg = false;
   public errorMaxImg = false;
+  public formCampaign;
+  public communitiesForm: FormArray;
+  public communities;
   @ViewChild('imageInput') imageInput: ImageUploadComponent;
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,  private userService: UserService,) { }
 
   ngOnInit() {
+    this.getCommunities();
+    this.setInitialForm(this.getInitialConfig());
+  }
+
+  async getCommunities() {
+    try {
+      const communities = await this.userService.getCommunities();
+      this.communities = communities.body.comunidades;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private setInitialForm(config) {
+    this.formCampaign = this.formBuilder.group({
+      title: [config.title, [Validators.required]],
+      winnerText: [config.winnerText, [Validators.required]],
+      loserText: [config.loserText, [Validators.required]],
+      campaignsCommunities: this.formBuilder.array([ this.createItem() ])
+    });
+
+  }
+
+  private createItem() {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1);
+    const objectDate = {
+      date: {
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          day: date.getDate()
+        }
+    };
+    return this.formBuilder.group({
+      idCommunity: [-1, [Validators.required]],
+      startAt: [objectDate, [Validators.required]],
+      untilAt: [objectDate, [Validators.required]],
+      path: [null , [Validators.required]]
+    });
+  }
+
+  private getInitialConfig() {
+    const campaign = {
+      title: null,
+      winnerText: null,
+      loserText: null,
+      campaignsCommunities: {
+        idCommunity: -1,
+        startAt: null,
+        untilAt: null,
+        path: null
+      }
+    };
+    return campaign;
   }
 
   onUploadImageFinished(event) {
@@ -79,6 +138,26 @@ export class CampaignFormComponent implements OnInit {
     this.photosUploaded = this.photosUploaded.filter(photo => {
       return photo.file.name != event.file.name;
     });
+  }
+
+  addCampaign(): void {
+    this.communitiesForm = this.formCampaign.get('campaignsCommunities') as FormArray;
+    this.communitiesForm.push(this.createItem());
+  }
+
+  removeCampaign(id) {
+    const campaign = this.formCampaign.get('campaignsCommunities').controls;
+    if (campaign.length > 1) {
+      this.formCampaign.get('campaignsCommunities').controls = campaign.filter((item, index ) => {
+        if (index != id) {
+          return item;
+        }
+      });
+    }
+  }
+
+  createCampaign() {
+
   }
 
 }
