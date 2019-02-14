@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormArray, FormControl, FormGroup } from '@ang
 import { UserService } from '../../../services/user.service';
 import { DATAPICKER_CONFIG_CAMPAIGN } from '../../../commons/constants/datapickerCampaigns';
 import { PhotosService } from '../../../services/photos.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'campaign-form',
@@ -65,6 +66,7 @@ export class CampaignFormComponent implements OnInit {
           day: date.getDate()
         }
     };
+
     return this.formBuilder.group({
       idCommunity: [-1, [Validators.required]],
       startAt: [objectDate, [Validators.required]],
@@ -162,10 +164,17 @@ export class CampaignFormComponent implements OnInit {
   }
 
   createCampaign() {
-    if (/*!this.formCampaign.invalid && */ this.photosUploaded.length == 3) {
-      const request = {};
+    if (this.formCampaign.invalid /*!this.formCampaign.invalid && */  /* this.photosUploaded.length == 3*/ ) {
+      const photosIds = {
+        stickerPhoto: 32,
+        winPhoto: 32,
+        losePhoto: 32
+      };
+      let request = Object.assign({}, this.formCampaign.value, photosIds);
+      console.log(request);
+      delete request.campaignsCommunities[0]['startAt'];
       this.publish.emit(request);
-      this.photosUploaded.map((event) => {
+    /*  this.photosUploaded.map((event) => {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
           this.photosUploadedId.push(response);
           debugger
@@ -188,31 +197,14 @@ export class CampaignFormComponent implements OnInit {
           }
           console.error('Error: ', error);
         });
-      });
-    /*  this.photosService.uploadPhoto(event.file).subscribe((response) => {
-        this.photosUploaded.push(response);
-      }, (error) => {
-        if (error.error && error.error.status) {
-          if (error.error.status == '624') {
-            this.errorUploadImg = true;
-            this.imageInput.deleteFile(event.file);
-          } else if (error.error.status == '625') {
-            this.errorMaxImg = true;
-            this.imageInput.deleteFile(event.file);
-          } else  {
-            this.errorUploadImg = true;
-          }
-        } else {
-          this.errorUploadImg = true;
-        }
-        console.error('Error: ', error);
       });*/
     } else {
       this.validateAllFormFields(this.formCampaign);
       this.scrollToError();
     }
-    console.log(this.formCampaign.value);
   }
+
+
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
