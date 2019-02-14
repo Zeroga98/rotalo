@@ -29,7 +29,7 @@ export class CampaignFormComponent implements OnInit {
   @ViewChild('imageInput') imageInput: ImageUploadComponent;
   @Output() publish: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder,  private userService: UserService,
+  constructor(private formBuilder: FormBuilder, private userService: UserService,
     private photosService: PhotosService) { }
 
   ngOnInit() {
@@ -51,27 +51,17 @@ export class CampaignFormComponent implements OnInit {
       title: [config.title, [Validators.required]],
       winnerText: [config.winnerText, [Validators.required]],
       loserText: [config.loserText, [Validators.required]],
-      campaignsCommunities: this.formBuilder.array([ this.createItem() ])
+      campaignsCommunities: this.formBuilder.array([this.createItem()])
     });
 
   }
 
   private createItem() {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 1);
-    const objectDate = {
-      date: {
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          day: date.getDate()
-        }
-    };
-
     return this.formBuilder.group({
-      idCommunity: [-1, [Validators.required]],
-      startAt: [objectDate, [Validators.required]],
-      untilAt: [objectDate, [Validators.required]],
-      path: [null , [Validators.required]]
+      communityId: [-1, [Validators.required]],
+      startAt: [null, [Validators.required]],
+      untilAt: [null, [Validators.required]],
+      path: [null, [Validators.required]]
     });
   }
 
@@ -81,7 +71,7 @@ export class CampaignFormComponent implements OnInit {
       winnerText: null,
       loserText: null,
       campaignsCommunities: {
-        idCommunity: -1,
+        communityId: -1,
         startAt: null,
         untilAt: null,
         path: null
@@ -100,13 +90,13 @@ export class CampaignFormComponent implements OnInit {
         this.errorMaxImg = true;
         this.imageInput.deleteFile(event.file);
       }
-    } else  {
+    } else {
       this.errorUploadImg = true;
       this.imageInput.deleteFile(event.file);
     }
   }
 
-  overFiles () {
+  overFiles() {
     this.imageInput.onFileOver(true);
   }
 
@@ -137,8 +127,8 @@ export class CampaignFormComponent implements OnInit {
 
   private findPhotoWithId(file) {
     return this.imageInput.files.find(inputFile => {
-     return inputFile.file == file;
-     });
+      return inputFile.file == file;
+    });
   }
 
   private filterPhotoFile(event) {
@@ -155,7 +145,7 @@ export class CampaignFormComponent implements OnInit {
   removeCampaign(id) {
     const campaign = this.formCampaign.get('campaignsCommunities').controls;
     if (campaign.length > 1) {
-      this.formCampaign.get('campaignsCommunities').controls = campaign.filter((item, index ) => {
+      this.formCampaign.get('campaignsCommunities').controls = campaign.filter((item, index) => {
         if (index != id) {
           return item;
         }
@@ -164,22 +154,12 @@ export class CampaignFormComponent implements OnInit {
   }
 
   createCampaign() {
-    if (this.formCampaign.invalid /*!this.formCampaign.invalid && */  /* this.photosUploaded.length == 3*/ ) {
-      const photosIds = {
-        stickerPhoto: 32,
-        winPhoto: 32,
-        losePhoto: 32
-      };
-      let request = Object.assign({}, this.formCampaign.value, photosIds);
-      console.log(request);
-      delete request.campaignsCommunities[0]['startAt'];
-      this.publish.emit(request);
-    /*  this.photosUploaded.map((event) => {
+    if (!this.formCampaign.invalid &&  this.photosUploaded.length == 3) {
+      this.photosUploaded.map((event) => {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
           this.photosUploadedId.push(response);
-          debugger
           if (this.photosUploadedId.length == 3) {
-            console.log(this.photosUploadedId);
+            this.createRequest();
           }
         }, (error) => {
           if (error.error && error.error.status) {
@@ -189,7 +169,7 @@ export class CampaignFormComponent implements OnInit {
             } else if (error.error.status == '625') {
               this.errorMaxImg = true;
               this.imageInput.deleteFile(event.file);
-            } else  {
+            } else {
               this.errorUploadImg = true;
             }
           } else {
@@ -197,14 +177,35 @@ export class CampaignFormComponent implements OnInit {
           }
           console.error('Error: ', error);
         });
-      });*/
+      });
     } else {
       this.validateAllFormFields(this.formCampaign);
+      this.validateAllFormFields(this.formCampaign.get('campaignsCommunities'));
       this.scrollToError();
     }
   }
 
+  createRequest() {
+    const photosIds = {
+      stickerPhoto: {id: this.photosUploadedId[0].photoId},
+      winPhoto: {id: this.photosUploadedId[1].photoId},
+      losePhoto: {id: this.photosUploadedId[2].photoId}
+    };
 
+    const copyRequest = {
+      title: this.formCampaign.value.title,
+      winnerText: this.formCampaign.value.winnerText,
+      loserText: this.formCampaign.value.loserText,
+      campaignsCommunities: this.formCampaign.value.campaignsCommunities
+    };
+
+    const request = Object.assign({}, copyRequest, photosIds);
+    request.campaignsCommunities.map((item) => {
+      item['startAt'] = moment(item['startAt'].formatted).format('YYYY-MM-DD');
+      item['untilAt'] = moment(item['untilAt'].formatted).format('YYYY-MM-DD');
+    });
+    this.publish.emit(request);
+  }
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {

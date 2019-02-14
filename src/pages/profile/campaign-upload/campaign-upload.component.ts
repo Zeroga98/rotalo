@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'campaign-upload',
@@ -7,13 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CampaignUploadComponent implements OnInit {
 
-  constructor() { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit() {
   }
 
   publishPhoto (event) {
-    console.log(event);
+    this.settingsService.createCampaign(event).subscribe((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
 }

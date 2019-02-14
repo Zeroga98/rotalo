@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConfigurationService {
   /*Staging*/
-
+/*
  api = {
     protocol: 'https',
     server: 'apistg.rotalo.co:1443/gateway/v1',
@@ -15,9 +15,9 @@ export class ConfigurationService {
     server: 'apistg.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
   /*Desarrollo*/
-/*
+
   api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway/v1',
@@ -29,7 +29,7 @@ export class ConfigurationService {
     server: 'api.dev.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
+
   /*Produccion*/
 /*
 api = {
@@ -42,8 +42,8 @@ api = {
     protocol: 'https',
     server: 'apirtl.rotalo.co/gateway',
     inactivityLimit: 86400 // seconds
-  };
-*/
+  };*/
+
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',

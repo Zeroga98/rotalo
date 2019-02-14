@@ -329,7 +329,12 @@
     display: block;
   }
 
+  .data-picker-theme.ng-touched.ng-invalid ~ .error-msg{
+    display: block;
+  }
 }
+
+
 
 .btn-container {
   width: 100%;

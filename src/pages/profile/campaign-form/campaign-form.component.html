@@ -22,7 +22,7 @@
             <div class="row">
               <div class="form-group field-form">
                 <label class="label-title">Comunidad</label>
-                <select formControlName="idCommunity" name="idCommunity" class="category form-control">
+                <select formControlName="communityId" name="communityId" class="category form-control">
                   <option value="-1">Todas</option>
                   <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
                 </select>
