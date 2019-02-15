@@ -119,6 +119,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   saveCheck() {
+    debugger
     this.productStatus = !this.productStatus;
     this.productStatus
       ? (this.productChecked = 'active')

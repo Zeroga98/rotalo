@@ -58,4 +58,11 @@ export class SettingsService {
     return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  loadCampaign(id) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/campaigns/${id}`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }

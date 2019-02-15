@@ -45,6 +45,7 @@ import { FeaturedProductsComponent } from '../pages/profile/featured-products/fe
 import { AdminRegisterPage } from '../pages/profile/admin-register/admin-register.page';
 import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
 import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campaign-upload.component';
+import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-edit.component';
 
 
 export const appRouter: Routes = [
@@ -85,6 +86,7 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
       {path: ROUTES.MENUROTALOCENTER.CAMPAIGN, component: AdminCampaignComponent},
       {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

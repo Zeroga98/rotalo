@@ -4,7 +4,7 @@
 :host {
   width: 100%;
   height: auto;
-
+  position: relative;
   .breadcrumbs {
     color: #272727;
     font-size: 2.2rem;
@@ -65,6 +65,7 @@
 
     select.form-control {
       padding-left: 0;
+      background-position: 97% center;
     }
 
     .error-msg {
@@ -302,6 +303,7 @@
 
   .row-img {
     margin: 45px 0;
+    position: relative;
   }
 
   .dynamic-container {
@@ -613,6 +615,15 @@ image-upload {
 
 }
 
+custom-spinner {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 @media screen and (max-width: 904px) {
   .item {

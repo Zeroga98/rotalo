@@ -48,9 +48,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="form-group half" data-input="name">
-                <label class="label-title">Link del producto</label>
-                <input formControlName="path" type="text" class="form-control" name="path" maxlength="50">
+              <div class="form-group" data-input="name">
+                <label class="label-title">Id del producto</label>
+                <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="path" type="text" class="form-control" name="path" maxlength="50">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
             </div>
@@ -68,6 +68,7 @@
         </div>
       </div>
       <div class="row row-img">
+        <custom-spinner *ngIf="disableBtn"></custom-spinner>
         <div class="img-sortable">
           <image-upload id="image-upload" [max]="maxNumberImg" #imageInput [preview]="false" [extensions]="['png', 'gif']"
             [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
@@ -139,7 +140,7 @@
       <div class="row">
         <div class="btn-container">
           <button mat-flat-button color="primary">Programar</button>
-          <a class = "cancel" mat-stroked-button>Cancelar</a>
+          <a (click)="cancelCampaign()" class = "cancel" mat-stroked-button>Cancelar</a>
         </div>
       </div>
     </div>
