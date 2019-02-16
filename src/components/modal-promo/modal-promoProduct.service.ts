@@ -29,9 +29,9 @@ export class ModalPromoProductService {
     this.modals = this.modals.filter(x => x.id !== id);
   }
 
-  open(id: string, isWinner) {
+  open(id: string, isWinner, response) {
     const modal: any = this.modals.filter(x => x.id === id)[0];
-    modal.open(isWinner);
+    modal.open(isWinner, response);
   }
 
   close(id: string) {

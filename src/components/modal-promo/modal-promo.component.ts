@@ -14,6 +14,10 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
   @Input() id: string;
   private element: any;
   public isWinner;
+  public winnerText = '';
+  public loserText = '';
+  public losePhoto = '../../assets/img/december_promo/ic_reno_perdiste.png';
+  public winPhoto = '../../assets/img/december_promo/ic_reno_ganaste.png';
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -47,8 +51,15 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
     this.element = undefined;
   }
 
-  open(isWinner): void {
+  open(isWinner, params): void {
     this.isWinner = isWinner;
+    if (params && params.campana) {
+      this.winnerText = params.campana.winnerText;
+      this.loserText = params.campana.loserText;
+      this.losePhoto = params.campana.losePhoto.url;
+      this.winPhoto = params.campana.winPhoto.url;
+    }
+
     this.element.classList.add('md-show');
     document.body.classList.add('modal-open-promo');
     this.changeRef.markForCheck();

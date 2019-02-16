@@ -66,7 +66,9 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       file: {
         name: photo.file,
       },
-      src: photo.url
+      photoId: photo.id,
+      src: photo.url,
+      noUpload: true
     };
     return file;
   }
@@ -94,14 +96,13 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   private createItem(campaignsCommunities) {
   const comunities = campaignsCommunities.map((comunity) => {
-
     if (this.campaign) {
       const startAt  = moment(comunity.startAt).toDate();
       const objectStartAt = {
         date: {
           year: startAt.getFullYear(),
           month: startAt.getMonth() + 1,
-          day: startAt.getDate()
+          day: startAt.getDate() + 1
           }
       };
       comunity.startAt = objectStartAt;
@@ -110,7 +111,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
         date: {
           year: untilAt.getFullYear(),
           month: untilAt.getMonth() + 1,
-          day: untilAt.getDate()
+          day: untilAt.getDate() + 1
           }
       };
       comunity.untilAt = objectUntilAt;
@@ -122,7 +123,6 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       productId: [comunity.productId, [Validators.required]]
     });
   });
-  console.log(comunities, 'test');
    return  comunities;
   }
 
@@ -153,11 +153,20 @@ export class CampaignFormComponent implements OnInit, OnChanges {
   private initialCommunity() {
     const campaign = {
       communityId: -1,
-      startAt: null,
-      untilAt: null,
+      startAt: '',
+      untilAt: '',
       productId: null
     };
     return  campaign;
+  }
+
+  private createBasicItem(campaignsCommunities) {
+      return this.formBuilder.group({
+        communityId: [campaignsCommunities.communityId, [Validators.required]],
+        startAt: [campaignsCommunities.startAt, [Validators.required]],
+        untilAt: [campaignsCommunities.untilAt, [Validators.required]],
+        productId: [campaignsCommunities.productId, [Validators.required]]
+      });
   }
 
   onUploadImageFinished(event) {
@@ -222,7 +231,8 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   addCampaign(): void {
     this.communitiesForm = this.formCampaign.get('campaignsCommunities') as FormArray;
-    this.communitiesForm.push(this.createItem(this.initialCommunity()));
+    console.log();
+    this.communitiesForm.push(this.createBasicItem(this.initialCommunity()));
   }
 
   removeCampaign(id) {
@@ -240,30 +250,37 @@ export class CampaignFormComponent implements OnInit, OnChanges {
     if (!this.disableBtn && !this.formCampaign.invalid &&  this.photosUploaded.length >= 3) {
       this.disableBtn = true;
       this.photosUploaded.map((event) => {
-        this.photosService.uploadPhoto(event.file).subscribe((response) => {
-          this.photosUploadedId.push(response);
+        if (event.noUpload) {
+          this.photosUploadedId.push(event);
           if (this.photosUploadedId.length >= 3) {
             this.createRequest();
           }
-        }, (error) => {
-          this.disableBtn = false;
-          if (error.error && error.error.status) {
-            if (error.error.status == '624') {
-              this.errorUploadImg = true;
-              this.imageInput.deleteFile(event.file);
-            } else if (error.error.status == '625') {
-              this.errorMaxImg = true;
-              this.imageInput.deleteFile(event.file);
+        } else {
+          this.photosService.uploadPhoto(event.file).subscribe((response) => {
+            this.photosUploadedId.push(response);
+            if (this.photosUploadedId.length >= 3) {
+              this.createRequest();
+            }
+          }, (error) => {
+            this.disableBtn = false;
+            if (error.error && error.error.status) {
+              if (error.error.status == '624') {
+                this.errorUploadImg = true;
+                this.imageInput.deleteFile(event.file);
+              } else if (error.error.status == '625') {
+                this.errorMaxImg = true;
+                this.imageInput.deleteFile(event.file);
+              } else {
+                this.errorUploadImg = true;
+              }
             } else {
               this.errorUploadImg = true;
             }
-          } else {
-            this.errorUploadImg = true;
-          }
-          console.error('Error: ', error);
-        });
+            console.error('Error: ', error);
+          });
+        }
+
       });
-  
     } else {
       this.validateAllFormFields(this.formCampaign);
       this.validateAllFormFields(this.formCampaign.get('campaignsCommunities'));
@@ -290,8 +307,21 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
     const request = Object.assign({}, copyRequest, photosIds);
     request.campaignsCommunities.map((item) => {
-      item['startAt'] = moment(item['startAt'].formatted).format('YYYY-MM-DD');
-      item['untilAt'] = moment(item['untilAt'].formatted).format('YYYY-MM-DD');
+
+      if (item['startAt'].formatted) {
+        item['startAt'] = moment(item['startAt'].formatted).format('YYYY-MM-DD');
+      } else {
+        item['startAt'] .date.month = item['startAt'] .date.month - 1;
+        item['startAt']  = moment(item['startAt'] .date).format('YYYY-MM-DD');
+      }
+
+      if (item['untilAt'].formatted) {
+        item['untilAt'] = moment(item['untilAt'].formatted).format('YYYY-MM-DD');
+      } else {
+        item['untilAt'] .date.month = item['untilAt'] .date.month - 1;
+        item['untilAt']  = moment(item['untilAt'] .date).format('YYYY-MM-DD');
+      }
+
     });
     this.disableBtn = false;
     this.photosUploadedId = [];
@@ -313,7 +343,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
     const elements = document.getElementsByClassName('ng-invalid');
     if (this.errorUploadImg || this.errorMaxImg) {
       const element = document.getElementById('image-upload');
-      element.scrollIntoView({ block: 'end', behavior: 'smooth' });
+      element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     } else if (elements && elements[1]) {
       elements[1].scrollIntoView({ block: 'start', behavior: 'smooth' });
     }

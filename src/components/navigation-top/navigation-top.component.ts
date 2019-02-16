@@ -334,11 +334,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     document.getElementById('back-categories').classList.remove('opened');
   }
 
-  hideAnimation() {
-    this.showAnimation = false;
-    this.changeDetector.markForCheck();
-  }
-
   goToShoppingCar() {
     if (this.isBancolombiaShop) {
       this.router.navigate([this.rotaloCart]);

@@ -8,6 +8,7 @@ import { ModalPromoProductService } from '../modal-promo/modal-promoProduct.serv
 })
 export class PromoAnimationComponent implements OnInit {
   @Input() promoCode;
+  @Input() stickerUrl;
 
   constructor(private modalService: ModalPromoProductService) { }
 
@@ -19,6 +20,7 @@ export class PromoAnimationComponent implements OnInit {
       code: this.promoCode
     };
     this.modalService.consultPromo(params).subscribe((response) => {
+      console.log(response);
       this.gapush(
         'send',
         'event',
@@ -26,7 +28,10 @@ export class PromoAnimationComponent implements OnInit {
         'ClickReno',
         'Exitoso'
       );
-      this.modalService.open(id, true);
+      if (response.body) {
+        this.modalService.open(id, true, response.body);
+      }
+
     }, (error) => {
       this.gapush(
         'send',
@@ -35,7 +40,7 @@ export class PromoAnimationComponent implements OnInit {
         'ClickReno',
         'NoExitoso'
       );
-      this.modalService.open(id, false);
+      this.modalService.open(id, false, null);
     });
   }
 

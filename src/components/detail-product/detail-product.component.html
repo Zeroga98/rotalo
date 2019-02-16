@@ -1,5 +1,9 @@
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
 <custom-spinner *ngIf="!products"></custom-spinner>
+
+
+<modal-promo  class="md-modal-center md-effect-1"   id="custom-modal-promo" ></modal-promo>
+
 <div *ngIf="products" class="container">
   <div class="product">
     <div *ngIf="products.subcategory" class="visits">
@@ -19,6 +23,7 @@
         <div class="description">
           {{products.description}}
         </div>
+        <promo-animation (click)="hideAnimation()"  [stickerUrl] = "stickerUrl"   [promoCode] = 'codeCampaign'  ></promo-animation>
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -139,6 +144,7 @@
             </div>
           </div>
         </div>
+        <promo-animation *ngIf="showSticker" (click)="hideAnimation()"  [stickerUrl] = "stickerUrl"   [promoCode] = 'codeCampaign'  ></promo-animation>
       </div>
     </div>
 

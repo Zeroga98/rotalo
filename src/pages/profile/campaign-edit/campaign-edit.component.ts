@@ -37,7 +37,6 @@ export class CampaignEditComponent implements OnInit {
 
   loadProduct() {
     this.settingsService.loadCampaign(this.idProduct).subscribe((reponse) => {
-      console.log(reponse);
       if (reponse.body) {
         this.campaign = reponse.body.campaign;
       }

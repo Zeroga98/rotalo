@@ -81,7 +81,9 @@ export class DetailProductComponent implements OnInit {
   public startDate = START_DATE;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
-
+  public codeCampaign;
+  public showSticker = false;
+  public stickerUrl = '';
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -108,7 +110,7 @@ export class DetailProductComponent implements OnInit {
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
     this.idCountry = countryId;
@@ -233,6 +235,12 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        console.log(this.products);
+        if (this.products.campaignInformation) {
+          this.codeCampaign = this.products.campaignInformation.code;
+          this.showSticker = this.products.campaignInformation.showSticker;
+          this.stickerUrl = this.products.campaignInformation.stickerUrl;
+        }
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
@@ -592,6 +600,11 @@ export class DetailProductComponent implements OnInit {
     window.open(
       'https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional'
       , '_blank');
+  }
+
+  hideAnimation() {
+    this.showSticker = false;
+    this.changeDetectorRef.markForCheck();
   }
 
 }

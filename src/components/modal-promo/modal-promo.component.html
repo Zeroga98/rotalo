@@ -13,24 +13,18 @@
             <p class="share-product">¡Oh no, se te adelantaron!</p>
           </div>
           <div *ngIf="isWinner">
-              <div>
-                  <p class="share-description">
-                    Encontraste a Rodolfo el reno de Rótalo. Has ganado una tarjeta regalo cargada con
-                    <span class="bold">$300.000 pesos.</span>
-                  </p>
-                </div>
-                <div>
-                  <p class="share-description">
-                    Nos comunicaremos contigo para coordinar la entrega del premio.
-                  </p>
-                </div>
+            <div>
+              <p class="share-description">
+                {{winnerText}}
+              </p>
+            </div>
           </div>
           <div *ngIf="!isWinner">
-              <div>
-                  <p class="share-description">
-                    Alguien encontró a Rodolfo el reno de Rótalo antes que tú. ¡No importa! sigue buscando son 6 renos en total.
-                  </p>
-                </div>
+            <div>
+              <p class="share-description">
+                {{loserText}}
+              </p>
+            </div>
           </div>
         </div>
         <div class="terms-link">
@@ -46,10 +40,10 @@
       </div>
       <div class="info-container">
         <div *ngIf="isWinner" class="info">
-          <img class="img-modal-pc" src="../../assets/img/december_promo/ic_reno_ganaste.png" alt="reno_ganaste">
+          <img class="img-modal-pc" [src]="winPhoto" alt="reno_ganaste">
         </div>
         <div *ngIf="!isWinner" class="info">
-          <img class="img-modal-lost" src="../../assets/img/december_promo/ic_reno_perdiste.png" alt="reno_perdiste">
+          <img class="img-modal-lost" [src]="losePhoto" alt="reno_perdiste">
         </div>
       </div>
     </div>
