@@ -229,8 +229,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
-          this.showAnimation = state.body.informacionReno.dibujarRenoRuta;
-          this.promoCode = state.body.informacionReno.codigoReno;
+          // this.showAnimation = state.body.informacionReno.dibujarRenoRuta;
+         // this.promoCode = state.body.informacionReno.codigoReno;
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);

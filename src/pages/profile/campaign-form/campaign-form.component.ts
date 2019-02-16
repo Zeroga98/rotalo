@@ -85,17 +85,50 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       title: [config.title, [Validators.required]],
       winnerText: [config.winnerText, [Validators.required]],
       loserText: [config.loserText, [Validators.required]],
-      campaignsCommunities: this.formBuilder.array([this.createItem()])
+      campaignsCommunities: this.formBuilder.array(this.createItem(config.campaignsCommunities))
     });
-
+    if (this.campaign) {
+      this.setCreatItem(config);
+    }
   }
 
-  private createItem() {
+  private createItem(campaignsCommunities) {
+  const comunities = campaignsCommunities.map((comunity) => {
+
+    if (this.campaign) {
+      const startAt  = moment(comunity.startAt).toDate();
+      const objectStartAt = {
+        date: {
+          year: startAt.getFullYear(),
+          month: startAt.getMonth() + 1,
+          day: startAt.getDate()
+          }
+      };
+      comunity.startAt = objectStartAt;
+      const untilAt  = moment(comunity.untilAt).toDate();
+      const objectUntilAt = {
+        date: {
+          year: untilAt.getFullYear(),
+          month: untilAt.getMonth() + 1,
+          day: untilAt.getDate()
+          }
+      };
+      comunity.untilAt = objectUntilAt;
+    }
     return this.formBuilder.group({
-      communityId: [-1, [Validators.required]],
-      startAt: [null, [Validators.required]],
-      untilAt: [null, [Validators.required]],
-      path: [null, [Validators.required]]
+      communityId: [comunity.communityId, [Validators.required]],
+      startAt: [comunity.startAt, [Validators.required]],
+      untilAt: [comunity.untilAt, [Validators.required]],
+      productId: [comunity.productId, [Validators.required]]
+    });
+  });
+  console.log(comunities, 'test');
+   return  comunities;
+  }
+
+  private setCreatItem(config) {
+    config.campaignsCommunities.map((community) => {
+
     });
   }
 
@@ -104,17 +137,27 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       title: null,
       winnerText: null,
       loserText: null,
-      campaignsCommunities: {
+      campaignsCommunities: [{
         communityId: -1,
         startAt: null,
         untilAt: null,
-        path: null
-      }
+        productId: null
+      }]
     };
     if (this.campaign) {
       return this.campaign;
     }
     return campaign;
+  }
+
+  private initialCommunity() {
+    const campaign = {
+      communityId: -1,
+      startAt: null,
+      untilAt: null,
+      productId: null
+    };
+    return  campaign;
   }
 
   onUploadImageFinished(event) {
@@ -123,7 +166,6 @@ export class CampaignFormComponent implements OnInit, OnChanges {
     if (event.file.type == 'image/png' || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosUploaded.push(event);
-        console.log(event);
       } else {
         this.errorMaxImg = true;
         this.imageInput.deleteFile(event.file);
@@ -180,7 +222,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   addCampaign(): void {
     this.communitiesForm = this.formCampaign.get('campaignsCommunities') as FormArray;
-    this.communitiesForm.push(this.createItem());
+    this.communitiesForm.push(this.createItem(this.initialCommunity()));
   }
 
   removeCampaign(id) {

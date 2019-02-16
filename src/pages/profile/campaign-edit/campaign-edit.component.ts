@@ -22,7 +22,7 @@ export class CampaignEditComponent implements OnInit {
   }
 
   updateCampaign(event) {
-    this.settingsService.createCampaign(event).subscribe((response) => {
+    this.settingsService.updateCampaign(event, this.idProduct).subscribe((response) => {
       this.successChange = true;
       this.utilsService.goToTopWindow(20, 600);
     }, (error) => {
@@ -40,7 +40,6 @@ export class CampaignEditComponent implements OnInit {
       console.log(reponse);
       if (reponse.body) {
         this.campaign = reponse.body.campaign;
-        // this.product = reponse.body.productos[0];
       }
     },
       (error) => {
