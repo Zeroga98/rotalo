@@ -18,6 +18,7 @@ export class CampaignUploadComponent implements OnInit {
   uploadCampaign (event) {
     this.settingsService.createCampaign(event).subscribe((response) => {
       this.successChange = true;
+      this.errorChange = '';
       this.utilsService.goToTopWindow(20, 600);
     }, (error) => {
       this.successChange = false;

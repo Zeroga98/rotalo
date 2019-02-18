@@ -23,7 +23,7 @@
         <div class="description">
           {{products.description}}
         </div>
-        <promo-animation (click)="hideAnimation()"  [stickerUrl] = "stickerUrl"   [promoCode] = 'codeCampaign'  ></promo-animation>
+        <promo-animation *ngIf="showSticker" (click)="hideAnimation()"  [stickerUrl] = "stickerUrl"   [promoCode] = 'codeCampaign'  ></promo-animation>
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">

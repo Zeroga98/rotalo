@@ -187,6 +187,7 @@ import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-ca
 import { CampaignFormComponent } from '../pages/profile/campaign-form/campaign-form.component';
 import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campaign-upload.component';
 import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-edit.component';
+import { SearchByNamePipe } from '../pages/profile/admin-campaign/search-by-date.pipe';
 
 @NgModule({
   declarations: [
@@ -298,7 +299,8 @@ import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-e
     AdminCampaignComponent,
     CampaignFormComponent,
     CampaignUploadComponent,
-    CampaignEditComponent
+    CampaignEditComponent,
+    SearchByNamePipe
   ],
   imports: [
     BrowserModule,

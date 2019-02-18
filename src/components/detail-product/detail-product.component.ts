@@ -235,7 +235,6 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-        console.log(this.products);
         if (this.products.campaignInformation) {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;

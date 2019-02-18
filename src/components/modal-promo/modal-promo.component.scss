@@ -84,10 +84,12 @@
   }
 
   .img-modal-pc {
-    width: 70%;
+    width: 100%;
+    max-width: 300px;
   }
   .img-modal-lost {
-    width: 60%;
+    width: 100%;
+    max-width: 300px;
   }
 
 }

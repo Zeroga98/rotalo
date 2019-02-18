@@ -24,6 +24,7 @@ export class CampaignEditComponent implements OnInit {
   updateCampaign(event) {
     this.settingsService.updateCampaign(event, this.idProduct).subscribe((response) => {
       this.successChange = true;
+      this.errorChange = '';
       this.utilsService.goToTopWindow(20, 600);
     }, (error) => {
       this.successChange = false;

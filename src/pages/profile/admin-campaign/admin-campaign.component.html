@@ -2,11 +2,71 @@
   <div class="tittle main-title">
     <h1 class="text ">Campañas</h1>
   </div>
-  <div class="material-design">
+  <div class="first-row">
     <div class="create-campaign">
       <div (click)="goToUploadCampaign()" class="btn">
         Crear campaña
       </div>
     </div>
+    <div class="filter-container">
+      <form class="form-theme">
+        <div class="material-design">
+          <div class="row">
+            <div class="form-group half">
+              <label class="label-title">Filtar por</label>
+              <select [(ngModel)]="selectState" name="communityId" class="category form-control">
+                <option value="">Estado</option>
+                <option *ngFor="let state of states" value="{{state}}">{{state}}
+              </select>
+            </div>
+            <div class="form-group half" data-input="searchText">
+              <label class="label-title">Fecha de creación</label>
+              <input class="form-control" type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText"
+                placeholder="dd/mm/aaaa">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="tabla-campaign">
+    <button mat-icon-button>
+      <div class="trash-icon"></div>
+    </button>
+    <table id="campaigns-wrap" class="campaigns">
+      <tr>
+        <th>
+          <label class="material-checkbox container-check">
+            <input [checked]="selectAllCheck" (change)="selectAll()" type="checkbox" id="deleteAll" name="deleteAll">
+            <span class="checkmark"></span>
+          </label>
+        </th>
+        <th>Título</th>
+        <th>Comunidades</th>
+        <th>Fecha de creación</th>
+        <th class="table-no-border"></th>
+        <th class="table-no-border"></th>
+        <th class="table-no-border"></th>
+      </tr>
+      <tr *ngFor="let campaign of  (campaigns | searchByDate: searchText: selectState)">
+        <td>
+          <label class="material-checkbox container-check">
+            <input class="delete" type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+        </td>
+        <td>{{campaign.titulo}}</td>
+        <td>{{campaign.comunidades}}</td>
+        <td>{{campaign.date}}</td>
+        <td><a >Editar</a></td>
+        <td>{{campaign.estado}}</td>
+        <td>
+            <div class="switch-container">
+                <input type="checkbox" id="id-name--1" name="state" class="switch-input">
+                <label for="id-name--1" class="switch-label"></label>
+            </div>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>

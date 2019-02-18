@@ -16,8 +16,8 @@ export class ModalPromoComponent implements OnInit , OnDestroy{
   public isWinner;
   public winnerText = '';
   public loserText = '';
-  public losePhoto = '../../assets/img/december_promo/ic_reno_perdiste.png';
-  public winPhoto = '../../assets/img/december_promo/ic_reno_ganaste.png';
+  public losePhoto = '../../assets/img/promos/perdiste.png';
+  public winPhoto = '../../assets/img/promos/felicitaciones.png';
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {

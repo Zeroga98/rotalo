@@ -49,8 +49,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public screenWidth;
   private readonly timeToCheckNotification: number = 5000;
   showDropdownMenu = false;
-  public showAnimation = false;
-  public promoCode = '';
   public communities;
   @Output() selectedCommunity: EventEmitter<any> = new EventEmitter();
   @Output() tagsChanged: EventEmitter<Array<string>> = new EventEmitter();
@@ -229,8 +227,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
-          // this.showAnimation = state.body.informacionReno.dibujarRenoRuta;
-         // this.promoCode = state.body.informacionReno.codigoReno;
+
           this.messagesUnRead = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);
