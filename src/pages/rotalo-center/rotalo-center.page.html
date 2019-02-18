@@ -49,6 +49,10 @@
           <div class="ico shop-icon"></div>
           <a>Campañas</a>
         </div>
+        <div *ngIf="isSuperUser()" [routerLink]="banners" class="option" routerLinkActive="active">
+            <div class="ico shop-icon"></div>
+            <a>Banners home</a>
+        </div>
       </div>
     </div>
   </div>
