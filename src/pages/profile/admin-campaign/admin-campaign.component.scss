@@ -66,7 +66,6 @@
 :host {
 
   .tabla-campaign {
-    margin: 40px 0;
     overflow: hidden;
     overflow-x: auto;
   }
@@ -110,6 +109,13 @@
   .campaigns th.table-no-border{
     border-left: 0;
     border-right: 0;
+  }
+
+  .campaigns {
+    a {
+      color: #686E73;
+      text-decoration: underline;
+    }
   }
 
 }
@@ -216,11 +222,6 @@
 
   .switch-input:checked+.switch-label .toggle--off {
     display: none;
-  }
-
-
-  .mat-icon-button {
-    margin-left: 12px;
   }
 
   .material-design {

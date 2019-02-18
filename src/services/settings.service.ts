@@ -72,4 +72,40 @@ export class SettingsService {
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getCampaignsList() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/campaigns`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  changeStateCampaign(idCampaign, params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/campaigns/states/${idCampaign}`;
+    return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  deleteCampaign(idCampaign) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/campaigns/${idCampaign}`;
+    return this.http.delete(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  getBannersList() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  getCommunitiesCampaign(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/comunidades`;
+    return this.http.post(url , params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+
 }

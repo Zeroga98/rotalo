@@ -8,7 +8,7 @@
         Crear campaña
       </div>
     </div>
-    <div class="filter-container">
+    <div *ngIf="campaigns && campaigns.length > 0" class="filter-container">
       <form class="form-theme">
         <div class="material-design">
           <div class="row">
@@ -29,8 +29,8 @@
       </form>
     </div>
   </div>
-  <div class="tabla-campaign">
-    <button mat-icon-button>
+  <div *ngIf="campaigns && campaigns.length > 0" class="tabla-campaign">
+    <button (click) ="deletCampaign()" mat-icon-button>
       <div class="trash-icon"></div>
     </button>
     <table id="campaigns-wrap" class="campaigns">
@@ -51,19 +51,20 @@
       <tr *ngFor="let campaign of  (campaigns | searchByDate: searchText: selectState)">
         <td>
           <label class="material-checkbox container-check">
-            <input class="delete" type="checkbox">
+            <input id = {{campaign.id}} class="delete" type="checkbox">
             <span class="checkmark"></span>
           </label>
         </td>
-        <td>{{campaign.titulo}}</td>
-        <td>{{campaign.comunidades}}</td>
-        <td>{{campaign.date}}</td>
-        <td><a >Editar</a></td>
-        <td>{{campaign.estado}}</td>
+        <td>{{campaign.title}}</td>
+        <td>{{campaign.communitiesText}}</td>
+        <td>{{campaign.createdAt}}</td>
+        <td><a [routerLink]="getUrlCampaign(campaign.id)" >Editar</a></td>
+        <td>{{campaign.status}}</td>
         <td>
             <div class="switch-container">
-                <input type="checkbox" id="id-name--1" name="state" class="switch-input">
-                <label for="id-name--1" class="switch-label"></label>
+                <input type="checkbox" [checked]="campaign.active" id="id-name--{{campaign.id}}" name="state" class="switch-input"
+                (change)="saveCheck(campaign.active, campaign.id)">
+                <label for="id-name--{{campaign.id}}" class="switch-label"></label>
             </div>
         </td>
       </tr>

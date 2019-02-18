@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SearchByNamePipe implements PipeTransform {
   transform(campaigns, searchText: string, selectState: string) {
     return campaigns.filter(campaign => {
-       return campaign.date.indexOf(searchText) !== -1 && campaign.estado.indexOf(selectState) !== -1;
+       return campaign.createdAt.indexOf(searchText) !== -1 && campaign.status.indexOf(selectState) !== -1;
     });
   }
 }

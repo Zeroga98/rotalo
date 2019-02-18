@@ -3,13 +3,13 @@
     <h1 class="text ">Banners home</h1>
   </div>
   <div class="form-container">
-    <form name="formBanner" role="form" class="form-theme">
+    <form [formGroup]="formBannerColombia" name="formBanner" role="form" class="form-theme">
       <div class="material-design">
-        <div class="row">
-          <div class="dynamic-container">
-            <div>
+        <div formArrayName="banners" class="row">
+          <div *ngFor="let banner of formBannerColombia.get('banners').controls; let i = index;" class="dynamic-container">
+            <div [formGroupName]="i">
               <div class="row">
-                <a mat-icon-button>
+                <a  (click)="removeBannerColombia(i)" mat-icon-button>
                   <div class="trash-icon"></div>
                 </a>
               </div>
@@ -20,6 +20,12 @@
                       <div id="grid-holder" class="grid-holder">
                         <div class="item place-holder">
                           <div id='photo1' class="item-content">
+
+                       <!--     <image-upload id="image-upload" [max]="1" #imageInput [preview]="false" [extensions]="['png', 'gif']"
+                              [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
+                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)">
+                            </image-upload>
+-->
                             <div class="container-wrapper">
                               <div class="wrapper">
                                 <div class="icon-camera"></div>
@@ -46,14 +52,7 @@
                           </div>
                       </div>
                     </div>
-                    <div class="error-container">
-                      <span class="help-block uploadImg">
-                        ¡Omg! No pudimos subir alguna de tus fotos. Asegúrate de que tenga formato .png, .gif
-                      </span>
-                      <span class="help-block uploadImg">
-                        ¡Ups! Alguna de tus imágenes está un poco pesada. Debe ser máximo de 5MB.
-                      </span>
-                    </div>
+
                     <div class="banner-info">
                       <p><strong>Banner</strong> ( Formato .jpg .png o .gif )</p>
                       <p>Desktop: 1920 x 400 px Mobile: 375 x 214</p>
@@ -64,14 +63,13 @@
                   <div class="row">
                       <div class="form-group field-form half">
                           <label class="label-title">País</label>
-                          <select  name="communityId" class="form-control">
-                            <option value="-1">Todas</option>
-                            <option value="Colombia">Colombia
+                          <select formControlName="country-id" name="country-id" class="form-control">
+                            <option value="1">Colombia
                           </select>
                           <span class="error-msg">Este campo es requerido</span>
                       </div>
                       <div class="form-group field-form half">
-                          <label class="label-title">País</label>
+                          <label class="label-title">Comunidad</label>
                           <select  name="communityId" class="form-control">
                             <option value="-1">Todas</option>
                             <option value="Colombia">Colombia
@@ -80,15 +78,27 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="form-group full optional" data-input="name">
+                      <div class="form-group  field-form link" data-input="name">
                           <label class="label-title">Link (Opcional)</label>
-                          <input   type="text" class="form-control" name="link" maxlength="50">
-                          <span class="help-block error-msg"> Este campo es requerido </span>
+                          <input formControlName="link" name="link" type="text" class="form-control"  maxlength="50">
+                          <span  class="help-block error-msg"> Este campo es requerido </span>
                         </div>
+                        <div class="form-group field-form position">
+                          <label class="label-title">Posición</label>
+                          <select  formControlName="position" name="position" class="form-control">
+                            <option *ngFor="let position of numberPositionsColombia" value="{{position}}">{{position}}</option>
+                          </select>
+                          <span class="error-msg">Este campo es requerido</span>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="btn-container">
+            <a (click)="addBannerColombia(1)" mat-button>+ Agregar</a>
           </div>
         </div>
       </div>

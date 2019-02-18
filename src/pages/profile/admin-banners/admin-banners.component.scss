@@ -53,11 +53,11 @@
   }
 
   .images-container {
-    width: 40%;
+    width: 55%;
   }
 
   .form-info {
-    width: 60%;
+    width: 45%;
   }
 
   .banner-info {
@@ -133,10 +133,19 @@
         width: 100%;
       }
     }
-    
+
     .row {
       .form-group.half {
         width: 45%;
+      }
+    }
+
+    .dynamic-container {
+      .form-group.link {
+        width: 70%;
+      }
+      .form-group.position {
+        width: 20%;
       }
     }
 
@@ -368,22 +377,22 @@
     position: relative;
     margin-bottom: 1rem;
   }
-  
+
   .img-sortable {
     width: 100%;
   }
-  
+
   .grid , .grid-holder {
     display: flex;
     flex-wrap: wrap;
   }
-  
+
   .grid {
     position: absolute;
     width: 100%;
     top: 0;
   }
-  
+
   .grid-wrapper {
     width: 100%;
     .grid-holder {
@@ -391,7 +400,7 @@
       width: 100%;
     }
   }
-  
+
   .item {
     display: block;
     border-radius: 8px;
@@ -404,44 +413,44 @@
     font-weight: bold;
     color: #D5D5D5;
   }
-  
+
   .item.place-holder {
     cursor: pointer;
     border: 2px dashed #D5D5D5;
     transition: .25s;
   }
-  
+
   .item.place-holder:hover {
     border: 2px dashed #0FBBD8;
     color: #0FBBD8;
   }
-  
+
   .item.place-holder {
     .container-wrapper.hover {
       position: relative;
       z-index: 1;
     }
   }
-  
+
   .item.muuri-item-dragging {
     z-index: 3;
   }
-  
+
   .item.muuri-item-releasing {
     z-index: 2;
   }
-  
+
   .item.muuri-item-hidden {
     z-index: 0;
   }
-  
+
   .item-content {
     position: relative;
     width: 192px;
     height: 95px;
     text-align: center;
   }
-  
+
   .item-content {
     .container-img {
       width: 192px;
@@ -452,7 +461,7 @@
           display: block;
         }
       }
-  
+
       .remove-action {
         cursor: pointer;
         right: 5px;
@@ -464,7 +473,7 @@
         z-index: 10;
         background: rgba(0, 0, 0, 0.35);
         border-radius: 50%;
-  
+
         span {
           cursor: pointer;
           color: white;
@@ -474,7 +483,7 @@
           right: 0.5rem;
         }
       }
-  
+
       img {
         width: 100%;
         height: 100%;
@@ -484,27 +493,27 @@
         border-radius: 8px;
       }
     }
-  
+
     .title-first {
       color: #808080;
       font-weight: bold;
       font-size: 1.6rem;
     }
   }
-  
+
   .item-content {
     .container-wrapper {
       display: table;
       width: 100%;
       height: 100%;
     }
-  
+
     .wrapper {
       display: table-cell;
       vertical-align: middle;
     }
   }
-  
+
   .icon-camera {
     margin: 0 auto;
     width: 32px;
@@ -512,7 +521,7 @@
     background: url(../../../assets/img/ic_camera_upload_gris.svg);
     background-size: 32px 32px;
   }
-  
+
   .item.place-holder:hover
   {
     .icon-camera {
@@ -520,8 +529,8 @@
       background-size: 32px 32px;
     }
   }
-  
-  
+
+
   .place-holder-img {
     width: 100%;
     height: 100%;
@@ -529,12 +538,12 @@
     cursor: pointer;
     z-index: -1;
   }
-  
+
   image-upload {
     visibility: hidden;
     position: absolute;
     top: 0;
   }
-  
-  
+
+
 }
