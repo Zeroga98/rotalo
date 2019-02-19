@@ -154,15 +154,18 @@ export class AdminBannersComponent implements OnInit {
   }
 
 
-  onUploadImageFinished(event, element) {
-    console.log(event);
-    console.log(element);
+  onUploadImageFinished(event, element, type) {
+
     if (event.file.type == 'image/jpg' || event.file.type == 'image/png' || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
-          element = response.urlPhoto;
-          console.log(response);
-          console.log(element);
+          if (type == 'desktop') {
+            element.patchValue({ 'url-photo-desktop': response.urlPhoto });
+            element.patchValue({ 'id-photo-desktop': response.photoId });
+          } else if (type == 'mobile') {
+            element.patchValue({ 'url-photo-mobile': response.urlPhoto });
+            element.patchValue({ 'id-photo-mobile': response.photoId });
+          }
         }, (error) => {
           console.log(error);
         });
@@ -183,9 +186,28 @@ export class AdminBannersComponent implements OnInit {
   }
 
   uploadFiles(imageInput) {
-    console.log(this.formBannerColombia.get('banners').controls);
     const element: HTMLElement = imageInput.inputElement.nativeElement as HTMLElement;
     element.click();
+  }
+
+
+  onRemovePreviewImage(event, element, type) {
+    event.deleteAll();
+    if (type == 'desktop') {
+      element.patchValue({ 'url-photo-desktop': null });
+      element.patchValue({ 'id-photo-desktop': null });
+    } else if (type == 'mobile') {
+      element.patchValue({ 'url-photo-mobile': null });
+      element.patchValue({ 'id-photo-mobile': null });
+    }
+  }
+
+  private findPhotoWithId(file) {
+
+  }
+
+  private filterPhotoFile(event) {
+
   }
 
 

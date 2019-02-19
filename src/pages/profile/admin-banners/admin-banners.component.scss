@@ -465,6 +465,7 @@
       width: 192px;
       height: 95px;
       border-radius: 8px;
+      position: absolute;
       &:hover {
         .remove-action {
           display: block;
@@ -496,7 +497,6 @@
       img {
         width: 100%;
         height: 100%;
-        cursor: move;
         -o-object-fit: cover;
         object-fit: cover;
         border-radius: 8px;
