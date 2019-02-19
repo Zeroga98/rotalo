@@ -1,0 +1,20 @@
+<div class="close-container">
+  <p class="title-modal">Selecciona las comunidades</p>
+  <div id="close" class="button-close-modal" (click)="close()">
+    <p>x</p>
+  </div>
+</div>
+<div class="modal-container">
+ <div id="check-container" class="check-container">
+   <div class="checkbox" *ngFor="let param of params">
+    <label class="material-checkbox container-check">
+          <input [checked]="param.marca" type="checkbox" id="{{param.id}}">
+          <span class="checkmark"></span>
+    </label>
+    <span class="check-label">{{param.nombre}}</span>
+   </div>
+ </div>
+  <div class="btn-container">
+    <button (click) ="save()" mat-stroked-button>Guardar</button>
+  </div>
+</div>

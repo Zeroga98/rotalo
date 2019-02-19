@@ -3,6 +3,8 @@ import { SettingsService } from '../../../services/settings.service';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 import { PhotosService } from '../../../services/photos.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CommunitiesModalComponent } from './communities-modal/communities-modal.component';
 
 @Component({
   selector: 'admin-banners',
@@ -16,11 +18,14 @@ export class AdminBannersComponent implements OnInit {
   public bannersGuatemala;
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
   public colombiaPositions = [1];
+  public communitiesColombia;
+  public communitiesGuatemala;
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
-    private photosService: PhotosService
-  ) {}
+    private photosService: PhotosService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.loadBanners();
@@ -80,7 +85,7 @@ export class AdminBannersComponent implements OnInit {
           'id-photo-mobile': null,
           'url-photo-desktop': null,
           'url-photo-mobile': null,
-          'communities-ids': []
+          'communities-ids': [-1]
         }
       ]
     };
@@ -96,9 +101,9 @@ export class AdminBannersComponent implements OnInit {
       'id-photo-mobile': null,
       'url-photo-desktop': null,
       'url-photo-mobile': null,
-      'communities-ids': []
+      'communities-ids': [-1]
     };
-    return  banner;
+    return banner;
   }
 
   private createBasicItem(banner) {
@@ -112,7 +117,7 @@ export class AdminBannersComponent implements OnInit {
       'url-photo-mobile': [banner['url-photo-mobile'], [Validators.required]],
       'communities-ids': [banner['communities-ids'], [Validators.required]],
     });
-}
+  }
 
   addBannerColombia(country): void {
     this.bannersColombia = this.formBannerColombia.get('banners') as FormArray;
@@ -130,7 +135,7 @@ export class AdminBannersComponent implements OnInit {
     }
   }
 
-  get numberPositionsColombia () {
+  get numberPositionsColombia() {
     this.colombiaPositions = [];
     const banners = this.formBannerColombia.get('banners').controls;
     for (let i = 1; i <= banners.length; i++) {
@@ -144,9 +149,14 @@ export class AdminBannersComponent implements OnInit {
       'bannerid': null
     };
     this.settingsService.getCommunitiesCampaign(bannerid).subscribe((response) => {
-      console.log(response, 'comunidades');
       if (response.body) {
-
+        response.body.paises.map((community) => {
+          if (community.nombre == 'Colombia') {
+            this.communitiesColombia = community.comunidades;
+          } else if (community.nombre == 'Guatemala') {
+            this.communitiesGuatemala = community.comunidades;
+          }
+        });
       }
     }, (error) => {
       console.log(error);
@@ -155,7 +165,6 @@ export class AdminBannersComponent implements OnInit {
 
 
   onUploadImageFinished(event, element, type) {
-
     if (event.file.type == 'image/jpg' || event.file.type == 'image/png' || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
@@ -190,7 +199,6 @@ export class AdminBannersComponent implements OnInit {
     element.click();
   }
 
-
   onRemovePreviewImage(event, element, type) {
     event.deleteAll();
     if (type == 'desktop') {
@@ -202,11 +210,57 @@ export class AdminBannersComponent implements OnInit {
     }
   }
 
-  private findPhotoWithId(file) {
-
-  }
-
-  private filterPhotoFile(event) {
+  openDialog(country, element): void {
+    const communitiesIds = element.get('communities-ids').value;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxHeight = '500px';
+    dialogConfig.width = '50%';
+    dialogConfig.height = '50%';
+    dialogConfig.autoFocus = false;
+    if (country == 'Colombia') {
+      dialogConfig.data = [];
+      const communities = [];
+      this.communitiesColombia.map((response) => {
+       const item = {
+         id: response.id,
+         nombre: response.nombre,
+         marca: response.marca
+       };
+        communities.push(item);
+      });
+      communities.map((item) => {
+        if (communitiesIds.includes(item.id)) {
+          item.marca = true;
+        }
+      });
+      dialogConfig.data = communities;
+    } else if (country == 'Guatemala') {
+      dialogConfig.data = [];
+      const communities = [];
+      this.communitiesGuatemala.map((response) => {
+        const item = {
+          id: response.id,
+          nombre: response.nombre,
+          marca: response.marca
+        };
+        communities.push(item);
+      });
+      communities.map((item) => {
+        if (communitiesIds.includes(item.id)) {
+          item.marca = true;
+        }
+      });
+      dialogConfig.data = communities;
+    }
+    const dialogRef = this.dialog.open(CommunitiesModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        element.patchValue({ 'communities-ids': result });
+        console.log(element);
+      }
+    });
 
   }
 

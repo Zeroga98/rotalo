@@ -189,6 +189,7 @@ import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campai
 import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-edit.component';
 import { SearchByNamePipe } from '../pages/profile/admin-campaign/search-by-date.pipe';
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
+import { CommunitiesModalComponent } from '../pages/profile/admin-banners/communities-modal/communities-modal.component';
 
 @NgModule({
   declarations: [
@@ -302,7 +303,8 @@ import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-bann
     CampaignUploadComponent,
     CampaignEditComponent,
     SearchByNamePipe,
-    AdminBannersComponent
+    AdminBannersComponent,
+    CommunitiesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -403,7 +405,7 @@ import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-bann
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent]
+  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent]
 })
 
 export class AppModule { }

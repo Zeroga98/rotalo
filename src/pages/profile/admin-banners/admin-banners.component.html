@@ -51,7 +51,7 @@
                         </div>
                         <div class="item place-holder">
                           <div id='photo2{{i}}' class="item-content">
-
+                         <!--   <custom-spinner ></custom-spinner> -->
                             <div *ngIf="
                                 formBannerColombia.get('banners').controls[i] &&
                                 formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'] &&
@@ -99,10 +99,13 @@
                       <span class="error-msg">Este campo es requerido</span>
                     </div>
                     <div class="form-group field-form half">
-                      <label class="label-title">Comunidad</label>
-                      <select name="communityId" class="form-control">
+                      <label
+                      (click)= "openDialog('Colombia', formBannerColombia.get('banners').controls[i])"
+                      class="label-title">Comunidad
+                      </label>
+                      <select  name="communityId" class="form-control">
                         <option value="-1">Todas</option>
-                        <option value="Colombia">Colombia
+                        <option value="Otras">Otras</option>
                       </select>
                       <span class="error-msg">Este campo es requerido</span>
                     </div>
