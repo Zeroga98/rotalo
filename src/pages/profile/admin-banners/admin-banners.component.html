@@ -17,16 +17,17 @@
                 <div class="images-container">
                   <div class="container-prev-photos">
                     <div class="grid-wrapper">
-                      <div id="grid-holder" class="grid-holder">
+                      <div id="grid-holder{{i}}" class="grid-holder">
                         <div class="item place-holder">
-                          <div id='photo1' class="item-content">
-
-                       <!--     <image-upload id="image-upload" [max]="1" #imageInput [preview]="false" [extensions]="['png', 'gif']"
+                          <div id='photo1{{i}}' class="item-content">
+                            <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false" [extensions]="['jpg', 'png', 'gif']"
                               [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
-                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)">
+                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader" 
+                              (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'].value)">
                             </image-upload>
--->
-                            <div class="container-wrapper">
+                            <div class="container-wrapper" 
+                            (click)="uploadFiles(imageInputDesktop)"
+                            (drop)="onDrop($event, imageInputDesktop)" (dragover)="onDragOver($event, imageInputDesktop)">
                               <div class="wrapper">
                                 <div class="icon-camera"></div>
                                 <p>
@@ -38,8 +39,16 @@
                           </div>
                         </div>
                         <div class="item place-holder">
-                            <div id='photo2' class="item-content">
-                              <div class="container-wrapper">
+                            <div id='photo2{{i}}' class="item-content">
+                            <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false" [extensions]="['jpg','png', 'gif']"
+                              [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
+                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader" 
+                              (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i].controls['id-photo-mobile'].value)">
+                            </image-upload>
+                              <div class="container-wrapper"
+                              (click)="uploadFiles(imageInputMobile)"
+                              (drop)="onDrop($event, imageInputMobile)" (dragover)="onDragOver($event, imageInputMobile)"
+                              >
                                 <div class="wrapper">
                                   <div class="icon-camera"></div>
                                   <p>
@@ -52,7 +61,32 @@
                           </div>
                       </div>
                     </div>
-
+                    <div id="grid{{i}}" class="grid">
+                        <div *ngIf="formBannerColombia.get('banners').controls[i] && 
+                        formBannerColombia.get('banners').controls[i].controls['id-photo-desktop'] && 
+                        formBannerColombia.get('banners').controls[i].controls['id-photo-desktop'].value" class="item">
+                          <div class="drag item-content">
+                            <div  class="container-img">
+                              <div  class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload"  [src]="photoUploaded?.src">
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="formBannerColombia.get('banners').controls[i] && 
+                        formBannerColombia.get('banners').controls[i].controls['id-photo-mobile'] && 
+                        formBannerColombia.get('banners').controls[i].controls['id-photo-mobile'].value" class="item">
+                          <div class="drag item-content">
+                            <div  class="container-img">
+                              <div  class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload"  [src]="photoUploaded?.src">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <div class="banner-info">
                       <p><strong>Banner</strong> ( Formato .jpg .png o .gif )</p>
                       <p>Desktop: 1920 x 400 px Mobile: 375 x 214</p>

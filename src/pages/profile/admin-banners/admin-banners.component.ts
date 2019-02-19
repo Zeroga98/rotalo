@@ -1,26 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { SettingsService } from "../../../services/settings.service";
-import { FormBuilder, Validators, FormArray } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../../services/settings.service';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
+import { PhotosService } from '../../../services/photos.service';
 
 @Component({
-  selector: "admin-banners",
-  templateUrl: "./admin-banners.component.html",
-  styleUrls: ["./admin-banners.component.scss"]
+  selector: 'admin-banners',
+  templateUrl: './admin-banners.component.html',
+  styleUrls: ['./admin-banners.component.scss']
 })
 export class AdminBannersComponent implements OnInit {
   public formBannerColombia;
   public formBannerGuatemala;
   public bannersColombia;
   public bannersGuatemala;
-
+  public customStyleImageLoader = IMAGE_LOAD_STYLES;
   public colombiaPositions = [1];
   constructor(
     private settingsService: SettingsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private photosService: PhotosService
   ) {}
 
   ngOnInit() {
     this.loadBanners();
+    this.getCommunitiesCampaign();
     this.setInitialFormColombia(this.getInitialConfig(1));
     this.setInitialFormGuatemala(this.getInitialConfig(3));
     console.log(this.formBannerColombia);
@@ -57,6 +61,8 @@ export class AdminBannersComponent implements OnInit {
         position: [banner.position, [Validators.required]],
         'id-photo-desktop': [banner['id-photo-desktop'], [Validators.required]],
         'id-photo-mobile': [banner['id-photo-mobile'], [Validators.required]],
+        'url-photo-desktop': [banner['url-photo-desktop'], [Validators.required]],
+        'url-photo-mobile': [banner['url-photo-mobile'], [Validators.required]],
         'communities-ids': [banner['communities-ids'], [Validators.required]],
       });
     });
@@ -72,6 +78,8 @@ export class AdminBannersComponent implements OnInit {
           position: 1,
           'id-photo-desktop': null,
           'id-photo-mobile': null,
+          'url-photo-desktop': null,
+          'url-photo-mobile': null,
           'communities-ids': []
         }
       ]
@@ -86,6 +94,8 @@ export class AdminBannersComponent implements OnInit {
       position: 1,
       'id-photo-desktop': null,
       'id-photo-mobile': null,
+      'url-photo-desktop': null,
+      'url-photo-mobile': null,
       'communities-ids': []
     };
     return  banner;
@@ -98,6 +108,8 @@ export class AdminBannersComponent implements OnInit {
       position: [banner.position, [Validators.required]],
       'id-photo-desktop': [banner['id-photo-desktop'], [Validators.required]],
       'id-photo-mobile': [banner['id-photo-mobile'], [Validators.required]],
+      'url-photo-desktop': [banner['url-photo-desktop'], [Validators.required]],
+      'url-photo-mobile': [banner['url-photo-mobile'], [Validators.required]],
       'communities-ids': [banner['communities-ids'], [Validators.required]],
     });
 }
@@ -132,13 +144,49 @@ export class AdminBannersComponent implements OnInit {
       'bannerid': null
     };
     this.settingsService.getCommunitiesCampaign(bannerid).subscribe((response) => {
-      console.log(response);
-      if(response.body) {
+      console.log(response, 'comunidades');
+      if (response.body) {
 
       }
     }, (error) => {
       console.log(error);
     });
   }
+
+
+  onUploadImageFinished(event, element) {
+    console.log(event);
+    console.log(element);
+    if (event.file.type == 'image/jpg' || event.file.type == 'image/png' || event.file.type == 'image/gif') {
+      if (event.file.size < 5000000) {
+        this.photosService.uploadPhoto(event.file).subscribe((response) => {
+          element = response.urlPhoto;
+          console.log(response);
+          console.log(element);
+        }, (error) => {
+          console.log(error);
+        });
+      }
+    }
+  }
+
+  onDrop(event, imageInput) {
+    imageInput.onFileChange(event.dataTransfer.files);
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  onDragOver(event, imageInput) {
+    imageInput.onFileOver(true);
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  uploadFiles(imageInput) {
+    console.log(this.formBannerColombia.get('banners').controls);
+    const element: HTMLElement = imageInput.inputElement.nativeElement as HTMLElement;
+    element.click();
+  }
+
 
 }
