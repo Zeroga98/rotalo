@@ -11,7 +11,10 @@
 <ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div class="item-banner">
-      <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click)="redirectPromo(image)" [src]="image">
+      <a *ngIf="image['link']" [href]="image['link']">
+          <img [src]="image['url-photo-desktop']">
+      </a>
+      <img *ngIf="!image['link']" [src]="image['url-photo-desktop']">
     </div>
   </ngx-item>
 
@@ -27,9 +30,12 @@
 </ngx-carousel>
 
 <ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
-  <ngx-item NgxCarouselItem *ngFor="let image of imagesBannerMobile">
+  <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div class="item-banner">
-      <img [ngStyle]="{'cursor': isExclusiveOffer(image) ? 'pointer' : '' }" (click)="redirectPromo(image)" [src]="image">
+        <a *ngIf="image['link']" [href]="image['link']">
+            <img [src]="image['url-photo-mobile']">
+        </a>
+        <img *ngIf="!image['link']" [src]="image['url-photo-mobile']">
     </div>
   </ngx-item>
   <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">

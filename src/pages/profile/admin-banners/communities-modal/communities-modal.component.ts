@@ -12,7 +12,7 @@ export class CommunitiesModalComponent implements OnInit , AfterViewInit {
   constructor(private dialogRef: MatDialogRef<CommunitiesModalComponent>,
   @Inject(MAT_DIALOG_DATA) data) {
     this.params = data;
-    console.log(this.params);
+
    }
 
   ngOnInit() {

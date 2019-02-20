@@ -20,7 +20,6 @@ export class PromoAnimationComponent implements OnInit {
       code: this.promoCode
     };
     this.modalService.consultPromo(params).subscribe((response) => {
-      console.log(response);
       this.gapush(
         'send',
         'event',

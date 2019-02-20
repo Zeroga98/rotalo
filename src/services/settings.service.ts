@@ -100,12 +100,20 @@ export class SettingsService {
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
-  getCommunitiesCampaign(params) {
+  getCommunitiesBanner(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/banners/comunidades`;
     return this.http.post(url , params, { headers: headers }).pipe(map((response: any) => response));
   }
+
+  uploadBanner(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/actualizar`;
+    return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 
 
 }

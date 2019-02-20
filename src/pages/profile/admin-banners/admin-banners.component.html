@@ -33,7 +33,7 @@
                             </div>
 
                             <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false"
-                              [extensions]="['jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                              [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
                               [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
                               (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'desktop')">
                             </image-upload>
@@ -64,7 +64,7 @@
                             </div>
 
                             <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false"
-                              [extensions]="['jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                              [extensions]="['jpeg', 'jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
                               [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
                               (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'mobile')">
                             </image-upload>
@@ -100,13 +100,16 @@
                     </div>
                     <div class="form-group field-form half">
                       <label
-                      (click)= "openDialog('Colombia', formBannerColombia.get('banners').controls[i])"
                       class="label-title">Comunidad
                       </label>
-                      <select  name="communityId" class="form-control">
+                      <div class="btn-container">
+                        <a 
+                        (click)= "openDialog('Colombia', formBannerColombia.get('banners').controls[i])" mat-button>Agregar comunidad</a>
+                      </div>
+                   <!--   <select  name="communityId" class="form-control">
                         <option value="-1">Todas</option>
                         <option value="Otras">Otras</option>
-                      </select>
+                      </select> -->
                       <span class="error-msg">Este campo es requerido</span>
                     </div>
                   </div>
@@ -134,6 +137,11 @@
             <a (click)="addBannerColombia(1)" mat-button>+ Agregar</a>
           </div>
         </div>
+      </div>
+      <div class="row">
+          <div class="btn-container">
+            <button (click) ="uploadBannerColombia()" mat-flat-button color="primary">Actualizar cambios</button>
+          </div>
       </div>
     </form>
   </div>

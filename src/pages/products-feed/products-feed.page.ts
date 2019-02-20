@@ -43,6 +43,7 @@ import {
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
+import { SettingsService } from '../../services/settings.service';
 
 
 @Component({
@@ -77,7 +78,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public groupFeaturedProducts:  Array<any> = [];
   public couponService;
   public community: any;
-  readonly defaultImage: string = "../assets/img/product-no-image.png";
+  readonly defaultImage: string = '../assets/img/product-no-image.png';
   private currentUrl = '';
   public pageNumber: number = 1;
   public totalPages: number = 100;
@@ -103,26 +104,27 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
     private userService: UserService,
-    private navigationTopService: NavigationTopService
+    private navigationTopService: NavigationTopService,
+    private settingsService: SettingsService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
-    // this.imagesBanner = IMGS_BANNER_PROMO;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-    this.imagesBanner = IMGS_BANNER;
+
+    /*this.imagesBanner = IMGS_BANNER;
     this.imagesBannerMobile = IMGS_BANNER_MOBILE;
-    /*Promo fecha determinada para cierta comunidad*/
-    //
-    this.addPromoBanner();
+ */
+
+    this.loadBanners();
   }
 
    ngOnInit() {
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
 
@@ -160,32 +162,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  async addBancolombiaBanner() {
-    this.community = await this.userService.getCommunityUser();
-    if (this.community && this.community.name === 'Grupo Bancolombia') {
-      if (this.isPromoDate) {
-        this.imagesBanner = IMGS_BANNER_PROMO_BANCOLOMBIA;
-      } else {
-        this.imagesBanner = IMGS_BANNER_BANCOLOMBIA;
+  loadBanners() {
+    this.settingsService.getBannersList().subscribe(response => {
+      if (response.body) {
+        this.imagesBanner = response.body.banner ;
+        console.log(this.imagesBanner);
+        console.log(response.body);
       }
-    }
-  }
-
-  addPromoBanner() {
-    this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      this.imagesBanner = IMGS_BANNER_GUATEMALA;
-      this.imagesBannerMobile = IMGS_BANNER_GUATEMALA;
-      this.showBannerToShop = false;
-    }else {
-      this.showBannerToShop = true;
-      if (this.isPromoDate) {
-        this.imagesBanner = IMGS_BANNER_PROMO;
-      } else {
-        this.imagesBanner = IMGS_BANNER;
-      }
-     this.addBancolombiaBanner();
-    }
+    });
   }
 
 
@@ -518,15 +502,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public isExclusiveOffer(imageUrl) {
-    if (imageUrl.includes('banner_sufi')) {
-      return true;
-    }
-    return false;
-  }
 
   public openModalCupon (imageUrl, id: string) {
-    if (this.isExclusiveOffer(imageUrl)) {
+   /* if (this.isExclusiveOffer(imageUrl)) {
       const currentUser = this.currentSession.currentUser();
       if (currentUser) {
         const emailObject = {
@@ -535,17 +513,17 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         };
         this.getCoupon (emailObject, id);
       }
-    }
+    }*/
   }
 
   public redirectPromo (imageUrl) {
-    if (this.isExclusiveOffer(imageUrl)) {
+    /* if (this.isExclusiveOffer(imageUrl)) {
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${
           ROUTES.PRODUCTS.SIMULATECREDIT
         }`
       ]);
-    }
+    } */
   }
 
   public getCoupon (email, id: string) {

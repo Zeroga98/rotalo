@@ -29,18 +29,29 @@ export class AdminBannersComponent implements OnInit {
 
   ngOnInit() {
     this.loadBanners();
-    this.getCommunitiesCampaign();
     this.setInitialFormColombia(this.getInitialConfig(1));
     this.setInitialFormGuatemala(this.getInitialConfig(3));
-    console.log(this.formBannerColombia);
-    console.log(this.formBannerGuatemala);
+    this.getCommunitiesBanner();
   }
 
   loadBanners() {
     this.settingsService.getBannersList().subscribe(response => {
-      console.log(response);
+      if (response.body) {
+      console.log(response.body);
+       response.body.banner.map((item) => {
+        item['communities-ids'] = [];
+          item.comunidades.map((community) => {
+            item['communities-ids'].push(community.id);
+          });
+        });
+        this.bannersColombia = response.body.banner;
+        console.log(this.bannersColombia, 'this.bannersColombia');
+        this.setInitialFormColombia(response.body);
+      }
     });
   }
+
+
 
   private setInitialFormColombia(config) {
     this.formBannerColombia = this.formBuilder.group({
@@ -144,11 +155,11 @@ export class AdminBannersComponent implements OnInit {
     return this.colombiaPositions;
   }
 
-  getCommunitiesCampaign() {
+  getCommunitiesBanner() {
     const bannerid = {
       'bannerid': null
     };
-    this.settingsService.getCommunitiesCampaign(bannerid).subscribe((response) => {
+    this.settingsService.getCommunitiesBanner(bannerid).subscribe((response) => {
       if (response.body) {
         response.body.paises.map((community) => {
           if (community.nombre == 'Colombia') {
@@ -165,7 +176,10 @@ export class AdminBannersComponent implements OnInit {
 
 
   onUploadImageFinished(event, element, type) {
-    if (event.file.type == 'image/jpg' || event.file.type == 'image/png' || event.file.type == 'image/gif') {
+    if (event.file.type == 'image/jpeg'
+    || event.file.type == 'image/jpg'
+    || event.file.type == 'image/png'
+    || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
           if (type == 'desktop') {
@@ -221,13 +235,19 @@ export class AdminBannersComponent implements OnInit {
     dialogConfig.autoFocus = false;
     if (country == 'Colombia') {
       dialogConfig.data = [];
-      const communities = [];
+      const communities = [
+        {
+          id: -1,
+          nombre: 'Todas',
+          marca: false
+        }
+      ];
       this.communitiesColombia.map((response) => {
-       const item = {
-         id: response.id,
-         nombre: response.nombre,
-         marca: response.marca
-       };
+        const item = {
+          id: response.id,
+          nombre: response.nombre,
+          marca: response.marca
+        };
         communities.push(item);
       });
       communities.map((item) => {
@@ -238,7 +258,11 @@ export class AdminBannersComponent implements OnInit {
       dialogConfig.data = communities;
     } else if (country == 'Guatemala') {
       dialogConfig.data = [];
-      const communities = [];
+      const communities = [{
+        id: -1,
+        nombre: 'Todas',
+        marca: false
+      }];
       this.communitiesGuatemala.map((response) => {
         const item = {
           id: response.id,
@@ -258,10 +282,24 @@ export class AdminBannersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         element.patchValue({ 'communities-ids': result });
-        console.log(element);
       }
     });
 
+  }
+
+  uploadBannerColombia () {
+    console.log(this.formBannerColombia);
+    if (!this.formBannerColombia.invalid) {
+      const body = {
+        data: this.formBannerColombia.value.banners
+      };
+      console.log(body);
+      this.settingsService.uploadBanner(body).subscribe((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 
 

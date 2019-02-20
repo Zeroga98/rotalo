@@ -231,7 +231,6 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   addCampaign(): void {
     this.communitiesForm = this.formCampaign.get('campaignsCommunities') as FormArray;
-    console.log();
     this.communitiesForm.push(this.createBasicItem(this.initialCommunity()));
   }
 
