@@ -30,10 +30,15 @@
     </div>
   </div>
   <div *ngIf="campaigns && campaigns.length > 0" class="tabla-campaign">
-    <button (click) ="deletCampaign()" mat-icon-button>
-      <div class="trash-icon"></div>
-    </button>
+
     <table id="campaigns-wrap" class="campaigns">
+      <tr>
+          <th class="no-style">
+              <button (click) ="deletCampaign()" mat-icon-button>
+                  <div class="trash-icon"></div>
+                </button>
+            </th>
+      </tr>
       <tr>
         <th>
           <label class="material-checkbox container-check">

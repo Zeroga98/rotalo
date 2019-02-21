@@ -163,11 +163,15 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadBanners() {
-    this.settingsService.getBannersList().subscribe(response => {
+    this.settingsService.getBannersHomeList().subscribe(response => {
       if (response.body) {
-        this.imagesBanner = response.body.banner ;
-        console.log(this.imagesBanner);
-        console.log(response.body);
+        this.imagesBanner = response.body.banners;
+        this.currentUrl = window.location.href;
+        if (this.currentUrl.includes('gt')) {
+          this.showBannerToShop = false;
+        } else {
+          this.showBannerToShop = true;
+        }
       }
     });
   }

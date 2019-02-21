@@ -112,6 +112,14 @@
   }
 
   .campaigns {
+    th.no-style {
+      padding: 0;
+      border: 0;
+      background-color: white;
+    }
+  }
+
+  .campaigns {
     a {
       color: #686E73;
       text-decoration: underline;

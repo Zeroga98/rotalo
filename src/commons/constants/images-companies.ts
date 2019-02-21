@@ -130,6 +130,27 @@ export const IMGS_COMPANIES = [
     url: './assets/img/logos_company/27_constructora_londono.png',
     name: 'constructora_londono'
   }
+  ,
+  {
+    url: './assets/img/logos_company/28_automotora.png',
+    name: 'automotora'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/29_coltabaco.png',
+    name: 'coltabaco'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/30_contex.png',
+    name: 'coltabaco'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/31_odinsa.png',
+    name: 'odinsa'
+  }
+
 ];
 
 export const IMGS_COMPANIES_GUATEMALA = [

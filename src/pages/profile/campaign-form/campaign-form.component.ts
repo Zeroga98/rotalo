@@ -120,7 +120,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       communityId: [comunity.communityId, [Validators.required]],
       startAt: [comunity.startAt, [Validators.required]],
       untilAt: [comunity.untilAt, [Validators.required]],
-      productId: [comunity.productId, [Validators.required]]
+      productId: [comunity.productId, [Validators.required,  Validators.pattern('^[0-9]*$'),]]
     });
   });
    return  comunities;
@@ -256,6 +256,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
           }
         } else {
           this.photosService.uploadPhoto(event.file).subscribe((response) => {
+            event.photoId = response.photoId;
             this.photosUploadedId.push(response);
             if (this.photosUploadedId.length >= 3) {
               this.createRequest();
@@ -292,9 +293,9 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   createRequest() {
     const photosIds = {
-      stickerPhoto: {id: this.photosUploadedId[0].photoId},
-      winPhoto: {id: this.photosUploadedId[1].photoId},
-      losePhoto: {id: this.photosUploadedId[2].photoId}
+      stickerPhoto: {id: this.photosUploaded[0].photoId},
+      winPhoto: {id: this.photosUploaded[1].photoId},
+      losePhoto: {id: this.photosUploaded[2].photoId}
     };
 
     const copyRequest = {
@@ -306,19 +307,21 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
     const request = Object.assign({}, copyRequest, photosIds);
     request.campaignsCommunities.map((item) => {
-
       if (item['startAt'].formatted) {
         item['startAt'] = moment(item['startAt'].formatted).format('YYYY-MM-DD');
       } else {
-        item['startAt'] .date.month = item['startAt'] .date.month - 1;
-        item['startAt']  = moment(item['startAt'] .date).format('YYYY-MM-DD');
+        if (item['startAt'] .date.month) {
+          item['startAt'] .date.month = item['startAt'] .date.month - 1;
+          item['startAt']  = moment(item['startAt'] .date).format('YYYY-MM-DD');
+        }
       }
-
       if (item['untilAt'].formatted) {
         item['untilAt'] = moment(item['untilAt'].formatted).format('YYYY-MM-DD');
       } else {
-        item['untilAt'] .date.month = item['untilAt'] .date.month - 1;
-        item['untilAt']  = moment(item['untilAt'] .date).format('YYYY-MM-DD');
+        if (item['untilAt'] .date.month) {
+          item['untilAt'] .date.month = item['untilAt'] .date.month - 1;
+          item['untilAt']  = moment(item['untilAt'] .date).format('YYYY-MM-DD');
+        }
       }
 
     });

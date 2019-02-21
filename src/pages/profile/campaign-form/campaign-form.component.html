@@ -1,5 +1,5 @@
 <div class="breadcrumbs">
-  <a href="">Campañas</a> > <span>Detalles generales de la campaña</span>
+  <a>Campañas</a> > <span>Detalles generales de la campaña</span>
 </div>
 <div class="form-container">
   <form [formGroup]="formCampaign" name="formCampaign" (ngSubmit)="createCampaign()" role="form" class="form-theme">
@@ -125,15 +125,15 @@
       </div>
       <div class="row">
         <div class="form-group half">
-          <label class="label-title">Texto 1 modal ganador</label>
-          <textarea class="form-control" placeholder="" formControlName="winnerText" name="winnerText" maxlength="500"></textarea>
+          <label class="label-title">Texto para el modal ganador</label>
+          <textarea class="form-control" placeholder="" formControlName="winnerText" name="winnerText" maxlength="230"></textarea>
           <span class="error-msg">Este campo es requerido</span>
         </div>
       </div>
       <div class="row">
         <div class="form-group half">
-          <label class="label-title">Texto 2 modal perdedor</label>
-          <textarea class="form-control" placeholder="" formControlName="loserText" name="loserText" maxlength="500"></textarea>
+          <label class="label-title">Texto para el modal perdedor</label>
+          <textarea class="form-control" placeholder="" formControlName="loserText" name="loserText" maxlength="230"></textarea>
           <span class="error-msg">Este campo es requerido</span>
         </div>
       </div>

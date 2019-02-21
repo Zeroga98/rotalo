@@ -114,6 +114,18 @@ export class SettingsService {
     return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  deleteBanner(idBanner) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/eliminar/${idBanner}`;
+    return this.http.put(url , { headers: headers }).pipe(map((response: any) => response));
+  }
 
+  getBannersHomeList() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/home`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
 
 }

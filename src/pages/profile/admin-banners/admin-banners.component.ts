@@ -5,6 +5,7 @@ import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.c
 import { PhotosService } from '../../../services/photos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CommunitiesModalComponent } from './communities-modal/communities-modal.component';
+import { UtilsService } from '../../../util/utils.service';
 
 @Component({
   selector: 'admin-banners',
@@ -18,35 +19,53 @@ export class AdminBannersComponent implements OnInit {
   public bannersGuatemala;
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
   public colombiaPositions = [1];
+  public guatemalaPositions = [1];
   public communitiesColombia;
   public communitiesGuatemala;
+  public errorChange = '';
+  public successChange = false;
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
     private photosService: PhotosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
     this.loadBanners();
     this.setInitialFormColombia(this.getInitialConfig(1));
-    this.setInitialFormGuatemala(this.getInitialConfig(3));
+    this.setInitialFormGuatemala(this.getInitialConfig(9));
     this.getCommunitiesBanner();
   }
 
   loadBanners() {
     this.settingsService.getBannersList().subscribe(response => {
       if (response.body) {
-      console.log(response.body);
-       response.body.banner.map((item) => {
+       response.body.banners[0].map((item) => {
         item['communities-ids'] = [];
           item.comunidades.map((community) => {
             item['communities-ids'].push(community.id);
           });
         });
-        this.bannersColombia = response.body.banner;
-        console.log(this.bannersColombia, 'this.bannersColombia');
-        this.setInitialFormColombia(response.body);
+        response.body.banners[1].map((item) => {
+          item['communities-ids'] = [];
+            item.comunidades.map((community) => {
+              item['communities-ids'].push(community.id);
+          });
+        });
+
+        this.bannersColombia = response.body.banners[0];
+        this.bannersGuatemala = response.body.banners[1];
+
+        const bannersColombia = {
+          banner: response.body.banners[0]
+        };
+        const bannersGuatemala = {
+          banner: response.body.banners[1]
+        };
+        this.setInitialFormColombia(bannersColombia);
+        this.setInitialFormGuatemala(bannersGuatemala);
       }
     });
   }
@@ -72,6 +91,7 @@ export class AdminBannersComponent implements OnInit {
   private createItem(bannersForm) {
     const banners = bannersForm.map(banner => {
       return this.formBuilder.group({
+        id: [banner.id],
         'country-id': [banner['country-id'], [Validators.required]],
         link: [banner.link],
         position: [banner.position, [Validators.required]],
@@ -89,6 +109,7 @@ export class AdminBannersComponent implements OnInit {
     const banner = {
       banner: [
         {
+          id: null,
           'country-id': country,
           link: null,
           position: 1,
@@ -105,6 +126,7 @@ export class AdminBannersComponent implements OnInit {
 
   private initialCommunity(country) {
     const banner = {
+      id: null,
       'country-id': country,
       link: null,
       position: 1,
@@ -119,6 +141,7 @@ export class AdminBannersComponent implements OnInit {
 
   private createBasicItem(banner) {
     return this.formBuilder.group({
+      id: [banner.id],
       'country-id': [banner['country-id'], [Validators.required]],
       link: [banner.link],
       position: [banner.position, [Validators.required]],
@@ -135,8 +158,13 @@ export class AdminBannersComponent implements OnInit {
     this.bannersColombia.push(this.createBasicItem(this.initialCommunity(country)));
   }
 
+  addBannerGuatemala(country): void {
+    this.bannersGuatemala = this.formBannerGuatemala.get('banners') as FormArray;
+    this.bannersGuatemala.push(this.createBasicItem(this.initialCommunity(country)));
+  }
+
   removeBannerColombia(id) {
-    const banners = this.formBannerColombia.get('banners').controls;
+   const banners = this.formBannerColombia.get('banners').controls;
     if (banners.length > 1) {
       this.formBannerColombia.get('banners').controls = banners.filter((item, index) => {
         if (index != id) {
@@ -146,6 +174,42 @@ export class AdminBannersComponent implements OnInit {
     }
   }
 
+  removeBannerGuatemala(id) {
+    const banners = this.formBannerGuatemala.get('banners').controls;
+    if (banners.length > 1) {
+      this.formBannerGuatemala.get('banners').controls = banners.filter((item, index) => {
+        if (index != id) {
+          return item;
+        }
+      });
+    }
+  }
+
+  removeBannerById (id, element, country) {
+    this.successChange = false;
+    this.errorChange = '';
+    if (element &&  element.controls.id.value) {
+      this.settingsService.deleteBanner(element.get('id').value).subscribe((response) => {
+        if (country == 'Colombia') {
+          this.removeBannerColombia(id);
+        } else if (country == 'Guatemala') {
+          this.removeBannerGuatemala(id);
+        }
+      }, (error) => {
+        this.errorChange = error.error.message;
+        this.utilsService.goToTopWindow(20, 600);
+        console.log(error);
+      });
+    } else {
+      if (country == 'Colombia') {
+        this.removeBannerColombia(id);
+      } else if (country == 'Guatemala') {
+        this.removeBannerGuatemala(id);
+      }
+    }
+
+  }
+
   get numberPositionsColombia() {
     this.colombiaPositions = [];
     const banners = this.formBannerColombia.get('banners').controls;
@@ -153,6 +217,15 @@ export class AdminBannersComponent implements OnInit {
       this.colombiaPositions.push(i);
     }
     return this.colombiaPositions;
+  }
+
+  get numberPositionsGuatemala() {
+    this.guatemalaPositions = [];
+    const banners = this.formBannerGuatemala.get('banners').controls;
+    for (let i = 1; i <= banners.length; i++) {
+      this.guatemalaPositions.push(i);
+    }
+    return this.guatemalaPositions;
   }
 
   getCommunitiesBanner() {
@@ -288,18 +361,43 @@ export class AdminBannersComponent implements OnInit {
   }
 
   uploadBannerColombia () {
-    console.log(this.formBannerColombia);
-    if (!this.formBannerColombia.invalid) {
+    this.successChange = false;
+    this.errorChange = '';
+   // if (!this.formBannerColombia.invalid) {
       const body = {
         data: this.formBannerColombia.value.banners
       };
-      console.log(body);
       this.settingsService.uploadBanner(body).subscribe((response) => {
-        console.log(response);
+      /*  this.successChange = true;
+        this.utilsService.goToTopWindow(20, 600);*/
+        alert('Cambios guardados correctamente');
+        location.reload();
       }, (error) => {
+        this.errorChange = error.error.message;
+        this.utilsService.goToTopWindow(20, 600);
         console.log(error);
       });
-    }
+   // }
+  }
+
+  uploadBannerGuatemala () {
+    this.successChange = false;
+    this.errorChange = '';
+   // if (!this.formBannerGuatemala.invalid) {
+      const body = {
+        data: this.formBannerGuatemala.value.banners
+      };
+      this.settingsService.uploadBanner(body).subscribe((response) => {
+        /*this.successChange = true;
+        this.utilsService.goToTopWindow(20, 600);*/
+        alert('Cambios guardados correctamente');
+        location.reload();
+      }, (error) => {
+        this.errorChange = error.error.message;
+        this.utilsService.goToTopWindow(20, 600);
+        console.log(error);
+      });
+   // }
   }
 
 
