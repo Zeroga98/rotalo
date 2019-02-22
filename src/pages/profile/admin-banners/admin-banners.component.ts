@@ -303,8 +303,8 @@ export class AdminBannersComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxHeight = '500px';
-    dialogConfig.width = '50%';
-    dialogConfig.height = '50%';
+    dialogConfig.width = '70%';
+    dialogConfig.height = '70%';
     dialogConfig.autoFocus = false;
     if (country == 'Colombia') {
       dialogConfig.data = [];

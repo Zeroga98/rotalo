@@ -172,6 +172,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.showBannerToShop = true;
         }
+        this.changeDetectorRef.markForCheck();
       }
     });
   }

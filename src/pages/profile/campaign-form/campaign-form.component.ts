@@ -310,15 +310,15 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       if (item['startAt'].formatted) {
         item['startAt'] = moment(item['startAt'].formatted).format('YYYY-MM-DD');
       } else {
-        if (item['startAt'] .date.month) {
+        if (item['startAt'] .date && item['startAt'] .date.month) {
           item['startAt'] .date.month = item['startAt'] .date.month - 1;
           item['startAt']  = moment(item['startAt'] .date).format('YYYY-MM-DD');
         }
       }
-      if (item['untilAt'].formatted) {
+      if ( item['untilAt'].formatted) {
         item['untilAt'] = moment(item['untilAt'].formatted).format('YYYY-MM-DD');
       } else {
-        if (item['untilAt'] .date.month) {
+        if (item['untilAt'] .date && item['untilAt'] .date.month) {
           item['untilAt'] .date.month = item['untilAt'] .date.month - 1;
           item['untilAt']  = moment(item['untilAt'] .date).format('YYYY-MM-DD');
         }
