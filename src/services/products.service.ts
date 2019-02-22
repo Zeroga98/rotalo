@@ -74,6 +74,21 @@ export class ProductsService {
       });
   }
 
+  loadProductsRotandoVencidos(filter): Promise<any> {
+    const request =  {
+      opcion: filter.staged
+    };
+    const url = `${this.urlSapi}/productos/rotando-vencidos?size=${filter.size}&number=${filter.number}`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .post(url, request, { headers: headers})
+      .toPromise()
+      .then((response: any) => {
+        return response.body;
+      });
+  }
+
 
   loadFeaturedSelectedProducts() {
     const url = this.urlSapi + '/productos/destacados/manuales';
