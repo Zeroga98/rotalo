@@ -28,7 +28,7 @@ export class PromoAnimationComponent implements OnInit {
         'Exitoso'
       );
       if (response.body) {
-        this.modalService.open(id, true, response.body);
+        this.modalService.open(id, response.body.ganador, response.body);
       }
 
     }, (error) => {
