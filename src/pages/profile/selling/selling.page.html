@@ -37,19 +37,24 @@
           </div>
         </div>
       </div>
-      <div class="row-list__wrapper" *ngIf="!showEmptyProduct">
-        <div class="container-masonry">
-          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
-            [infiniteScrollDistance]="0.5">
-            <ngxMasonryItem class="grid-item" *ngFor="let productSelling of products">
-              <div class="product-container">
-                <product-rotalo-center (updateProducts)="updateInfoSelling($event)" [masonryInfo]="masonryRef"
-                  [isProductSelling]="true" [showField]="false" [product]="productSelling"></product-rotalo-center>
-              </div>
-            </ngxMasonryItem>
-          </ngx-masonry>
+    <div class="row-list__wrapper" *ngIf="!showEmptyProduct">
+      <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+        <div class="list">
+          <div class="masonry">
+            <div class="grid-item">
+              <product #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
+                class="product-feed" [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
+                [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
+                [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'" id="{{product.product_id}}">
+              </product>
+            </div>
+          </div>
+          <pagination-controls *ngIf="showPagination" class="has-text-centered" responsive="true" previousLabel="Anterior"
+            nextLabel="Siguiente" (pageChange)="getPage($event)">
+          </pagination-controls>
         </div>
       </div>
+    </div>
     </div>
     <div id="purchased" *ngIf="currentTab === 'expired'">
       <div *ngIf="isSpinnerShow" class="spinner">
@@ -60,19 +65,7 @@
         <p class="text">No tienes productos vencidos.</p>
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyExpired">
-        <div class="container-masonry">
-          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll
-            [infiniteScrollDistance]="0.5">
-            <ngxMasonryItem class="grid-item" *ngFor="let productExpired of productsExpired">
-              <div class="product-container">
-                <product-rotalo-center 
-                (updateProducts)="updateExpired($event)"
-                [masonryInfo]="masonryRef" [expiredProduct]="true" [isProductSelling]="true" [showField]="false"
-                  [product]="productExpired"></product-rotalo-center>
-              </div>
-            </ngxMasonryItem>
-          </ngx-masonry>
-        </div>
+
       </div>
     </div>
   </div>

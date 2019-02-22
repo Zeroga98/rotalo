@@ -112,11 +112,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-
-    /*this.imagesBanner = IMGS_BANNER;
-    this.imagesBannerMobile = IMGS_BANNER_MOBILE;
- */
-
     this.loadBanners();
   }
 
