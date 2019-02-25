@@ -315,7 +315,6 @@
     border-radius: 50%;
   }
   .media {
-    padding-top: 10px;
     background: white;
     .media-body {
       padding-bottom: 10px;
@@ -332,12 +331,9 @@
     vertical-align: middle;
   }
   .post-status {
-    color: #9b9b9b;
-    font-size: 2rem;
+    font-size: 1.4rem;
+    color: #A2A2A2;
     margin-bottom: 0;
-  }
-  .post-status.active {
-    color: #ED2F3C;
   }
 }
 
@@ -512,6 +508,15 @@
     transform: translate(-50%, -50%);
     width: auto;
     transition: all .15s ease-in-out;
+  }
+}
+
+:host(.product-rotando) {
+  .container-product {
+    height: 525px;
+  }
+  .form-theme{
+    width: 95%;
   }
 }
 

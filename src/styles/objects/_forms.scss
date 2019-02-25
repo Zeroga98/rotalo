@@ -129,8 +129,12 @@ $colors: #33D7C7, #5C2D8B ,#DBB202, #D3609F, #EC6531, #41B5CB,
       }
 
     }
+}
 
-
+.form-theme.rotando .form-group .switch-label {
+    width: 95%;
+    min-width: 40px;
+    margin: 0;
 }
 
 rl-tag-input-item {

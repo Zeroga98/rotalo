@@ -29,7 +29,7 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements AfterViewInit, AfterContentInit {
-  @Input() product: ProductInterface;
+  @Input() product;
   @Input() masonryInfo;
   @Input() showField: boolean;
   @Input() isProductSelling: boolean;
@@ -80,7 +80,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   ngAfterContentInit() {
     this.productChecked = this.product.status;
     this.checkStatusProduct();
-    this.productStatus = this.product.status === 'active';
+    if (this.product.status) {
+      this.productStatus = this.product.status === 'active';
+    } else if (this.product['product_status']) {
+      this.productStatus = this.product['product_status'] === 'active';
+    }
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
     }
@@ -119,7 +123,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   saveCheck() {
-    debugger
+    let productId;
+    if (this.product.id) {
+      productId = this.product.id;
+    } else if (this.product['product_id']) {
+      productId = this.product['product_id'];
+    }
     this.productStatus = !this.productStatus;
     this.productStatus
       ? (this.productChecked = 'active')
@@ -129,10 +138,10 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
-      .updateProductStatus(this.idUser, this.product.id, params)
+      .updateProductStatus(this.idUser, productId, params)
       .then(response => {
         if (response.status == '0') {
-          this.product['published-at'] = response.body.producto['published-at'];
+          this.product['product_published_at'] = response.body.producto['published-at'];
           this.product['publish-until'] =
             response.body.producto['publish-until'];
           this.changeDetectorRef.markForCheck();
@@ -171,7 +180,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       if (!result) {
         return;
       }
-      const response = await this.productsService.deleteProduct(product.id);
+      let productId;
+      if (product.id) {
+        productId = product.id;
+      } else if (product['product_id']) {
+        productId = product['product_id'];
+      }
+      const response = await this.productsService.deleteProduct(productId);
       this.updateProducts.emit(true);
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
@@ -196,9 +211,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   }
 
   editProduct(product: ProductInterface) {
-    this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
-    ]);
+    if (product.id) {
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+      ]);
+    } else if (product['product_id']) {
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product['product_id']}`
+      ]);
+    }
   }
 
   republish(product: ProductInterface) {

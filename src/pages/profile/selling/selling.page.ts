@@ -43,7 +43,7 @@ export class SellingPage implements OnInit {
     this.filterProduct = {
       'staged': 'rotando',
       'number': page,
-      'size': '10'
+      'size': '9'
     };
     this.getProductsSelling(this.filterProduct);
     window.scrollTo(0, 0);
@@ -75,7 +75,7 @@ export class SellingPage implements OnInit {
     this.filterProduct = {
       'staged': 'rotando',
       'number': '1',
-      'size': '10'
+      'size': '9'
     };
     this.getProductsSelling(this.filterProduct);
   }
@@ -110,6 +110,12 @@ export class SellingPage implements OnInit {
   updateExpired($event) {
     if ($event) {
       location.reload();
+    }
+  }
+
+  updateProduct($event) {
+    if ($event) {
+      this.getProductsSelling(this.filterProduct);
     }
   }
 
