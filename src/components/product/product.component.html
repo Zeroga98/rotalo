@@ -12,7 +12,7 @@
           <div class="edit" (click)="editProduct(product)"></div>
         </div>
 
-        <div *ngIf="isProductSold&&!isProductChecked" class="options-container">
+        <div *ngIf="isProductSold && !isProductChecked" class="options-container">
           <div class="republish" (click)="republishSold(product)"></div>
         </div>
 
@@ -25,7 +25,7 @@
         <img (click)="selectProduct($event)" (load)="triggerMasonryLayout()" *ngIf="product['product_photo_url']" [src]="product['product_photo_url']"
           [alt]="product['product_name']" (error)="updateSrc($event)">
       </div>
-      <div *ngIf="isSuperUser()&&!isProductChecked" (click)="checkStar()" class="options-container">
+      <div *ngIf="!isProductSold && isSuperUser() && !isProductChecked && !isProductSelling && !isProductPurchased" (click)="checkStar()" class="options-container">
         <div [ngClass]="starSelected ? 'active' : ''" class="star"></div>
       </div>
       <div *ngIf="isSuperUser() && isProductChecked && product['product_status'] != 'active'" class="status-mark">
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="container-name">
-      <div (click)="shareProduct('custom-modal-2')" *ngIf="!isProductSelling  && !isProductSold &&!isProductChecked"
+      <div (click)="shareProduct('custom-modal-2')" *ngIf="!isProductSelling &&!isProductPurchased  && !isProductSold &&!isProductChecked"
         class="gtmCompartirProducto icon-share-container">
         <div class="gtmCompartirProducto icon-share">
         </div>
@@ -75,7 +75,11 @@
                 | currency:"$" | removeDigits}}</span>
             </div>
           </div>
+          <div *ngIf="isProductSold && product.calification > 0" class="gold-ranking">
+            <show-star [numberStar]="product.calification" class="price"> </show-star>
+          </div>
         </div>
+
         <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
           <span class="icon-margin">$</span>
           <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
@@ -98,33 +102,33 @@
           <span class="icon-calendar"></span>
           <p>
             <span>Fecha de Caducidad</span>
-            {{product['publish-until'] | date}}</p>
+            {{product['product_publish_until'] | date}}</p>
         </div>
         <div *ngIf="isProductSold && !isProductChecked" class="container-date">
           <span class="icon-calendar"></span>
           <p>
             <span>Fecha de venta</span>
-            {{product['received-at'] | date}}</p>
+            {{product['transaction_date'] | date}}</p>
         </div>
         <div *ngIf="isProductPurchased && !isProductChecked" class="container-date">
           <span class="icon-calendar"></span>
           <p>
             <span>Fecha de compra</span>
-            {{product['received-at'] | date}}</p>
+            {{product['transaction_date'] | date}}</p>
         </div>
 
-        <div *ngIf="isProductSold && product.comprador && !isProductChecked" class="container-date">
+        <div *ngIf="isProductSold && product['buyer_name'] && !isProductChecked" class="container-date">
           <span class="icon-account"></span>
           <p>
             <span>Comprador</span>
-            {{product.comprador}}
+            {{product['buyer_name']}}
         </div>
 
-        <div *ngIf="product.user && isProductPurchased && !isProductChecked" class="container-date">
+        <div *ngIf="product['seller_name'] && isProductPurchased && !isProductChecked" class="container-date">
           <span class="icon-account"></span>
           <p>
             <span>Vendedor</span>
-            {{product.user.name}}
+            {{product['seller_name']}}
         </div>
       </div>
       <div (click)="selectProduct($event)" *ngIf="showField && !isProductChecked" class="container-info-user">

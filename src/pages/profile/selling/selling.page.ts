@@ -17,15 +17,18 @@ export class SellingPage implements OnInit {
   public showEmptyExpired = false;
   public currentTab: String;
   public masonryConfig = MASONRY_CONFIG;
-  public productsExpired: Array<ProductInterface> = [];
+  public productsExpired: Array<any> = [];
   public pageNumber: number = 1;
   public totalItems: number = 1;
+  public pageNumberExpired: number = 1;
+  public totalItemsExpired: number = 1;
   public  showPagination = true;
   private currentFilterExpired: any = {
-    'filter[staged]': 'expired',
-    'page[number]': '1',
-    'page[size]': '100'
+    'staged': 'vencidos',
+    'number': 1,
+    'size': '9'
   };
+
   constructor(
     private productsService: ProductsService,
     private userService: UserService
@@ -49,6 +52,16 @@ export class SellingPage implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  getPageExpired(page: number) {
+    this.pageNumberExpired = page;
+    this.currentFilterExpired = {
+      'staged': 'vencidos',
+      'number': page,
+      'size': '9'
+    };
+    this.loadProductsExpired();
+    window.scrollTo(0, 0);
+  }
 
   thereIsSelling(products) {
     if (products) {
@@ -93,11 +106,14 @@ export class SellingPage implements OnInit {
 
   async loadProductsExpired() {
     this.productsService
-      .getProducts(this.currentFilterExpired)
+      .loadProductsRotandoVencidos(this.currentFilterExpired)
       .then(products => {
-        this.productsExpired = [].concat(products);
-        this.thereIsExpired( this.productsExpired);
-        this.isSpinnerShow = false;
+        if (products && products.productos) {
+          this.totalItemsExpired = products.totalProductos;
+          this.productsExpired = [].concat(products.productos);
+          this.thereIsExpired( this.productsExpired);
+          this.isSpinnerShow = false;
+        }
       });
   }
 
@@ -116,6 +132,12 @@ export class SellingPage implements OnInit {
   updateProduct($event) {
     if ($event) {
       this.getProductsSelling(this.filterProduct);
+    }
+  }
+
+  updateProductExpired($event) {
+    if ($event) {
+      this.loadProductsExpired();
     }
   }
 

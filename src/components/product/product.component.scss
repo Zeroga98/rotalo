@@ -259,6 +259,12 @@
     width: 12rem;
     background: transparent;
   }
+
+  .container-date {
+    color: #A2A2A2;
+  }
+
+
 }
 
 :host {
@@ -517,6 +523,12 @@
   }
   .form-theme{
     width: 95%;
+  }
+}
+
+:host(.product-sold) {
+  .container-product {
+    height: 550px;
   }
 }
 

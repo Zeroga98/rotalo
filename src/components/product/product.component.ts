@@ -142,7 +142,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       .then(response => {
         if (response.status == '0') {
           this.product['product_published_at'] = response.body.producto['published-at'];
-          this.product['publish-until'] =
+          this.product['product_publish_until'] =
             response.body.producto['publish-until'];
           this.changeDetectorRef.markForCheck();
         }
@@ -222,14 +222,20 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-  republish(product: ProductInterface) {
+  republish(product) {
+    let productId;
+    if (product.id) {
+      productId = product.id;
+    } else if (product['product_id']) {
+      productId = product['product_id'];
+    }
     const param = {
-      idProducto: product.id
+      idProducto: productId
     };
     this.productsService.republishService(param).subscribe(
       state => {
         this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${productId}`
         ]);
       },
       error => console.log(error)

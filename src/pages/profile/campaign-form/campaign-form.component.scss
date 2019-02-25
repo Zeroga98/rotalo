@@ -44,7 +44,6 @@
     top: 10px;
   }
 
-
 }
 
 :host {
@@ -55,6 +54,15 @@
       font-size: 1.6rem;
       padding-bottom: 20px;
       display: block;
+    }
+
+    .label-title.info {
+      font-weight: bold;
+    }
+
+    .info-campaign {
+      color: #383838;
+      font-size: 1.6rem;
     }
 
     .form-control {
@@ -313,6 +321,10 @@
         margin-right: 3%;
       }
     }
+  }
+
+  .loser-info{
+    margin-bottom: 1rem;
   }
 
 }

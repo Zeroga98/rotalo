@@ -89,6 +89,20 @@ export class ProductsService {
       });
   }
 
+  loadProductsVendidosComprados(filter): Promise<any> {
+    const request =  {
+      opcion: filter.staged
+    };
+    const url = `${this.urlSapi}/productos/vendidos-comprados?size=${filter.size}&number=${filter.number}`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .post(url, request, { headers: headers})
+      .toPromise()
+      .then((response: any) => {
+        return response.body;
+      });
+  }
 
   loadFeaturedSelectedProducts() {
     const url = this.urlSapi + '/productos/destacados/manuales';
@@ -261,14 +275,6 @@ export class ProductsService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/centro/rotalo/productos';
     return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
-  }
-
-  getInfoAdditional(idUser) {
-    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userid: idUser });
-    const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = this.urlSapi + '/centro/rotalo/vendidos-comprados';
-    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
   visitorCounter(productId) {

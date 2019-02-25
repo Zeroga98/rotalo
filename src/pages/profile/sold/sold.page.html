@@ -27,13 +27,22 @@
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptySold">
         <div class="container-masonry">
-          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
-            <ngxMasonryItem class="grid-item" *ngFor="let productSold of productsSold">
-              <div class="product-container">
-                <product-rotalo-center  [masonryInfo]="masonryRef" [isProductSold]="true" [isProductSelling]="false" [showField]="false" [product]="productSold"></product-rotalo-center>
+          <div class="list">
+            <div class="masonry">
+              <div class="grid-item">
+                <product  *ngFor="let productSold of productsSold | paginate: { itemsPerPage: 9, currentPage: pageNumberSold, totalItems: totalItemsSold }"
+                  class="product-feed product-sold"
+                  (updateProducts)="updateProduct($event)"
+                  [isProductSold]="true" [isProductSelling]="false" [showField]="false"
+                  [product]="productSold"
+                  [colourCompany]="productSold['seller_company_color']  ? productSold['seller_company_color'] : '#FF3646'" id="{{productSold.product_id}}">
+                </product>
               </div>
-            </ngxMasonryItem>
-          </ngx-masonry>
+            </div>
+            <pagination-controls *ngIf="showPagination" class="has-text-centered" responsive="true" previousLabel="Anterior"
+              nextLabel="Siguiente" (pageChange)="getPageSold($event)">
+            </pagination-controls>
+          </div>
         </div>
       </div>
     </div>
@@ -47,13 +56,22 @@
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyPurchase">
         <div class="container-masonry">
-          <ngx-masonry class="masonry" #masonryRef [useImagesLoaded]="false" [options]="masonryConfig" infiniteScroll [infiniteScrollDistance]="0.5">
-            <ngxMasonryItem class="grid-item" *ngFor="let productPurchased of productsPurchased">
-              <div class="product-container">
-                <product-rotalo-center [masonryInfo]="masonryRef" [isProductPurchased]="true" [isProductSelling]="false" [showField]="false" [product]="productPurchased"></product-rotalo-center>
+          <div class="list">
+            <div class="masonry">
+              <div class="grid-item">
+                <product  *ngFor="let productPurchased of productsPurchased | paginate: { itemsPerPage: 9, currentPage: pageNumberPurchased, totalItems: totalItemsPurchased }"
+                  class="product-feed product-sold"
+                  (updateProducts)="updateProductPurchased($event)"
+                  [isProductPurchased]="true" [isProductSelling]="false" [showField]="false"
+                  [product]="productPurchased"
+                  [colourCompany]="productPurchased['seller_company_color']  ? productPurchased['seller_company_color'] : '#FF3646'" id="{{productPurchased.product_id}}">
+                </product>
               </div>
-            </ngxMasonryItem>
-          </ngx-masonry>
+            </div>
+            <pagination-controls *ngIf="showPagination" class="has-text-centered" responsive="true" previousLabel="Anterior"
+              nextLabel="Siguiente" (pageChange)="getPagePurchased($event)">
+            </pagination-controls>
+          </div>
         </div>
       </div>
     </div>

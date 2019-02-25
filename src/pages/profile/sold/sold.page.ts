@@ -1,34 +1,38 @@
-import { ROUTES } from "./../../../router/routes";
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "../../../services/user.service";
-import { ProductsService } from "../../../services/products.service";
-import { ProductInterface } from "../../../commons/interfaces/product.interface";
-import { DomSanitizer } from "@angular/platform-browser";
-import { MASONRY_CONFIG } from "../selling/masonry.config";
-import { CurrentSessionService } from "../../../services/current-session.service";
+import { ROUTES } from './../../../router/routes';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../services/user.service';
+import { ProductsService } from '../../../services/products.service';
+import { ProductInterface } from '../../../commons/interfaces/product.interface';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MASONRY_CONFIG } from '../selling/masonry.config';
+import { CurrentSessionService } from '../../../services/current-session.service';
 
 @Component({
-  selector: "sold",
-  templateUrl: "./sold.page.html",
-  styleUrls: ["./sold.page.scss"]
+  selector: 'sold',
+  templateUrl: './sold.page.html',
+  styleUrls: ['./sold.page.scss']
 })
 export class SoldPage implements OnInit {
   public notificationsUrl: string = `/${ROUTES.ROTALOCENTER}`;
   public isSpinnerShow = true;
   public currentTab: String;
-  public productsSold: Array<ProductInterface> = [];
-  public productsPurchased: Array<ProductInterface> = [];
+  public productsSold: Array<any> = [];
+  public productsPurchased: Array<any> = [];
+  public pageNumberSold: number = 1;
+  public totalItemsSold: number = 1;
+  public pageNumberPurchased: number = 1;
+  public totalItemsPurchased: number = 1;
+  public  showPagination = true;
   private currentFilterSold: any = {
-    "filter[staged]": "sold",
-    "page[number]": "1",
-    "page[size]": "100"
+    'staged': 'vendiste',
+    'number': 1,
+    'size': '9'
   };
   private currentFilterPurchased: any = {
-    "filter[staged]": "purchased",
-    "page[number]": "1",
-    "page[size]": "100"
+    'staged': 'compraste',
+    'number': 1,
+    'size': '9'
   };
-  public masonryConfig = MASONRY_CONFIG;
   private userId;
   public showEmptySold = false;
   public showEmptyPurchase = false;
@@ -39,85 +43,30 @@ export class SoldPage implements OnInit {
     private currentSessionService: CurrentSessionService
   ) {
     this.userId = this.currentSessionService.getIdUser();
-    this.getInfoAdditional(this.userId);
   }
 
   ngOnInit() {
-    this.currentTab = "sold";
+    this.currentTab = 'sold';
+    this.loadProductsSold();
+    this.loadProductsPurchased();
   }
 
-  async loadProductsSold(solProduct) {
-    this.productsService.getProducts(this.currentFilterSold).then(products => {
-      this.productsSold = [].concat(products);
-      const arraySolds = this.productsSold;
-      let newArray = [];
-      for (let i = 0; i < arraySolds.length; i++) {
-        const settingObject = solProduct.find(function(sold) {
-          return sold.idProducto == arraySolds[i].id;
-        }, arraySolds[i]);
-        if (settingObject) {
-          this.productsSold[i]["received-at"] = settingObject.fechaVenta;
-          if (settingObject.comprador) {
-            this.productsSold[i] = Object.assign(
-              this.productsSold[i],
-              { calificacionGeneral: settingObject.calificacionGeneral },
-              { comprador: settingObject.comprador.nombre }
-            );
-          } else {
-            this.productsSold[i] = Object.assign(
-              this.productsSold[i],
-              { calificacionGeneral: settingObject.calificacionGeneral },
-              { comprador: null }
-            );
-          }
-          newArray.push(this.productsSold[i]);
-        }
-      }
-      this.productsSold = newArray;
+  loadProductsSold() {
+    this.productsService.loadProductsVendidosComprados(this.currentFilterSold).then(products => {
+      this.totalItemsSold = products.totalProductos;
+      this.productsSold = [].concat(products.productos);
       this.thereIsSold(this.productsSold);
       this.isSpinnerShow = false;
     });
   }
 
-  async loadProductSold() {
-    this.productsService.getProducts(this.currentFilterSold).then(products => {
-      this.productsSold = [].concat(products);
-      this.thereIsSold(this.productsSold);
+  loadProductsPurchased() {
+    this.productsService.loadProductsVendidosComprados(this.currentFilterPurchased).then(products => {
+      this.totalItemsPurchased = products.totalProductos;
+      this.productsPurchased = [].concat(products.productos);
+      this.thereIsPurchased(this.productsPurchased);
       this.isSpinnerShow = false;
     });
-  }
-
-  async loadProductPurchased() {
-    this.productsService
-      .getProducts(this.currentFilterPurchased)
-      .then(products => {
-        this.productsPurchased = [].concat(products);
-        this.thereIsPurchased(this.productsPurchased);
-        this.isSpinnerShow = false;
-      });
-  }
-
-  async loadProductsPurchased(purchasedProduct) {
-    this.productsService
-      .getProducts(this.currentFilterPurchased)
-      .then(products => {
-        this.productsPurchased = [].concat(products);
-        const arrayPurchased = this.productsPurchased;
-        let newArray = [];
-        for (let i = 0; i < arrayPurchased.length; i++) {
-          const settingObject = purchasedProduct.find(function(purchased) {
-            return purchased.idProducto == arrayPurchased[i].id;
-          }, arrayPurchased[i]);
-          if (settingObject) {
-            this.productsPurchased[i]["received-at"] =
-              settingObject.fechaCompra;
-            newArray.push(this.productsPurchased[i]);
-          }
-        }
-        this.productsPurchased = newArray;
-        this.thereIsPurchased(this.productsPurchased);
-        this.isSpinnerShow = false;
-      });
   }
 
   thereIsSold(product) {
@@ -142,26 +91,44 @@ export class SoldPage implements OnInit {
 
   sanitizePhoto(photo: String): any {
     let trustPhoto;
-    trustPhoto = this.sanitizer.bypassSecurityTrustStyle("url(" + photo + ")");
+    trustPhoto = this.sanitizer.bypassSecurityTrustStyle('url(' + photo + ')');
     return trustPhoto;
   }
 
-  getInfoAdditional(idUsuario) {
-    this.productsService.getInfoAdditional(idUsuario).subscribe(
-      state => {
-        if (state.status === "0") {
-          this.loadProductsSold(state.body.articulosVendidos);
-          this.loadProductsPurchased(state.body.articulosComprados);
-        } else {
-          this.loadProductSold();
-          this.loadProductPurchased();
-        }
-      },
-      error => console.log(error)
-    );
+  updateProduct($event) {
+    if ($event) {
+      this.loadProductsSold();
+    }
   }
 
-  updateInfo() {
-    this.getInfoAdditional(this.userId);
+  updateProductPurchased($event) {
+    if ($event) {
+      this.loadProductsSold();
+    }
   }
+
+  getPageSold(page: number) {
+    this.pageNumberSold = page;
+    this.currentFilterSold =
+    {
+      'staged': 'vendiste',
+      'number': page,
+      'size': '9'
+    }
+    this.loadProductsSold();
+    window.scrollTo(0, 0);
+  }
+
+  getPagePurchased(page: number) {
+    this.pageNumberPurchased = page;
+    this.currentFilterPurchased =
+    {
+      'staged': 'compraste',
+      'number': page,
+      'size': '9'
+    }
+    this.loadProductsPurchased();
+    window.scrollTo(0, 0);
+  }
+
 }

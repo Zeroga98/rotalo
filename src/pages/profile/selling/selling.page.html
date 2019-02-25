@@ -42,7 +42,7 @@
         <div class="list">
           <div class="masonry">
             <div class="grid-item">
-              <product #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: pageNumber, totalItems: totalItems }"
+              <product #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 9, currentPage: pageNumber, totalItems: totalItems }"
                 class="product-feed product-rotando"
                 (updateProducts)="updateProduct($event)"
                 [isProductSelling]="true" [showField]="false" [product]="product"
@@ -66,7 +66,26 @@
         <p class="text">No tienes productos vencidos.</p>
       </div>
       <div class="row-list__wrapper" *ngIf="!showEmptyExpired">
-
+        <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+          <div class="list">
+            <div class="masonry">
+              <div class="grid-item">
+                <product  *ngFor="let productExpired of productsExpired | paginate: { itemsPerPage: 9, currentPage: pageNumberExpired, totalItems: totalItemsExpired }"
+                  class="product-feed product-rotando"
+                  (updateProducts)="updateProductExpired($event)"
+                  [expiredProduct]="true"
+                  [isProductSelling]="true"
+                  [showField]="false"
+                  [product]="productExpired"
+                  [colourCompany]="productExpired['seller_company_color']  ? productExpired['seller_company_color'] : '#FF3646'" id="{{productExpired.product_id}}">
+                </product>
+              </div>
+            </div>
+            <pagination-controls *ngIf="showPagination" class="has-text-centered" responsive="true" previousLabel="Anterior"
+              nextLabel="Siguiente" (pageChange)="getPageExpired($event)">
+            </pagination-controls>
+          </div>
+        </div>
       </div>
     </div>
   </div>

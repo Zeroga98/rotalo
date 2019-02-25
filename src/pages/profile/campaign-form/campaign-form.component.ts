@@ -31,6 +31,11 @@ export class CampaignFormComponent implements OnInit, OnChanges {
   public communitiesForm: FormArray;
   public communities;
   public disableBtn = false;
+  public userName;
+  public userEmail;
+  public redeemedAt;
+  public statusCampaign;
+  public campaignsLosers: Array<any> = [];
   @Input() campaign;
   @ViewChild('imageInput') imageInput: ImageUploadComponent;
   @Output() publish: EventEmitter<any> = new EventEmitter();
@@ -47,8 +52,14 @@ export class CampaignFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.campaign) {
+      this.userName = this.campaign.userName;
+      this.userEmail = this.campaign.userEmail;
+      this.redeemedAt = this.campaign.redeemedAt;
+      this.statusCampaign = this.campaign.status;
+      this.campaignsLosers = this.campaign.campaignsLosers;
       this.setInitialForm(this.getInitialConfig());
       this.saveInitialPhotos();
+
     }
   }
 

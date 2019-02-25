@@ -53,6 +53,20 @@
                 <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="productId" type="text" class="form-control" name="productId" maxlength="50">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
+              <div *ngIf="statusCampaign && statusCampaign == 'Ganada'" class="form-group">
+                <label class="label-title info">Ganador: </label>
+                <p class="info-campaign">{{userName}}</p>
+                <p class="info-campaign">{{userEmail}}</p>
+                <p class="info-campaign">{{redeemedAt | date:'medium' }}</p>
+              </div>
+              <div *ngIf="campaignsLosers && campaignsLosers.length > 0" class="form-group">
+                <label class="label-title info">Perdedor: </label>
+                <div class="loser-info" *ngFor="let campaignLosers of campaignsLosers">
+                  <p class="info-campaign">{{campaignLosers.userName}}</p>
+                  <p class="info-campaign">{{campaignLosers.userEmail}}</p>
+                  <p class="info-campaign">{{campaignLosers.attemptedAt | date:'medium' }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
