@@ -242,9 +242,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     );
   }
 
-  republishSold(product: ProductInterface) {
+  republishSold(product) {
+    let productId;
+    if (product.id) {
+      productId = product.id;
+    } else if (product['product_id']) {
+      productId = product['product_id'];
+    }
     const param = {
-      idProducto: product.id
+      idProducto: productId
     };
     this.productsService.republishNewProduct(param).subscribe(
       state => {

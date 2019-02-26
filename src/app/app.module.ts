@@ -190,6 +190,7 @@ import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-e
 import { SearchByNamePipe } from '../pages/profile/admin-campaign/search-by-date.pipe';
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
 import { CommunitiesModalComponent } from '../pages/profile/admin-banners/communities-modal/communities-modal.component';
+import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
 
 @NgModule({
   declarations: [
@@ -304,7 +305,8 @@ import { CommunitiesModalComponent } from '../pages/profile/admin-banners/commun
     CampaignEditComponent,
     SearchByNamePipe,
     AdminBannersComponent,
-    CommunitiesModalComponent
+    CommunitiesModalComponent,
+    ReportPublicationComponent
   ],
   imports: [
     BrowserModule,
@@ -405,7 +407,7 @@ import { CommunitiesModalComponent } from '../pages/profile/admin-banners/commun
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent]
+  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent]
 })
 
 export class AppModule { }

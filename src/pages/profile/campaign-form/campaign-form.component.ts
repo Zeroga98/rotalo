@@ -113,7 +113,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
         date: {
           year: startAt.getFullYear(),
           month: startAt.getMonth() + 1,
-          day: startAt.getDate() + 1
+          day: startAt.getDate()
           }
       };
       comunity.startAt = objectStartAt;
@@ -122,7 +122,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
         date: {
           year: untilAt.getFullYear(),
           month: untilAt.getMonth() + 1,
-          day: untilAt.getDate() + 1
+          day: untilAt.getDate()
           }
       };
       comunity.untilAt = objectUntilAt;
@@ -131,7 +131,7 @@ export class CampaignFormComponent implements OnInit, OnChanges {
       communityId: [comunity.communityId, [Validators.required]],
       startAt: [comunity.startAt, [Validators.required]],
       untilAt: [comunity.untilAt, [Validators.required]],
-      productId: [comunity.productId, [Validators.required,  Validators.pattern('^[0-9]*$'),]]
+      productId: [comunity.productId, [Validators.required,  Validators.pattern('^[0-9]*$')]]
     });
   });
    return  comunities;

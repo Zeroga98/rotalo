@@ -28,6 +28,8 @@ import { ShareInfoChatService } from '../chat-thread/shareInfoChat.service';
 import { BuyService } from '../../services/buy.service';
 import { NavigationService } from '../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ReportPublicationComponent } from '../report-publication/report-publication.component';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -105,6 +107,7 @@ export class DetailProductComponent implements OnInit {
     private fb: FormBuilder,
     private buyService: BuyService,
     private navigationService: NavigationService,
+    public dialog: MatDialog
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
@@ -604,6 +607,20 @@ export class DetailProductComponent implements OnInit {
   hideAnimation() {
     this.showSticker = false;
     this.changeDetectorRef.markForCheck();
+  }
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxHeight = '620px';
+    dialogConfig.width = '70%';
+    dialogConfig.height = '80%';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.products.id;
+    const dialogRef = this.dialog.open(ReportPublicationComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

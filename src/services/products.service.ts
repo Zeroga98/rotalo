@@ -312,6 +312,13 @@ export class ProductsService {
     return this.http.post(url, params, { headers: headers }).toPromise().then((response: any) => response);
   }
 
+  reportProduct(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/reportar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
   setProductLocation(products, name, currentPage) {
     this.products = products;
     this.scroll = name;

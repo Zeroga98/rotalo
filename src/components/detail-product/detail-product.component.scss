@@ -300,7 +300,17 @@
     }
   }
 
-
+  .report-container {
+    padding-left: 5px;
+    p , a {
+      font-size: 1.6rem;
+    }
+    a {
+      cursor: pointer;
+      color: #FF3646;
+      text-decoration: underline;
+    }
+  }
 
 }
 
@@ -314,6 +324,10 @@
 }
 
 :host() {
+  .mobile {
+    display: none;
+  }
+
   .btns-container {
     display: flex;
     flex-wrap: wrap;
@@ -1011,6 +1025,12 @@ input:checked+.switch-slider:before {
 
 @media screen and (max-width: 750px) {
   :host {
+    .mobile {
+      display: block;
+    }
+    .desktop {
+      display: none;
+    }
     .product *{
       font-size: 1.6rem;
     }
