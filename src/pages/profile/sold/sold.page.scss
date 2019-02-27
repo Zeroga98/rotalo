@@ -242,29 +242,38 @@
 
 }
 
-@media screen and (max-width: 450px) {
+
+@media screen and (max-width: 1095px) {
   :host {
-    .container--app {
+
+    .container-masonry .masonry product {
+      width: 45%;
+    }
+
+  }
+}
+
+@media screen and (max-width: 790px) {
+  :host {
+    .container-masonry .masonry product {
       width: 100%;
-      margin: 0;
-      padding: 0 1rem;
     }
   }
 }
 
-@media screen and (max-width: 780px) {
+
+@media screen and (max-width: 700px) {
   :host {
-    padding: 0 2%;
-    .container-masonry {
-      .masonry {
-        .grid-item {
-          width: 48%;
-        }
-      }
+    .container-masonry .masonry product {
+      width: 45%;
     }
-    .tittle h1.text {
-      text-align: center;
-      margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  :host {
+    .container-masonry .masonry product {
+      width: 100%;
     }
   }
 }
