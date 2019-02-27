@@ -614,7 +614,7 @@ export class DetailProductComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxHeight = '620px';
-    dialogConfig.width = '70%';
+    dialogConfig.width = '90%';
     dialogConfig.height = '80%';
     dialogConfig.autoFocus = false;
     dialogConfig.data = this.products.id;

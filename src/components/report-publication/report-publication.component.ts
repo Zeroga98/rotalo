@@ -11,6 +11,7 @@ import { ProductsService } from '../../services/products.service';
 export class ReportPublicationComponent implements OnInit , AfterViewInit {
   private params;
   public reportForm: FormGroup;
+  public showSuccess = false;
 
   constructor(private dialogRef: MatDialogRef<ReportPublicationComponent>,
   @Inject(MAT_DIALOG_DATA) data,   private fb: FormBuilder, private productsService: ProductsService) {
@@ -28,6 +29,7 @@ export class ReportPublicationComponent implements OnInit , AfterViewInit {
   }
 
   save() {
+    this.showSuccess = false;
     if (!this.reportForm.invalid) {
       let razon = 'Esta persona ya no trabaja en la empresa';
       if (this.reportForm.get('option').value) {
@@ -40,7 +42,7 @@ export class ReportPublicationComponent implements OnInit , AfterViewInit {
     };
     // this.dialogRef.close(this.params);
      this.productsService.reportProduct(params).subscribe((response) => {
-        alert('test');
+        this.showSuccess = true;
       },
       (error) => {
         console.log(error);

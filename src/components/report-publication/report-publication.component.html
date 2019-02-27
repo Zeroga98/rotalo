@@ -10,10 +10,11 @@
     <p>
       ¡Auch! Cuéntanos por qué quieres reportar esta publicación
     </p>
+
   </div>
   <form [formGroup]="reportForm" class="form-theme">
       <div class="material-design">
-
+        <p class="success" *ngIf="showSuccess" >Tu reporte ha sido enviado, gracias por ayudarnos a conservar la confianza</p>
         <div class="md-radio">
           <input (change) ="changeRadioButton()" [value]="false" formControlName="option" id="used1" type="radio" name="option">
           <label for="used1">Esta persona ya no trabaja en la empresa</label>

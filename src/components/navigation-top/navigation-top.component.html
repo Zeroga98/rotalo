@@ -70,6 +70,16 @@
               <span *ngIf="isBancolombiaShop && cartAvailable" class="noti-circle">{{totalCart}}</span>
             </div>
           </li>
+   <!--       <li class="car-container cart-active">
+              <div [matMenuTriggerFor]="appMenu" [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
+                <span   class="icon-shopping-car">
+                </span>
+              </div>
+              <mat-menu xPosition="before" #appMenu="matMenu">
+                  <button (click)="$event.stopPropagation();" mat-menu-item>Settings Settings Settings Settings Settings Settings Settings Settings Settings Settings Settings Settings </button>
+                  <button (click)="$event.stopPropagation();"  mat-menu-item>Help</button>
+              </mat-menu>
+          </li> -->
         </ul>
         <div class="flexbox center-center">
           <div [ngClass]= "isBancolombiaShop?  'disabled': '' " class="container-offer">
