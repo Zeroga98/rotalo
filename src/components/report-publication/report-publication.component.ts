@@ -78,5 +78,4 @@ export class ReportPublicationComponent implements OnInit , AfterViewInit {
   }
 
 
-
 }

@@ -613,9 +613,8 @@ export class DetailProductComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
-    dialogConfig.maxHeight = '620px';
-    dialogConfig.width = '90%';
-    dialogConfig.height = '80%';
+    dialogConfig.width = '70%';
+    dialogConfig.height = '90%';
     dialogConfig.autoFocus = false;
     dialogConfig.data = this.products.id;
     const dialogRef = this.dialog.open(ReportPublicationComponent, dialogConfig);
