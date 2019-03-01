@@ -37,6 +37,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   rotaloProfile: string = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   rotaloCart: string = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`;
+
   uploadProductPage = ROUTES.PRODUCTS.UPLOAD;
   isModalMessageShowed: boolean = false;
   listenerNotifications: any;
@@ -363,6 +364,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+
+  goToNotifications() {
+    this.router.navigate([
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
+    ]);
   }
 
 

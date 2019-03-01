@@ -6,6 +6,7 @@
         align-items: center;
         padding: 1.6em .9em;
         position: relative;
+        min-height: 70px;
         p {
             &.notification-text {
                 font-size: 1.4em;
@@ -57,3 +58,14 @@
         }
     }
 }
+
+.mat-menu-panel {
+  max-width: 469.9px !important;
+  max-height: 382.59px !important;
+}
+
+.cdk-overlay-pane {
+  padding-top: 20px;
+}
+
+

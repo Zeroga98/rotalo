@@ -85,7 +85,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { SettingsService } from '../services/settings.service';
 import { SimulateCreditService } from '../services/simulate-credit.service';
-import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { NavigationService } from '../pages/products/navigation.service';
 import { SliderComponent } from '../components/slider/slider.component';
 import { StarRatingComponent } from '../components/star-rating/star-rating.component';
@@ -180,7 +179,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
-import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule } from '@angular/material';
+import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
@@ -191,6 +190,8 @@ import { SearchByNamePipe } from '../pages/profile/admin-campaign/search-by-date
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
 import { CommunitiesModalComponent } from '../pages/profile/admin-banners/communities-modal/communities-modal.component';
 import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
+import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
+import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 
 @NgModule({
   declarations: [
@@ -249,7 +250,6 @@ import { ReportPublicationComponent } from '../components/report-publication/rep
     SellingPage,
     TermsPage,
     SimulateCreditPage,
-    NotificationsPage,
     SubcategoryFilterComponent,
     ChangePage,
     ModalTipsComponent,
@@ -306,7 +306,9 @@ import { ReportPublicationComponent } from '../components/report-publication/rep
     SearchByNamePipe,
     AdminBannersComponent,
     CommunitiesModalComponent,
-    ReportPublicationComponent
+    ReportPublicationComponent,
+    NotificationsComponent,
+    NotificationsMobileComponent
   ],
   imports: [
     BrowserModule,

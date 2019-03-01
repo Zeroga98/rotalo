@@ -77,7 +77,6 @@ export class ChatWindowComponent
     this.shareInfoChatService.setScrollDown(true);
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
-
         if (currentConversation) {
           this.rol = currentConversation.rol;
           this.showDeleteButton = currentConversation.tieneAccionesPendientes;
@@ -174,27 +173,6 @@ export class ChatWindowComponent
       .updateMessage(params, this.userId)
       .subscribe(state => {}, error => console.log(error));
   }
-/*
-  deleteConversation() {
-    const result = confirm('¿Seguro quieres borrar esta conversación?');
-    if (!result) {
-      return;
-    }
-    this.messagesService
-      .deleteMessage(this.idReceptorUser, this.userId)
-      .subscribe(
-        response => {
-          const firstThread = this.shareInfoChatService.getFirstConversation();
-          if (firstThread) {
-            this.shareInfoChatService.setIdConversation(firstThread.idEmisario);
-            this.shareInfoChatService.changeMessage(firstThread);
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }*/
 
   goToDetail(notification) {
     const id = notification.producto.idProducto;

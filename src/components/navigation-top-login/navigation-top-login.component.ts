@@ -109,7 +109,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
 
    login(userEmail: string, password: string) {
      const user = {
-       user: userEmail,
+       user: userEmail.toLowerCase(),
        password: password,
        ipAddress: '127.0.0.0'
      };

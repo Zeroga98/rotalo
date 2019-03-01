@@ -16,6 +16,11 @@
       ;
     }
   }
+
+  .mobile-notification {
+    display: none;
+  }
+
   .navbar-header {
     display: flex;
     justify-content: space-between;
@@ -93,7 +98,7 @@
       display: flex;
       color: #707070;
       //margin-right: 35px;
-      padding-right: 45px;
+      padding-right: 20px;
       li {
         font-size: 1.6rem;
         display: flex;
@@ -153,6 +158,26 @@
             background-size: contain;
           }
         }
+      }
+
+      li.bell-container {
+        .container-bell{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          .icon-bell {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: url(../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+
+      li.bell-container.mobile-notification {
+        display: none;
       }
 
       li.car-container.active {
@@ -290,8 +315,7 @@
   .material-design input[type=text].form-control {
     border: 1px solid #B0B0B0;
     border-radius: 12px;
-    min-width: 345px;
-    //min-width: 260px;
+    min-width: 260px;
     padding-right: 30px;
   }
   .button-search {
@@ -411,12 +435,13 @@
 
 }
 
-
 :host {
+
   .toolbar {
     display: none;
     background-color: #cacaca;
   }
+
   .toolbar-container {
     width: 90%;
     max-width: 1200px;
@@ -429,6 +454,7 @@
     position: relative;
     flex-wrap: wrap;
   }
+
 }
 
 
@@ -557,6 +583,18 @@
         margin-right: 0px;
         margin-top: 10px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  :host {
+    .navbar-header .list-options li.bell-container.mobile-notification{
+      display: block;
+    }
+
+    .navbar-header .list-options li.desktop-notification.bell-container {
+      display: none;
     }
   }
 }

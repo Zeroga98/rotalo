@@ -47,6 +47,7 @@ import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-ca
 import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campaign-upload.component';
 import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-edit.component';
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
+import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 
 
 export const appRouter: Routes = [
@@ -82,8 +83,8 @@ export const appRouter: Routes = [
         path: ROUTES.MENUROTALOCENTER.SELLING,
         component: SellingPage,
       },
-      { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
-      { path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
+      {path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
+      {path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
       {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
       {path: ROUTES.MENUROTALOCENTER.CAMPAIGN, component: AdminCampaignComponent},
       {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
@@ -152,6 +153,10 @@ export const appRouter: Routes = [
       {
         path: ROUTES.PRODUCTS.PROMO,
         component: ProductsPromoPage,
+      },
+      {
+        path: ROUTES.PRODUCTS.MOBILENOTIFICATIONS,
+        component: NotificationsMobileComponent,
       },
       {
         path: ROUTES.MICROSITE.LINK,

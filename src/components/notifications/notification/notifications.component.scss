@@ -1,0 +1,14 @@
+:host {
+  width: 100%;
+
+  .header-notifications{
+    padding: 13px 23px;
+    min-height: 50px;
+    border-bottom: 1px dashed #D3E0E9;
+    p {
+      color: #383838;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+  }
+}

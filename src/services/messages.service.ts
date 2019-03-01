@@ -82,6 +82,25 @@ export class MessagesService {
       } ));
     }
 
+    getNotifications(idUser): Observable<any> {
+      let headersSapi = this.configurationService.getJsonSapiHeaders();
+      headersSapi = Object.assign(headersSapi, {userId: idUser} );
+      const headers = new HttpHeaders(headersSapi);
+      //const url = this.urlSapi + '/centro/rotalo/notificaciones';
+      const url = 'http://10.125.64.25:8080/api/v1' + '/centro/rotalo/notificaciones';
+      return  this.http.get(url, { headers: headers })
+      .pipe(map((response: any) => {
+        if (response.body.notificaciones) {
+          response.body.notificaciones.map((notification) => {
+            notification.status = this.updateStatusNotification(notification);
+            const dateMoment: any = moment(notification.fechaHora);
+            notification.fechaHora = dateMoment.format('MMMM Do YYYY, h:mm:ss a');
+            });
+        }
+        return response;
+      } ));
+    }
+
     updateSellUnknow(params){
       const headersSapi = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(headersSapi);
