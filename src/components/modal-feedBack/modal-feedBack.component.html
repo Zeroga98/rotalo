@@ -10,7 +10,7 @@
     <div>
       <p>¿Quieres decirnos algo?, escríbenos y pronto te responderemos.</p>
       <form  [formGroup]="feedBackForm" (ngSubmit)="onSubmit()" role="form" class="form-theme">
-        <div class="form-group">
+        <div *ngIf="!checkSession()" class="form-group">
           <input
           (click)="messageSuccess=false;"
           autocomplete="off"

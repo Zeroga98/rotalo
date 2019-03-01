@@ -17,10 +17,12 @@
   /* Content styles */
   .md-content {
     background: white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    // box-shadow: 0px 3px 3px 0 rgba(0, 0, 0, 0.4), 0 6px 6px rgba(0,0,0,0.23);
     position: relative;
     border-radius: 5px;
     margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 3px 0 rgba(0, 0, 0, 0.4);
   }
   .md-content h3 {
     margin: 0;
@@ -70,6 +72,8 @@
       text-align: right;
       .icon-close{
         cursor: pointer;
+        color: #9b9b9b;
+        font-size: 11.5px;
       }
     }
   }
@@ -96,12 +100,18 @@
     width: 20px;
     height: 20px;
     margin: 0 auto;
-    top: 50%;
-    left: 50%;
+    top: 32%;
+    left: 25%;
     transform: translate(-50%, -50%);
     background: url(../../assets/img/enviar.svg);
     background-size: 20px 20px;
     position: absolute;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
   }
 
   .icon-feedback {
@@ -140,4 +150,25 @@
 :host.md-show .modal-background {
   opacity: 1;
   visibility: visible;
+}
+
+:host(.footer) {
+  .md-content:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: -0.5em;
+    bottom: -2rem;
+    left: 48%;
+    box-sizing: border-box;
+    border: 1rem solid black;
+    border-color: transparent transparent white white;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4);
+  }
+
 }

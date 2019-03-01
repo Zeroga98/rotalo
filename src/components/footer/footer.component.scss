@@ -2,6 +2,7 @@
 @import '../../styles/settings/_variables.scss';
 
 :host{
+  position: relative;
     .container-footer{
         background: $red;
         display: flex;
@@ -12,9 +13,13 @@
         font-size: 1.6rem;
         font-weight: 400;
         .terms{
+          position: relative;
             cursor: pointer;
             a{
                 color: white;
+            }
+            label {
+              cursor: pointer;
             }
         }
         .logo{
@@ -25,5 +30,9 @@
                 height: auto;
             }
         }
+    }
+
+    .contact {
+      position: relative;
     }
 }

@@ -3,8 +3,14 @@
     <a class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones</a>
     -
     <a class="faqs-link" [routerLink]="faqLink" >Preguntas frecuentes</a>
+    -
+    <a class="contact">
+      <modal-feedBack class="md-modal footer md-effect-1" id="custom-modal-1"></modal-feedBack>
+     <label (click) = "openModal('custom-modal-1')">Contáctanos</label>
+    </a>
 	</div>
 	<div class="gtmFooterRotalo logo" (click)="goToHome()">
 		<img class="gtmFooterRotalo" src="./assets/img/logo-white.svg" alt="Logo rotalo">
 	</div>
 </div>
+

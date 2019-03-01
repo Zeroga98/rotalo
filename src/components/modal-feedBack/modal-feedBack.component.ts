@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { ModalFeedBackService } from './modal-feedBack.service';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { CurrentSessionService } from '../../services/current-session.service';
 
 @Component({
   selector: 'modal-feedBack',
@@ -14,7 +15,8 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   public feedBackForm: FormGroup;
   public messageSuccess: boolean;
 
-  constructor(private modalService: ModalFeedBackService, private el: ElementRef) {
+  constructor(private modalService: ModalFeedBackService, private el: ElementRef,
+    private currentSessionService: CurrentSessionService) {
     this.element = el.nativeElement;
   }
 
@@ -25,11 +27,17 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       console.error('modal must have an id');
       return;
     }
-    document.body.appendChild(this.element);
+
+    let email = '';
+    if (this.checkSession()) {
+      email = this.currentSessionService.currentUser().email;
+    } else  {
+      document.body.appendChild(this.element);
+    }
 
     this.modalService.add(this);
     this.feedBackForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+      email: new FormControl(email, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
       comment: new FormControl('', [Validators.required])
     });
 
@@ -45,7 +53,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     const currentUrl = window.location.href;
     if (currentUrl.includes('gt')) {
       countryId = '9';
-    }else {
+    } else {
       countryId = '1';
     }
     if (this.feedBackForm.valid) {
@@ -63,7 +71,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
         },
         error => console.log(error)
       );
-    }else {
+    } else {
       this.validateAllFormFields(this.feedBackForm);
     }
   }
@@ -90,8 +98,14 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   close(): void {
    // this.element.style.display = 'none';
     this.feedBackForm.reset();
+    console.log(this.element.classList);
     this.element.classList.remove('md-show');
+    console.log(this.element.classList);
     // document.body.classList.remove('modal-open');
+  }
+
+  public checkSession() {
+    return this.currentSessionService.currentUser();
   }
 
 }

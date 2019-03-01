@@ -30,7 +30,6 @@ export class ModalFeedBackService {
     }
   }
 
-
   sendEmail(params) {
     const headersSapi = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(headersSapi);
