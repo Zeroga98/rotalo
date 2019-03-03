@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
           <textarea
-          (click)="messageSuccess=false;"
+          (click)="messageSuccess=false; success.emit(false);"
           autocomplete="off"
           formControlName="comment"
           class="form-control"

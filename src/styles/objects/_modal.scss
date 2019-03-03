@@ -53,6 +53,10 @@
   transform: translateY(-100%);
 }
 
+.md-modal.footer.success {
+  top: -55px;
+}
+
 .md-modal-center {
   position: fixed;
   top: 50%;
@@ -259,5 +263,11 @@
 @media (max-width: 466px) {
   .md-modal.footer {
     right: -130%;
+  }
+}
+
+@media (max-width: 353px) {
+  .md-modal.footer {
+    right: -135px;
   }
 }

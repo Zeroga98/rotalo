@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ModalFeedBackService } from './modal-feedBack.service';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { CurrentSessionService } from '../../services/current-session.service';
@@ -10,13 +10,15 @@ import { CurrentSessionService } from '../../services/current-session.service';
 })
 export class ModalFeedBackComponent implements OnInit, OnDestroy {
   @Input() id: string;
-
+  @Output() success: EventEmitter<any>  = new EventEmitter();
   private element: any;
   public feedBackForm: FormGroup;
   public messageSuccess: boolean;
 
-  constructor(private modalService: ModalFeedBackService, private el: ElementRef,
-    private currentSessionService: CurrentSessionService) {
+  constructor(private modalService: ModalFeedBackService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private currentSessionService: CurrentSessionService,
+    private el: ElementRef) {
     this.element = el.nativeElement;
   }
 
@@ -28,16 +30,13 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let email = '';
-    if (this.checkSession()) {
-      email = this.currentSessionService.currentUser().email;
-    } else  {
+    if (!this.checkSession()) {
       document.body.appendChild(this.element);
     }
 
     this.modalService.add(this);
     this.feedBackForm = new FormGroup({
-      email: new FormControl(email, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
       comment: new FormControl('', [Validators.required])
     });
 
@@ -49,6 +48,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.success.emit(false);
     let countryId = '1';
     const currentUrl = window.location.href;
     if (currentUrl.includes('gt')) {
@@ -56,6 +56,11 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     } else {
       countryId = '1';
     }
+
+    if (this.checkSession()) {
+      this.feedBackForm.patchValue({ email: this.currentSessionService.currentUser().email });
+    }
+
     if (this.feedBackForm.valid) {
       const email = this.feedBackForm.get('email').value;
       const comment = this.feedBackForm.get('comment').value;
@@ -67,11 +72,15 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       this.modalService.sendEmail(params) .subscribe(
         state => {
           this.messageSuccess = true;
+          this.success.emit(true);
           this.feedBackForm.reset();
+          this.changeDetectorRef.markForCheck();
         },
         error => console.log(error)
       );
     } else {
+      this.messageSuccess = false;
+      this.success.emit(false);
       this.validateAllFormFields(this.feedBackForm);
     }
   }
@@ -90,6 +99,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   open(): void {
    // this.element.style.display = 'block';
    this.messageSuccess = false;
+   this.success.emit(false);
    this.feedBackForm.reset();
     this.element.classList.add('md-show');
    // document.body.classList.add('modal-open');
@@ -97,10 +107,9 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
 
   close(): void {
    // this.element.style.display = 'none';
+   this.success.emit(false);
     this.feedBackForm.reset();
-    console.log(this.element.classList);
     this.element.classList.remove('md-show');
-    console.log(this.element.classList);
     // document.body.classList.remove('modal-open');
   }
 
