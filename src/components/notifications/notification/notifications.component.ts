@@ -19,13 +19,18 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class NotificationsComponent implements OnInit {
   public userId: any;
-  public messages;
+  public messages = [];
   public paymentTypes = {
     cash: 'Efectivo',
     bank_account_transfer: 'Transferencia bancaria',
     qr_code_transfer: 'Código QR',
     sufi_credit: 'Crédito SUFI',
     na: 'No aplica'
+  };
+  private currentPage: number = 1;
+  private filterNotification = {
+    size: 5,
+    number: this.currentPage
   };
 
   constructor(
@@ -39,17 +44,18 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
-    this.loadNotifications(this.userId);
+    this.loadNotifications();
   }
 
-  private  loadNotifications(userId) {
-    this.notificationService.getNotifications(userId).subscribe(
+  private  loadNotifications() {
+    this.notificationService.getNotifications(this.filterNotification).subscribe(
       notification => {
-        this.messages = notification.body.notificaciones;
         const idNotifications = [];
-        this.messages.map(message => {
+        notification.body.notificaciones.map(message => {
           idNotifications.push(message.idNotificacion);
         });
+
+        this.messages = this.messages.concat(notification.body.notificaciones);
         this.updateNotification(idNotifications);
         this.changeDetector.markForCheck();
       },
@@ -63,14 +69,16 @@ export class NotificationsComponent implements OnInit {
     };
     this.notificationService.updateNotification(params).subscribe(
       notification => {
-        console.log(notification);
       },
       error => console.log(error)
     );
   }
 
-  getNotifications() {
-    this.loadNotifications(this.userId);
+
+  private deleteFromArrayNotification(idNotification) {
+    this.messages = this.messages.filter(message => {
+      return message.idNotificacion != idNotification;
+    });
   }
 
   public deleteNotification(idNotifications) {
@@ -81,9 +89,9 @@ export class NotificationsComponent implements OnInit {
     if (!result) {
       return;
     }
+    this.deleteFromArrayNotification(idNotifications);
     this.notificationService.deleteNotification(params).subscribe(
       notification => {
-        this.loadNotifications(this.userId);
       },
       error => console.log(error)
     );
@@ -241,6 +249,12 @@ export class NotificationsComponent implements OnInit {
 
   goToHobbies() {
     this.router.navigate([`/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`]);
+  }
+
+  loadMoreNotification() {
+    this.currentPage++;
+    this.filterNotification.number = this.currentPage;
+    this.loadNotifications();
   }
 
 

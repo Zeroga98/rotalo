@@ -59,7 +59,7 @@ export class PurchaseAcceptedComponent implements OnInit {
     }
     this.notificationService.deleteNotification(params).subscribe(
       notification => {
-        this.notificationDelete.emit();
+        this.notificationDelete.emit(idNotifications);
       },
       error => console.log(error)
     );

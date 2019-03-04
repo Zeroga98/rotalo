@@ -82,11 +82,10 @@ export class MessagesService {
       } ));
     }
 
-    getNotifications(idUser): Observable<any> {
-      let headersSapi = this.configurationService.getJsonSapiHeaders();
-      headersSapi = Object.assign(headersSapi, {userId: idUser} );
+    getNotifications(filter): Observable<any> {
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/notificaciones?size=5&number=1';
+      const url = `${this.urlSapi}/centro/rotalo/notificaciones?size=${filter.size}&number=${filter.number}`;
       return  this.http.get(url, { headers: headers })
       .pipe(map((response: any) => {
         if (response.body.notificaciones) {

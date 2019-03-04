@@ -152,7 +152,7 @@
         <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
 
         <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
-        <purchase-accepted (notificationDelete) ='getNotifications()' *ngIf="message.tipoNotificacion == 'purchase_accepted'" [notification]="message">
+        <purchase-accepted (notificationDelete) ='deleteNotification($event)' *ngIf="message.tipoNotificacion == 'purchase_accepted'" [notification]="message">
         </purchase-accepted>
         <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
 
@@ -381,7 +381,7 @@
 
         <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
         <div *ngIf="message.tipoNotificacion == 'qualify_purchase'">
-          <rating-notification (notificationDelete) ='getNotifications()' class="notifications-theme" [notification]="message"></rating-notification>
+          <rating-notification (notificationDelete) ='deleteNotification($event)' class="notifications-theme" [notification]="message"></rating-notification>
         </div>
         <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
 
@@ -405,7 +405,7 @@
           <span class="icon icon-warning notification-icon"></span>
           <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y encontrar usuarios
             que comparten tus intereses. ¡Sigue rotando!
-            <span *ngIf="message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
+            <span *ngIf="message.interes && message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
               Has seleccionado tus intereses.
             </span>
           </p>
@@ -413,7 +413,7 @@
               <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
               </span>
           </small>
-          <div *ngIf="!message.interes.tieneIntereses" class="notification-buttons">
+          <div *ngIf="!message.interes || !message.interes.tieneIntereses" class="notification-buttons">
             <div class="button-item">
               <button class="button button-secondary" (click)="goToHobbies()">
                 <span>Aceptar</span>
@@ -426,4 +426,7 @@
 
     </div>
   </div>
+</div>
+<div class="button-container">
+    <a (click)='loadMoreNotification()'>Ver más</a>
 </div>
