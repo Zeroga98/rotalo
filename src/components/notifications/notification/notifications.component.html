@@ -23,7 +23,10 @@
               </span>
             </div>
           </a>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
           <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
           <div class="notification-buttons" *ngIf="message.producto && message.producto.tipoVenta !== 'SUBASTA' && !message.status">
             <div class="button-item">
@@ -43,7 +46,10 @@
             <span class="highlight bold clickable" (click)="goToDetail(message)">
               {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
           <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
           <div class="notification-buttons" *ngIf="!message.status">
             <div class="button-item">
@@ -62,7 +68,10 @@
           <p class="notification-text">Tu oferta ha sido rechazada
             <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ' ' +(message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
 
@@ -74,7 +83,10 @@
             <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en tu subasta</span>
             <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA CANCELADA -->
 
@@ -101,7 +113,10 @@
                 <br>
                 <span class="notification-text" *ngIf="message.status">{{message.status}}</span>
               </p>
-              <small class="notification-date">{{message.fechaHora }}</small>
+              <small class="notification-date">{{message.fechaHora }}
+                  <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+                  </span>
+              </small>
               <div class="notification-buttons" *ngIf="!message.status">
                 <div class="button-item">
                   <button class="button button-secondary" (click)="acceptPurchase(message)">
@@ -128,13 +143,16 @@
                     en la Tienda Bancolombia.
                   </span>
               </p>
-              <small class="notification-date">{{message.fechaHora }}</small>
+              <small class="notification-date">{{message.fechaHora }}
+                  <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+                  </span>
+              </small>
           </span>
         </div>
         <!-- FIN NOTIFICACIÓN NUEVA COMPRA -->
 
         <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
-        <purchase-accepted *ngIf="message.tipoNotificacion == 'purchase_accepted'" [notification]="message">
+        <purchase-accepted (notificationDelete) ='getNotifications()' *ngIf="message.tipoNotificacion == 'purchase_accepted'" [notification]="message">
         </purchase-accepted>
         <!-- INICIO NOTIFICACIÓN COMPRA ACEPTADA -->
 
@@ -170,6 +188,8 @@
           </span>
           <small class="notification-date">
             {{message.fechaHora }}
+            <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+            </span>
           </small>
         </div>
         <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
@@ -183,7 +203,11 @@
               <span class="highlight bold">{{message.producto.nombreProducto}}</span>
               se ha vencido.
             </p>
-            <small class="notification-date">{{message.fechaHora}}</small>
+            <small class="notification-date">{{message.fechaHora}}
+                <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+                </span>
+            </small>
+
           </div>
         </div>
 
@@ -223,7 +247,10 @@
                   </p>
                 </div>
               </div>
-              <small class="notification-date">{{message.fechaHora }}</small>
+              <small class="notification-date">{{message.fechaHora}}
+                  <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+                  </span>
+              </small>
             </div>
           </div>
         </div>
@@ -239,7 +266,10 @@
             <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}</span>
             ha sido recibido.
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!--FIN NOTIFICACIÓN PRODUCTO RECIBIDO -->
 
@@ -253,7 +283,10 @@
             <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos'}}</span>
             y para ello ha solicitado un crédito Sufi.
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
 
@@ -267,7 +300,10 @@
             </span>
             ha sido aprobada.
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUFI APROBADO -->
 
@@ -281,7 +317,10 @@
             </span>
             no fue aprobada.
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUFI RECHAZADO -->
 
@@ -293,7 +332,10 @@
               {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}
             </span>
           </p>
-          <small class="notification-date">{{message.fechaHora}}</small>
+          <small class="notification-date">{{message.fechaHora}}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
           <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
           <div class="notification-buttons" *ngIf="!message.status">
             <div class="button-item">
@@ -315,7 +357,10 @@
               {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}
             </span>
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUBASTA FINALIZADA -->
 
@@ -327,13 +372,16 @@
               {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}
             </span>
           </p>
-          <small class="notification-date">{{message.fechaHora }}</small>
+          <small class="notification-date">{{message.fechaHora }}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
 
         <!-- INICIO NOTIFICACIÓN CALIFICACIÓN COMPRA -->
         <div *ngIf="message.tipoNotificacion == 'qualify_purchase'">
-          <rating-notification class="notifications-theme" [notification]="message"></rating-notification>
+          <rating-notification (notificationDelete) ='getNotifications()' class="notifications-theme" [notification]="message"></rating-notification>
         </div>
         <!-- FIN NOTIFICACIÓN CALIFICACIÓN COMPRA -->
 
@@ -343,7 +391,10 @@
             <p class="notification-text">
               ¡Hey, tenemos algo que contarte! Ahora puedes agregar detalles a la publicación de tu vehículo, porque como sabes, todo entra por los ojos.
             </p>
-            <small class="notification-date">{{message.fechaHora}}</small>
+            <small class="notification-date">{{message.fechaHora}}
+                <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+                </span>
+            </small>
           </div>
           <!-- FIN NOTIFICACIÓN INFORMACION DEL VEHICULO -->
 
@@ -358,7 +409,10 @@
               Has seleccionado tus intereses.
             </span>
           </p>
-          <small class="notification-date">{{message.fechaHora}}</small>
+          <small class="notification-date">{{message.fechaHora}}
+              <span (click) = 'deleteNotification(message.idNotificacion)' class="icon-close">
+              </span>
+          </small>
           <div *ngIf="!message.interes.tieneIntereses" class="notification-buttons">
             <div class="button-item">
               <button class="button button-secondary" (click)="goToHobbies()">

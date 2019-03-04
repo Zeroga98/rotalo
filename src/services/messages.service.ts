@@ -86,8 +86,7 @@ export class MessagesService {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
       headersSapi = Object.assign(headersSapi, {userId: idUser} );
       const headers = new HttpHeaders(headersSapi);
-      //const url = this.urlSapi + '/centro/rotalo/notificaciones';
-      const url = 'http://10.125.64.25:8080/api/v1' + '/centro/rotalo/notificaciones';
+      const url = this.urlSapi + '/centro/rotalo/notificaciones?size=5&number=1';
       return  this.http.get(url, { headers: headers })
       .pipe(map((response: any) => {
         if (response.body.notificaciones) {
@@ -99,6 +98,24 @@ export class MessagesService {
         }
         return response;
       } ));
+    }
+
+    updateNotification(params) {
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/notificaciones';
+      return this.http
+      .put(url, params , { headers: headers }).pipe(
+      map((response: any) => response));
+    }
+
+    deleteNotification(params) {
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+      const url = this.urlSapi + '/centro/rotalo/notificaciones/eliminar';
+      return this.http
+      .put(url, params , { headers: headers }).pipe(
+      map((response: any) => response));
     }
 
     updateSellUnknow(params){

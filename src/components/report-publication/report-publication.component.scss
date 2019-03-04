@@ -1,21 +1,47 @@
 :host {
+
+  .modal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .description {
     p {
       font-size: 2.4rem;
       font-weight: bold;
       color: #272727;
       text-align: center;
-      width: 45%;
+      width: 300px;
       margin: 0 auto;
-      padding-bottom: 15px;
+    }
+  }
+
+  .sub-description {
+    p {
+      font-size: 2.2rem;
+      color: #808080;
+      text-align: center;
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 15px;
     }
   }
 
   .icon-question {
-    width: 180px;
-    height: 180px;
-    background: url(../../assets/img/ic_reportar_abuso.svg);
-    background-size: 180px 180px;
+    width: 160px;
+    height: 160px;
+    background: url(../../assets/img/ic_mico_sonriente.svg);
+    background-size: 160px 160px;
+    margin: 0 auto;
+  }
+
+  .icon-success {
+    width: 160px;
+    height: 160px;
+    background: url(../../assets/img/ic_mico_alegre.svg);
+    background-size: 160px 160px;
     margin: 0 auto;
   }
 
@@ -91,7 +117,7 @@
 
 .material-design {
   margin: 0 auto;
-  width: 50%;
+  width: 460px;
 }
 
 .material-design {
@@ -262,43 +288,62 @@
   display: block;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 800px) {
   :host {
-    .icon-question {
-      width: 130px;
-      height: 130px;
-      background: url(../../assets/img/ic_reportar_abuso.svg);
-      background-size: 130px 130px;
-    }
-
-    .material-design{
-      width: 75%;
+    .material-design {
+      width: 100%;
     }
 
     .description p {
-      width: 80%;
+      width: auto;
       font-size: 1.6rem;
+    }
+
+   .sub-description p {
+    width: auto;
+      font-size: 1.4rem;
     }
 
     .material-design .md-radio label {
       font-size: 1.6rem;
     }
 
-  }
-}
+    .material-design textarea.form-control {
+      font-size: 1.4rem;
+    }
 
+    .material-design .md-radio label:before {
+      top: 2px;
+    }
 
-@media screen and (max-width: 648px) {
-  :host {
-
-    .btn-container {
-      width: 75%;
-      margin: 0 auto;
-      button:first-child {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
+    .material-design .md-radio label:after {
+      top: 6px;
     }
 
   }
 }
+
+@media screen and (max-width: 500px) {
+  :host {
+
+    .modal-container {
+      width: 80%;
+    }
+
+    .icon-question {
+      width: 120px;
+      height: 120px;
+      background: url(../../assets/img/ic_mico_sonriente.svg);
+      background-size: 120px 120px;
+    }
+
+    .icon-success {
+      width: 120px;
+      height: 120px;
+      background: url(../../assets/img/ic_mico_alegre.svg);
+      background-size: 120px 120px;
+    }
+  }
+}
+
+

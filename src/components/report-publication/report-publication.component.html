@@ -3,18 +3,16 @@
     <p>x</p>
   </div>
 </div>
-<div class="modal-container">
+<div  *ngIf="!showSuccess"  class="modal-container">
   <div class="icon-question">
   </div>
   <div class="description">
     <p>
-      ¡Auch! Cuéntanos por qué quieres reportar esta publicación
+      Cuéntanos por qué quieres reportar esta publicación
     </p>
-
   </div>
   <form [formGroup]="reportForm" class="form-theme">
       <div class="material-design">
-        <p class="success" *ngIf="showSuccess" >Tu reporte ha sido enviado, gracias por ayudarnos a conservar la confianza</p>
         <div class="md-radio">
           <input (change) ="changeRadioButton()" [value]="false" formControlName="option" id="used1" type="radio" name="option">
           <label for="used1">Esta persona ya no trabaja en la empresa</label>
@@ -32,4 +30,21 @@
   <div class="btn-container">
     <button (click)='save()' mat-stroked-button>Enviar</button>
   </div>
+</div>
+
+
+<div *ngIf="showSuccess"  class="modal-container">
+    <div class="icon-success">
+    </div>
+    <div class="description">
+      <p>
+        ¡Gracias por contribuir a una comunidad en confianza!
+      </p>
+    </div>
+    <div class="sub-description">
+      <p>Evaluaremos lo sucedido</p>
+    </div>
+    <div class="btn-container">
+      <button (click)='close()' mat-stroked-button>Volver</button>
+    </div>
 </div>

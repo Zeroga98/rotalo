@@ -2,6 +2,7 @@
 @import '../../styles/settings/_variables.scss';
 
 :host{
+  position: relative;
     .container-footer{
         background: $red;
         display: flex;
@@ -12,9 +13,13 @@
         font-size: 1.6rem;
         font-weight: 400;
         .terms{
+          position: relative;
             cursor: pointer;
             a{
                 color: white;
+            }
+            label {
+              cursor: pointer;
             }
         }
         .logo{
@@ -26,4 +31,23 @@
             }
         }
     }
+
+    .contact {
+      position: relative;
+      cursor: auto;
+    }
+}
+
+:host() {
+  .md-show + .back-modal {
+    width: 100%;
+    background: transparent;
+    position: fixed;
+    z-index: 1999;
+    max-height: 0;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    transition: max-height 0.5s;
+  }
 }

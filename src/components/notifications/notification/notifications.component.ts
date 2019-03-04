@@ -46,12 +46,48 @@ export class NotificationsComponent implements OnInit {
     this.notificationService.getNotifications(userId).subscribe(
       notification => {
         this.messages = notification.body.notificaciones;
+        const idNotifications = [];
+        this.messages.map(message => {
+          idNotifications.push(message.idNotificacion);
+        });
+        this.updateNotification(idNotifications);
         this.changeDetector.markForCheck();
       },
       error => console.log(error)
     );
   }
 
+  private updateNotification(idNotifications) {
+    const params = {
+      'idsNotificacion': idNotifications
+    };
+    this.notificationService.updateNotification(params).subscribe(
+      notification => {
+        console.log(notification);
+      },
+      error => console.log(error)
+    );
+  }
+
+  getNotifications() {
+    this.loadNotifications(this.userId);
+  }
+
+  public deleteNotification(idNotifications) {
+    const params = {
+      'idNotificacion': idNotifications
+    };
+    const result = confirm('¿Seguro quieres borrar esta notificación?');
+    if (!result) {
+      return;
+    }
+    this.notificationService.deleteNotification(params).subscribe(
+      notification => {
+        this.loadNotifications(this.userId);
+      },
+      error => console.log(error)
+    );
+  }
 
   async acceptOffer(notification) {
     try {

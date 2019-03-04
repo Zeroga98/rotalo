@@ -6,7 +6,10 @@
           <span class="highlight bold clickable">
             {{notification.producto.nombreUsuario}}
           </span>
-          <span>como vendedor</span>
+          <span>como vendedor
+              <span (click) = 'deleteNotification(notification.idNotificacion)' class="icon-close">
+              </span>
+          </span>
         </p>
       </div>
       <form (ngSubmit)="rate()" [formGroup]="rateSeller">

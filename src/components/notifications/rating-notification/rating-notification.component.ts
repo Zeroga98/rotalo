@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MessagesService } from '../../../services/messages.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
@@ -27,12 +27,13 @@ export class RatingNotificationComponent implements OnInit {
   disableButton = false;
   hideButton = false;
   rateSeller;
+  @Output() notificationDelete: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
     private messagesService: MessagesService,
     private currentSessionService: CurrentSessionService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -69,5 +70,21 @@ export class RatingNotificationComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         });
     }
+  }
+
+  public deleteNotification(idNotifications) {
+    const params = {
+      'idNotificacion': idNotifications
+    };
+    const result = confirm('¿Seguro quieres borrar esta notificación?');
+    if (!result) {
+      return;
+    }
+    this.messagesService.deleteNotification(params).subscribe(
+      notification => {
+        this.notificationDelete.emit();
+      },
+      error => console.log(error)
+    );
   }
 }

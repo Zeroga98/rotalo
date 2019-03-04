@@ -3,8 +3,17 @@
     <a class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones</a>
     -
     <a class="faqs-link" [routerLink]="faqLink" >Preguntas frecuentes</a>
+    <a *ngIf="checkSession()" class="contact">
+      <modal-feedBack 
+      [ngClass]="successModal ? 'success': ''"
+      (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
+      </modal-feedBack>
+      <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
+     <label (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
+    </a>
 	</div>
 	<div class="gtmFooterRotalo logo" (click)="goToHome()">
 		<img class="gtmFooterRotalo" src="./assets/img/logo-white.svg" alt="Logo rotalo">
 	</div>
 </div>
+

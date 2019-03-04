@@ -29,7 +29,8 @@ export class FeedBackComponent implements OnInit {
   }
 
   openModal(id: string) {
-    if (this.checkSession()) {
+    this.modalService.open(id);
+   /* if (this.checkSession()) {
       if (this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`) {
         if (this.shareInfoChatService.getAdminConversation()) {
           this.shareInfoChatService.changeMessage(this.shareInfoChatService.getAdminConversation());
@@ -42,9 +43,9 @@ export class FeedBackComponent implements OnInit {
         this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
       }
       this.shareInfoChatService.feedBackAdmin();
-    }else {
+    } else {
       this.modalService.open(id);
-    }
+    }*/
   }
 
   closeModal(id: string) {

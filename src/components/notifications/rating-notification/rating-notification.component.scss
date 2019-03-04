@@ -12,7 +12,7 @@
     position: absolute;
   }
   .disable-rate{
-    z-index: -1;
+ //   z-index: -1;
   }
   .rate {
     width: 100%;
@@ -25,5 +25,8 @@
   }
   .main-text {
     margin-bottom: 40px;
+  }
+  .icon-close {
+    cursor: pointer;
   }
 }

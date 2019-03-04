@@ -2,6 +2,7 @@ import { ROUTES } from './../../../router/routes';
 import { Router } from '@angular/router';
 import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
+import { MessagesService } from '../../../services/messages.service';
 
 @Component({
   selector: 'purchase-accepted',
@@ -12,8 +13,10 @@ export class PurchaseAcceptedComponent implements OnInit {
   @Input() notification;
   @Output() userClicked: EventEmitter<any> = new EventEmitter();
   @Output() onContactSeller: EventEmitter<any> = new EventEmitter();
+  @Output() notificationDelete: EventEmitter<any> = new EventEmitter();
   public amountPurchase = 0;
-  constructor(private productsService: ProductsService, private router: Router) {
+  constructor(private productsService: ProductsService, private router: Router,
+    private notificationService: MessagesService) {
   }
 
   ngOnInit() {
@@ -44,6 +47,22 @@ export class PurchaseAcceptedComponent implements OnInit {
 
   contactSeller(id: number) {
     this.onContactSeller.emit(id);
+  }
+
+  public deleteNotification(idNotifications) {
+    const params = {
+      'idNotificacion': idNotifications
+    };
+    const result = confirm('¿Seguro quieres borrar esta notificación?');
+    if (!result) {
+      return;
+    }
+    this.notificationService.deleteNotification(params).subscribe(
+      notification => {
+        this.notificationDelete.emit();
+      },
+      error => console.log(error)
+    );
   }
 
 

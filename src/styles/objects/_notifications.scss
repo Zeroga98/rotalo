@@ -60,8 +60,9 @@
 }
 
 .mat-menu-panel {
-  max-width: 469.9px !important;
+  max-width: 490px !important;
   max-height: 382.59px !important;
+  overflow-x: hidden !important;
 }
 
 .cdk-overlay-pane {

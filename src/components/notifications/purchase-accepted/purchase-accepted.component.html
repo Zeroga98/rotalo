@@ -53,5 +53,7 @@
   </span>
   <small class="notification-date">
       {{notification.at | amLocale:'es' | amTimeAgo}}
+      <span (click) = 'deleteNotification(notification.idNotificacion)' class="icon-close">
+        </span>
   </small>
 </div>
