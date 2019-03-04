@@ -34,6 +34,7 @@ export class ChatWindowComponent
   private readonly timeToCheckNotification: number = 3000;
   private idReceptorUser: number;
   private currentInfoSubscribe;
+  private idUsuarioChat;
   listenerMessages: any;
   subscriptionMessages: any;
   imagenChat;
@@ -67,7 +68,7 @@ export class ChatWindowComponent
     private router: Router,
     private productsService: ProductsService,
 
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
@@ -84,11 +85,18 @@ export class ChatWindowComponent
           this.nameUser = currentConversation.nombreEmisario;
           this.messages = currentConversation.mensajes;
           this.idReceptorUser = currentConversation.idEmisario;
+          if (currentConversation.idUsuarioChat) {
+            this.idUsuarioChat = currentConversation.idUsuarioChat;
+          }
           this.showSpinner = false;
           if (currentConversation.inicioConversacion) {
             this.inicioConversacion = currentConversation.inicioConversacion;
           }
-          this.updateConversationStatus(this.idReceptorUser);
+          if (this.rol == 'product') {
+            this.updateConversationStatus(this.idUsuarioChat);
+          } else {
+            this.updateConversationStatus(this.idReceptorUser);
+          }
           this.onLoadWindow(this.showSpinner);
         }
       }
@@ -107,10 +115,10 @@ export class ChatWindowComponent
     this.scrollToBottom();
   }
 
-  get showMessageFeedBack(){
+  get showMessageFeedBack() {
     this.currentUrl = this.router.url;
     return this.rol === 'admin' &&
-    this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`;
+      this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`;
   }
 
   ngOnDestroy(): void {
@@ -147,11 +155,20 @@ export class ChatWindowComponent
   }
 
   onSubmit() {
-    const params = {
-      idUsuarioDestinatario: this.idReceptorUser,
-      mensaje: this.formMessage.controls['message'].value,
-      inicioConversacion: this.inicioConversacion
-    };
+    let params;
+    if (this.rol == 'product') {
+      params = {
+        idProducto: this.idReceptorUser,
+        idUsuarioDestinatario: this.idUsuarioChat,
+        mensaje: this.formMessage.controls['message'].value
+      };
+    } else {
+      params = {
+        idUsuarioDestinatario: this.idReceptorUser,
+        mensaje: this.formMessage.controls['message'].value
+      };
+    }
+
     this.formMessage.reset();
     this.subscriptionMessages = this.messagesService
       .sendMessage(params, this.userId)
@@ -170,8 +187,8 @@ export class ChatWindowComponent
       idEmisor: userId
     };
     this.subscriptionMessages = this.messagesService
-      .updateMessage(params, this.userId)
-      .subscribe(state => {}, error => console.log(error));
+      .updateMessage(params)
+      .subscribe(state => { }, error => console.log(error));
   }
 
   goToDetail(notification) {
@@ -245,12 +262,12 @@ export class ChatWindowComponent
     return {
       'emailOfertador': notification.oferta.emailOfertador,
       'nombreOfertador': notification.oferta.nombreUsuario,
-      'nombreVendedor': notification.producto.nombreUsuario ,
-      'montoOferta':  notification.oferta.monto ,
+      'nombreVendedor': notification.producto.nombreUsuario,
+      'montoOferta': notification.oferta.monto,
       'nombreProducto': notification.producto.nombreProducto,
       'esSubasta': esSubasta,
       'idProducto': notification.producto.idProducto
-      };
+    };
   }
 
 
@@ -281,13 +298,13 @@ export class ChatWindowComponent
   private buildParamsRegretOffer(notification): any {
     return {
       'emailVendedor': notification.producto.emailVendedor,
-      'nombreVendedor': notification.producto.nombreUsuario ,
+      'nombreVendedor': notification.producto.nombreUsuario,
       'nombreProducto': notification.producto.nombreProducto,
-      'montoOferta':  notification.oferta.monto ,
+      'montoOferta': notification.oferta.monto,
       'nombreOfertador': notification.oferta.nombreUsuario,
       'idProducto': notification.producto.idProducto,
       'idVendedor': notification.producto.idVendedor
-      };
+    };
   }
 
   async regretOffer(notification) {
@@ -316,7 +333,7 @@ export class ChatWindowComponent
       idProducto: id
     };
     const result =
-    confirm('Al republicar verifica que las imágenes muestren bien los atributos y beneficios de tu producto. Además, revisa que el precio sea adecuado y considera “Recibir ofertas” de los compradores.');
+      confirm('Al republicar verifica que las imágenes muestren bien los atributos y beneficios de tu producto. Además, revisa que el precio sea adecuado y considera “Recibir ofertas” de los compradores.');
     if (!result) {
       return;
     }
@@ -331,16 +348,16 @@ export class ChatWindowComponent
     );
   }
 
-  updateSellUnknow(notification, type:String) {
+  updateSellUnknow(notification, type: String) {
     const param = {
       idNotificacion: notification.idNotificacion,
       estado: type
     };
     this.messagesService.updateSellUnknow(param).subscribe(
       state => {
-        if (type === 'out'){
+        if (type === 'out') {
           notification.accionExpirado = 'sell_unknow_out';
-        }else {
+        } else {
           notification.accionExpirado = 'sell_unknow_in';
         }
       },

@@ -61,11 +61,11 @@ export class MessagesService {
       .pipe(map((response: any) => response));
     }
 
-    getMessages(idUser): Observable<any> {
+    getMessages(): Observable<any> {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
-      headersSapi = Object.assign(headersSapi, {userId: idUser} );
+      headersSapi = Object.assign(headersSapi);
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/notificaciones';
+      const url = this.urlSapi + '/centro/rotalo/notificaciones/mensajes';
       return Observable.timer(0, this.timeToCheckNotification)
       .concatMap(() =>  this.http.get(url, { headers: headers }))
       .pipe(map((response: any) => {
@@ -245,11 +245,11 @@ export class MessagesService {
         map((response: any) => response));
     }
 
-    updateMessage(params, idUser) {
+    updateMessage(params) {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
-      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      headersSapi = Object.assign(headersSapi);
       const headers = new HttpHeaders(headersSapi);
-      const url = this.urlSapi + '/centro/rotalo/notificaciones';
+      const url = this.urlSapi + '/centro/rotalo/notificaciones/chat';
       return this.http
         .put(url, params , { headers: headers }).pipe(
         map((response: any) => response));

@@ -70,24 +70,26 @@
               <span *ngIf="isBancolombiaShop && cartAvailable" class="noti-circle">{{totalCart}}</span>
             </div>
           </li>
-          <li (click) = "goToNotifications()" class="mobile-notification bell-container">
-              <div class="container-bell">
-                <span class="icon-bell">
-                </span>
-              </div>
+
+          <li (click)="goToNotifications()" class="mobile-notification bell-container">
+            <div class="container-bell">
+              <span class="icon-bell">
+              </span>
+            </div>
           </li>
-        <li class="desktop-notification bell-container">
-          <div [matMenuTriggerFor]="appMenu" class="container-bell">
-            <span class="icon-bell">
-            </span>
-          </div>
-          <mat-menu xPosition="before" #appMenu="matMenu">
-            <notifications-component (click)="$event.stopPropagation();"></notifications-component>
-          </mat-menu>
-        </li>
+          <li class="desktop-notification bell-container">
+            <div [matMenuTriggerFor]="appMenu" class="container-bell">
+              <span class="icon-bell">
+              </span>
+            </div>
+            <mat-menu xPosition="before" #appMenu="matMenu">
+              <notifications-component (click)="$event.stopPropagation();"></notifications-component>
+            </mat-menu>
+          </li>
+
         </ul>
         <div class="flexbox center-center">
-          <div [ngClass]= "isBancolombiaShop?  'disabled': '' " class="container-offer">
+          <div [ngClass]="isBancolombiaShop?  'disabled': '' " class="container-offer">
             <a (click)="initScrollProduct(); goToUploadProduct()" class="upload-offer-button">
               <div class="gtmSubeTuOferta outside-circle">
                 <div class="gtmSubeTuOferta inside-circle">
@@ -102,7 +104,8 @@
     </div>
   </div>
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
-  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)" (closeMenu)="_closeMenu()"></categories-menu>
+  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
+    (closeMenu)="_closeMenu()"></categories-menu>
 </nav>
 <div *ngIf="showOptions" class="navbar-header material-design form-theme toolbar">
   <div class="toolbar-container">

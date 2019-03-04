@@ -55,7 +55,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
   }
 
   private getMessages(userId) {
-    this.subscriptionConversation = this.messagesService.getMessages(userId).subscribe(
+    this.subscriptionConversation = this.messagesService.getMessages().subscribe(
       state => {
         if (state.body && state.body.emisarios) {
           if (!this.threads) {
