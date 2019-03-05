@@ -54,7 +54,7 @@
   }
   /* User Bar */
   .user-bar {
-    height: 55px;
+    height: 100px;
     background: #f4f4f4;
     color: #272727;
     padding: 0 8px;
@@ -72,6 +72,7 @@
     transform: translateY(-50%);
     position: absolute;
     top: 50%;
+    width: 100%;
   }
   .user-bar .actions {
     float: right;
@@ -110,6 +111,9 @@
     width: 71%;
     padding-right: 25%;
     font-weight: normal;
+    .product {
+      cursor: pointer;
+    }
   }
   /* Conversation */
   .conversation {
@@ -349,10 +353,61 @@
     }
   }
 
-
   .notification-text.align {
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .chat-info {
+    padding-top: 15px;
+    div {
+      position: relative;
+    }
+    .price {
+      text-overflow: ellipsis;
+      letter-spacing: 0.3px;
+      margin: 0 0 0 110px;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 71%;
+      padding-right: 25%;
+      font-weight: normal;
+      span {
+        font-weight: bold;
+        color: #272727;
+        font-size: 2rem;
+      }
+    }
+    .info-user {
+      text-overflow: ellipsis;
+      letter-spacing: 0.3px;
+      margin: 0 0 0 110px;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 71%;
+      padding-right: 25%;
+      font-weight: normal;
+      span {
+        color: #767676;
+        font-size: 1.4rem;
+      }
+    }
+
+  }
+
+  .star {
+    margin: 1px;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url(../../assets/img/estrella_blanca_linea.svg);
+    background-size: 13px 13px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .star-full {
+    background: url(../../assets/img/estrella_amarilla.svg);
+    background-size: 13px 13px;
   }
 
 

@@ -10,11 +10,26 @@
                   <img *ngIf="!imagenChat" class="avatar" [src]="defaultImage" [alt]="nameUser" (error)="updateSrc($event)">
                   <img *ngIf="imagenChat" class="avatar" [src]="imagenChat" [alt]="nameUser" (error)="updateSrc($event)">
                 </div>
-                <div class="name">
-                  <span>{{nameUser}}
-                  </span>
+                <div class="chat-info">
+                  <div class="name">
+                    <a
+                    [ngClass]="rol == 'product' ?  'product': ''"
+                    (click)="goToProduct()" >{{nameUser}}
+                    </a>
+                  </div>
+                  <div *ngIf='price' class="price">
+                    <span>{{price | currency:"$" | removeDigits}}
+                    </span>
+                  </div>
+                  <div *ngIf='nombreUsuarioChat' class="info-user">
+                    <span *ngIf="rating">{{rating}}
+                    </span>
+                    <span *ngIf="rating" class="star star-full">
+                    </span>
+                    <span>{{nombreUsuarioChat}}
+                    </span>
+                  </div>
                 </div>
-
                 <a (click)="closeChatWindow()" class="modal__close">
                   <span class="icon-close">
                   </span>

@@ -201,8 +201,6 @@ export class DetailProductComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.products);
-    //this.shareInfoChatService.setIdConversation(this.products.user.id);
     this.shareInfoChatService.setIdConversation(this.products.id);
     let photoProduct;
     let company;
@@ -217,7 +215,6 @@ export class DetailProductComponent implements OnInit {
       if (!this.products.user.company.name) {
         company = undefined;
       } else {
-       // company = this.products.user.company.name;
        company = '';
       }
     }

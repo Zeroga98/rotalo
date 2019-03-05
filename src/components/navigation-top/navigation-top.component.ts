@@ -228,8 +228,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
-
-          this.messagesUnRead = state.body.cantidadNotificaciones;
+          this.messagesUnRead = state.body.cantidadMensajes;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);
           this.navigationService.setMessagesUnRead(this.messagesUnRead);
