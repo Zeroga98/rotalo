@@ -204,38 +204,43 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   sendMessage() {
-    this.shareInfoChatService.setIdConversation(this.products.user.id);
-    let photoUser;
+
+    this.shareInfoChatService.setIdConversation(this.products.id);
+    let photoProduct;
     let company;
-    if (this.products.user.photo) {
-      if (!this.products.user.photo.url) {
-        photoUser = undefined;
+    if (this.products.photoList) {
+      if (!this.products.photoList[0] || !this.products.photoList[0].url) {
+        photoProduct = undefined;
       } else {
-        photoUser = this.products.user.photo.url;
+        photoProduct = this.products.photoList[0].url;
       }
     }
     if (this.products.user.company) {
       if (!this.products.user.company.name) {
         company = undefined;
       } else {
-        company = this.products.user.company.name;
+       company = '';
       }
     }
 
     const newUser = {
-      fotoEmisario: photoUser,
-      idEmisario: Number(this.products.user.id),
+      fotoEmisario: photoProduct,
+      idEmisario: Number(this.products.id),
       messages: [],
-      nombreEmisario: this.products.user.name,
+      nombreEmisario: this.products.name,
       inicioConversacion: true,
       numeroNotificacionesNoLeidas: 0,
-      comunidad: company
+      comunidad: company,
+      rol: 'product',
+      precio: this.products.price,
+      idUsuarioChat: this.products.user.id
     };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate([
       `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`
     ]);
   }
+
 
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {

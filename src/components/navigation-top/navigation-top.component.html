@@ -71,15 +71,15 @@
             </div>
           </li>
 
-          <li (click)="goToNotifications()" class="mobile-notification bell-container">
+          <li (click)="goToNotifications(); loadNotifications()" class="mobile-notification bell-container">
             <div class="container-bell">
               <span class="icon-bell">
               </span>
             </div>
           </li>
           <li class="desktop-notification bell-container">
-            <div [matMenuTriggerFor]="appMenu" class="container-bell">
-              <span class="icon-bell">
+            <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="container-bell">
+              <span  class="icon-bell">
               </span>
             </div>
             <mat-menu xPosition="before" #appMenu="matMenu">

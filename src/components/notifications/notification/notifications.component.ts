@@ -10,6 +10,7 @@ import { ROUTES } from '../../../router/routes';
 import { OfferService } from '../../../services/offer.service';
 import { BuyService } from '../../../services/buy.service';
 import { ProductsService } from '../../../services/products.service';
+import { NavigationTopService } from '../../../components/navigation-top/navigation-top.service';
 
 
 @Component({
@@ -40,11 +41,24 @@ export class NotificationsComponent implements OnInit {
     private buyService: BuyService,
     private currentSessionService: CurrentSessionService,
     private productsService: ProductsService,
-    private changeDetector: ChangeDetectorRef) {}
+    private changeDetector: ChangeDetectorRef,
+    private navigationTopService:NavigationTopService) {}
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
-    this.loadNotifications();
+    this.startLoadNotifications();
+  //  this.loadNotifications();
+  }
+
+  startLoadNotifications() {
+    this.navigationTopService.currentLoadNotification.subscribe(event => {
+      if (event) {
+        this.currentPage = 1;
+        this.filterNotification.number = this.currentPage;
+        this.messages = [];
+        this.loadNotifications();
+      }
+     });
   }
 
   private  loadNotifications() {
@@ -252,7 +266,11 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadMoreNotification() {
-    this.currentPage++;
+    if(this.messages.length == 0) {
+      this.currentPage = 1;
+    } else {
+      this.currentPage++;
+    }
     this.filterNotification.number = this.currentPage;
     this.loadNotifications();
   }

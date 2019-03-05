@@ -56,9 +56,9 @@
   .user-bar {
     height: 55px;
     background: #f4f4f4;
-    color: #eb4654;
+    color: #272727;
     padding: 0 8px;
-    font-size: 24px;
+    font-size: 2.0rem;
     position: relative;
     z-index: 1;
   }
@@ -109,6 +109,7 @@
     white-space: nowrap;
     width: 71%;
     padding-right: 25%;
+    font-weight: normal;
   }
   /* Conversation */
   .conversation {

@@ -16,6 +16,9 @@ export class NavigationTopService {
   private eventSourceSearch = new BehaviorSubject<any>(null);
   currentEventSearch = this.eventSourceSearch.asObservable();
 
+  private eventLoadNotification = new BehaviorSubject<any>(null);
+  currentLoadNotification = this.eventLoadNotification.asObservable();
+
   constructor() { }
   private autoCompleteOptions: Array<string> = [];
 
@@ -46,6 +49,10 @@ export class NavigationTopService {
 
   changeSearch(event) {
     this.eventSourceSearch.next(event);
+  }
+
+  loadNotifications(event) {
+    this.eventLoadNotification.next(event);
   }
 
 }

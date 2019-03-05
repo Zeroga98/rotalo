@@ -78,12 +78,15 @@ export class ChatWindowComponent
     this.shareInfoChatService.setScrollDown(true);
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
+
         if (currentConversation) {
           this.rol = currentConversation.rol;
           this.showDeleteButton = currentConversation.tieneAccionesPendientes;
           this.imagenChat = currentConversation.fotoEmisario;
           this.nameUser = currentConversation.nombreEmisario;
           this.messages = currentConversation.mensajes;
+          console.log(currentConversation, '--------------------');
+          console.log(this.messages);
           this.idReceptorUser = currentConversation.idEmisario;
           if (currentConversation.idUsuarioChat) {
             this.idUsuarioChat = currentConversation.idUsuarioChat;
@@ -150,8 +153,11 @@ export class ChatWindowComponent
     evt.currentTarget.src = this.defaultImage;
   }
 
-  isSender(id): boolean {
-    return this.userId == id;
+  isSender(message): boolean {
+    if( this.rol == 'admin' ||  this.rol == 'user') {
+      return this.userId == message.idEmisor;
+    }
+    console.log(message);
   }
 
   onSubmit() {
@@ -171,7 +177,7 @@ export class ChatWindowComponent
 
     this.formMessage.reset();
     this.subscriptionMessages = this.messagesService
-      .sendMessage(params, this.userId)
+      .sendMessage(params)
       .subscribe(
         state => {
           if (this.rol === 'admin') {

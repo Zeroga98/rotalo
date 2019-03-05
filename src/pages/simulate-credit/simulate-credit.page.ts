@@ -169,6 +169,7 @@ export class SimulateCreditPage implements OnInit {
     this.loadProduct();
     this.loadInterestRate();
     this.loadCurrentUser();
+    this.sufiRegister();
   }
 
   onSubmit() {
@@ -177,6 +178,18 @@ export class SimulateCreditPage implements OnInit {
     } else {
       this.validateAllFormFields(this.simulateForm);
     }
+  }
+
+  sufiRegister() {
+    const params = {
+      'idProducto': this.idProduct,
+      'fuente': 'sufi'
+    }
+    this.productsService.sufiRegistro(params).subscribe((response) => {
+    } ,
+    (error) => {
+      console.log(error);
+    })
   }
 
   validateAllFormFields(formGroup: FormGroup) {

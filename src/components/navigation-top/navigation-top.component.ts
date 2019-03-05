@@ -372,5 +372,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     ]);
   }
 
+  loadNotifications() {
+    this.navigationTopService.loadNotifications(true);
+  }
+
 
 }

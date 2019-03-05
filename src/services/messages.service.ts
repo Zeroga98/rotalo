@@ -225,9 +225,9 @@ export class MessagesService {
         map((response: any) => response));
     }
 
-    sendMessage(params, idUser) {
+    sendMessage(params) {
       let headersSapi = this.configurationService.getJsonSapiHeaders();
-      headersSapi = Object.assign(headersSapi, {userid: idUser} );
+      headersSapi = Object.assign(headersSapi);
       const headers = new HttpHeaders(headersSapi);
       const url = this.urlSapi + '/centro/rotalo/mensajes';
       return this.http

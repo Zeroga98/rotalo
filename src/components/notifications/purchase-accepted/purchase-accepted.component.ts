@@ -50,19 +50,7 @@ export class PurchaseAcceptedComponent implements OnInit {
   }
 
   public deleteNotification(idNotifications) {
-    const params = {
-      'idNotificacion': idNotifications
-    };
-    const result = confirm('¿Seguro quieres borrar esta notificación?');
-    if (!result) {
-      return;
-    }
-    this.notificationService.deleteNotification(params).subscribe(
-      notification => {
-        this.notificationDelete.emit(idNotifications);
-      },
-      error => console.log(error)
-    );
+    this.notificationDelete.emit(idNotifications);
   }
 
 

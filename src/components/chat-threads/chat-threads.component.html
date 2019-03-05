@@ -12,9 +12,9 @@
     <div *ngFor="let thread of threads; let i = index" class="chat-container">
       <div *ngIf="i != 0" class="checkbox-container">
         <div class="wrapper">
-          <label class="material-checkbox container-check">
-            <input type="checkbox" id="{{thread.idEmisario}}" name="{{thread.idEmisario}}">
-            <span class="checkmark"></span>
+          <label *ngIf="thread.rol == 'user'" class="material-checkbox container-check">
+              <input type="checkbox" id="{{thread.idEmisario}}" name="{{thread.idEmisario}}">
+              <span class="checkmark"></span>
           </label>
         </div>
       </div>

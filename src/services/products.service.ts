@@ -319,6 +319,13 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  sufiRegistro(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/sufi/registrar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
   setProductLocation(products, name, currentPage) {
     this.products = products;
     this.scroll = name;
@@ -389,5 +396,7 @@ export class ProductsService {
   setCheckedProductArray(data) {
     return this.paramsProductChecked.data = data;
   }
+
+
 
 }
