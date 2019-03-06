@@ -3,7 +3,9 @@
       Notificaciones
     </p>
 </div>
-<div class="conversation">
+<div
+[ngClass]="messages.length > 3 && !this.isNotificationMobile ?  'scroll': ''"
+ class="conversation">
   <div #scrollMe class="conversation-container">
     <div class="notifications-theme" *ngIf="messages">
 

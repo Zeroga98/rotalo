@@ -1,6 +1,11 @@
 :host {
   width: 100%;
 
+  .conversation.scroll {
+    overflow-y: auto;
+    height: 400px;
+  }
+
   .header-notifications{
     padding: 13px 23px;
     min-height: 50px;
