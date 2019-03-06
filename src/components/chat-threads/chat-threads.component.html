@@ -16,6 +16,10 @@
               <input type="checkbox" id="{{thread.idEmisario}}" name="{{thread.idEmisario}}">
               <span class="checkmark"></span>
           </label>
+          <label *ngIf="thread.rol == 'product'" class="material-checkbox container-check">
+            <input type="checkbox" id="{{thread.idEmisario}}_{{thread.idUsuarioChat}}" name="{{thread.idEmisario}}_{{thread.idUsuarioChat}}">
+            <span class="checkmark"></span>
+        </label>
         </div>
       </div>
       <chat-thread (selectOption)="receiveOption()" [thread]="thread">
