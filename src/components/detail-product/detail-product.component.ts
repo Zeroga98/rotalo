@@ -218,7 +218,7 @@ export class DetailProductComponent implements OnInit {
        company = '';
       }
     }
-
+    console.log(this.products, 'this.products');
     const newUser = {
       fotoEmisario: photoProduct,
       idEmisario: Number(this.products.id),
@@ -229,7 +229,8 @@ export class DetailProductComponent implements OnInit {
       comunidad: company,
       rol: 'product',
       precio: this.products.price,
-      idUsuarioChat: this.products.user.id
+      idUsuarioChat: this.products.user.id,
+      nombreUsuarioChat: this.products.user.name
     };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate([
