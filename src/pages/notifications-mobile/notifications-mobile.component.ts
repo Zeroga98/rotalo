@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications-mobile.component.scss']
 })
 export class NotificationsMobileComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

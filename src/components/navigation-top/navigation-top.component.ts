@@ -34,6 +34,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Output() countryChanged: EventEmitter<any> = new EventEmitter();
   @Input() hideBackArrow: boolean = false;
   @Input() defaultCountryValue: CountryInterface;
+
   rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   rotaloProfile: string = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   rotaloCart: string = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`;
@@ -366,9 +367,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   goToNotifications() {
-    this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
-    ]);
+    if(this.isActive('mobile_notification')) {
+      window.history.back();
+    } else  {
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
+      ]);
+    }
   }
 
   loadNotifications() {

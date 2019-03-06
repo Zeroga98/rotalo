@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
+  Input,
 } from '@angular/core';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { MessagesService } from '../../../services/messages.service';
@@ -33,6 +34,7 @@ export class NotificationsComponent implements OnInit {
     size: 5,
     number: this.currentPage
   };
+  @Input() isNotificationMobile: boolean ;
 
   constructor(
     private notificationService: MessagesService,
@@ -46,8 +48,11 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
-    this.startLoadNotifications();
-  //  this.loadNotifications();
+    if(this.isNotificationMobile) {
+      this.loadNotifications();
+    } else  {
+      this.startLoadNotifications();
+    }
   }
 
   startLoadNotifications() {
