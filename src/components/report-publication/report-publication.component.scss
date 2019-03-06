@@ -1,10 +1,12 @@
 :host {
-
+  min-height: 420px;
   .modal-container {
-    position: absolute;
+ /*   position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);*/
+    position: relative;
+    padding: 25px 0;
   }
 
   .description {
@@ -327,7 +329,8 @@
   :host {
 
     .modal-container {
-      width: 80%;
+      width: 90%;
+      margin: 0 auto;
     }
 
     .icon-question {
