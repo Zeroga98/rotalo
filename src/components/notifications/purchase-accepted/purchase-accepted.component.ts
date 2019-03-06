@@ -24,7 +24,6 @@ export class PurchaseAcceptedComponent implements OnInit {
       const obj = JSON.parse(this.notification.informacionAdicional);
       this.amountPurchase = obj.total_order;
     }
-    console.log(this.notification);
   }
 
   async productReceived(id: number) {

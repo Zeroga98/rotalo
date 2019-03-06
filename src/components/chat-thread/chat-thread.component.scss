@@ -9,6 +9,8 @@
     .avatar {
       width: 75px;
       height: 75px;
+      border-radius: 50%;
+      border: 2px solid #E2E2E2;
     }
     &:hover {
       cursor: hand;
@@ -50,6 +52,8 @@
     .pull-left{
       position: relative;
     }
+
+    /*
     .pull-left:after{
       content: '';
       width: 0px;
@@ -61,11 +65,16 @@
       top: 0;
       right: 9px;
       top: 30px;
+    }*/
+
+    .avatar {
+      border: 2px solid #FF3646;
     }
+
     .media-body{
       h5{
         color: #272727;
-      //  font-weight: bold;
+
       }
     }
   }
