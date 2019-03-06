@@ -82,7 +82,6 @@ export class ChatWindowComponent
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
         if (currentConversation) {
-          console.log(currentConversation);
           this.rol = currentConversation.rol;
           this.showDeleteButton = currentConversation.tieneAccionesPendientes;
           this.imagenChat = currentConversation.fotoEmisario;
@@ -177,6 +176,10 @@ export class ChatWindowComponent
         return this.userId == message.idEmisor;
       }
     }
+  }
+
+  isSellerWindow() {
+    return this.idUsuarioVendedor == this.userId;
   }
 
   onSubmit() {

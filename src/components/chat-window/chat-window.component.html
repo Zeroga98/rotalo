@@ -22,9 +22,9 @@
                     </span>
                   </div>
                   <div *ngIf='nombreUsuarioChat' class="info-user">
-                    <span *ngIf="rating">{{rating}}
+                    <span *ngIf="rating && !isSellerWindow()">{{rating}}
                     </span>
-                    <span *ngIf="rating" class="star star-full">
+                    <span *ngIf="rating && !isSellerWindow()" class="star star-full">
                     </span>
                     <span>{{nombreUsuarioChat}}
                     </span>

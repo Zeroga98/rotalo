@@ -58,6 +58,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     this.subscriptionConversation = this.messagesService.getMessages().subscribe(
       state => {
         if (state.body && state.body.emisarios) {
+          console.log(state.body.emisarios);
           if (!this.threads) {
             this.threads = state.body.emisarios;
             this.shareInfoChatService.setAdminConversation(this.threads[0]);
