@@ -1,37 +1,41 @@
-<div class="notifications-item">
+<div class="notifications-item rating">
+  <span (click) = 'deleteNotification(notification.idNotificacion)' class="icon-close">
+  </span>
   <div  [ngClass]="{'disable-rate': hideButton}" class="rating-container ">
-      <div class="rate main-text">
-        <p class="notification-text">
-          <span>¿Cómo te fue? Califica a </span>
-          <span class="highlight bold clickable">
-            {{notification.producto.nombreUsuario}}
-          </span>
-          <span>como vendedor
-              <span (click) = 'deleteNotification(notification.idNotificacion)' class="icon-close">
-              </span>
-          </span>
-        </p>
+      <div class="notification">
+        <div class="notification-img">
+          <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+        </div>
+        <div class="notification-body">
+          <p>Renault Duster 2014 con aire acondicionado</p>
+          <p class="bold">$11.200.000</p>
+        </div>
       </div>
+      <p class="question-rating">
+        ¿Cómo te fue? Califíca al vendedor
+      </p>
       <form (ngSubmit)="rate()" [formGroup]="rateSeller">
         <div class="rate">
-          <p class="notification-text" [innerHTML]="'¿Cómo te pareció la rapidez del proceso?'"></p>
+          <p class="notification-text" [innerHTML]="'Rápidez del proceso'"></p>
           <bar-rating formControlName="speed" [(rate)]="speed" [max]="5"></bar-rating>
         </div>
         <div class="rate">
-          <p class="notification-text" [innerHTML]="'¿Y que tal la calidad del producto?'"></p>
+          <p class="notification-text" [innerHTML]="'Calidad del producto'"></p>
           <bar-rating formControlName="quality" [(rate)]="quality" [max]="5"></bar-rating>
         </div>
         <div class="rate">
-          <p class="notification-text" [innerHTML]="'¿Fui amable y servicial?'"></p>
+          <p class="notification-text" [innerHTML]="'Amabilidad'"></p>
           <bar-rating formControlName="attention" [(rate)]="attention" [max]="5"></bar-rating>
         </div>
         <small class="notification-date"></small>
         <div class="notification-buttons">
-          <div class="button-item">
+          <div class="align-right button-item">
             <p  *ngIf="hideButton" class="notification-text">Has calificado al vendedor</p>
-            <button type="submit" *ngIf="!hideButton" [disabled]="rateSeller.invalid" [innerHTML]="'Calificar'" class="button button-secondary gtmCentrRotCalificar"></button>
+            <button type="submit" *ngIf="!hideButton" [disabled]="rateSeller.invalid" [innerHTML]="'Enviar'" mat-flat-button color="primary" class="gtmCentrRotCalificar"></button>
           </div>
         </div>
       </form>
   </div>
+  <small class="notification-date">{{notification.fechaHora | amLocale:'es' | amTimeAgo }}
+  </small>
 </div>

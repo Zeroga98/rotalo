@@ -233,7 +233,8 @@ export class DetailProductMicrositeComponent implements OnInit {
       rol: 'product',
       precio: this.products.price,
       idUsuarioChat: this.products.user.id,
-      nombreUsuarioChat: this.products.user.name
+      nombreUsuarioChat: this.products.user.name,
+      calificacion: this.products.userCalification ? this.products.userCalification : 0
     };
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate([
