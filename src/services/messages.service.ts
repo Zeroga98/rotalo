@@ -91,6 +91,7 @@ export class MessagesService {
         if (response.body.notificaciones) {
           response.body.notificaciones.map((notification) => {
             notification.status = this.updateStatusNotification(notification);
+            notification.type = 'in';
             /* const dateMoment: any = moment(notification.fechaHora);
             notification.fechaHora = dateMoment.format('MMMM Do YYYY, h:mm:ss a'); */
             });

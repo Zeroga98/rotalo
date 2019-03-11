@@ -2,8 +2,8 @@
   <span (click)='deleteNotification(notification.idNotificacion)' class="icon-close">
   </span>
   <div class="notification">
-    <div class="notification-img">
-      <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+    <div  (click)="goToDetail(notification.producto.idProducto)" class="notification-img img-round">
+        <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
     </div>
     <div *ngIf="!notification.informacionAdicional && notification.producto" class="notification-body">
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">

@@ -3,8 +3,8 @@
   </span>
   <div  [ngClass]="{'disable-rate': hideButton}" class="rating-container ">
       <div class="notification">
-        <div class="notification-img">
-          <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+        <div class="notification-img img-round">
+            <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
         </div>
         <div class="notification-body">
           <p>Renault Duster 2014 con aire acondicionado</p>

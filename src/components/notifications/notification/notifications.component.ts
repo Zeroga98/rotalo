@@ -141,10 +141,12 @@ export class NotificationsComponent implements OnInit {
   }
 
   goToDetail(notification) {
-    const id = notification.producto.idProducto;
-    this.router.navigate([
-      `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
-    ]);
+    if ( notification.producto && notification.producto.idProducto) {
+      const id = notification.producto.idProducto;
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+      ]);
+    }
   }
 
   buyProduct(mensaje) {
@@ -227,18 +229,19 @@ export class NotificationsComponent implements OnInit {
     return amountPurchase;
   }
 
-  updateSellUnknow(notification, type:String) {
+  updateSellUnknow(notification) {
     const param = {
       idNotificacion: notification.idNotificacion,
-      estado: type
+      estado: notification.type
     };
     this.notificationService.updateSellUnknow(param).subscribe(
       state => {
-        if (type === 'out'){
+        if (notification.type === 'out'){
           notification.accionExpirado = 'sell_unknow_out';
         } else {
           notification.accionExpirado = 'sell_unknow_in';
         }
+        this.changeDetector.markForCheck();
       },
       error => console.log(error)
     );
@@ -264,6 +267,11 @@ export class NotificationsComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+
+  nextStep (notification) {
+    notification.step = true;
   }
 
   goToHobbies() {

@@ -16,8 +16,8 @@
           </span>
 
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div  (click)="goToDetail(message)" class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text offer-text">
@@ -50,36 +50,50 @@
 
         <!-- INICIO NOTIFICACIÓN OFERTA ACEPTADA -->
         <div *ngIf="message.tipoNotificacion == 'offer_accepted'" class="notifications-item">
-          <p class="notification-text">Tu oferta ha sido aceptada
-            <span class="highlight bold clickable" (click)="goToDetail(message)">
-              {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + '
-              pesos.'}}</span>
-          </p>
-          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
-          </small>
-          <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
-          <div class="notification-buttons" *ngIf="!message.status">
-            <div class="button-item">
-              <button class="button button-secondary" (click)="buyProduct(message)">Comprar</button>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div  (click)="goToDetail(message)" class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
-            <div class="button-item">
-              <button class="button button-primary" (click)="regretOffer(message)">Cancelar</button>
+            <div class="notification-body">
+              <p class="notification-text">Tu oferta ha sido aceptada
+                <span class="highlight bold clickable" (click)="goToDetail(message)">
+                  {{(message.producto.nombreProducto) + ': ' + (message.oferta.monto | currency:'$' | removeDigits) + '
+                  pesos.'}}</span>
+              </p>
+              <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
             </div>
           </div>
+          <div class="notification-buttons" *ngIf="!message.status">
+            <div class="button-item">
+              <button mat-flat-button color="primary"  class="button button-secondary" (click)="buyProduct(message)">Comprar</button>
+            </div>
+            <div class="button-item">
+              <button  mat-stroked-button class="button" (click)="regretOffer(message)">Cancelar</button>
+            </div>
+          </div>
+          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA ACEPTADA -->
 
         <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
         <div *ngIf="message.tipoNotificacion == 'offer_declined'" class="notifications-item">
-          <p class="notification-text">Tu oferta ha sido rechazada
-            <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) +
-              ' ' +(message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
-          </p>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div  (click)="goToDetail(message)" class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">Tu oferta ha sido rechazada
+                <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) +
+                  ' ' +(message.oferta.monto | currency:'$' | removeDigits) + ' pesos.'}}</span>
+              </p>
+            </div>
+          </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
@@ -89,8 +103,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div  (click)="goToDetail(message)" class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -112,8 +126,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div (click)="goToDetail(message)" class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <span *ngIf="!message.informacionAdicional && message.producto">
@@ -148,7 +162,6 @@
                 </p>
               </span>
             </div>
-
           </div>
           <div class="notification-buttons" *ngIf="message.producto && !message.informacionAdicional && !message.status">
             <div class="button-item">
@@ -182,8 +195,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <span *ngIf="!message.informacionAdicional && message.producto">
@@ -229,8 +242,8 @@
             <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
             </span>
             <div class="notification">
-              <div class="notification-img">
-                <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+              <div class="notification-img img-round">
+                 <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body">
                 <p class="notification-text">Tu publicación
@@ -252,48 +265,79 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="img-round notification-img">
+              <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img">
+              </div>
             </div>
             <div class="notification-body">
-              <div class="expired-container" *ngIf="message.accionExpirado">
+              <div class="expired-container" *ngIf="message.accionExpirado === 'new' && message.accionExpirado && !message.step">
                 <div class="intro main-text">
-                  <p class="notification-text">Tu publicación
-                    <span (click)="goToDetail(message)" class="highlight bold clickable">{{message.producto.nombreProducto}}</span>
-                    se ha vencido.
+                  <p class="highlight bold notification-text">Tu publicación
+                    <span (click)="goToDetail(message)" class="clickable">{{message.producto.nombreProducto}}</span>
+                    se acaba de vencer.
                   </p>
+                  <p class="highlight bold notification-text">
+                    ¿Lo quieres republicar?
+                  </p>
+                  <div class="notification-buttons">
+                    <div class="button-item">
+                      <button mat-flat-button color="primary" (click)="republish(message)" class="gtmRepublicar button button-primary">Si</button>
+                    </div>
+                    <div class="button-item">
+                      <button mat-stroked-button (click)="nextStep(message)">No</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="expired-container" *ngIf="message.accionExpirado === 'new' && message.step">
+                <div class="intro main-text">
+                  <p class="highlight bold notification-text">Cuéntanos porqué
+                  </p>
+                  <form class="form-theme">
+                    <div class="material-design">
+                      <div class="md-radio">
+                        <input [value]="'in'" [(ngModel)]="message.type" id="in" type="radio" name="option" checked>
+                        <label for="in">Lo vendí en Rótalo</label>
+                      </div>
+                      <div class="md-radio">
+                        <input [value]="'out'" [(ngModel)]="message.type" id="out" type="radio" name="option">
+                        <label for="out">Lo vendí por fuera de Rótalo</label>
+                      </div>
+                      <div class="md-radio">
+                        <input [value]="'no_republish'" [(ngModel)]="message.type" id="no_republish" type="radio" name="option">
+                        <label for="no_republish">No lo quiero publicar más</label>
+                      </div>
+                    </div>
+                  </form>
+
                   <div class="notification-buttons" *ngIf="message.accionExpirado === 'new'">
                     <div class="button-item">
-                      <button (click)="updateSellUnknow(message, 'in'); message.accionExpirado = 'sell_unknow_in'"
-                        class="gtmVendidoRotalo button button-primary">Vendido en Rótalo</button>
-                    </div>
-                    <div class="long-button button-item">
-                      <button (click)="updateSellUnknow(message, 'out'); message.accionExpirado = 'sell_unknow_out'"
-                        class="gtmVendidoFuera button button-primary">Vendido por fuera / No republicar</button>
-                    </div>
-                    <div class="button-item">
-                      <button (click)="republish(message)" class="gtmRepublicar button button-primary">Republicar</button>
-                    </div>
-                  </div>
-                  <div *ngIf="message.accionExpirado !== 'new'">
-                    <div *ngIf="message.accionExpirado === 'republished'">
-                      <p class="notification-text">
-                        Has republicado tu producto.
-                      </p>
-                    </div>
-                    <div *ngIf="message.accionExpirado === 'sell_unknow_out'">
-                      <p class="notification-text">
-                        Tu producto ha sido marcado como fuera de Rótalo.
-                      </p>
-                    </div>
-                    <div *ngIf="message.accionExpirado === 'sell_unknow_in'">
-                      <p class="notification-text">
-                        Tu producto ha sido marcado como vendido en Rótalo. Ya no recibirás más notificaciones de éste.
-                      </p>
+                      <button mat-flat-button color="primary" (click)="updateSellUnknow(message)" class="gtmRepublicar button button-primary">Enviar</button>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <div *ngIf="message.accionExpirado !== 'new'">
+                <div *ngIf="message.accionExpirado === 'republished'">
+                  <p class="notification-text">
+                    Has republicado tu producto.
+                  </p>
+                </div>
+                <div *ngIf="message.accionExpirado === 'sell_unknow_out'">
+                  <p class="notification-text">
+                    Tu producto ha sido marcado como vendido fuera de Rótalo.
+                  </p>
+                </div>
+                <div *ngIf="message.accionExpirado === 'sell_unknow_in'">
+                  <p class="notification-text">
+                    Tu producto ha sido marcado como vendido en Rótalo. Ya no recibirás más notificaciones de éste.
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}
@@ -308,8 +352,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -329,50 +373,71 @@
 
         <!-- INICIO NOTIFICACIÓN NUEVO SUFI -->
         <div *ngIf="message.tipoNotificacion == 'new_sufi'" class="notifications-item">
-          <p class="notification-text">
-            <span class="highlight bold">{{message['sufi-loan'].nombreUsuario}}</span>
-            quiere comprar
-            <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) +
-              ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos'}}</span>
-            y para ello ha solicitado un crédito Sufi.
-          </p>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">
+                <span class="highlight bold">{{message['sufi-loan'].nombreUsuario}}</span>
+                quiere comprar
+                <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) +
+                  ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos'}}</span>
+                y para ello ha solicitado un crédito Sufi.
+              </p>
+            </div>
+          </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN NUEVO SUFI -->
 
         <!-- INICIO NOTIFICACIÓN SUFI APROBADO -->
         <div *ngIf="message.tipoNotificacion == 'sufi_approved'" class="notifications-item">
-          <p class="notification-text">
-            Felicitaciones! Tu crédito con Sufi para la compra del producto
-            <span class="highlight bold clickable" (click)="goToDetail(message)">
-              {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + '
-              pesos '}}
-            </span>
-            ha sido aprobada.
-          </p>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">
+                Felicitaciones! Tu crédito con Sufi para la compra del producto
+                <span class="highlight bold clickable" (click)="goToDetail(message)">
+                  {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + '
+                  pesos '}}
+                </span>
+                ha sido aprobada.
+              </p>
+            </div>
+          </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUFI APROBADO -->
 
         <!-- INICIO NOTIFICACIÓN SUFI RECHAZADO -->
         <div *ngIf="message.tipoNotificacion == 'sufi_declined'" class="notifications-item">
-          <p class="notification-text">
-            Tu solicitud de crédito Sufi para la compra del producto
-            <span class="highlight bold clickable" (click)="goToDetail(message)">
-              {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + '
-              pesos '}}
-            </span>
-            no fue aprobada.
-          </p>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">
+                Tu solicitud de crédito Sufi para la compra del producto
+                <span class="highlight bold clickable" (click)="goToDetail(message)">
+                  {{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + '
+                  pesos '}}
+                </span>
+                no fue aprobada.
+              </p>
+            </div>
+          </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUFI RECHAZADO -->
@@ -382,8 +447,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Has ganado la subasta
@@ -413,8 +478,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -434,15 +499,22 @@
 
         <!-- INICIO NOTIFICACIÓN SUBASTA SOBREPASADA -->
         <div *ngIf="message.tipoNotificacion == 'auction_overtaken'" class="notifications-item">
-          <p class="notification-text">Han superado tu oferta en la subasta del producto
-            <span class="highlight bold clickable" (click)="goToDetail(message)">
-              {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$' | removeDigits) + '
-              pesos.'}}
-            </span>
-          </p>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div class="notification-img img-round">
+               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">Han superado tu oferta en la subasta del producto
+                <span class="highlight bold clickable" (click)="goToDetail(message)">
+                  {{(message.producto.nombreProducto) + ':' + (message.producto.precio | currency:'$' | removeDigits) + '
+                  pesos.'}}
+                </span>
+              </p>
+            </div>
+          </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN SUBASTA SOBREPASADA -->
@@ -459,8 +531,8 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div class="notification-img">
-              <img src="../../../assets/img/ic_rotalo_warning.svg" alt="">
+            <div class="notification-img img-round">
+                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -479,17 +551,22 @@
 
         <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
         <div *ngIf="message.tipoNotificacion == 'first_interests_association'" class="notifications-item">
-          <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y
-            encontrar usuarios
-            que comparten tus intereses. ¡Sigue rotando!
-            <span *ngIf="message.interes && message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
-              Has seleccionado tus intereses.
-            </span>
-          </p>
-          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}
-            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-            </span>
-          </small>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div class="notification-img img-round">
+                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y
+                encontrar usuarios
+                que comparten tus intereses. ¡Sigue rotando!
+                <span *ngIf="message.interes && message.interes.tieneIntereses" class="highlight bold clickable" (click)="goToHobbies()">
+                  Has seleccionado tus intereses.
+                </span>
+              </p>
+            </div>
+          </div>
           <div *ngIf="!message.interes || !message.interes.tieneIntereses" class="notification-buttons">
             <div class="button-item">
               <button class="button button-secondary" (click)="goToHobbies()">
@@ -497,6 +574,8 @@
               </button>
             </div>
           </div>
+          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}
+          </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
       </div>
