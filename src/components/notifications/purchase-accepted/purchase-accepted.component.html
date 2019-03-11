@@ -2,7 +2,7 @@
   <span (click)='deleteNotification(notification.idNotificacion)' class="icon-close">
   </span>
   <div class="notification">
-    <div  (click)="goToDetail(notification.producto.idProducto)" class="notification-img img-round">
+    <div  (click)="goToDetail(notification)" class="notification-img img-round">
         <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
     </div>
     <div *ngIf="!notification.informacionAdicional && notification.producto" class="notification-body">

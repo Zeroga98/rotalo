@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } fro
 import { MessagesService } from '../../../services/messages.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ROUTES } from '../../../router/routes';
 
 function validateRating(c: AbstractControl): {[key: string]: boolean} | null {
   const speed = c.get('speed').value;
@@ -34,6 +36,7 @@ export class RatingNotificationComponent implements OnInit {
     private messagesService: MessagesService,
     private currentSessionService: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -75,4 +78,16 @@ export class RatingNotificationComponent implements OnInit {
   public deleteNotification(idNotifications) {
     this.notificationDelete.emit(idNotifications);
   }
+
+
+  goToDetail(notification) {
+    if ( notification.producto && notification.producto.idProducto) {
+      const id = notification.producto.idProducto;
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+      ]);
+    }
+  }
+
+
 }

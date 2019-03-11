@@ -3,7 +3,7 @@
   </span>
   <div  [ngClass]="{'disable-rate': hideButton}" class="rating-container ">
       <div class="notification">
-        <div class="notification-img img-round">
+        <div (click)="goToDetail(notification)" class="notification-img img-round">
             <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
         </div>
         <div class="notification-body">

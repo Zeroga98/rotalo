@@ -41,8 +41,14 @@ export class PurchaseAcceptedComponent implements OnInit {
     this.userClicked.emit();
   }
 
-  goToDetail(id: number) {
-    this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`]);
+
+  goToDetail(notification) {
+    if ( notification.producto && notification.producto.idProducto) {
+      const id = notification.producto.idProducto;
+      this.router.navigate([
+        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+      ]);
+    }
   }
 
   contactSeller(id: number) {
