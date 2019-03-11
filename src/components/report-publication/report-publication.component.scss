@@ -11,7 +11,7 @@
 
   .description {
     p {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: bold;
       color: #272727;
       text-align: center;
@@ -22,7 +22,7 @@
 
   .sub-description {
     p {
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: #808080;
       text-align: center;
       width: 100%;
@@ -45,6 +45,12 @@
     background: url(../../assets/img/ic_mico_alegre.svg);
     background-size: 160px 160px;
     margin: 0 auto;
+  }
+
+  .icon-close {
+    line-height: 25px;
+    color: #A2A2A2;
+    cursor: pointer;
   }
 
   .btn-container {
@@ -84,7 +90,8 @@
     }
     &:hover {
       border: 2px solid #707070;
-      p {
+
+      .icon-close {
         color: #707070;
       }
     }
@@ -247,7 +254,7 @@
     padding: 0 30px;
     margin-bottom: 0;
     color: #B0B0B0;
-    font-size: 2.2rem;
+    font-size: 2rem;
     cursor: pointer;
     vertical-align: bottom;
   }
@@ -290,10 +297,15 @@
   display: block;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
   :host {
     .material-design {
       width: 100%;
+    }
+
+    .modal-container {
+      width: 90%;
+      margin: 0 auto;
     }
 
     .description p {

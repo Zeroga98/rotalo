@@ -40,9 +40,16 @@ export class ReportPublicationComponent implements OnInit , AfterViewInit {
         'razon': razon,
         'comentario': this.reportForm.get('comentario').value,
     };
-    // this.dialogRef.close(this.params);
+
      this.productsService.reportProduct(params).subscribe((response) => {
         this.showSuccess = true;
+        this.gapush(
+          'send',
+          'event',
+          'Productos',
+          'ClicReportaAqui',
+          'EnvioExitoso'
+        );
       },
       (error) => {
         console.log(error);
@@ -61,6 +68,18 @@ export class ReportPublicationComponent implements OnInit , AfterViewInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   close() {
