@@ -28,13 +28,20 @@ export class ChatThreadComponent implements OnInit {
 
   selectInfoConversation() {
     this.shareInfoChatService.setScrollDown(true);
-    this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
+    if (this.thread.rol == 'product') {
+      this.shareInfoChatService.setIdConversation(this.thread.idUsuarioChat);
+    } else  {
+      this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
+    }
     this.shareInfoChatService.changeMessage(this.thread);
     this.selectOption.emit();
   }
 
   isSelected() {
     const currentId = this.shareInfoChatService.getIdConversation();
+    if (this.thread.rol == 'product') {
+      return currentId == this.thread.idUsuarioChat || currentId == this.thread.idEmisario;
+    }
     return currentId == this.thread.idEmisario;
   }
 

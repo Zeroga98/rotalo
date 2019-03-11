@@ -1,62 +1,85 @@
-.notifications-theme{
-    .notifications-item {
-        border-bottom: 1px solid $blue-light;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        padding: 1.6em .9em;
-        position: relative;
-        min-height: 70px;
-        p , a {
-            &.notification-text {
-                font-size: 1.4em;
-                margin: 0 .7em;
-                width: 90%;
-                .highlight {
-                    color: $red;
-                    background-color: transparent;
-                    &.bold {
-                        font-weight: 700;
-                    }
-                    &.clickable{
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-        .notification {
-            &-icon {
-                color: $grey;
-                font-size: 1.5em;
-                font-family: "toolkit-entypo" !important;
-            }
-            &-date {
-                position: absolute;
-                bottom: auto;
-                color: $grey;
-                font-size: 1.2em;
-                top: 5px;
-                right: 10px;
-            }
-            &-buttons {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1em 0 0 0;
-                .button-item {
-                    width: 50%;
-                    padding: 0 1%;
-                    button {
-                        width: 100%;
-                        padding: 5px 10px;
-                        font-size: 1.2em;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
+.notifications-theme {
+  .notifications-item {
+    border-bottom: 1px solid $blue-light;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 2rem 2rem;
+    position: relative;
+    min-height: 70px;
+
+    .icon-close {
+      position: absolute;
+      font-size: 11px;
+      right: 10px;
+      top: 10px;
+      z-index: 1;
     }
+
+    p,
+    a {
+      &.notification-text {
+        color: #272727;
+        font-size: 1.6rem;
+
+        .highlight {
+
+          color: #383838;
+          background-color: transparent;
+
+          &.bold {
+            font-weight: bold;
+          }
+
+          &.clickable {
+            cursor: pointer;
+          }
+        }
+
+        span {
+          line-height: 20px;
+        }
+      }
+    }
+
+    .notification {
+      &-icon {
+        color: $grey;
+        font-size: 1.5em;
+        font-family: "toolkit-entypo" !important;
+      }
+
+      &-date {
+        position: absolute;
+        bottom: auto;
+        color: $grey;
+        font-size: 1.2em;
+        bottom: 5px;
+        right: 20px;
+      }
+
+      &-buttons {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+
+        .button-item {
+          &.align-right {
+            margin-left: auto;
+          }
+
+          &:not(:last-child) {
+            margin-right: 15px;
+          }
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
 .mat-menu-panel {
@@ -71,4 +94,97 @@
   padding-top: 20px;
 }
 
+.notification {
+  display: table;
+  position: relative;
+  transition: all 0.2s ease;
+  width: 100%;
+  padding: 1.5rem 0 0;
+}
 
+.notification-img {
+  display: table-cell;
+  padding-top: 5px;
+  width: 58.05px;
+
+  img {
+    width: 58.05px;
+  }
+}
+
+.notification-body {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 15px;
+
+  p {
+    // padding: 5px 0;
+    color: #272727;
+    font-size: 1.6rem;
+
+    &.bold {
+      color: #383838;
+      font-size: 2.0rem;
+    }
+  }
+}
+
+.br-default .br-unit:after {
+  position: absolute;
+  bottom: -5px;
+}
+
+.br-units {
+  justify-content: flex-end;
+}
+
+.br {
+  margin: 8px 0 !important;
+}
+
+.notifications-theme {
+
+  .mat-fab.mat-primary,
+  .mat-flat-button.mat-primary,
+  .mat-mini-fab.mat-primary,
+  .mat-raised-button.mat-primary {
+    background-color: #FF3646;
+    font-family: 'Lato Regular';
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+    width: 100%;
+    height: 40px;
+    max-width: 153px;
+    min-width: 120px;
+    border-radius: 22px;
+    line-height: 0px;
+
+    &:hover:not([disabled]) {
+      background-color: #FF4655;
+    }
+  }
+
+  .mat-stroked-button {
+    font-family: 'Lato Regular';
+    font-size: 1.4rem;
+    font-weight: bold;
+    width: 100%;
+    height: 40px;
+    max-width: 153px;
+    min-width: 120px;
+    border-radius: 22px;
+    line-height: 0px;
+    color: #FF3646;
+
+    &:hover:not([disabled]) {
+      background-color: #FF3646;
+      color: white;
+    }
+  }
+
+  .mat-stroked-button:not([disabled]) {
+    border-color: #FF3646;
+  }
+
+}

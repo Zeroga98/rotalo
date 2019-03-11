@@ -101,7 +101,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
 
   private searchCurrentConversation(currentThreadId, threads) {
     return threads.find(thread => {
-        return thread.idEmisario == currentThreadId;
+        return thread.idEmisario == currentThreadId || thread.idUsuarioChat && thread.idUsuarioChat == currentThreadId ;
     });
   }
 

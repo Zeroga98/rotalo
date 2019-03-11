@@ -8,25 +8,40 @@
     padding-bottom: 0;
     overflow: hidden;
   }
-  .rating-container{
-    position: absolute;
-  }
-  .disable-rate{
- //   z-index: -1;
-  }
+
   .rate {
     width: 100%;
-    margin-bottom: 15px;
+    display: table;
+    position: relative;
+    transition: all 0.2s ease;
   }
+
   p.notification-text {
     margin: 0;
-    margin-bottom: -20px;
-    font-weight: 600;
+    color: #767676;
+    font-size: 1.6rem;
+    display: table-cell;
+    vertical-align: middle;
   }
+
+  bar-rating {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
   .main-text {
     margin-bottom: 40px;
   }
   .icon-close {
     cursor: pointer;
+  }
+}
+
+:host {
+  .question-rating{
+    color:#383838;
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-top: 10px;
   }
 }
