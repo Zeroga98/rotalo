@@ -3,7 +3,7 @@
     Notificaciones
   </p>
 </div>
-<div [ngClass]="messages.length > 3 && !this.isNotificationMobile ?  'scroll': ''" class="conversation">
+<div [ngClass]="messages.length > 0 && !this.isNotificationMobile ?  'scroll': ''" class="conversation">
   <div #scrollMe class="conversation-container">
     <div class="notifications-theme" *ngIf="messages">
 
@@ -16,7 +16,9 @@
           </span>
 
           <div class="notification">
-            <div  (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -53,7 +55,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div  (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -83,7 +87,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div  (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -103,7 +109,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div  (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -126,8 +134,11 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
+               <div
+               [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <span *ngIf="!message.informacionAdicional && message.producto">
@@ -195,7 +206,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -242,7 +255,9 @@
             <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
             </span>
             <div class="notification">
-              <div (click)="goToDetail(message)" class="notification-img img-round">
+              <div
+              [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+              (click)="goToDetail(message)" class="notification-img ">
                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body">
@@ -265,7 +280,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="img-round notification-img">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class=" notification-img">
               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img">
               </div>
             </div>
@@ -276,9 +293,11 @@
                     <span (click)="goToDetail(message)" class="clickable">{{message.producto.nombreProducto}}</span>
                     se acaba de vencer.
                   </p>
+
                   <p class="highlight bold notification-text">
                     ¿Lo quieres republicar?
                   </p>
+
                   <div class="notification-buttons">
                     <div class="button-item">
                       <button mat-flat-button color="primary" (click)="republish(message)" class="gtmRepublicar button button-primary">Si</button>
@@ -306,8 +325,8 @@
                         <label for="out">Lo vendí por fuera de Rótalo</label>
                       </div>
                       <div class="md-radio">
-                        <input [value]="'no_republish'" [(ngModel)]="message.type" id="no_republish" type="radio" name="option">
-                        <label for="no_republish">No lo quiero publicar más</label>
+                        <input [value]="'do_not_republish'" [(ngModel)]="message.type" id="do_not_republish" type="radio" name="option">
+                        <label for="do_not_republish">No lo quiero publicar más</label>
                       </div>
                     </div>
                   </form>
@@ -321,6 +340,10 @@
               </div>
 
               <div *ngIf="message.accionExpirado !== 'new'">
+                <p class="highlight bold notification-text">Tu publicación
+                      <span (click)="goToDetail(message)" class="clickable">{{message.producto.nombreProducto}}</span>
+                      se acaba de vencer.
+                </p>
                 <div *ngIf="message.accionExpirado === 'republished'">
                   <p class="notification-text">
                     Has republicado tu producto.
@@ -336,6 +359,11 @@
                     Tu producto ha sido marcado como vendido en Rótalo. Ya no recibirás más notificaciones de éste.
                   </p>
                 </div>
+                <div *ngIf="message.accionExpirado === 'do_not_republish'">
+                    <p class="notification-text">
+                      Tu producto no sera publicado
+                    </p>
+                  </div>
               </div>
 
             </div>
@@ -352,7 +380,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -376,7 +406,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -399,7 +431,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -423,7 +457,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+             (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -447,7 +483,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -478,7 +516,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+             (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -502,7 +542,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -531,7 +573,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                 <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -554,7 +598,9 @@
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div (click)="goToDetail(message)" class="notification-img img-round">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
                 <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
@@ -582,7 +628,15 @@
 
     </div>
   </div>
+  <custom-spinner *ngIf="showSpinner"></custom-spinner>
 </div>
-<div class="button-container">
+
+<div *ngIf='messages.length > 0' class="button-container">
   <a (click)='loadMoreNotification()'>Ver más</a>
 </div>
+
+<div *ngIf='!showSpinner && messages.length == 0' class="button-container">
+    <p class="message">
+      Por ahora no tienes notificaciones
+    </p>
+  </div>

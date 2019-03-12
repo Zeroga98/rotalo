@@ -35,7 +35,8 @@ export class NotificationsComponent implements OnInit {
     number: this.currentPage
   };
   @Input() isNotificationMobile: boolean ;
-
+  public showSpinner = false;
+  public totalNotificationes;
   constructor(
     private notificationService: MessagesService,
     private router: Router,
@@ -53,6 +54,7 @@ export class NotificationsComponent implements OnInit {
     } else  {
       this.startLoadNotifications();
     }
+
   }
 
   startLoadNotifications() {
@@ -67,6 +69,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   private  loadNotifications() {
+    this.showSpinner = true;
     this.notificationService.getNotifications(this.filterNotification).subscribe(
       notification => {
         const idNotifications = [];
@@ -76,6 +79,8 @@ export class NotificationsComponent implements OnInit {
 
         this.messages = this.messages.concat(notification.body.notificaciones);
         this.updateNotification(idNotifications);
+        this.showSpinner = false;
+        this.totalNotificationes =  notification.body.totalNotificaciones;
         this.changeDetector.markForCheck();
       },
       error => console.log(error)
@@ -238,8 +243,10 @@ export class NotificationsComponent implements OnInit {
       state => {
         if (notification.type === 'out'){
           notification.accionExpirado = 'sell_unknow_out';
-        } else {
+        } else if(notification.type === 'in'){
           notification.accionExpirado = 'sell_unknow_in';
+        } else {
+          notification.accionExpirado = 'do_not_republish';
         }
         this.changeDetector.markForCheck();
       },

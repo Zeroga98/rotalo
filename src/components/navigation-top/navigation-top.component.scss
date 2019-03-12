@@ -167,11 +167,18 @@
           justify-content: center;
           align-items: center;
           position: relative;
-          .icon-bell {
+          .icon-bell.active {
             cursor: pointer;
             width: 18px;
             height: 18px;
             background: url(../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
+            background-size: contain;
+          }
+          .icon-bell {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: url(../../assets/img/iconos/ic_campana.svg) no-repeat;
             background-size: contain;
           }
         }

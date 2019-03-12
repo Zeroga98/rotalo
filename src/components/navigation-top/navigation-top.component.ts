@@ -90,6 +90,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private navigationTopService:NavigationTopService,
     private shoppingCarService: ShoppingCarService,
+
   ) {
     this.onResize();
   }
@@ -144,6 +145,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
     this.autoCompleteOptions = this.navigationTopService.getAutoCompleteOptions();
     this.cartNumberSubscription();
+
   }
 
   isBancolombiaShopValidation() {
@@ -230,6 +232,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       state => {
         if (state && state.body) {
           this.messagesUnRead = state.body.cantidadMensajes;
+          this.notificationsUnread = state.body.cantidadNotificaciones;
           this.notificationHobby = state.body.notificacionActIntereses;
           this.navigationService.setNotificationHobbies(this.notificationHobby);
           this.navigationService.setMessagesUnRead(this.messagesUnRead);

@@ -3,9 +3,29 @@
 
   .conversation.scroll {
     overflow-y: auto;
-    height: 400px;
     overflow-x: hidden;
+    height: 400px;
   }
+
+  /*
+  .conversation.scroll:hover {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }*/
+
+  .conversation.scroll::-webkit-scrollbar{
+    height:5px;
+    width:5px;
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .conversation.scroll::-webkit-scrollbar-thumb{
+    background:#CBCBCB;
+    border-radius: 4px;
+  }
+
 
   .header-notifications{
     padding: 13px 23px;
@@ -31,6 +51,12 @@
       font-size: 1.6rem;
       text-decoration: underline;
       cursor: pointer;
+    }
+
+    .message {
+      color:#B2B2B2;
+      font-size: 1.6rem;
+      padding: 20px 0px 30px;
     }
   }
 }
@@ -112,4 +138,8 @@
   *:after {
     box-sizing: border-box;
   }
+}
+
+custom-spinner {
+  text-align: center;
 }
