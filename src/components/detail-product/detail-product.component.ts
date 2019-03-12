@@ -87,6 +87,8 @@ export class DetailProductComponent implements OnInit {
   public showSticker = false;
   public stickerUrl = '';
 
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -128,6 +130,7 @@ export class DetailProductComponent implements OnInit {
     this.initShareForm();
     this.initQuantityForm();
     this.loadProduct();
+
   }
 
   initShareForm() {

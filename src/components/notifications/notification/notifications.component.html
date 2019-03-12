@@ -262,7 +262,7 @@
               </div>
               <div class="notification-body">
                 <p class="notification-text">Tu publicación
-                  <span class="highlight bold">{{message.producto.nombreProducto}}</span>
+                  <span  (click)="goToDetail(message)" class="highlight bold">{{message.producto.nombreProducto}}</span>
                   se ha vencido.
                 </p>
               </div>

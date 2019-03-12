@@ -9,8 +9,8 @@
             <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
         </div>
         <div class="notification-body">
-          <p>Renault Duster 2014 con aire acondicionado</p>
-          <p class="bold">$11.200.000</p>
+          <p>{{notification.producto.nombreProducto}}</p>
+          <p class="bold">{{(notification.producto.precio | currency:'$' | removeDigits)}}</p>
         </div>
       </div>
       <p class="question-rating">

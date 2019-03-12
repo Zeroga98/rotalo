@@ -45,9 +45,10 @@ export class PurchaseAcceptedComponent implements OnInit {
   goToDetail(notification) {
     if ( notification.producto && notification.producto.idProducto) {
       const id = notification.producto.idProducto;
-      this.router.navigate([
+     /* this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
-      ]);
+      ]);*/
+      window.location.href = `${window.location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
     }
   }
 

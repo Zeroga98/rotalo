@@ -148,9 +148,24 @@ export class NotificationsComponent implements OnInit {
   goToDetail(notification) {
     if ( notification.producto && notification.producto.idProducto) {
       const id = notification.producto.idProducto;
-      this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
-      ]);
+     /* console.log(this.router.url);
+      if (this.router.url.includes(`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}`)) {
+        console.log(window.location.origin);
+        window.location.href = 'http://localhost:4200/products/show/3406';
+      } else  {
+        this.router.navigate([
+          `../${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+        ]);
+      }*/
+      window.location.href = `${window.location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
+
+     /* this.router.navigate([
+        `../${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
+      ]);*/
+
+      /*
+      this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}`, id]);
+      */
     }
   }
 
