@@ -201,3 +201,24 @@
   }
 
 }
+
+@media screen and (max-width: 550px) {
+  .notifications-theme .notifications-item {
+    padding: 0 2.5rem 2rem 2rem;
+  }
+
+  .notifications-theme .notifications-item .icon-close {
+    top: 15px;
+  }
+
+  .notifications-theme {
+    .mat-fab.mat-primary,
+    .mat-flat-button.mat-primary,
+    .mat-mini-fab.mat-primary,
+    .mat-raised-button.mat-primary, .mat-stroked-button{
+      min-width: 94px;
+    }
+
+  }
+
+}
