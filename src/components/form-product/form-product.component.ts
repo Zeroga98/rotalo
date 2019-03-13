@@ -18,6 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS } from './immovable.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -100,9 +101,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
   items = [1, 2, 3, 4, 5];
-
-
-
+  typeSellers: Array<any> = TIPO_VENDEDOR;
+  rooms : Array<any> = HABITACIONES;
+  bathrooms : Array<any> = BATHROOMS;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -652,6 +653,29 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return false;
   }
 
+
+  subcategoryIsHouse(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Casa') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  subcategoryIsFlat(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Apartamento') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   selectedComunity(idCategory: number ) {
     this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
@@ -685,6 +709,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   private setInitialForm(config: ProductInterface) {
+    /**Vehiculos**/
     let typeVehicle = '';
     let model = '';
     let lineId = '';
@@ -727,6 +752,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       console.log(error);
     });
 
+  /**Vehiculos**/
     if (config['vehicle']) {
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
@@ -749,6 +775,47 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     stock = config['stock'] ? config['stock'] : 1;
 
 
+    /**Inmuebles**/
+    let immovableType = '';
+    let antiquity = '';
+    let squareMeters = '';
+    let rooms = '';
+    let bathrooms = '';
+    let sellerType = '';
+    let floor = '';
+    let elevator = '';
+    let guardHouse = '';
+    let parking = '';
+    let canonQuota = '';
+    let fullyFurnished = '';
+    let pool = '';
+    let childishGames = '';
+    let usefulRoom = '';
+    let squareMetersTerrain = '';
+    let socialClass = '';
+
+    if (config['immovable']) {
+      const immovable  = config['immovable'];
+      immovableType = immovable['immovableType'] ? immovable['immovableType'] : '';
+      antiquity = immovable['antiquity'] ? immovable['antiquity'] : '';
+      squareMeters = immovable['squareMeters'] ? immovable['squareMeters'] : '';
+      rooms = immovable['rooms'] ? immovable['rooms'] : 0;
+      bathrooms  = immovable['bathrooms'] ? immovable['bathrooms'] : '';
+      sellerType = immovable['sellerType'] ? immovable['sellerType'] : '';
+      floor = immovable['floor'] ? immovable['floor'] : '';
+      elevator = immovable['elevator'] ? immovable['elevator'] : '';
+      guardHouse = immovable['guardHouse'] ? immovable['guardHouse'] : '';
+      parking = immovable['parking'] ? immovable['parking'] : '';
+      canonQuota = immovable['canonQuota'] ? immovable['canonQuota'] : '';
+      fullyFurnished = immovable['fullyFurnished'] ? immovable['fullyFurnished'] : '';
+      pool = immovable['pool'] ? immovable['pool'] : '';
+      childishGames = immovable['childishGames'] ? immovable['childishGames'] : '';
+      usefulRoom = immovable['usefulRoom'] ? immovable['usefulRoom'] : '';
+      squareMetersTerrain = immovable['squareMetersTerrain'] ? immovable['squareMetersTerrain'] : '';
+      socialClass = immovable['socialClass'] ? immovable['socialClass'] : '';
+    }
+
+
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -761,7 +828,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
 
     if (this.product) {
-      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
+      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
+      || config.subcategory.name == 'Casa' || config.subcategory.name == 'Apartamento') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
       }
@@ -802,6 +870,28 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
+
+
+      immovableType : [immovableType, []],
+      antiquity : [antiquity, []],
+      squareMeters: [squareMeters, []],
+      rooms: [rooms, []],
+      bathrooms: [bathrooms, []],
+      sellerType: [sellerType, []],
+      floor: [floor, []],
+      elevator: [elevator, []],
+      guardHouse: [guardHouse, []],
+      parking: [parking, []],
+      canonQuota: [canonQuota, []],
+      fullyFurnished: [fullyFurnished, []],
+      pool: [pool, []],
+      childishGames: [childishGames, []],
+      usefulRoom: [usefulRoom, []],
+      squareMetersTerrain: [squareMetersTerrain, []],
+      socialClass: [socialClass, []],
+
+
+
     }, { validator: validatePrice });
 
     if (this.product) {
@@ -815,7 +905,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
     }
 
-  //  this.changeDetectorRef.markForCheck();
+
   }
 
   private getInitialConfig(): ProductInterface {

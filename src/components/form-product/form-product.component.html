@@ -399,6 +399,74 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="subcategoryIsHouse() || subcategoryIsFlat()" class="row-section">
+                <div class="title-form">
+                  <div class="numberCircle">2</div>
+                  <div class="step-info">
+                    <h1>Información básica</h1>
+                    <p class="msg-field-required">
+                      *Campos obligatorios
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('antiquity').value}">
+                    <select name="antiquity" class="form-control" formControlName="antiquity" (change)="setLinesVehicle($event.target.value)">
+                      <option value="" disabled></option>
+                      <option value="1 año">1 año</option>
+                      <option value="2 año">2 año</option>
+                    </select>
+                    <label class="label-title">Antiguedad*</label>
+                    <span class="error-msg">Este campo es requerido</span>
+                  </div>
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('squareMeters').value || photosForm.get('squareMeters').value == 0}">
+                    <div class="kilometraje-container">
+                      <label class="label-title">Metros construidos*</label>
+                      <input class="form-control input-price" name="squareMeters" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                        formControlName="squareMeters" placeholder="150" maxlength="10" autocomplete="off">
+                      <label class="symbol-km">M2</label>
+                      <span class="error-msg">Este campo es requerido</span>
+                      <span class="error-msg-price">Este campo debe ser mayor que 0.</span>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{'valid': photosForm.get('rooms').value || photosForm.get('rooms').value == 0}">
+                      <label class="label-title">Piso*</label>
+                      <input  type="text" class="form-control" name="rooms" formControlName="rooms" maxlength="50" placeholder="1"
+                       onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                      <span class="help-block error-msg"> Este campo es requerido </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div  class="form-group field-form" [ngClass]="{'valid': photosForm.get('sellerType').value}">
+                        <select name="sellerType" class="form-control" formControlName="sellerType">
+                          <option value="" disabled></option>
+                          <option value="{{typeSeller}}" *ngFor="let typeSeller of typeSellers">{{typeSeller}}</option>
+                        </select>
+                        <label class="label-title">Tipo de vendedor*</label>
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+                      <div  class="form-group field-form" [ngClass]="{'valid': photosForm.get('rooms').value}">
+                        <select name="rooms" class="form-control" formControlName="rooms">
+                          <option value="" disabled></option>
+                          <option value="{{room}}" *ngFor="let room of rooms">{{room}}</option>
+                        </select>
+                        <label class="label-title">Habitaciones</label>
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+                      <div  class="form-group field-form" [ngClass]="{'valid': photosForm.get('bathrooms').value}">
+                        <select name="bathrooms" class="form-control" formControlName="bathrooms">
+                          <option value="" disabled></option>
+                          <option *ngFor="let bathroom of bathrooms" value="{{bathroom}}">{{bathroom}}</option>
+                        </select>
+                        <label class="label-title">Baños*</label>
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+                </div>
+
+          </div>
+          <div *ngIf="subcategoryIsHouse() || subcategoryIsFlat()" class="row-section">
+          </div>
           <div class="row-section">
             <div class="title-form">
               <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="numberCircle">4</div>
