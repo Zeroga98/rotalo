@@ -463,6 +463,27 @@
                         <span class="error-msg">Este campo es requerido</span>
                       </div>
                 </div>
+                <div class="row">
+                    <div class="form-group group-full">
+                        <label class="label-title">Portería</label>
+                        <div>
+                          <div class="md-radio">
+                            <input [value]="false" formControlName="visible" id="visible1" type="radio" name="visible">
+                            <label for="visible1">12 horas
+                            </label>
+                          </div>
+                          <div class="md-radio">
+                            <input [value]="true" formControlName="visible" id="visible2" type="radio" name="visible">
+                            <label for="visible2">24 horas</label>
+                          </div>
+                          <div class="md-radio">
+                              <input [value]="true" formControlName="visible" id="visible2" type="radio" name="visible">
+                              <label for="visible2">No aplica</label>
+                            </div>
+                          <span class="error-msg">Este campo es requerido</span>
+                        </div>
+                      </div>
+                </div>
 
           </div>
           <div *ngIf="subcategoryIsHouse() || subcategoryIsFlat()" class="row-section">
