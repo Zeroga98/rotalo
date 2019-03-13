@@ -17,6 +17,8 @@
         ¿Cómo te fue? Califíca al vendedor
       </p>
       <form (ngSubmit)="rate()" [formGroup]="rateSeller">
+        <div  [ngClass]="{'over-disable': hideButton}" class="over">
+        </div>
         <div class="rate">
           <p class="notification-text" [innerHTML]="'Rápidez del proceso'"></p>
           <bar-rating formControlName="speed" [(rate)]="speed" [max]="5"></bar-rating>

@@ -169,11 +169,14 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  buyProduct(mensaje) {
-    const id = mensaje.producto.idProducto;
-    this.router.navigate([
+  buyProduct(notification) {
+    const id = notification.producto.idProducto;
+    if ( notification.producto && notification.producto.idProducto) {
+      window.location.href = `${window.location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.BUY}/${id}`;
+    }
+   /* this.router.navigate([
       `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.BUY}/${id}`
-    ]);
+    ]);*/
   }
 
   async regretOffer(notification) {

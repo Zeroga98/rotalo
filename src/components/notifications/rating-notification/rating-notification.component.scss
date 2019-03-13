@@ -39,6 +39,23 @@
   .icon-close {
     cursor: pointer;
   }
+
+  form {
+    position: relative;
+  }
+
+  .over {
+    width: 100%;
+    height: 100%;
+  }
+
+  .over-disable {
+    min-height: 141px;
+    position: absolute;
+    z-index: 1;
+  }
+
+
 }
 
 :host {

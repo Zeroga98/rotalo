@@ -496,16 +496,17 @@
                 </span>
               </p>
               <p class="notification-text" *ngIf="message.status">{{message.status}}</p>
+              <div class="notification-buttons" *ngIf="!message.status">
+                  <div class="button-item">
+                    <button mat-flat-button color="primary" (click)="buyProduct(message)">Comprar</button>
+                  </div>
+                  <div class="button-item">
+                    <button mat-stroked-button (click)="regretOffer(message)">Cancelar</button>
+                  </div>
+                </div>
             </div>
           </div>
-          <div class="notification-buttons" *ngIf="!message.status">
-            <div class="button-item">
-              <button mat-flat-button color="primary" (click)="buyProduct(message)">Comprar</button>
-            </div>
-            <div class="button-item">
-              <button mat-stroked-button (click)="regretOffer(message)">Cancelar</button>
-            </div>
-          </div>
+
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
           </small>
         </div>
