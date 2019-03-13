@@ -46,14 +46,9 @@ export class ChangePasswordPage implements OnInit {
 
   changePassword(currentPassword: string, newPassword: string, confirmNewPassword: string) {
     const user = {
-      'data': {
-        'type': 'passwords',
-        'attributes': {
           'password': currentPassword,
           'new-password': newPassword,
           'new-password-confirmation': confirmNewPassword
-        }
-      }
     };
     this.changePasswordService.changePass(user).then(response => {
       this.messageChange = 'Su contraseña se ha actualizado correctamente.';
@@ -63,12 +58,22 @@ export class ChangePasswordPage implements OnInit {
       .catch(httpErrorResponse => {
         this.changePasswordForm.reset();
         this.messageChange = '';
-        if (httpErrorResponse.status === 403) {
+        console.log(httpErrorResponse)
+        if (httpErrorResponse.status === 500) {
+          if(httpErrorResponse.error.status === "621")
+          {
+            this.errorChange = '¡Ups!, la contraseña que ingresaste no coincide.';
+          }
+          else if(httpErrorResponse.error.status === "620")
+          {
+            this.errorChange = '¡Ups!, la nueva contraseña no coincide.';
+          }
+          else
+          {
+            this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';  
+          }
         }
-        if (httpErrorResponse.status === 422) {
-          this.errorChange = httpErrorResponse.error.errors[0].title;
-        }
-        if (httpErrorResponse.status === 0) {
+        else {
           this.errorChange = '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
         }
       });

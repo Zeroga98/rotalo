@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.712" height="16.48" viewBox="0 0 16.712 16.48">
+  <g id="tooltip" transform="translate(-634 -632)">
+    <g id="Group_2159" data-name="Group 2159" transform="translate(650.712 648.48) rotate(180)">
+      <g id="Ellipse_127" data-name="Ellipse 127" transform="translate(16.712 16.48) rotate(-180)" fill="#fff" stroke="#0fbbd8" stroke-width="1">
+        <ellipse cx="8.356" cy="8.24" rx="8.356" ry="8.24" stroke="none"/>
+        <ellipse cx="8.356" cy="8.24" rx="7.856" ry="7.74" fill="none"/>
+      </g>
+      <path id="Path_2274" data-name="Path 2274" d="M.134,4.213S.024,2,0,.936A.9.9,0,0,1,1.048.007a.888.888,0,0,1,.82.9c0,.489-.024.977-.039,1.466q-.074,2.514-.147,5.027a.705.705,0,0,1-.471.711A.73.73,0,0,1,.194,7.5Q.15,6.645.136,5.784c-.009-.548,0-1.1,0-1.646Z" transform="translate(7.539 2.857)" fill="#0fbbd8"/>
+      <path id="Path_2275" data-name="Path 2275" d="M0,.885A.907.907,0,0,1,.933,0a.915.915,0,0,1,.939.884.918.918,0,0,1-.937.887A.908.908,0,0,1,0,.885Z" transform="translate(7.537 11.733)" fill="#0fbbd8"/>
+    </g>
+  </g>
+</svg>
