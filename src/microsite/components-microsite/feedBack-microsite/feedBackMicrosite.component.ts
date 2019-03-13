@@ -11,7 +11,7 @@ import { ShareInfoChatService } from '../../../components/chat-thread/shareInfoC
   styleUrls: ['./feedBackMicrosite.component.scss']
 })
 export class FeedBackMicrositeComponent implements OnInit {
-  private currentUrl = '';
+  public currentUrl = '';
   constructor(private modalService: ModalFeedBackService,
     private router: Router,
     private currentSessionService: CurrentSessionService,
@@ -25,7 +25,7 @@ export class FeedBackMicrositeComponent implements OnInit {
   }
 
   public checkSession() {
-    return this.currentSessionService.currentUser();
+    return this.currentUrl && this.currentUrl.includes('microsite');
   }
 
   openModal(id: string) {
