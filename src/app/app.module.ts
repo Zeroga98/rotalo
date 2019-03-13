@@ -192,6 +192,7 @@ import { CommunitiesModalComponent } from '../pages/profile/admin-banners/commun
 import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
 import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
+import { FeedBackMicrositeComponent } from '../microsite/components-microsite/feedBack-microsite/feedBackMicrosite.component';
 
 @NgModule({
   declarations: [
@@ -308,7 +309,8 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
     CommunitiesModalComponent,
     ReportPublicationComponent,
     NotificationsComponent,
-    NotificationsMobileComponent
+    NotificationsMobileComponent,
+    FeedBackMicrositeComponent
   ],
   imports: [
     BrowserModule,

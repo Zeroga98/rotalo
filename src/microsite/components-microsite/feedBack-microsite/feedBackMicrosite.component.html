@@ -1,0 +1,12 @@
+<div *ngIf="!checkSession()">
+  <div (click)="openModal('custom-modal-microsite')" class="feedback-container">
+    <span class="feedback-text">
+      Contáctanos
+    </span>
+    <div class="icon-container">
+      <div class="icon-feedback">
+      </div>
+    </div>
+  </div>
+  <modal-feedBack class="md-modal md-effect-2" id="custom-modal-microsite"></modal-feedBack>
+</div>
