@@ -9,6 +9,7 @@ export const ROUTES = {
     CHANGE: 'change',
     PROFILE: 'profile',
     TERMS: 'terms',
+    TERMSCOMPANIES: 'terms-companies',
     SHOW: 'show',
     PROFILEPASS: 'change-password',
     HOBBIES: 'hobbies',

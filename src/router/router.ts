@@ -48,7 +48,7 @@ import { CampaignUploadComponent } from '../pages/profile/campaign-upload/campai
 import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-edit.component';
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
-
+import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 
 export const appRouter: Routes = [
   {
@@ -205,6 +205,11 @@ export const appRouter: Routes = [
     path: ROUTES.TERMS,
     component: TermsPage
   },
+  {
+    path: ROUTES.TERMSCOMPANIES,
+    component: TermsCompaniesComponent
+  },
+
   {
     path: ROUTES.RESETPASS,
     children: [

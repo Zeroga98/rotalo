@@ -12,20 +12,30 @@ import { CurrentSessionService } from '../../services/current-session.service';
 })
 export class FooterComponent implements OnInit {
   public readonly termsLink: string = `/${ROUTES.TERMS}`;
+  public readonly termsCompaniesLink: string = `/${ROUTES.TERMSCOMPANIES}`;
   public readonly faqLink: string = `/${ROUTES.FAQ}`;
   private readonly _homeRoute: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   public successModal  = false;
+  private currentUrl = '';
   constructor(private _router: Router,
     private currentSessionService: CurrentSessionService,
     private modalService: ModalFeedBackService) { }
 
   ngOnInit() {
-
+    this.currentUrl = window.location.href;
   }
 
   goToHome() {
     this._router.navigate([this._homeRoute]);
   }
+
+  get isGuatemala() {
+    if (this.currentUrl.includes('gt')) {
+      return true;
+    }
+    return false;
+  }
+
 
   openModal(id: string) {
     this.modalService.open(id);

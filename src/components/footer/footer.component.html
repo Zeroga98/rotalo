@@ -11,6 +11,7 @@
       <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
        <label (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
       </a>
+    <a *ngIf='!isGuatemala' [routerLink]="termsCompaniesLink"> - Reglamento empresas</a>
 	</div>
 	<div class="gtmFooterRotalo logo" (click)="goToHome()">
 		<img class="gtmFooterRotalo" src="./assets/img/logo-white.svg" alt="Logo rotalo">

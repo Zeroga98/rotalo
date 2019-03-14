@@ -192,7 +192,7 @@ import { CommunitiesModalComponent } from '../pages/profile/admin-banners/commun
 import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
 import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
-
+import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -308,7 +308,8 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
     CommunitiesModalComponent,
     ReportPublicationComponent,
     NotificationsComponent,
-    NotificationsMobileComponent
+    NotificationsMobileComponent,
+    TermsCompaniesComponent
   ],
   imports: [
     BrowserModule,
