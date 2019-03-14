@@ -25,28 +25,15 @@ export class HobbiesPage implements OnInit {
     private userService: UserService,
     private currentSessionService: CurrentSessionService,
     private hobbiesService: HobbiesService,
-    private utilsService: UtilsService,
-    private settingsService: SettingsService
+    private utilsService: UtilsService
   ) {
-    this.loadMaxMinNumHobbies();
+    
   }
 
   ngOnInit() {
     this.loadIdUser();
     this.loadHobbies();
     this.disableButton = true;
-  }
-
-  loadMaxMinNumHobbies() {
-    this.settingsService.getSettings().then(response => {
-      if (response) {
-        const minObj = response.find(function (setting) { return setting.name === 'min_interests_to_add'; });
-        const maxObJ = response.find(function (setting) { return setting.name === 'max_interests_to_add'; });
-        this.maxHobbies = Number(maxObJ.value);
-        this.minHobbies = Number(minObj.value);
-      }
-    })
-    .catch(httpErrorResponse => {});
   }
 
   loadIdUser() {
@@ -57,6 +44,8 @@ export class HobbiesPage implements OnInit {
     this.hobbiesService.getHobbies(this.userId).subscribe(
       state => {
         this.hobbies = state.body.intereses;
+        this.maxHobbies = state.body.maxIntereses;
+        this.minHobbies = state.body.minIntereses;
         this.countHobbies();
       },
       error => console.log(error)
