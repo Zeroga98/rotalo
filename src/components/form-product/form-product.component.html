@@ -471,9 +471,9 @@
                 </div>
               </div>
               <div class="form-group"
-                [ngClass]="{'valid': photosForm.get('rooms').value || photosForm.get('rooms').value == 0}">
+                [ngClass]="{'valid': photosForm.get('floor').value || photosForm.get('floor').value == 0}">
                 <label class="label-title">Piso*</label>
-                <input type="text" class="form-control" name="rooms" formControlName="rooms" maxlength="50"
+                <input type="text" class="form-control" name="floor" formControlName="floor" maxlength="50"
                   placeholder="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
@@ -604,7 +604,7 @@
           <div class="row-section">
             <div class="title-form">
               <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos() || subcategoryIsHouse() || subcategoryIsFlat()" class="numberCircle">4</div>
-              <div *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos() && !subcategoryIsHouse() && subcategoryIsFlat()" class="numberCircle">2</div>
+              <div *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos() && !subcategoryIsHouse() && !subcategoryIsFlat()" class="numberCircle">2</div>
               <div class="step-info">
                 <h1>Por último agrega la información de la publicación</h1>
                 <p class="msg-field-required">

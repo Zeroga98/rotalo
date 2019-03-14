@@ -226,6 +226,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
+    this.setValidationImmovable();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
@@ -297,6 +298,27 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       delete params['air-conditioner'];
       delete params['abs-brakes'];
       delete params['unique-owner'];
+
+
+
+      delete params['antiquity'];
+      delete params['squareMeters'];
+      delete params['rooms'];
+      delete params['bathrooms'];
+      delete params['sellerType'];
+      delete params['floor'];
+      delete params['elevator'];
+      delete params['guardHouse'];
+      delete params['parking'];
+      delete params['canonQuota'];
+      delete params['fullyFurnished'];
+      delete params['pool'];
+      delete params['childishGames'];
+      delete params['usefulRoom'];
+      delete params['squareMetersTerrain'];
+      delete params['socialClass'];
+
+
       if (!this.photosForm.get('checkNewPrice').value) {
         delete params['special-price'];
       }
@@ -318,8 +340,30 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
             'unique-owner': this.photosForm.get('unique-owner').value
           };
           params.vehicle = vehicle;
-
       }
+      if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+        const immovable  = {
+          'immovableType': this.subcategoryIsHouse() ? 'Casa' : 'Apartamento',
+          'antiquity': this.photosForm.get('antiquity').value,
+          'squareMeters': this.photosForm.get('squareMeters').value,
+          'rooms': this.photosForm.get('rooms').value,
+          'bathrooms': this.photosForm.get('bathrooms').value,
+          'sellerType': this.photosForm.get('sellerType').value,
+          'floor': this.photosForm.get('floor').value,
+          'elevator': this.photosForm.get('elevator').value,
+          'guardHouse': this.photosForm.get('guardHouse').value,
+          'parking': this.photosForm.get('parking').value,
+          'canonQuota': this.photosForm.get('canonQuota').value,
+          'fullyFurnished': this.photosForm.get('fullyFurnished').value,
+          'pool': this.photosForm.get('pool').value,
+          'childishGames': this.photosForm.get('childishGames').value,
+          'usefulRoom': this.photosForm.get('usefulRoom').value,
+          'squareMetersTerrain': this.photosForm.get('squareMetersTerrain').value,
+          'socialClass': this.photosForm.get('socialClass').value
+        };
+        params.immovable = immovable ;
+
+    }
       params.stock = this.photosForm.get('stock').value;
       const request = {
         'data': {
@@ -825,7 +869,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
     /**Inmuebles**/
-    let immovableType = '';
     let antiquity = '';
     let squareMeters = '';
     let rooms = '';
@@ -845,7 +888,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     if (config['immovable']) {
       const immovable  = config['immovable'];
-      immovableType = immovable['immovableType'] ? immovable['immovableType'] : '';
       antiquity = immovable['antiquity'] ? immovable['antiquity'] : '';
       squareMeters = immovable['squareMeters'] ? immovable['squareMeters'] : '';
       rooms = immovable['rooms'] ? immovable['rooms'] : 'No tiene';
@@ -919,7 +961,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
-      immovableType : [immovableType, []],
+
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
       rooms: [rooms, []],
