@@ -12,9 +12,9 @@ constructor(private http: HttpClient,
   private configurationService: ConfigurationService) { }
 
   changePass(currentUser): Promise<any> {
-    const jsonApiHeaders = this.configurationService.getJsonApiHeaders();
-    const url =  this.configurationService. getBaseUrl() + '/passwords';
-    const headers = new HttpHeaders(jsonApiHeaders);
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const url = `${this.urlSapi}/perfil/password`;
+    const headers = new HttpHeaders(jsonSapiHeaders);
     return this.http.put(url, currentUser, { headers: headers }).toPromise();
   }
 
