@@ -611,6 +611,54 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
+
+  setValidationImmovable () {
+    const antiquity = this.photosForm.get('antiquity');
+    const squareMeters = this.photosForm.get('squareMeters');
+    const rooms = this.photosForm.get('rooms');
+    const bathrooms = this.photosForm.get('bathrooms');
+    const sellerType = this.photosForm.get('sellerType');
+    const floor = this.photosForm.get('floor');
+    const elevator = this.photosForm.get('elevator');
+    const guardHouse = this.photosForm.get('guardHouse');
+    const parking = this.photosForm.get('parking');
+
+    antiquity.clearValidators();
+    squareMeters.clearValidators();
+    rooms.clearValidators();
+    bathrooms.clearValidators();
+    sellerType.clearValidators();
+    floor.clearValidators();
+    elevator.clearValidators();
+    guardHouse.clearValidators();
+    parking.clearValidators();
+
+
+    if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+      antiquity.setValidators([Validators.required]);
+      squareMeters.setValidators([Validators.required]);
+      rooms.setValidators([Validators.required]);
+      bathrooms.setValidators([Validators.required]);
+      sellerType.setValidators([Validators.required]);
+      floor.setValidators([Validators.required]);
+      elevator.setValidators([Validators.required]);
+      guardHouse.setValidators([Validators.required]);
+      parking.setValidators([Validators.required]);
+    }
+
+
+    antiquity.updateValueAndValidity();
+    squareMeters.updateValueAndValidity();
+    rooms.updateValueAndValidity();
+    bathrooms.updateValueAndValidity();
+    sellerType.updateValueAndValidity();
+    floor.updateValueAndValidity();
+    elevator.updateValueAndValidity();
+    guardHouse.updateValueAndValidity();
+    parking.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
+  }
+
   setLinesVehicle (id) {
     if (this.brandsList) {
       const brands = this.brandsList.filter(value => {
@@ -784,14 +832,14 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     let bathrooms = '';
     let sellerType = '';
     let floor = '';
-    let elevator = '';
+    let elevator = false;
     let guardHouse = '12 horas';
-    let parking = '';
+    let parking = false;
     let canonQuota = '';
-    let fullyFurnished = '';
-    let pool = '';
-    let childishGames = '';
-    let usefulRoom = '';
+    let fullyFurnished = false;
+    let pool = false;
+    let childishGames = false;
+    let usefulRoom = false;
     let squareMetersTerrain = '';
     let socialClass = '';
 
@@ -800,7 +848,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       immovableType = immovable['immovableType'] ? immovable['immovableType'] : '';
       antiquity = immovable['antiquity'] ? immovable['antiquity'] : '';
       squareMeters = immovable['squareMeters'] ? immovable['squareMeters'] : '';
-      rooms = immovable['rooms'] ? immovable['rooms'] : 0;
+      rooms = immovable['rooms'] ? immovable['rooms'] : 'No tiene';
       bathrooms  = immovable['bathrooms'] ? immovable['bathrooms'] : '';
       sellerType = immovable['sellerType'] ? immovable['sellerType'] : '';
       floor = immovable['floor'] ? immovable['floor'] : '';
@@ -871,8 +919,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
-
-
       immovableType : [immovableType, []],
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
@@ -890,8 +936,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       usefulRoom: [usefulRoom, []],
       squareMetersTerrain: [squareMetersTerrain, []],
       socialClass: [socialClass, []],
-
-
 
     }, { validator: validatePrice });
 

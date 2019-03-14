@@ -33,7 +33,10 @@
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategory-id').value}">
                 <div>
                   <select [(ngModel)]="currentSubcategory" class="subcategory form-control"
-                    (change)="selectedSubcategory($event.target.value); setValidationVehicle(); resetFormsVehicle()"
+                    (change)="selectedSubcategory($event.target.value);
+                    setValidationVehicle();
+                    setValidationImmovable();
+                    resetFormsVehicle()"
                     name="subcategory-id" formControlName="subcategory-id">
                     <option value="" disabled></option>
                     <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}
