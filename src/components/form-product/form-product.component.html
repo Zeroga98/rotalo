@@ -567,7 +567,7 @@
                   <label class="symbol-km">M2</label>
                 </div>
               </div>
-              <div class="form-group field-form">
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('socialClass').value}">
                 <select name="socialClass" class="form-control" formControlName="socialClass">
                   <option value="" disabled></option>
                   <option *ngFor="let socialClass of socialClasses" value="{{socialClass}}">{{socialClass}}</option>
