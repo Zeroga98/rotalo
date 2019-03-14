@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, OnDestroy, Input, ChangeDetectorRef, Out
 import { ModalFeedBackService } from './modal-feedBack.service';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'modal-feedBack',
@@ -10,6 +11,7 @@ import { CurrentSessionService } from '../../services/current-session.service';
 })
 export class ModalFeedBackComponent implements OnInit, OnDestroy {
   @Input() id: string;
+  @Input() currentUrl: string;
   @Output() success: EventEmitter<any>  = new EventEmitter();
   private element: any;
   public feedBackForm: FormGroup;
@@ -18,6 +20,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   constructor(private modalService: ModalFeedBackService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionService: CurrentSessionService,
+    private router: Router,
     private el: ElementRef) {
     this.element = el.nativeElement;
   }
@@ -48,6 +51,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log(this.currentUrl);
     this.success.emit(false);
     let countryId = '1';
     const currentUrl = window.location.href;
@@ -64,10 +68,13 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
     if (this.feedBackForm.valid) {
       const email = this.feedBackForm.get('email').value;
       const comment = this.feedBackForm.get('comment').value;
+
+
       const params = {
         'correo': email,
         'mensaje': comment,
-        'pais': countryId
+        'idPais': parseInt(countryId),
+        'destino': this.currentUrl && this.currentUrl.includes('microsite') ? 'tienda' : 'admin'
       };
       this.modalService.sendEmail(params) .subscribe(
         state => {

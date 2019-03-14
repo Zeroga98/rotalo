@@ -193,6 +193,8 @@ import { ReportPublicationComponent } from '../components/report-publication/rep
 import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
+import { FeedBackMicrositeComponent } from '../microsite/components-microsite/feedBack-microsite/feedBackMicrosite.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -309,7 +311,8 @@ import { TermsCompaniesComponent } from '../components/terms-companies/terms-com
     ReportPublicationComponent,
     NotificationsComponent,
     NotificationsMobileComponent,
-    TermsCompaniesComponent
+    TermsCompaniesComponent,
+    FeedBackMicrositeComponent
   ],
   imports: [
     BrowserModule,
