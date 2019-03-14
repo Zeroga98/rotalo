@@ -18,6 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS } from './immovable.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -100,9 +101,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
   items = [1, 2, 3, 4, 5];
-
-
-
+  typeSellers: Array<any> = TIPO_VENDEDOR;
+  rooms : Array<any> = HABITACIONES;
+  bathrooms : Array<any> = BATHROOMS;
+  socialClasses: Array<any> = SOCIALCLASS;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -224,6 +226,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async publishPhoto(form) {
     this.setValidationVehicle();
+    this.setValidationImmovable();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
@@ -295,6 +298,27 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       delete params['air-conditioner'];
       delete params['abs-brakes'];
       delete params['unique-owner'];
+
+
+
+      delete params['antiquity'];
+      delete params['squareMeters'];
+      delete params['rooms'];
+      delete params['bathrooms'];
+      delete params['sellerType'];
+      delete params['floor'];
+      delete params['elevator'];
+      delete params['guardHouse'];
+      delete params['parking'];
+      delete params['canonQuota'];
+      delete params['fullyFurnished'];
+      delete params['pool'];
+      delete params['childishGames'];
+      delete params['usefulRoom'];
+      delete params['squareMetersTerrain'];
+      delete params['socialClass'];
+
+
       if (!this.photosForm.get('checkNewPrice').value) {
         delete params['special-price'];
       }
@@ -316,8 +340,30 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
             'unique-owner': this.photosForm.get('unique-owner').value
           };
           params.vehicle = vehicle;
-
       }
+      if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+        const immovable  = {
+          'immovableType': this.subcategoryIsHouse() ? 'Casa' : 'Apartamento',
+          'antiquity': this.photosForm.get('antiquity').value,
+          'squareMeters': this.photosForm.get('squareMeters').value,
+          'rooms': this.photosForm.get('rooms').value,
+          'bathrooms': this.photosForm.get('bathrooms').value,
+          'sellerType': this.photosForm.get('sellerType').value,
+          'floor': this.photosForm.get('floor').value,
+          'elevator': this.photosForm.get('elevator').value,
+          'guardHouse': this.photosForm.get('guardHouse').value,
+          'parking': this.photosForm.get('parking').value,
+          'canonQuota': this.photosForm.get('canonQuota').value,
+          'fullyFurnished': this.photosForm.get('fullyFurnished').value,
+          'pool': this.photosForm.get('pool').value,
+          'childishGames': this.photosForm.get('childishGames').value,
+          'usefulRoom': this.photosForm.get('usefulRoom').value,
+          'squareMetersTerrain': this.photosForm.get('squareMetersTerrain').value,
+          'socialClass': this.photosForm.get('socialClass').value
+        };
+        params.immovable = immovable ;
+
+    }
       params.stock = this.photosForm.get('stock').value;
       const request = {
         'data': {
@@ -609,6 +655,54 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
+
+  setValidationImmovable () {
+    const antiquity = this.photosForm.get('antiquity');
+    const squareMeters = this.photosForm.get('squareMeters');
+    const rooms = this.photosForm.get('rooms');
+    const bathrooms = this.photosForm.get('bathrooms');
+    const sellerType = this.photosForm.get('sellerType');
+    const floor = this.photosForm.get('floor');
+    const elevator = this.photosForm.get('elevator');
+    const guardHouse = this.photosForm.get('guardHouse');
+    const parking = this.photosForm.get('parking');
+
+    antiquity.clearValidators();
+    squareMeters.clearValidators();
+    rooms.clearValidators();
+    bathrooms.clearValidators();
+    sellerType.clearValidators();
+    floor.clearValidators();
+    elevator.clearValidators();
+    guardHouse.clearValidators();
+    parking.clearValidators();
+
+
+    if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+      antiquity.setValidators([Validators.required]);
+      squareMeters.setValidators([Validators.required]);
+      rooms.setValidators([Validators.required]);
+      bathrooms.setValidators([Validators.required]);
+      sellerType.setValidators([Validators.required]);
+      floor.setValidators([Validators.required]);
+      elevator.setValidators([Validators.required]);
+      guardHouse.setValidators([Validators.required]);
+      parking.setValidators([Validators.required]);
+    }
+
+
+    antiquity.updateValueAndValidity();
+    squareMeters.updateValueAndValidity();
+    rooms.updateValueAndValidity();
+    bathrooms.updateValueAndValidity();
+    sellerType.updateValueAndValidity();
+    floor.updateValueAndValidity();
+    elevator.updateValueAndValidity();
+    guardHouse.updateValueAndValidity();
+    parking.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
+  }
+
   setLinesVehicle (id) {
     if (this.brandsList) {
       const brands = this.brandsList.filter(value => {
@@ -652,6 +746,29 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return false;
   }
 
+
+  subcategoryIsHouse(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Casa') {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  subcategoryIsFlat(): boolean {
+    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    if (subcategoryValue) {
+      const subcategory = this.findSubCategory(subcategoryValue);
+      if (subcategory && subcategory.name === 'Apartamento') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   selectedComunity(idCategory: number ) {
     this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
@@ -685,6 +802,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   private setInitialForm(config: ProductInterface) {
+    /**Vehiculos**/
     let typeVehicle = '';
     let model = '';
     let lineId = '';
@@ -727,6 +845,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       console.log(error);
     });
 
+  /**Vehiculos**/
     if (config['vehicle']) {
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
@@ -749,6 +868,45 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     stock = config['stock'] ? config['stock'] : 1;
 
 
+    /**Inmuebles**/
+    let antiquity = '';
+    let squareMeters = '';
+    let rooms = '';
+    let bathrooms = '';
+    let sellerType = '';
+    let floor = '';
+    let elevator = false;
+    let guardHouse = '12 horas';
+    let parking = false;
+    let canonQuota = '';
+    let fullyFurnished = false;
+    let pool = false;
+    let childishGames = false;
+    let usefulRoom = false;
+    let squareMetersTerrain = '';
+    let socialClass = '';
+
+    if (config['immovable']) {
+      const immovable  = config['immovable'];
+      antiquity = immovable['antiquity'] ? immovable['antiquity'] : '';
+      squareMeters = immovable['squareMeters'] ? immovable['squareMeters'] : '';
+      rooms = immovable['rooms'] ? immovable['rooms'] : 'No tiene';
+      bathrooms  = immovable['bathrooms'] ? immovable['bathrooms'] : '';
+      sellerType = immovable['sellerType'] ? immovable['sellerType'] : '';
+      floor = immovable['floor'] ? immovable['floor'] : '';
+      elevator = immovable['elevator'] ? immovable['elevator'] : '';
+      guardHouse = immovable['guardHouse'] ? immovable['guardHouse'] : '12 horas';
+      parking = immovable['parking'] ? immovable['parking'] : '';
+      canonQuota = immovable['canonQuota'] ? immovable['canonQuota'] : '';
+      fullyFurnished = immovable['fullyFurnished'] ? immovable['fullyFurnished'] : '';
+      pool = immovable['pool'] ? immovable['pool'] : '';
+      childishGames = immovable['childishGames'] ? immovable['childishGames'] : '';
+      usefulRoom = immovable['usefulRoom'] ? immovable['usefulRoom'] : '';
+      squareMetersTerrain = immovable['squareMetersTerrain'] ? immovable['squareMetersTerrain'] : '';
+      socialClass = immovable['socialClass'] ? immovable['socialClass'] : '';
+    }
+
+
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -761,7 +919,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
 
     if (this.product) {
-      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
+      if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
+      || config.subcategory.name == 'Casa' || config.subcategory.name == 'Apartamento') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
       }
@@ -802,6 +961,24 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
+
+      antiquity : [antiquity, []],
+      squareMeters: [squareMeters, []],
+      rooms: [rooms, []],
+      bathrooms: [bathrooms, []],
+      sellerType: [sellerType, []],
+      floor: [floor, []],
+      elevator: [elevator, []],
+      guardHouse: [guardHouse, []],
+      parking: [parking, []],
+      canonQuota: [canonQuota, []],
+      fullyFurnished: [fullyFurnished, []],
+      pool: [pool, []],
+      childishGames: [childishGames, []],
+      usefulRoom: [usefulRoom, []],
+      squareMetersTerrain: [squareMetersTerrain, []],
+      socialClass: [socialClass, []],
+
     }, { validator: validatePrice });
 
     if (this.product) {
@@ -815,7 +992,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
     }
 
-  //  this.changeDetectorRef.markForCheck();
+
   }
 
   private getInitialConfig(): ProductInterface {
