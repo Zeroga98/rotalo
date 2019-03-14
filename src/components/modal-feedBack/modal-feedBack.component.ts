@@ -51,7 +51,6 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.currentUrl);
     this.success.emit(false);
     let countryId = '1';
     const currentUrl = window.location.href;
