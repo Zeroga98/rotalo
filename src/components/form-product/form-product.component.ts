@@ -214,7 +214,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       elem.checked = false;
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
-    }else if (evt === 'SUBASTA') {
+    } else if (evt === 'SUBASTA') {
       const elem = document.getElementById('checkTerms') as any;
       elem.checked = true;
       this.disabledField = false;
@@ -277,7 +277,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       const publishDate = {
           'published-at': new Date()
       };
-        // const photosIds2 = { 'photo-ids': ['10083'] };
+        // const photosIds2 = [{ 'photo-id': 12408, 'position': 1}]
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
