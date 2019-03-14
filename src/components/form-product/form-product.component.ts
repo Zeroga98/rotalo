@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
-import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS } from './immovable.constant';
+import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS } from './immovable.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -104,6 +104,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   typeSellers: Array<any> = TIPO_VENDEDOR;
   rooms : Array<any> = HABITACIONES;
   bathrooms : Array<any> = BATHROOMS;
+  socialClasses: Array<any> = SOCIALCLASS;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -784,7 +785,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     let sellerType = '';
     let floor = '';
     let elevator = '';
-    let guardHouse = '';
+    let guardHouse = '12 horas';
     let parking = '';
     let canonQuota = '';
     let fullyFurnished = '';
@@ -804,7 +805,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       sellerType = immovable['sellerType'] ? immovable['sellerType'] : '';
       floor = immovable['floor'] ? immovable['floor'] : '';
       elevator = immovable['elevator'] ? immovable['elevator'] : '';
-      guardHouse = immovable['guardHouse'] ? immovable['guardHouse'] : '';
+      guardHouse = immovable['guardHouse'] ? immovable['guardHouse'] : '12 horas';
       parking = immovable['parking'] ? immovable['parking'] : '';
       canonQuota = immovable['canonQuota'] ? immovable['canonQuota'] : '';
       fullyFurnished = immovable['fullyFurnished'] ? immovable['fullyFurnished'] : '';

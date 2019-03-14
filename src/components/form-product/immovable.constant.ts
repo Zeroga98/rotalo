@@ -11,3 +11,6 @@ export const ASCENSOR = ['Si', 'No'];
 export const PORTERIA = ['No Aplica', '12 Hrs', '24 Hrs'];
 
 export const PARQUEADERO = ['Si', 'No'];
+
+export const SOCIALCLASS = [1, 2, 3, 4, 5, 6]
+;
