@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../services/settings.service';
 
 
 @Component({
@@ -8,12 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsComponent implements OnInit {
   private currentUrl = '';
-  constructor() {
+  constructor( private settingsService : SettingsService) {
     this.currentUrl = window.location.href;
   }
 
   ngOnInit() {
     window.scrollTo(0, 0);
+    this.settingsService.getTerms().subscribe((response) => {
+      console.log(response);
+    } ,
+    (error) => { console.log(error);
+    })
   }
 
   get isGuatemala() {

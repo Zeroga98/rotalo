@@ -128,4 +128,11 @@ export class SettingsService {
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getTerms() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/terminos/condiciones/reciente`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
