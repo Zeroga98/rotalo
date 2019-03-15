@@ -117,7 +117,7 @@ public userId: string;
   updatePreference() {
 
     const userPreference = {
-      'preferences': this.preferencesArray.keys
+      'preferences':  this.preferencesArray
     };
     this.preferenceService.updatePrefarence(userPreference).then(response => {
       this.messageChange = 'Sus preferencias se ha guardado correctamente.';
