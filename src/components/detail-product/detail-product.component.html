@@ -301,34 +301,23 @@
 
     <div *ngIf="products" class="product-info">
       <div class="card-product">
-        <div class="title-product">{{products.name}}</div>
-        <!--  <div class="flexbox">-->
         <div class="condition-container">
-          <div>
-            <div class="capitalize">
-              <span class="condition">Condición: </span>
-              <span>{{products.used ? 'Usado' : 'Nuevo'}}</span>
-            </div>
-            <div class="capitalize">
-              <span class="icon icon-detail-off"></span>
-              {{products['sell-type'].toLowerCase()}}
-            </div>
-          </div>
+          <span>{{products.used ? 'Usado' : 'Nuevo'}}</span> -
+          <span class="capitalize">{{products['sell-type'].toLowerCase()}}</span>
         </div>
+        <div class="title-product">{{products.name}}</div>
 
+        <div class= "publish">
+          <span class="date">Publicado {{products['published-at'] | amTimeAgo}}</span>
+          <span>
+              - {{visitsNumber}} visitas
+          </span>
+        </div>
+        <!--  <div class="flexbox">-->
         <div class="btns-container">
           <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
             class="btn-item ">
             <div class="price-container">
-              <div>
-                <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
-                  {{products.price | currency:"Q" | removeDigits}}</span>
-                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
-                  {{products.price | currency:"$" | removeDigits}}</span>
-                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
-                  {{products.price | currency:"$" | removeDigits}}</span>
-                <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
-              </div>
               <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''"
                 *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
                 <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
@@ -338,6 +327,20 @@
                 <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
                   {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
               </div>
+              <div>
+                <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
+                  {{products.price | currency:"Q" | removeDigits}}</span>
+                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
+                  {{products.price | currency:"$" | removeDigits}}</span>
+                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
+                  {{products.price | currency:"$" | removeDigits}}</span>
+                <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
+              </div>
+
+              <div *ngIf="products && products.negotiable" class="get-offer">
+                  <span class="icon-check"></span>
+                  <span>Recibo ofertas</span>
+                </div>
             </div>
           </div>
           <div *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate"
@@ -496,28 +499,19 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="products && products.negotiable" class="get-offer">
-                  <span class="icon-check"></span>
-                  <span>Recibo ofertas</span>
-                </div>
+
               </div>
             </div>
             <div class="product-info-ubicacion">
               <div class="mobile gtmProdReporAqui Aquireport-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta aquí.</a></p>
               </div>
-              <div class="date">
-                <span class="icon icon-calendar"></span>
-                Fecha de Publicación:
-                <span class="date">{{products['published-at'] | amTimeAgo}}</span>
-              </div>
+
               <div class="location">
                 <span class="icon icon-location"></span>
                 <span>{{getLocation(products)}}</span>
               </div>
-              <div class="visit contTipo">
-                <span class="icon icon-eye"></span> {{visitsNumber}} visitas
-              </div>
+
               <div class="desktop  gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta aquí.</a></p>
               </div>

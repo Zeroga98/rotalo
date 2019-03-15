@@ -127,6 +127,7 @@
       font-size: 2rem;
       color: #707070;
     }
+
     .visits{
       font-size: 1.6rem;
       margin: 10px auto;
@@ -146,14 +147,16 @@
       }
 
       .title-product {
-        color: $red;
-        font-size: 3rem;
-        margin: 0 0 15px;
+        color: #272727;
+        font-size: 2.4rem;
+        margin: 2px 0;
+        font-weight: bold;
       }
 
       .valor-product {
         font-size: 3rem;
-        color: $red;
+        color: #FF3646;
+        font-weight: bold;
       }
       .capitalize {
         text-transform: capitalize;
@@ -609,16 +612,19 @@
   .product{
     .low-price {
       .valor-product {
-        color:#A2A2A2;
+        color:#B0B0B0;
+        font-size: 1.8rem;
+        font-weight: normal;
         text-decoration: line-through;
       }
     }
   }
 
   .price-container {
-    display: flex;
+  /*  display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
+    margin-top: 30px;
   }
 }
 /* The switch - the box around the switch-slider */
@@ -834,6 +840,12 @@ input:checked+.switch-slider:before {
     .condition-container {
       * {
         font-size: 1.8rem;
+      }
+    }
+    .publish {
+      span {
+        color: #8B8B8B;
+        font-size: 1.6rem;
       }
     }
   }
