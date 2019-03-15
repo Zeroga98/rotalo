@@ -99,8 +99,7 @@ public userId: string;
 
   initPreference() {
     this.preferenceService.getPreference().then(response => {
-      this.preferencesArray = response.data.attributes;
-      this.userId = response.data.id;
+      this.preferencesArray = response.body;
       })
       .catch(httpErrorResponse => {
         this.messageChange = '';
@@ -118,11 +117,7 @@ public userId: string;
   updatePreference() {
 
     const userPreference = {
-      'data': {
-        'id': this.userId,
-        'type': 'preferences',
-        'attributes': this.preferencesArray
-      }
+      'preferences': this.preferencesArray.keys
     };
     this.preferenceService.updatePrefarence(userPreference).then(response => {
       this.messageChange = 'Sus preferencias se ha guardado correctamente.';
