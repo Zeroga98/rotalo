@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 import { CollectionSelectService } from '../../services/collection-select.service';
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
-import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS } from './immovable.constant';
+import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS, ANTIGUEDAD } from './immovable.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -104,7 +104,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   typeSellers: Array<any> = TIPO_VENDEDOR;
   rooms : Array<any> = HABITACIONES;
   bathrooms : Array<any> = BATHROOMS;
-  socialClasses: Array<any> = SOCIALCLASS;
+  antiguedades: Array<any> = ANTIGUEDAD;
   constructor(
     private router: Router,
     private fb: FormBuilder,

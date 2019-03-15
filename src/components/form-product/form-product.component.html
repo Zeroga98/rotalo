@@ -451,8 +451,7 @@
                 <select name="antiquity" class="form-control" formControlName="antiquity"
                   (change)="setLinesVehicle($event.target.value)">
                   <option value="" disabled></option>
-                  <option value="1 año">1 año</option>
-                  <option value="2 año">2 año</option>
+                  <option value="{{antiguedad}}" *ngFor="let antiguedad of antiguedades">{{antiguedad}}</option>
                 </select>
                 <label class="label-title">Antiguedad*</label>
                 <span class="error-msg">Este campo es requerido</span>
