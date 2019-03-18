@@ -362,6 +362,55 @@
     clear: both;
   }
 
+  .tooltip {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    background: url(../../assets/img/iconos/ic_tooltip.svg);
+    background-size: 22px 22px;
+    margin: 0 auto;
+    margin-left: 10px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .tooltip:hover {
+    .toolTipText {
+      visibility: visible;
+      opacity: 1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+  }
+
+  .toolTipText {
+    visibility: hidden;
+    width: 188px;
+    background-color: white;
+    color: #383838;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 140%;
+    left: 30%;
+    margin-left: -90px;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: 1.4rem;
+  }
+
+  .toolTipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+  }
+
+
 }
 
 
@@ -387,6 +436,8 @@
         p {
           color: #383838;
           font-size: 1.6rem;
+          display: inline-block;
+          vertical-align: top;
         }
       }
       .val {
