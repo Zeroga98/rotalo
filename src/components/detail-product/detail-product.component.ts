@@ -30,6 +30,7 @@ import { NavigationService } from '../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ReportPublicationComponent } from '../report-publication/report-publication.component';
+import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -109,7 +110,8 @@ export class DetailProductComponent implements OnInit {
     private fb: FormBuilder,
     private buyService: BuyService,
     private navigationService: NavigationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private modalService: ModalShareProductService,
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
@@ -162,7 +164,7 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  shareProduct() {
+ /* shareProduct() {
     if (!this.sendInfoProduct.invalid) {
       const params = {
         correo: this.sendInfoProduct.get('email').value
@@ -189,7 +191,7 @@ export class DetailProductComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         });
     }
-  }
+  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -641,6 +643,13 @@ export class DetailProductComponent implements OnInit {
     const dialogRef = this.dialog.open(ReportPublicationComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  public shareProduct(id: string, product) {
+    if (product.id) {
+      this.modalService.setProductId(product.id);
+      this.modalService.open(id);
+    }
   }
 
 }

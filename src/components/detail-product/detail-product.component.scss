@@ -127,6 +127,7 @@
       font-size: 2rem;
       color: #707070;
     }
+
     .visits{
       font-size: 1.6rem;
       margin: 10px auto;
@@ -140,20 +141,23 @@
       min-height: 400px;
 
       .card-product{
-        border: 1px solid #E5E5E5;
+       // border: 1px solid #E5E5E5;
         padding: 5%;
+        padding-top: 0;
         border-radius: 8px;
       }
 
       .title-product {
-        color: $red;
-        font-size: 3rem;
-        margin: 0 0 15px;
+        color: #272727;
+        font-size: 2.4rem;
+        margin: 2px 0;
+        font-weight: bold;
       }
 
       .valor-product {
         font-size: 3rem;
-        color: $red;
+        color: #FF3646;
+        font-weight: bold;
       }
       .capitalize {
         text-transform: capitalize;
@@ -210,6 +214,39 @@
     background-size: 30px 30px;
     background-image: url(../../assets/img/icono_reloj_en_proceso.svg);
   }
+
+  .ico-email {
+    margin-left: 10px;
+    vertical-align: bottom;
+    display: inline-block;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    background-image: url(../../assets/img/iconos/ic_share_email.svg);
+  }
+
+  .ico-wp {
+    margin-left: 10px;
+    vertical-align: bottom;
+    display: inline-block;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    background-image: url(../../assets/img/iconos/ic_share_whatsapp.svg);
+  }
+
+  .ico-star {
+    margin-left: 5px;
+    display: inline-block;
+    cursor: pointer;
+    width: 13px;
+    height: 13px;
+    background-size: 13px 13px;
+    background-image: url(../../assets/img/estrella_amarilla.svg);
+  }
+
   .label-sell--center {
     text-align: center;
     vertical-align: middle;
@@ -270,12 +307,12 @@
     margin-left: 5px;
     span {
       color: #707070;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
     .icon-check {
-      color: #4B2878;
+      color: #ACACAC;
       margin-right: 5px;
-      font-size: 2.0rem;
+      font-size: 1.6rem;
     }
   }
   .icon-arrow {
@@ -295,9 +332,21 @@
   }
 
   .product {
-    .date, .location span,  .visit{
+    .date,  .visit{
       font-size: 1.8rem;
     }
+
+    .location span {
+      color: #707070;
+      font-size: 1.6rem;
+    }
+
+    .location  {
+      span.icon-location  {
+        color: #D6D6D6;
+      }
+    }
+
   }
 
   .report-container {
@@ -309,6 +358,17 @@
       cursor: pointer;
       color: #FF3646;
       text-decoration: underline;
+    }
+  }
+
+  .share-product {
+    width: 100%;
+    padding: 10px 0;
+    p {
+      display: inline-block;
+      font-size: 1.6rem;
+      color: #767676;
+      vertical-align: super;
     }
   }
 
@@ -369,6 +429,7 @@
       justify-content: space-between;
       .btn-item:first-child {
         .botons {
+          margin-left: 0;
           background-color: #ffffff;
           color: #FF3646;
           border: 1px solid #A2A2A2;
@@ -457,9 +518,9 @@
     align-items: center;
     flex-wrap: wrap;
     padding-top: 5px;
-    border: 1px dotted #E5E5E5;
+  //  border: 1px dotted #E5E5E5;
     border-radius: 7px;
-    padding: 20px;
+  //  padding: 20px;
     margin: 15px 0;
     .photo-user {
       width: 45px;
@@ -501,20 +562,33 @@
 
   .product-info-user--data {
     .name-user {
-      color: #707070;
+      color: #272727;
       text-transform: capitalize;
-      font-weight: 700;
-      font-size: 1.5rem;
+      font-weight: bold;
+      font-size: 1.6rem;
+      display: inline-block;
     }
+
+    .rating {
+      display: inline-block;
+      margin-left: 10px;
+      p {
+        display: inline-block;
+        color:#767676;
+        font-size: 1.6rem;
+      }
+    }
+
     * {
       color: rgb(254, 120, 46);
       /*asd*/
     }
     .panel-product {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       color: #707070;
       span {
-        font-size: 0.75em;
+        color: #707070;
+        font-size: 1.6rem;
       }
     }
   }
@@ -609,16 +683,19 @@
   .product{
     .low-price {
       .valor-product {
-        color:#A2A2A2;
+        color:#B0B0B0;
+        font-size: 1.8rem;
+        font-weight: normal;
         text-decoration: line-through;
       }
     }
   }
 
   .price-container {
-    display: flex;
+  /*  display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
+    margin-top: 30px;
   }
 }
 /* The switch - the box around the switch-slider */
@@ -730,6 +807,7 @@ input:checked+.switch-slider:before {
 
 :host {
   .tabla-container {
+    width: 100%;
     h1 {
       color:#272727;
       font-size: 2.2rem;
@@ -740,9 +818,13 @@ input:checked+.switch-slider:before {
     }
 
     td{
+      width: 33%;
       div {
         color: #8B8B8B;
         font-size: 1.5rem;
+
+        /*min-width: 193px;
+        width: auto;*/
         p{
           padding:0;
           padding-top: 5px;
@@ -828,7 +910,13 @@ input:checked+.switch-slider:before {
   .product {
     .condition-container {
       * {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+      }
+    }
+    .publish {
+      span {
+        color: #8B8B8B;
+        font-size: 1.6rem;
       }
     }
   }
@@ -978,11 +1066,11 @@ input:checked+.switch-slider:before {
       .product {
         flex-direction: column;
         display: flex;
-        align-items: center;
+        // align-items: center;
         width: 90%;
         margin: 0 auto;
         .title-product {
-          font-size: 2.2rem;
+          font-size: 2.0rem;
         }
         .product-info,
         .product-photos {
@@ -1034,6 +1122,55 @@ input:checked+.switch-slider:before {
     .product *{
       font-size: 1.6rem;
     }
+
+    .product .visits {
+      margin: 10px 0;
+    }
+
+    .product .description{
+      font-size: 1.4rem;
+    }
+
+    .tabla-container h1 {
+      font-size: 1.6rem;
+    }
+
+    .product .product-info .card-product {
+      padding: 0;
+      padding-top: 20px;
+    }
+
+    .product {
+      .condition-container {
+        span {
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+    .btns-container .btn-two-container .btn-item .botons{
+      margin-left: 0px;
+    }
+
+    .product-info-user--data .panel-product {
+      font-size: 1.4rem;
+    }
+
+    .share-product p {
+      font-size: 1.4rem;
+    }
+
+    .product-btn .product-btns .botons {
+      margin-left: 0px;
+    }
+
+    .price-container {
+      /*  display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;*/
+        margin-top: 0px;
+    }
+
     .product .product-info {
       min-height: auto;
       padding: 0px;
@@ -1049,7 +1186,7 @@ input:checked+.switch-slider:before {
     .btns-container {
       .btn-item {
         width: 100%;
-        text-align: center;
+      //  text-align: center;
         margin-bottom: 15px;
         .botons {
           max-width: 264px;
