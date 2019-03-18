@@ -52,6 +52,8 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('banners')
       && !req.url.includes('password')
       && !req.url.includes('sufi')
-      && !req.url.includes('terminos');
+      && !req.url.includes('terminos')
+      && !req.url.includes('settings')
+      && !req.url.includes('usuarios');
     }
 }
