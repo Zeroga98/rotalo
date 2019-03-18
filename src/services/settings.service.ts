@@ -136,11 +136,10 @@ export class SettingsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  acceptTerms(idTerms) {
-    const params = {};
+  acceptTerms(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/terminos/condiciones/aceptar/${idTerms}`;
+    const url = `${this.urlSapi}/terminos/condiciones/aceptar`;
     return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 

@@ -119,7 +119,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     dialogConfig.width = '55%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    // dialogConfig.data = this.products.id;
+    dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
     const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       this.onSubmit();

@@ -8,13 +8,13 @@ import { SettingsService } from '../../../services/settings.service';
   styleUrls: ['./terms-dialog.component.scss']
 })
 export class TermsDialogComponent implements OnInit , AfterViewInit {
-  public params;
+  public email;
 
   constructor(private settingsService: SettingsService,
     private eleRef:ElementRef,
     private dialogRef: MatDialogRef<TermsDialogComponent>,
   @Inject(MAT_DIALOG_DATA) data) {
-    this.params = data;
+    this.email = data;
 
    }
 
@@ -25,7 +25,11 @@ export class TermsDialogComponent implements OnInit , AfterViewInit {
   }
 
   save() {
-    this.settingsService.acceptTerms(this.settingsService.getIdterms()).subscribe((response) => {
+    const params =  {
+      'correo': this.email,
+      'idTerminoCondicion': this.settingsService.getIdterms()
+    }
+    this.settingsService.acceptTerms(params).subscribe((response) => {
       this.dialogRef.close();
     } ,
     (error) => {
