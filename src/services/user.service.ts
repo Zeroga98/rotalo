@@ -67,18 +67,23 @@ export class UserService {
   }
 
   private getUser(): Promise<any> {
+    
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
     this.idUser = this.currentSessionService.getIdUser();
-    const url = `${this.url}/${this.idUser}`;
+    const url = `${this.urlSapi}/usuarios/${this.idUser}`;
     return this.httpClient
-      .get(url).pipe(
+      .get(url, { headers: headers }).pipe(
       map((response: any) => response.data))
       .toPromise()
       .catch(err => console.error(err));
   }
   getInfomationUser(idUser) {
-    const url = `${this.url}/${idUser}`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/usuarios/${idUser}`;
     return this.httpClient
-      .get(url).pipe(
+      .get(url, { headers: headers }).pipe(
       map((response: any) => response.data))
       .toPromise()
       .catch(err => console.error(err));
