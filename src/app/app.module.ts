@@ -192,6 +192,8 @@ import { CommunitiesModalComponent } from '../pages/profile/admin-banners/commun
 import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
 import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
+import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
+import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -308,7 +310,9 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
     CommunitiesModalComponent,
     ReportPublicationComponent,
     NotificationsComponent,
-    NotificationsMobileComponent
+    NotificationsMobileComponent,
+    TermsDialogComponent,
+    CustomScrollDirective
   ],
   imports: [
     BrowserModule,
@@ -410,7 +414,7 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent]
+  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent, TermsDialogComponent]
 })
 
 export class AppModule { }

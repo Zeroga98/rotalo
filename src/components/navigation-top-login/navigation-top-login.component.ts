@@ -9,6 +9,8 @@ import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
 import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { TermsDialogComponent } from '../../pages/home/terms-modal/terms-dialog.component';
 
 
 @Component({
@@ -32,7 +34,8 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
     private productsService: ProductsService,
-    private productsMicrositeService: ProductsMicrositeService
+    private productsMicrositeService: ProductsMicrositeService,
+    public dialog: MatDialog
   ) {
 
   }
@@ -107,6 +110,22 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
      );
    }
 
+
+   openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.height = '600px';
+    dialogConfig.width = '55%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    // dialogConfig.data = this.products.id;
+    const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.onSubmit();
+    });
+  }
+
    login(userEmail: string, password: string) {
      const user = {
        user: userEmail.toLowerCase(),
@@ -157,6 +176,10 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
               this.reSendEmail(userEmail);
               this.changeRef.markForCheck();
             }
+            if (response.status === 9999) {
+              this.openDialog();
+            }
+
            })
            .catch(httpErrorResponse => {
              console.error(httpErrorResponse);
@@ -184,7 +207,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     const currentUrl = window.location.href;
     if (currentUrl.includes('gt')) {
       idCountry = 9;
-    }else {
+    } else {
       idCountry = 1;
     }
       const params = {

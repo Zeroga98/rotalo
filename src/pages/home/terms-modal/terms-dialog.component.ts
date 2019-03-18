@@ -1,0 +1,42 @@
+import { Component, OnInit, Inject, AfterViewInit, ElementRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SettingsService } from '../../../services/settings.service';
+
+@Component({
+  selector: 'terms-dialog',
+  templateUrl: './terms-dialog.component.html',
+  styleUrls: ['./terms-dialog.component.scss']
+})
+export class TermsDialogComponent implements OnInit , AfterViewInit {
+  public params;
+
+  constructor(private settingsService: SettingsService,
+    private eleRef:ElementRef,
+    private dialogRef: MatDialogRef<TermsDialogComponent>,
+  @Inject(MAT_DIALOG_DATA) data) {
+    this.params = data;
+
+   }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+  }
+
+  save() {
+    this.settingsService.acceptTerms(this.settingsService.getIdterms()).subscribe((response) => {
+      this.dialogRef.close();
+    } ,
+    (error) => {
+      this.dialogRef.close();
+      console.log(error);
+    });
+  }
+
+
+  close() {
+    this.dialogRef.close();
+  }
+
+}
