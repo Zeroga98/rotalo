@@ -1,10 +1,15 @@
 :host {
+
+  display: block;
+  width: 100%;
+  
   back-arrow {
     margin-top: 20px;
     margin-left: 1%;
   }
   .container-terms {
-    padding: 5rem 10rem;
+    padding: 1rem 5rem 5rem;
+    min-height: calc(100vh - 140px);
   }
   .container-bar-offer {
     background: url('/assets/img/image_bw.jpg') no-repeat center;
@@ -13,6 +18,7 @@
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
+   
       .inside-circle {
         display: inline-flex;
         align-items: center;

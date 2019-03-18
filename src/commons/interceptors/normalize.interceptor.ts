@@ -49,11 +49,12 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('carrito')
       && !req.url.includes('orden')
       && !req.url.includes('ordenes')
-      && !req.url.includes('sufi')
       && !req.url.includes('imagenes')
       && !req.url.includes('campaigns')
       && !req.url.includes('banners')
-      && !req.url.includes('password');
+      && !req.url.includes('password')
+      && !req.url.includes('sufi')
+      && !req.url.includes('terminos');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {

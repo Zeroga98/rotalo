@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SettingsService {
   readonly url = this.configurationService.getBaseUrl() + '/settings';
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
+  public idTerms;
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
   getSettings(): Promise<any> {
@@ -126,6 +127,28 @@ export class SettingsService {
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/banners/home`;
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  getTerms() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/terminos/condiciones/reciente`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  acceptTerms(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/terminos/condiciones/aceptar`;
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  setIdterms(idTerms) {
+    this.idTerms = idTerms;
+  }
+
+  getIdterms() {
+    return this.idTerms;
   }
 
 }

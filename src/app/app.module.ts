@@ -194,6 +194,8 @@ import { NotificationsComponent } from '../components/notifications/notification
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 import { FeedBackMicrositeComponent } from '../microsite/components-microsite/feedBack-microsite/feedBackMicrosite.component';
+import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
+import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -312,7 +314,9 @@ import { FeedBackMicrositeComponent } from '../microsite/components-microsite/fe
     NotificationsComponent,
     NotificationsMobileComponent,
     TermsCompaniesComponent,
-    FeedBackMicrositeComponent
+    FeedBackMicrositeComponent,
+    TermsDialogComponent,
+    CustomScrollDirective
   ],
   imports: [
     BrowserModule,
@@ -414,7 +418,7 @@ import { FeedBackMicrositeComponent } from '../microsite/components-microsite/fe
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent]
+  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent, TermsDialogComponent]
 })
 
 export class AppModule { }

@@ -237,6 +237,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
           this.navigationService.setNotificationHobbies(this.notificationHobby);
           this.navigationService.setMessagesUnRead(this.messagesUnRead);
         }
+        if (state.status == 9999) {
+          this.loginService.logout();
+        }
         this.changeDetector.markForCheck();
       },
       error => {
@@ -370,7 +373,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   goToNotifications() {
-    if(this.isActive('mobile_notification')) {
+    if (this.isActive('mobile_notification')) {
       window.history.back();
     } else  {
       this.router.navigate([

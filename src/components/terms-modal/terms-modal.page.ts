@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Component, Renderer2, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -19,7 +19,8 @@ export class TermsModalComponent {
       }
     }
 
-    constructor(private render: Renderer2) { }
+    constructor(private render: Renderer2) {
+    }
 
     closeModal() {
         this.close.emit();
