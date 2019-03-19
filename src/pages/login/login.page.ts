@@ -14,6 +14,8 @@ import { MessagesService } from '../../services/messages.service';
 import { ModalFeedBackService } from '../../components/modal-feedBack/modal-feedBack.service';
 import { ProductsService } from '../../services/products.service';
 import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
+import { TermsDialogComponent } from '../home/terms-modal/terms-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 
 @Component({
@@ -36,7 +38,8 @@ export class LoginPage implements OnInit {
     private messagesService: MessagesService,
     private modalFeedBackService: ModalFeedBackService,
     private productsService: ProductsService,
-    private productsMicrositeService: ProductsMicrositeService
+    private productsMicrositeService: ProductsMicrositeService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -149,6 +152,9 @@ export class LoginPage implements OnInit {
               this.reSendEmail(userEmail);
               this.changeRef.markForCheck();
             }
+            if (response.status === 9999) {
+              this.openDialog();
+            }
           })
           .catch(httpErrorResponse => {
             console.error(httpErrorResponse);
@@ -214,4 +220,22 @@ export class LoginPage implements OnInit {
   goBack(): void {
     window.history.back();
   }
+
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.height = '450px';
+    dialogConfig.width = '90%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.onSubmit();
+    });
+  }
+
+
 }
