@@ -105,6 +105,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   rooms : Array<any> = HABITACIONES;
   bathrooms : Array<any> = BATHROOMS;
   antiguedades: Array<any> = ANTIGUEDAD;
+  socialClasses: Array<any> = SOCIALCLASS;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -876,7 +877,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     let sellerType = '';
     let floor = '';
     let elevator = false;
-    let guardHouse = '12 horas';
+    let guardHouse = 'No aplica';
     let parking = false;
     let canonQuota = '';
     let fullyFurnished = false;
