@@ -40,8 +40,8 @@ export class CollectionSelectService {
     });
   }
 
-    async getStatesById(id: number) {
-        const country = await this.getCountryById(id);
+    async getStatesById(id: number) { 
+      const country = await this.getCountryById(id);
         this.states = country.states;
         return this.states.map( state => {
             return {
@@ -90,12 +90,10 @@ export class CollectionSelectService {
   }
 
     private getCollection(filterActive: string = 'true'): Promise<any> {
-        const url = this.configurationService.getBaseUrl() + '/locations/';
-        return this.http.get(url, {
-            params: {
-                'filter[active]': filterActive
-            },
-        }).toPromise();
+        const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+        const headers = new HttpHeaders(jsonSapiHeaders);
+        const url = this.urlSapi + '/general/locations/';
+        return this.http.get(url, { headers: headers , params: {'filter[active]': filterActive }, }).toPromise();
     }
 
     getVehicles(params) {

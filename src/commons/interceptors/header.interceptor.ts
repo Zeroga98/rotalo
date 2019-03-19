@@ -34,7 +34,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('perfil')
       && !req.url.includes('productos')
       && !req.url.includes('centro')
-      && !req.url.includes('general')
+      && !req.url.includes('faq')
       && !req.url.includes('ofertas')
       && !req.url.includes('convenios')
       && !req.url.includes('categorias')
@@ -53,6 +53,9 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('banners')
       && !req.url.includes('password')
       && !req.url.includes('settings')
-      && !req.url.includes('usuarios');
+      && !req.url.includes('usuarios')
+      && !req.url.includes('locations')
+      && !req.url.includes('envios-correos')
+      && !req.url.includes('contactanos');
     }
 }
