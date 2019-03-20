@@ -85,7 +85,7 @@ export class EditProfilePage implements OnInit {
         this.editProfileForm.get('cellphone').setValidators([Validators.required,
           Validators.pattern(/^\d{8}$/)
         ]);
-      }else  {
+      } else  {
         this.editProfileForm.get('cellphone').setValidators([Validators.required]);
       }
 
@@ -105,8 +105,8 @@ export class EditProfilePage implements OnInit {
   async onRemoveImage(event) {
     try {
       const photo = this.findPhoto(event.file);
-      const response = await this.photosService.deletePhotoById(photo.id);
-      this.removePhoto(photo.id);
+      const response = await this.photosService.deletePhoto(photo.photoId);
+      this.removePhoto(photo.photoId);
       this.idImagenProfile = undefined;
      /* this.userService.emitChangePhoto(undefined);*/
       this.messageChange = '';
@@ -122,39 +122,24 @@ export class EditProfilePage implements OnInit {
 
   async removeImageFromServer(id: number) {
     try {
-      const response = await this.photosService.deletePhotoById(id);
+      const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
     } catch (error) {
       console.error('error: ', error);
     }
   }
 
-  /*async onUploadImageFinished(event) {
-    try {
-      this.loadImage = true;
-      this.messageChange = '';
-      this.errorChange = '';
-      const response = await this.photosService.updatePhoto(event.file);
-      this.idImagenProfile = response.id;
-      this.photo = response;
-      const photo = Object.assign({}, response, { file: event.file });
-      this.photosUploaded.push(photo);
-      this.loadImage = false;
-    } catch (error) {
-      this.loadImage = false;
-      console.error('Error: ', error);
-    }
-  }*/
 
   onUploadImageFinished(event) {
     this.loadImage = true;
     this.messageChange = '';
     this.errorChange = '';
-    this.photosService.updatePhoto(event.file).subscribe(
+    this.photosService.uploadPhoto(event.file).subscribe(
       (response) => {
-        this.idImagenProfile = response.id;
+        this.idImagenProfile = response.photoId;
         this.photo = response;
         const photo = Object.assign({}, response, { file: event.file });
+        console.log(photo);
         this.photosUploaded.push(photo);
         this.loadImage = false;
       },
@@ -172,7 +157,7 @@ export class EditProfilePage implements OnInit {
   }
 
   private removePhoto(id: number) {
-    this.photosUploaded = this.photosUploaded.filter(photo => photo.id !== id);
+    this.photosUploaded = this.photosUploaded.filter(photo => photo.photoId !== id);
   }
 
   onInfoRetrieved(user): void {
