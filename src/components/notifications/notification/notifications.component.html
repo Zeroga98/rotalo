@@ -633,11 +633,14 @@
 </div>
 
 <div *ngIf='messages.length > 0' class="button-container">
-  <a (click)='loadMoreNotification()'>Ver más</a>
+ <!-- <a (click)='loadMoreNotification()'>Ver más</a>-->
+  <button (click)="loadMoreNotification()" mat-icon-button>
+    <div class="arrow-icon"></div>
+ </button>
 </div>
 
 <div *ngIf='!showSpinner && messages.length == 0' class="button-container">
-    <p class="message">
-      Por ahora no tienes notificaciones
-    </p>
-  </div>
+  <p class="message">
+    Por ahora no tienes notificaciones
+  </p>
+</div>
