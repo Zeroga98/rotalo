@@ -36,7 +36,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('perfil')
       && !req.url.includes('productos')
       && !req.url.includes('centro')
-      && !req.url.includes('general')
+      && !req.url.includes('faq')
       && !req.url.includes('comunidades')
       && !req.url.includes('ofertas')
       && !req.url.includes('convenios')
@@ -55,7 +55,9 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('password')
       && !req.url.includes('sufi')
       && !req.url.includes('terminos')
-      && !req.url.includes('settings');
+      && !req.url.includes('settings')
+      && !req.url.includes('envios-correos')
+      && !req.url.includes('contactanos');
     }
     private normalizeResponse(response: HttpResponse<any>) {
       if (response.body) {
