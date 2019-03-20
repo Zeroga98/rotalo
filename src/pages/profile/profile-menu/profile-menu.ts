@@ -48,12 +48,15 @@ export class ProfileMenu implements OnInit {
       this.validateMobileMenu();
     });
     this.userService.changePhoto.subscribe(response => {
-      this.userInfo.photo = response;
-      if (response  && response.url) {
+      const photo = {
+        id: response.photoId,
+        url: response.urlPhoto ? response.urlPhoto : ''
+      }
+      this.userInfo.photo = photo;
+      if (response  && response.urlPhoto) {
         this.photoUrl = this.userInfo.photo.url;
       }
     });
-
   }
 
   validateMobileMenu() {
