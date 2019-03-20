@@ -614,8 +614,7 @@
           &&!isCategoryImmovables
           &&!isSellProcess()
           &&!validateSession()
-          &&products['sell-type'] != 'ALQUILA'
-          &&!products.immovable"
+          &&products['sell-type'] != 'ALQUILA'"
             class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
               <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{
@@ -631,8 +630,7 @@
           &&!isCategoryImmovables
           &&!isSellProcess()
           &&!validateSession()
-          &&products['sell-type'] !== 'ALQUILA'
-          &&!products.immovable">
+          &&products['sell-type'] !== 'ALQUILA'">
             <div class="btn-item">
               <button class="botons gtmFinanciar" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
                 <span class="icon-credit gtmFinanciar"></span> Financiar
@@ -658,12 +656,14 @@
           &&!isSellProcess()
           &&!validateSession()
           &&products['sell-type'] !== 'ALQUILA'
-          &&!products.immovable">
+          &&!isCategoryImmovables">
+
             <div class="btn-item">
               <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
                 <span class="icon-custom icon-custom--sufi-logo"></span>Simula tu Crédito
               </button>
             </div>
+
             <div class="btn-item">
               <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
@@ -681,7 +681,12 @@
                 <div class="icon-banco"></div>Simula Crédito o Leasing
               </button>
             </div>
-            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'  && !products.immovable" class="btn-item">
+            <div *ngIf="!validateSession()" class="btn-item">
+              <button class="gtmEnviarMensaje botons" (click)="sendMessage()">
+                Contacta a {{firstName}}
+              </button>
+            </div>
+            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'  && !isCategoryImmovables" class="btn-item">
               <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
@@ -762,7 +767,7 @@
                 <div class="ico-wp"></div>
               </div>
 
-              <div class="product-btn" *ngIf="!validateSession()">
+              <div class="product-btn" *ngIf="!validateSession() && !isCategoryImmovables">
                 <div class="btns-container">
                   <div class="btn-item">
                     <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
@@ -770,7 +775,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
             <div class="product-info-ubicacion">
