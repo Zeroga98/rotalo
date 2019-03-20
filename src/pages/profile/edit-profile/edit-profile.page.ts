@@ -139,7 +139,6 @@ export class EditProfilePage implements OnInit {
         this.idImagenProfile = response.photoId;
         this.photo = response;
         const photo = Object.assign({}, response, { file: event.file });
-        console.log(photo);
         this.photosUploaded.push(photo);
         this.loadImage = false;
       },
