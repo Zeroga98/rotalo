@@ -176,21 +176,15 @@ export class EditProfilePage implements OnInit {
   }
 
   editUser(): void {
-    let infoUser;
+    let currentUser
     if (this.idImagenProfile) {
-      infoUser = Object.assign({}, this.editProfileForm.value, { 'city-id': this.city['id'] }, { 'photo-id': this.idImagenProfile });
+      currentUser = Object.assign({}, this.editProfileForm.value, { 'city-id': this.city['id'] }, { 'photo-id': this.idImagenProfile });
     } else {
-      infoUser = Object.assign({}, this.editProfileForm.value, {
+      currentUser = Object.assign({}, this.editProfileForm.value, {
         "city-id": this.city["id"]
       });
     }
-    const currentUser = {
-      data: {
-        id: this.userEdit.id,
-        type: 'users',
-        attributes: infoUser
-      }
-    };
+    
     this.userService
       .updateUser(currentUser)
       .then(response => {

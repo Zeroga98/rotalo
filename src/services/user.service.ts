@@ -9,7 +9,7 @@ import { UserRequestInterface } from '../commons/interfaces/user-request.interfa
 
 @Injectable()
 export class UserService {
-  readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
+  //readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   currentUser: UserInterface;
   idUser: string;
@@ -38,7 +38,7 @@ export class UserService {
 
   updateUser(currentUser): Promise<any> {
     this.idUser = this.currentSessionService.getIdUser();
-    const url = `${this.url}/${this.idUser}`;
+    const url = `${this.urlSapi}/usuarios`;
     return this.httpClient.put(url, currentUser).toPromise();
   }
 
@@ -55,16 +55,16 @@ export class UserService {
     } catch (error) {}
   }
 
-  saveUser(params: UserRequestInterface): Promise<any> {
+  /*saveUser(params: UserRequestInterface): Promise<any> {
     return this.httpClient
-      .post(this.url, {
+      .post(this.urlSapi, {
         data: {
           attributes: params,
           type: 'users'
         }
       })
       .toPromise();
-  }
+  }*/
 
   private getUser(): Promise<any> {
     
