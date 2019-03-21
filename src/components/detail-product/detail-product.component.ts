@@ -645,10 +645,32 @@ export class DetailProductComponent implements OnInit {
     });
   }
 
-  public shareProduct(id: string, product) {
-    if (product.id) {
-      this.modalService.setProductId(product.id);
-      this.modalService.open(id);
+  shareProduct() {
+    if (!this.sendInfoProduct.invalid) {
+      const params = {
+        correo: this.sendInfoProduct.get('email').value
+      };
+      this.productsService
+        .shareProduct(params,  this.products.id)
+        .then(response => {
+          this.messageSuccess = true;
+          this.sendInfoProduct.reset();
+          this.gapush(
+            'send',
+            'event',
+            'Productos',
+            'ClicInferior',
+            'CompartirEsteProductoExitosoDetalle'
+          );
+          this.changeDetectorRef.markForCheck();
+        })
+        .catch(httpErrorResponse => {
+          if (httpErrorResponse.status === 422) {
+            this.textError = httpErrorResponse.error.errors[0].detail;
+            this.messageError = true;
+          }
+          this.changeDetectorRef.markForCheck();
+        });
     }
   }
 

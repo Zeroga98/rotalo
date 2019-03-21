@@ -46,7 +46,7 @@
   ngx-carousel {
     position: relative;
     .item-banner {
-  
+
       img {
         width: 100%;
         height: auto;
@@ -125,7 +125,7 @@
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-around;
+      //  justify-content: space-around;
       }
       product, product-rotalo-center{
         cursor: pointer;

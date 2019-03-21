@@ -24,7 +24,8 @@
         <div class="description">
           {{products.description}}
         </div>
-        <promo-animation *ngIf="showSticker" (click)="hideAnimation()" [stickerUrl]="stickerUrl" [promoCode]='codeCampaign'></promo-animation>
+        <promo-animation *ngIf="showSticker" (click)="hideAnimation()" [stickerUrl]="stickerUrl"
+          [promoCode]='codeCampaign'></promo-animation>
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -38,10 +39,12 @@
                 <img src="{{productImage?.url}}">
               </div>
             </ngx-item>
-            <span (click)="clickArrow()" NgxCarouselPrev class="gtmFlechasProductos carousel-arrow carousel-arrow__prev">
+            <span (click)="clickArrow()" NgxCarouselPrev
+              class="gtmFlechasProductos carousel-arrow carousel-arrow__prev">
               <span class="icon icon-chevron-thin-left"></span>
             </span>
-            <span (click)="clickArrow()" NgxCarouselNext class="gtmFlechasProductos carousel-arrow carousel-arrow__next">
+            <span (click)="clickArrow()" NgxCarouselNext
+              class="gtmFlechasProductos carousel-arrow carousel-arrow__next">
               <span class="icon icon-chevron-thin-right"></span>
             </span>
           </ngx-carousel>
@@ -131,11 +134,13 @@
               <div class="img-frenos additional-img"></div>
               <div class="additional-text">Frenos ABS</div>
             </div>
-            <div *ngIf="products.vehicle.airConditioner && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
+            <div *ngIf="products.vehicle.airConditioner && products.vehicle.vehicleType == 'AUTO'"
+              class="additional-container">
               <div class="img-aire additional-img"></div>
               <div class="additional-text">Aire acondicionado</div>
             </div>
-            <div *ngIf="products.vehicle.typeOfSeat && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
+            <div *ngIf="products.vehicle.typeOfSeat && products.vehicle.vehicleType == 'AUTO'"
+              class="additional-container">
               <div class="img-material additional-img"></div>
               <div *ngIf="products.vehicle.typeOfSeat == 'CUERO'" class="additional-text">Material Cuero</div>
               <div *ngIf="products.vehicle.typeOfSeat == 'TELA'" class="additional-text">Material Tela</div>
@@ -227,7 +232,7 @@
               <tr>
                 <td class=" ">
                   <div>
-                      Valor de la administración
+                    Valor de la administración
                     <p *ngIf="products.immovable.canonQuota">
                       {{products.immovable.canonQuota | currency:"$" | removeDigits}}
                     </p>
@@ -238,18 +243,18 @@
                 </td>
                 <td class="padding-cell-left middle-cell">
                   <div>
-                      Metros 2 terreno
+                    Metros 2 terreno
                     <p *ngIf="products.immovable.squareMetersTerrain">
                       {{products.immovable.squareMetersTerrain}} mts2
                     </p>
                     <p *ngIf="!products.immovable.squareMetersTerrain">
-                        0 mts2
+                      0 mts2
                     </p>
                   </div>
                 </td>
                 <td class="padding-cell-left">
                   <div>
-                      Estrato
+                    Estrato
                     <p *ngIf="products.immovable.socialClass">
                       {{products.immovable.socialClass}}
                     </p>
@@ -262,23 +267,23 @@
               <tr>
                 <td class=" ">
                   <div>
-                      Juegos infantiles
+                    Juegos infantiles
                     <p *ngIf="products.immovable.childishGames">Si</p>
                     <p *ngIf="!products.immovable.childishGames">No</p>
                   </div>
                 </td>
                 <td class="padding-cell-left middle-cell">
                   <div>
-                      Cuarto útil
+                    Cuarto útil
                     <p *ngIf="products.immovable.usefulRoom">Si</p>
                     <p *ngIf="!products.immovable.usefulRoom">No</p>
                   </div>
                 </td>
                 <td class="padding-cell-left">
                   <div>
-                      Piscina
-                      <p *ngIf="products.immovable.pool">Si</p>
-                      <p *ngIf="!products.immovable.pool">No</p>
+                    Piscina
+                    <p *ngIf="products.immovable.pool">Si</p>
+                    <p *ngIf="!products.immovable.pool">No</p>
                   </div>
                 </td>
               </tr>
@@ -421,148 +426,142 @@
           </table>
           <h1>Características adicionales</h1>
           <table class="table-info">
-              <tbody>
-                <tr>
-                  <td class=" ">
-                    <div>
-                      Valor de la administración
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.canonQuota">
-                            {{products.immovable.canonQuota | currency:"$" | removeDigits}}
-                          </p>
-                          <p *ngIf="!products.immovable.canonQuota">
-                            $ 0
-                          </p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Metros 2 terreno
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.squareMetersTerrain">
-                            {{products.immovable.squareMetersTerrain}} mts2
-                          </p>
-                          <p *ngIf="!products.immovable.squareMetersTerrain">
-                              0 mts2
-                          </p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Estrato
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.socialClass">
-                            {{products.immovable.socialClass}}
-                          </p>
-                          <p *ngIf="!products.immovable.socialClass">
-                            N/A
-                          </p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Juegos infantiles
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.childishGames">Si</p>
-                        <p *ngIf="!products.immovable.childishGames">No</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Cuarto útil
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.usefulRoom">Si</p>
-                        <p *ngIf="!products.immovable.usefulRoom">No</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Piscina
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.pool">Si</p>
-                        <p *ngIf="!products.immovable.pool">No</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class=" ">
-                    <div>
-                        Amoblado
-                    </div>
-                  </td>
-                  <td class="">
-                    <div>
-                        <p *ngIf="products.immovable.fullyFurnished">Si</p>
-                        <p *ngIf="!products.immovable.fullyFurnished">No</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <tbody>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Valor de la administración
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.canonQuota">
+                      {{products.immovable.canonQuota | currency:"$" | removeDigits}}
+                    </p>
+                    <p *ngIf="!products.immovable.canonQuota">
+                      $ 0
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Metros 2 terreno
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.squareMetersTerrain">
+                      {{products.immovable.squareMetersTerrain}} mts2
+                    </p>
+                    <p *ngIf="!products.immovable.squareMetersTerrain">
+                      0 mts2
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Estrato
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.socialClass">
+                      {{products.immovable.socialClass}}
+                    </p>
+                    <p *ngIf="!products.immovable.socialClass">
+                      N/A
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Juegos infantiles
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.childishGames">Si</p>
+                    <p *ngIf="!products.immovable.childishGames">No</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Cuarto útil
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.usefulRoom">Si</p>
+                    <p *ngIf="!products.immovable.usefulRoom">No</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Piscina
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.pool">Si</p>
+                    <p *ngIf="!products.immovable.pool">No</p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Amoblado
+                  </div>
+                </td>
+                <td class="">
+                  <div>
+                    <p *ngIf="products.immovable.fullyFurnished">Si</p>
+                    <p *ngIf="!products.immovable.fullyFurnished">No</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
 
 
-        <promo-animation *ngIf="showSticker" (click)="hideAnimation()" [stickerUrl]="stickerUrl" [promoCode]='codeCampaign'></promo-animation>
+        <promo-animation *ngIf="showSticker" (click)="hideAnimation()" [stickerUrl]="stickerUrl"
+          [promoCode]='codeCampaign'></promo-animation>
       </div>
     </div>
-
     <div *ngIf="products" class="product-info">
       <div class="card-product">
-        <div class="condition-container">
-          <span>{{products.used ? 'Usado' : 'Nuevo'}}</span> -
-          <span class="capitalize">{{products['sell-type'].toLowerCase()}}</span>
-        </div>
         <div class="title-product">{{products.name}}</div>
-
-        <div class= "publish">
-          <span class="date">Publicado {{products['published-at'] | amTimeAgo}}</span>
-          <span>
-              - {{visitsNumber}} visitas
-          </span>
-        </div>
         <!--  <div class="flexbox">-->
+        <div class="condition-container">
+          <div>
+            <div class="capitalize">
+              <span class="condition">Condición: </span>
+              <span>{{products.used ? 'Usado' : 'Nuevo'}}</span>
+            </div>
+            <div class="capitalize">
+              <span class="icon icon-detail-off"></span>
+              {{products['sell-type'].toLowerCase()}}
+            </div>
+          </div>
+        </div>
+
         <div class="btns-container">
-          <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
+          <div
+            [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
             class="btn-item ">
             <div class="price-container">
-              <div [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''"
-                *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
-                <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
-                  {{products['previousPrice'] | currency:"Q" | removeDigits}}</span>
-                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
-                  {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
-                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
-                  {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
-              </div>
               <div>
                 <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
                   {{products.price | currency:"Q" | removeDigits}}</span>
@@ -572,17 +571,25 @@
                   {{products.price | currency:"$" | removeDigits}}</span>
                 <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
-
-              <div *ngIf="products && products.negotiable" class="get-offer">
-                  <span class="icon-check"></span>
-                  <span>Recibo ofertas</span>
-                </div>
+              <div
+                [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''"
+                *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
+                <span *ngIf="products['previousPrice'] != 0 && products.currency == 'GTQ'" class="valor-product">
+                  {{products['previousPrice'] | currency:"Q" | removeDigits}}</span>
+                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 9"
+                  class="valor-product">
+                  {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
+                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1"
+                  class="valor-product">
+                  {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
+              </div>
             </div>
           </div>
-          <div *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate"
+          <div
+            *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate"
             class="full-width quantity-container">
-            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)"
-              #form>
+            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"
+              (ngSubmit)="quantity(form)" #form>
               <div class="form-group">
                 <label class="label-title">Cantidad</label>
                 <div class="input-group quantity-wrapper">
@@ -591,9 +598,10 @@
                       <span>-</span>
                     </button>
                   </span>
-                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock"
-                    currencyMask [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                    formControlName="stock" placeholder="0" maxlength="5" autocomplete="off">
+                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask
+                    [options]="{prefix: '' , align: 'left', precision: 0}"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
+                    placeholder="0" maxlength="5" autocomplete="off">
                   <span class="input-group-btn">
                     <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
                       <span>+</span>
@@ -608,41 +616,36 @@
               </div>
             </form>
           </div>
-          <div *ngIf="products
-          &&!checkBAMBotton()
-          &&!checkSufiBotton()
-          &&!isCategoryImmovables
-          &&!isSellProcess()
-          &&!validateSession()
-          &&products['sell-type'] != 'ALQUILA'"
+          <div
+            *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">
-            <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+            <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+              (click)="buyProduct(products.id)">
               <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> {{
               products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
             </button>
-            <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
+            <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+              (click)="openOfferModal(products)">
               <span class="icon-ofert-detalle"></span> Hacer oferta
             </button>
           </div>
           <div class="btn-two-container"
-          *ngIf="products
-          &&checkBAMBotton()
-          &&!isCategoryImmovables
-          &&!isSellProcess()
-          &&!validateSession()
-          &&products['sell-type'] !== 'ALQUILA'">
+            *ngIf="products && checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
             <div class="btn-item">
-              <button class="botons gtmFinanciar" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="creditProduct(products.id)">
+              <button class="botons gtmFinanciar" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+                (click)="creditProduct(products.id)">
                 <span class="icon-credit gtmFinanciar"></span> Financiar
               </button>
             </div>
             <div class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+                (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
             </div>
           </div>
-          <div *ngIf="products && !checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] == 'ALQUILA'"
+          <div
+            *ngIf="products && !checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] == 'ALQUILA'"
             class="btn-item">
             <button class="gtmProdAlquilar botons" (click)="rentProduct(products.id)">
               <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
@@ -650,49 +653,39 @@
             </button>
           </div>
           <div class="btn-two-container"
-          *ngIf="products
-          &&!checkBAMBotton()
-          &&checkSufiBotton()
-          &&!isSellProcess()
-          &&!validateSession()
-          &&products['sell-type'] !== 'ALQUILA'
-          &&!isCategoryImmovables">
-
+            *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
             <div class="btn-item">
               <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
                 <span class="icon-custom icon-custom--sufi-logo"></span>Simula tu Crédito
               </button>
             </div>
-
             <div class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+                (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
-              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
+              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+                (click)="openOfferModal(products)">
                 <span class="icon-ofert-detalle"></span> Hacer oferta
               </button>
             </div>
           </div>
 
 
-          <div class="btn-two-container creditImmovables" *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
+          <div class="btn-two-container creditImmovables"
+            *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
             <div class="credit-leasing btn-item">
               <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
                 <div class="icon-banco"></div>Simula Crédito o Leasing
               </button>
             </div>
-            <div *ngIf="!validateSession()" class="btn-item">
-              <button class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                Contacta a {{firstName}}
-              </button>
-            </div>
-            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'  && !isCategoryImmovables" class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'" (click)="buyProduct(products.id)">
+            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'" class="btn-item">
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+                (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
-              <button *ngIf="products
-              &&products['sell-type'] == 'SUBASTA'
-              &&!products.immovable" class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
+              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+                (click)="openOfferModal(products)">
                 <span class="icon-ofert-detalle"></span> Hacer oferta
               </button>
             </div>
@@ -724,11 +717,11 @@
             <div class="media" *ngIf="validateSession() && !isSold()">
               <div class="form-group media-left media-middle">
                 <div>
-                  <input class="switch-input" id="id-name--1" type="checkbox" [checked]="productStatus" (change)="saveCheck()">
-                  <label for="id-name--1" class="switch-label {{productChecked}}">Tu aviso está {{ productStatus ?
-                    'activo'
-                    :
-                    'inactivo' }}</label>
+                  <input class="switch-input" id="id-name--1" type="checkbox" [checked]="productStatus"
+                    (change)="saveCheck()">
+                  <label for="id-name--1" class="switch-label {{productChecked}}">Tu aviso está {{ productStatus ? 'activo'
+                        :
+                        'inactivo' }}</label>
                 </div>
               </div>
             </div>
@@ -739,7 +732,8 @@
             <div class="product-info-user">
               <div class="info-container">
                 <div class="media-middle">
-                  <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
+                  <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon"
+                    [ngStyle]="{'background-color':products.user.company.colour}">
                     <span class="icon-account"></span>
                   </div>
                   <div *ngIf="products.user.photos" class="photo-user">
@@ -747,52 +741,103 @@
                   </div>
                 </div>
                 <div *ngIf="products.user.company" class="media-middle product-info-user--data">
-                  <div>
-                      <p class="name-user">{{products.user.name}}</p>
-                      <div class="rating" *ngIf='products.userCalification'>
-                        <p>{{products.userCalification}}</p>
-                        <div class="ico-star"></div>
-                      </div>
-                  </div>
-                  <p class="panel-product">{{products.user.company.name}}
+                  <p class="name-user">{{products.user.name}}</p>
+                  <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">
+                    {{products.user.company.name}}
                     -
-                    <span >{{products.user.company.community.name}}</span>
+                    <span
+                      [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
                   </p>
                 </div>
               </div>
-
-              <div class="share-product">
-                <p>Comparte esta publicación con un amigo: </p>
-                <div (click)="shareProduct('custom-modal-2' , products)" class="gtmCompartirProducto ico-email"></div>
-                <div class="ico-wp"></div>
-              </div>
-
-              <div class="product-btn" *ngIf="!validateSession() && !isCategoryImmovables">
-                <div class="btns-container">
-                  <div class="btn-item">
+              <div class="product-btn" *ngIf="!validateSession()">
+                <div class="product-btns">
+                  <div class="cont-botons">
                     <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                      Contacta a {{firstName}}
+                      <span class="icon-chat-detalle"></span>
+                      Chatea con {{firstName}}
                     </div>
                   </div>
+                </div>
+                <div *ngIf="products && products.negotiable" class="get-offer">
+                  <span class="icon-check"></span>
+                  <span>Recibo ofertas</span>
                 </div>
               </div>
             </div>
             <div class="product-info-ubicacion">
-        <!--      <div class="mobile gtmProdReporAqui report-container">
-                <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta aquí.</a></p>
+              <div class="mobile gtmProdReporAqui Aquireport-container">
+                <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
+                    aquí.</a></p>
               </div>
--->
+              <div class="date">
+                <span class="icon icon-calendar"></span>
+                Fecha de Publicación:
+                <span class="date">{{products['published-at'] | amTimeAgo}}</span>
+              </div>
               <div class="location">
                 <span class="icon icon-location"></span>
                 <span>{{getLocation(products)}}</span>
               </div>
-
-              <div class="gtmProdReporAqui report-container">
-                <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta aquí.</a></p>
+              <div class="visit contTipo">
+                <span class="icon icon-eye"></span> {{visitsNumber}} visitas
+              </div>
+              <div class="desktop  gtmProdReporAqui report-container">
+                <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
+                    aquí.</a></p>
               </div>
             </div>
           </div>
-
+          <div class="row-container">
+            <div *ngIf="!isSellProcess()" class="share-container">
+              <div class="share-product-container">
+                <div (click)="validateMobile()" class="gtmCompartirProducto share-mobile">
+                  <div class="icon-share-container">
+                    <div class="icon-email"></div>
+                  </div>
+                  <a class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
+                  <span [ngClass]="{'open': showInputShare}" class="icon-arrow"></span>
+                </div>
+                <div *ngIf="showInputShare" class="input-container">
+                  <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
+                    <div class="form-group">
+                      <input (click)="messageSuccess=false; messageError= false"
+                        [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}"
+                        formControlName="email" maxlength="100" id="txt-email-detail" type="email"
+                        class="form-control share-input" placeholder="Escribe aquí el correo corporativo de tu amigo">
+                      <div class="icon-container">
+                        <button class="button-share" type="submit">
+                          <div class="icon-email"></div>
+                        </button>
+                      </div>
+                    </div>
+                    <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine"
+                      class="help-block">
+                      <span class="icon-circle-cancel"></span>
+                      <span *ngIf="!sendInfoProduct.get('email').errors.emailError">
+                        Aseguráte de que sea un correo válido.
+                      </span>
+                      <span *ngIf="sendInfoProduct.get('email').errors.emailError">
+                        ¡Hey! compártelo a un correo diferente al tuyo.
+                      </span>
+                    </span>
+                    <span *ngIf="messageSuccess" class="help-block">
+                      <span class="icon-check"></span>
+                      <span>
+                        ¡Hemos enviado el correo con éxito!
+                      </span>
+                    </span>
+                    <span *ngIf="messageError" class="help-block">
+                      <span class="icon-circle-cancel"></span>
+                      <span>
+                        {{textError}}
+                      </span>
+                    </span>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
