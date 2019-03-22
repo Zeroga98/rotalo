@@ -612,15 +612,16 @@
                   Has seleccionado tus intereses.
                 </span>
               </p>
+              <div *ngIf="!message.interes || !message.interes.tieneIntereses" class="notification-buttons">
+                <div class="button-item">
+                  <button mat-flat-button color="primary" class="button button-secondary" (click)="goToHobbies()">
+                    <span>Aceptar</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div *ngIf="!message.interes || !message.interes.tieneIntereses" class="notification-buttons">
-            <div class="button-item">
-              <button class="button button-secondary" (click)="goToHobbies()">
-                <span>Aceptar</span>
-              </button>
-            </div>
-          </div>
+
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}
           </small>
         </div>

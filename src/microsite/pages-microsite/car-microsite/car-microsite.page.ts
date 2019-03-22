@@ -406,8 +406,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
               this.hasANewQuantity = true;
-              this.wayboxPay
-                (this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
+              this.wayboxPay(this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
               this.disablePayButton = false;
               this.changeDetectorRef.markForCheck();
             } catch (error) {
