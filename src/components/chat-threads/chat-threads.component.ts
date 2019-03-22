@@ -153,7 +153,6 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
       const dialogRef = this.dialog.open(DeleteConversationComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          console.log(result);
           this.messagesService.deleteMessage(result).subscribe((response) => {
             location.reload();
           },
