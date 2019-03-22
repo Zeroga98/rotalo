@@ -404,6 +404,10 @@
 
 :host {
 
+   .carousel-arrow__prev {
+    left: 0px;
+  }
+
   @media screen and (max-width: 890px) {
     .featured-section {
       .featured-container {
