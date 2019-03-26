@@ -895,6 +895,18 @@ input:checked+.switch-slider:before {
     background-image: url(../../assets/img/iconos/ic_bancolombia.png);
   }
 
+  .bancolombia-buy {
+    .icon-banco {
+      display: inline-block;
+    }
+
+    p {
+      display: inline-block;
+      font-size: 1.6rem;
+      color: #383838;
+    }
+  }
+
   .btns-container .btn-item.credit-leasing {
     width: 50%;
   }
