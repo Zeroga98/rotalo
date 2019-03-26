@@ -273,9 +273,9 @@ export class NotificationsComponent implements OnInit {
         this.gapush(
           'send',
           'event',
-          'Menu',
-          'ClicNotificaciones',
-          gaPushParam
+          'Notificaciones',
+          gaPushParam,
+          'EnviarExitoso'
         );
         this.changeDetector.markForCheck();
       },
