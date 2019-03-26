@@ -4,135 +4,158 @@
   </div>
 </div>-->
 <div *ngIf="product">
-  <modal-buy-info  [statusProduct]="product.status" [idProduct]="product.id" *ngIf="isModalBuyShowed" (closeModal)="showMessageModal($event)"></modal-buy-info>
-  <div  class="buy-product-container">
+  <modal-buy-info [statusProduct]="product.status" [idProduct]="product.id" *ngIf="isModalBuyShowed"
+    (closeModal)="showMessageModal($event)"></modal-buy-info>
+  <div class="buy-product-container">
     <form (ngSubmit)="buyProductCash()" [formGroup]="buyForm">
-        <div class="container-offer">
-          <confirm-purchase *ngIf="confirmPurchase" ></confirm-purchase>
-          <info-page [idProduct] = "idProduct"  [selectValue] = "selectOptionsPageInfo" *ngIf="showInfoPage" ></info-page>
-          <div class="purchaseProduct" *ngIf="!showInfoPage  && !confirmPurchase">
-              <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
-              <div class="container" *ngIf="!transactionSuccess">
-                <div class="buy-detail">
-                  <p>Revisa el detalle de tu producto</p>
-               <!--<p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p> -->
-                </div>
-                <ol class="steps-buy-product">
-                  <li>
-                    <span>Revisa el detalle de tu producto</span>
-                    <div class="container-header product">
-                      <div class="image">
-                        <img [src]="photoProduct">
-                      </div>
-                      <div class="category-container">
-                        <div class="title">{{product.name}}</div>
-                        <div class="category">
-                          <span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
-                        <div class="used">
-                          <span>Condición:</span> {{usedProduct}}</div>
-                      </div>
-                      <div class="price">
-                        <div class="title">Precio</div>
-                        <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$" | removeDigits }}</div>
-                        <div *ngIf="product.currency == 'GTQ' && idCountry == 9">{{priceProduct | currency:"Q" | removeDigits }}</div>
-                      </div>
-                      <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
-                          <div class="title-quantity">Cantidad</div>
-                        <!--  <div class="text-center">{{quantity}}</div> -->
-                        <div class="full-width quantity-container">
-                              <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"  #form>
-                                  <div  class="form-group">
-                                      <div class="input-group quantity-wrapper">
-                                        <span class="input-group-btn">
-                                          <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
-                                            <span>-</span>
-                                          </button>
-                                        </span>
-                                        <input
-                                        (blur)="changeTotalValue()"
-                                        type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
-                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock" placeholder="0" maxlength="5"
-                                        autocomplete="off">
-                                        <span class="input-group-btn">
-                                          <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
-                                            <span>+</span>
-                                          </button>
-                                        </span>
+      <div class="container-offer">
+        <confirm-purchase *ngIf="confirmPurchase"></confirm-purchase>
+        <info-page [idProduct]="idProduct" [selectValue]="selectOptionsPageInfo" *ngIf="showInfoPage"></info-page>
+        <div class="purchaseProduct" *ngIf="!showInfoPage  && !confirmPurchase">
+          <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
+          <div class="container" *ngIf="!transactionSuccess">
+            <div class="buy-detail">
+              <p>Revisa el detalle de tu producto</p>
+              <!--<p>Recuerda seleccionar la opción de pago y de entrega según lo que acordaste con el vendedor.</p> -->
+            </div>
+            <ol class="steps-buy-product">
+              <li>
+                <span>Revisa el detalle de tu producto</span>
+                <div class="container-header product">
+                  <div class="image">
+                    <img [src]="photoProduct">
+                  </div>
+                  <div class="category-container">
+                    <div class="title">{{product.name}}</div>
+                    <div class="category">
+                      <span>{{categoryProduct}}</span> - {{subCategoryProduct}}</div>
+                    <div class="used">
+                      <span>Condición:</span> {{usedProduct}}</div>
+                  </div>
+                  <div class="price">
+                    <div class="title">Precio</div>
+                    <div *ngIf="product.currency != 'GTQ'">{{priceProduct | currency:"$" | removeDigits }}</div>
+                    <div *ngIf="product.currency == 'GTQ' && idCountry == 9">
+                      {{priceProduct | currency:"Q" | removeDigits }}</div>
+                  </div>
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
+                    <div class="title-quantity">Cantidad</div>
+                    <!--  <div class="text-center">{{quantity}}</div> -->
+                    <div class="full-width quantity-container">
+                      <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" #form>
+                        <div class="form-group">
+                          <div class="input-group quantity-wrapper">
+                            <span class="input-group-btn">
+                              <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                <span>-</span>
+                              </button>
+                            </span>
+                            <input (blur)="changeTotalValue()" type="text"
+                              class="form-control input-number input-sm quantity-style" name="stock" currencyMask
+                              [options]="{prefix: '' , align: 'left', precision: 0}"
+                              onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
+                              placeholder="0" maxlength="5" autocomplete="off">
+                            <span class="input-group-btn">
+                              <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                                <span>+</span>
+                              </button>
+                            </span>
 
-                                      </div>
-                                      <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
-                                    </div>
-                              </form>
                           </div>
-                      </div>
-                        <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
-                            <div class="title">Total</div>
-                            <div class="total-price" *ngIf="product.currency != 'GTQ'">{{totalPrice | currency:"$" | removeDigits }}</div>
-                            <div class="total-price" *ngIf="product.currency == 'GTQ' && idCountry == 9">{{totalPrice | currency:"Q" | removeDigits }}</div>
-                          </div>
-                    </div>
-                  </li>
-                  <li>
-                      <span>Información del vendedor</span>
-                      <div class="container-header info-seller-container">
-                        <div class="info-seller">
-                          <div class="media-middle">
-                              <div *ngIf="!product.user.photo" class="product-info-user--icon">
-                                  <span class="icon-account"></span>
-                              </div>
-                              <div *ngIf="product?.user.photo && product?.user.photo.url" class="product-info-user--icon">
-                                  <img class="user-photo" [src]="product?.user.photo.url">
-                              </div>
-                          </div>
-                          <div *ngIf="product.user.company" class="media-middle product-info-user--data">
-                              <p class="first-text bold">{{product.user.name}}</p>
-                              <p class="second-text">{{product.user.company.name}}</p>
-                          </div>
+                          <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}"
+                            class="error-msg">Este campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
                         </div>
-                        <div class="info-seller">
-                            <div class="media-middle">
-                                <div class="product-info-user--icon">
-                                    <div class="icon-cellphone"></div>
-                                </div>
-                            </div>
-                            <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
-                                <p class="first-text">Celular</p>
-                                <p class="second-text bold">{{product.user.cellphone}}</p>
-                            </div>
-                        </div>
-                        <div class="info-seller">
-                            <div class="media-middle">
-                                <div class="product-info-user--icon">
-                                    <div class="icon-email"></div>
-                                </div>
-                            </div>
-                            <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
-                                <p class="first-text">Correo electrónico</p>
-                                <p class="second-text bold">{{product.user.email}}</p>
-                            </div>
-                        </div>
-                      </div>
-                  </li>
-                </ol>
-
-                <div class="button-form">
-                  <div class="container-button">
-                    <div class="button">
-                        <custom-button  text="Atrás" (click)="goBack()"></custom-button>
-                    </div>
-                    <div *ngIf="product && product['sell-type'] !='ALQUILA'" class="button">
-                        <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton" class="gtmCompConfirmComp" type="submit"  text="Confirmar compra" ></custom-button>
+                      </form>
                     </div>
                   </div>
-                  <div *ngIf="errorMessage" class="error-message">
-                   <div class="alert"></div> {{errorMessage}}
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="price">
+                    <div class="title">Total</div>
+                    <div class="total-price" *ngIf="product.currency != 'GTQ'">
+                      {{totalPrice | currency:"$" | removeDigits }}</div>
+                    <div class="total-price" *ngIf="product.currency == 'GTQ' && idCountry == 9">
+                      {{totalPrice | currency:"Q" | removeDigits }}</div>
                   </div>
                 </div>
+              </li>
+              <li>
+                <span>Información del vendedor</span>
+                <div class="container-header info-seller-container">
+                  <div class="info-seller">
+                    <div class="media-middle">
+                      <div *ngIf="!product.user.photo" class="product-info-user--icon">
+                        <span class="icon-account"></span>
+                      </div>
+                      <div *ngIf="product?.user.photo && product?.user.photo.url" class="product-info-user--icon">
+                        <img class="user-photo" [src]="product?.user.photo.url">
+                      </div>
+                    </div>
+                    <div *ngIf="product.user.company" class="media-middle product-info-user--data">
+                      <p class="first-text bold">{{product.user.name}}</p>
+                      <p class="second-text">{{product.user.company.name}}</p>
+                    </div>
+                  </div>
+                  <div class="info-seller">
+                    <div class="media-middle">
+                      <div class="product-info-user--icon">
+                        <div class="icon-cellphone"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
+                      <p class="first-text">Celular</p>
+                      <p class="second-text bold">{{product.user.cellphone}}</p>
+                    </div>
+                  </div>
+                  <div class="info-seller">
+                    <div class="media-middle">
+                      <div class="product-info-user--icon">
+                        <div class="icon-email"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="product.user.cellphone" class="media-middle product-info-user--data">
+                      <p class="first-text">Correo electrónico</p>
+                      <p class="second-text bold">{{product.user.email}}</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <span>Selecciona el método con el que quieres pagar</span>
+                <div class="btn-container-pay">
+
+                  <mat-button-toggle-group>
+                    <mat-button-toggle value="left" aria-label="Text align left">
+                        Acordar con el vendedor
+                    </mat-button-toggle>
+
+                    <mat-button-toggle value="center" aria-label="Text align center">
+                        Transferencia Bancolombia
+                    </mat-button-toggle>
+
+                  </mat-button-toggle-group>
+
+
+                </div>
+
+              </li>
+
+            </ol>
+
+            <div class="button-form">
+              <div class="container-button">
+                <div *ngIf="product && product['sell-type'] !='ALQUILA'" class="button">
+                  <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton"
+                    class="gtmCompConfirmComp" type="submit" text="Confirmar compra"></custom-button>
+                </div>
+              </div>
+              <div *ngIf="errorMessage" class="error-message">
+                <div class="alert"></div> {{errorMessage}}
               </div>
             </div>
           </div>
+        </div>
+      </div>
     </form>
-    </div>
-    <custom-footer></custom-footer>
+  </div>
+  <custom-footer></custom-footer>
 </div>
-

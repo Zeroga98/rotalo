@@ -179,7 +179,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
-import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule } from '@angular/material';
+import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule, MatButtonToggleModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
@@ -342,6 +342,8 @@ import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.d
     MatDialogModule,
     SortablejsModule,
     MatMenuModule,
+    MatButtonToggleModule
+
   ],
   providers: [
     UserService,

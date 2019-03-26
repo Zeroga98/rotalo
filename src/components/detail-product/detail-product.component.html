@@ -557,13 +557,6 @@
           </div>
         </div>
 
-        <div class="bancolombia-buy">
-          <div class="icon-banco"></div>
-          <p>
-            Al comprar puedes pagar con transferencia Bancolombia o como lo acuerdes con el vendedor.
-          </p>
-        </div>
-
         <div class="btns-container">
           <div
             [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
@@ -622,6 +615,12 @@
                   campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
               </div>
             </form>
+          </div>
+          <div class="bancolombia-buy">
+            <div class="icon-banco"></div>
+            <p>
+              Al comprar puedes pagar con transferencia Bancolombia o como lo acuerdes con el vendedor.
+            </p>
           </div>
           <div
             *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"

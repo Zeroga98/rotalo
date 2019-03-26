@@ -506,3 +506,24 @@
     }
   }
 }
+
+.mat-button-toggle-group-appearance-standard, .mat-button-toggle-standalone.mat-button-toggle-appearance-standard {
+  border:none;
+  border-radius: 10px;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+  margin: 0;
+}
+
+.mat-button-toggle {
+  width: 352px;
+  border:1px solid #D8D8D8;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.mat-button-toggle-checked {
+  border:1px solid #2E2E2E;
+  border-left: #2E2E2E;
+}

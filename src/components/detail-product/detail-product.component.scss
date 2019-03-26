@@ -896,12 +896,10 @@ input:checked+.switch-slider:before {
   }
 
   .bancolombia-buy {
-    .icon-banco {
-      display: inline-block;
-    }
-
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
     p {
-      display: inline-block;
       font-size: 1.6rem;
       color: #383838;
     }
@@ -1283,6 +1281,15 @@ input:checked+.switch-slider:before {
       padding-top: 20px;
     }
   }
+
+  :host {
+    .bancolombia-buy {
+      p {
+       font-size: 1.4rem;
+      }
+    }
+  }
+
 }
 
 @media screen and (max-width: 450px) {
