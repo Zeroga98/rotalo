@@ -1,21 +1,22 @@
 import { NgxCarousel } from "ngx-carousel";
 
 export const CAROUSEL_PRODUCTS_CONFIG: NgxCarousel = {
-    grid: {
-        xs: 2,
+/*    grid: {
+        xs: 1,
         sm: 3,
         md: 4,
         lg: 5,
         all: 0
-    },
-    slide: 5,
+    },*/
+    grid: { xs: 3, sm: 3, md: 4, lg: 5, all: 240 },
+   // slide: 5,
     speed: 500,
-    interval: 7000,
+    interval: 3600000,
     point: {
         visible: false
     },
     load: 2,
     touch: true,
-    loop: false,
+    loop: true,
     custom: 'banner'
 };

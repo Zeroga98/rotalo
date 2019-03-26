@@ -211,6 +211,11 @@
   .featured-section.bancolombia-site .featured-container {
     padding: 0;
   }
+
+  .icon-location {
+    margin-right: 5px;
+  }
+
 }
 
 :host {
@@ -422,7 +427,6 @@
       margin: 0 auto 45px;
     }
 
-
     .featured-section {
       .featured-container {
         max-width: 700px;
@@ -450,75 +454,40 @@
       display: none !important;
     }
 
-
-  }
-
-  @media screen and (max-width: 500px) {
-
-    .container-masonry {
-      padding: 4rem 0;
-    }
-
-    .container-masonry .masonry .grid-item {
-      justify-content: center;
-    }
-
-    .container-masonry .masonry product {
-      width: 45%;
-      margin: 0 5px 2.5rem;
-    }
-
-    .container-masonry .masonry product-rotalo-center {
-      width: 43%;
-    }
-
-  }
-
-  @media screen and (max-width: 470px) {
-
-    .price-container {
-      flex-direction: column;
-      line-height: 2rem;
-      min-height: 4rem;
-    }
-
-    .featured-section.featured-products {
-      min-height: 370px;
-      height: 370px;
-    }
-
     ngx-carousel.carousel-featured ngx-item {
-      min-height: auto;
+      height: 35rem;
     }
+
+    .featured-section .featured-container .header-featured h3 {
+      font-size: 1.6rem;
+    }
+
+  .featured-section .featured-card .item__wrapper .item__card .item__content .item__price-block {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .featured-section .featured-card .item__wrapper .item__card .item__content .item__location {
+    font-size: 1.0rem;
+    line-height: 1.2;
+    padding-bottom: 10px;
+  }
+
+  .featured-section .featured-card .item__wrapper .item__card {
+    height: 335px;
+  }
+
+  .featured-section.featured-products {
+    min-height: 430px;
+    height: 430px;
+  }
+
 
     .featured-section {
-      .featured-container {
-        width: 95%;
-
-        .header-featured {
-          h3 {
-            font-size: 1.4rem;
-          }
-        }
-      }
-
-      .featured-cards {
-        justify-content: space-between;
-      }
-
       .featured-card {
-
         .item__wrapper {
-          height: auto;
-          margin: 0 5px 30px;
-
+          height: 335px;
           .item__card {
-            height: auto;
-
-            .item__image-container {
-              height: 137px;
-            }
-
             .item__content {
               .item__name {
                 font-size: 1.2rem;
@@ -529,7 +498,7 @@
               }
 
               .item__location {
-                font-size: 1.0rem;
+                font-size: 1.3rem;
                 line-height: 12px;
               }
 
@@ -566,10 +535,6 @@
         }
       }
     }
-
-    .container-masonry {
-      width: 100%;
-    }
-
   }
+
 }
