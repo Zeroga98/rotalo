@@ -206,7 +206,8 @@ export class DetailProductComponent implements OnInit {
   }
 
   sendMessage() {
-    this.shareInfoChatService.setIdConversation(this.products.id);
+    this.shareInfoChatService.setIdConversation(this.products.user.id);
+    this.shareInfoChatService.setProductUserId(this.products.id);
     let photoProduct;
     let company;
     if (this.products.photoList) {

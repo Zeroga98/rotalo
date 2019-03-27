@@ -259,17 +259,40 @@ export class NotificationsComponent implements OnInit {
     };
     this.notificationService.updateSellUnknow(param).subscribe(
       state => {
+        let gaPushParam = 'ClicLoVendiRotalo';
         if (notification.type === 'out'){
+          gaPushParam = 'ClicLoVendiFueraRotalo';
           notification.accionExpirado = 'sell_unknow_out';
         } else if(notification.type === 'in'){
+          gaPushParam = 'ClicLoVendiRotalo';
           notification.accionExpirado = 'sell_unknow_in';
         } else {
+          gaPushParam = 'ClicNoLoQuieroPublicarMas';
           notification.accionExpirado = 'do_not_republish';
         }
+        this.gapush(
+          'send',
+          'event',
+          'Notificaciones',
+          gaPushParam,
+          'EnviarExitoso'
+        );
         this.changeDetector.markForCheck();
       },
       error => console.log(error)
     );
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   republish(notification) {
