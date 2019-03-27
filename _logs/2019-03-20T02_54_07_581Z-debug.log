@@ -1,0 +1,35 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'creat-react-app',
+1 verbose cli   '-g' ]
+2 info using npm@6.7.0
+3 info using node@v10.15.0
+4 verbose npm-session ac8c124abf49fde4
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 http fetch GET 404 https://registry.npmjs.org/creat-react-app 690ms
+8 http fetch GET 404 https://registry.npmjs.org/creat-react-app 455ms
+9 silly fetchPackageMetaData error for creat-react-app@latest 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found
+10 timing stage:rollbackFailedOptional Completed in 1ms
+11 timing stage:runTopLevelLifecycles Completed in 1171ms
+12 verbose stack Error: 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found
+12 verbose stack     at res.buffer.catch.then.body (C:\Users\Usuario\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-fetch\check-response.js:104:15)
+12 verbose stack     at process._tickCallback (internal/process/next_tick.js:68:7)
+13 verbose statusCode 404
+14 verbose pkgid creat-react-app@latest
+15 verbose cwd C:\Users\Usuario\Desktop\React
+16 verbose Windows_NT 10.0.17134
+17 verbose argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "install" "creat-react-app" "-g"
+18 verbose node v10.15.0
+19 verbose npm  v6.7.0
+20 error code E404
+21 error 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found
+22 error 404
+23 error 404 'creat-react-app@latest' is not in the npm registry.
+24 error 404 Your package name is not valid, because
+25 error 404 1. name can only contain URL-friendly characters
+26 error 404 Note that you can also install from a
+27 error 404 tarball, folder, http url, or git url.
+28 verbose exit [ 1, true ]
