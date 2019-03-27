@@ -24,7 +24,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
   threads: any;
   firstThread: any;
   userId: any;
-  intervalConversation:any;
+  intervalConversation: any;
   subscriptionConversation: any;
   @Output() selectOption: EventEmitter<any> = new EventEmitter();
   selectAllCheck = false;
@@ -36,7 +36,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     private currentSessionService: CurrentSessionService,
     private shareInfoChatService: ShareInfoChatService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userId = this.currentSessionService.getIdUser();
@@ -58,6 +58,7 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
     this.subscriptionConversation = this.messagesService.getMessages().subscribe(
       state => {
         if (state.body && state.body.emisarios) {
+
           if (!this.threads) {
             this.threads = state.body.emisarios;
             this.shareInfoChatService.setAdminConversation(this.threads[0]);
@@ -66,27 +67,32 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
             if (!this.shareInfoChatService.getIdConversation()) {
               this.firstThread = this.threads[0];
               this.shareInfoChatService.setIdConversation(this.firstThread.idEmisario);
+
               this.shareInfoChatService.changeMessage(this.firstThread);
             } else {
               const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
-                if (currentThread) {
-                  this.shareInfoChatService.changeMessage(currentThread);
-                  this.shareInfoChatService.setNewConversation(undefined);
-                } else {
-                  this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
-                  this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
-                }
+              if (currentThread) {
+
+                this.shareInfoChatService.changeMessage(currentThread);
+                this.shareInfoChatService.setNewConversation(undefined);
+              } else {
+                this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
+
+                this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
+              }
             }
           } else {
             this.shareInfoChatService.setAdminConversation(state.body.emisarios[0]);
-            if ( JSON.stringify(this.threads) !== JSON.stringify(state.body.emisarios)) {
+            if (JSON.stringify(this.threads) !== JSON.stringify(state.body.emisarios)) {
               if (this.shareInfoChatService.getIdConversation()) {
                 this.threads = state.body.emisarios;
                 const currentThread = this.searchCurrentConversation(this.shareInfoChatService.getIdConversation(), this.threads);
                 if (currentThread) {
+
                   this.shareInfoChatService.changeMessage(currentThread);
                 } else {
                   this.threads.splice(1, 0, this.shareInfoChatService.getNewConversation());
+
                   this.shareInfoChatService.changeMessage(this.shareInfoChatService.getNewConversation());
                 }
               }
@@ -101,7 +107,11 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
 
   private searchCurrentConversation(currentThreadId, threads) {
     return threads.find(thread => {
-        return thread.idEmisario == currentThreadId || thread.idUsuarioChat && thread.idUsuarioChat == currentThreadId ;
+
+      if (this.shareInfoChatService.getProductUserId()) {
+        return thread.idUsuarioChat == currentThreadId && thread.idEmisario == this.shareInfoChatService.getProductUserId();
+      }
+      return thread.idEmisario == currentThreadId || thread.idUsuarioChat && thread.idUsuarioChat == currentThreadId;
     });
   }
 
@@ -157,9 +167,9 @@ export class ChatThreadsComponent implements OnInit, OnDestroy {
           this.messagesService.deleteMessage(result).subscribe((response) => {
             location.reload();
           },
-          (error) => {
-            console.log(error);
-          });
+            (error) => {
+              console.log(error);
+            });
         }
       });
     }

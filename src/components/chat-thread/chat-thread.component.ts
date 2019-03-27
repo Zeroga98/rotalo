@@ -17,8 +17,14 @@ export class ChatThreadComponent implements OnInit {
   @Output() selectOption: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
-    if (this.shareInfoChatService.getIdConversation() == this.thread.idEmisario) {
+
+    if (this.shareInfoChatService.getProductUserId() &&
+    this.shareInfoChatService.getProductUserId() == this.thread.idEmisario &&
+    this.shareInfoChatService.getIdConversation() == this.thread.idUsuarioChat
+    ) {
       this.shareInfoChatService.changeMessage(this.thread);
+    } else  if (this.shareInfoChatService.getIdConversation() == this.thread.idEmisario && !this.shareInfoChatService.getProductUserId()) {
+        this.shareInfoChatService.changeMessage(this.thread);
     }
   }
 
@@ -28,21 +34,29 @@ export class ChatThreadComponent implements OnInit {
 
   selectInfoConversation() {
     this.shareInfoChatService.setScrollDown(true);
+    this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
     if (this.thread.rol == 'product') {
-      this.shareInfoChatService.setIdConversation(this.thread.idUsuarioChat);
+      /*Invertir**/
+    /*  this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
+      this.shareInfoChatService.setProductUserId(this.thread.idUsuarioChat);*/
+     this.shareInfoChatService.setIdConversation(this.thread.idUsuarioChat);
+      this.shareInfoChatService.setProductUserId(this.thread.idEmisario);
     } else  {
-      this.shareInfoChatService.setIdConversation(this.thread.idEmisario);
+      this.shareInfoChatService.setProductUserId(undefined);
     }
+
     this.shareInfoChatService.changeMessage(this.thread);
     this.selectOption.emit();
   }
 
   isSelected() {
     const currentId = this.shareInfoChatService.getIdConversation();
+    const currentProductUserId = this.shareInfoChatService.getProductUserId();
     if (this.thread.rol == 'product') {
-      return currentId == this.thread.idUsuarioChat || currentId == this.thread.idEmisario;
+     return  currentId == this.thread.idUsuarioChat && currentProductUserId == this.thread.idEmisario;
+   //  return  currentId == this.thread.idEmisario && currentProductUserId == this.thread.idUsuarioChat;
     }
-    return currentId == this.thread.idEmisario;
+    return currentId == this.thread.idEmisario && !currentProductUserId;
   }
 
 }

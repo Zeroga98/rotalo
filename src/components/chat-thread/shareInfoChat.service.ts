@@ -12,7 +12,7 @@ export class ShareInfoChatService {
   private firstThread;
   private scrollDown = true;
   private adminThread;
-
+  private productUserId;
 
   constructor() {}
 
@@ -30,6 +30,14 @@ export class ShareInfoChatService {
 
   getScrollDown() {
     return this.scrollDown;
+  }
+
+  setProductUserId(id) {
+    this.productUserId = id;
+  }
+
+  getProductUserId() {
+    return this.productUserId;
   }
 
   setIdConversation(id) {
