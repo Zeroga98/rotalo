@@ -169,7 +169,7 @@
 </div>
 
 
-<carousel-product [products] = "featuredproducts" ></carousel-product>
+<carousel-product *ngIf="showBancolombiaProducts" [products] = "productsBancolombia" ></carousel-product>
 
 <div>
   <div class="container-spinner" *ngIf="isSpinnerShow">
