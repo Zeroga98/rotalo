@@ -4,25 +4,26 @@
     .container-msg{
         text-align: center;
         font-size: 1.4rem;
-        width: 27rem;
+        width: 56rem;
         padding: 0 1rem;
         margin: 0 auto;
         .image{
             width: 100%;
             img{
-                width: 100%;
+              width: 32%;
             }
         }
         .title{
-            color: #4A4A4A;
+            color: #272727;
             font-weight: bold;
             span{
+              font-size: 2.0rem;
                 display: block;
             }
         }
         .text{
-            color: #9B9B9B;
-            font-weight: 400;
+            color: #B0B0B0;
+            font-size: 1.8rem;
         }
         .link, .link:visited{
             color: $red;

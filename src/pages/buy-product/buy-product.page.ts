@@ -62,6 +62,8 @@ export class BuyProductPage implements OnInit {
   public totalPrice;
   public quantity = 1;
   public errorMessage = '';
+  public selectedVal: string;
+  public showPayButton = false;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -70,12 +72,12 @@ export class BuyProductPage implements OnInit {
     private currentSessionSevice: CurrentSessionService,
     private changeDetectorRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private navigationService: NavigationService,
+    private navigationService: NavigationService
   ) {
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
     this.idCountry = countryId;
@@ -103,11 +105,12 @@ export class BuyProductPage implements OnInit {
     if (quantityObject && quantityObject.idProduct == this.idProduct) {
       this.quantity = quantityObject.quantity;
     }
-    this.quantityForm = this.fb.group(
-      {
-        stock: [this.quantity, [Validators.required, Validators.min(1), Validators.max(1)]]
-      }
-    );
+    this.quantityForm = this.fb.group({
+      stock: [
+        this.quantity,
+        [Validators.required, Validators.min(1), Validators.max(1)]
+      ]
+    });
   }
 
   goToUrlBank(): void {
@@ -136,22 +139,25 @@ export class BuyProductPage implements OnInit {
     }
   }
 
-   loadProduct() {
-    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
-      if (reponse.body) {
-        this.loadUserInfo(reponse);
+  loadProduct() {
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe(
+      reponse => {
+        if (reponse.body) {
+          this.showPayButton = reponse.body.productos[0].showPayButton;
+          this.loadUserInfo(reponse);
+        }
+      },
+      error => {
+        console.log(error);
       }
-    } ,
-    (error) => {
-      console.log(error);
-    });
+    );
   }
 
   async loadUserInfo(reponse) {
     try {
       this.initQuantityForm();
       this.product = reponse.body.productos[0];
-      if (this.product.status && this.product.status !=  'expired') {
+      if (this.product.status && this.product.status != 'expired') {
         this.currentUser = await this.userService.getInfoUser();
         this.cellphoneUser = this.currentUser.cellphone;
         this.idNumberBuyer = this.currentUser['id-number'];
@@ -162,19 +168,22 @@ export class BuyProductPage implements OnInit {
         this.priceProduct = this.product.price;
         if (this.product['stock']) {
           this.totalStock = this.product['stock'];
-        } else  {
+        } else {
           this.totalStock = 1;
         }
 
         const price = this.quantityForm.get('stock');
         price.clearValidators();
-        price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
+        price.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(this.totalStock)
+        ]);
         price.updateValueAndValidity();
-
 
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
-          this.totalPrice =  this.priceProduct * quantity;
+          this.totalPrice = this.priceProduct * quantity;
         } else {
           this.totalPrice = this.priceProduct;
         }
@@ -182,14 +191,15 @@ export class BuyProductPage implements OnInit {
           ? (this.usedProduct = 'Usado')
           : (this.usedProduct = 'Nuevo');
         if (this.product['photoList']) {
-          this.photoProduct = this.product['photoList'].url || this.product['photoList'][0].url;
+          this.photoProduct =
+            this.product['photoList'].url || this.product['photoList'][0].url;
         }
         this.idNumberSeller = this.product.user['id-number'];
         this.idUserSellerDb = this.product.user['id'];
         this.currencyProduct = this.product.currency;
         this.initFormBuy();
         this.changeDetectorRef.markForCheck();
-      } else  {
+      } else {
         this.redirectErrorPage();
       }
     } catch (error) {
@@ -238,14 +248,29 @@ export class BuyProductPage implements OnInit {
   }
 
   buyProductCash() {
-    // this.disableButton = true;
-    if (!this.formIsInValid) {
-      this.buyService.buyProduct(this.buildParams()).subscribe((response) => {
+    this.errorMessage = '';
+    if (this.showPayButton) {
+      if (this.selectedVal) {
+        this.payService();
+      } else {
+        this.errorMessage = '';
+        this.errorMessage = '¡Ups! Debes elegir un método de pago';
+      }
+    } else {
+      if (!this.formIsInValid) {
+        this.payService();
+      }
+    }
+  }
+
+  payService() {
+    this.buyService.buyProduct(this.buildParams()).subscribe(
+      response => {
         this.transactionSuccess = true;
         this.productsService.scroll = undefined;
         this.changeDetectorRef.markForCheck();
       },
-      (error) => {
+      error => {
         if (error.error) {
           if (error.error.status == '404') {
             this.disableButton = false;
@@ -259,9 +284,8 @@ export class BuyProductPage implements OnInit {
           this.disableButton = false;
           this.redirectErrorPage();
         }
-      });
-    }
-
+      }
+    );
   }
 
   showMessageModal(evt) {
@@ -343,10 +367,15 @@ export class BuyProductPage implements OnInit {
   }
 
   private buildParams() {
+    if(this.showPayButton && this.selectedVal) {
+      this.buyForm.patchValue({
+        'payment-type': this.selectedVal
+      });
+    }
     return {
-      'idProducto': this.idProduct,
-      'tipoPago': this.buyForm.get('payment-type').value,
-      'cantidad': this.quantity
+      idProducto: this.idProduct,
+      tipoPago: this.buyForm.get('payment-type').value,
+      cantidad: this.quantity
     };
   }
 
@@ -392,7 +421,6 @@ export class BuyProductPage implements OnInit {
     this.router.navigate([urlSimulateCredit]);
   }
 
-
   get showOptionsVehicles() {
     if (this.product) {
       if (this.product.subcategory.category.id == 6) {
@@ -403,7 +431,7 @@ export class BuyProductPage implements OnInit {
       return true;
     }
   }
-  get showOptionEstate () {
+  get showOptionEstate() {
     if (this.product) {
       if (this.product.subcategory.category.id == 7) {
         return false;
@@ -412,17 +440,16 @@ export class BuyProductPage implements OnInit {
     return true;
   }
 
-
   addStock() {
-    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value < this.totalStock) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = ++stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
           this.quantity = quantity;
-          this.totalPrice =  this.priceProduct * quantity;
+          this.totalPrice = this.priceProduct * quantity;
         } else {
           this.totalPrice = this.priceProduct;
         }
@@ -433,13 +460,13 @@ export class BuyProductPage implements OnInit {
   minusStock() {
     if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value > 1) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = --stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
         if (this.quantityForm.get('stock').value) {
           const quantity = this.quantityForm.get('stock').value;
           this.quantity = quantity;
-          this.totalPrice =  this.priceProduct * quantity;
+          this.totalPrice = this.priceProduct * quantity;
         } else {
           this.totalPrice = this.priceProduct;
         }
@@ -452,14 +479,19 @@ export class BuyProductPage implements OnInit {
   }
 
   changeTotalValue() {
-    if (this.quantityForm.get('stock').value && this.quantityForm.get('stock').valid) {
+    if (
+      this.quantityForm.get('stock').value &&
+      this.quantityForm.get('stock').valid
+    ) {
       const quantity = this.quantityForm.get('stock').value;
       this.quantity = quantity;
-      this.totalPrice =  this.priceProduct * quantity;
+      this.totalPrice = this.priceProduct * quantity;
     } else {
       this.totalPrice = this.priceProduct;
     }
   }
 
-
+  public onValChange(val: string) {
+    this.selectedVal = val;
+  }
 }

@@ -1,8 +1,3 @@
-<!--<div class="container-bar-offer">
-  <div class="container">
-    <h1 class="offer-head-title">{{titlePurchase}}</h1>
-  </div>
-</div>-->
 <div *ngIf="product">
   <modal-buy-info [statusProduct]="product.status" [idProduct]="product.id" *ngIf="isModalBuyShowed"
     (closeModal)="showMessageModal($event)"></modal-buy-info>
@@ -12,7 +7,7 @@
         <confirm-purchase *ngIf="confirmPurchase"></confirm-purchase>
         <info-page [idProduct]="idProduct" [selectValue]="selectOptionsPageInfo" *ngIf="showInfoPage"></info-page>
         <div class="purchaseProduct" *ngIf="!showInfoPage  && !confirmPurchase">
-          <msg-congratulation *ngIf="transactionSuccess"></msg-congratulation>
+          <msg-congratulation [bancolombia]="selectedVal=='transfer_bancolombia'" *ngIf="transactionSuccess"></msg-congratulation>
           <div class="container" *ngIf="!transactionSuccess">
             <div class="buy-detail">
               <p>Revisa el detalle de tu producto</p>
@@ -119,33 +114,28 @@
                 </div>
               </li>
 
-              <li>
+              <li *ngIf="showPayButton">
                 <span>Selecciona el método con el que quieres pagar</span>
                 <div class="btn-container-pay">
-
-                  <mat-button-toggle-group>
-                    <mat-button-toggle value="left" aria-label="Text align left">
+                  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
+                    <mat-button-toggle
+                    value="cash" aria-label="Text align left">
                         Acordar con el vendedor
                     </mat-button-toggle>
-
-                    <mat-button-toggle value="center" aria-label="Text align center">
-                        Transferencia Bancolombia
+                    <mat-button-toggle
+                    value="transfer_bancolombia" aria-label="Text align center">
+                       <div class="icon-banco"></div> Transferencia Bancolombia
                     </mat-button-toggle>
-
                   </mat-button-toggle-group>
-
-
                 </div>
-
               </li>
-
             </ol>
 
             <div class="button-form">
               <div class="container-button">
                 <div *ngIf="product && product['sell-type'] !='ALQUILA'" class="button">
                   <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton"
-                    class="gtmCompConfirmComp" type="submit" text="Confirmar compra"></custom-button>
+                    class="gtmCompConfirmComp" type="submit" text="Confirmar"></custom-button>
                 </div>
               </div>
               <div *ngIf="errorMessage" class="error-message">

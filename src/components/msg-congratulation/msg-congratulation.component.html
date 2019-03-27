@@ -1,14 +1,16 @@
 <div class="container-msg">
 	<div class="image">
-		<img src="./assets/img/success-message.svg">
+		<img src="./assets/img/ic_mico_sonriente.svg">
 	</div>
 	<div class="title">
-		<span>¡Qué bien!</span>
-		<span>Has rotado un artículo.</span>
+		<span>¡Genial! Tu compra se registró con éxito</span>
 	</div>
-	<div class="text">
-		Recuerda cuadrar con el vendedor el pago y la entrega de tu artículo.
-	</div>
+	<div *ngIf="!bancolombia" class="text">
+    Recuerda cuadrar con el vendedor el pago y la entrega de tu artículo.
+  </div>
+  <div *ngIf="bancolombia" class="text">
+    Una vez realizada la transacción con Bancolombia. <br> No olvides contactar al vendedor.
+  </div>
 	<div class="link">
 		<a [routerLink]="routeHome" (click)="onReload()" >Volver al home</a>
 	</div>

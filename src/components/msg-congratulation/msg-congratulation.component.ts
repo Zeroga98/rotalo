@@ -1,5 +1,5 @@
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ProductsService } from '../../services/products.service';
 export class MsgCongratulationComponent implements OnInit {
   routeHome:string = `/${ROUTES.PRODUCTS.LINK}`;
   constructor( private productsService: ProductsService) { }
-
+  @Input() bancolombia = false;
   ngOnInit() {
   }
 

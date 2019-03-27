@@ -290,9 +290,9 @@
 
 :host {
   .error-message {
-    text-align: center;
     font-size: 1.6rem;
     color:#FF3646;
+    padding-left: 1%;
   }
   .alert {
     margin: 0 auto;
@@ -427,11 +427,10 @@
     }
   }
   .button-form {
-    margin: 20px auto;
+
     .container-button {
-      width: 70%;
-      margin: 0 auto;
-      text-align: center;
+      width: 100%;
+      padding-left: 5px;
       .button {
         width: 210px;
       }
@@ -507,9 +506,28 @@
   }
 }
 
+:host {
+  .icon-banco{
+    display: inline-block;
+    margin: 0 5px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background-size: 20px 20px;
+    background-image: url(../../assets/img/iconos/ic_bancolombia.png);
+  }
+
+  .btn-container-pay {
+    position: relative;
+    right: 2%;
+  }
+}
+
 .mat-button-toggle-group-appearance-standard, .mat-button-toggle-standalone.mat-button-toggle-appearance-standard {
   border:none;
   border-radius: 10px;
+  padding: 20px 0;
 }
 
 .mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
@@ -521,9 +539,15 @@
   border:1px solid #D8D8D8;
   border-radius: 10px;
   margin-right: 20px;
+  font-size: 1.6rem;
+  color: #272727;
 }
 
 .mat-button-toggle-checked {
-  border:1px solid #2E2E2E;
-  border-left: #2E2E2E;
+  border: 1px solid #2E2E2E;
+  background-color: transparent;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle-checked {
+  border-left: solid 1px #2E2E2E !important;
 }
