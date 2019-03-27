@@ -82,6 +82,7 @@ export class ChatWindowComponent
     this.currentInfoSubscribe = this.shareInfoChatService.currentInfoMessage.subscribe(
       currentConversation => {
         if (currentConversation) {
+
           this.rol = currentConversation.rol;
           this.showDeleteButton = currentConversation.tieneAccionesPendientes;
           this.imagenChat = currentConversation.fotoEmisario;
