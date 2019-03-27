@@ -752,7 +752,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const subcategoryValue = this.photosForm.get('subcategory-id').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
-      if (subcategory && subcategory.name === 'Casa') {
+      if (subcategory && subcategory.name === 'Casas') {
         return true;
       }
     }
@@ -763,7 +763,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const subcategoryValue = this.photosForm.get('subcategory-id').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
-      if (subcategory && subcategory.name === 'Apartamento') {
+      if (subcategory && subcategory.name === 'Apartamentos') {
         return true;
       }
     }
@@ -921,7 +921,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     if (this.product) {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
-      || config.subcategory.name == 'Casa' || config.subcategory.name == 'Apartamento') {
+      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
       }
