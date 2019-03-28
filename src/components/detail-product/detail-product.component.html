@@ -616,6 +616,12 @@
               </div>
             </form>
           </div>
+          <div *ngIf="showPayButton" class="bancolombia-buy">
+            <div class="icon-banco"></div>
+            <p>
+              Al comprar puedes pagar con transferencia Bancolombia o como lo acuerdes con el vendedor.
+            </p>
+          </div>
           <div
             *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">

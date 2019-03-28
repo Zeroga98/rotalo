@@ -290,9 +290,9 @@
 
 :host {
   .error-message {
-    text-align: center;
     font-size: 1.6rem;
     color:#FF3646;
+    padding-left: 1%;
   }
   .alert {
     margin: 0 auto;
@@ -427,11 +427,10 @@
     }
   }
   .button-form {
-    margin: 20px auto;
+
     .container-button {
-      width: 70%;
-      margin: 0 auto;
-      text-align: center;
+      width: 100%;
+      padding-left: 5px;
       .button {
         width: 210px;
       }
@@ -493,7 +492,38 @@
       min-height: auto;
     }
 
+    .mat-button-toggle-group {
+      display: flex;
+      flex-direction: column;
+    }
 
+    .mat-button-toggle {
+      margin-right: 0px;
+      margin-bottom: 15px;
+      width: 100%;
+      max-width: 352px;
+      min-width: 250px;
+    }
+
+    .steps-buy-product {
+      padding-left: 20px;
+    }
+
+
+  }
+
+  @media (max-width: 440px) {
+    .mat-button-toggle {
+      .tooltip {
+        margin-left: 0px;
+      }
+    }
+
+    .tooltip .toolTipText {
+      bottom: 35px;
+      right: -50%;
+      transform: translateX(-25%);
+    }
   }
 
   @media (max-width: 400px) {
@@ -504,5 +534,133 @@
     .container-offer .container .container-header .image img {
       width: 100%;
     }
+
   }
+}
+
+:host {
+  .icon-banco{
+    display: inline-block;
+    margin: 0 5px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background-size: 20px 20px;
+    background-image: url(../../assets/img/iconos/ic_bancolombia.png);
+    margin-bottom: 2px;
+  }
+
+  .icon-cash{
+    display: inline-block;
+    margin: 0 5px;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    background-size: 25px 25px;
+    background-image: url(../../assets/img/iconos/ic_billete.svg);
+    margin-bottom: 2px;
+  }
+
+  .tooltip {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background: url(../../assets/img/iconos/ic_tooltip.svg);
+    background-size: 16px 16px;
+    margin: 0 auto;
+    margin-left: 10px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 2px;
+  }
+
+  .tooltip:hover {
+    .toolTipText {
+      visibility: visible;
+      opacity: 1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+  }
+
+  .toolTipText {
+    visibility: hidden;
+    background-color: white;
+    color: #383838;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: 1.4rem;
+    padding: 10px;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    p {
+      line-height: 20px;
+    }
+  }
+
+  .toolTipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+  }
+
+  .mat-button-toggle:hover,  .mat-button-toggle-checked{
+    .icon-cash{
+      display: inline-block;
+      margin: 0 5px;
+      margin-right: 10px;
+      width: 25px;
+      height: 25px;
+      min-width: 25px;
+      background-size: 25px 25px;
+      background-image: url(../../assets/img/iconos/ic_billete_active.svg);
+      margin-bottom: 2px;
+    }
+  }
+
+  .btn-container-pay {
+    position: relative;
+    right: 2%;
+  }
+}
+
+.mat-button-toggle-group-appearance-standard, .mat-button-toggle-standalone.mat-button-toggle-appearance-standard {
+  border:none;
+  border-radius: 10px;
+  padding: 20px 0;
+  width: 100%;
+  overflow: visible;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+  margin: 0;
+}
+
+.mat-button-toggle {
+  width: 352px;
+  border:1px solid #D8D8D8;
+  border-radius: 10px;
+  margin-right: 20px;
+  font-size: 1.6rem;
+  color: #A3A3A3;
+}
+
+.mat-button-toggle-checked {
+  border: 1px solid #2E2E2E;
+  background-color: transparent;
+  color: #272727;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle-checked {
+  border-left: solid 1px #2E2E2E !important;
 }

@@ -87,7 +87,7 @@ export class DetailProductComponent implements OnInit {
   public codeCampaign;
   public showSticker = false;
   public stickerUrl = '';
-
+  public showPayButton = false;
 
 
   @HostListener('window:resize', ['$event'])
@@ -164,34 +164,7 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
- /* shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params,  this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalle'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
+
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -252,6 +225,7 @@ export class DetailProductComponent implements OnInit {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;
           this.stickerUrl = this.products.campaignInformation.stickerUrl;
+          this.showPayButton = this.products.showPayButton;
         }
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
