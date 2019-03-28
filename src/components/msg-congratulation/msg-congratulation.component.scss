@@ -36,3 +36,18 @@
     }
 
 }
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: #fff;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+  color:#FF3646;
+  border: 1px solid #FF3646;
+  border-radius: 25px;
+  min-height: 44px;
+  &:hover {
+    color:white;
+    background-color: #FF3646;
+  }
+}

@@ -9,10 +9,12 @@ import { ProductsService } from '../../services/products.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MsgCongratulationComponent implements OnInit {
-  routeHome:string = `/${ROUTES.PRODUCTS.LINK}`;
+  public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   constructor( private productsService: ProductsService) { }
   @Input() bancolombia = false;
   ngOnInit() {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
   }
 
   onReload() {

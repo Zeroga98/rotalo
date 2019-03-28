@@ -120,11 +120,17 @@
                   <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
                     <mat-button-toggle
                     value="cash" aria-label="Text align left">
-                        Acordar con el vendedor
+                    <div class="icon-cash"></div> Acordar con el vendedor
                     </mat-button-toggle>
                     <mat-button-toggle
                     value="transfer_bancolombia" aria-label="Text align center">
                        <div class="icon-banco"></div> Transferencia Bancolombia
+                       <div class="tooltip">
+                          <span class="toolTipText">
+                            <p>Transfiere de tu cuenta</p>
+                            <p>a la cuenta del vendedor.</p>
+                          </span>
+                       </div>
                     </mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
