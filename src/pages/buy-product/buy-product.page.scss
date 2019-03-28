@@ -512,6 +512,20 @@
 
   }
 
+  @media (max-width: 440px) {
+    .mat-button-toggle {
+      .tooltip {
+        margin-left: 0px;
+      }
+    }
+
+    .tooltip .toolTipText {
+      bottom: 35px;
+      right: -50%;
+      transform: translateX(-25%);
+    }
+  }
+
   @media (max-width: 400px) {
     .buy-product-container {
       margin: 0 auto;
@@ -520,6 +534,7 @@
     .container-offer .container .container-header .image img {
       width: 100%;
     }
+
   }
 }
 
