@@ -64,6 +64,7 @@ export class BuyProductPage implements OnInit {
   public errorMessage = '';
   public selectedVal: string;
   public showPayButton = false;
+  public purchaseUrl = '';
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -144,6 +145,7 @@ export class BuyProductPage implements OnInit {
       reponse => {
         if (reponse.body) {
           this.showPayButton = reponse.body.productos[0].showPayButton;
+          reponse.body.productos[0].purchaseUrl ? this.purchaseUrl = reponse.body.productos[0].purchaseUrl :  this.purchaseUrl = '';
           this.loadUserInfo(reponse);
         }
       },
@@ -252,6 +254,10 @@ export class BuyProductPage implements OnInit {
     if (this.showPayButton) {
       if (this.selectedVal) {
         this.payService();
+        if (this.selectedVal == 'transfer_bancolombia' ) {
+          window.open(this.purchaseUrl, '_blank');
+        }
+
       } else {
         this.errorMessage = '';
         this.errorMessage = '¡Ups! Debes elegir un método de pago';
