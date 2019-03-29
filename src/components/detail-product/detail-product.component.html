@@ -753,10 +753,17 @@
               <div class="product-btn" *ngIf="!validateSession()">
                 <div class="product-btns">
                   <div class="cont-botons">
-                    <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                      <span class="icon-chat-detalle"></span>
-                      Chatea con {{firstName}}
+                    <div class="gtmEnviarMensaje botons" [matMenuTriggerFor]="appMenu">
+                      Contacta a {{firstName}}
                     </div>
+                    <mat-menu class="share-product" #appMenu="matMenu">
+                        <div mat-menu-item>
+                           1
+                        </div>
+                        <div mat-menu-item>
+                            2
+                         </div>
+                    </mat-menu>
                   </div>
                 </div>
                 <div *ngIf="products && products.negotiable" class="get-offer">
