@@ -82,7 +82,7 @@
   }
 }
 
-.mat-menu-panel {
+.sg-vertical-sub-menu+* .mat-menu-panel  {
   max-width: 490px !important;
   min-width: 490px !important;
   max-height: 482px !important;
@@ -90,9 +90,13 @@
   overflow: hidden !important;
 }
 
-
-.cdk-overlay-pane {
+.sg-vertical-sub-menu+* .cdk-overlay-pane {
   padding-top: 20px;
+}
+
+.sg-vertical-sub-menu+* .mat-menu-content:not(:empty){
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .notification {

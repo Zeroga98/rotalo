@@ -1,6 +1,10 @@
 @import "../../styles/settings/_colors.scss";
 @import "../../styles/settings/_variables.scss";
 :host() {
+  display: block;
+  height: 100%;
+  position: relative;
+  padding-bottom: 84px;
   custom-spinner {
     position: absolute;
     left: 50%;
@@ -446,8 +450,40 @@
       margin-top: 2rem;
       font-size: 1.6rem;
       word-wrap: break-word;
+      .flex {
+        display: flex;
+        justify-content: space-between;
+      }
+      .share {
+        .share-button {
+          .ic_arrow_share{
+            display: inline-block;
+            margin-bottom: 4px;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            background-size: 16px 16px;
+            background-image: url(../../assets/img/iconos/ic_arrow_share.svg);
+          }
+          color: #7C7C7C;
+          font-size: 1.6rem;
+        }
+        .share-button:hover {
+          .ic_arrow_share{
+            margin-bottom: 4px;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            background-size: 16px 16px;
+            background-image: url(../../assets/img/iconos/ic_arrow_share_hover.svg);
+          }
+          color: #272727;
+        }
+      }
     }
   }
+
+ 
 
   .share-container {
     .help-block,.icon-circle-cancel, span {
@@ -632,6 +668,7 @@
 
 
 }
+
 :host() {
 
   .product strong {
@@ -812,6 +849,7 @@ input:checked+.switch-slider:before {
       color:#272727;
       font-size: 2.2rem;
       font-weight: bold;
+      margin: 0;
     }
     .table-info {
       width: 100%;
@@ -1286,4 +1324,26 @@ input:checked+.switch-slider:before {
     margin-top: 10px;
   }
 
+}
+
+.ic_share_email{
+  display:inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_share_email.svg);
+}
+
+.ic_share_whatsapp{
+  display:inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_share_whatsapp.svg);
+}
+
+::ng-deep  .mat-menu-content:not(:empty) {
+  padding: 0 ;
 }
