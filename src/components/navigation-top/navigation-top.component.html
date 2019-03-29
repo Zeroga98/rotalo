@@ -82,8 +82,7 @@
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
-            <mat-menu xPosition="before" #appMenu="matMenu">
-
+            <mat-menu backdropClass="sg-vertical-sub-menu"  class="profile-menu" xPosition="before" #appMenu="matMenu">
               <notifications-component (click)="$event.stopPropagation();"></notifications-component>
             </mat-menu>
           </li>
