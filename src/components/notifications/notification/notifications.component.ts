@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
-  Input,
+  Input
 } from '@angular/core';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { MessagesService } from '../../../services/messages.service';

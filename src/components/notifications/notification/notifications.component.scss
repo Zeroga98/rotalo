@@ -153,3 +153,7 @@
 custom-spinner {
   text-align: center;
 }
+
+:host ::ng-deep  .mat-menu-panel {
+min-width: 35px;
+}

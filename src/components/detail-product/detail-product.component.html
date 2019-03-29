@@ -50,7 +50,25 @@
           </ngx-carousel>
         </div>
         <div class="tabla-container description">
-          <h1>Descripción</h1>
+          <div class="flex">
+              <h1>Descripción</h1>
+              <div class="share">
+                  <button class="share-button" mat-button [matMenuTriggerFor]="menu">
+                    <div class="ic_arrow_share"></div>
+                    Compartir publicación
+                  </button>
+                  <mat-menu class="share-product" #menu="matMenu">
+                    <div mat-menu-item>
+                        <button mat-icon-button>
+                            <div (click)="shareProduct('custom-modal-2' , products)" class="gtmCompartirProducto ico-email" class="ic_share_email"></div>
+                         </button>
+                         <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
+                            <div class="ic_share_whatsapp"></div>
+                         </button>
+                    </div>
+                  </mat-menu>
+              </div>
+          </div>
           {{products.description}}
         </div>
         <div *ngIf="products.vehicle" class="tabla-container">
@@ -794,56 +812,7 @@
               </div>
             </div>
           </div>
-          <div class="row-container">
-            <div *ngIf="!isSellProcess()" class="share-container">
-              <div class="share-product-container">
-                <div (click)="validateMobile()" class="gtmCompartirProducto share-mobile">
-                  <div class="icon-share-container">
-                    <div class="icon-email"></div>
-                  </div>
-                  <a class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
-                  <span [ngClass]="{'open': showInputShare}" class="icon-arrow"></span>
-                </div>
-                <div *ngIf="showInputShare" class="input-container">
-                  <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
-                    <div class="form-group">
-                      <input (click)="messageSuccess=false; messageError= false"
-                        [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}"
-                        formControlName="email" maxlength="100" id="txt-email-detail" type="email"
-                        class="form-control share-input" placeholder="Escribe aquí el correo corporativo de tu amigo">
-                      <div class="icon-container">
-                        <button class="button-share" type="submit">
-                          <div class="icon-email"></div>
-                        </button>
-                      </div>
-                    </div>
-                    <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine"
-                      class="help-block">
-                      <span class="icon-circle-cancel"></span>
-                      <span *ngIf="!sendInfoProduct.get('email').errors.emailError">
-                        Aseguráte de que sea un correo válido.
-                      </span>
-                      <span *ngIf="sendInfoProduct.get('email').errors.emailError">
-                        ¡Hey! compártelo a un correo diferente al tuyo.
-                      </span>
-                    </span>
-                    <span *ngIf="messageSuccess" class="help-block">
-                      <span class="icon-check"></span>
-                      <span>
-                        ¡Hemos enviado el correo con éxito!
-                      </span>
-                    </span>
-                    <span *ngIf="messageError" class="help-block">
-                      <span class="icon-circle-cancel"></span>
-                      <span>
-                        {{textError}}
-                      </span>
-                    </span>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
