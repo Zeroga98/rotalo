@@ -17,6 +17,12 @@
     width: 90%;
     max-width: 1200px;
   }
+
+  .buy-product-container.success {
+    top: 50%;
+    transform: translateY(35%);
+  }
+
   .container-offer {
     display: flex;
     justify-content: center;
