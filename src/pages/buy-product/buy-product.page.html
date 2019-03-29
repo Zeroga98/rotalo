@@ -1,7 +1,7 @@
 <div *ngIf="product">
   <modal-buy-info [statusProduct]="product.status" [idProduct]="product.id" *ngIf="isModalBuyShowed"
     (closeModal)="showMessageModal($event)"></modal-buy-info>
-  <div [ngClass]="{'success': transactionSuccess}" class="buy-product-container">
+    <div [ngClass]="{'success': transactionSuccess}" class="buy-product-container">
     <form (ngSubmit)="buyProductCash()" [formGroup]="buyForm">
       <div class="container-offer">
         <confirm-purchase *ngIf="confirmPurchase"></confirm-purchase>

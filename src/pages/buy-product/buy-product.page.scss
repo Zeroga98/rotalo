@@ -21,6 +21,9 @@
   .buy-product-container.success {
     top: 50%;
     transform: translateY(35%);
+    .container-offer {
+      padding: 0;
+    }
   }
 
   .container-offer {
