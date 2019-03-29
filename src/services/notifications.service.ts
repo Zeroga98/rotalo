@@ -88,7 +88,7 @@ export class NotificationsService {
             if (product['sell-type'] === 'GRATIS') {
               result = 'Lo has regalado';
             } else {
-              result = 'Compra confirmada';
+              result = 'Compra registrada';
             }
             return result;
           case false:

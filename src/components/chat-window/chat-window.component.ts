@@ -264,7 +264,7 @@ export class ChatWindowComponent
       if (this.productIsFree(notification)) {
         notification.status = 'Lo has regalado';
       } else {
-        notification.status = 'Compra confirmada';
+        notification.status = 'Compra registrada';
       }
     } catch (error) {
       console.error(error);
