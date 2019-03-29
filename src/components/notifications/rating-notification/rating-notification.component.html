@@ -9,8 +9,8 @@
             <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
         </div>
         <div class="notification-body">
-          <p>{{notification.producto.nombreProducto}}</p>
-          <p class="bold">{{(notification.producto.precio | currency:'$' | removeDigits)}}</p>
+          <p class="highlight bold clickable" (click)="goToDetail(notification)">{{notification.producto.nombreProducto}}</p>
+          <p>$ {{(notification.producto.precio | currency:' ' | removeDigits)}}</p>
         </div>
       </div>
       <p class="question-rating">

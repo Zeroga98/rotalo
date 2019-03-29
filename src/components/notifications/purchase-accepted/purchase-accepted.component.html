@@ -10,29 +10,27 @@
     </div>
     <div *ngIf="!notification.informacionAdicional && notification.producto" class="notification-body">
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
-        <span>Se ha registrado tu compra a</span>
-        <span class="highlight bold">
+        <span>Se ha registrado tu compra a 
           {{notification.producto.nombreUsuario}}
-        </span>
-        <span> de </span>
+           de </span>
         <span class="highlight bold clickable" (click)="goToDetail(notification)">
           {{ notification.producto.nombreProducto + '. '}}
         </span>
         <br>
-        <span>Precio: {{ (notification.compra.monto | currency:' ' | removeDigits) }}</span>
-        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} unidades
+        <span>Precio: ${{ (notification.compra.monto | currency:' ' | removeDigits) }}</span>
+        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} 
+            <span *ngIf="notification.compra.unidadesCompradas==1">unidad</span>
+            <span *ngIf="notification.compra.unidadesCompradas>=2">unidades</span>
         </span>
         <br>
-        <span *ngIf="notification.compra.unidadesCompradas" class="highlight bold">
-          Total: {{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ' | removeDigits}}
+        <span *ngIf="notification.compra.unidadesCompradas">
+          Total: ${{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ' | removeDigits}}
         </span>
 
       </p>
       <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
-        <span>Has pedido a</span>
-        <span class="highlight bold clickable">{{notification.producto.nombreUsuario}}</span>
-        <span>el artículo</span>
-        <span class="highlight bold clickable">
+        <span>Has pedido a {{notification.producto.nombreUsuario}} el artículo</span>
+        <span class="highlight bold clickable" (click)="goToDetail(notification)">
           {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$' | removeDigits) +
           ' pesos.'}}
         </span>
@@ -44,7 +42,7 @@
       <span>
         <p class="notification-text align">
           <span>Tu compra por
-            <span class="highlight bold">
+            <span class="highlight">
               ${{amountPurchase | currency:" " | removeDigits}}
             </span>
             en la tienda Bancolombia se ha realizado exitosamente.
