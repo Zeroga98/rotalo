@@ -12,7 +12,7 @@ export class ConfigurationService {
 
   sapi = {
     protocol: 'https',
-    server: 'apistg.rotalo.co:1443/gateway',
+    server: 'stgn-gateway.rotalo.com.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
 

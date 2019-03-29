@@ -1,17 +1,17 @@
 <navigation-top *ngIf="showHeader"></navigation-top>
 <back-arrow *ngIf="!showHeader"></back-arrow>
-<div *ngIf="showHeader" class="container-bar-offer">
+<!--div *ngIf="showHeader" class="container-bar-offer">
   <div class="container">
     <h1 class="offer-head-title">Preguntas frecuentes</h1>
   </div>
-</div>
-<div [ngClass]="{'large': !showHeader }"  class="container-accordion">
-  <div *ngIf="!showHeader">
+</div-->
+<div class="large container-accordion">
+  <div>
     <h2 class="title">Preguntas frecuentes</h2>
   </div>
   <p>{{introduction}}</p>
   <div *ngIf="questions">
-    <accordion [questions]='questions'></accordion>
+    <accordion class="desktop accordion" [questions]='questions'></accordion>
   </div>
 </div>
 <custom-footer></custom-footer>
