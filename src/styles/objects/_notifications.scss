@@ -99,6 +99,14 @@
   padding-bottom: 8px;
 }
 
+.sg-vertical-sub-menu-whatsapp+* .mat-menu-item{
+  color: #707070;
+  font-size: 1.6rem;
+  width: 100%;
+  min-width: 200px;
+  padding-left: 15%;
+}
+
 .notification {
   display: table;
   position: relative;
