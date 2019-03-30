@@ -106,6 +106,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   bathrooms : Array<any> = BATHROOMS;
   antiguedades: Array<any> = ANTIGUEDAD;
   socialClasses: Array<any> = SOCIALCLASS;
+  cellphone: String;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -124,6 +125,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async ngOnInit() {
     const currentUser = this.currentSessionSevice.currentUser();
+    console.log(currentUser);
 
     this.countryId = Number(currentUser['countryId']);
     try {
@@ -165,6 +167,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.cellphone = this.userEdit.cellphone;
     if (this.userEdit && this.userEdit.company && this.userEdit.company.community) {
       this.communityName = this.userEdit.company.community.name;
     }
@@ -940,6 +943,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'stock': [stock, [Validators.required, Validators.min(1), Validators.max(9999)]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
+      contactSeller: [config.contactSeller, [Validators.required]],
       'sell-type': [config['sell-type'], [Validators.required]],
       description: [config.description, [Validators.required]],
       negotiable: [{ value: config.negotiable, disabled: false }, []],
@@ -1041,6 +1045,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       stock: 1,
       used: false,
       visible: true,
+      contactSeller: false,
       'sell-type': 'VENTA',
       description: null,
       'publish-until': objectDate,
