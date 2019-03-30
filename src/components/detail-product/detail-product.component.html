@@ -775,12 +775,12 @@
                       Contacta a {{firstName}}
                     </div>
                     <mat-menu class="share-product" #appMenu="matMenu">
-                        <div mat-menu-item>
-                           1
+                        <div class="gtmEnviarMensaje" (click)="sendMessage()" mat-menu-item>
+                            <div class="ic_share_whatsapp align-ico"></div>  Por Rótalo
                         </div>
-                        <div mat-menu-item>
-                            2
-                         </div>
+                        <div *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
+                          <div class="ic_share_whatsapp align-ico"  ></div>  Por Whatsapp
+                        </div>
                     </mat-menu>
                   </div>
                 </div>
