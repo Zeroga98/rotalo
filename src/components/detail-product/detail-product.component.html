@@ -777,10 +777,17 @@
               <div class="product-btn" *ngIf="!validateSession()">
                 <div class="product-btns">
                   <div class="cont-botons">
-                    <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                      <span class="icon-chat-detalle"></span>
-                      Chatea con {{firstName}}
+                    <div class="gtmEnviarMensaje botons" [matMenuTriggerFor]="appMenu">
+                      Contacta a {{firstName}}
                     </div>
+                    <mat-menu class="share-product" #appMenu="matMenu">
+                        <div class="gtmEnviarMensaje" (click)="sendMessage()" mat-menu-item>
+                            <div class="ic_share_whatsapp align-ico"></div>  Por Rótalo
+                        </div>
+                        <div *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
+                          <div class="ic_share_whatsapp align-ico"  ></div>  Por Whatsapp
+                        </div>
+                    </mat-menu>
                   </div>
                 </div>
                 <div *ngIf="products && products.negotiable" class="get-offer">

@@ -629,9 +629,22 @@ export class DetailProductComponent implements OnInit {
 
   sendMessageWhatsapp(id) {
     const base_url = window.location.origin;
-    const url = `https://api.whatsapp.com/send?text=
-    ¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
+    const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
     ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
+    window.open(
+    url,
+    '_blank');
+  }
+
+  sendMessageWhatsappUser() {
+    const productName = this.products.name;
+    let phoneNumber = this.products.user.cellphone;
+    if (window.location.href.includes('gt')) {
+      phoneNumber = '502' + phoneNumber;
+    } else  {
+      phoneNumber = '57' + phoneNumber;
+    }
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=Hola!👋vi%20tu%20publicación%20"${productName}"%20en%20Rótalo%20y%20me%20gustaría%20que%20me%20dieras%20más%20información.`;
     window.open(
     url,
     '_blank');
