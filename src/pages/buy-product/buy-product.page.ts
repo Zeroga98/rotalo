@@ -46,7 +46,7 @@ export class BuyProductPage implements OnInit {
   private cellphoneUser;
   private idNumberBuyer;
   buyForm: FormGroup;
-  payMethod: String = 'bank_account_transfer';
+  payMethod: String = 'transfer_bancolombia';
   confirmPurchase: boolean = false;
   showInfoPage: boolean = false;
   titlePurchase: String = 'Comprar';
@@ -85,7 +85,7 @@ export class BuyProductPage implements OnInit {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
     this.buyForm = this.fb.group({
-      'payment-type': ['bank_account_transfer', Validators.required]
+      'payment-type': ['transfer_bancolombia', Validators.required]
     });
     this.buyForm.get('payment-type').valueChanges.subscribe(value => {
       this.payMethod = value;
@@ -351,7 +351,7 @@ export class BuyProductPage implements OnInit {
   }
 
   selectedMedium(valueMedium): void {
-    if (valueMedium === 'bank_account_transfer') {
+    if (valueMedium === 'transfer_bancolombia') {
       this.payWithBank = true;
     } else {
       this.payWithBank = false;
