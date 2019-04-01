@@ -219,7 +219,7 @@
     width: 100%;
     z-index: 0;
     padding: 10px;
-    background-color: white; 
+    background-color: white;
   }
 
   .conversation-compose div,
@@ -493,6 +493,26 @@
     }
 
   }
+
+
+  @media (max-width: 700px) {
+    .modal__close {
+      display: block;
+      font-size: 1.4rem;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      position: absolute;
+      top: -82%;
+      left: 20px;
+      cursor: pointer;
+      width: 10%;
+      height: 30px;
+      .icon-close {
+        opacity: 0;
+      }
+    }
+  }
+
 }
 
 
