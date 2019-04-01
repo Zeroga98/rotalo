@@ -4,8 +4,10 @@
   </p>
 </div>
 <div
-infiniteScroll [infiniteScrollDistance]="1"  (scrolled)="scrolledInfinite()" [scrollWindow]="false"
-class="scroll conversation">
+[ngClass]="messages.length > 1 ?  'scroll': ''"
+infiniteScroll
+[infiniteScrollDistance]="1"  (scrolled)="scrolledInfinite()" [scrollWindow]="false"
+class="conversation">
   <div
    #scrollMe class="conversation-container">
     <div class="notifications-theme" *ngIf="messages">
