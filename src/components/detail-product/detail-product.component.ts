@@ -88,6 +88,7 @@ export class DetailProductComponent implements OnInit {
   public showSticker = false;
   public stickerUrl = '';
   public showPayButton = false;
+  public showSufiButton = false;
 
 
   @HostListener('window:resize', ['$event'])
@@ -221,6 +222,10 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        if(this.products.vehicle)
+        {
+          this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
+        }
         if (this.products.campaignInformation) {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;
@@ -325,10 +330,9 @@ export class DetailProductComponent implements OnInit {
       }
 
       if ((this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
-        priceVehicle >= this.minVehicleValue &&
-        priceVehicle <= this.maxVehicleValue)
+        priceVehicle >= this.minVehicleValue && priceVehicle <= this.maxVehicleValue && this.showSufiButton)
         || (this.products.subcategory.name === 'Motos' && differenceYear <= 5  && countryId === 1 &&
-        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW')
+        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW' && this.showSufiButton)
       ) {
         return true;
       }
