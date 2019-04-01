@@ -1,11 +1,11 @@
 :host {
   width: 60%;
-  margin-top: 30px;
   .container {
     padding: 10px;
     padding-top: 0;
     width: 100%;
-    height: 675px;
+    height: auto;
+    padding-bottom: 0;
   }
   .page {
     width: 100%;
@@ -14,8 +14,12 @@
     align-items: center;
     justify-content: center;
   }
+  .title-mobile {
+    display: none;
+  }
   .marvel-device {
     width: 100%;
+    height: 100%
   }
   .marvel-device .screen {
     text-align: left;
@@ -47,20 +51,23 @@
   /* Chat */
   .chat {
     height: calc(100% - 69px);
+    border-radius: 5px;
+    border: 1px solid #F5F5F5;
   }
   .chat-container {
     height: 100%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
   /* User Bar */
   .user-bar {
     height: 100px;
-    background: #f4f4f4;
+    border-bottom: 1px solid #F5F5F5;
     color: #272727;
     padding: 0 8px;
     font-size: 2.0rem;
     position: relative;
     z-index: 1;
+    box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.1);
+    background-color: white;
   }
   .user-bar:after {
     content: "";
@@ -90,8 +97,8 @@
   }
   .user-bar .avatar {
     margin: 0 0 0 5px;
-    width: 80px;
-    height: 80px;
+    width: 71px;
+    height: 71px;
   }
   .user-bar .avatar img {
     border-radius: 50%;
@@ -119,7 +126,7 @@
   .conversation {
     position: relative;
     padding-bottom: 2rem;
-    height: 43rem;
+    height: 46rem;
     background: #ffffff;
     z-index: 0;
   }
@@ -149,10 +156,10 @@
   }
   /* Messages */
   .message {
-    color: #000;
+    color: #272727;
     clear: both;
     line-height: 25px;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     padding: 8px;
     position: relative;
     margin: 8px 0;
@@ -160,13 +167,13 @@
     word-wrap: break-word;
     z-index: -1;
   }
-  .message:after {
+  /*.message:after {
     position: absolute;
     content: "";
     width: 0;
     height: 0;
     border-style: solid;
-  }
+  }*/
   .metadata {
     display: inline-block;
     float: right;
@@ -179,45 +186,42 @@
   }
   .message.received {
     background: #f8f8f8;
-    border-radius: 0px 5px 5px 5px;
+    border-radius: 0px 10px 10px 10px;
     float: left;
   }
   .message.received .metadata {
     padding: 0 0 0 16px;
   }
-  .message.received:after {
+ /* .message.received:after {
     border-width: 0px 10px 10px 0;
     border-color: transparent #f8f8f8 transparent transparent;
     top: 0;
     left: -10px;
-  }
+  }*/
   .message.sent {
     background: #ffdcdf;
-    border-radius: 5px 0px 5px 5px;
+    border-radius: 10px 0px 10px 10px;
     float: right;
   }
-  .message.sent:after {
+ /* .message.sent:after {
     border-width: 0px 0 10px 10px;
     border-color: transparent transparent transparent #ffdcdf;
     top: 0;
     right: -10px;
-  }
+  }*/
   /* Compose */
   .conversation-compose {
     position: relative;
     display: flex;
     flex-direction: row;
     overflow: hidden;
-    height: 90px;
+    height: 100px;
     width: 100%;
-    z-index: 2;
-    margin-top: 20px;
-    border: 1px solid #E2E2E2;
-    border-radius: 5px 5px 0px 5px;
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 22%;
+    z-index: 0;
+    padding: 10px;
+    background-color: white; 
   }
+
   .conversation-compose div,
   .conversation-compose input {
     background: #fff;
@@ -230,7 +234,11 @@
     margin: 0;
     outline: none;
     min-width: 50px;
-    height: 70px;
+    height: auto;
+    border: 1px solid #D6D6D6;
+    border-radius: 6px 6px 6px 6px;
+    padding: 10px;
+    padding-right: 140px;
   }
   .conversation-compose .photo {
     flex: 0 0 auto;
@@ -263,17 +271,19 @@
     background: transparent;
     cursor: pointer;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    height: auto
+    right: 20px;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .conversation-compose .send .circle {
     background: #ED2F3C;
     color: #fff;
     position: relative;
     width: 100px;
+    min-width: 122px;
     height: 48px;
-    border-top-left-radius: 15px;
+    border-radius: 25px;
     padding-top: 10px;
     p {
       font-size: 2rem;
@@ -297,6 +307,8 @@
     display: block;
     opacity: 0.7;
     filter: alpha(opacity=70);
+    color: #808080;
+    font-size: 1.2rem;
   }
   textarea {
     overflow: hidden;
@@ -432,26 +444,55 @@
   }
 
   @media (max-width: 800px) {
+    .user-bar div {
+      width: 95%;
+    }
+
     .user-bar .name {
       width: 50%;
     }
     .modal__close {
       display: block;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       transform: translateY(-50%);
       position: absolute;
       top: 50%;
-      right: 10px;
+      right: 15px;
+      cursor: pointer;
     }
     .delete-container{
       right: 60px;
     }
     .user-bar .name {
       padding-right: 10%;
+      font-size: 1.6rem;
+    }
+    .price {
+      font-size: 1.8px;
     }
     .container {
-      margin-top: 35px;
+      padding: 0;
     }
+    .title-mobile {
+      display: block;
+      background-color: #FAFAFA;
+      padding: 14px;
+      padding-left: 25px;
+      p {
+        color: #272727;
+        font-size: 1.4rem;
+      }
+    }
+
+    .conversation {
+      height: 40rem;
+    }
+
+    .message {
+      font-size: 1.6rem;
+    }
+
   }
 }
+
 

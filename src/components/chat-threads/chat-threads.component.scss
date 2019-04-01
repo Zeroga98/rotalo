@@ -1,7 +1,7 @@
 :host{
   .row {
     position: relative;
-    height: 48rem;
+    height: 65rem;
     background: #ffffff;
     z-index: 0;
   }
@@ -27,6 +27,11 @@
     display: table;
     clear: both;
   }
+  .selectAll-container{
+    p {
+      display: none;
+    }
+  }
 }
 
 :host {
@@ -38,6 +43,7 @@
     left: 20px;
     top: 50%;
     transform: translate(-50%,-50%);
+    z-index: 1;
   }
 
   .material-design {
@@ -179,6 +185,14 @@
     .selectAll-container{
       position: relative;
       height: 45px;
+      p {
+        font-size: 1.4rem;
+        color:#272727;
+        display: inline-block;
+        padding: 0;
+        padding-left: 25px;
+        padding-top: 14px;
+      }
       .material-checkbox{
         position: absolute;
         right: 20px;
@@ -205,6 +219,7 @@
 
     .material-design .material-checkbox {
       margin-left: 15px;
+      margin-top: 13px;
     }
 
   }
