@@ -472,7 +472,7 @@ export class DetailProductComponent implements OnInit {
 
   private configurarModal(product: ProductInterface) {
     this.configModal = {
-      photo: product.photos ? product.photos[0].url : this.defaultImage,
+      photo: product.photoList ? product.photoList[0].url : this.defaultImage,
       title: product.name,
       price: product.price,
       'product-id': product.id,

@@ -8,7 +8,7 @@ export interface ProductInterface {
     'id'?: string | number;
     'name': string;
     'negotiable': boolean | string;
-    'photos'?: PhotoInterface;
+    'photoList'?: PhotoInterface;
     'price': number | string;
     'publish-until'?: any;
     'published-at'?: string;

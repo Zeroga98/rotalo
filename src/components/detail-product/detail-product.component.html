@@ -696,9 +696,9 @@
           </div>
 
 
-          <div class="btn-two-container creditImmovables"
+          <div [ngClass]="products['sell-type'] !== 'ALQUILA' ? 'btn-two-container creditImmovables' : 'btn-item-full'"
             *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
-            <div class="credit-leasing btn-item">
+            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'" class="credit-leasing btn-item">
               <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
                 <div class="icon-banco"></div>Simula Crédito o Leasing
               </button>
@@ -713,10 +713,9 @@
                 <span class="icon-ofert-detalle"></span> Hacer oferta
               </button>
             </div>
-            <div *ngIf="products && products['sell-type'] == 'ALQUILA'" class="btn-item">
+            <div *ngIf="products && products['sell-type'] === 'ALQUILA'" class="btn-item">
               <button class="gtmProdAlquilar  botons" (click)="rentProduct(products.id)">
-                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
-                interesa
+                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me interesa
               </button>
             </div>
           </div>

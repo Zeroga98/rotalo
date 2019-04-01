@@ -22,11 +22,11 @@
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
-              <p class="notification-text offer-text">
+              <p class="notification-text">
                 <span>{{message.oferta.nombreUsuario}}</span> ha hecho una oferta
                 <span *ngIf="message.producto">
                   <span *ngIf="message.producto.tipoVenta !== 'SUBASTA'">para tu</span>
-                  <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en subasta</span>
+                  <span *ngIf="message.producto.tipoVenta === 'SUBASTA'">en tu subasta</span>
                   <span class="highlight bold clickable" (click)="goToDetail(message)">
                     {{(message.producto.nombreProducto )+ ': ' + (message.oferta.monto | currency:'$' | removeDigits) +
                     ' pesos.'}}
@@ -171,7 +171,7 @@
                     <span class="highlight">
                       ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
                     </span>
-                    en la Tienda Bancolombia.
+                    en la tienda Bancolombia.
                   </span>
                 </p>
               </span>
@@ -239,7 +239,7 @@
                 <p class="notification-text align">
                   <span>Tu compra por
                     ${{returnTotalPurchase(message) | currency:" " | removeDigits}} 
-                    en la Tienda Bancolombia ha sido rechazada.</span>
+                    en la tienda Bancolombia ha sido rechazada.</span>
                 </p>
               </span>
             </div>
