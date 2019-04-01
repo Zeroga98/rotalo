@@ -37,6 +37,9 @@ export class NotificationsComponent implements OnInit {
   @Input() isNotificationMobile: boolean ;
   public showSpinner = false;
   public totalNotificationes;
+  public isInfiniteScrollDisabled: boolean = false;
+
+
   constructor(
     private notificationService: MessagesService,
     private router: Router,
@@ -336,5 +339,8 @@ export class NotificationsComponent implements OnInit {
     this.loadNotifications();
   }
 
+  scrolledInfinite(){
+    this.loadMoreNotification();
+  }
 
 }

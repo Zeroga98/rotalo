@@ -3,8 +3,11 @@
     Notificaciones
   </p>
 </div>
-<div [ngClass]="messages.length > 1 && !this.isNotificationMobile ?  'scroll': ''" class="conversation">
-  <div #scrollMe class="conversation-container">
+<div
+infiniteScroll [infiniteScrollDistance]="1"  (scrolled)="scrolledInfinite()" [scrollWindow]="false"
+class="scroll conversation">
+  <div
+   #scrollMe class="conversation-container">
     <div class="notifications-theme" *ngIf="messages">
 
       <!-- Inicio ngFor para notificaciones -->
@@ -633,12 +636,14 @@
   <custom-spinner *ngIf="showSpinner"></custom-spinner>
 </div>
 
+ <!--
 <div *ngIf='messages.length > 0' class="button-container">
- <!-- <a (click)='loadMoreNotification()'>Ver más</a>-->
+ <a (click)='loadMoreNotification()'>Ver más</a>
   <button (click)="loadMoreNotification()" mat-icon-button>
     <div class="arrow-icon"></div>
  </button>
 </div>
+-->
 
 <div *ngIf='!showSpinner && messages.length == 0' class="button-container">
   <p class="message">
