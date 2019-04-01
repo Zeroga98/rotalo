@@ -77,7 +77,7 @@
     background-color: #FAFAFA;
     opacity: 1;
     .avatar {
-      border: 2px solid #FF3646; 
+      border: 2px solid #FF3646;
     }
     filter: alpha(opacity=100);
     .message-preview, .media-heading {
@@ -228,6 +228,7 @@
 
     .conversation {
       padding-left: 10px;
+      padding-right: 55px;
     }
   }
 }
