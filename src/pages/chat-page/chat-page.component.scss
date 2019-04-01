@@ -3,6 +3,10 @@
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
+  position: relative;
+  background-color: #FAFAFA;
+  padding-top: 45px;
+  padding-bottom: 70px;
   .info-container {
     position: relative;
   }
@@ -10,23 +14,25 @@
     display: flex;
     chat-threads {
       width: 40%;
+      background: white;
     }
   }
   .tittle {
     .text {
-      color: #ed2f3c;
+      color: #383838;
     }
     h1.text {
-      font-size: 4rem;
+      font-size: 2.4rem;
       font-weight: normal;
       margin: 0;
     }
   }
   .main-title {
     padding-bottom: 15px;
-    border-bottom: 2px solid #eae9e8;
+
     margin-bottom: 25px;
   }
+
   custom-spinner {
     position: absolute;
     left: 50%;
@@ -35,12 +41,14 @@
     transform: translate(-50%, 50%);
     z-index: 1;
   }
+
   @media (max-width: 780px) {
     .tittle h1.text {
       text-align: center;
       margin-top: 20px;
     }
   }
+
   @media (max-width: 800px) {
     padding: 0 2%;
     .container {
@@ -52,14 +60,18 @@
       chat-window {
         width: 100%;
         margin-top: 0;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         background: white;
-        z-index: 100000;
       }
     }
   }
+
+  @media (max-width: 700px) {
+    padding: 0;
+    padding-top: 5px;
+    .main-title{
+      display: none;
+    }
+  }
+
+
 }
