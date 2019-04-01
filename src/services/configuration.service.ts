@@ -6,7 +6,7 @@ export class ConfigurationService {
 
  api = {
     protocol: 'https',
-    server: 'stgn-gateway.rotalo.com.co/gateway/v1',
+    server: 'stgn-gateway.rotalo.com.co:1443/gateway/v1',
     inactivityLimit: 86400 // seconds
   };
 

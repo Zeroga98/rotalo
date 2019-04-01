@@ -66,6 +66,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public isBancolombiaShop;
   public totalCart = 0;
 
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -385,6 +386,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   loadNotifications() {
     this.navigationTopService.loadNotifications(true);
   }
+
+
 
 
 }
