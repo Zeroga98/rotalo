@@ -24,7 +24,7 @@ export class NotificationsComponent implements OnInit {
   public messages = [];
   public paymentTypes = {
     cash: 'Efectivo',
-    bank_account_transfer: 'Transferencia bancaria',
+    transfer_bancolombia: 'Transferencia bancaria',
     qr_code_transfer: 'Código QR',
     sufi_credit: 'Crédito SUFI',
     na: 'No aplica'
