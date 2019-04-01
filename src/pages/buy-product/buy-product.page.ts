@@ -254,10 +254,6 @@ export class BuyProductPage implements OnInit {
     if (this.showPayButton) {
       if (this.selectedVal) {
         this.payService();
-        if (this.selectedVal == 'transfer_bancolombia' ) {
-          window.open(this.purchaseUrl, '_blank');
-        }
-
       } else {
         this.errorMessage = '';
         this.errorMessage = '¡Ups! Debes elegir un método de pago';
@@ -274,6 +270,9 @@ export class BuyProductPage implements OnInit {
       response => {
         this.transactionSuccess = true;
         this.productsService.scroll = undefined;
+        if (this.selectedVal == 'transfer_bancolombia' ) {
+          window.open(this.purchaseUrl, '_blank');
+        }
         this.changeDetectorRef.markForCheck();
       },
       error => {
