@@ -780,10 +780,10 @@
                       Contacta a {{firstName}}
                     </div>
                     <mat-menu backdropClass="sg-vertical-sub-menu-whatsapp" class="share-product" #appMenu="matMenu">
-                        <div class="gtmEnviarMensaje" (click)="sendMessage()" mat-menu-item>
-                            <div class="ic_share_whatsapp align-ico"></div>  Por Rótalo
+                        <div class="gtmEnviarMensajeRotalo" (click)="sendMessage()" mat-menu-item>
+                            <div class="ic_rotalo align-ico"></div>  Por Rótalo
                         </div>
-                        <div *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
+                        <div class="gtmEnviarMensajeWhatsapp" *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
                           <div class="ic_share_whatsapp align-ico"  ></div>  Por Whatsapp
                         </div>
                     </mat-menu>
@@ -818,7 +818,7 @@
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>

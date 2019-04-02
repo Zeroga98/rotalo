@@ -509,11 +509,11 @@
       margin: 2rem 0;
       font-size: 1.6rem;
       word-wrap: break-word;
-     
+
         h1 {
           margin: 0;
         }
-      
+
       .flex {
         display: flex;
         justify-content: space-between;
@@ -943,7 +943,7 @@ input:checked+.switch-slider:before {
       font-size: 2.2rem;
       font-weight: bold;
     }
-   
+
     .table-info {
       width: 100%;
     }
@@ -1506,6 +1506,15 @@ input:checked+.switch-slider:before {
   min-width: 16px;
   background-size: 16px 16px;
   background-image: url(../../assets/img/iconos/ic_share_whatsapp.svg);
+}
+
+.ic_rotalo {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_header_rotalo.svg);
 }
 
 .align-ico {

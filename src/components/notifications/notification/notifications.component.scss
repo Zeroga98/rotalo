@@ -157,3 +157,11 @@ custom-spinner {
 :host ::ng-deep  .mat-menu-panel {
 min-width: 35px;
 }
+
+@media screen and (max-width: 1150px){
+  :host{
+    .conversation.scroll {
+      height: 100vh;
+    }
+  }
+}
