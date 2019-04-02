@@ -742,7 +742,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-
+        position: relative;
         .icon-custom--mail {
           color: white;
           font-size: 1.4rem;
@@ -1515,6 +1515,23 @@ input:checked+.switch-slider:before {
   min-width: 16px;
   background-size: 16px 16px;
   background-image: url(../../assets/img/iconos/ic_header_rotalo.svg);
+}
+
+.ic_arrow_contact {
+  position: absolute;
+  right: 20px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  background-size: 10px 10px;
+  background-image: url(../../assets/img/iconos/ic_arrow_contact.svg);
+}
+
+.botons[aria-expanded="true"] {
+  .ic_arrow_contact {
+    transform: rotate(180deg);
+  }
 }
 
 .align-ico {
