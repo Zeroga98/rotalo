@@ -1,12 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class OfferService {
     private readonly url = this.configurationService.getBaseUrl() + '/offers';
+    private readonly urlSapi = this.configurationService.getBaseSapiUrl() + 'ofertas';
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
     sendOffer(params): Promise<any> {
-        return this.httpClient.post(this.url, this.buildParams(params)).toPromise();
+      const headersSapi = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(headersSapi);
+        return this.httpClient.post(this.urlSapi, params , { headers: headers }).toPromise();
     }
     acceptOffer(id: number) {
         this.sendResponseOffer(id, 'accept');

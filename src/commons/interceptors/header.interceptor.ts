@@ -17,7 +17,7 @@ export class HeadersInterceptor implements HttpInterceptor {
                     'Content-Type': 'application/vnd.api+json'
                 }
             });
-        }else {
+        } else {
             request = req.clone();
         }
         return next.handle(request);
@@ -57,6 +57,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('usuarios')
       && !req.url.includes('locations')
       && !req.url.includes('envios-correos')
-      && !req.url.includes('contactanos');
+      && !req.url.includes('contactanos')
+      && !req.url.includes('ofertas');
     }
 }
