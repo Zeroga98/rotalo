@@ -53,14 +53,14 @@
           <div class="flex">
               <h1>Descripción</h1>
               <div class="share">
-                  <button class="share-button" mat-button [matMenuTriggerFor]="menu">
+                  <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
                     <div class="ic_arrow_share"></div>
                     Compartir publicación
                   </button>
                   <mat-menu class="share-product" #menu="matMenu">
                     <div mat-menu-item>
                         <button mat-icon-button>
-                            <div (click)="shareProduct('custom-modal-2' , products)" class="gtmCompartirProducto ico-email" class="ic_share_email"></div>
+                            <div (click)="shareProduct('custom-modal-2' , products)" class="gtmComparteProductoRotalo ic_share_email"></div>
                          </button>
                          <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
                             <div class="ic_share_whatsapp"></div>
