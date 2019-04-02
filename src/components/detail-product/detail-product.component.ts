@@ -655,7 +655,7 @@ export class DetailProductComponent implements OnInit {
     } else  {
       phoneNumber = '57' + phoneNumber;
     }
-    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=Hola!👋vi%20tu%20publicación%20"${productName}"%20en%20Rótalo%20y%20me%20gustaría%20que%20me%20dieras%20más%20información.`;
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=¡Hola!👋vi%20tu%20publicación%20"${productName}"%20en%20Rótalo%20y%20me%20gustaría%20que%20me%20dieras%20más%20información.`;
     window.open(
     url,
     '_blank');
