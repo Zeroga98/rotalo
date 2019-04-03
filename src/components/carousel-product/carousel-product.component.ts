@@ -17,8 +17,11 @@ import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 export class CarouselProductComponent implements OnInit {
   public carouselProductsConfig: NgxCarousel;
   @Input() products: Array<ProductInterface> = [];
+  @Input() title;
+  @Input() imgRoute;
   public idCountry = 1;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
+
 
   constructor(private router: Router, private modalService: ModalShareProductService,
     private currentSession: CurrentSessionService, private navigationService: NavigationService) {

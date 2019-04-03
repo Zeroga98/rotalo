@@ -12,6 +12,9 @@
         margin-bottom: 15px;
 
         h3,
+        .bank-img {
+          display: inline-block;
+        }
         .star-img {
           display: inline-block;
         }
@@ -23,10 +26,15 @@
           margin: 0 0 0 8px;
         }
 
-        .star-img {
+        .bank-img {
           vertical-align: middle;
           width: 21px;
           height: 20px;
+        }
+        .star-img {
+          vertical-align: middle;
+          width: 45px;
+          height: 45px;
         }
       }
     }
