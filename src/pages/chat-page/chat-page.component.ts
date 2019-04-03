@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { ShareInfoChatService } from '../../components/chat-thread/shareInfoChat.service';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../router/routes';
@@ -22,7 +22,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
     if (this.screenWidth > 800) {
       this.showChatWindow = 'block';
       this.showChatThreads = 'block';
-    }else {
+    } else {
       if ( this.showChatThreads !== 'none') {
         this.showChatWindow = 'none';
         this.showChatThreads = 'block';
@@ -40,6 +40,10 @@ export class ChatPageComponent implements OnInit, OnDestroy {
         this.receiveOption();
       }
     });
+    const element: HTMLElement = document.getElementById('container-footer') as HTMLElement;
+    if(element) {
+      element.classList.add('messages')
+    }
   }
 
   isFeedBackPage() {
