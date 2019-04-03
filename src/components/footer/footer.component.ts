@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 
@@ -35,7 +35,6 @@ export class FooterComponent implements OnInit {
     }
     return false;
   }
-
 
   openModal(id: string) {
     this.modalService.open(id);
