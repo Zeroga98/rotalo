@@ -154,6 +154,8 @@
   </div>
 </div>
 
+
+
 <div *ngIf="showBannerToShop && showBanner && !configFiltersSubcategory" class="featured-section bancolombia-site">
   <div class="featured-container">
     <div class="header-featured">
@@ -165,6 +167,9 @@
     <img class="mobile" (click)="goToBancolombiaShop()" src="../../assets/img/banner/mobile/banner_mobile.png" alt="micrositio bancolombia">
   </div>
 </div>
+
+
+<carousel-product *ngIf="showBancolombiaProducts" [products] = "productsBancolombia" ></carousel-product>
 
 <div>
   <div class="container-spinner" *ngIf="isSpinnerShow">

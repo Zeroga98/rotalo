@@ -196,6 +196,7 @@ import { TermsCompaniesComponent } from '../components/terms-companies/terms-com
 import { FeedBackMicrositeComponent } from '../microsite/components-microsite/feedBack-microsite/feedBackMicrosite.component';
 import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
+import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
 
 @NgModule({
   declarations: [
@@ -316,7 +317,8 @@ import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.d
     TermsCompaniesComponent,
     FeedBackMicrositeComponent,
     TermsDialogComponent,
-    CustomScrollDirective
+    CustomScrollDirective,
+    CarouselProductComponent
   ],
   imports: [
     BrowserModule,

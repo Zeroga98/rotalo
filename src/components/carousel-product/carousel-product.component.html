@@ -1,0 +1,110 @@
+<div *ngIf="products.length != 0" class="featured-products featured-section">
+  <div class="featured-container">
+    <div class="row-featured">
+      <div class="header-featured">
+        <img class="star-img" src="../../assets/img/iconos/ic_bancolombia.png" alt="estrella">
+        <h3>Haz tus compras con Bancolombia</h3>
+      </div>
+      <ngx-carousel class="carousel-featured" *ngIf="products.length != 0" [inputs]="carouselProductsConfig">
+        <ngx-item NgxCarouselItem *ngFor="let product of products">
+          <a class="link-product" *ngIf="product" onclick="return false;" [href]="getUrlProduct(product)">
+            <div class="carousel-container">
+              <div class="featured-cards">
+                <div class="featured-card">
+                  <div class="item__wrapper">
+
+                    <div class="item__card">
+                      <a onclick="return false;" [href]="getUrlProduct(product)">
+                        <div class="item__image-container">
+                          <div *ngIf="product['is-low-price'] ||  isActivePromo(product)"
+                            class="container-low-price">
+                            <p>$ REBAJÓ</p>
+                          </div>
+                          <div *ngIf="product['featuredType'] == 'mostVisits'" class="container-trending">
+                            <p>TRENDING</p>
+                          </div>
+                          <img (click)="selectProductSuperUser(product, $event)" *ngIf="!product.photos" [src]="defaultImage"
+                            [alt]="product.name" (error)="updateSrc($event)">
+                          <img (click)="selectProductSuperUser(product, $event)" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url"
+                            [alt]="product.name" (error)="updateSrc($event)">
+                          <div (click)="shareProduct('custom-modal-2' , product)" class="gtmCompartirProducto icon-share-container">
+                            <div class="gtmCompartirProducto icon-share">
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                      <a onclick="return false;" [href]="getUrlProduct(product)">
+                        <div (click)="selectProductSuperUser(product , $event)" class="item__content">
+                          <div class="item__name">
+                            <span>
+                              {{product.name}}
+                            </span>
+                          </div>
+                          <div class="item__price-block">
+                            <div class="price-container">
+                              <div>
+                                <span *ngIf=" product.price != 0 && product.currency == 'GTQ'">
+                                  {{product.price | currency:"Q" | removeDigits}}
+                                </span>
+                                <span *ngIf=" product.price != 0 && product.currency != 'GTQ' && idCountry == 9">
+                                  {{product.price | currency:"$" | removeDigits}}
+                                </span>
+                                <span *ngIf=" product.price != 0 && product.currency != 'GTQ' && idCountry != 9">
+                                  {{product.price | currency:"$" | removeDigits}}
+                                </span>
+                                <span *ngIf=" product.price == 0">Gratis</span>
+                              </div>
+                              <div [ngClass]="product['previousPrice'] && product['previousPrice'] >  product['price'] || isActivePromo(product)? 'low-price' : ''"
+                                *ngIf="product['previousPrice'] && isActivePromo(product) || product['previousPrice'] && product['previousPrice'] >  product['price']">
+                                <span *ngIf="product['previousPrice'] != 0 && product.currency == 'GTQ'" class="name">{{product['previousPrice']
+                                  | currency:"Q" | removeDigits}}</span>
+                                <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 9"
+                                  class="name">{{product['previousPrice']
+                                  | currency:"$" | removeDigits}}</span>
+                                <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 1"
+                                  class="name">{{product['previousPrice']
+                                  | currency:"$" | removeDigits}}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="item__location">
+                            <span class="icon-location"></span>
+                            <span>{{getLocation(product)}}</span>
+                          </div>
+                          <div *ngIf="product.user" class="item_info-user">
+                            <div class="icon-container" [ngStyle]="{'background-color':product.user.company.colour}">
+                              <span class="icon-account" *ngIf="!product.user.photo && !product.user.photos"></span>
+                              <img *ngIf="product.user.photo" [src]="product.user.photo.url">
+                              <img *ngIf="product.user.photos" [src]="product.user.photos.url">
+                            </div>
+                            <div class="info-user">
+                              <p class="name-text">{{product.user.name}}</p>
+                              <p *ngIf="product.user && product.user.company" [ngStyle]="{'color':product.user.company.colour}"
+                                class="company-text">
+                                {{product.user?.company.name}}
+                                <span class="comunidad-text"> - {{product.user?.company.community.name}}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </ngx-item>
+        <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+          <span class="icon icon-chevron-thin-left"></span>
+        </span>
+        <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+          <span class="icon icon-chevron-thin-right"></span>
+        </span>
+      </ngx-carousel>
+    </div>
+  </div>
+</div>
+
