@@ -2,8 +2,11 @@
   <div class="featured-container">
     <div class="row-featured">
       <div class="header-featured">
-        <img class="star-img" src="../../assets/img/iconos/ic_bancolombia.png" alt="estrella">
-        <h3>Haz tus compras con Bancolombia</h3>
+          <img
+          src="{{imgRoute}}" alt="{{title}}"
+          [ngClass]="imgRoute == '../../assets/img/estrella.gif' ?  'star-img': 'bank-img'"
+          >
+          <h3>{{title}}</h3>
       </div>
       <ngx-carousel class="carousel-featured" *ngIf="products.length != 0" [inputs]="carouselProductsConfig">
         <ngx-item NgxCarouselItem *ngFor="let product of products">
