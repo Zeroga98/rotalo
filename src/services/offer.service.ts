@@ -4,7 +4,7 @@ import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class OfferService {
     private readonly url = this.configurationService.getBaseUrl() + '/offers';
-    private readonly urlSapi = this.configurationService.getBaseSapiUrl() + 'ofertas';
+    private readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/productos/ofertas';
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
     sendOffer(params): Promise<any> {
       const headersSapi = this.configurationService.getJsonSapiHeaders();
