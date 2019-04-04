@@ -592,8 +592,27 @@
         </div>
         <!-- FIN NOTIFICACIÓN INFORMACION DEL VEHICULO -->
 
-
-
+         <!-- INICIO NOTIFICACIÓN WHATSAPP -->
+         <div *ngIf="message.tipoNotificacion == 'new_whatsapp_functionality'" class="notifications-item">
+            <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+            </span>
+            <div class="notification">
+              <div
+              [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+              (click)="goToDetail(message)" class="notification-img ">
+                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+              </div>
+              <div class="notification-body">
+                <p class="notification-text">
+                  Sabías que ahora podrás compartir por WhatsApp los artículos que más te gusten de Rótalo!
+                </p>
+              </div>
+            </div>
+            <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}
+            </small>
+          </div>
+          <!-- FIN NOTIFICACIÓN WHATSAPP -->
+  
         <!-- INICIO NOTIFICACIÓN OFERTA RECHAZADA -->
         <div *ngIf="message.tipoNotificacion == 'first_interests_association'" class="notifications-item">
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">

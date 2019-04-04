@@ -367,6 +367,16 @@
     height: auto;
   }
 
+  .row.info{
+    .label-title {
+      min-height: 64px;
+    }
+    .tool-tip {
+      display: block;
+      opacity: 1;
+    }
+  }
+
 }
 
 @media screen and (max-width: 850px) {
