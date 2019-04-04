@@ -14,7 +14,7 @@ import { FeedMicrositeService } from '../products-microsite/feedMicrosite.servic
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { windowService } from '../../services-microsite/front/window.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
-declare var WayboxCheckout: any;
+declare var WidgetCheckout: any;
 
 @Component({
   selector: 'car-microsite',
@@ -534,7 +534,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   wayboxPay(amount, publicKey, referenciaOrden, urlRedireccion) {
-    const checkout = new WayboxCheckout({
+    const checkout = new WidgetCheckout({
       currency: 'COP',
       amountInCents: amount + '00',
       reference: referenciaOrden,
