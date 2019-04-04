@@ -42,7 +42,7 @@ export class ChatPageComponent implements OnInit, OnDestroy {
     });
     const element: HTMLElement = document.getElementById('container-footer') as HTMLElement;
     if(element) {
-      element.classList.add('messages')
+      element.classList.add('messages');
     }
   }
 
