@@ -621,15 +621,11 @@
   }
 }
 
-@media screen and (max-width: 930px) {
+@media screen and (max-width: 800px) {
   :host {
-    .navbar-header {
-      .list-options {
-        li:not(:last-child) {
-          // margin-right: 3rem;
-        }
-      }
-    }
+   #upload-offer.messages{
+    display: none;
+   }
   }
 }
 
