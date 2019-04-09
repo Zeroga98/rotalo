@@ -1,6 +1,6 @@
 <div class="close-container">
   <div id="close" class="button-close-modal" (click)="close()">
-   <div class="icon-close" >
+   <div class="icon-close">
    </div>
   </div>
 </div>
@@ -15,7 +15,7 @@
   <form [formGroup]="deleteProductForm" class="form-theme">
       <div class="material-design">
         <div class="md-radio">
-          <input (change) ="changeRadioButton()" value="vendido" formControlName="option" id="used1" type="radio" name="option">
+          <input (change) ="changeRadioButton()" value="vendido" checked=true formControlName="option" id="used1" type="radio" name="option">
           <label for="used1">Ya vendí mi producto</label>
         </div>
         <div class="md-radio">

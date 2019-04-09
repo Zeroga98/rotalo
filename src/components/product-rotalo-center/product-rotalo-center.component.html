@@ -116,8 +116,8 @@
   <div *ngIf="isProductSelling && !expiredProduct" class="media">
     <div class="media-left media-middle">
       <label class="switch">
-        <input type="checkbox" [checked]="productStatus" (change)="openModalDeleteProduct()">
-        <div class="switch-slider round" (click)="openModalDeleteProduct()"></div>
+        <input type="checkbox" [checked]="productStatus" (change)="openModalDeleteProduct('inactivar')">
+        <div class="switch-slider round" (click)="openModalDeleteProduct('inactivar')"></div>
       </label>
     </div>
     <div class="media-body">

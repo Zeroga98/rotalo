@@ -611,7 +611,7 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  openModalDeleteProduct(): void {
+  openModalDeleteProduct(id: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';

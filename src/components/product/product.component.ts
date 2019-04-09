@@ -126,7 +126,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     return false;
   }
 
-  openModalDeleteProduct(): void {
+  openModalDeleteProduct(id: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
@@ -134,7 +134,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     dialogConfig.width = '55%';
 
     dialogConfig.autoFocus = false;
-    //dialogConfig.data = this.product.id;
+    dialogConfig.data = this.product['product_id'];
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
     });

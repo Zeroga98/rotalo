@@ -8,7 +8,7 @@
         </div>
         <div *ngIf="isProductSelling&&!isProductChecked" class="options-container">
           <div *ngIf="expiredProduct" class="republish" (click)="republish(product)"></div>
-          <div class="delete" (click)="openModalDeleteProduct()"></div>
+          <div class="delete" (click)="openModalDeleteProduct('eliminar')"></div>
           <div class="edit" (click)="editProduct(product)"></div>
         </div>
 
@@ -147,8 +147,8 @@
 
     <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="form-theme rotando media">
       <div class="form-group  media-left media-middle">
-        <input [checked]="productStatus" (change)="openModalDeleteProduct()"  type="checkbox"  name="switch" class="switch-input">
-        <label class="switch-label" (click)="openModalDeleteProduct()"></label>
+        <input [checked]="productStatus" (change)="openModalDeleteProduct('inactivar')"  type="checkbox"  name="switch" class="switch-input">
+        <label class="switch-label" (click)="openModalDeleteProduct('inactivar')"></label>
       </div>
       <div class="media-body">
         <p class="panel-product__info post-status {{productChecked}}">Tu artículo está {{ productStatus ? 'activo' :

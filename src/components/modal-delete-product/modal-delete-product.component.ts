@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, Input, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
@@ -9,6 +9,8 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./modal-delete-product.component.scss']
 })
 export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
+  @Input() id: string;
+  
   private params;
   public deleteProductForm: FormGroup;
   public showSuccess = false;
@@ -19,8 +21,15 @@ export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
    }
 
   ngOnInit() {
+    /*const modal = this;
+
+    if (!this.id) {
+      console.error('modal must have an id');
+      return;
+    }*/
+
     this.deleteProductForm = this.fb.group({
-      option: [false, [Validators.required]],
+      option: [true, [Validators.required]],
       comentario: ['']
     });
   }
@@ -39,12 +48,12 @@ export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
         razon = 'Otro';
       }
       const params = {
-        'idProducto': this.params.toString(),
+        'productId': this.params,
         'razon': razon,
         'comentario': this.deleteProductForm.get('comentario').value,
     };
 
-     /*this.productsService.reportProduct(params).subscribe((response) => {
+     this.productsService.deleteProduct(params).subscribe((response) => {
         this.showSuccess = true;
         this.gapush(
           'send',
@@ -56,7 +65,7 @@ export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
       },
       (error) => {
         console.log(error);
-      });*/
+      });
     } else {
       this.validateAllFormFields(this.deleteProductForm);
     }

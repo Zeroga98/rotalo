@@ -98,7 +98,7 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
     return false;
   }
 
-  openModalDeleteProduct(): void {
+  openModalDeleteProduct(id: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
