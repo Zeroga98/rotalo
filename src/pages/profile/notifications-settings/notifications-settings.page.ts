@@ -34,7 +34,7 @@ export class NotificationsSettingsPage implements OnInit {
   },
   {
     category: 'Ofertas',
-    label: 'Notifícame cuando alguien rechaze mis ofertas.',
+    label: 'Notifícame cuando alguien rechace mis ofertas.',
     key: 'offer-declined'
   },
   {
