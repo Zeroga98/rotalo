@@ -35,13 +35,13 @@ export class ConfigurationService {
 
 api = {
     protocol: 'https',
-    server: 'apirtl.rotalo.co/gateway/v1',
+    server: 'pdn.gateway.rotalo.com.co/gateway/v1',
     inactivityLimit: 86400 // seconds
   };
 
   sapi = {
     protocol: 'https',
-    server: 'apirtl.rotalo.co/gateway',
+    server: 'pdn.gateway.rotalo.com.co/gateway',
     inactivityLimit: 86400 // seconds
   };
 
