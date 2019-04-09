@@ -1206,7 +1206,13 @@ input:checked+.switch-slider:before {
 
   }
 }
-
+:host {
+  .sufi-container {
+    border-radius: 5px;
+    border: 1px dashed #D5D5D5;
+    padding: 15px;
+  }
+}
 @media screen and (max-width: 1200px) {
   :host {
     .btns-container .btn-two-container {
