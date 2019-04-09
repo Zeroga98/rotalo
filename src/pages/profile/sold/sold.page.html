@@ -4,14 +4,14 @@
   </div>
   <nav class="sold-header-nav">
     <div class="nav nav-tabs">
-      <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'sold' }">
-        <div (click)="currentTab = 'sold'" class="option">
-          <a class="link">Vendiste</a>
-        </div>
-      </div>
       <div class="tab tab-right" [ngClass]="{ active:  currentTab == 'purchased' }">
         <div (click)="currentTab = 'purchased'" class="option">
           <a class="link">Compraste</a>
+        </div>
+      </div>
+      <div class="tab tab-left" [ngClass]="{ active:  currentTab == 'sold' }">
+        <div (click)="currentTab = 'sold'" class="option">
+          <a class="link">Vendiste</a>
         </div>
       </div>
     </div>

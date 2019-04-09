@@ -46,7 +46,7 @@ export class SoldPage implements OnInit {
   }
 
   ngOnInit() {
-    this.currentTab = 'sold';
+    this.currentTab = 'purchased';
     this.loadProductsSold();
     this.loadProductsPurchased();
   }

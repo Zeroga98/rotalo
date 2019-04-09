@@ -33,7 +33,7 @@ export class ConfigurationService {
 
   /*Produccion*/
 
-api = {
+  api = {
     protocol: 'https',
     server: 'pdn.gateway.rotalo.com.co/gateway/v1',
     inactivityLimit: 86400 // seconds

@@ -125,8 +125,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   async ngOnInit() {
     const currentUser = this.currentSessionSevice.currentUser();
-    console.log(currentUser);
-
     this.countryId = Number(currentUser['countryId']);
     try {
       this.setInitialForm(this.getInitialConfig());
