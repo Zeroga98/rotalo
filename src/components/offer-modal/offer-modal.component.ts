@@ -43,8 +43,8 @@ export class OfferModalComponent implements OnInit {
     if (this.validForm(price)) {
       try {
         const response = await this.offerService.sendOffer({
-          amount: price,
-          'product-id': this.config['product-id']
+          monto: price,
+          idProducto: this.config['product-id']
         });
         this.routineSuccess();
         this.changeDetectorRef.markForCheck();
