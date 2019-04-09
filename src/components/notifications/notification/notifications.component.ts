@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
-  Input,
+  Input
 } from '@angular/core';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { MessagesService } from '../../../services/messages.service';
@@ -24,7 +24,7 @@ export class NotificationsComponent implements OnInit {
   public messages = [];
   public paymentTypes = {
     cash: 'Efectivo',
-    bank_account_transfer: 'Transferencia bancaria',
+    transfer_bancolombia: 'Transferencia bancaria',
     qr_code_transfer: 'Código QR',
     sufi_credit: 'Crédito SUFI',
     na: 'No aplica'
@@ -37,6 +37,9 @@ export class NotificationsComponent implements OnInit {
   @Input() isNotificationMobile: boolean ;
   public showSpinner = false;
   public totalNotificationes;
+  public isInfiniteScrollDisabled: boolean = false;
+
+
   constructor(
     private notificationService: MessagesService,
     private router: Router,
@@ -212,7 +215,7 @@ export class NotificationsComponent implements OnInit {
       if (this.productIsFree(notification)) {
         notification.status = 'Lo has regalado';
       } else {
-        notification.status = 'Compra confirmada';
+        notification.status = 'Compra registrada';
       }
     } catch (error) {
       console.error(error);
@@ -336,5 +339,8 @@ export class NotificationsComponent implements OnInit {
     this.loadNotifications();
   }
 
+  scrolledInfinite(){
+    this.loadMoreNotification();
+  }
 
 }

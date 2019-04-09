@@ -87,7 +87,8 @@ export class DetailProductComponent implements OnInit {
   public codeCampaign;
   public showSticker = false;
   public stickerUrl = '';
-
+  public showPayButton = false;
+  public showSufiButton = false;
 
 
   @HostListener('window:resize', ['$event'])
@@ -164,34 +165,7 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
- /* shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params,  this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalle'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
+
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -248,10 +222,15 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        if(this.products.vehicle)
+        {
+          this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
+        }
         if (this.products.campaignInformation) {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;
           this.stickerUrl = this.products.campaignInformation.stickerUrl;
+          this.showPayButton = this.products.showPayButton;
         }
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
@@ -351,10 +330,9 @@ export class DetailProductComponent implements OnInit {
       }
 
       if ((this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
-        priceVehicle >= this.minVehicleValue &&
-        priceVehicle <= this.maxVehicleValue)
+        priceVehicle >= this.minVehicleValue && priceVehicle <= this.maxVehicleValue && this.showSufiButton)
         || (this.products.subcategory.name === 'Motos' && differenceYear <= 5  && countryId === 1 &&
-        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW')
+        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW' && this.showSufiButton)
       ) {
         return true;
       }
@@ -498,7 +476,7 @@ export class DetailProductComponent implements OnInit {
 
   private configurarModal(product: ProductInterface) {
     this.configModal = {
-      photo: product.photos ? product.photos[0].url : this.defaultImage,
+      photo: product.photoList ? product.photoList[0].url : this.defaultImage,
       title: product.name,
       price: product.price,
       'product-id': product.id,
@@ -646,33 +624,41 @@ export class DetailProductComponent implements OnInit {
     });
   }
 
-  shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params,  this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalle'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
+  public shareProduct(id: string, product) {
+    if (product.id) {
+      this.modalService.setProductId(product.id);
+      this.modalService.open(id);
     }
+  }
+
+  sendMessageWhatsapp(id) {
+    this.gapush(
+      'send',
+      'event',
+      'Productos',
+      'ClicInferior',
+      'ComparteProductoWhatsapp'
+    );
+    const base_url = window.location.origin;
+    const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
+    ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
+    window.open(
+    url,
+    '_blank');
+  }
+
+  sendMessageWhatsappUser() {
+    const productName = this.products.name;
+    let phoneNumber = this.products.user.cellphone;
+    if (window.location.href.includes('gt')) {
+      phoneNumber = '502' + phoneNumber;
+    } else  {
+      phoneNumber = '57' + phoneNumber;
+    }
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=¡Hola!👋vi%20tu%20publicación%20"${productName}"%20en%20Rótalo%20y%20me%20gustaría%20que%20me%20dieras%20más%20información.`;
+    window.open(
+    url,
+    '_blank');
   }
 
 }

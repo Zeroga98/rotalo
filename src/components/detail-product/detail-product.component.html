@@ -50,7 +50,25 @@
           </ngx-carousel>
         </div>
         <div class="tabla-container description">
-          <h1>Descripción</h1>
+          <div class="flex">
+              <h1>Descripción</h1>
+              <div class="share">
+                  <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
+                    <div class="ic_arrow_share"></div>
+                    Compartir publicación
+                  </button>
+                  <mat-menu class="share-product" #menu="matMenu">
+                    <div mat-menu-item>
+                        <button mat-icon-button>
+                            <div (click)="shareProduct('custom-modal-2' , products)" class="gtmComparteProductoRotalo ic_share_email"></div>
+                         </button>
+                         <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
+                            <div class="ic_share_whatsapp"></div>
+                         </button>
+                    </div>
+                  </mat-menu>
+              </div>
+          </div>
           {{products.description}}
         </div>
         <div *ngIf="products.vehicle" class="tabla-container">
@@ -616,6 +634,12 @@
               </div>
             </form>
           </div>
+          <div *ngIf="showPayButton" class="bancolombia-buy">
+            <div class="icon-banco"></div>
+            <p>
+              Al comprar puedes pagar con transferencia Bancolombia o como lo acuerdes con el vendedor.
+            </p>
+          </div>
           <div
             *ngIf="products &&!checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA'"
             class="btn-item">
@@ -672,9 +696,9 @@
           </div>
 
 
-          <div class="btn-two-container creditImmovables"
+          <div [ngClass]="products['sell-type'] !== 'ALQUILA' ? 'btn-two-container creditImmovables' : 'btn-item-full'"
             *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
-            <div class="credit-leasing btn-item">
+            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'" class="credit-leasing btn-item">
               <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
                 <div class="icon-banco"></div>Simula Crédito o Leasing
               </button>
@@ -689,10 +713,9 @@
                 <span class="icon-ofert-detalle"></span> Hacer oferta
               </button>
             </div>
-            <div *ngIf="products && products['sell-type'] == 'ALQUILA'" class="btn-item">
+            <div *ngIf="products && products['sell-type'] === 'ALQUILA'" class="btn-item">
               <button class="gtmProdAlquilar  botons" (click)="rentProduct(products.id)">
-                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
-                interesa
+                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me interesa
               </button>
             </div>
           </div>
@@ -753,10 +776,18 @@
               <div class="product-btn" *ngIf="!validateSession()">
                 <div class="product-btns">
                   <div class="cont-botons">
-                    <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                      <span class="icon-chat-detalle"></span>
-                      Chatea con {{firstName}}
+                    <div class="gtmEnviarMensaje botons" [matMenuTriggerFor]="appMenu">
+                      Contacta a {{firstName}}
+                      <div class="ic_arrow_contact"></div>
                     </div>
+                    <mat-menu backdropClass="sg-vertical-sub-menu-whatsapp" class="share-product" #appMenu="matMenu">
+                        <div class="gtmEnviarMensajeRotalo" (click)="sendMessage()" mat-menu-item>
+                            <div class="ic_rotalo align-ico"></div>  Por Rótalo
+                        </div>
+                        <div class="gtmEnviarMensajeWhatsapp" *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
+                          <div class="ic_share_whatsapp align-ico"  ></div>  Por Whatsapp
+                        </div>
+                    </mat-menu>
                   </div>
                 </div>
                 <div *ngIf="products && products.negotiable" class="get-offer">
@@ -766,7 +797,7 @@
               </div>
             </div>
             <div class="product-info-ubicacion">
-              <div class="mobile gtmProdReporAqui Aquireport-container">
+              <div class="mobile gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
                     aquí.</a></p>
               </div>
@@ -788,56 +819,7 @@
               </div>
             </div>
           </div>
-          <div class="row-container">
-            <div *ngIf="!isSellProcess()" class="share-container">
-              <div class="share-product-container">
-                <div (click)="validateMobile()" class="gtmCompartirProducto share-mobile">
-                  <div class="icon-share-container">
-                    <div class="icon-email"></div>
-                  </div>
-                  <a class="gtmCompartirProducto share-product">Comparte este producto con un amigo</a>
-                  <span [ngClass]="{'open': showInputShare}" class="icon-arrow"></span>
-                </div>
-                <div *ngIf="showInputShare" class="input-container">
-                  <form (ngSubmit)="shareProduct()" [formGroup]="sendInfoProduct" class="form-theme">
-                    <div class="form-group">
-                      <input (click)="messageSuccess=false; messageError= false"
-                        [ngClass]="{'invalid': sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine}"
-                        formControlName="email" maxlength="100" id="txt-email-detail" type="email"
-                        class="form-control share-input" placeholder="Escribe aquí el correo corporativo de tu amigo">
-                      <div class="icon-container">
-                        <button class="button-share" type="submit">
-                          <div class="icon-email"></div>
-                        </button>
-                      </div>
-                    </div>
-                    <span *ngIf="sendInfoProduct.get('email').invalid && !sendInfoProduct.get('email').pristine"
-                      class="help-block">
-                      <span class="icon-circle-cancel"></span>
-                      <span *ngIf="!sendInfoProduct.get('email').errors.emailError">
-                        Aseguráte de que sea un correo válido.
-                      </span>
-                      <span *ngIf="sendInfoProduct.get('email').errors.emailError">
-                        ¡Hey! compártelo a un correo diferente al tuyo.
-                      </span>
-                    </span>
-                    <span *ngIf="messageSuccess" class="help-block">
-                      <span class="icon-check"></span>
-                      <span>
-                        ¡Hemos enviado el correo con éxito!
-                      </span>
-                    </span>
-                    <span *ngIf="messageError" class="help-block">
-                      <span class="icon-circle-cancel"></span>
-                      <span>
-                        {{textError}}
-                      </span>
-                    </span>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

@@ -202,7 +202,7 @@ export class MessagesService {
           if (product.tipoVenta === 'GRATIS') {
             result = 'Lo has regalado';
           } else {
-            result = 'Compra confirmada';
+            result = 'Compra registrada';
           }
           return result;
         case false:
