@@ -21,6 +21,9 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { NavigationService } from '../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'product',
@@ -61,6 +64,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
 
   constructor(
+    public dialog: MatDialog,
     private render: Renderer2,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -120,6 +124,20 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       return true;
     }
     return false;
+  }
+
+  openModalDeleteProduct(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+
+    dialogConfig.autoFocus = false;
+    //dialogConfig.data = this.product.id;
+    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   saveCheck() {

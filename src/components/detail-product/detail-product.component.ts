@@ -31,6 +31,7 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ReportPublicationComponent } from '../report-publication/report-publication.component';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
+import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -608,6 +609,20 @@ export class DetailProductComponent implements OnInit {
   hideAnimation() {
     this.showSticker = false;
     this.changeDetectorRef.markForCheck();
+  }
+
+  openModalDeleteProduct(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.products.id;
+    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   openDialog(): void {

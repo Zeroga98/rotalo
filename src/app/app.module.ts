@@ -197,6 +197,7 @@ import { FeedBackMicrositeComponent } from '../microsite/components-microsite/fe
 import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
+import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
 
 @NgModule({
   declarations: [
@@ -318,7 +319,8 @@ import { CarouselProductComponent } from '../components/carousel-product/carouse
     FeedBackMicrositeComponent,
     TermsDialogComponent,
     CustomScrollDirective,
-    CarouselProductComponent
+    CarouselProductComponent,
+    ModalDeleteProductComponent
   ],
   imports: [
     BrowserModule,
@@ -422,7 +424,7 @@ import { CarouselProductComponent } from '../components/carousel-product/carouse
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent, TermsDialogComponent]
+  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent, TermsDialogComponent, ModalDeleteProductComponent]
 })
 
 export class AppModule { }
