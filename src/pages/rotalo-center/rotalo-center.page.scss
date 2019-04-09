@@ -31,8 +31,9 @@
     flex: 1 0 auto;
     display: flex;
     height: auto;
-    padding-top: 45px;
-    padding-bottom: 70px;
+
+   /* padding-top: 45px;
+    padding-bottom: 70px;*/
     .menu {
       width: 40%;
       padding-left: 7%;
@@ -41,6 +42,8 @@
       order: -1;
       margin: 0;
       border-right: 2px solid #eae9e8;
+      padding-top: 45px;
+      padding-bottom: 70px;
     }
 
     .menu {

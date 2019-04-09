@@ -1,6 +1,7 @@
 <div class="row">
   <div id="conversation-wrap" class="material-design conversation-wrap">
     <div  class="selectAll-container" *ngIf="threads">
+      <p>Mensajes</p>
       <label class="material-checkbox container-check">
         <input [checked]="selectAllCheck" (change)="selectAll()" type="checkbox" id="deleteAll" name="deleteAll">
         <span class="checkmark"></span>
