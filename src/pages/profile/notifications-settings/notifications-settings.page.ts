@@ -54,7 +54,7 @@ export class NotificationsSettingsPage implements OnInit {
   },
   {
     category: 'Compras',
-    label: 'Notifícame cuando alguien rechaze mi compra.',
+    label: 'Notifícame cuando alguien rechace mi compra.',
     key: 'purchase-declined'
   },
   {
