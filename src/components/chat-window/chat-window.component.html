@@ -133,14 +133,16 @@
                               <span *ngIf="message.producto.tipoVenta !== 'GRATIS'"> ha comprado el producto: </span>
                               <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
                               <br>
-                              <span>Precio: {{ (message.compra.monto | currency:' ' | removeDigits) }}</span>
-                              <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} unidades
+                              <span>${{(message.compra.monto | currency:' ' | removeDigits) }}</span>
+                              <span *ngIf="message.compra.unidadesCompradas"> x {{message.compra.unidadesCompradas}} 
+                                  <span *ngIf="message.compra.unidadesCompradas==1">unidad</span>
+                                  <span *ngIf="message.compra.unidadesCompradas>=2">unidades</span>
                                 -
                               </span>
-                              <span *ngIf="message.compra.unidadesCompradas" class="highlight bold">
-                                Total: {{message.compra.unidadesCompradas * message.compra.monto  | currency:' ' | removeDigits}}.
+                              <span *ngIf="message.compra.unidadesCompradas">
+                                Total: ${{message.compra.unidadesCompradas * message.compra.monto  | currency:' ' | removeDigits}}.
                               </span>
-                              <br>
+                              <br><br>
                               <span>Pago: {{paymentTypes[message.compra.tipoPago]}}</span>
                               <br>
                               <span class="notification-text" *ngIf="message.status">{{message.status}}</span>
@@ -164,12 +166,12 @@
                         <span *ngIf="message.informacionAdicional">
                             <span class="icon icon-flag notification-icon"></span>
                             <p class="notification-text align">
-                                <span class="highlight bold">{{message.nombreEmisor}}</span>
+                                <span class="highlight">{{message.nombreEmisor}}</span>
                                 <span> ha realizado una compra por
-                                  <span class="highlight bold">
+                                  <span class="highlight">
                                     ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
                                   </span>
-                                  en la Tienda Bancolombia.
+                                  en la tienda Bancolombia.
                                 </span>
                             </p>
                             <small class="notification-date">{{message.fechaHora }}</small>
@@ -205,11 +207,9 @@
                         <span *ngIf="message.informacionAdicional">
                           <span class="icon icon-warning notification-icon"></span>
                           <p class="notification-text align">
-                              <span>La compra ha sido rechazada por un valor de</span>
-                              <span class="highlight bold">
+                              <span>La compra ha sido rechazada por un valor de 
                                   ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
-                              </span>
-                              <span> en la Tienda Bancolombia.</span>
+                                  en la tienda Bancolombia.</span>
                           </p>
                         </span>
                         <small class="notification-date">
@@ -224,7 +224,7 @@
                         <div class="notifications-item"  *ngIf="!message.accionExpirado">
                           <span class="icon icon-warning notification-icon"></span>
                           <p class="notification-text">Tu publicación
-                            <span class="highlight bold">{{message.producto.nombreProducto}}</span>
+                            <span class="highlight bold clickable" (click)="goToDetail(message)">{{message.producto.nombreProducto}}</span>
                             se ha vencido.
                           </p>
                           <small class="notification-date">{{message.fechaHora}}</small>
@@ -279,7 +279,7 @@
                         <span class="icon icon-flag notification-icon"></span>
                         <p class="notification-text">
                           Tu producto
-                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos.'}}</span>
+                          <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + ': ' + (message.producto.precio | currency:'$' | removeDigits) + ' pesos'}}</span>
                           ha sido recibido.
                         </p>
                         <small class="notification-date">{{message.fechaHora }}</small>

@@ -43,8 +43,8 @@ export class FinanceBamComponent implements OnInit {
   async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
-      if (this.product.photos) {
-        this.photoProduct = this.product.photos.url || this.product.photos[0].url;
+      if (this.product.photoList) {
+        this.photoProduct = this.product.photoList.url || this.product.photoList[0].url;
       }
       this.priceProduct = this.product.price;
       this.currentUser = await this.userService.getInfoUser();
