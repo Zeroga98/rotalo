@@ -486,10 +486,20 @@
 
     .conversation {
       height: 40rem;
+      height: 36rem;
     }
 
     .message {
       font-size: 1.6rem;
+    }
+
+    .chat-container {
+      margin-bottom: 100px;
+    }
+
+    .conversation-compose {
+      position: fixed;
+      bottom: 0
     }
 
   }

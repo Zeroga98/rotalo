@@ -150,7 +150,26 @@ export const IMGS_COMPANIES = [
     url: './assets/img/logos_company/31_odinsa.png',
     name: 'odinsa'
   }
-
+,
+  {
+    url: './assets/img/logos_company/32_dirtykitchen.png',
+    name: 'dirtykitchen'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/33_umo.png',
+    name: 'umo'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/34_sura.png',
+    name: 'sura'
+  }
+  ,
+  {
+    url: './assets/img/logos_company/35_sodexo.png',
+    name: 'sodexo'
+  }
 ];
 
 export const IMGS_COMPANIES_GUATEMALA = [

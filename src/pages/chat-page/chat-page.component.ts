@@ -24,8 +24,13 @@ export class ChatPageComponent implements OnInit, OnDestroy {
       this.showChatThreads = 'block';
     } else {
       if ( this.showChatThreads !== 'none') {
-        this.showChatWindow = 'none';
-        this.showChatThreads = 'block';
+        if (this.shareInfoChatService.getIdConversation()) {
+          this.showChatWindow = 'block';
+          this.showChatThreads = 'none';
+        } else {
+          this.showChatWindow = 'none';
+          this.showChatThreads = 'block';
+        }
       }
     }
   }
@@ -41,8 +46,12 @@ export class ChatPageComponent implements OnInit, OnDestroy {
       }
     });
     const element: HTMLElement = document.getElementById('container-footer') as HTMLElement;
-    if(element) {
-      element.classList.add('messages')
+    const elementUpload: HTMLElement = document.getElementById('upload-offer') as HTMLElement;
+    if (element) {
+      element.classList.add('messages');
+    }
+    if (elementUpload) {
+      elementUpload.classList.add('messages');
     }
   }
 
