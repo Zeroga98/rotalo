@@ -184,12 +184,12 @@ export class SimulateCreditPage implements OnInit {
     const params = {
       'idProducto': this.idProduct,
       'fuente': 'sufi'
-    }
+    };
     this.productsService.sufiRegistro(params).subscribe((response) => {
     } ,
     (error) => {
       console.log(error);
-    })
+    });
   }
 
   validateAllFormFields(formGroup: FormGroup) {

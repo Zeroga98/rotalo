@@ -40,6 +40,26 @@ function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   return null;
 }
 
+function priceVehicleValidatorMax(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue > 5000000000) {
+    return { priceValueMax: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMin(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue < 10000000) {
+    return { priceValueMin: true };
+  }
+  return null;
+}
+
 @Component({
   selector: 'detail-product',
   templateUrl: './detail-product.component.html',
@@ -88,7 +108,8 @@ export class DetailProductComponent implements OnInit {
   public showSticker = false;
   public stickerUrl = '';
   public showSufiButton = false;
-
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public simulateForm: FormGroup;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -129,6 +150,7 @@ export class DetailProductComponent implements OnInit {
       this.currentEmail = currentUser.email;
       this.countryId =  currentUser.countryId;
     }
+   
     this.initShareForm();
     this.initQuantityForm();
     this.loadProduct();
@@ -164,34 +186,6 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
- /* shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params,  this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalle'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -244,12 +238,48 @@ export class DetailProductComponent implements OnInit {
     ]);
   }
 
+  setFormSufi() {
+    let creditValue = 0;
+    if (this.products.price && this.products.porcentajeSimulacion) {
+      creditValue = (this.products.price)(this.products.porcentajeSimulacion / 100);
+    }
+    this.simulateForm = this.fb.group(
+      {
+        'credit-value': [
+          creditValue,
+          [
+            Validators.required,
+            priceVehicleValidatorMax,
+            priceVehicleValidatorMin
+          ]
+        ],
+        'term-months': [12, Validators.required]
+      }
+    );
+  }
+
+  validateMonths() {
+    if (this.products && this.products['vehicle']) {
+      const currentYear = new Date().getFullYear();
+      const modelo = this.products['model'];
+      const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if ( this.products['vehicle'].line.brand) {
+        nameBrandMoto = this.products['vehicle'].line.brand.name;
+      }
+      if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
+        this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+      }
+    }
+  }
+
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-        if(this.products.vehicle)
-        {
+        this.setFormSufi();
+        this.validateMonths();
+        if (this.products.vehicle) {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
         if (this.products.campaignInformation) {
