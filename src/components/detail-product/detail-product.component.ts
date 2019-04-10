@@ -336,25 +336,32 @@ export class DetailProductComponent implements OnInit {
     let va = 0;
     let n = 0;
     const i = 1.05;
-    // const i: number = parseInt(this.interesNominal) ;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.simulateForm.get('credit-value').value &&
+    this.simulateForm.get('credit-value').value < this.products.price
+    ? va =  this.simulateForm.get('credit-value').value : va = 0;
+
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    this.simulateForm.get('term-months').value
+    ? n =  this.simulateForm.get('term-months').value : n = 0;
     return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
   }
 
   calcularSeguro() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.simulateForm.get('credit-value').value &&
+    this.simulateForm.get('credit-value').value < this.products.price
+    ? va =  this.simulateForm.get('credit-value').value : va = 0;
     return ((va * 0.12) / 100);
   }
 
   calcularCuotasExtraSegundoPlan() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.simulateForm.get('credit-value').value &&
+    this.simulateForm.get('credit-value').value < this.products.price
+    ? va =  this.simulateForm.get('credit-value').value : va = 0;
     let n = 0;
     this.simulateForm.get('term-months') &&
     this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
@@ -369,7 +376,9 @@ export class DetailProductComponent implements OnInit {
     const i1 = Math.pow((1 + i), 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.simulateForm.get('credit-value').value &&
+    this.simulateForm.get('credit-value').value < this.products.price
+    ? va =  this.simulateForm.get('credit-value').value : va = 0;
     let n = 0;
     this.simulateForm.get('term-months') &&
     this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;

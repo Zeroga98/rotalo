@@ -732,13 +732,13 @@
               <div class="row">
                 <div class="column">
                   <label class="label-title">Cuota Inicial</label>
-                  <input 
+                  <input
                   name="credit-value"
                   formControlName="credit-value"
                   class="form-control input-price" currencyMask
                   [options]="{prefix: '$' , align: 'left', precision: 0 , allowNegative: false}"
                   onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="40.000.000"
-                  maxlength="18" autocomplete="off">
+                  maxlength="14" autocomplete="off">
                 </div>
                 <div class="column">
                   <label class="label-title">Plazo en meses</label>
@@ -793,7 +793,11 @@
                     <table>
                         <tr>
                           <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                          <td class="text-right">{{calcularCuotasSegundoPlan() | currency:"$"}}</td>
+                          <td class="text-right">
+
+                                {{calcularCuotasSegundoPlan() | currency:"$"}}
+
+                          </td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
@@ -824,9 +828,9 @@
                 Quiero una simulación detallada
               </button>
             </div>
-           
+
           </div>
-          
+
         </div>
         <div class="info-section">
           <div>
