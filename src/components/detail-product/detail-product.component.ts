@@ -110,7 +110,7 @@ export class DetailProductComponent implements OnInit {
   public showSufiButton = false;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
   public simulateForm: FormGroup;
-
+  public interesNominal = 1;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -150,7 +150,7 @@ export class DetailProductComponent implements OnInit {
       this.currentEmail = currentUser.email;
       this.countryId =  currentUser.countryId;
     }
-   
+
     this.initShareForm();
     this.initQuantityForm();
     this.loadProduct();
@@ -240,7 +240,10 @@ export class DetailProductComponent implements OnInit {
 
   setFormSufi() {
     let creditValue = 0;
-    if (this.products.price && this.products.porcentajeSimulacion) {
+    if (this.products && this.products.price) {
+      creditValue = this.products.price * (0.2);
+    }
+    if (this.products && this.products.price && this.products.porcentajeSimulacion) {
       creditValue = (this.products.price)(this.products.porcentajeSimulacion / 100);
     }
     this.simulateForm = this.fb.group(
@@ -279,6 +282,9 @@ export class DetailProductComponent implements OnInit {
         this.products = reponse.body.productos[0];
         this.setFormSufi();
         this.validateMonths();
+        if (this.products.interesNominal) {
+          this.interesNominal = this.products.interesNominal;
+        }
         if (this.products.vehicle) {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
@@ -324,6 +330,18 @@ export class DetailProductComponent implements OnInit {
     (error) => {
       console.log(error);
     });
+  }
+
+  calcularCuotasPrimerPlan() {
+    let va = 0;
+    let n = 0;
+    const i = 1.05;
+    // const i: number = parseInt(this.interesNominal) ;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
   }
 
   productIsSold(product) {

@@ -764,8 +764,8 @@
                     </div>
                     <table>
                         <tr>
-                          <td>12 Cuotas mensuales de </td>
-                          <td class="text-right">500.239.080</td>
+                            <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
+                            <td class="text-right">{{calcularCuotasPrimerPlan() | currency:"$"}}</td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
@@ -792,8 +792,8 @@
                     </div>
                     <table>
                         <tr>
-                          <td>12 Cuotas mensuales de </td>
-                          <td class="text-right">500.239.080</td>
+                          <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
+                          <td class="text-right">{{calcularCuotasPrimerPlan() | currency:"$"}}</td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
