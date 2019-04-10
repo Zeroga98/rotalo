@@ -344,6 +344,41 @@ export class DetailProductComponent implements OnInit {
     return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
   }
 
+  calcularSeguro() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    return ((va * 0.12) / 100);
+  }
+
+  calcularCuotasExtraSegundoPlan() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    const i = 1.05;
+    return (va * (Math.pow(( 1 + i ), n)) * i ) / ( (Math.pow(( 1 + i ), n)) - 1 ) * 2;
+  }
+
+  calcularCuotasSegundoPlan() {
+    let ve = 0;
+    ve = this.calcularCuotasExtraSegundoPlan();
+    const i = 1.05;
+    const i1 = Math.pow((1 + i), 6) - 1;
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    const n1 = n / 6;
+    const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
+    const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
+    return pago;
+  }
+
   productIsSold(product) {
     if (product.status && product.status === 'sold') {
       this.showButtons = false;

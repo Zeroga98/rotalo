@@ -769,12 +769,12 @@
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
-                            <td class="text-right">500.239.080</td>
+                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
                         </tr>
                         <tr>
                             <td>Total</td>
                             <td class="text-right">
-                              <strong>$2,078</strong>
+                              <strong>{{calcularCuotasPrimerPlan() + calcularSeguro() | currency:"$"}}</strong>
                             </td>
                         </tr>
                       </table>
@@ -782,7 +782,7 @@
                   <div class="col">
                     <div class="title-plan">
                       <div>
-                        <p>Plan tradicional</p>
+                        <p>Plan cuotas extra</p>
                         <div class="tooltip">
                           <span class="toolTipText">
                             Paga cuotas fijas <br> mensuales <br> siempre.
@@ -793,11 +793,11 @@
                     <table>
                         <tr>
                           <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                          <td class="text-right">{{calcularCuotasPrimerPlan() | currency:"$"}}</td>
+                          <td class="text-right">{{calcularCuotasSegundoPlan() | currency:"$"}}</td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
-                            <td class="text-right">500.239.080</td>
+                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
                         </tr>
                         <tr>
                             <td>Total</td>
@@ -806,8 +806,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Seguro de vida </td>
-                            <td class="text-right">500.239.080</td>
+                            <td>Cuotas semestrales de </td>
+                            <td class="text-right">{{calcularCuotasExtraSegundoPlan() | currency:"$"}}</td>
                         </tr>
                       </table>
                   </div>
