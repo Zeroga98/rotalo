@@ -31,6 +31,7 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ReportPublicationComponent } from '../report-publication/report-publication.component';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
+import { CountUp } from 'countup.js';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -110,7 +111,8 @@ export class DetailProductComponent implements OnInit {
   public showSufiButton = false;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
   public simulateForm: FormGroup;
-  public interesNominal = 1;
+  public interesNominal = 0.0105;
+  public porcentajeSimulacion = 20;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -119,6 +121,8 @@ export class DetailProductComponent implements OnInit {
       this.showInputShare = true;
     }
   }
+
+
 
   constructor(
     private productsService: ProductsService,
@@ -240,11 +244,11 @@ export class DetailProductComponent implements OnInit {
 
   setFormSufi() {
     let creditValue = 0;
-    if (this.products && this.products.price) {
-      creditValue = this.products.price * (0.2);
+    if (this.products.porcentajeSimulacion) {
+      this.porcentajeSimulacion = this.products.porcentajeSimulacion;
     }
-    if (this.products && this.products.price && this.products.porcentajeSimulacion) {
-      creditValue = (this.products.price)(this.products.porcentajeSimulacion / 100);
+    if (this.products && this.products.price && this.porcentajeSimulacion) {
+      creditValue = (this.products.price) * (this.porcentajeSimulacion) / 100;
     }
     this.simulateForm = this.fb.group(
       {
@@ -280,14 +284,17 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-        this.setFormSufi();
-        this.validateMonths();
         if (this.products.interesNominal) {
-          this.interesNominal = this.products.interesNominal;
+          this.interesNominal = this.products.interesNominal / 100;
+        }
+        if (this.products.porcentajeSimulacion) {
+          this.porcentajeSimulacion = this.products.porcentajeSimulacion / 100;
         }
         if (this.products.vehicle) {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
+        this.setFormSufi();
+        this.validateMonths();
         if (this.products.campaignInformation) {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;
@@ -335,15 +342,19 @@ export class DetailProductComponent implements OnInit {
   calcularCuotasPrimerPlan() {
     let va = 0;
     let n = 0;
-    const i = 1.05;
+    const i = this.interesNominal;
+
     this.simulateForm.get('credit-value') &&
     this.simulateForm.get('credit-value').value &&
-    this.simulateForm.get('credit-value').value < this.products.price
-    ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
 
     this.simulateForm.get('term-months') &&
     this.simulateForm.get('term-months').value
     ? n =  this.simulateForm.get('term-months').value : n = 0;
+
     return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
   }
 
@@ -351,8 +362,9 @@ export class DetailProductComponent implements OnInit {
     let va = 0;
     this.simulateForm.get('credit-value') &&
     this.simulateForm.get('credit-value').value &&
-    this.simulateForm.get('credit-value').value < this.products.price
-    ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
     return ((va * 0.12) / 100);
   }
 
@@ -360,25 +372,29 @@ export class DetailProductComponent implements OnInit {
     let va = 0;
     this.simulateForm.get('credit-value') &&
     this.simulateForm.get('credit-value').value &&
-    this.simulateForm.get('credit-value').value < this.products.price
-    ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
     let n = 0;
     this.simulateForm.get('term-months') &&
     this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
-    const i = 1.05;
+    const i = this.interesNominal;
     return (va * (Math.pow(( 1 + i ), n)) * i ) / ( (Math.pow(( 1 + i ), n)) - 1 ) * 2;
   }
 
   calcularCuotasSegundoPlan() {
     let ve = 0;
     ve = this.calcularCuotasExtraSegundoPlan();
-    const i = 1.05;
+    const i = this.interesNominal;
     const i1 = Math.pow((1 + i), 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
     this.simulateForm.get('credit-value').value &&
-    this.simulateForm.get('credit-value').value < this.products.price
-    ? va =  this.simulateForm.get('credit-value').value : va = 0;
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
     let n = 0;
     this.simulateForm.get('term-months') &&
     this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
