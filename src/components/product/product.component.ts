@@ -104,7 +104,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (this.totalProducts != 5) {
       const numbers: Array<any> = [];
       for (let i = 0; i < this.totalProducts; i++) {
-        numbers.push( i + 1 );
+        numbers.push(i + 1);
       }
       this.numbersOrder = numbers;
     }
@@ -126,46 +126,52 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     return false;
   }
 
-  openModalDeleteProduct(id: string): void {
+  openModalDeleteProduct(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
-
     dialogConfig.autoFocus = false;
-    dialogConfig.data = this.product['product_id'];
+    const action = {
+      option: 'delete',
+      productId: this.product['product_id']
+    }
+    dialogConfig.data = action;
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      if (result && result == 'si_delete') {
+        this.updateProducts.emit(true);
+        this.router.navigate([
+          `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
+        ]);
+      }
     });
   }
 
-  saveCheck() {
-    let productId;
-    if (this.product.id) {
-      productId = this.product.id;
-    } else if (this.product['product_id']) {
-      productId = this.product['product_id'];
+
+  openModalInactiveProduct(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.autoFocus = false;
+    const action = {
+      option: 'update',
+      productId: this.product['product_id']
     }
-    this.productStatus = !this.productStatus;
-    this.productStatus
-      ? (this.productChecked = 'active')
-      : (this.productChecked = 'inactive');
-    const params = {
-      estado: this.productStatus ? 'active' : 'inactive'
-    };
-    this.changeDetectorRef.markForCheck();
-    this.productsService
-      .updateProductStatus(this.idUser, productId, params)
-      .then(response => {
-        if (response.status == '0') {
-          this.product['product_published_at'] = response.body.producto['published-at'];
-          this.product['product_publish_until'] =
-            response.body.producto['publish-until'];
-          this.changeDetectorRef.markForCheck();
-        }
+    dialogConfig.data = action;
+    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.rsp && result.rsp == 'si_update') {
+        this.productStatus = !this.productStatus;
+        this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+        this.product['product_published_at'] = result.publishAt;
+        this.product['product_publish_until'] = result.publishUntil;
         this.changeDetectorRef.markForCheck();
-      });
+      }
+    });
   }
 
   getLocation(product): string {
@@ -174,7 +180,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   selectProduct(event) {
     if (event.ctrlKey) {
-      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
+      const url = `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
       window.open(url, '_blank');
     } else {
       this.selected.emit(this.product);
@@ -209,7 +215,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async removeMarkProduct(product: ProductInterface) {
@@ -225,7 +231,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   editProduct(product: ProductInterface) {

@@ -622,6 +622,7 @@ export class DetailProductComponent implements OnInit {
     dialogConfig.data = this.products.id;
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 

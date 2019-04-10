@@ -8,17 +8,17 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './modal-delete-product.component.html',
   styleUrls: ['./modal-delete-product.component.scss']
 })
-export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
+export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
   @Input() id: string;
-  
+
   private params;
   public deleteProductForm: FormGroup;
   public showSuccess = false;
 
   constructor(private dialogRef: MatDialogRef<ModalDeleteProductComponent>,
-  @Inject(MAT_DIALOG_DATA) data,   private fb: FormBuilder, private productsService: ProductsService) {
+    @Inject(MAT_DIALOG_DATA) data, private fb: FormBuilder, private productsService: ProductsService) {
     this.params = data;
-   }
+  }
 
   ngOnInit() {
     /*const modal = this;
@@ -48,28 +48,52 @@ export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
         razon = 'Otro';
       }
       const params = {
-        'productId': this.params,
+        'productId': this.params.productId,
         'razon': razon,
         'comentario': this.deleteProductForm.get('comentario').value,
-    };
+      };
 
-     this.productsService.deleteProduct(params).subscribe((response) => {
-        this.showSuccess = true;
-        this.gapush(
-          'send',
-          'event',
-          'Productos',
-          'ClicEliminaInactiva',
-          'EnvioExitoso'
-        );
-      },
-      (error) => {
-        console.log(error);
-      });
+      if (this.params.option == 'delete') {
+        this.params = 'si_delete';
+        this.productsService.deleteProduct(params).subscribe((response) => {
+          this.showSuccess = true;
+          this.gapush(
+            'send',
+            'event',
+            'Productos',
+            'ClicEliminaInactiva',
+            'EnvioExitoso'
+          );
+        },
+          (error) => {
+            console.log(error);
+          });
+      } else {
+        const valores = {
+          publishAt: '',
+          publishUntil: '',
+          rsp: 'si_update'
+        }
+        /* this.productsService
+         .updateProductStatus(this.params.productId, params)
+         .then(response => {
+           if (response.status == '0') {
+              this.params = 'si_update';
+              valores = {
+                   publishAt: response.body.producto['published-at'],
+                  publishUntil:  response.body.producto['publish-until'],
+                  rsp: 'si_update'
+              }
+              this.params = valores;
+           }
+         });*/
+      }
     } else {
       this.validateAllFormFields(this.deleteProductForm);
     }
+
   }
+
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -95,7 +119,7 @@ export class ModalDeleteProductComponent implements OnInit , AfterViewInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.params);
   }
 
   changeRadioButton() {
