@@ -652,14 +652,9 @@
               interesa
             </button>
           </div>
-          <div class="btn-two-container"
+          <div class="btn-item"
             *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'">
-            <div class="btn-item">
-              <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
-                <span class="icon-custom icon-custom--sufi-logo"></span>Simula tu Crédito
-              </button>
-            </div>
-            <div class="btn-item">
+            <div>
               <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
                 (click)="buyProduct(products.id)">
                 <span class="icon-shop_car"></span> {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
@@ -691,7 +686,8 @@
             </div>
             <div *ngIf="products && products['sell-type'] === 'ALQUILA'" class="btn-item">
               <button class="gtmProdAlquilar  botons" (click)="rentProduct(products.id)">
-                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me interesa
+                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : 'icon-shop_car'"></span> Me
+                interesa
               </button>
             </div>
           </div>
@@ -725,6 +721,116 @@
               </div>
             </div>
           </div>
+        </div>
+        <div *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'" class="sufi-container">
+          <div class="title">
+            <span class="icon-custom icon-custom--sufi-logo"></span>
+            Así de fácil lo podrías pagar con Sufi
+          </div>
+          <form [formGroup]="simulateForm">
+            <div class="container-input">
+              <div class="row">
+                <div class="column">
+                  <label class="label-title">Cuota Inicial</label>
+                  <input
+                  name="credit-value"
+                  formControlName="credit-value"
+                  class="form-control input-price" currencyMask
+                  [options]="{prefix: '$' , align: 'left', precision: 0 , allowNegative: false}"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="40.000.000"
+                  maxlength="14" autocomplete="off">
+                </div>
+                <div class="column">
+                  <label class="label-title">Plazo en meses</label>
+                  <select formControlName="term-months" class="select-time form-control" name="term-months">
+                    <option value="" disabled></option>
+                    <option value="{{timetoPay}}" *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="table-container">
+                <label class="label-title">Tu plan de pago estimado es:</label>
+                <div class="sufi-info">
+                  <div class="col">
+                    <div class="title-plan">
+                      <div>
+                        <p>Plan tradicional</p>
+                        <div class="tooltip">
+                          <span class="toolTipText">
+                            Paga cuotas fijas <br> mensuales <br> siempre.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <table>
+                        <tr>
+                            <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
+                            <td class="text-right">{{calcularCuotasPrimerPlan() | currency:"$"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Seguro de vida </td>
+                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td class="text-right">
+                              <strong>{{calcularCuotasPrimerPlan() + calcularSeguro() | currency:"$"}}</strong>
+                            </td>
+                        </tr>
+                      </table>
+                  </div>
+                  <div class="col">
+                    <div class="title-plan">
+                      <div>
+                        <p>Plan cuotas extra</p>
+                        <div class="tooltip">
+                          <span class="toolTipText">
+                            Paga cuotas fijas <br> mensuales <br> siempre.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <table>
+                        <tr>
+                          <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
+                          <td class="text-right">
+
+                                {{calcularCuotasSegundoPlan() | currency:"$"}}
+
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>Seguro de vida </td>
+                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td class="text-right">
+                              <strong>$2,078</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cuotas semestrales de </td>
+                            <td class="text-right">{{calcularCuotasExtraSegundoPlan() | currency:"$"}}</td>
+                        </tr>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="btn-container">
+              <div class="terms">
+                  <p>Estos valores están aproximados y sujetos a términos y condiciones</p>
+                </div>
+            <div class="btn-item">
+              <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
+                Quiero una simulación detallada
+              </button>
+            </div>
+
+          </div>
+
         </div>
         <div class="info-section">
           <div>

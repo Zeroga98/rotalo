@@ -31,11 +31,32 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ReportPublicationComponent } from '../report-publication/report-publication.component';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
+import { CountUp } from 'countup.js';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
   if (email.value == this.currentEmail) {
     return { emailError: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMax(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue > 5000000000) {
+    return { priceValueMax: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMin(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue < 10000000) {
+    return { priceValueMin: true };
   }
   return null;
 }
@@ -88,8 +109,10 @@ export class DetailProductComponent implements OnInit {
   public showSticker = false;
   public stickerUrl = '';
   public showSufiButton = false;
-
-
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public simulateForm: FormGroup;
+  public interesNominal = 0.0105;
+  public porcentajeSimulacion = 20;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -98,6 +121,8 @@ export class DetailProductComponent implements OnInit {
       this.showInputShare = true;
     }
   }
+
+
 
   constructor(
     private productsService: ProductsService,
@@ -129,6 +154,7 @@ export class DetailProductComponent implements OnInit {
       this.currentEmail = currentUser.email;
       this.countryId =  currentUser.countryId;
     }
+
     this.initShareForm();
     this.initQuantityForm();
     this.loadProduct();
@@ -164,34 +190,6 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
- /* shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params,  this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalle'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -244,14 +242,59 @@ export class DetailProductComponent implements OnInit {
     ]);
   }
 
+  setFormSufi() {
+    let creditValue = 0;
+    if (this.products.porcentajeSimulacion) {
+      this.porcentajeSimulacion = this.products.porcentajeSimulacion;
+    }
+    if (this.products && this.products.price && this.porcentajeSimulacion) {
+      creditValue = (this.products.price) * (this.porcentajeSimulacion) / 100;
+    }
+    this.simulateForm = this.fb.group(
+      {
+        'credit-value': [
+          creditValue,
+          [
+            Validators.required,
+            priceVehicleValidatorMax,
+            priceVehicleValidatorMin
+          ]
+        ],
+        'term-months': [12, Validators.required]
+      }
+    );
+  }
+
+  validateMonths() {
+    if (this.products && this.products['vehicle']) {
+      const currentYear = new Date().getFullYear();
+      const modelo = this.products['model'];
+      const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if ( this.products['vehicle'].line.brand) {
+        nameBrandMoto = this.products['vehicle'].line.brand.name;
+      }
+      if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
+        this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+      }
+    }
+  }
+
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-        if(this.products.vehicle)
-        {
+        if (this.products.interesNominal) {
+          this.interesNominal = this.products.interesNominal / 100;
+        }
+        if (this.products.porcentajeSimulacion) {
+          this.porcentajeSimulacion = this.products.porcentajeSimulacion / 100;
+        }
+        if (this.products.vehicle) {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
+        this.setFormSufi();
+        this.validateMonths();
         if (this.products.campaignInformation) {
           this.codeCampaign = this.products.campaignInformation.code;
           this.showSticker = this.products.campaignInformation.showSticker;
@@ -294,6 +337,71 @@ export class DetailProductComponent implements OnInit {
     (error) => {
       console.log(error);
     });
+  }
+
+  calcularCuotasPrimerPlan() {
+    let va = 0;
+    let n = 0;
+    const i = this.interesNominal;
+
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value &&
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
+
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value
+    ? n =  this.simulateForm.get('term-months').value : n = 0;
+
+    return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
+  }
+
+  calcularSeguro() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value &&
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+    return ((va * 0.12) / 100);
+  }
+
+  calcularCuotasExtraSegundoPlan() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value &&
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    const i = this.interesNominal;
+    return (va * (Math.pow(( 1 + i ), n)) * i ) / ( (Math.pow(( 1 + i ), n)) - 1 ) * 2;
+  }
+
+  calcularCuotasSegundoPlan() {
+    let ve = 0;
+    ve = this.calcularCuotasExtraSegundoPlan();
+    const i = this.interesNominal;
+    const i1 = Math.pow((1 + i), 6) - 1;
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+    this.simulateForm.get('credit-value').value &&
+    this.products.price &&
+    this.products.price > this.simulateForm.get('credit-value').value
+    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+    const n1 = n / 6;
+    const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
+    const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
+    return pago;
   }
 
   productIsSold(product) {
