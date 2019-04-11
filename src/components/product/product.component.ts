@@ -133,14 +133,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
     dialogConfig.autoFocus = false;
-    const action = {
-      option: 'delete',
+    const option = {
+      action: 'delete',
       productId: this.product['product_id']
     }
-    dialogConfig.data = action;
+    dialogConfig.data = option;
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result == 'si_delete') {
+      if (result && result == 'delete_done') {
         this.updateProducts.emit(true);
         this.router.navigate([
           `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
@@ -149,30 +149,68 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     });
   }
 
-
   openModalInactiveProduct(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '300px';
-    dialogConfig.maxWidth = '900px';
-    dialogConfig.width = '55%';
-    dialogConfig.autoFocus = false;
-    const action = {
-      option: 'update',
-      productId: this.product['product_id']
+    let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+
+    if(estado=='inactive')
+    {
+      this.saveCheck()
     }
-    dialogConfig.data = action;
-    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.rsp && result.rsp == 'si_update') {
-        this.productStatus = !this.productStatus;
-        this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
-        this.product['product_published_at'] = result.publishAt;
-        this.product['product_publish_until'] = result.publishUntil;
-        this.changeDetectorRef.markForCheck();
+    else
+    {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = '300px';
+      dialogConfig.maxWidth = '900px';
+      dialogConfig.width = '55%';
+      dialogConfig.autoFocus = false;
+      const option = {
+        action: 'update',
+        productId: this.product['product_id'],
+        estado: this.productStatus ? (this.productChecked = 'inactive') : (this.productChecked = 'active')
       }
-    });
+      dialogConfig.data = option;
+      const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.action && result.action == 'update_done') {
+          this.productStatus = !this.productStatus;
+          this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+          this.product['product_published_at'] = result.publishAt;
+          this.product['product_publish_until'] = result.publishUntil;
+          this.changeDetectorRef.markForCheck();
+        }
+      });
+    }
   }
+
+  saveCheck() {
+    let productId;
+    if (this.product.id) {
+      productId = this.product.id;
+    } else if (this.product['product_id']) {
+      productId = this.product['product_id'];
+    }
+    this.productStatus = !this.productStatus;
+    this.productStatus
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
+    const params = {
+      estado: this.productStatus ? 'active' : 'inactive'
+    };
+    this.changeDetectorRef.markForCheck();
+    this.productsService
+      .updateProductStatus(productId, params)
+      .then(response => {
+        if (response.status == '0') {
+          this.product['product_published_at'] = response.body.producto['published-at'];
+          this.product['product_publish_until'] =
+            response.body.producto['publish-until'];
+          this.changeDetectorRef.markForCheck();
+        }
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
 
   getLocation(product): string {
     return `${product['product_city_name']},  ${product['product_state_name']}`;

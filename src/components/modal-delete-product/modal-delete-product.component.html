@@ -15,7 +15,7 @@
   <form [formGroup]="deleteProductForm" class="form-theme">
       <div class="material-design">
         <div class="md-radio">
-          <input (change) ="changeRadioButton()" value="vendido" checked=true formControlName="option" id="used1" type="radio" name="option">
+          <input (change) ="changeRadioButton()" value="vendido" formControlName="option" id="used1" type="radio" name="option">
           <label for="used1">Ya vendí mi producto</label>
         </div>
         <div class="md-radio">
@@ -27,7 +27,7 @@
           <label for="used3">Otro</label>
         </div>
         <div *ngIf="deleteProductForm.get('option').value == 'otro'" class="form-group">
-          <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos ¿Qué pasó?" name="comentario" maxlength="500"></textarea>
+          <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos ¿Qué pasó?" name="comentario" maxlength="200"></textarea>
           <span class="error-msg">Este campo es requerido</span>
         </div>
       </div>

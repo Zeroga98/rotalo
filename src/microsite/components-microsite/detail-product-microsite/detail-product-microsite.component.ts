@@ -316,7 +316,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       estado: this.productStatus ? 'active' : 'inactive'
     };
     this.productsService
-      .updateProductStatus(this.idUser, this.products.id, params)
+      .updateProductStatus(this.products.id, params)
       .then(response => { });
   }
 

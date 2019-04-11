@@ -21,15 +21,8 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    /*const modal = this;
-
-    if (!this.id) {
-      console.error('modal must have an id');
-      return;
-    }*/
-
     this.deleteProductForm = this.fb.group({
-      option: [true, [Validators.required]],
+      option: ['vendido', [Validators.required]],
       comentario: ['']
     });
   }
@@ -53,15 +46,15 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
         'comentario': this.deleteProductForm.get('comentario').value,
       };
 
-      if (this.params.option == 'delete') {
-        this.params = 'si_delete';
+      if (this.params.action == 'delete') {
+        this.params = 'delete_done';
         this.productsService.deleteProduct(params).subscribe((response) => {
           this.showSuccess = true;
           this.gapush(
             'send',
             'event',
             'Productos',
-            'ClicEliminaInactiva',
+            'ClicEliminarProducto',
             'EnvioExitoso'
           );
         },
@@ -69,24 +62,40 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
             console.log(error);
           });
       } else {
-        const valores = {
+        let respuesta = {
           publishAt: '',
           publishUntil: '',
-          rsp: 'si_update'
+          action: 'update_done'
         }
-        /* this.productsService
+        const params = {
+          'estado': this.params.estado,
+          'razon': razon,
+          'comentario': this.deleteProductForm.get('comentario').value,
+        };
+        this.productsService
          .updateProductStatus(this.params.productId, params)
          .then(response => {
            if (response.status == '0') {
-              this.params = 'si_update';
-              valores = {
-                   publishAt: response.body.producto['published-at'],
+              this.params = 'update_done';
+              respuesta = {
+                  publishAt: response.body.producto['published-at'],
                   publishUntil:  response.body.producto['publish-until'],
-                  rsp: 'si_update'
+                  action: 'update_done'
               }
-              this.params = valores;
+              this.params = respuesta;
+              this.showSuccess = true;
+              this.gapush(
+                'send',
+                'event',
+                'Productos',
+                'ClicInactivarProducto',
+                'EnvioExitoso'
+              );
            }
-         });*/
+         },
+         (error) => {
+           console.log(error);
+         });
       }
     } else {
       this.validateAllFormFields(this.deleteProductForm);

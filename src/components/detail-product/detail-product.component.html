@@ -723,7 +723,7 @@
 
           <div class="btn-two-container" *ngIf="products && validateSession() && !isSold()">
             <div class="btn-item">
-              <button class="botons" (click)="openModalDeleteProduct('eliminar')">
+              <button class="botons" (click)="openModalDeleteProduct()">
                 <span class="icon icon-trash"></span>Eliminar
               </button>
             </div>
@@ -734,20 +734,18 @@
             </div>
           </div>
           <div *ngIf="validateSession()" class="total-stock quantity-on-stock">
-            ({{totalStock}} disponibles)
+            <span *ngIf="totalStock==1">({{totalStock}} disponible)</span>
+            <span *ngIf="totalStock>1">({{totalStock}} disponibles)</span>
           </div>
-          <div class="form-theme btn-item full-item">
-            <div class="media" *ngIf="validateSession() && !isSold()">
+          <div class="form-theme media rotando" *ngIf="validateSession() && !isSold()">
               <div class="form-group media-left media-middle">
-                <div>
-                  <input class="switch-input" id="id-name--1" type="checkbox" [checked]="productStatus"
-                    (change)="openModalDeleteProduct('inactivar')">
-                  <label for="id-name--1" class="switch-label {{productChecked}}">Tu aviso está {{ productStatus ? 'activo'
-                        :
-                        'inactivo' }}</label>
-                </div>
+                <input [checked]="productStatus" (change)="openModalInactiveProduct()"  type="checkbox"  name="switch" class="switch-input">
+                <label class="switch-label" (click)="openModalInactiveProduct()"></label>
               </div>
-            </div>
+              <div class="media-body">
+                <p class="{{productChecked}}">Tu aviso está {{ productStatus ? 'activo' :
+                  'inactivo' }}</p>
+              </div>
           </div>
         </div>
         <div class="info-section">

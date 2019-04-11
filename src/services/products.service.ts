@@ -234,9 +234,9 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  updateProductStatus(idUser, id: number | string, params): Promise<any> {
+  updateProductStatus(id: number | string, params): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userId: idUser });
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders);
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${id}/estados`;
     return this.http

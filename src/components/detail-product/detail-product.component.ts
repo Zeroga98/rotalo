@@ -301,7 +301,7 @@ export class DetailProductComponent implements OnInit {
       estado: this.productStatus ? 'active' : 'inactive'
     };
     this.productsService
-      .updateProductStatus(this.idUser, this.products.id, params)
+      .updateProductStatus(this.products.id, params)
       .then(response => {});
   }
 
@@ -611,19 +611,57 @@ export class DetailProductComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  openModalDeleteProduct(id: string): void {
+  openModalDeleteProduct(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
-
     dialogConfig.autoFocus = false;
-    dialogConfig.data = this.products.id;
+    const option = {
+      action: 'delete',
+      productId: this.products.id
+    }
+    dialogConfig.data = option;
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-
+      if (result && result == 'delete_done') {
+        location.reload();
+        this.router.navigate([`/${ROUTES.HOME}`]);
+      }
     });
+  }
+
+  openModalInactiveProduct(): void {
+    let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+
+    if(estado=='inactive')
+    {
+      this.saveCheck()
+    }
+    else
+    {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = '300px';
+      dialogConfig.maxWidth = '900px';
+      dialogConfig.width = '55%';
+      dialogConfig.autoFocus = false;
+      const option = {
+        action: 'update',
+        productId: this.products.id,
+        estado: this.productStatus ? (this.productChecked = 'inactive') : (this.productChecked = 'active')
+      }
+      dialogConfig.data = option;
+      const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.action && result.action == 'update_done') {
+          this.productStatus = !this.productStatus;
+          this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+          this.changeDetectorRef.markForCheck();
+        }
+      });
+    }
   }
 
   openDialog(): void {
