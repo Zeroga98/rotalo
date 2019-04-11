@@ -33,7 +33,7 @@ export class ConfigurationService {
 
   /*Produccion*/
 /*
-api = {
+  api = {
     protocol: 'https',
     server: 'pdn.gateway.rotalo.com.co/gateway/v1',
     inactivityLimit: 86400 // seconds
@@ -44,8 +44,8 @@ api = {
     server: 'pdn.gateway.rotalo.com.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-
 */
+
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
