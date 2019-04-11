@@ -105,7 +105,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
-      .updateProductStatus(this.idUser, this.product.id, params)
+      .updateProductStatus(this.product.id, params)
       .then(response => {
         if (response.status == '0') {
           this.product['published-at'] = response.body.producto['published-at'];

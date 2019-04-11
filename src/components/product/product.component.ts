@@ -21,6 +21,9 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { NavigationService } from '../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'product',
@@ -61,6 +64,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
 
   constructor(
+    public dialog: MatDialog,
     private render: Renderer2,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -100,7 +104,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (this.totalProducts != 5) {
       const numbers: Array<any> = [];
       for (let i = 0; i < this.totalProducts; i++) {
-        numbers.push( i + 1 );
+        numbers.push(i + 1);
       }
       this.numbersOrder = numbers;
     }
@@ -122,6 +126,63 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     return false;
   }
 
+  openModalDeleteProduct(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.autoFocus = false;
+    const option = {
+      action: 'delete',
+      productId: this.product['product_id']
+    }
+    dialogConfig.data = option;
+    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result == 'delete_done') {
+        this.updateProducts.emit(true);
+        this.router.navigate([
+          `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
+        ]);
+      }
+    });
+  }
+
+  openModalInactiveProduct(): void {
+    let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+
+    if(estado=='inactive')
+    {
+      this.saveCheck()
+    }
+    else
+    {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = '300px';
+      dialogConfig.maxWidth = '900px';
+      dialogConfig.width = '55%';
+      dialogConfig.autoFocus = false;
+      const option = {
+        action: 'update',
+        productId: this.product['product_id'],
+        estado: this.productStatus ? (this.productChecked = 'inactive') : (this.productChecked = 'active')
+      }
+      dialogConfig.data = option;
+      const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.action && result.action == 'update_done') {
+          this.productStatus = !this.productStatus;
+          this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+          this.product['product_published_at'] = result.publishAt;
+          this.product['product_publish_until'] = result.publishUntil;
+          this.changeDetectorRef.markForCheck();
+        }
+      });
+    }
+  }
+
   saveCheck() {
     let productId;
     if (this.product.id) {
@@ -138,7 +199,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
-      .updateProductStatus(this.idUser, productId, params)
+      .updateProductStatus(productId, params)
       .then(response => {
         if (response.status == '0') {
           this.product['product_published_at'] = response.body.producto['published-at'];
@@ -150,13 +211,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       });
   }
 
+
   getLocation(product): string {
     return `${product['product_city_name']},  ${product['product_state_name']}`;
   }
 
   selectProduct(event) {
     if (event.ctrlKey) {
-      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
+      const url = `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
       window.open(url, '_blank');
     } else {
       this.selected.emit(this.product);
@@ -191,7 +253,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async removeMarkProduct(product: ProductInterface) {
@@ -207,7 +269,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   editProduct(product: ProductInterface) {

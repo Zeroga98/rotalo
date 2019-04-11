@@ -21,6 +21,8 @@ import { CurrentSessionService } from '../../services/current-session.service';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { NavigationService } from '../../pages/products/navigation.service';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
+import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'product-rotalo-center',
@@ -54,6 +56,7 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
   public courrentDate = new Date();
 
   constructor(
+    public dialog: MatDialog,
     private render: Renderer2,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -95,6 +98,19 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
     return false;
   }
 
+  openModalDeleteProduct(id: string): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.product.id;
+    const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
   saveCheck() {
     this.productStatus = !this.productStatus;
@@ -106,7 +122,7 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
-      .updateProductStatus(this.idUser, this.product.id, params)
+      .updateProductStatus(this.product.id, params)
       .then(response => {
         if (response.status == '0') {
           this.product['published-at'] = response.body.producto['published-at'];

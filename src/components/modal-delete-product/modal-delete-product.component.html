@@ -1,0 +1,52 @@
+<div class="close-container">
+  <div id="close" class="button-close-modal" (click)="close()">
+   <div class="icon-close">
+   </div>
+  </div>
+</div>
+<div  *ngIf="!showSuccess"  class="modal-container">
+  <div class="icon-question">
+  </div>
+  <div class="description">
+    <p>
+      Cuéntanos por qué quieres eliminar o desactivar esta publicación
+    </p>
+  </div>
+  <form [formGroup]="deleteProductForm" class="form-theme">
+      <div class="material-design">
+        <div class="md-radio">
+          <input (change) ="changeRadioButton()" value="vendido" formControlName="option" id="used1" type="radio" name="option">
+          <label for="used1">Ya vendí mi producto</label>
+        </div>
+        <div class="md-radio">
+          <input (change) ="changeRadioButton()" value="proceso" formControlName="option" id="used2" type="radio" name="option">
+          <label for="used2">Hay alguien en proceso de compra</label>
+        </div>
+        <div class="md-radio">
+          <input (change) ="changeRadioButton()" value="otro" formControlName="option" id="used3" type="radio" name="option">
+          <label for="used3">Otro</label>
+        </div>
+        <div *ngIf="deleteProductForm.get('option').value == 'otro'" class="form-group">
+          <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos ¿Qué pasó?" name="comentario" maxlength="200"></textarea>
+          <span class="error-msg">Este campo es requerido</span>
+        </div>
+      </div>
+  </form>
+  <div class="btn-container">
+    <button (click)='save()' mat-stroked-button>Enviar</button>
+  </div>
+</div>
+
+
+<div *ngIf="showSuccess"  class="modal-container">
+    <div class="icon-success">
+    </div>
+    <div class="description">
+      <p>
+        ¡Gracias por contribuir a una comunidad en confianza!
+      </p>
+    </div>
+    <div class="btn-container">
+      <button (click)='close()' mat-stroked-button>Volver</button>
+    </div>
+</div>

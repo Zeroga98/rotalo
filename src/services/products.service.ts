@@ -181,16 +181,17 @@ export class ProductsService {
       });
   }
 
-  deleteProduct(id: number | string): Promise<any> {
+  deleteProduct(params)/*: Promise<any> */{
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/productos/${id}`;
-    return this.http
-      .delete(url, { headers: headers })
-      .toPromise()
+    const url = `${this.urlSapi}/productos/eliminar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+    /*return this.http
+      .put(url, { headers: headers, params: params })
+      .pipe()
       .then((response: any) => {
         this.userService.updateInfoUser();
-      });
+      });*/
   }
 
 
@@ -233,9 +234,9 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  updateProductStatus(idUser, id: number | string, params): Promise<any> {
+  updateProductStatus(id: number | string, params): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { userId: idUser });
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders);
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/${id}/estados`;
     return this.http
