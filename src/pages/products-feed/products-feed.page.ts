@@ -90,6 +90,10 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public showBannerToShop;
+  public productsBancolombia: Array<ProductInterface> = [];
+  public currentUser;
+  public showBancolombiaProducts = false;
+
 
   constructor(
     private productsService: ProductsService,
@@ -113,6 +117,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.carouselConfig = CAROUSEL_CONFIG;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     this.loadBanners();
+    this.loadBancolombiaProduct();
   }
 
    ngOnInit() {
@@ -130,6 +135,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.categorySubscription();
     this.subCategorySubscription();
     this.searchSubscription();
+    this.loadInfoUser();
   }
 
   ngOnDestroy(): void {
@@ -170,6 +176,39 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       }
     });
+  }
+
+
+  async loadInfoUser() {
+    try {
+      this.currentUser = await this.userService.getInfoUser();
+      this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Pragma' ?
+      this.showBancolombiaProducts = true : this.showBancolombiaProducts = false;
+    } catch (error) {
+      if (error.status === 404) {
+        console.log(error);
+      }
+    }
+  }
+
+  loadBancolombiaProduct() {
+    if (!this.productsService.getBancolombiaProducts()) {
+      this.productsService.bancolombiaProduct().subscribe(
+        (response) => {
+          if (response.body) {
+          this.productsBancolombia = response.body.productos;
+          this.productsService.setBancolombiaProducts(this.productsBancolombia);
+          this.changeDetectorRef.markForCheck();
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.productsBancolombia = this.productsService.getBancolombiaProducts();
+      this.changeDetectorRef.markForCheck();
+    }
   }
 
 
@@ -268,7 +307,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.products.length <= 0) {
       this.showAnyProductsMessage = true;
-    }else {
+    } else {
       this.showAnyProductsMessage = false;
     }
     this.changeDetectorRef.markForCheck();
@@ -308,7 +347,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       if (this.currentFilter['product_subcategory_id'] || this.currentFilter['product_category_id']) {
         delete this.currentFilter['product_name'];
-      }else {
+      } else {
         this.currentFilter = {
           'product_country_id': 1,
           'size': 24,
@@ -504,26 +543,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
 
   public openModalCupon (imageUrl, id: string) {
-   /* if (this.isExclusiveOffer(imageUrl)) {
-      const currentUser = this.currentSession.currentUser();
-      if (currentUser) {
-        const emailObject = {
-          'convenio': 2,
-          'correo' : currentUser.email
-        };
-        this.getCoupon (emailObject, id);
-      }
-    }*/
   }
 
   public redirectPromo (imageUrl) {
-    /* if (this.isExclusiveOffer(imageUrl)) {
-      this.router.navigate([
-        `${ROUTES.PRODUCTS.LINK}/${
-          ROUTES.PRODUCTS.SIMULATECREDIT
-        }`
-      ]);
-    } */
   }
 
   public getCoupon (email, id: string) {

@@ -67,7 +67,6 @@ export class UserService {
   }*/
 
   private getUser(): Promise<any> {
-    
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     this.idUser = this.currentSessionService.getIdUser();

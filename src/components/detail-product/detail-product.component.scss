@@ -2,6 +2,12 @@
 @import "../../styles/settings/_variables.scss";
 
 :host() {
+  display: block;
+  height: 100%;
+  position: relative;
+  padding-bottom: 84px;
+  min-height: 80.5vh;
+
   custom-spinner {
     position: absolute;
     left: 50%;
@@ -500,11 +506,52 @@
 
   .product {
     .description {
-      margin-top: 2rem;
+      margin: 2rem 0;
       font-size: 1.6rem;
       word-wrap: break-word;
+
+        h1 {
+          margin: 0;
+        }
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .share {
+        .share-button {
+          .ic_arrow_share {
+            display: inline-block;
+            margin-bottom: 4px;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            background-size: 16px 16px;
+            background-image: url(../../assets/img/iconos/ic_arrow_share.svg);
+          }
+
+          color: #7C7C7C;
+          font-size: 1.6rem;
+        }
+
+        .share-button:hover {
+          .ic_arrow_share {
+            margin-bottom: 4px;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            background-size: 16px 16px;
+            background-image: url(../../assets/img/iconos/ic_arrow_share_hover.svg);
+          }
+
+          color: #272727;
+        }
+      }
     }
   }
+
+
 
   .share-container {
 
@@ -695,7 +742,6 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-
         .icon-custom--mail {
           color: white;
           font-size: 1.4rem;
@@ -990,6 +1036,17 @@ input:checked+.switch-slider:before {
     background-image: url(../../assets/img/iconos/ic_bancolombia.png);
   }
 
+  .bancolombia-buy {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+
+    p {
+      font-size: 1.6rem;
+      color: #383838;
+    }
+  }
+
   .btns-container .btn-item.credit-leasing {
     width: 50%;
   }
@@ -1148,7 +1205,6 @@ input:checked+.switch-slider:before {
 
   }
 }
-
 :host {
   .sufi-container {
     border-radius: 5px;
@@ -1262,8 +1318,8 @@ input:checked+.switch-slider:before {
     .col .title-plan{
       text-align: center;
       background-color: #F8F8F8;
-      padding-bottom: 5px; 
-    } 
+      padding-bottom: 5px;
+    }
 
     .col .title-plan p {
       color: #272727;
@@ -1391,7 +1447,7 @@ input:checked+.switch-slider:before {
     .terms,  .sufi-container .btn-item {
       text-align: center;
     }
-    
+
     .terms{
       order: 2;
     }
@@ -1489,6 +1545,7 @@ input:checked+.switch-slider:before {
 
     .tabla-container h1 {
       font-size: 1.6rem;
+      line-height: 32px;
     }
 
     .product .product-info .card-product {
@@ -1642,6 +1699,15 @@ input:checked+.switch-slider:before {
       padding-top: 20px;
     }
   }
+
+  :host {
+    .bancolombia-buy {
+      p {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
 }
 
 @media screen and (max-width: 450px) {
@@ -1669,4 +1735,58 @@ input:checked+.switch-slider:before {
 
 
 
+}
+
+.ic_share_email {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_share_email.svg);
+}
+
+.ic_share_whatsapp {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_share_whatsapp.svg);
+}
+
+.ic_rotalo {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../assets/img/iconos/ic_header_rotalo.svg);
+}
+
+.ic_arrow_contact {
+  position: absolute;
+  right: 20px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  background-size: 10px 10px;
+  background-image: url(../../assets/img/iconos/ic_arrow_contact.svg);
+}
+
+.botons[aria-expanded="true"] {
+  .ic_arrow_contact {
+    transform: rotate(180deg);
+  }
+}
+
+.align-ico {
+  margin-right: 5px;
+  margin-bottom: 3px;
+  vertical-align: middle;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0;
 }

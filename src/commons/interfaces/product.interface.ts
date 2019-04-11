@@ -24,4 +24,5 @@ export interface ProductInterface {
     lastPage?: boolean;
     category: string | number;
     city?: any;
+    contactSeller?: boolean;
 }

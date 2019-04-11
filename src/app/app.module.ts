@@ -179,7 +179,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
-import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule } from '@angular/material';
+import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule, MatButtonToggleModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
@@ -196,6 +196,7 @@ import { TermsCompaniesComponent } from '../components/terms-companies/terms-com
 import { FeedBackMicrositeComponent } from '../microsite/components-microsite/feedBack-microsite/feedBackMicrosite.component';
 import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
+import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
 
 @NgModule({
   declarations: [
@@ -316,7 +317,8 @@ import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.d
     TermsCompaniesComponent,
     FeedBackMicrositeComponent,
     TermsDialogComponent,
-    CustomScrollDirective
+    CustomScrollDirective,
+    CarouselProductComponent
   ],
   imports: [
     BrowserModule,
@@ -342,6 +344,8 @@ import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.d
     MatDialogModule,
     SortablejsModule,
     MatMenuModule,
+    MatButtonToggleModule
+
   ],
   providers: [
     UserService,

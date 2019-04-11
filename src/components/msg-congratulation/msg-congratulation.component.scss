@@ -1,37 +1,91 @@
 @import "../../styles/settings/_colors.scss";
 @import "../../styles/settings/_variables.scss";
-:host{
-    .container-msg{
-        text-align: center;
-        font-size: 1.4rem;
-        width: 27rem;
-        padding: 0 1rem;
-        margin: 0 auto;
-        .image{
-            width: 100%;
-            img{
-                width: 100%;
-            }
-        }
-        .title{
-            color: #4A4A4A;
-            font-weight: bold;
-            span{
-                display: block;
-            }
-        }
-        .text{
-            color: #9B9B9B;
-            font-weight: 400;
-        }
-        .link, .link:visited{
-            color: $red;
-            font-weight: bold;
-            color: $red;
-        }
-        & > div {
-            margin-bottom: 2rem;
-        }
+
+:host {
+  .container-msg {
+    text-align: center;
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+
+    .image {
+      width: 100%;
+      margin: 0 auto;
+
+      img {
+        width: 100%;
+        max-width: 200px;
+        min-width: 125px;
+      }
     }
 
+    .title {
+      color: #272727;
+      font-weight: bold;
+
+      span {
+        font-size: 2.0rem;
+        display: block;
+      }
+    }
+
+    .text {
+      color: #B0B0B0;
+      font-size: 1.8rem;
+    }
+
+    .link,
+    .link:visited {
+      color: $red;
+      font-weight: bold;
+      color: $red;
+    }
+
+    &>div {
+      margin-bottom: 2rem;
+    }
+  }
+
+}
+
+.mat-fab.mat-primary,
+.mat-flat-button.mat-primary,
+.mat-mini-fab.mat-primary,
+.mat-raised-button.mat-primary {
+  background-color: #fff;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #FF3646;
+  border: 1px solid #FF3646;
+  border-radius: 25px;
+  min-height: 44px;
+
+  &:hover {
+    color: white;
+    background-color: #FF3646;
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    .container-msg {
+      .image {
+        img {
+          max-width: 125px;
+        }
+      }
+
+      .title {
+        span {
+          font-size: 1.6rem;
+        }
+      }
+
+      .text {
+        font-size: 1.4rem;
+      }
+    }
+  }
 }

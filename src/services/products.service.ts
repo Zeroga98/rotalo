@@ -20,6 +20,7 @@ export class ProductsService {
   private urlDetailProduct;
   private totalProducts = 0;
   private featuredProducts;
+  private bancolombiaProducts;
   private counterProductChecked = 0;
   private paramsProductChecked  = {'data': []};
 
@@ -345,6 +346,14 @@ export class ProductsService {
     }
   }
 
+  bancolombiaProduct() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+      `${this.urlSapi}/productos/destacados/botones-pago`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
   featuredProduct(countryId, communityId) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -353,8 +362,16 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  setBancolombiaProducts(bancolombiaProducts) {
+    this.bancolombiaProducts = bancolombiaProducts;
+  }
+
   setFeatureProducts(featuredProducts) {
     this.featuredProducts = featuredProducts;
+  }
+
+  getBancolombiaProducts() {
+    return this.bancolombiaProducts;
   }
 
   getFeatureProducts() {
