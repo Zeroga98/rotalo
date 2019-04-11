@@ -1,0 +1,33 @@
+:host {
+  background: #FAFAFA;
+  .filter-container {
+    display: block;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 100px;
+  }
+
+  .main {
+    flex: 1 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 48px;
+    display: flex;
+    height: auto;
+    aside {
+      width: 22%;
+      min-width: 264px;
+      background: #FFFFFF;
+      border: 1px solid #EDEDED;
+      border-radius: 5px;
+      padding: 20px;
+    }
+    section {
+      width: 78%;
+      padding: 0px 20px;
+    }
+  }
+
+
+}

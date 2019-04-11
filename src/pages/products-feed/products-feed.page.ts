@@ -44,6 +44,7 @@ import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 import { SettingsService } from '../../services/settings.service';
+import { debug } from 'util';
 
 
 @Component({

@@ -49,6 +49,7 @@ import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-e
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
+import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 
 export const appRouter: Routes = [
   {
@@ -121,6 +122,10 @@ export const appRouter: Routes = [
       {
         path: ROUTES.PRODUCTS.UPLOAD,
         component: ProductsUploadPage,
+      },
+      {
+        path: ROUTES.PRODUCTS.FILTERS,
+        component: FilterProductsComponent,
       },
       {
         path: `${ROUTES.PRODUCTS.UPLOAD}/:id`,
