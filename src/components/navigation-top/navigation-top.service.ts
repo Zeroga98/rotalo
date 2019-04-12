@@ -21,10 +21,14 @@ export class NavigationTopService {
 
   constructor() { }
   private autoCompleteOptions: Array<string> = [];
+  private category;
 
-  resetFilter() {
-    this.eventSourceCategory = new BehaviorSubject<any>(null);
-    this.eventSourceSubCategory = new BehaviorSubject<any>(null);
+  setCategory(category) {
+    this.category = category;
+  }
+
+  getCategory() {
+    return this.category;
   }
 
   getAutoCompleteOptions(): Array<string> {

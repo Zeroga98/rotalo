@@ -44,7 +44,6 @@ export class CategoriesMenuComponent implements OnInit {
   selectCategory(category: any) {
     if (category.productsActives != 0) {
       this.clickCloseMenu();
-      this.navigationTopService.changeCategory(null);
       this.navigationTopService.changeCategory(category);
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`

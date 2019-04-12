@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 
 @Component({
@@ -6,24 +6,34 @@ import { NavigationTopService } from '../../components/navigation-top/navigation
   templateUrl: './filter-products.component.html',
   styleUrls: ['./filter-products.component.scss']
 })
-export class FilterProductsComponent implements OnInit, OnDestroy {
+export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit {
   public category;
   constructor(private navigationTopService: NavigationTopService) { }
+
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
     this.categorySubscription();
   }
 
   ngOnDestroy() {
-    this.navigationTopService.resetFilter();
+    this.navigationTopService.setCategory(undefined);
   }
 
   categorySubscription() {
     this.navigationTopService.currentEventCategory.subscribe(event => {
       if (event) {
-        console.log(event);
-       // this.selectedCategory(event);
+        if(!this.navigationTopService.getCategory()
+        || this.navigationTopService.getCategory()
+        && this.navigationTopService.getCategory() != event) {
+          this.navigationTopService.setCategory(event);
+          this.category = event;
+
+        }
       }
-    })
+    });
   }
 
 }
