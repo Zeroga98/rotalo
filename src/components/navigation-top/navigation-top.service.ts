@@ -22,6 +22,11 @@ export class NavigationTopService {
   constructor() { }
   private autoCompleteOptions: Array<string> = [];
 
+  resetFilter() {
+    this.eventSourceCategory = new BehaviorSubject<any>(null);
+    this.eventSourceSubCategory = new BehaviorSubject<any>(null);
+  }
+
   getAutoCompleteOptions(): Array<string> {
     return this.autoCompleteOptions;
   }
@@ -40,6 +45,7 @@ export class NavigationTopService {
   }
 
   changeCategory(event) {
+  //  this.eventSourceCategory = new BehaviorSubject<any>(null);
     this.eventSourceCategory.next(event);
   }
 

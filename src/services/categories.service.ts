@@ -21,6 +21,7 @@ export class CategoriesService {
         return this.categories;
     }
 
+
     getCategoriesActive () {
       return this.categoriesActive;
     }

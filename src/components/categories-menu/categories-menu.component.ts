@@ -1,12 +1,15 @@
-import { CategoriesService } from "./../../services/categories.service";
-import { SubcategoryInterface } from "./../../commons/interfaces/subcategory.interface";
-import { CategoryInterface } from "./../../commons/interfaces/category.interface";
-import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { CategoriesService } from './../../services/categories.service';
+import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from './../../commons/interfaces/category.interface';
+import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { ROUTES } from './../../router/routes';
+import { NavigationTopService } from '../navigation-top/navigation-top.service';
 
 @Component({
-  selector: "categories-menu",
-  templateUrl: "./categories-menu.component.html",
-  styleUrls: ["./categories-menu.component.scss"],
+  selector: 'categories-menu',
+  templateUrl: './categories-menu.component.html',
+  styleUrls: ['./categories-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesMenuComponent implements OnInit {
@@ -17,6 +20,8 @@ export class CategoriesMenuComponent implements OnInit {
   categories: any;
 
   constructor(
+    private router: Router,
+    private navigationTopService:NavigationTopService,
     private categoriesService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -38,14 +43,23 @@ export class CategoriesMenuComponent implements OnInit {
 
   selectCategory(category: any) {
     if (category.productsActives != 0) {
-      this.categorySelected.emit(category);
+      this.clickCloseMenu();
+      this.navigationTopService.changeCategory(null);
+      this.navigationTopService.changeCategory(category);
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ]);
     }
   }
 
   selectSubCategory(subCategory: any, category: any) {
     if (subCategory.productsActives != 0) {
       subCategory.category = category;
-      this.subCategorySelected.emit(subCategory);
+      this.clickCloseMenu();
+      this.navigationTopService.changeSubCategory(subCategory);
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ]);
     }
   }
 
