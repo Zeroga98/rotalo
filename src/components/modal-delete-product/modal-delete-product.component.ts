@@ -34,9 +34,6 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
     this.showSuccess = false;
     if (!this.deleteProductForm.invalid) {
       let razon = 'Ya vendí mi producto';
-      if (this.deleteProductForm.get('option').value == 'proceso') {
-        razon = 'Hay alguien en proceso de compra';
-      }
       if (this.deleteProductForm.get('option').value == 'otro') {
         razon = 'Otro';
       }
