@@ -41,9 +41,10 @@ export class CategoriesMenuComponent implements OnInit {
     this.clickCloseMenu();
   }
 
-  selectCategory(category: any) {
-    if (category.productsActives != 0) {
+  selectCategory(category: any, subCategory: any) {
+    if (category.productsActives != 0 || subCategory && subCategory.productsActives != 0) {
       this.clickCloseMenu();
+      category.subCategory = subCategory;
       this.navigationTopService.changeCategory(category);
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
@@ -51,7 +52,7 @@ export class CategoriesMenuComponent implements OnInit {
     }
   }
 
-  selectSubCategory(subCategory: any, category: any) {
+  selectSubCategory(subCategory: any, category: any ) {
     if (subCategory.productsActives != 0) {
       subCategory.category = category;
       this.clickCloseMenu();

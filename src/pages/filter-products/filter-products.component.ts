@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 
 @Component({
@@ -11,11 +11,11 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(private navigationTopService: NavigationTopService) { }
 
   ngOnInit() {
-
+    this.categorySubscription();
   }
 
   ngAfterViewInit() {
-    this.categorySubscription();
+
   }
 
   ngOnDestroy() {
@@ -25,12 +25,12 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   categorySubscription() {
     this.navigationTopService.currentEventCategory.subscribe(event => {
       if (event) {
-        if(!this.navigationTopService.getCategory()
+        this.category = event;
+        console.log(this.category);
+        if (!this.navigationTopService.getCategory()
         || this.navigationTopService.getCategory()
         && this.navigationTopService.getCategory() != event) {
           this.navigationTopService.setCategory(event);
-          this.category = event;
-
         }
       }
     });

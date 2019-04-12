@@ -1,7 +1,10 @@
 <div class="filter-container">
   <div class="main">
     <aside>
-      a
+      <div class="title-filter">
+        <p class="category" *ngIf="category">{{category.name}}</p>
+        <p class="subcategory" *ngIf="category && category.subCategory">{{category.subCategory.name}}</p>
+      </div>
     </aside>
     <section>
       b
