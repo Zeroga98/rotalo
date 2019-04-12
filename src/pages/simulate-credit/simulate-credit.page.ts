@@ -153,8 +153,8 @@ export class SimulateCreditPage implements OnInit {
             priceVehicleValidatorMin
           ]
         ],
-        'initial-quota': ['0', [Validators.required, initialFeeValidator]],
-        'term-months': [12, Validators.required]
+        'initial-quota': [this.simulateCreditService.initialQuota != null ? this.simulateCreditService.initialQuota : '0', [Validators.required, initialFeeValidator]],
+        'term-months': [this.simulateCreditService.months != null ? Number(this.simulateCreditService.months) : 12, Validators.required]
       },
       { validator: feeValidator }
     );

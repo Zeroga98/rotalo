@@ -32,6 +32,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ReportPublicationComponent } from '../report-publication/report-publication.component';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
+import { SimulateCreditService } from '../../services/simulate-credit.service';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -138,6 +139,7 @@ export class DetailProductComponent implements OnInit {
     private navigationService: NavigationService,
     public dialog: MatDialog,
     private modalService: ModalShareProductService,
+    private simulateCreditService: SimulateCreditService
   ) {
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
@@ -601,6 +603,8 @@ export class DetailProductComponent implements OnInit {
     const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
     }/${id}`;
+    this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
+    this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
     this.router.navigate([urlSimulateCredit]);
   }
 
