@@ -9,6 +9,7 @@ import { ROUTES } from '../../router/routes';
 import { ProductInterface } from '../../commons/interfaces/product.interface';
 import { FilterService } from './filter.service';
 import { UtilsService } from '../../util/utils.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'filter-products',
@@ -24,6 +25,9 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public products;
   private currentFilter: Object;
   private currentPage: number = 1;
+  public  showPagination = false;
+  public pageNumber: number = 1;
+  public totalPages: number = 100;
   constructor(private navigationTopService: NavigationTopService,
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
@@ -32,7 +36,8 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     private currentSession: CurrentSessionService,
     private router: Router,
     private utilService: UtilsService,
-    private filterService: FilterService) {
+    private filterService: FilterService,
+    private productsService: ProductsService) {
       this.currentFilter = this.filterService.getCurrentFilter();
     }
 
@@ -56,6 +61,7 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit() {
+    this.showPagination = true;
   }
 
   ngOnDestroy() {
@@ -131,6 +137,16 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
     this.filterService.setCurrentFilter(this.currentFilter);
     return this.currentFilter;
+  }
+
+  getPage(page: number) {
+    this.pageNumber = page;
+    this.routineUpdateProducts(
+      { 'number': page },
+      page
+    );
+    this.productsService.scroll = 0;
+    window.scrollTo(0, 0);
   }
 
 }
