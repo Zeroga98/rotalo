@@ -787,16 +787,16 @@
                     <table>
                         <tr>
                             <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                            <td class="text-right">{{calcularCuotasPrimerPlan() | currency:"$"}}</td>
+                            <td class="text-right" [countUp]="calcularCuotasPrimerPlan()" [options]="optionsCountSimulate"></td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
-                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
+                            <td class="text-right" [countUp]="calcularSeguro()" [options]="optionsCountSimulate"></td>
                         </tr>
                         <tr>
                             <td>Total</td>
                             <td class="text-right">
-                              <strong>{{calcularCuotasPrimerPlan() + calcularSeguro() | currency:"$"}}</strong>
+                              <strong [countUp]="calcularCuotasPrimerPlan() + calcularSeguro()" [options]="optionsCountSimulate"></strong>
                             </td>
                         </tr>
                       </table>
@@ -815,25 +815,21 @@
                     <table>
                         <tr>
                           <td *ngIf="simulateForm && simulateForm.get('term-months').value">{{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                          <td class="text-right">
-
-                                {{calcularCuotasSegundoPlan() | currency:"$"}}
-
-                          </td>
+                          <td class="text-right" [countUp]="calcularCuotasSegundoPlan()" [options]="optionsCountSimulate"></td>
                         </tr>
                         <tr>
                             <td>Seguro de vida </td>
-                            <td class="text-right">{{calcularSeguro() | currency:"$"}}</td>
+                            <td class="text-right"[countUp]="calcularSeguro()" [options]="options"></td>
                         </tr>
                         <tr>
                             <td>Total</td>
                             <td class="text-right">
-                                <strong>{{calcularSeguro() + calcularCuotasSegundoPlan() | currency:"$"}}</strong>
+                                <strong [countUp]="calcularSeguro() + calcularCuotasSegundoPlan()" [options]="optionsCountSimulate"></strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Cuotas semestrales de </td>
-                            <td class="text-right">{{calcularCuotasExtraSegundoPlan() | currency:"$"}}</td>
+                            <td class="text-right" [countUp]="calcularCuotasExtraSegundoPlan()" [options]="optionsCountSimulate"><td>
                         </tr>
                       </table>
                   </div>

@@ -33,8 +33,9 @@ import { ReportPublicationComponent } from '../report-publication/report-publica
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
 import { SimulateCreditService } from '../../services/simulate-credit.service';
+import { CountUp, CountUpOptions } from 'countup.js';
 
-function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
+function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
   if (email.value == this.currentEmail) {
     return { emailError: true };
@@ -93,7 +94,7 @@ export class DetailProductComponent implements OnInit {
   @Input() idProduct: number;
   @Input() readOnly: boolean = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
-  public  showButtons = false;
+  public showButtons = false;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
   public firstName = '';
   public screenHeight;
@@ -115,6 +116,15 @@ export class DetailProductComponent implements OnInit {
   public simulateForm: FormGroup;
   public interesNominal = 0.0105;
   public porcentajeSimulacion = 20;
+
+  public optionsCountSimulate: CountUpOptions = {
+    decimalPlaces: 2,
+    duration: 1,
+    useEasing: false,
+    prefix: '$'
+  };
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -123,6 +133,7 @@ export class DetailProductComponent implements OnInit {
       this.showInputShare = true;
     }
   }
+  
 
 
 
@@ -155,7 +166,7 @@ export class DetailProductComponent implements OnInit {
     const currentUser = this.currentSessionSevice.currentUser();
     if (currentUser) {
       this.currentEmail = currentUser.email;
-      this.countryId =  currentUser.countryId;
+      this.countryId = currentUser.countryId;
     }
 
     this.initShareForm();
@@ -167,7 +178,7 @@ export class DetailProductComponent implements OnInit {
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
       {
-        email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
+        email: ['', [Validators.required, isEmailOwner.bind(this), Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
       }
     );
   }
@@ -175,7 +186,7 @@ export class DetailProductComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [1 , [Validators.required, Validators.min(1), Validators.max(1)]]
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(1)]]
       }
     );
   }
@@ -186,7 +197,7 @@ export class DetailProductComponent implements OnInit {
         this.visitsNumber = response.body.visitas;
         this.changeDetectorRef.markForCheck();
       }
-    }, (error) => {console.log(error); });
+    }, (error) => { console.log(error); });
   }
 
   clickArrow() {
@@ -222,7 +233,7 @@ export class DetailProductComponent implements OnInit {
       if (!this.products.user.company.name) {
         company = undefined;
       } else {
-       company = '';
+        company = '';
       }
     }
     const newUser = {
@@ -274,7 +285,7 @@ export class DetailProductComponent implements OnInit {
       const modelo = this.products['model'];
       const differenceYear = currentYear - modelo;
       let nameBrandMoto;
-      if ( this.products['vehicle'].line.brand) {
+      if (this.products['vehicle'].line.brand) {
         nameBrandMoto = this.products['vehicle'].line.brand.name;
       }
       if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
@@ -307,7 +318,7 @@ export class DetailProductComponent implements OnInit {
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
-        } else  {
+        } else {
           this.totalStock = 1;
         }
         const price = this.quantityForm.get('stock');
@@ -337,10 +348,10 @@ export class DetailProductComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         }
       }
-    } ,
-    (error) => {
-      console.log(error);
-    });
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
   calcularCuotasPrimerPlan() {
@@ -349,15 +360,15 @@ export class DetailProductComponent implements OnInit {
     const i = this.interesNominal;
 
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
-    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+      this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
 
 
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value
-    ? n =  this.simulateForm.get('term-months').value : n = 0;
+      this.simulateForm.get('term-months').value
+      ? n = this.simulateForm.get('term-months').value : n = 0;
 
     return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
   }
@@ -365,26 +376,26 @@ export class DetailProductComponent implements OnInit {
   calcularSeguro() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
-    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+      this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
     return ((va * 0.12) / 100);
   }
 
   calcularCuotasExtraSegundoPlan() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
-    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+      this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
 
     let n = 0;
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+      this.simulateForm.get('term-months').value ? n = this.simulateForm.get('term-months').value : n = 0;
     const i = this.interesNominal;
-    return (va * (Math.pow(( 1 + i ), n)) * i ) / ( (Math.pow(( 1 + i ), n)) - 1 ) * 2;
+    return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1) * 2;
   }
 
   calcularCuotasSegundoPlan() {
@@ -394,14 +405,14 @@ export class DetailProductComponent implements OnInit {
     const i1 = Math.pow((1 + i), 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
-    ? va = this.products.price - this.simulateForm.get('credit-value').value  : va = 0;
+      this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
 
     let n = 0;
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value ? n =  this.simulateForm.get('term-months').value : n = 0;
+      this.simulateForm.get('term-months').value ? n = this.simulateForm.get('term-months').value : n = 0;
     const n1 = n / 6;
     const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
     const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
@@ -431,14 +442,14 @@ export class DetailProductComponent implements OnInit {
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-    ? (this.productChecked = 'active')
-    : (this.productChecked = 'inactive');
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
     const params = {
       estado: this.productStatus ? 'active' : 'inactive'
     };
     this.productsService
       .updateProductStatus(this.products.id, params)
-      .then(response => {});
+      .then(response => { });
   }
 
   changeStatusBuy() {
@@ -453,7 +464,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   checkSufiBotton() {
-    if ( this.products  && this.products['model']) {
+    if (this.products && this.products['model']) {
       const priceVehicle = this.products.price;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
@@ -468,8 +479,8 @@ export class DetailProductComponent implements OnInit {
 
       if ((this.products.subcategory.name === 'Carros' && differenceYear <= 10 && type === 'Particular' && countryId === 1 &&
         priceVehicle >= this.minVehicleValue && priceVehicle <= this.maxVehicleValue && this.showSufiButton)
-        || (this.products.subcategory.name === 'Motos' && differenceYear <= 5  && countryId === 1 &&
-        priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW' && this.showSufiButton)
+        || (this.products.subcategory.name === 'Motos' && differenceYear <= 5 && countryId === 1 &&
+          priceVehicle >= this.minVehicleValue && nameBrandMoto == 'BMW' && this.showSufiButton)
       ) {
         return true;
       }
@@ -497,7 +508,7 @@ export class DetailProductComponent implements OnInit {
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
-        new Date(new Date().toDateString()) ||
+      new Date(new Date().toDateString()) ||
       this.products.status === 'expired'
     );
   }
@@ -525,7 +536,7 @@ export class DetailProductComponent implements OnInit {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   editProduct(product: ProductInterface) {
@@ -553,7 +564,7 @@ export class DetailProductComponent implements OnInit {
       this.buyService.setQuantityProduct(quantityProduct);
       const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.BUY
-      }/${id}`;
+        }/${id}`;
       this.router.navigate([urlBuyProduct]);
     }
   }
@@ -561,7 +572,7 @@ export class DetailProductComponent implements OnInit {
   creditProduct(id: number | string) {
     const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.FINANCEBAM
-    }/${id}`;
+      }/${id}`;
     this.router.navigate([urlBuyProduct]);
   }
 
@@ -569,12 +580,12 @@ export class DetailProductComponent implements OnInit {
     this.buyService.rentProduct(id).subscribe((response) => {
       const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.BUY
-      }/${id}`;
+        }/${id}`;
       this.router.navigate([urlBuyProduct]);
     }
-    , (error) => {
-      console.log(error);
-    });
+      , (error) => {
+        console.log(error);
+      });
   }
 
   async showBuyModal() {
@@ -602,7 +613,7 @@ export class DetailProductComponent implements OnInit {
   openSimulateCreditSufi(id: number | string) {
     const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
-    }/${id}`;
+      }/${id}`;
     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
     this.router.navigate([urlSimulateCredit]);
@@ -622,7 +633,7 @@ export class DetailProductComponent implements OnInit {
       type: product['sell-type'],
       currency: product.currency
     };
-}
+  }
 
   validateMobile() {
     if (this.screenWidth <= 750) {
@@ -633,23 +644,23 @@ export class DetailProductComponent implements OnInit {
   }
 
   motoHasCharacteristics() {
-   if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
-    if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
-      return true;
+    if (this.products.vehicle && this.products.vehicle.vehicleType == 'MOTO') {
+      if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes) {
+        return true;
+      }
     }
-   }
-   return false;
+    return false;
   }
 
   autoHasCharacteristics() {
     if (this.products.vehicle && this.products.vehicle.vehicleType == 'AUTO') {
-     if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
-     this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
-       return true;
-     }
+      if (this.products.vehicle['uniqueOwner'] || this.products.vehicle.absBrakes ||
+        this.products.vehicle.airbag || this.products.vehicle.airConditioner || this.products.vehicle.typeOfSeat) {
+        return true;
+      }
     }
     return false;
-   }
+  }
 
 
   get showOptionsVehicles() {
@@ -662,7 +673,7 @@ export class DetailProductComponent implements OnInit {
       return true;
     }
   }
-  get showOptionEstate () {
+  get showOptionEstate() {
     if (this.products) {
       if (this.products.subcategory.category.id == 7) {
         return false;
@@ -673,11 +684,11 @@ export class DetailProductComponent implements OnInit {
 
 
   addStock() {
-    if (this.showOptionsVehicles &&  this.showOptionEstate) {
+    if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value < this.totalStock) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = ++stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
       }
     }
   }
@@ -685,9 +696,9 @@ export class DetailProductComponent implements OnInit {
   minusStock() {
     if (this.showOptionsVehicles && this.showOptionEstate) {
       if (this.quantityForm.get('stock').value > 1) {
-        let stock =  this.quantityForm.get('stock').value;
+        let stock = this.quantityForm.get('stock').value;
         stock = --stock;
-        this.quantityForm.patchValue({stock: stock});
+        this.quantityForm.patchValue({ stock: stock });
       }
     }
   }
@@ -718,14 +729,14 @@ export class DetailProductComponent implements OnInit {
     return this.quantityForm.invalid;
   }
 
-  get isCategoryImmovables () {
+  get isCategoryImmovables() {
     if (this.products && this.products.subcategory && this.products.subcategory.category.name == 'Inmuebles') {
       return true;
     }
     return false;
   }
 
-  goToHipotecario () {
+  goToHipotecario() {
     this.sufiRegister();
     window.open(
       'https://www.grupobancolombia.com/wps/portal/personas/necesidades/casa/proyectos-de-vivienda-nueva-financiados/credito-adquisicion-leasing-habitacional'
@@ -738,10 +749,10 @@ export class DetailProductComponent implements OnInit {
       'fuente': 'hipotecario'
     }
     this.productsService.sufiRegistro(params).subscribe((response) => {
-    } ,
-    (error) => {
-      console.log(error);
-    })
+    },
+      (error) => {
+        console.log(error);
+      })
   }
 
   hideAnimation() {
@@ -773,7 +784,7 @@ export class DetailProductComponent implements OnInit {
   openModalInactiveProduct(): void {
     let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
 
-    if(estado == 'inactive') {
+    if (estado == 'inactive') {
       this.saveCheck()
     } else {
       const dialogConfig = new MatDialogConfig();
@@ -832,8 +843,8 @@ export class DetailProductComponent implements OnInit {
     const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
     ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
     window.open(
-    url,
-    '_blank');
+      url,
+      '_blank');
   }
 
   sendMessageWhatsappUser() {
@@ -841,13 +852,12 @@ export class DetailProductComponent implements OnInit {
     let phoneNumber = this.products.user.cellphone;
     if (window.location.href.includes('gt')) {
       phoneNumber = '502' + phoneNumber;
-    } else  {
+    } else {
       phoneNumber = '57' + phoneNumber;
     }
     const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=¡Hola!👋vi%20tu%20publicación%20"${productName}"%20en%20Rótalo%20y%20me%20gustaría%20que%20me%20dieras%20más%20información.`;
     window.open(
-    url,
-    '_blank');
+      url,
+      '_blank');
   }
-
 }

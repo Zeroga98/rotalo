@@ -1,3 +1,4 @@
+import { CountUpModule } from 'countup.js-angular2';
 import { TokenInterceptor } from './../commons/interceptors/token.interceptor';
 import { appRouter } from './../router/router';
 import { ROUTES } from './../router/routes';
@@ -199,6 +200,7 @@ import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.d
 import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
 import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -346,8 +348,8 @@ import { ModalDeleteProductComponent } from '../components/modal-delete-product/
     MatDialogModule,
     SortablejsModule,
     MatMenuModule,
-    MatButtonToggleModule
-
+    MatButtonToggleModule,
+    CountUpModule
   ],
   providers: [
     UserService,
