@@ -1,13 +1,65 @@
 <div class="filter-container">
   <div class="main">
-    <aside>
+    <aside class="accordion">
       <div class="title-filter">
         <p class="category" *ngIf="category">{{category.name}}</p>
         <p class="subcategory" *ngIf="category && category.subCategory">{{category.subCategory.name}}</p>
       </div>
+      <div class="ac-container">
+        <div class="option">
+          <input id="ac-1" name="accordion-1" type="checkbox" />
+          <label for="ac-1">Comunidades<div class="icon"></div></label>
+          <article class="ac-small">
+              <div class="material-design">
+                  <div>
+                    <div class="md-radio">
+                      <input value="true" id="used1" type="radio" name="used">
+                      <label for="used1">Nuevo</label>
+                    </div>
+                    <div class="md-radio">
+                      <input value="false" id="used2" type="radio" name="used">
+                      <label for="used2">Usado</label>
+                    </div>
+                  </div>
+                </div>
+          </article>
+        </div>
+
+
+        <div class="option">
+            <input id="ac-2" name="accordion-1" type="checkbox" />
+            <label for="ac-2">Comunidades<div class="icon"></div></label>
+            <article class="ac-small">
+                <div class="material-design">
+                    <div>
+                      <div class="md-radio">
+                        <input value="true" id="used1" type="radio" name="used">
+                        <label for="used1">Nuevo</label>
+                      </div>
+                      <div class="md-radio">
+                        <input value="false" id="used2" type="radio" name="used">
+                        <label for="used2">Usado</label>
+                      </div>
+                    </div>
+                  </div>
+            </article>
+          </div>
+      </div>
     </aside>
     <section>
-      b
+        <div class="container-masonry">
+            <div class="list">
+              <div class="masonry">
+                <div class="grid-item">
+                  <product #productsEnd *ngFor="let product of products"
+                    class="product-feed" [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
+                    [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
+                    [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'" id="{{product.product_id}}">
+                  </product>
+                </div>
+              </div>
+            </div>
+          </div>
     </section>
   </div>
 </div>

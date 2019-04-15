@@ -21,7 +21,7 @@ export class CategoriesMenuComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private navigationTopService:NavigationTopService,
+    private navigationTopService: NavigationTopService,
     private categoriesService: CategoriesService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -46,9 +46,15 @@ export class CategoriesMenuComponent implements OnInit {
       this.clickCloseMenu();
       category.subCategory = subCategory;
       this.navigationTopService.changeCategory(category);
-      this.router.navigate([
-        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-      ]);
+      if (category.subCategory && category.subCategory.id) {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], {queryParams: {product_category_id : category.id, product_subcategory_id: category.subCategory.id}});
+      } else  {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], {queryParams: {product_category_id : category.id}});
+      }
     }
   }
 

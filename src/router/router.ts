@@ -124,7 +124,7 @@ export const appRouter: Routes = [
         component: ProductsUploadPage,
       },
       {
-        path: ROUTES.PRODUCTS.FILTERS,
+        path: `${ROUTES.PRODUCTS.FILTERS}` ,
         component: FilterProductsComponent,
       },
       {
