@@ -197,6 +197,7 @@ import { FeedBackMicrositeComponent } from '../microsite/components-microsite/fe
 import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.component';
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
+import { FilterService } from '../pages/filter-products/filter.service';
 
 @NgModule({
   declarations: [
@@ -388,6 +389,7 @@ import { FilterProductsComponent } from '../pages/filter-products/filter-product
     ModalVideoService,
     ModalPromoProductService,
     NavigationTopService,
+    FilterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
