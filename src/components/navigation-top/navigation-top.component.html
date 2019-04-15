@@ -8,7 +8,7 @@
           <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
           <h1 class="sr-only">rótalo</h1>
         </a>
-        <div *ngIf="showOptions" class="search-container desktop">
+        <div class="search-container desktop">
           <form (ngSubmit)="onSubmitSearch()">
             <input [(ngModel)]="tags" class="form-control" type="text" name="search">
             <button class="button-search" type="submit">

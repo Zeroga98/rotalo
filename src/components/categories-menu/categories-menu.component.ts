@@ -42,7 +42,7 @@ export class CategoriesMenuComponent implements OnInit {
   }
 
   selectCategory(category: any, subCategory: any) {
-    if (category.productsActives != 0 || subCategory && subCategory.productsActives != 0) {
+    if (category.productsActives != 0 || subCategory && subCategory.productsActives &&  subCategory.productsActives != 0) {
       this.clickCloseMenu();
       category.subCategory = subCategory;
       this.navigationTopService.changeCategory(category);

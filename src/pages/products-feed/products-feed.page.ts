@@ -307,7 +307,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       if (this.currentFilter['product_subcategory_id'] || this.currentFilter['product_category_id']) {
         delete this.currentFilter['product_name'];
-      }else {
+      } else {
         this.currentFilter = {
           'product_country_id': 1,
           'size': 24,
@@ -460,29 +460,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-
-  public openModalCupon (imageUrl, id: string) {
-   /* if (this.isExclusiveOffer(imageUrl)) {
-      const currentUser = this.currentSession.currentUser();
-      if (currentUser) {
-        const emailObject = {
-          'convenio': 2,
-          'correo' : currentUser.email
-        };
-        this.getCoupon (emailObject, id);
-      }
-    }*/
-  }
-
-  public redirectPromo (imageUrl) {
-    /* if (this.isExclusiveOffer(imageUrl)) {
-      this.router.navigate([
-        `${ROUTES.PRODUCTS.LINK}/${
-          ROUTES.PRODUCTS.SIMULATECREDIT
-        }`
-      ]);
-    } */
-  }
 
   public getCoupon (email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {

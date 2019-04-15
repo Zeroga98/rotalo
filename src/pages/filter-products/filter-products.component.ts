@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../../services/categories.service';
 import { NavigationService } from '../products/navigation.service';
 import { CurrentSessionService } from '../../services/current-session.service';
-import { noob } from './constanteMouk';
 import { ROUTES } from '../../router/routes';
 import { ProductInterface } from '../../commons/interfaces/product.interface';
 import { FilterService } from './filter.service';
@@ -28,6 +27,13 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public  showPagination = false;
   public pageNumber: number = 1;
   public totalPages: number = 100;
+  public communitiesFilter;
+  public sellTypesFilter;
+  public stateFilter;
+  public cityFilter;
+  public maxPrice;
+  public minPrice;
+
   constructor(private navigationTopService: NavigationTopService,
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
@@ -46,16 +52,14 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     .queryParams
     .subscribe(params => {
       this.params = params;
+      console.log(this.params);
       let countryId;
       if (this.navigationService.getCurrentCountryId()) {
         countryId = this.navigationService.getCurrentCountryId();
       } else {
         countryId = this.currentSession.currentUser()['countryId'];
       }
-      console.log(noob);
-      this.products = noob.body.productos;
-      this.filter = noob.body.filtros;
-      console.log(this.filter);
+      this.loadProductsFilter(countryId);
       this.categorySubscription();
     });
   }
@@ -69,14 +73,51 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   loadProductsFilter(countryId) {
-    this.currentFilter = Object.assign({}, this.currentFilter, {
+    this.currentFilter = {
       'product_country_id' : countryId,
       'size': 24,
       'number': 1
-    });
+    };
+    this.currentFilter = Object.assign({}, this.currentFilter, this.params);
     this.filterService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
-    // this.loadProducts(params);
+    this.loadProducts(params);
+  }
+
+  async loadProducts(params: Object = {}) {
+    try {
+      if (this.productsService.products.length > 0) {
+        this.products = this.productsService.products;
+        this.currentPage = this.productsService.currentPage;
+        this.pageNumber = this.currentPage;
+        this.changeDetectorRef.markForCheck();
+      } else {
+
+        let responseFilter: any;
+        responseFilter = await this.productsService.loadProductsFilter(params);
+        this.products = responseFilter.productos;
+        this.filter = responseFilter.filtros;
+        if (this.filter.filtroComunidad && this.filter.filtroComunidad.comunidades) {
+          this.communitiesFilter  = this.filter.filtroComunidad;
+        }
+        if (this.filter.filtroTipoVenta && this.filter.filtroTipoVenta.tiposVentas) { this.sellTypesFilter =  this.filter.filtroTipoVenta; }
+        if (this.filter.filtroDepartamento && this.filter.filtroDepartamento.departamentos)
+        {this.stateFilter = this.filter.filtroDepartamento; }
+        if (this.filter.filtroCiudad && this.filter.filtroCiudad.ciudades) {this.cityFilter = this.filter.filtroCiudad; }
+       // this.updateProducts(products);
+      }
+      this.totalPages = this.productsService.getTotalProductsFilters();
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.changeDetectorRef.markForCheck();
+    }
+
+    if (this.products && this.products.length <= 0) {
+     // this.showAnyProductsMessage = true;
+    } else {
+     // this.showAnyProductsMessage = false;
+    }
+    this.changeDetectorRef.markForCheck();
   }
 
   getParamsToProducts() {
@@ -124,7 +165,7 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   private routineUpdateProducts(filter: Object = {}, numberPage = 1) {
     filter = Object.assign({}, filter, this.getPageFilter(numberPage));
     const newFilter = this.updateCurrentFilter(filter);
-   // this.loadProducts(newFilter);
+    this.loadProducts(newFilter);
   }
 
   private getPageFilter(numberPage = 1) {
@@ -139,7 +180,7 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     return this.currentFilter;
   }
 
-  getPage(page: number) {
+  public  getPage(page: number) {
     this.pageNumber = page;
     this.routineUpdateProducts(
       { 'number': page },
@@ -147,6 +188,41 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     );
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
+  }
+
+
+
+  public filteByCommunity(community: string) {
+    this.routineUpdateProducts({ 'seller_community_id': community , 'number': 1});
+  }
+
+  public filteBySellType(sellType: string) {
+    this.routineUpdateProducts({ 'product_sell_type': sellType.toUpperCase() , 'number': 1});
+  }
+
+  public filterByState(state: string) {
+    this.routineUpdateProducts({ 'product_state_id': state , 'number': 1});
+  }
+
+  public filterByCity(city: string) {
+    this.routineUpdateProducts({ 'product_city_id': city , 'number': 1});
+  }
+
+  public filterByMinMax() {
+    if (this.maxPrice && this.minPrice) {
+      if (+this.maxPrice < +this.minPrice) {
+        const auxPrice = this.maxPrice;
+        this.maxPrice = this.minPrice;
+        this.minPrice = auxPrice;
+      }
+      this.routineUpdateProducts({ 'product_price': `${this.minPrice}-${this.maxPrice}`, 'number': 1 });
+    } else {
+      if (this.maxPrice) {
+        this.routineUpdateProducts({ 'product_price': `<=${this.maxPrice}`, 'number': 1 });
+      } else if (this.minPrice) {
+        this.routineUpdateProducts({ 'product_price': `>=${this.minPrice}` , 'number': 1});
+      }
+    }
   }
 
 }
