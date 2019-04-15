@@ -225,4 +225,25 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
+ /* public searchSubscription() {
+    this.navigationTopService.currentEventSearch.subscribe(event => {
+     if (event != null || event!= undefined) {
+        this.searchByTags(event);
+     }
+    });
+  }
+
+  public searchByTags(evt) {
+    if (evt) {
+      const filterValue = evt;
+      this.routineUpdateProducts({
+        'product_name':  filterValue
+      });
+    }
+  }
+*/
+
+
+
+
 }

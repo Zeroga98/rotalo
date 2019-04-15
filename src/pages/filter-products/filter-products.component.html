@@ -5,7 +5,7 @@
       <div class="filters">
         <div class="title-filter">
           <p class="category" *ngIf="category">{{category.name}}</p>
-          <p class="subcategory bold" *ngIf="category && category.subCategory">{{category.subCategory.name}}</p>
+          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> - {{category.subCategory.name}}</p>
         </div>
         <div *ngIf="filter" class="ac-container">
           <div class="option">

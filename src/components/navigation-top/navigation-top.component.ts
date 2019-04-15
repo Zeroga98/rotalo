@@ -331,6 +331,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       'ClickBusqueda',
       this.tags
     );
+
     this.navigationTopService.changeSearch(this.tags);
   }
 
