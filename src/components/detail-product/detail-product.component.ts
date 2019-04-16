@@ -351,6 +351,11 @@ export class DetailProductComponent implements OnInit {
     },
       (error) => {
         console.log(error);
+        if(error.error){
+          if(error.error.status == '629' || error.status == '500'){
+            this.redirectErrorPage()
+          }
+        }
       });
   }
 
