@@ -1,5 +1,5 @@
 :host {
-  background: #FAFAFA;
+  background: #fafafa;
   display: block;
 
   .filter-container {
@@ -21,16 +21,16 @@
     aside {
       width: 22%;
       min-width: 264px;
-      .filters{
-        background: #FFFFFF;
-        border: 1px solid #EDEDED;
+      .filters {
+        background: #ffffff;
+        border: 1px solid #ededed;
         border-radius: 5px;
         position: relative;
         min-height: 400px;
       }
 
       .title-filter {
-        border-bottom: 1px solid #EDEDED;
+        border-bottom: 1px solid #ededed;
         font-size: 1.6rem;
         color: #383838;
         width: 100%;
@@ -44,8 +44,6 @@
       padding: 0px 20px;
     }
   }
-
-
 }
 
 :host {
@@ -80,14 +78,14 @@
     background: #fff;
   }
 
-  .ac-container input:checked+label,
-  .ac-container input:checked+label:hover {
+  .ac-container input:checked + label,
+  .ac-container input:checked + label:hover {
     .icon {
       transform: rotate(0deg);
     }
 
     .icon::before {
-      content: '';
+      content: "";
       display: block;
       width: 0px;
       height: 0px;
@@ -99,15 +97,15 @@
 
     .icon::before,
     .icon::after {
-      border-color: #FF3646;
+      border-color: #ff3646;
     }
   }
 
   .ac-container label:hover:after
 
   /* .ac-container input:checked+label:hover:after*/
-    {
-    content: '';
+ {
+    content: "";
     position: absolute;
     width: 24px;
     height: 24px;
@@ -141,7 +139,7 @@
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
   }
 
-  .ac-container input:checked~article {
+  .ac-container input:checked ~ article {
     -webkit-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
     -moz-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
     -o-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
@@ -149,15 +147,15 @@
     transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
   }
 
-  .ac-container input:checked~article.ac-small {
+  .ac-container input:checked ~ article.ac-small {
     height: auto;
   }
 
-  .ac-container input:checked~article.ac-medium {
+  .ac-container input:checked ~ article.ac-medium {
     height: 180px;
   }
 
-  .ac-container input:checked~article.ac-large {
+  .ac-container input:checked ~ article.ac-large {
     height: 230px;
   }
 
@@ -174,7 +172,7 @@
   }
 
   .icon::before {
-    content: '';
+    content: "";
     display: block;
     width: 15px;
     height: 0px;
@@ -186,7 +184,7 @@
   }
 
   .icon::after {
-    content: '';
+    content: "";
     display: block;
     width: 15px;
     height: 0px;
@@ -207,7 +205,7 @@
   }
 
   a {
-    color: #ED2F3C;
+    color: #ed2f3c;
     text-decoration: underline;
   }
 
@@ -227,10 +225,10 @@
 
   li::before {
     content: counter(li);
-    color: #FF3646;
+    color: #ff3646;
     display: inline-block;
     width: 1em;
-    margin-left: -1em
+    margin-left: -1em;
   }
 }
 
@@ -243,7 +241,7 @@
     z-index: 0;
   }
 
-  .ac-container input:checked~article.ac-small {
+  .ac-container input:checked ~ article.ac-small {
     z-index: 0;
     margin-top: 0px;
     padding: 0 20px;
@@ -254,7 +252,7 @@
     margin-bottom: 10px;
   }
 
-  .ac-container input:checked+label {
+  .ac-container input:checked + label {
     background: #fff;
   }
 
@@ -277,8 +275,8 @@
     transform: rotate(0deg);
   }
 
-  .ac-container input:checked+label .icon,
-  [_nghost-c29] .ac-container input:checked+label:hover .icon {
+  .ac-container input:checked + label .icon,
+  [_nghost-c29] .ac-container input:checked + label:hover .icon {
     transform: scale(1, -1);
   }
 
@@ -288,7 +286,6 @@
     }
   }
 }
-
 
 .material-design {
   @keyframes ripple {
@@ -317,12 +314,12 @@
     display: none;
   }
 
-  .md-radio input[type="radio"]:checked+label:before {
-    border-color: #0FBBD8;
+  .md-radio input[type="radio"]:checked + label:before {
+    border-color: #0fbbd8;
     animation: ripple 0.2s linear forwards;
   }
 
-  .md-radio input[type="radio"]:checked+label:after {
+  .md-radio input[type="radio"]:checked + label:after {
     transform: scale(1);
   }
 
@@ -332,7 +329,7 @@
     position: relative;
     padding: 0 30px;
     margin-bottom: 0;
-    color: #A2A2A2;
+    color: #a2a2a2;
     font-size: 1.4rem;
     font-weight: normal;
     cursor: pointer;
@@ -342,9 +339,9 @@
   .md-radio label:before,
   .md-radio label:after {
     position: absolute;
-    content: '';
+    content: "";
     border-radius: 50%;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     transition-property: transform, border-color;
   }
 
@@ -364,7 +361,7 @@
     width: 7px;
     height: 7px;
     transform: scale(0);
-    background: #0FBBD8;
+    background: #0fbbd8;
   }
 
   *:before,
@@ -386,9 +383,9 @@
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-      //  justify-content: space-around;
+        //  justify-content: space-around;
       }
-      product{
+      product {
         cursor: pointer;
         text-align: left;
         width: 31%;
@@ -403,8 +400,8 @@
     .mat-mini-fab {
       margin-left: 15px;
       width: 23px;
-      height:23px;
-      background-color:rgba(15, 187, 216, 0.12);
+      height: 23px;
+      background-color: rgba(15, 187, 216, 0.12);
     }
     .icon {
       transform: rotate(270deg);
@@ -412,11 +409,12 @@
     }
   }
 
-  .price , .price-row {
+  .price,
+  .price-row {
     display: flex;
   }
 
-  .price-container:first-child{
+  .price-container:first-child {
     margin-right: 5px;
   }
 
@@ -426,16 +424,16 @@
       margin-right: 10px;
       width: 100%;
       font-size: 1.4rem;
-      color: #A2A2A2;
+      color: #a2a2a2;
       background-color: #fff;
       border: none;
-      border: 1px solid #E2E2E2;
+      border: 1px solid #e2e2e2;
       border-radius: 5px;
       padding: 5px;
       box-shadow: none;
-      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
       &:focus {
-        border-color: #0FBBD8;
+        border-color: #0fbbd8;
       }
     }
   }
@@ -444,8 +442,38 @@
     font-size: 1.4rem;
     text-align: center;
   }
-
-
 }
 
+.modal-container {
+  position: relative;
+  padding: 40px 0;
 
+  .description {
+    p {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #272727;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+
+  .icon-information {
+    width: 160px;
+    height: 160px;
+    background: url(../../assets/img/ic_reportar_abuso.svg);
+    background-size: 160px 160px;
+    margin: 0 auto;
+  }
+
+  .sub-description {
+    p {
+      font-size: 1.8rem;
+      color: #808080;
+      text-align: center;
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 10px;
+    }
+  }
+}

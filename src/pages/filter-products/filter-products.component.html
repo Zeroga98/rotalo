@@ -5,7 +5,8 @@
       <div class="filters">
         <div class="title-filter">
           <p class="category" *ngIf="category">{{category.name}}</p>
-          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> - {{category.subCategory.name}}</p>
+          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
+            {{category.subCategory.name}}</p>
         </div>
         <div *ngIf="filter" class="ac-container">
           <div class="option">
@@ -54,22 +55,20 @@
             <article class="price ac-small">
               <div class="price-row">
                 <div class="price-container">
-                  <input
-                  [(ngModel)]="minPrice"
-                  placeholder="Mínimo"
-                  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                  maxlength="10" autocomplete="off" type="text">
+                  <input [(ngModel)]="minPrice" placeholder="Mínimo"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" autocomplete="off"
+                    type="text">
                 </div>
                 <div class="price-container">
-                  <input
-                  [(ngModel)]="maxPrice"
-                  placeholder="Máximo"
-                  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                  maxlength="10" autocomplete="off" type="text">
+                  <input [(ngModel)]="maxPrice" placeholder="Máximo"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" autocomplete="off"
+                    type="text">
                 </div>
               </div>
               <div>
-                <button (click) ="filterByMinMax()" mat-mini-fab><div class="icon"></div></button>
+                <button (click)="filterByMinMax()" mat-mini-fab>
+                  <div class="icon"></div>
+                </button>
               </div>
             </article>
           </div>
@@ -120,19 +119,28 @@
       <div class="container-masonry">
         <div class="list">
           <div class="masonry">
-            <div class="grid-item">
+            <div class="grid-item" *ngIf="products && products.length > 0">
               <product #productsEnd *ngFor="let product of products
                   | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
                 class="product-feed"
                 [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
-                [isProductSelling]="false" [showField]="true" [product]="product"
-                (selected)="selectProduct($event);"
+                [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event);"
                 [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'"
                 id="{{product.product_id}}">
               </product>
             </div>
+
+            <div class="modal-container" *ngIf="products && products.length === 0">
+              <div class="icon-information"></div>
+              <div class="description">
+                <p>¡Rayos! No encontramos resultados.</p>
+              </div>
+              <div class="sub-description">
+                <p>Prueba con otros filtros.</p>
+              </div>
+            </div>
           </div>
-          <pagination-controls *ngIf="showPagination" class="has-text-centered" responsive="true"
+          <pagination-controls *ngIf="showPagination && products.length > 0" class="has-text-centered" responsive="true"
             previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="getPage($event)">
           </pagination-controls>
         </div>
