@@ -53,7 +53,6 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     .queryParams
     .subscribe(params => {
       this.params = params;
-      console.log(this.params);
       if (this.navigationService.getCurrentCountryId()) {
         this.countryId = this.navigationService.getCurrentCountryId();
       } else {
