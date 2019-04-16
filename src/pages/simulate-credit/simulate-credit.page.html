@@ -42,8 +42,7 @@
                       Este campo es obligatorio.
                     </span>
                     <span *ngIf="simulateForm.errors">
-                      El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$"
-                      | removeDigits}}
+                      El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$"}}
                     </span>
                   </span>
                 </div>

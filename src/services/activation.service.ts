@@ -5,11 +5,11 @@ import { ConfigurationService } from '../services/configuration.service';
 @Injectable()
 export class ActivationService {
 
-    readonly url = this.configurationService.getBaseUrl() + '/users/activate';
+    //readonly url = this.configurationService.getBaseUrl() + '/users/activate';
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    ejecuteActivation(code: string): Promise<any> {
+    /*ejecuteActivation(code: string): Promise<any> {
         return this.httpClient.post(this.url,
                 {
                     data: {
@@ -19,7 +19,7 @@ export class ActivationService {
                         type: 'users'
                     }
                 }).toPromise().then( (response: any) => response.data);
-    }
+    }*/
 
     activateCount(activationCode): Promise<any> {
       const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();

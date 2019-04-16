@@ -124,7 +124,7 @@ export class NotificationsComponent implements OnInit {
     );
   }
 
-  async acceptOffer(notification) {
+  /*async acceptOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
       const response = await this.offerService.acceptOffer(
@@ -134,9 +134,9 @@ export class NotificationsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
-  async declineOffer(notification) {
+  /*async declineOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas rechazar la oferta?')) return;
       const response = await this.offerService.declineOffer(
@@ -146,7 +146,7 @@ export class NotificationsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   goToDetail(notification) {
     if ( notification.producto && notification.producto.idProducto) {
@@ -182,7 +182,7 @@ export class NotificationsComponent implements OnInit {
     ]);*/
   }
 
-  async regretOffer(notification) {
+  /*async regretOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
       const response = await this.offerService.regretOffer(
@@ -192,13 +192,13 @@ export class NotificationsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   productIsFree(notification) {
     return notification.producto.tipoVenta === 'GRATIS';
   }
 
-  async acceptPurchase(notification) {
+  /*async acceptPurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
       confirmMessage = '¿Estás seguro que deseas regalar tu producto?';
@@ -220,9 +220,9 @@ export class NotificationsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
-  async declinePurchase(notification) {
+  /*async declinePurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
       confirmMessage = '¿Estás seguro que no deseas regalar el producto?';
@@ -244,7 +244,7 @@ export class NotificationsComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   returnTotalPurchase(notification) {
     let amountPurchase = 0;

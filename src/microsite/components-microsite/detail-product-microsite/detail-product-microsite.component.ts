@@ -320,7 +320,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       .then(response => { });
   }
 
-  changeStatusBuy() {
+  /*changeStatusBuy() {
     const params = {
       status: 'buying'
     };
@@ -329,7 +329,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       .then(response => {
         this.productsService.products = [];
       });
-  }
+  }*/
 
   checkSufiBotton() {
     if (this.products && this.products['typeVehicle'] && this.products['model']) {
@@ -433,7 +433,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       });
   }
 
-  async showBuyModal() {
+  /*async showBuyModal() {
     try {
       this.products = await this.productsService.getProductsById(
         this.idProduct
@@ -443,7 +443,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     } catch (error) {
       console.log('Error: ', error);
     }
-  }
+  }*/
 
   showMessageModal(evt) {
     this.isModalBuyShowed = evt.isModalBuyShowed;

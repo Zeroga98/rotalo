@@ -11,12 +11,12 @@ export class NotificationsService {
 
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    async getNotifications(): Promise<NotificationsInterface[]> {
+    /*async getNotifications(): Promise<NotificationsInterface[]> {
         this.notifications = await this.getNotificationsFromServer();
         return this.notifications;
-    }
+    }*/
 
-    private getNotificationsFromServer(): Promise<any> {
+    /*private getNotificationsFromServer(): Promise<any> {
         const url: string = this.configurationService.getBaseUrl() + '/notifications';
         return this.httpClient
             .get(url).pipe(
@@ -29,7 +29,7 @@ export class NotificationsService {
                 });
             }))
             .toPromise();
-    }
+    }*/
 
     private updateStatusNotification(notification) {
         let status;

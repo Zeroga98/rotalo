@@ -13,13 +13,13 @@ export class CategoriesService {
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
 
-    async getCategories(): Promise<any> {
+    /*async getCategories(): Promise<any> {
         if (!this.categories) {
             this.categories = await this.getCategoriesFromServer();
             this.categories = this._asociateIcon(this.categories);
         }
         return this.categories;
-    }
+    }*/
 
     getCategoriesActive () {
       return this.categoriesActive;
@@ -65,14 +65,14 @@ export class CategoriesService {
       });
     }
 
-    private getCategoriesFromServer(): Promise<any> {
+    /*private getCategoriesFromServer(): Promise<any> {
 
         const url = this.configurationService.getBaseUrl() + '/categories';
         return this.httpClient
                     .get(url)
                     .pipe(map( (response: any) => response.data))
                     .toPromise();
-    }
+    }*/
 
     private _asociateIcon(categories: Array<any>): Array<any> {
         return categories.map( (category: any, index: number) => Object.assign(category, CATEGORIES_ICONS[index]));

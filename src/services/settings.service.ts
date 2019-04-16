@@ -6,14 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class SettingsService {
-  readonly url = this.configurationService.getBaseUrl() + '/settings';
+  //readonly url = this.configurationService.getBaseUrl() + '/settings';
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public idTerms;
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
-  getSettings(): Promise<any> {
+  /*getSettings(): Promise<any> {
     return this.http.get(this.url).toPromise().then( (response: any) => response.data);
-  }
+  }*/
 
   getTypeOrders() {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();

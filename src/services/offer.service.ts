@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class OfferService {
-    private readonly url = this.configurationService.getBaseUrl() + '/offers';
+    //private readonly url = this.configurationService.getBaseUrl() + '/offers';
     private readonly urlSapi = this.configurationService.getBaseSapiUrl() + '/productos/ofertas';
     constructor(private httpClient: HttpClient, private configurationService: ConfigurationService) { }
     sendOffer(params): Promise<any> {
@@ -11,7 +11,7 @@ export class OfferService {
       const headers = new HttpHeaders(headersSapi);
         return this.httpClient.post(this.urlSapi, params , { headers: headers }).toPromise();
     }
-    acceptOffer(id: number) {
+    /*acceptOffer(id: number) {
         this.sendResponseOffer(id, 'accept');
     }
     declineOffer(id: number) {
@@ -28,7 +28,7 @@ export class OfferService {
                 type: 'offers'
             }
         }).toPromise();
-    }
+    }*/
     private buildParams(params): any {
         return {
             data: {

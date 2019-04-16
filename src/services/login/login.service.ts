@@ -57,10 +57,10 @@ export class LoginService {
     ));
   }
 
-  loginUser(currentUser): Promise<any> {
+  /*loginUser(currentUser): Promise<any> {
     const url =  this.configurationService. getBaseUrl() + '/sessions';
     return this.http.post(url, currentUser).toPromise();
-  }
+  }*/
 
   loginSapiUser(currentUser): Promise<any> {
     const jsonApiSapiHeaders = this.configurationService.getJsonSapiHeaders();

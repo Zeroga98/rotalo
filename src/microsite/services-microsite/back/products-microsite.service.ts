@@ -14,7 +14,7 @@ import { ConfigurationMicrositeService } from '../configuration/configuration-mi
 
 @Injectable()
 export class ProductsMicrositeService {
-  readonly url = this.configurationService.getBaseUrl();
+  //readonly url = this.configurationService.getBaseUrl();
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public scroll: any;
   public products: Array<ProductInterface> = [];
@@ -113,13 +113,13 @@ export class ProductsMicrositeService {
       });
   }
 
-  getProductsById(id: number): Promise<any> {
+  /*getProductsById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http
       .get(url)
       .toPromise()
       .then((response: any) => response.data);
-  }
+  }*/
 
   getProductsByIdDetail(id: number) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -140,7 +140,7 @@ export class ProductsMicrositeService {
       });
   }
 
-  receiveProduct(id: number, data): Promise<any> {
+  /*receiveProduct(id: number, data): Promise<any> {
     const url = `${this.url}/deliver`;
     const params = {
       data: {
@@ -149,9 +149,9 @@ export class ProductsMicrositeService {
       }
     };
     return this.http.post(url, params).toPromise();
-  }
+  }*/
 
-  updateProduct(id: number | string, params): Promise<any> {
+  /*updateProduct(id: number | string, params): Promise<any> {
     const url = `${this.url}/${id}`;
     const request = this._buildParams(params);
     request.data.id = `${id}`;
@@ -159,7 +159,7 @@ export class ProductsMicrositeService {
       .put(url, request)
       .toPromise()
       .then((response: any) => response.data);
-  }
+  }*/
 
   updateProductForm(id: number | string, params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -179,9 +179,9 @@ export class ProductsMicrositeService {
       .then((response: any) => response);
   }
 
-  saveProducts(params): Promise<any> {
+  /*saveProducts(params): Promise<any> {
     return this.http.post(this.url, this._buildParams(params)).toPromise();
-  }
+  }*/
 
   saveProductsForm(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();

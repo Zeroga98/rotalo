@@ -223,7 +223,7 @@ export class BuyProductPage implements OnInit {
     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`]);
   }
 
-  async buyProduct() {
+  /*async buyProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       window.scrollTo(0, 0);
@@ -247,7 +247,7 @@ export class BuyProductPage implements OnInit {
         this.redirectErrorPage();
       }
     }
-  }
+  }*/
 
   buyProductCash() {
     this.errorMessage = '';

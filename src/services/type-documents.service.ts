@@ -7,7 +7,7 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class TypeDocumentsService {
-  readonly url = this.configurationService.getBaseUrl() + '/type_documents';
+  //readonly url = this.configurationService.getBaseUrl() + '/type_documents';
   private readonly urlSapi = this.configurationService.getBaseSapiUrl();
   constructor(private http: HttpClient,
     private configurationService: ConfigurationService) { }

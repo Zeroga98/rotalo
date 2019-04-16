@@ -247,7 +247,7 @@ export class ChatWindowComponent
     return notification.producto.tipoVenta === 'GRATIS';
   }
 
-  async acceptPurchase(notification) {
+  /*async acceptPurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
       confirmMessage = '¿Estás seguro que deseas regalar tu producto?';
@@ -269,9 +269,9 @@ export class ChatWindowComponent
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
-  async declinePurchase(notification) {
+  /*async declinePurchase(notification) {
     let confirmMessage;
     if (this.productIsFree(notification)) {
       confirmMessage = '¿Estás seguro que no deseas regalar el producto?';
@@ -293,7 +293,7 @@ export class ChatWindowComponent
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   private buildParamsOffer(notification): any {
     let esSubasta = false;
@@ -311,7 +311,7 @@ export class ChatWindowComponent
     };
   }
 
-  async acceptOffer(notification) {
+  /*async acceptOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas aceptar la oferta?')) return;
       const response = await this.offerService.acceptOffer(
@@ -333,7 +333,7 @@ export class ChatWindowComponent
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   private buildParamsRegretOffer(notification): any {
     return {
@@ -347,7 +347,7 @@ export class ChatWindowComponent
     };
   }
 
-  async regretOffer(notification) {
+  /*async regretOffer(notification) {
     try {
       if (!confirm('¿Estás seguro que deseas cancelar la compra?')) return;
       const response = await this.offerService.regretOffer(
@@ -357,7 +357,7 @@ export class ChatWindowComponent
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 
   buyProduct(mensaje) {
     const id = mensaje.producto.idProducto;

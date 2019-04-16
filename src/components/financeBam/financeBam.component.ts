@@ -36,11 +36,11 @@ export class FinanceBamComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
-    this.loadProduct();
+    //this.loadProduct();
     this.initPriceForm();
   }
 
-  async loadProduct() {
+  /*async loadProduct() {
     try {
       this.product = await this.productsService.getProductsById(this.idProduct);
       if (this.product.photoList) {
@@ -64,7 +64,7 @@ export class FinanceBamComponent implements OnInit {
         this.redirectErrorPage();
       }
     }
-  }
+  }*/
 
   redirectErrorPage() {
     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`]);

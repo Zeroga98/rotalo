@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 export class ConfigurationService {
   /*Staging*/
 
- api = {
+ /*api = {
     protocol: 'https',
     server: 'stgn-gateway.rotalo.com.co:1443/gateway/v1',
     inactivityLimit: 86400 // seconds
-  };
+ };*/
 
   sapi = {
     protocol: 'https',
@@ -53,12 +53,12 @@ export class ConfigurationService {
     'Content-Type': 'application/json'
   };
 
-  jsonApiHeaders = {
+  /*jsonApiHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
     Accept: 'application/vnd.api+json',
     'Content-Type': 'application/vnd.api+json'
-  };
+  };*/
 
   jsonNequiHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -69,17 +69,17 @@ export class ConfigurationService {
 
   constructor() {}
 
-  getBaseUrl(): string {
+  /*getBaseUrl(): string {
     return this.api.protocol + '://' + this.api.server;
-  }
+  }*/
 
   getBaseSapiUrl(): string {
     return this.sapi.protocol + '://' + this.sapi.server;
   }
 
-  getJsonApiHeaders() {
+  /*getJsonApiHeaders() {
     return this.jsonApiHeaders;
-  }
+  }*/
 
   getJsonSapiHeaders() {
     return this.jsonApiSapiHeaders;

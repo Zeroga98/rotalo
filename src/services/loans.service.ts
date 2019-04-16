@@ -4,13 +4,13 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class LoansService {
-  private readonly url = this.configurationService.getBaseUrl() + '/loan_requests';
+  //private readonly url = this.configurationService.getBaseUrl() + '/loan_requests';
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
-  loanWithSufi(amount: number | string): Promise<any> {
+  /*loanWithSufi(amount: number | string): Promise<any> {
     const params = this.buildParams(amount);
     return this.http.post(this.url, params).toPromise();
-  }
+  }*/
 
   private buildParams(amount: number | string) {
     return {

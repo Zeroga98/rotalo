@@ -50,7 +50,7 @@ export class ModalRateComponent implements OnInit {
 		this.title = `Califica al ${this.type}`;
 	}
 
-	async ratePurchase() {
+	/*async ratePurchase() {
 		try {
 			this.stateRequest = this.statesRequestEnum.loading;
 			const response = await this.ratingService.rate(this._rating, this._comment, this.config['purchase-id']);
@@ -63,7 +63,7 @@ export class ModalRateComponent implements OnInit {
 			this.msgRequest = error.data.messages;
 			this.changeDetectorRef.markForCheck();
     	}
-	}
+	}*/
 
 	closeModal() {
 		this.close.emit();

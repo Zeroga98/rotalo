@@ -12,7 +12,7 @@ import { ROUTES } from "../router/routes";
 
 @Injectable()
 export class ProductsService {
-  readonly url = this.configurationService.getBaseUrl() + '/products';
+  //readonly url = this.configurationService.getBaseUrl() + '/products';
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public scroll: any;
   public products: Array<ProductInterface> = [];
@@ -47,7 +47,7 @@ export class ProductsService {
     return this.urlDetailProduct;
   }
 
-  getProducts(params): Promise<any> {
+  /*getProducts(params): Promise<any> {
     return this.http
       .get(this.url, { params: params })
       .toPromise()
@@ -58,7 +58,7 @@ export class ProductsService {
         response.data.lastPage = response.links.next === undefined;
         return response.data;
       });
-  }
+  }*/
 
   loadProducts(params): Promise<any> {
     const url = this.urlSapi + '/productos/feed?';
@@ -155,13 +155,13 @@ export class ProductsService {
       });
   }
 
-  getProductsById(id: number): Promise<any> {
+  /*getProductsById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http
       .get(url)
       .toPromise()
       .then((response: any) => response.data);
-  }
+  }*/
 
   getProductsByIdDetail(id: number) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -171,7 +171,7 @@ export class ProductsService {
   }
 
 
-  deleteProductRuby(id: number | string): Promise<any> {
+  /*deleteProductRuby(id: number | string): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http
       .delete(url)
@@ -179,7 +179,7 @@ export class ProductsService {
       .then((response: any) => {
         this.userService.updateInfoUser();
       });
-  }
+  }*/
 
   deleteProduct(params)/*: Promise<any> */{
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -217,7 +217,7 @@ export class ProductsService {
     return this.http.post(url, params, { headers: headers }).toPromise();
   }
 
-  updateProduct(id: number | string, params): Promise<any> {
+  /*updateProduct(id: number | string, params): Promise<any> {
     const url = `${this.url}/${id}`;
     const request = this._buildParams(params);
     request.data.id = `${id}`;
@@ -225,7 +225,7 @@ export class ProductsService {
       .put(url, request)
       .toPromise()
       .then((response: any) => response.data);
-  }
+  }*/
 
   updateProductForm(id: number | string, params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -245,9 +245,9 @@ export class ProductsService {
       .then((response: any) => response);
   }
 
-  saveProducts(params): Promise<any> {
+  /*saveProducts(params): Promise<any> {
     return this.http.post(this.url, this._buildParams(params)).toPromise();
-  }
+  }*/
 
   saveProductsForm(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();

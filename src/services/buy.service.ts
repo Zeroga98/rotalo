@@ -7,8 +7,8 @@ import { ConfigurationService } from './configuration.service';
 
 @Injectable()
 export class BuyService {
-  private readonly url = this.configurationService.getBaseUrl() + '/purchases';
-  private readonly urlNewPurchase = this.configurationService.getBaseUrl() + '/purchases/create_and_confirm';
+  //private readonly url = this.configurationService.getBaseUrl() + '/purchases';
+  //private readonly urlNewPurchase = this.configurationService.getBaseUrl() + '/purchases/create_and_confirm';
   private readonly urlNequi = this.configurationService.getBaseSapiUrl() + '/pagos/nequi/notificaciones';
   private readonly urlSapi = this.configurationService.getBaseSapiUrl();
   private quantityProduct;
@@ -61,15 +61,15 @@ export class BuyService {
     ));
   }
 
-  confirmPurchase(id) {
+  /*confirmPurchase(id) {
     this.sendResponsePurchase(id, 'confirm');
   }
 
   declinePurchase(id) {
     this.sendResponsePurchase(id, 'decline');
-  }
+  }*/
 
-  private sendResponsePurchase(id: number, action: string) {
+  /*private sendResponsePurchase(id: number, action: string) {
     const url = `${this.url}/${id}/${action}`;
     return this.httpClient.post(url, {
         data: {
@@ -78,7 +78,7 @@ export class BuyService {
         }
       })
       .toPromise();
-  }
+  }*/
 
   private buildParams(params) {
     return {

@@ -167,7 +167,7 @@ export class SimulateCreditPage implements OnInit {
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
     this.loadProduct();
-    this.loadInterestRate();
+    //this.loadInterestRate();
     this.loadCurrentUser();
     this.sufiRegister();
   }
@@ -373,7 +373,7 @@ export class SimulateCreditPage implements OnInit {
     return this.typeDocument;
   }
 
-  loadInterestRate() {
+  /*loadInterestRate() {
     this.settingsService.getSettings().then(response => {
       const settingObject = response.find(function (setting) { return setting.name === 'tasa_interes_nominal'; });
       let interest = settingObject.value;
@@ -381,7 +381,7 @@ export class SimulateCreditPage implements OnInit {
       this.interestRate = Number(interest);
     })
     .catch(httpErrorResponse => {});
-  }
+  }*/
 
 
 }

@@ -7,23 +7,23 @@ import { ConfigurationService } from '../services/configuration.service';
 
 @Injectable()
 export class PhotosService {
-  readonly url: string = this.configurationService.getBaseUrl() + '/photos';
+  //readonly url: string = this.configurationService.getBaseUrl() + '/photos';
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
 
   constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
-  getUrlPhotos(): string {
+  /*getUrlPhotos(): string {
     return this.url;
-  }
+  }*/
 
 
-  updatePhoto(file: File) {
+  /*updatePhoto(file: File) {
    const formData: FormData = this.buildFormData(file);
     return this.http.post(this.url, formData,
       {
         headers: new HttpHeaders().delete('Content-Type')
       }).pipe(map((res: any) => res.data));
-  }
+  }*/
 
   uploadPhoto(file: File) {
   const formData: FormData = this.buildFormDataPhotos(file);
@@ -34,13 +34,13 @@ export class PhotosService {
       }).pipe(map((res: any) => res.body));
   }
 
-  deletePhotoById(id: number): Promise<any> {
+  /*deletePhotoById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http.delete(url,
       {
         params: new HttpParams().set('data[type]', 'photos')
       }).toPromise();
-  }
+  }*/
 
   deletePhoto(id: number): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();

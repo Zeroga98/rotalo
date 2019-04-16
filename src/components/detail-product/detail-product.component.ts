@@ -120,7 +120,7 @@ export class DetailProductComponent implements OnInit {
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
     duration: 1,
-    useEasing: false,
+    useEasing: true,
     prefix: '$'
   };
 
@@ -452,7 +452,7 @@ export class DetailProductComponent implements OnInit {
       .then(response => { });
   }
 
-  changeStatusBuy() {
+  /*changeStatusBuy() {
     const params = {
       status: 'buying'
     };
@@ -461,7 +461,7 @@ export class DetailProductComponent implements OnInit {
       .then(response => {
         this.productsService.products = [];
       });
-  }
+  }*/
 
   checkSufiBotton() {
     if (this.products && this.products['model']) {
@@ -588,7 +588,7 @@ export class DetailProductComponent implements OnInit {
       });
   }
 
-  async showBuyModal() {
+  /*async showBuyModal() {
     try {
       this.products = await this.productsService.getProductsById(
         this.idProduct
@@ -598,7 +598,7 @@ export class DetailProductComponent implements OnInit {
     } catch (error) {
       console.log('Error: ', error);
     }
-  }
+  }*/
 
   showMessageModal(evt) {
     this.isModalBuyShowed = evt.isModalBuyShowed;

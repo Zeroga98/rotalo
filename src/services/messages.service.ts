@@ -13,7 +13,7 @@ import { RequestOptions } from '@angular/http';
 @Injectable()
 export class MessagesService {
     currentUser: UserInterface;
-    readonly url = this.configurationService.getBaseUrl() + '/conversations';
+    //readonly url = this.configurationService.getBaseUrl() + '/conversations';
     readonly urlSapi = this.configurationService.getBaseSapiUrl();
     private readonly timeToCheckNotification: number = 4000;
     private readonly timeToCheckUnreadNotification: number = 70000;
@@ -22,7 +22,7 @@ export class MessagesService {
     };
     constructor(private http: HttpClient, private configurationService: ConfigurationService) { }
 
-    getConversation(): Promise<any> {
+    /*getConversation(): Promise<any> {
         const url = `${this.url}`;
         return this.http.get(url).toPromise().then((response: any) => response.data);
     }
@@ -40,7 +40,7 @@ export class MessagesService {
                         return conversations.filter( (conversation: any) => conversation['unread-count'] > 0);
                     }))
                     .toPromise();
-    }
+    }*/
 
     setUnreadNotificationParam(path) {
       this.path = path;

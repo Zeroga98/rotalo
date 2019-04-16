@@ -8,7 +8,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 @Injectable()
 export class RecoverService {
 readonly urlSapi = this.configurationService.getBaseSapiUrl();
-readonly url = this.configurationService.getBaseUrl();
+//readonly url = this.configurationService.getBaseUrl();
 constructor(private http: HttpClient,
   private configurationService: ConfigurationService) { }
 
