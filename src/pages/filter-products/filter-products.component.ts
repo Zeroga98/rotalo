@@ -44,6 +44,12 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public useTypeFilter;
   public typeSeatFilter;
   public mileageFilter;
+  public otherFilter = {
+    vehicle_airbag: false,
+    vehicle_abs_brakes: false,
+    vehicle_air_conditioner: false,
+    vehicle_unique_owner: false
+  };
 
 
   constructor(private navigationTopService: NavigationTopService,
@@ -300,13 +306,22 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     mileage = mileage.replace('.', '');
     this.routineUpdateProducts({ 'vehicle_mileage': mileage , 'number': 1});
   }
-
+  public filterByOthersVehicle(other) {
+    other = Object.assign(other, { 'number': 1 });
+    this.routineUpdateProducts(other);
+  }
 
   removeFilters() {
     this.currentFilter = {
       'product_country_id': this.countryId,
       'size': 24,
       'number': 1
+    };
+    this.otherFilter = {
+      vehicle_airbag: false,
+      vehicle_abs_brakes: false,
+      vehicle_air_conditioner: false,
+      vehicle_unique_owner: false
     };
     this.minPrice = null;
     this.maxPrice = null;
