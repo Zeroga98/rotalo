@@ -23,8 +23,8 @@
       min-width: 264px;
 
       .filters {
-        background: #FFFFFF;
-        border: 1px solid #EDEDED;
+        background: #ffffff;
+        border: 1px solid #ededed;
         border-radius: 5px;
         position: relative;
         min-height: 400px;
@@ -436,7 +436,7 @@
       border-radius: 5px;
       padding: 5px;
       box-shadow: none;
-      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
       &:focus {
         border-color: #0fbbd8;
@@ -450,10 +450,10 @@
   }
 
   .product-btns .botons {
-    border: 1px solid #FF3646;
+    border: 1px solid #ff3646;
     width: 203px;
     min-height: 40px;
-    color: #FF3646;
+    color: #ff3646;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.6rem;
@@ -463,8 +463,9 @@
     align-items: center;
     margin: 15px auto;
   }
+}
 
-.modal-container {
+.message-container {
   position: relative;
   padding: 40px 0;
 
