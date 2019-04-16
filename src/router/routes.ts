@@ -29,7 +29,8 @@ export const ROUTES = {
         FINANCEBAM: 'finance',
         ERROR: 'error',
         PROMO: 'promo',
-        MOBILENOTIFICATIONS: 'mobile_notification'
+        MOBILENOTIFICATIONS: 'mobile_notification',
+        FILTERS: 'filter'
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',

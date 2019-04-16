@@ -199,7 +199,8 @@ import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.com
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
 import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
-
+import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
+import { FilterService } from '../pages/filter-products/filter.service';
 
 @NgModule({
   declarations: [
@@ -322,7 +323,8 @@ import { ModalDeleteProductComponent } from '../components/modal-delete-product/
     TermsDialogComponent,
     CustomScrollDirective,
     CarouselProductComponent,
-    ModalDeleteProductComponent
+    ModalDeleteProductComponent,
+    FilterProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -394,6 +396,7 @@ import { ModalDeleteProductComponent } from '../components/modal-delete-product/
     ModalVideoService,
     ModalPromoProductService,
     NavigationTopService,
+    FilterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

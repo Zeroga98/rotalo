@@ -44,6 +44,7 @@ import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 import { SettingsService } from '../../services/settings.service';
+import { debug } from 'util';
 
 
 @Component({
@@ -132,8 +133,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.communitySubscription();
-    this.categorySubscription();
-    this.subCategorySubscription();
     this.searchSubscription();
     this.loadInfoUser();
   }
@@ -407,26 +406,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       }
   }
 
-  categorySubscription() {
-    this.navigationTopService.currentEventCategory.subscribe(event => {
-      if (event) {
-        this.selectedCategory(event);
-      }
-    });
-  }
-
-  selectedCategory(category: CategoryInterface) {
-    this.setconfigFiltersSubcategory({
-      category: category.name,
-      subCategory: undefined,
-      color: category.color,
-      icon: category.icon
-    });
-    this.routineUpdateProducts({
-      'product_category_id': category.id,
-      'product_subcategory_id': undefined
-    });
-  }
 
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
@@ -454,26 +433,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     return routeDetailProduct;
   }
 
-  subCategorySubscription() {
-    this.navigationTopService.currentEventSubCategory.subscribe(event => {
-      if (event) {
-        this.selectedSubCategory(event);
-      }
-    });
-  }
-
-  selectedSubCategory(subCategory: SubcategoryInterface) {
-    this.setconfigFiltersSubcategory({
-      category: subCategory.category.name,
-      subCategory: subCategory.name,
-      color: subCategory.category.color,
-      icon: subCategory.category.icon
-    });
-    this.routineUpdateProducts({
-      'product_subcategory_id': subCategory.id,
-      'product_category_id': undefined
-    });
-  }
 
   get isSpinnerShow(): boolean {
     return this.stateRequest == this.statesRequestEnum.loading;
@@ -501,7 +460,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
     this.waitNewPage = false;
-   // this.updateMasonry();
   }
 
   addNewPage(newProducts) {

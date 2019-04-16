@@ -16,9 +16,11 @@ export class ProductsService {
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   public scroll: any;
   public products: Array<ProductInterface> = [];
+  public productsFilter: Array<ProductInterface> = [];
   public currentPage = 0;
   private urlDetailProduct;
   private totalProducts = 0;
+  private totalProductsFilters = 0;
   private featuredProducts;
   private bancolombiaProducts;
   private counterProductChecked = 0;
@@ -37,6 +39,14 @@ export class ProductsService {
 
   getTotalProducts() {
     return this.totalProducts;
+  }
+
+  setTotalProductsFilters(total) {
+    this.totalProductsFilters = total;
+  }
+
+  getTotalProductsFilters() {
+    return this.totalProductsFilters;
   }
 
   setUrlDetailProduct(urlDetailProduct) {
@@ -72,6 +82,21 @@ export class ProductsService {
           this.setTotalProducts(response.body.totalProductos);
         }
         return response.body.productos;
+      });
+  }
+
+  loadProductsFilter(params): Promise<any> {
+    const url = this.urlSapi + '/productos/filtros?';
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http
+      .get(url, { headers: headers, params: params})
+      .toPromise()
+      .then((response: any) => {
+        if (response.body.totalProductos) {
+          this.setTotalProductsFilters(response.body.totalProductos);
+        }
+        return response.body;
       });
   }
 
