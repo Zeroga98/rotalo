@@ -21,7 +21,8 @@
     aside {
       width: 22%;
       min-width: 264px;
-      .filters{
+
+      .filters {
         background: #FFFFFF;
         border: 1px solid #EDEDED;
         border-radius: 5px;
@@ -33,6 +34,7 @@
         border-bottom: 1px solid #EDEDED;
         font-size: 1.6rem;
         color: #383838;
+        text-transform: capitalize;
         width: 100%;
         padding: 20px;
         min-height: 79px;
@@ -377,18 +379,21 @@
   .container-masonry {
     width: 100%;
     min-height: 480px;
+
     .masonry {
       width: 100%;
       max-width: 100%;
       min-height: 500px;
       margin: auto;
+
       .grid-item {
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-      //  justify-content: space-around;
+        //  justify-content: space-around;
       }
-      product{
+
+      product {
         cursor: pointer;
         text-align: left;
         width: 31%;
@@ -403,20 +408,22 @@
     .mat-mini-fab {
       margin-left: 15px;
       width: 23px;
-      height:23px;
-      background-color:rgba(15, 187, 216, 0.12);
+      height: 23px;
+      background-color: rgba(15, 187, 216, 0.12);
     }
+
     .icon {
       transform: rotate(270deg);
       position: initial;
     }
   }
 
-  .price , .price-row {
+  .price,
+  .price-row {
     display: flex;
   }
 
-  .price-container:first-child{
+  .price-container:first-child {
     margin-right: 5px;
   }
 
@@ -434,6 +441,7 @@
       padding: 5px;
       box-shadow: none;
       transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
       &:focus {
         border-color: #0FBBD8;
       }
@@ -445,7 +453,20 @@
     text-align: center;
   }
 
+  .product-btns .botons {
+    border: 1px solid #FF3646;
+    width: 203px;
+    min-height: 40px;
+    color: #FF3646;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.6rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+  }
+
 
 }
-
-

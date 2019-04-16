@@ -33,6 +33,7 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public cityFilter;
   public maxPrice;
   public minPrice;
+  public countryId;
 
   constructor(private navigationTopService: NavigationTopService,
     private route: ActivatedRoute,
@@ -53,14 +54,17 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     .subscribe(params => {
       this.params = params;
       console.log(this.params);
-      let countryId;
       if (this.navigationService.getCurrentCountryId()) {
-        countryId = this.navigationService.getCurrentCountryId();
+        this.countryId = this.navigationService.getCurrentCountryId();
       } else {
-        countryId = this.currentSession.currentUser()['countryId'];
+        this.countryId = this.currentSession.currentUser()['countryId'];
       }
-      this.loadProductsFilter(countryId);
-      this.categorySubscription();
+      this.loadProductsFilter(this.countryId);
+      if (!this.params['product_name']) {
+        this.categorySubscription();
+      } else {
+        this.category = null;
+      }
     });
   }
 
@@ -243,7 +247,18 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 */
 
-
+  removeFilters() {
+    this.currentFilter = {
+      'product_country_id': this.countryId,
+      'size': 24,
+      'number': 1
+    };
+    this.minPrice = null;
+    this.maxPrice = null;
+    this.currentFilter = Object.assign({}, this.currentFilter, this.params);
+    this.filterService.setCurrentFilter(null);
+    this.routineUpdateProducts(this.currentFilter);
+  }
 
 
 }
