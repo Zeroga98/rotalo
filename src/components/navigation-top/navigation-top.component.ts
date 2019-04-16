@@ -296,6 +296,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
+
     this._closeMenu();
    // this.subCategorySelected.emit(subCategory);
     this.navigationTopService.changeSubCategory(subCategory);
@@ -331,8 +332,10 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       'ClickBusqueda',
       this.tags
     );
-
-    this.navigationTopService.changeSearch(this.tags);
+    this.router.navigate([
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+    ], {queryParams: {product_name : this.tags}});
+    // this.navigationTopService.changeSearch(this.tags);
   }
 
   public _closeMenu() {

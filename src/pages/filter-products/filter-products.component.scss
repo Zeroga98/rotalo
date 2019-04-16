@@ -21,9 +21,10 @@
     aside {
       width: 22%;
       min-width: 264px;
+
       .filters {
-        background: #ffffff;
-        border: 1px solid #ededed;
+        background: #FFFFFF;
+        border: 1px solid #EDEDED;
         border-radius: 5px;
         position: relative;
         min-height: 400px;
@@ -33,6 +34,7 @@
         border-bottom: 1px solid #ededed;
         font-size: 1.6rem;
         color: #383838;
+        text-transform: capitalize;
         width: 100%;
         padding: 20px;
         min-height: 79px;
@@ -374,11 +376,13 @@
   .container-masonry {
     width: 100%;
     min-height: 480px;
+
     .masonry {
       width: 100%;
       max-width: 100%;
       min-height: 500px;
       margin: auto;
+
       .grid-item {
         width: 100%;
         display: flex;
@@ -403,6 +407,7 @@
       height: 23px;
       background-color: rgba(15, 187, 216, 0.12);
     }
+
     .icon {
       transform: rotate(270deg);
       position: initial;
@@ -431,7 +436,8 @@
       border-radius: 5px;
       padding: 5px;
       box-shadow: none;
-      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
       &:focus {
         border-color: #0fbbd8;
       }
@@ -442,7 +448,21 @@
     font-size: 1.4rem;
     text-align: center;
   }
-}
+
+  .product-btns .botons {
+    border: 1px solid #FF3646;
+    width: 203px;
+    min-height: 40px;
+    color: #FF3646;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.6rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+  }
 
 .modal-container {
   position: relative;

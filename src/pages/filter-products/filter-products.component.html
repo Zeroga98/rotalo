@@ -1,12 +1,11 @@
 <div class="filter-container">
   <div class="main">
     <aside class="accordion">
-
       <div class="filters">
         <div class="title-filter">
-          <p class="category" *ngIf="category">{{category.name}}</p>
-          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
-            {{category.subCategory.name}}</p>
+          <p class="category bold" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
+          <p class="category bold" *ngIf="category">{{category.name}}</p>
+          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> - {{category.subCategory.name}}</p>
         </div>
         <div *ngIf="filter" class="ac-container">
           <div class="option">
@@ -16,7 +15,7 @@
               <div class="material-design">
                 <div>
                   <div class="md-radio">
-                    <input (change)="filteByCommunity('')" checked value="" id="community" type="radio"
+                    <input (change)="filteByCommunity('')" [checked] = "currentFilter && !currentFilter['seller_community_id']" value="" id="community" type="radio"
                       name="community">
                     <label for="community">Todas ({{communitiesFilter.total}})</label>
                   </div>
@@ -36,7 +35,9 @@
               <div class="material-design">
                 <div>
                   <div class="md-radio">
-                    <input (change)="filteBySellType('')" checked value="" id="sellType" type="radio" name="sellType">
+                    <input 
+                    [checked] = "currentFilter && !currentFilter['product_sell_type']"
+                    (change)="filteBySellType('')"  value="" id="sellType" type="radio" name="sellType">
                     <label for="sellType">Todos ({{sellTypesFilter.total}})</label>
                   </div>
                   <div *ngFor="let sellType of sellTypesFilter.tiposVentas; let i = index" class="md-radio">
@@ -79,7 +80,9 @@
               <div class="material-design">
                 <div>
                   <div class="md-radio">
-                    <input (change)="filterByState('')" checked value="" id="departamento" type="radio"
+                    <input 
+                    [checked] = "currentFilter && !currentFilter['product_state_id']"
+                    (change)="filterByState('')"  value="" id="departamento" type="radio"
                       name="departamento">
                     <label for="departamento">Todos ({{stateFilter.total}})</label>
                   </div>
@@ -100,7 +103,9 @@
               <div class="material-design">
                 <div>
                   <div class="md-radio">
-                    <input (change)="filterByCity('')" checked value="" id="city" type="radio" name="city">
+                    <input 
+                    [checked] = "currentFilter && !currentFilter['product_city_id']"
+                    (change)="filterByCity('')"  value="" id="city" type="radio" name="city">
                     <label for="city">Todos ({{cityFilter.total}})</label>
                   </div>
                   <div *ngFor="let city of cityFilter.ciudades; let i = index" class="md-radio">
@@ -112,8 +117,16 @@
             </article>
           </div>
         </div>
-      </div>
 
+        <div class="product-btns">
+            <div class="cont-botons">
+                <button (click) = "removeFilters()" class="botons" mat-button> Borrar Filtros</button>
+            </div>
+        </div>
+
+
+      </div>
+     
     </aside>
     <section>
       <div class="container-masonry">
