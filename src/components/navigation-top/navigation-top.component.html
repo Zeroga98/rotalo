@@ -28,7 +28,7 @@
               </span>
             </a>
           </li>
-          <li *ngIf="showOptions" class="desktop">
+<!--           <li *ngIf="showOptions" class="desktop">
             <div class="toolbar__filters">
               <div class="select-community">
                 <select name="community" (change)="changeSelectComunidad($event)">
@@ -38,7 +38,7 @@
                 </select>
               </div>
             </div>
-          </li>
+          </li> -->
           <li class="gtmCentroRotalo rotalo-center">
             <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
               <span class="gtmCentroRotalo text-rotalo">
@@ -124,7 +124,7 @@
     </div>
     <div class="divisor-right mobile">
       <ul class="list-options">
-        <li>
+<!--         <li>
           <div class="toolbar__filters">
             <div class="select-community">
               <select name="community" (change)="changeSelectComunidad($event)">
@@ -134,7 +134,7 @@
               </select>
             </div>
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
             <span>
