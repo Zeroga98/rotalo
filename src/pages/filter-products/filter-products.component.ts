@@ -22,7 +22,7 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public params;
   public filter;
   public products;
-  private currentFilter: Object;
+  public currentFilter: Object;
   private currentPage: number = 1;
   public  showPagination = false;
   public pageNumber: number = 1;
@@ -34,6 +34,17 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
   public maxPrice;
   public minPrice;
   public countryId;
+  public brandFilter;
+  public modelFilter;
+  public yearFilter;
+  public colorFilter;
+  public transmissionFilter;
+  public gasFilter;
+  public licensePlateFilter;
+  public useTypeFilter;
+  public typeSeatFilter;
+  public mileageFilter;
+
 
   constructor(private navigationTopService: NavigationTopService,
     private route: ActivatedRoute,
@@ -104,12 +115,27 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
           this.communitiesFilter  = this.filter.filtroComunidad;
         }
         if (this.filter.filtroTipoVenta && this.filter.filtroTipoVenta.tiposVentas) { this.sellTypesFilter =  this.filter.filtroTipoVenta; }
-        if (this.filter.filtroDepartamento && this.filter.filtroDepartamento.departamentos)
-        {this.stateFilter = this.filter.filtroDepartamento; }
+        if (this.filter.filtroDepartamento && this.filter.filtroDepartamento.departamentos) {
+          this.stateFilter = this.filter.filtroDepartamento; }
         if (this.filter.filtroCiudad && this.filter.filtroCiudad.ciudades) {this.cityFilter = this.filter.filtroCiudad; }
+        if (this.filter.filtroMarca && this.filter.filtroMarca.marcas) {this.brandFilter = this.filter.filtroMarca; }
+        if (this.filter.filtroModelo && this.filter.filtroModelo.modelos) {this.modelFilter = this.filter.filtroModelo; }
+        if (this.filter.filtroAnio && this.filter.filtroAnio.anios) {this.yearFilter = this.filter.filtroAnio; }
+        if (this.filter.filtroColor && this.filter.filtroColor.colores) {this.colorFilter = this.filter.filtroColor; }
+        if (this.filter.filtroTransmision && this.filter.filtroTransmision.transmisiones) {
+          this.transmissionFilter = this.filter.filtroTransmision; }
+        if (this.filter.filtroCombustible && this.filter.filtroCombustible.combustibles) {this.gasFilter = this.filter.filtroCombustible; }
+        if (this.filter.filtroNumeroPlaca && this.filter.filtroNumeroPlaca.numerosPlacas) {
+          this.licensePlateFilter = this.filter.filtroNumeroPlaca; }
+        if (this.filter.filtroTipoUso && this.filter.filtroTipoUso.tiposUsos) {this.useTypeFilter = this.filter.filtroTipoUso; }
+        if (this.filter.filtroTipoAsiento && this.filter.filtroTipoAsiento.tiposAsientos) {
+          this.typeSeatFilter = this.filter.filtroTipoAsiento; }
+        if (this.filter.filtroKilometraje && this.filter.filtroKilometraje.kilometrajes) {
+          this.mileageFilter = this.filter.filtroKilometraje; }
        // this.updateProducts(products);
       }
       this.totalPages = this.productsService.getTotalProductsFilters();
+      this.scrollToTop();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.changeDetectorRef.markForCheck();
@@ -189,10 +215,14 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
       { 'number': page },
       page
     );
+    this.scrollToTop();
+  }
+
+
+  public scrollToTop() {
     this.productsService.scroll = 0;
     window.scrollTo(0, 0);
   }
-
 
 
   public filteByCommunity(community: string) {
@@ -228,23 +258,49 @@ export class FilterProductsComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
- /* public searchSubscription() {
-    this.navigationTopService.currentEventSearch.subscribe(event => {
-     if (event != null || event!= undefined) {
-        this.searchByTags(event);
-     }
-    });
+  public filterByBrand(brand: string) {
+    this.routineUpdateProducts({ 'vehicle_brand_id': brand , 'number': 1});
   }
 
-  public searchByTags(evt) {
-    if (evt) {
-      const filterValue = evt;
-      this.routineUpdateProducts({
-        'product_name':  filterValue
-      });
-    }
+  public filterByModel(model: string) {
+    this.routineUpdateProducts({ 'vehicle_line_id': model , 'number': 1});
   }
-*/
+
+  public filterByYear(year: string) {
+    if(year) { year = `'${year}'`; }
+    this.routineUpdateProducts({ 'vehicle_model': year, 'number': 1});
+  }
+
+  public filterByColor(color: string) {
+    if(color) { color = `'${color}'`; }
+    this.routineUpdateProducts({ 'vehicle_color':  color  , 'number': 1});
+  }
+
+  public filterByTransmission(transmission: string) {
+    if(transmission) { transmission = `'${transmission}'`; }
+    this.routineUpdateProducts({ 'vehicle_transmission':  transmission , 'number': 1});
+  }
+  public filterByGas(gas: string) {
+    if(gas) { gas = `'${gas}'`; }
+    this.routineUpdateProducts({ 'vehicle_gas': gas , 'number': 1});
+  }
+  public filterByLicensePlate(licensePlate: string) {
+    if(licensePlate) { licensePlate = `'${licensePlate}'`; }
+    this.routineUpdateProducts({ 'vehicle_license_plate': licensePlate , 'number': 1});
+  }
+  public filterByUseType(useType: string) {
+    if(useType) { useType = `'${useType}'`; }
+    this.routineUpdateProducts({ 'vehicle_use_type': useType , 'number': 1});
+  }
+  public filterByTypeSeat(typeSeat: string) {
+    if(typeSeat) { typeSeat = `'${typeSeat}'`; }
+    this.routineUpdateProducts({ 'vehicle_type_of_seat': typeSeat  , 'number': 1});
+  }
+  public filterByMileage(mileage: string) {
+    mileage = mileage.replace('.', '');
+    this.routineUpdateProducts({ 'vehicle_mileage': mileage , 'number': 1});
+  }
+
 
   removeFilters() {
     this.currentFilter = {
