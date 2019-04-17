@@ -365,7 +365,7 @@ export class DetailProductComponent implements OnInit {
     const i = this.interesNominal;
 
     this.simulateForm.get('credit-value') &&
-      this.simulateForm.get('credit-value').value &&
+      //this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
@@ -381,7 +381,7 @@ export class DetailProductComponent implements OnInit {
   calcularSeguro() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-      this.simulateForm.get('credit-value').value &&
+      //this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
@@ -391,7 +391,7 @@ export class DetailProductComponent implements OnInit {
   calcularCuotasExtraSegundoPlan() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-      this.simulateForm.get('credit-value').value &&
+     // this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
@@ -410,7 +410,7 @@ export class DetailProductComponent implements OnInit {
     const i1 = Math.pow((1 + i), 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
-      this.simulateForm.get('credit-value').value &&
+     // this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
