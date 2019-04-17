@@ -3,23 +3,25 @@ import {
   OnInit,
   OnDestroy,
   AfterViewInit,
-  ChangeDetectorRef
-} from "@angular/core";
-import { NavigationTopService } from "../../components/navigation-top/navigation-top.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CategoriesService } from "../../services/categories.service";
-import { NavigationService } from "../products/navigation.service";
-import { CurrentSessionService } from "../../services/current-session.service";
-import { ROUTES } from "../../router/routes";
-import { ProductInterface } from "../../commons/interfaces/product.interface";
-import { FilterService } from "./filter.service";
-import { UtilsService } from "../../util/utils.service";
-import { ProductsService } from "../../services/products.service";
+  ChangeDetectorRef,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
+import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriesService } from '../../services/categories.service';
+import { NavigationService } from '../products/navigation.service';
+import { CurrentSessionService } from '../../services/current-session.service';
+import { ROUTES } from '../../router/routes';
+import { ProductInterface } from '../../commons/interfaces/product.interface';
+import { FilterService } from './filter.service';
+import { UtilsService } from '../../util/utils.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
-  selector: "filter-products",
-  templateUrl: "./filter-products.component.html",
-  styleUrls: ["./filter-products.component.scss"]
+  selector: 'filter-products',
+  templateUrl: './filter-products.component.html',
+  styleUrls: ['./filter-products.component.scss']
 })
 export class FilterProductsComponent
   implements OnInit, OnDestroy, AfterViewInit {
@@ -59,6 +61,8 @@ export class FilterProductsComponent
     vehicle_air_conditioner: false,
     vehicle_unique_owner: false
   };
+  @ViewChildren('productsEnd') endForRender: QueryList<any>;
+
 
   constructor(
     private navigationTopService: NavigationTopService,
@@ -81,10 +85,10 @@ export class FilterProductsComponent
       if (this.navigationService.getCurrentCountryId()) {
         this.countryId = this.navigationService.getCurrentCountryId();
       } else {
-        this.countryId = this.currentSession.currentUser()["countryId"];
+        this.countryId = this.currentSession.currentUser()['countryId'];
       }
       this.loadProductsFilter(this.countryId);
-      if (!this.params["product_name"]) {
+      if (!this.params['product_name']) {
         this.categorySubscription();
       } else {
         this.category = null;
@@ -96,6 +100,21 @@ export class FilterProductsComponent
 
   ngAfterViewInit() {
     this.showPagination = true;
+    if (this.productsService.productsFilter.length > 0) {
+      // this.endForRender.notifyOnChanges();
+      this.endForRender.changes.subscribe(t => {
+        this.ngForRender();
+        this.changeDetectorRef.markForCheck();
+      });
+      this.endForRender.notifyOnChanges();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
+  ngForRender() {
+    this.productsService.productsFilter = [];
+    this.productsService.getProductLocationFilter();
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy() {
@@ -116,10 +135,11 @@ export class FilterProductsComponent
 
   async loadProducts(params: Object = {}) {
     try {
-      if (this.productsService.products.length > 0) {
-        this.products = this.productsService.products;
-        this.currentPage = this.productsService.currentPage;
+      if (this.productsService.productsFilter.length > 0) {
+        this.products = this.productsService.productsFilter;
+        this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;
+
         this.changeDetectorRef.markForCheck();
       } else {
         let responseFilter: any;
@@ -200,13 +220,6 @@ export class FilterProductsComponent
     } catch (error) {
       this.changeDetectorRef.markForCheck();
     }
-
-    if (this.products && this.products.length <= 0) {
-      // this.showAnyProductsMessage = true;
-    } else {
-      // this.showAnyProductsMessage = false;
-    }
-    this.changeDetectorRef.markForCheck();
   }
 
   getParamsToProducts() {
@@ -233,6 +246,10 @@ export class FilterProductsComponent
           vehicle_air_conditioner: false,
           vehicle_unique_owner: false
         };
+      /*  this.productsService.productsFilter = [];
+        this.productsService.currentPageFilter = 1;
+        this.currentPage = this.productsService.currentPageFilter;
+        this.pageNumber = this.currentPage;*/
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
@@ -251,13 +268,13 @@ export class FilterProductsComponent
       response => {
         this.categories = response;
         this.category = this.categories.filter(
-          x => x.id == this.params["product_category_id"]
+          x => x.id == this.params['product_category_id']
         );
         this.category = this.category[0];
         this.category.subCategory = {};
-        if (this.params["product_subcategory_id"]) {
+        if (this.params['product_subcategory_id']) {
           const subcategory = this.category.subcategories.filter(
-            x => x.id == this.params["product_subcategory_id"]
+            x => x.id == this.params['product_subcategory_id']
           );
           this.category.subCategory = subcategory[0];
         }
@@ -272,7 +289,7 @@ export class FilterProductsComponent
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-    }/${product["product_id"]}`;
+    }/${product['product_id']}`;
     this.router.navigate([routeDetailProduct]);
   }
 
@@ -409,7 +426,7 @@ export class FilterProductsComponent
     this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
   }
   public filterByMileage(mileage: string) {
-    mileage = mileage.replace(".", "");
+    mileage = mileage.replace('.', '');
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
   }
   public filterByOthersVehicle(other) {
@@ -438,10 +455,15 @@ export class FilterProductsComponent
 
   showToFilter() {
     this.showFilterResponsive =
-      !this.buttonNameFilter || this.buttonNameFilter === "Aplicar";
+      !this.buttonNameFilter || this.buttonNameFilter === 'Aplicar';
     this.buttonNameFilter =
       !this.buttonNameFilter || this.showFilterResponsive
-        ? "Filtros"
-        : "Aplicar";
+        ? 'Filtros'
+        : 'Aplicar';
   }
+
+  setScroll(event) {
+    this.productsService.setProductLocationFilter(this.products, event['product_id'], this.currentPage);
+  }
+
 }

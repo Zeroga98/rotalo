@@ -416,7 +416,7 @@
                   | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
                 class="product-feed"
                 [ngClass]="product && product.product_status === 'sell_process' ? 'deactivated-photo' : ''"
-                [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event);"
+                [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
                 [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'"
                 id="{{product.product_id}}">
               </product>
