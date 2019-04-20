@@ -17,6 +17,7 @@ import { ProductInterface } from '../../commons/interfaces/product.interface';
 import { FilterService } from './filter.service';
 import { UtilsService } from '../../util/utils.service';
 import { ProductsService } from '../../services/products.service';
+import { noob } from './constanteMouk';
 
 @Component({
   selector: 'filter-products',
@@ -139,80 +140,84 @@ export class FilterProductsComponent
         this.products = this.productsService.productsFilter;
         this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;
-
+        let responseFilter: any;
+        responseFilter = await this.productsService.loadProductsFilter(params);
+        this.filter = responseFilter.filtros;
         this.changeDetectorRef.markForCheck();
       } else {
         let responseFilter: any;
         responseFilter = await this.productsService.loadProductsFilter(params);
         this.products = responseFilter.productos;
         this.filter = responseFilter.filtros;
-        if (
-          this.filter.filtroComunidad &&
-          this.filter.filtroComunidad.comunidades
-        ) {
-          this.communitiesFilter = this.filter.filtroComunidad;
-        }
-        if (
-          this.filter.filtroTipoVenta &&
-          this.filter.filtroTipoVenta.tiposVentas
-        ) {
-          this.sellTypesFilter = this.filter.filtroTipoVenta;
-        }
-        if (
-          this.filter.filtroDepartamento &&
-          this.filter.filtroDepartamento.departamentos
-        ) {
-          this.stateFilter = this.filter.filtroDepartamento;
-        }
-        if (this.filter.filtroCiudad && this.filter.filtroCiudad.ciudades) {
-          this.cityFilter = this.filter.filtroCiudad;
-        }
-        if (this.filter.filtroMarca && this.filter.filtroMarca.marcas) {
-          this.brandFilter = this.filter.filtroMarca;
-        }
-        if (this.filter.filtroModelo && this.filter.filtroModelo.modelos) {
-          this.modelFilter = this.filter.filtroModelo;
-        }
-        if (this.filter.filtroAnio && this.filter.filtroAnio.anios) {
-          this.yearFilter = this.filter.filtroAnio;
-        }
-        if (this.filter.filtroColor && this.filter.filtroColor.colores) {
-          this.colorFilter = this.filter.filtroColor;
-        }
-        if (
-          this.filter.filtroTransmision &&
-          this.filter.filtroTransmision.transmisiones
-        ) {
-          this.transmissionFilter = this.filter.filtroTransmision;
-        }
-        if (
-          this.filter.filtroCombustible &&
-          this.filter.filtroCombustible.combustibles
-        ) {
-          this.gasFilter = this.filter.filtroCombustible;
-        }
-        if (
-          this.filter.filtroNumeroPlaca &&
-          this.filter.filtroNumeroPlaca.numerosPlacas
-        ) {
-          this.licensePlateFilter = this.filter.filtroNumeroPlaca;
-        }
-        if (this.filter.filtroTipoUso && this.filter.filtroTipoUso.tiposUsos) {
-          this.useTypeFilter = this.filter.filtroTipoUso;
-        }
-        if (
-          this.filter.filtroTipoAsiento &&
-          this.filter.filtroTipoAsiento.tiposAsientos
-        ) {
-          this.typeSeatFilter = this.filter.filtroTipoAsiento;
-        }
-        if (
-          this.filter.filtroKilometraje &&
-          this.filter.filtroKilometraje.kilometrajes
-        ) {
-          this.mileageFilter = this.filter.filtroKilometraje;
-        }
+     /*   this.products = noob.body.productos;
+        this.filter = noob.body.filtros;*/
         // this.updateProducts(products);
+      }
+      if (
+        this.filter.filtroComunidad &&
+        this.filter.filtroComunidad.comunidades
+      ) {
+        this.communitiesFilter = this.filter.filtroComunidad;
+      }
+      if (
+        this.filter.filtroTipoVenta &&
+        this.filter.filtroTipoVenta.tiposVentas
+      ) {
+        this.sellTypesFilter = this.filter.filtroTipoVenta;
+      }
+      if (
+        this.filter.filtroDepartamento &&
+        this.filter.filtroDepartamento.departamentos
+      ) {
+        this.stateFilter = this.filter.filtroDepartamento;
+      }
+      if (this.filter.filtroCiudad && this.filter.filtroCiudad.ciudades) {
+        this.cityFilter = this.filter.filtroCiudad;
+      }
+      if (this.filter.filtroMarca && this.filter.filtroMarca.marcas) {
+        this.brandFilter = this.filter.filtroMarca;
+      }
+      if (this.filter.filtroModelo && this.filter.filtroModelo.modelos) {
+        this.modelFilter = this.filter.filtroModelo;
+      }
+      if (this.filter.filtroAnio && this.filter.filtroAnio.anios) {
+        this.yearFilter = this.filter.filtroAnio;
+      }
+      if (this.filter.filtroColor && this.filter.filtroColor.colores) {
+        this.colorFilter = this.filter.filtroColor;
+      }
+      if (
+        this.filter.filtroTransmision &&
+        this.filter.filtroTransmision.transmisiones
+      ) {
+        this.transmissionFilter = this.filter.filtroTransmision;
+      }
+      if (
+        this.filter.filtroCombustible &&
+        this.filter.filtroCombustible.combustibles
+      ) {
+        this.gasFilter = this.filter.filtroCombustible;
+      }
+      if (
+        this.filter.filtroNumeroPlaca &&
+        this.filter.filtroNumeroPlaca.numerosPlacas
+      ) {
+        this.licensePlateFilter = this.filter.filtroNumeroPlaca;
+      }
+      if (this.filter.filtroTipoUso && this.filter.filtroTipoUso.tiposUsos) {
+        this.useTypeFilter = this.filter.filtroTipoUso;
+      }
+      if (
+        this.filter.filtroTipoAsiento &&
+        this.filter.filtroTipoAsiento.tiposAsientos
+      ) {
+        this.typeSeatFilter = this.filter.filtroTipoAsiento;
+      }
+      if (
+        this.filter.filtroKilometraje &&
+        this.filter.filtroKilometraje.kilometrajes
+      ) {
+        this.mileageFilter = this.filter.filtroKilometraje;
       }
       this.totalPages = this.productsService.getTotalProductsFilters();
       this.scrollToTop();
