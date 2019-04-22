@@ -152,6 +152,7 @@ export class FilterProductsComponent
      /*   this.products = noob.body.productos;
         this.filter = noob.body.filtros;*/
         // this.updateProducts(products);
+        this.scrollToTop();
       }
       if (
         this.filter.filtroComunidad &&
@@ -220,7 +221,7 @@ export class FilterProductsComponent
         this.mileageFilter = this.filter.filtroKilometraje;
       }
       this.totalPages = this.productsService.getTotalProductsFilters();
-      this.scrollToTop();
+
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.changeDetectorRef.markForCheck();
@@ -251,10 +252,10 @@ export class FilterProductsComponent
           vehicle_air_conditioner: false,
           vehicle_unique_owner: false
         };
-      /*  this.productsService.productsFilter = [];
+        this.productsService.productsFilter = [];
         this.productsService.currentPageFilter = 1;
         this.currentPage = this.productsService.currentPageFilter;
-        this.pageNumber = this.currentPage;*/
+        this.pageNumber = this.currentPage;
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
