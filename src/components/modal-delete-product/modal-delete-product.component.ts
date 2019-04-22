@@ -34,8 +34,14 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
     this.showSuccess = false;
     if (!this.deleteProductForm.invalid) {
       let razon = 'Ya vendí mi producto';
+      let seleccion = 'vendido'
       if (this.deleteProductForm.get('option').value == 'otro') {
         razon = 'Otro';
+        seleccion = 'otro'
+      }
+      let respuesta = {
+        action: 'delete_done',
+        razon: seleccion
       }
       const params = {
         'productId': this.params.productId,
@@ -45,6 +51,11 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
 
       if (this.params.action == 'delete') {
         this.params = 'delete_done';
+              respuesta = {
+                  action: 'delete_done',
+                  razon: seleccion
+              }
+              this.params = respuesta;
         this.productsService.deleteProduct(params).subscribe((response) => {
           this.showSuccess = true;
           this.gapush(
@@ -62,7 +73,8 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
         let respuesta = {
           publishAt: '',
           publishUntil: '',
-          action: 'update_done'
+          action: 'update_done',
+          razon: seleccion
         }
         const params = {
           'estado': this.params.estado,
@@ -77,7 +89,8 @@ export class ModalDeleteProductComponent implements OnInit, AfterViewInit {
               respuesta = {
                   publishAt: response.body.producto['published-at'],
                   publishUntil:  response.body.producto['publish-until'],
-                  action: 'update_done'
+                  action: 'update_done',
+                  razon: seleccion
               }
               this.params = respuesta;
               this.showSuccess = true;
