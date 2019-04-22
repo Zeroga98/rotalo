@@ -17,6 +17,8 @@ export class ProductsService {
   public scroll: any;
   public products: Array<ProductInterface> = [];
   public productsFilter: Array<ProductInterface> = [];
+  public scrollFilter;
+  public currentPageFilter;
   public currentPage = 0;
   private urlDetailProduct;
   private totalProducts = 0;
@@ -359,6 +361,16 @@ export class ProductsService {
     this.currentPage = currentPage;
   }
 
+  setProductLocationFilter(products, name, currentPage) {
+    this.productsFilter = products;
+    this.scrollFilter = name;
+    this.currentPageFilter = currentPage;
+  }
+
+  setProductsFilter(products) {
+    this.productsFilter = products;
+  }
+
   setProducts(products) {
     this.products = products;
   }
@@ -378,6 +390,15 @@ export class ProductsService {
     const url =
       `${this.urlSapi}/productos/destacados/botones-pago`;
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  getProductLocationFilter() {
+    if (document && this.scrollFilter) {
+      if (document.getElementById(this.scrollFilter)) {
+        document.getElementById(this.scrollFilter).scrollIntoView(true);
+        this.scrollFilter = undefined;
+      }
+    }
   }
 
   featuredProduct(countryId, communityId) {
@@ -439,7 +460,5 @@ export class ProductsService {
   setCheckedProductArray(data) {
     return this.paramsProductChecked.data = data;
   }
-
-
 
 }
