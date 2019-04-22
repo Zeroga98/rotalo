@@ -149,10 +149,6 @@ export class FilterProductsComponent
         responseFilter = await this.productsService.loadProductsFilter(params);
         this.products = responseFilter.productos;
         this.filter = responseFilter.filtros;
-     /*   this.products = noob.body.productos;
-        this.filter = noob.body.filtros;*/
-        // this.updateProducts(products);
-        this.scrollToTop();
       }
       if (
         this.filter.filtroComunidad &&
@@ -330,6 +326,7 @@ export class FilterProductsComponent
 
   public filteByCommunity(community: string) {
     this.routineUpdateProducts({ seller_community_id: community, number: 1 });
+    this.scrollToTop();
   }
 
   public filteBySellType(sellType: string) {
@@ -337,14 +334,17 @@ export class FilterProductsComponent
       product_sell_type: sellType.toUpperCase(),
       number: 1
     });
+    this.scrollToTop();
   }
 
   public filterByState(state: string) {
     this.routineUpdateProducts({ product_state_id: state, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByCity(city: string) {
     this.routineUpdateProducts({ product_city_id: city, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByMinMax() {
@@ -358,27 +358,32 @@ export class FilterProductsComponent
         product_price: `${this.minPrice}-${this.maxPrice}`,
         number: 1
       });
+      this.scrollToTop();
     } else {
       if (this.maxPrice) {
         this.routineUpdateProducts({
           product_price: `<=${this.maxPrice}`,
           number: 1
         });
+        this.scrollToTop();
       } else if (this.minPrice) {
         this.routineUpdateProducts({
           product_price: `>=${this.minPrice}`,
           number: 1
         });
+        this.scrollToTop();
       }
     }
   }
 
   public filterByBrand(brand: string) {
     this.routineUpdateProducts({ vehicle_brand_id: brand, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByModel(model: string) {
     this.routineUpdateProducts({ vehicle_line_id: model, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByYear(year: string) {
@@ -386,6 +391,7 @@ export class FilterProductsComponent
       year = `'${year}'`;
     }
     this.routineUpdateProducts({ vehicle_model: year, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByColor(color: string) {
@@ -393,6 +399,7 @@ export class FilterProductsComponent
       color = `'${color}'`;
     }
     this.routineUpdateProducts({ vehicle_color: color, number: 1 });
+    this.scrollToTop();
   }
 
   public filterByTransmission(transmission: string) {
@@ -403,12 +410,14 @@ export class FilterProductsComponent
       vehicle_transmission: transmission,
       number: 1
     });
+    this.scrollToTop();
   }
   public filterByGas(gas: string) {
     if (gas) {
       gas = `'${gas}'`;
     }
     this.routineUpdateProducts({ vehicle_gas: gas, number: 1 });
+    this.scrollToTop();
   }
   public filterByLicensePlate(licensePlate: string) {
     if (licensePlate) {
@@ -418,22 +427,26 @@ export class FilterProductsComponent
       vehicle_license_plate: licensePlate,
       number: 1
     });
+    this.scrollToTop();
   }
   public filterByUseType(useType: string) {
     if (useType) {
       useType = `'${useType}'`;
     }
     this.routineUpdateProducts({ vehicle_use_type: useType, number: 1 });
+    this.scrollToTop();
   }
   public filterByTypeSeat(typeSeat: string) {
     if (typeSeat) {
       typeSeat = `'${typeSeat}'`;
     }
     this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
+    this.scrollToTop();
   }
   public filterByMileage(mileage: string) {
     mileage = mileage.replace('.', '');
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
+    this.scrollToTop();
   }
   public filterByOthersVehicle(other) {
     other = Object.assign(other, { number: 1 });
@@ -457,6 +470,7 @@ export class FilterProductsComponent
     this.currentFilter = Object.assign({}, this.currentFilter, this.params);
     this.filterService.setCurrentFilter(null);
     this.routineUpdateProducts(this.currentFilter);
+    this.scrollToTop();
   }
 
   showToFilter() {

@@ -170,6 +170,7 @@
       .card-product {
         // border: 1px solid #E5E5E5;
         padding: 5%;
+        padding-right: 0;
         padding-top: 0;
         border-radius: 8px;
       }
@@ -521,6 +522,7 @@
 
       .share {
         .share-button {
+
           .ic_arrow_share {
             display: inline-block;
             margin-bottom: 4px;
@@ -533,6 +535,8 @@
 
           color: #7C7C7C;
           font-size: 1.6rem;
+          font-family: 'Lato Regular';
+          font-weight: normal;
         }
 
         .share-button:hover {
@@ -742,6 +746,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
+        position: relative;
         .icon-custom--mail {
           color: white;
           font-size: 1.4rem;
@@ -1210,7 +1215,7 @@ input:checked+.switch-slider:before {
     border-radius: 5px;
     border: 1px dashed #D5D5D5;
     padding: 10px;
-
+    margin-top: 20px;
     .icon-custom--sufi-logo {
       color: rgb(237, 28, 42);
       margin-right: 10px;
@@ -1255,10 +1260,11 @@ input:checked+.switch-slider:before {
       .select-time {
         border-radius: 5px;
         border: 1px solid #D0D0D0;
-        width: 40px;
+        width: 55px;
         color: #767676;
         font-size: 1.6rem;
         padding: 4px;
+        background-color: white;
 
         option {
           color: #767676;
@@ -1271,11 +1277,20 @@ input:checked+.switch-slider:before {
     .btn-container {
       padding-top: 10px;
       display: flex;
+      justify-content: space-between;
+
       .terms {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: 22px;
         p {
-          padding: 5px 0;
+       //   padding: 5px 0;
           font-size: 1.0rem;
           color: #767676;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
         }
       }
     }
@@ -1372,21 +1387,23 @@ input:checked+.switch-slider:before {
     }
   }
 
-  .toolTipText {
-    visibility: hidden;
-    width: 188px;
-    background-color: white;
-    color: #383838;
-    text-align: center;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 140%;
-    left: 30%;
-    margin-left: -90px;
-    opacity: 0;
-    transition: opacity 1s;
-    font-size: 1.4rem;
+  .tooltip {
+    .toolTipText {
+      visibility: hidden;
+      width: 115px;
+      background-color: white;
+      color: #383838;
+      text-align: center;
+      padding: 5px 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 140%;
+      left: 30%;
+      margin-left: -55px;
+      opacity: 0;
+      transition: opacity 1s;
+      font-size: 1.4rem;
+    }
   }
 
   .toolTipText::after {
