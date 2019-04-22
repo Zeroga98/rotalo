@@ -98,18 +98,95 @@ export class ProductRotaloCenterComponent implements AfterViewInit, AfterContent
     return false;
   }
 
-  openModalDeleteProduct(id: string): void {
+  openModalDeleteProduct(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
-
     dialogConfig.autoFocus = false;
-    dialogConfig.data = this.product.id;
+    const option = {
+      action: 'delete',
+      productId: this.product['product_id']
+    }
+    dialogConfig.data = option;
     const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      if (result && result == 'delete_done') {
+        this.updateProducts.emit(true);
+        this.router.navigate([
+          `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
+        ]);
+      }
+      let gaPushParam = 'VendiRotaloExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro'){
+      gaPushParam = 'OtroExitoso';
+      } 
+      this.gapush(
+        'send',
+        'event',
+        'EliminarArticulo',
+        'Cuentanos',
+        gaPushParam
+      );
     });
+  }
+
+  openModalInactiveProduct(): void {
+    let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+
+    if(estado=='inactive')
+    {
+      this.saveCheck()
+    }
+    else
+    {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = '300px';
+      dialogConfig.maxWidth = '900px';
+      dialogConfig.width = '55%';
+      dialogConfig.autoFocus = false;
+      const option = {
+        action: 'update',
+        productId: this.product['product_id'],
+        estado: this.productStatus ? (this.productChecked = 'inactive') : (this.productChecked = 'active')
+      }
+      dialogConfig.data = option;
+      const dialogRef = this.dialog.open(ModalDeleteProductComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.action && result.action == 'update_done') {
+          this.productStatus = !this.productStatus;
+          this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
+          this.product['product_published_at'] = result.publishAt;
+          this.product['product_publish_until'] = result.publishUntil;
+          this.changeDetectorRef.markForCheck();
+        }
+        let gaPushParam = 'VendiRotaloExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro'){
+      gaPushParam = 'OtroExitoso';
+      } 
+      this.gapush(
+        'send',
+        'event',
+        'InactivarArticulo',
+        'Cuentanos',
+        gaPushParam
+      );
+      });
+    }
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   saveCheck() {

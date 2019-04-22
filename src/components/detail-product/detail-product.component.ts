@@ -783,6 +783,17 @@ export class DetailProductComponent implements OnInit {
         location.reload();
         this.router.navigate([`/${ROUTES.HOME}`]);
       }
+      let gaPushParam = 'VendiRotaloExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro'){
+      gaPushParam = 'OtroExitoso';
+      } 
+      this.gapush(
+        'send',
+        'event',
+        'EliminarArticulo',
+        'Cuentanos',
+        gaPushParam
+      );
     });
   }
 
@@ -811,6 +822,17 @@ export class DetailProductComponent implements OnInit {
           this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
           this.changeDetectorRef.markForCheck();
         }
+        let gaPushParam = 'VendiExitoso';
+        if (result && result.seleccion && result.seleccion === 'otro'){
+        gaPushParam = 'OtroExitoso';
+        } 
+        this.gapush(
+          'send',
+          'event',
+          'InactivarArticulo',
+          'Cuentanos',
+          gaPushParam
+        );
       });
     }
   }

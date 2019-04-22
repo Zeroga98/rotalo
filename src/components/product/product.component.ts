@@ -146,6 +146,17 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
           `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
         ]);
       }
+      let gaPushParam = 'VendiRotaloExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro'){
+      gaPushParam = 'OtroExitoso';
+      } 
+      this.gapush(
+        'send',
+        'event',
+        'EliminarArticulo',
+        'Cuentanos',
+        gaPushParam
+      );
     });
   }
 
@@ -179,8 +190,31 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
           this.product['product_publish_until'] = result.publishUntil;
           this.changeDetectorRef.markForCheck();
         }
+        let gaPushParam = 'VendiRotaloExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro'){
+      gaPushParam = 'OtroExitoso';
+      } 
+      this.gapush(
+        'send',
+        'event',
+        'InactivarArticulo',
+        'Cuentanos',
+        gaPushParam
+      );
       });
     }
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   saveCheck() {
