@@ -115,10 +115,10 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
-    dialogConfig.height = '600px';
+   // dialogConfig.height = '600px';
     dialogConfig.width = '55%';
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
+ //   dialogConfig.autoFocus = false;
     dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
     const dialogRef = this.dialog.open(TermsDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {

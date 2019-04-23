@@ -335,6 +335,17 @@
     transform: rotate(0deg);
   }
 
+
+  .icon-blue {
+    background-image: url(../../assets/img/ic_arrow_blue.svg);
+    background-position: 92% center;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    height: 10px;
+    width:  10px;
+    margin-left: 3px;
+  }
+
   .ac-container input:checked + label .icon,
   [_nghost-c29] .ac-container input:checked + label:hover .icon {
     transform: scale(1, -1);
@@ -576,7 +587,7 @@
   .icon-information {
     width: 160px;
     height: 160px;
-    background: url(../../assets/img/ic_reportar_abuso.svg);
+    background: url(../../assets/img/ic_mico_sinresultados.svg);
     background-size: 160px 160px;
     margin: 0 auto;
   }

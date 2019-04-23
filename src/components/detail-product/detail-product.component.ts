@@ -133,7 +133,7 @@ export class DetailProductComponent implements OnInit {
       this.showInputShare = true;
     }
   }
-  
+
 
 
 
@@ -274,7 +274,7 @@ export class DetailProductComponent implements OnInit {
             priceVehicleValidatorMin
           ]
         ],
-        'term-months': [12, Validators.required]
+        'term-months': [72, Validators.required]
       }
     );
   }
@@ -290,6 +290,7 @@ export class DetailProductComponent implements OnInit {
       }
       if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
         this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+        this.simulateForm.patchValue({ 'term-months': 60 });
       }
     }
   }
@@ -786,7 +787,7 @@ export class DetailProductComponent implements OnInit {
       let gaPushParam = 'VendiRotaloExitoso';
       if (result && result.seleccion && result.seleccion === 'otro'){
       gaPushParam = 'OtroExitoso';
-      } 
+      }
       this.gapush(
         'send',
         'event',
@@ -825,7 +826,7 @@ export class DetailProductComponent implements OnInit {
         let gaPushParam = 'VendiExitoso';
         if (result && result.seleccion && result.seleccion === 'otro'){
         gaPushParam = 'OtroExitoso';
-        } 
+        }
         this.gapush(
           'send',
           'event',

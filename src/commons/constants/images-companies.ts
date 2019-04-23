@@ -170,6 +170,11 @@ export const IMGS_COMPANIES = [
     url: './assets/img/logos_company/35_sodexo.png',
     name: 'sodexo'
   }
+  ,
+  {
+    url: './assets/img/logos_company/36_optima.png',
+    name: 'optima'
+  }
 ];
 
 export const IMGS_COMPANIES_GUATEMALA = [
