@@ -88,6 +88,7 @@ export class FilterProductsComponent
       } else {
         this.countryId = this.currentSession.currentUser()['countryId'];
       }
+
       this.loadProductsFilter(this.countryId);
       if (!this.params['product_name']) {
         this.categorySubscription();
@@ -135,20 +136,31 @@ export class FilterProductsComponent
   }
 
   async loadProducts(params: Object = {}) {
+
     try {
       if (this.productsService.productsFilter.length > 0) {
         this.products = this.productsService.productsFilter;
         this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;
         let responseFilter: any;
-        responseFilter = await this.productsService.loadProductsFilter(params);
-        this.filter = responseFilter.filtros;
+       /* responseFilter = await this.productsService.loadProductsFilter(params);
+        this.filter = responseFilter.filtros;*/
+        debugger
+        this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       } else {
         let responseFilter: any;
         responseFilter = await this.productsService.loadProductsFilter(params);
         this.products = responseFilter.productos;
-        this.filter = responseFilter.filtros;
+
+        console.log(this.filter);
+        Object.keys(responseFilter.filtros).forEach((key) => (responseFilter.filtros[key] == null) && delete responseFilter.filtros[key]);
+        console.log(responseFilter.filtros);
+        this.filter = Object.assign({}, this.filter , responseFilter.filtros);
+        console.log(this.filter);
+        debugger
+        this.totalPages = this.productsService.getTotalProductsFilters();
+        this.changeDetectorRef.markForCheck();
       }
       if (
         this.filter.filtroComunidad &&
@@ -216,7 +228,6 @@ export class FilterProductsComponent
       ) {
         this.mileageFilter = this.filter.filtroKilometraje;
       }
-      this.totalPages = this.productsService.getTotalProductsFilters();
 
       this.changeDetectorRef.markForCheck();
     } catch (error) {
