@@ -79,6 +79,7 @@ test = 1;
       }
 
       this.loadProductsFilter(this.countryId);
+
       if (!this.params['product_name']) {
         this.categorySubscription();
       } else {
@@ -131,18 +132,23 @@ test = 1;
         this.products = this.productsService.productsFilter;
         this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;
-        debugger
         this.filter = this.productsService.filter;
+        this.currentFilter = this.productsService.currentFilter;
+        this.otherFilter = this.productsService.carObject.otherFilter;
+        debugger
+        console.log(this.productsService.carObject);
+        console.log( this.productsService.carObject.minPrice);
+        if (this.productsService.carObject.minPrice) { this.minPrice = this.productsService.carObject.minPrice }
+        if (this.productsService.carObject.maxPrice) { this.maxPrice = this.productsService.carObject.maxPrice }
+        console.log(this.minPrice);
         this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       } else {
         let responseFilter: any;
         responseFilter = await this.productsService.loadProductsFilter(params);
         this.products = responseFilter.productos;
-
         Object.keys(responseFilter.filtros).forEach((key) => (responseFilter.filtros[key] == null) && delete responseFilter.filtros[key]);
         this.filter = Object.assign({}, this.filter , responseFilter.filtros);
-
         this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       }
@@ -160,8 +166,7 @@ test = 1;
     this.navigationTopService.currentEventCategory.subscribe(event => {
       if (event) {
         this.category = event;
-        /*this.productsService.productsFilter = [];
-        this.productsService.currentPageFilter = 1;
+        /*
         this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;*/
         if (
@@ -305,68 +310,82 @@ test = 1;
     this.scrollToTop();
   }
 
-  public filterByYear(year: string) {
-    if (year) {
-      year = `'${year}'`;
+  public returnStringOption(option) {
+    if (option) {
+      option = `'${option}'`;
     }
+    return option;
+  }
+
+  public filterByYear(year: string) {
+    year = this.returnStringOption(year);
     this.routineUpdateProducts({ vehicle_model: year, number: 1 });
     this.scrollToTop();
   }
 
   public filterByColor(color: string) {
-    if (color) {
-      color = `'${color}'`;
-    }
+    color = this.returnStringOption(color);
     this.routineUpdateProducts({ vehicle_color: color, number: 1 });
     this.scrollToTop();
   }
 
   public filterByTransmission(transmission: string) {
-    if (transmission) {
-      transmission = `'${transmission}'`;
-    }
+    transmission = this.returnStringOption(transmission);
     this.routineUpdateProducts({
       vehicle_transmission: transmission,
       number: 1
     });
     this.scrollToTop();
   }
+
   public filterByGas(gas: string) {
-    if (gas) {
-      gas = `'${gas}'`;
-    }
+    gas = this.returnStringOption(gas);
     this.routineUpdateProducts({ vehicle_gas: gas, number: 1 });
     this.scrollToTop();
   }
+
   public filterByLicensePlate(licensePlate: string) {
-    if (licensePlate) {
-      licensePlate = `'${licensePlate}'`;
-    }
+    licensePlate = this.returnStringOption(licensePlate);
     this.routineUpdateProducts({
       vehicle_license_plate: licensePlate,
       number: 1
     });
     this.scrollToTop();
   }
+
   public filterByUseType(useType: string) {
-    if (useType) {
-      useType = `'${useType}'`;
-    }
+    useType = this.returnStringOption(useType);
     this.routineUpdateProducts({ vehicle_use_type: useType, number: 1 });
     this.scrollToTop();
   }
+
   public filterByTypeSeat(typeSeat: string) {
-    if (typeSeat) {
-      typeSeat = `'${typeSeat}'`;
-    }
+    typeSeat = this.returnStringOption(typeSeat);
     this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
     this.scrollToTop();
   }
-  public filterByMileage(mileage: string) {
-    mileage = mileage.replace('.', '');
+
+  public filterByMileage(operacionLogica, mileage: string) {
+    mileage = mileage.split('.').join('');
+    if (operacionLogica != '-') {
+      mileage = operacionLogica + mileage;
+    }
+
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
     this.scrollToTop();
   }
+
+  public checkKilometers(operacionLogica , kilometer){
+    kilometer = kilometer.split('.').join('');
+    if (operacionLogica != '-') {
+      kilometer = operacionLogica + kilometer;
+    }
+    if(this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer){
+      return true;
+    }
+    return false;
+  }
+
   public filterByOthersVehicle(other) {
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
@@ -402,7 +421,19 @@ test = 1;
   }
 
   setScroll(event) {
-    this.productsService.setProductLocationFilter(this.filter, this.products, event['product_id'], this.currentPage);
+    const carObject =
+    {
+      otherFilter: this.otherFilter,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    }
+
+    this.productsService.setProductLocationFilter(carObject ,
+      this.currentFilter,
+      this.filter,
+      this.products,
+      event['product_id'],
+      this.currentPage);
   }
 
 }

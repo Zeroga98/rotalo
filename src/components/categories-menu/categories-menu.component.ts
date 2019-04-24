@@ -5,6 +5,7 @@ import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, Chang
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
 import { NavigationTopService } from '../navigation-top/navigation-top.service';
+import { ProductsService } from './../../services/products.service';
 
 @Component({
   selector: 'categories-menu',
@@ -23,6 +24,7 @@ export class CategoriesMenuComponent implements OnInit {
     private router: Router,
     private navigationTopService: NavigationTopService,
     private categoriesService: CategoriesService,
+    private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -56,6 +58,8 @@ export class CategoriesMenuComponent implements OnInit {
         ], {queryParams: {product_category_id : category.id}});
       }
     }
+    this.productsService.productsFilter = [];
+    this.productsService.currentPageFilter = 1;
   }
 
   selectSubCategory(subCategory: any, category: any ) {

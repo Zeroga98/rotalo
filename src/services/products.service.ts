@@ -28,6 +28,8 @@ export class ProductsService {
   private counterProductChecked = 0;
   private paramsProductChecked  = {'data': []};
   public filter = {};
+  public currentFilter;
+  public carObject;
 
   constructor(
     private http: HttpClient,
@@ -183,13 +185,6 @@ export class ProductsService {
       });
   }
 
-  /*getProductsById(id: number): Promise<any> {
-    const url = `${this.url}/${id}`;
-    return this.http
-      .get(url)
-      .toPromise()
-      .then((response: any) => response.data);
-  }*/
 
   getProductsByIdDetail(id: number) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -199,27 +194,12 @@ export class ProductsService {
   }
 
 
-  /*deleteProductRuby(id: number | string): Promise<any> {
-    const url = `${this.url}/${id}`;
-    return this.http
-      .delete(url)
-      .toPromise()
-      .then((response: any) => {
-        this.userService.updateInfoUser();
-      });
-  }*/
 
-  deleteProduct(params)/*: Promise<any> */{
+  deleteProduct(params){
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/eliminar`;
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
-    /*return this.http
-      .put(url, { headers: headers, params: params })
-      .pipe()
-      .then((response: any) => {
-        this.userService.updateInfoUser();
-      });*/
   }
 
 
@@ -245,15 +225,6 @@ export class ProductsService {
     return this.http.post(url, params, { headers: headers }).toPromise();
   }
 
-  /*updateProduct(id: number | string, params): Promise<any> {
-    const url = `${this.url}/${id}`;
-    const request = this._buildParams(params);
-    request.data.id = `${id}`;
-    return this.http
-      .put(url, request)
-      .toPromise()
-      .then((response: any) => response.data);
-  }*/
 
   updateProductForm(id: number | string, params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -273,9 +244,6 @@ export class ProductsService {
       .then((response: any) => response);
   }
 
-  /*saveProducts(params): Promise<any> {
-    return this.http.post(this.url, this._buildParams(params)).toPromise();
-  }*/
 
   saveProductsForm(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
@@ -362,11 +330,13 @@ export class ProductsService {
     this.currentPage = currentPage;
   }
 
-  setProductLocationFilter(filter , products, name, currentPage) {
+  setProductLocationFilter(carObject, currentFilter, filter , products, name, currentPage) {
+    this.carObject = carObject;
     this.productsFilter = products;
     this.scrollFilter = name;
     this.currentPageFilter = currentPage;
     this.filter = filter;
+    this.currentFilter = currentFilter;
   }
 
   setProductsFilter(products) {
