@@ -14,7 +14,7 @@ export class ConfigurationService {
     protocol: 'https',
     server: 'stgn-gateway.rotalo.com.co:1443/gateway',
     inactivityLimit: 86400 // seconds
-  };
+  };*/
   /*Desarrollo*/
 /*
   api = {
