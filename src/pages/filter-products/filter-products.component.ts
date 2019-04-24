@@ -110,7 +110,7 @@ test = 1;
   }
 
   ngOnDestroy() {
-    this.navigationTopService.setCategory(undefined);
+
   }
 
   loadProductsFilter(countryId) {
@@ -135,12 +135,9 @@ test = 1;
         this.filter = this.productsService.filter;
         this.currentFilter = this.productsService.currentFilter;
         this.otherFilter = this.productsService.carObject.otherFilter;
-        debugger
-        console.log(this.productsService.carObject);
-        console.log( this.productsService.carObject.minPrice);
-        if (this.productsService.carObject.minPrice) { this.minPrice = this.productsService.carObject.minPrice }
-        if (this.productsService.carObject.maxPrice) { this.maxPrice = this.productsService.carObject.maxPrice }
-        console.log(this.minPrice);
+
+        if (this.productsService.carObject.minPrice) { this.minPrice = this.productsService.carObject.minPrice; }
+        if (this.productsService.carObject.maxPrice) { this.maxPrice = this.productsService.carObject.maxPrice; }
         this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       } else {
@@ -164,24 +161,17 @@ test = 1;
 
   categorySubscription() {
     this.navigationTopService.currentEventCategory.subscribe(event => {
+
       if (event) {
         this.category = event;
-        /*
-        this.currentPage = this.productsService.currentPageFilter;
-        this.pageNumber = this.currentPage;*/
+
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
             this.navigationTopService.getCategory() != event)
         ) {
           this.navigationTopService.setCategory(event);
-        /*  this.filter = {};
-          this.otherFilter = {
-            vehicle_airbag: false,
-            vehicle_abs_brakes: false,
-            vehicle_air_conditioner: false,
-            vehicle_unique_owner: false
-          };*/
+          this.changeDetectorRef.markForCheck();
         }
       } else {
         this.getCategories();
