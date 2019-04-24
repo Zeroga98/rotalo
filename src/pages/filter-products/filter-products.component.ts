@@ -37,25 +37,14 @@ export class FilterProductsComponent
   public showPagination = false;
   public pageNumber: number = 1;
   public totalPages: number = 100;
-  public communitiesFilter;
-  public sellTypesFilter;
-  public stateFilter;
-  public cityFilter;
+
+
   public maxPrice;
   public minPrice;
   public countryId;
   public buttonNameFilter: String;
   public showFilterResponsive: boolean = true;
-  public brandFilter;
-  public modelFilter;
-  public yearFilter;
-  public colorFilter;
-  public transmissionFilter;
-  public gasFilter;
-  public licensePlateFilter;
-  public useTypeFilter;
-  public typeSeatFilter;
-  public mileageFilter;
+
   public otherFilter = {
     vehicle_airbag: false,
     vehicle_abs_brakes: false,
@@ -63,7 +52,7 @@ export class FilterProductsComponent
     vehicle_unique_owner: false
   };
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
-
+test = 1;
 
   constructor(
     private navigationTopService: NavigationTopService,
@@ -142,10 +131,8 @@ export class FilterProductsComponent
         this.products = this.productsService.productsFilter;
         this.currentPage = this.productsService.currentPageFilter;
         this.pageNumber = this.currentPage;
-        let responseFilter: any;
-       /* responseFilter = await this.productsService.loadProductsFilter(params);
-        this.filter = responseFilter.filtros;*/
         debugger
+        this.filter = this.productsService.filter;
         this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       } else {
@@ -153,83 +140,13 @@ export class FilterProductsComponent
         responseFilter = await this.productsService.loadProductsFilter(params);
         this.products = responseFilter.productos;
 
-        console.log(this.filter);
         Object.keys(responseFilter.filtros).forEach((key) => (responseFilter.filtros[key] == null) && delete responseFilter.filtros[key]);
-        console.log(responseFilter.filtros);
         this.filter = Object.assign({}, this.filter , responseFilter.filtros);
-        console.log(this.filter);
-        debugger
+
         this.totalPages = this.productsService.getTotalProductsFilters();
         this.changeDetectorRef.markForCheck();
       }
-      if (
-        this.filter.filtroComunidad &&
-        this.filter.filtroComunidad.comunidades
-      ) {
-        this.communitiesFilter = this.filter.filtroComunidad;
-      }
-      if (
-        this.filter.filtroTipoVenta &&
-        this.filter.filtroTipoVenta.tiposVentas
-      ) {
-        this.sellTypesFilter = this.filter.filtroTipoVenta;
-      }
-      if (
-        this.filter.filtroDepartamento &&
-        this.filter.filtroDepartamento.departamentos
-      ) {
-        this.stateFilter = this.filter.filtroDepartamento;
-      }
-      if (this.filter.filtroCiudad && this.filter.filtroCiudad.ciudades) {
-        this.cityFilter = this.filter.filtroCiudad;
-      }
-      if (this.filter.filtroMarca && this.filter.filtroMarca.marcas) {
-        this.brandFilter = this.filter.filtroMarca;
-      }
-      if (this.filter.filtroModelo && this.filter.filtroModelo.modelos) {
-        this.modelFilter = this.filter.filtroModelo;
-      }
-      if (this.filter.filtroAnio && this.filter.filtroAnio.anios) {
-        this.yearFilter = this.filter.filtroAnio;
-      }
-      if (this.filter.filtroColor && this.filter.filtroColor.colores) {
-        this.colorFilter = this.filter.filtroColor;
-      }
-      if (
-        this.filter.filtroTransmision &&
-        this.filter.filtroTransmision.transmisiones
-      ) {
-        this.transmissionFilter = this.filter.filtroTransmision;
-      }
-      if (
-        this.filter.filtroCombustible &&
-        this.filter.filtroCombustible.combustibles
-      ) {
-        this.gasFilter = this.filter.filtroCombustible;
-      }
-      if (
-        this.filter.filtroNumeroPlaca &&
-        this.filter.filtroNumeroPlaca.numerosPlacas
-      ) {
-        this.licensePlateFilter = this.filter.filtroNumeroPlaca;
-      }
-      if (this.filter.filtroTipoUso && this.filter.filtroTipoUso.tiposUsos) {
-        this.useTypeFilter = this.filter.filtroTipoUso;
-      }
-      if (
-        this.filter.filtroTipoAsiento &&
-        this.filter.filtroTipoAsiento.tiposAsientos
-      ) {
-        this.typeSeatFilter = this.filter.filtroTipoAsiento;
-      }
-      if (
-        this.filter.filtroKilometraje &&
-        this.filter.filtroKilometraje.kilometrajes
-      ) {
-        this.mileageFilter = this.filter.filtroKilometraje;
-      }
 
-      this.changeDetectorRef.markForCheck();
     } catch (error) {
       this.changeDetectorRef.markForCheck();
     }
@@ -243,32 +160,23 @@ export class FilterProductsComponent
     this.navigationTopService.currentEventCategory.subscribe(event => {
       if (event) {
         this.category = event;
-        this.brandFilter = null;
-        this.modelFilter  = null;
-        this.yearFilter = null;
-        this.colorFilter = null;
-        this.transmissionFilter = null;
-        this.gasFilter = null;
-        this.licensePlateFilter = null;
-        this.useTypeFilter = null;
-        this.typeSeatFilter = null;
-        this.mileageFilter = null;
-        this.otherFilter = {
-          vehicle_airbag: false,
-          vehicle_abs_brakes: false,
-          vehicle_air_conditioner: false,
-          vehicle_unique_owner: false
-        };
-        this.productsService.productsFilter = [];
+        /*this.productsService.productsFilter = [];
         this.productsService.currentPageFilter = 1;
         this.currentPage = this.productsService.currentPageFilter;
-        this.pageNumber = this.currentPage;
+        this.pageNumber = this.currentPage;*/
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
             this.navigationTopService.getCategory() != event)
         ) {
           this.navigationTopService.setCategory(event);
+        /*  this.filter = {};
+          this.otherFilter = {
+            vehicle_airbag: false,
+            vehicle_abs_brakes: false,
+            vehicle_air_conditioner: false,
+            vehicle_unique_owner: false
+          };*/
         }
       } else {
         this.getCategories();
@@ -494,7 +402,7 @@ export class FilterProductsComponent
   }
 
   setScroll(event) {
-    this.productsService.setProductLocationFilter(this.products, event['product_id'], this.currentPage);
+    this.productsService.setProductLocationFilter(this.filter, this.products, event['product_id'], this.currentPage);
   }
 
 }

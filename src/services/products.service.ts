@@ -27,6 +27,7 @@ export class ProductsService {
   private bancolombiaProducts;
   private counterProductChecked = 0;
   private paramsProductChecked  = {'data': []};
+  public filter = {};
 
   constructor(
     private http: HttpClient,
@@ -361,10 +362,11 @@ export class ProductsService {
     this.currentPage = currentPage;
   }
 
-  setProductLocationFilter(products, name, currentPage) {
+  setProductLocationFilter(filter , products, name, currentPage) {
     this.productsFilter = products;
     this.scrollFilter = name;
     this.currentPageFilter = currentPage;
+    this.filter = filter;
   }
 
   setProductsFilter(products) {
