@@ -416,7 +416,7 @@ test = 1;
       otherFilter: this.otherFilter,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
-    }
+    };
 
     this.productsService.setProductLocationFilter(carObject ,
       this.currentFilter,
