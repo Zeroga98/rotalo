@@ -275,10 +275,10 @@
                   </div>
                   <div *ngFor="let cilindraje of filter.filtroCilindraje.cilindrajes; let i = index" class="md-radio">
                     <input
-                    [checked]="currentFilter && currentFilter['vehicle_displacement'] == returnStringOption(cilindraje.rangoCilindraje)"
-                    (change)="filterByDisplacement(cilindraje.rangoCilindraje)" value="{{cilindraje.rangoCilindraje}}"
+                    [checked]="currentFilter && currentFilter['vehicle_displacement'] == returnStringOption(cilindraje.cilindraje)"
+                    (change)="filterByDisplacement(cilindraje.cilindraje)" value="{{cilindraje.cilindraje}}"
                       id="cilindraje{{i}}" type="radio" name="cilindraje">
-                    <label for="cilindraje{{i}}">{{cilindraje.rangoCilindraje}}
+                    <label for="cilindraje{{i}}">{{cilindraje.cilindraje}}
                       ({{cilindraje.quantityForFilter}})</label>
                   </div>
                 </div>
