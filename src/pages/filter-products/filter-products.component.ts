@@ -365,6 +365,12 @@ test = 1;
     this.scrollToTop();
   }
 
+  public filterByDisplacement(displacement: string) {
+    displacement = this.returnStringOption(displacement);
+    this.routineUpdateProducts({ vehicle_displacement: displacement, number: 1 });
+    this.scrollToTop();
+  }
+
   public checkKilometers(operacionLogica , kilometer){
     kilometer = kilometer.split('.').join('');
     if (operacionLogica != '-') {
