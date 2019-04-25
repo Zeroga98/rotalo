@@ -164,7 +164,7 @@ test = 1;
 
       if (event) {
         this.category = event;
-
+        console.log(event);
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
@@ -379,6 +379,52 @@ test = 1;
   public filterByOthersVehicle(other) {
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
+  }
+
+
+  public filterByAntiquity(antiquity: string) {
+    antiquity = this.returnStringOption(antiquity);
+    this.routineUpdateProducts({ immovable_antiquity: antiquity, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByImmovable(immovable: string) {
+    this.routineUpdateProducts({ immovable_floor: immovable, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySellerType(sellerType: string) {
+    sellerType = this.returnStringOption(sellerType);
+    this.routineUpdateProducts({ immovable_seller_type: sellerType, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByRoom(room: string) {
+    room = this.returnStringOption(room);
+    this.routineUpdateProducts({ immovable_rooms: room, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByBathRoom(bathroom: string) {
+    this.routineUpdateProducts({ immovable_bathrooms: bathroom, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySocialClass(socialclass: string) {
+    this.routineUpdateProducts({ immovable_social_class: socialclass, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySquaremeters(squaremeter: string) {
+    squaremeter = this.returnStringOption(squaremeter);
+    this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByQuotaAdmin(quota: string) {
+    quota = this.returnStringOption(quota);
+    this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
+    this.scrollToTop();
   }
 
   removeFilters() {
