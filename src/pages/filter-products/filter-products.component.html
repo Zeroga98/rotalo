@@ -642,8 +642,34 @@
                     [checked]="currentFilter && currentFilter['immovable_canon_quota'] ==  returnStringOption(quota.rangoAdministracion)"
                     (change)="filterByQuotaAdmin(quota.rangoAdministracion)" value="{quota.rangoAdministracion}}"
                       id="quota{{i}}" type="radio" name="quota">
-                    <label for="squaremeters{{i}}">{{quota.labelAdministracion}}
+                    <label for="quota{{i}}">{{quota.labelAdministracion}}
                       ({{quota.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div *ngIf="filter.filtroPorteria && category && category.name == 'Inmuebles'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_guard_house']"
+            id="in-9" name="accordion-1" type="checkbox" />
+            <label for="in-9">Portería<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
+                      (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
+                    <label for="guard">Todos ({{filter.filtroPorteria.total}})</label>
+                  </div>
+                  <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_guard_house'] ==  returnStringOption(guard.porteria)"
+                    (change)="filterByGuardHouse(guard.porteria)" value="{guard.porteria}}"
+                      id="guard{{i}}" type="radio" name="guard">
+                    <label for="guard{{i}}">{{guard.porteria}}
+                      ({{guard.quantityForFilter}})</label>
                   </div>
                 </div>
               </div>

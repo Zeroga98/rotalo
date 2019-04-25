@@ -51,8 +51,16 @@ export class FilterProductsComponent
     vehicle_air_conditioner: false,
     vehicle_unique_owner: false
   };
+
+  public otherFilterImmovable = {
+    vehicle_airbag: false,
+    vehicle_abs_brakes: false,
+    vehicle_air_conditioner: false,
+    vehicle_unique_owner: false
+  };
+
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
-test = 1;
+
 
   constructor(
     private navigationTopService: NavigationTopService,
@@ -424,6 +432,12 @@ test = 1;
   public filterByQuotaAdmin(quota: string) {
     quota = this.returnStringOption(quota);
     this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByGuardHouse(guard: string) {
+    guard = this.returnStringOption(guard);
+    this.routineUpdateProducts({ immovable_guard_house: guard, number: 1 });
     this.scrollToTop();
   }
 
