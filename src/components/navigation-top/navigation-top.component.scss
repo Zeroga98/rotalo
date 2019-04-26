@@ -557,24 +557,18 @@
 
 @media screen and (max-width: 1080px) {
   :host {
-    .container-offer {
+    .centrado {
       position: fixed;
       bottom: 3rem;
-      right: 3rem;
+      right: 10%;
+      left: 12%;
       z-index: 99999;
-
+      
       .upload-offer-button {
         .outside-circle {
-          width: auto;
-          background-color: transparent;
-
           .inside-circle {
-            width: 5rem;
-            height: 5rem;
-          }
-
-          label {
-            display: none;
+            width: 3.5rem;
+            height: 3.5rem;
           }
         }
       }
