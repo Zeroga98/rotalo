@@ -661,7 +661,7 @@
                       (change)="filterBySquaremeters('')" value="" id="squaremeter" type="radio" name="squaremeter">
                     <label for="squaremeter">Todos ({{filter.filtroMetrosCuadrados.total}})</label>
                   </div>
-                  <div *ngFor="let squaremeter of filter.filtroMetrosCuadrados.estratos; let i = index" class="md-radio">
+                  <div *ngFor="let squaremeter of filter.filtroMetrosCuadrados.metrosCuadrados; let i = index" class="md-radio">
                     <input
                     [checked]="currentFilter && currentFilter['immovable_square_meters'] ==  returnStringOption(squaremeter.rangoMetrosCuadrados)"
                     (change)="filterBySquaremeters(squaremeter.rangoMetrosCuadrados)" value="{squaremeter.rangoMetrosCuadrados}}"
