@@ -315,7 +315,7 @@
 
           <div *ngIf="filter.filtroColor
           && category && category.subCategory && category.subCategory.name == 'Carros'
-          && category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_color']"
             id="ac-9" name="accordion-1" type="checkbox" />
