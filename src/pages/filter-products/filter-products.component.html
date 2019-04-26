@@ -149,7 +149,11 @@
               </div>
             </article>
           </div>
-          <div *ngIf="filter.filtroMarca && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="filter.filtroMarca &&
+          category && category.subCategory && category.subCategory.name == 'Carros'
+          || category && category.subCategory && category.subCategory.name == 'Motos'
+          " class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_brand_id']"
             id="ac-6" name="accordion-1" type="checkbox" />
@@ -173,7 +177,10 @@
               </div>
             </article>
           </div>
-          <div *ngIf="filter.filtroModelo && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="filter.filtroModelo
+          && category && category.subCategory && category.subCategory.name == 'Carros'
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_line_id']"
             id="ac-7" name="accordion-1" type="checkbox" />
@@ -197,7 +204,10 @@
               </div>
             </article>
           </div>
-          <div *ngIf="filter.filtroAnio && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="filter.filtroAnio
+          && category && category.subCategory && category.subCategory.name == 'Carros'
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_model']"
             id="ac-8" name="accordion-1" type="checkbox" />
@@ -221,7 +231,10 @@
               </div>
             </article>
           </div>
-          <div *ngIf="filter.filtroKilometraje && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="filter.filtroKilometraje
+          && category && category.subCategory && category.subCategory.name == 'Carros'
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_mileage']"
             id="ac-15" name="accordion-1" type="checkbox" />
@@ -246,6 +259,34 @@
               </div>
             </article>
           </div>
+
+          <div *ngIf="filter.filtroCilindraje
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_displacement']"
+            id="ac-17" name="accordion-1" type="checkbox" />
+            <label for="ac-17">Cilindraje<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_displacement']" (change)="filterByDisplacement('')"
+                      value="" id="cilindraje" type="radio" name="cilindraje">
+                    <label for="cilindraje">Todos ({{filter.filtroCilindraje.total}})</label>
+                  </div>
+                  <div *ngFor="let cilindraje of filter.filtroCilindraje.cilindrajes; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_displacement'] == returnStringOption(cilindraje.cilindraje)"
+                    (change)="filterByDisplacement(cilindraje.cilindraje)" value="{{cilindraje.cilindraje}}"
+                      id="cilindraje{{i}}" type="radio" name="cilindraje">
+                    <label for="cilindraje{{i}}">{{cilindraje.cilindraje}}
+                      ({{cilindraje.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
           <div *ngIf="filter.filtroTipoUso && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_use_type']"
@@ -271,7 +312,10 @@
               </div>
             </article>
           </div>
-          <div *ngIf="filter.filtroColor && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="filter.filtroColor
+          && category && category.subCategory && category.subCategory.name == 'Carros'
+          && category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_color']"
             id="ac-9" name="accordion-1" type="checkbox" />
@@ -395,11 +439,15 @@
               </div>
             </article>
           </div>
-          <div *ngIf="category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
+
+          <div *ngIf="category && category.subCategory && category.subCategory.name == 'Carros'
+          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
               <input id="ac-16" name="accordion-1" type="checkbox" />
               <label for="ac-16">Otros filtros<div class="icon"></div></label>
               <article class="ac-small">
-                <div class="material-design">
+                <div
+                *ngIf="category && category.subCategory && category.subCategory.name == 'Carros'"
+                 class="material-design">
                     <label class="material-checkbox container-check">
                         <input
                         (change)="filterByOthersVehicle({vehicle_airbag: otherFilter.vehicle_airbag})"
@@ -419,7 +467,9 @@
                     </label>
                     <label class="check-text" for="frenos">Frenos ABS</label>
                 </div>
-                <div class="material-design">
+                <div
+                *ngIf="category && category.subCategory && category.subCategory.name == 'Carros'"
+                class="material-design">
                     <label class="material-checkbox container-check">
                         <input
                         (change)="filterByOthersVehicle({vehicle_air_conditioner: otherFilter.vehicle_air_conditioner})"
@@ -748,8 +798,6 @@
                 </div>
               </article>
           </div>
-
-
 
         </div>
         <div *ngIf="filter" class="product-btns">

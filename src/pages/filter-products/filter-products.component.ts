@@ -174,7 +174,6 @@ export class FilterProductsComponent
 
       if (event) {
         this.category = event;
-        console.log(event);
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
@@ -372,6 +371,12 @@ export class FilterProductsComponent
     }
 
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByDisplacement(displacement: string) {
+    displacement = this.returnStringOption(displacement);
+    this.routineUpdateProducts({ vehicle_displacement: displacement, number: 1 });
     this.scrollToTop();
   }
 
