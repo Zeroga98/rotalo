@@ -28,40 +28,30 @@
               </span>
             </a>
           </li>
-<!--           <li *ngIf="showOptions" class="desktop">
-            <div class="toolbar__filters">
-              <div class="select-community">
-                <select name="community" (change)="changeSelectComunidad($event)">
-                  <option selected value disabled>Comunidades</option>
-                  <option value="-1">Todas</option>
-                  <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-                </select>
-              </div>
-            </div>
-          </li> -->
-          <li class="gtmCentroRotalo rotalo-center">
-            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
-              <span class="gtmCentroRotalo text-rotalo">
-                Centro Rótalo
-                <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-              <span class="gtmCentroRotalo icon-rotalo">
-                <span *ngIf="messagesUnRead && messagesUnRead > 0" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-            </a>
+
+
+          <li class="desktop">
+              <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
+                <span>
+                  !Hola ¡
+                </span>
+              </a>
+              <mat-menu xPosition="before" #perfilMenu="matMenu">
+                <div class="menu-usuario">
+                  <div class="info">
+                  </div>
+                  <button mat-menu-item>Mensajes</button>
+                  <button mat-menu-item>Mis artículos rotados</button>
+                  <button mat-menu-item>Mis artículos rotando</button>
+                  <button mat-menu-item>Mis datos</button>
+                  <button mat-menu-item>Seguridad</button>
+                  <button mat-menu-item>Configuraciones</button>
+                  <button mat-menu-item>Cerrar sesión</button>
+                </div>
+              </mat-menu>
           </li>
-          <li class="perfil-container gtmPerfil">
-            <div [ngClass]="{active: isActive('profile')}" (click)="onActivateMenu()" class="container-perfil">
-              <span class="gtmPerfil icon-account-header">
-              </span>
-              <p>Perfil</p>
-              <span *ngIf="hobbyNotification" class="noti-circle">1</span>
-            </div>
-            <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
-              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
-            </div>
-          </li>
+
+
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
@@ -122,17 +112,6 @@
     </div>
     <div class="divisor-right mobile">
       <ul class="list-options">
-<!--         <li>
-          <div class="toolbar__filters">
-            <div class="select-community">
-              <select name="community" (change)="changeSelectComunidad($event)">
-                <option selected value disabled>Comunidades</option>
-                <option value="-1">Todas</option>
-                <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-              </select>
-            </div>
-          </div>
-        </li> -->
         <li>
           <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
             <span>
