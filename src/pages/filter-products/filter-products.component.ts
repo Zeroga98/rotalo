@@ -53,10 +53,12 @@ export class FilterProductsComponent
   };
 
   public otherFilterImmovable = {
-    vehicle_airbag: false,
-    vehicle_abs_brakes: false,
-    vehicle_air_conditioner: false,
-    vehicle_unique_owner: false
+    immovable_elevator: false,
+    immovable_parking: false,
+    immovable_childis_games: false,
+    immovable_useful_room: false,
+    immovable_pool: false,
+    immovable_full_furnished: false
   };
 
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
@@ -143,7 +145,7 @@ export class FilterProductsComponent
         this.filter = this.productsService.filter;
         this.currentFilter = this.productsService.currentFilter;
         this.otherFilter = this.productsService.carObject.otherFilter;
-
+        this.otherFilterImmovable = this.productsService.immovableObject.otherFilterImmovable;
         if (this.productsService.carObject.minPrice) { this.minPrice = this.productsService.carObject.minPrice; }
         if (this.productsService.carObject.maxPrice) { this.maxPrice = this.productsService.carObject.maxPrice; }
         this.totalPages = this.productsService.getTotalProductsFilters();
@@ -441,18 +443,34 @@ export class FilterProductsComponent
     this.scrollToTop();
   }
 
+  public filterByOthersImmovable(other) {
+    other = Object.assign(other, { number: 1 });
+    this.routineUpdateProducts(other);
+  }
+
   removeFilters() {
     this.currentFilter = {
       product_country_id: this.countryId,
       size: 24,
       number: 1
     };
+
     this.otherFilter = {
       vehicle_airbag: false,
       vehicle_abs_brakes: false,
       vehicle_air_conditioner: false,
       vehicle_unique_owner: false
     };
+
+    this.otherFilterImmovable = {
+      immovable_elevator: false,
+      immovable_parking: false,
+      immovable_childis_games: false,
+      immovable_useful_room: false,
+      immovable_pool: false,
+      immovable_full_furnished: false
+    };
+
     this.minPrice = null;
     this.maxPrice = null;
     this.currentFilter = Object.assign({}, this.currentFilter, this.params);
@@ -476,9 +494,13 @@ export class FilterProductsComponent
       otherFilter: this.otherFilter,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
-    }
+    };
 
-    this.productsService.setProductLocationFilter(carObject ,
+    const immovableObject = {
+      otherFilterImmovable: this.otherFilterImmovable
+    };
+
+    this.productsService.setProductLocationFilter(immovableObject , carObject ,
       this.currentFilter,
       this.filter,
       this.products,

@@ -442,7 +442,6 @@
               </article>
           </div>
 
-
           <div *ngIf="filter.filtroAntiguedad && category && category.name == 'Inmuebles'" class="option">
             <input
             [checked]="currentFilter && currentFilter['immovable_antiquity']"
@@ -677,6 +676,79 @@
               </div>
             </article>
           </div>
+
+
+          <div *ngIf="category && category.name == 'Inmuebles'" class="option">
+              <input id="in-10" name="accordion-1" type="checkbox" />
+              <label for="in-10">Otros filtros<div class="icon"></div></label>
+              <article class="ac-small">
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_elevator: otherFilterImmovable.immovable_elevator})"
+                        [(ngModel)]="otherFilterImmovable.immovable_elevator"
+                        class="otherFilterImmovables" type="checkbox" id="ascensor" name="ascensor">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="ascensor">Ascensor</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_parking: otherFilterImmovable.immovable_parking})"
+                        [(ngModel)]="otherFilterImmovable.immovable_parking"
+                        class="otherFilterImmovables" type="checkbox" id="parking" name="parking">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="parking">Parqueadero</label>
+                </div>
+
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_useful_room: otherFilterImmovable.immovable_useful_room})"
+                        [(ngModel)]="otherFilterImmovable.immovable_useful_room"
+                        class="otherFilterImmovables" type="checkbox" id="useful" name="useful">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="useful">Cuarto útil</label>
+                </div>
+
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_pool: otherFilterImmovable.immovable_pool})"
+                        [(ngModel)]="otherFilterImmovable.immovable_pool"
+                        class="otherFilterImmovables" type="checkbox" id="pool" name="pool">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="pool">Píscina</label>
+                </div>
+
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_full_furnished: otherFilterImmovable.immovable_full_furnished})"
+                        [(ngModel)]="otherFilterImmovable.immovable_full_furnished"
+                        class="otherFilterImmovables" type="checkbox" id="furnished" name="furnished">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="furnished">Amoblado</label>
+                </div>
+
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_childis_games: otherFilterImmovable.immovable_childis_games})"
+                        [(ngModel)]="otherFilterImmovable.immovable_childis_games"
+                        class="otherFilterImmovables" type="checkbox" id="games" name="games">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="games">Juegos infantiles</label>
+                </div>
+              </article>
+          </div>
+
 
 
         </div>
