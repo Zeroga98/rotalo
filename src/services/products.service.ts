@@ -30,6 +30,7 @@ export class ProductsService {
   public filter = {};
   public currentFilter;
   public carObject;
+  public immovableObject;
 
   constructor(
     private http: HttpClient,
@@ -330,7 +331,8 @@ export class ProductsService {
     this.currentPage = currentPage;
   }
 
-  setProductLocationFilter(carObject, currentFilter, filter , products, name, currentPage) {
+  setProductLocationFilter(immovableObject, carObject, currentFilter, filter , products, name, currentPage) {
+    this.immovableObject = immovableObject;
     this.carObject = carObject;
     this.productsFilter = products;
     this.scrollFilter = name;

@@ -51,8 +51,18 @@ export class FilterProductsComponent
     vehicle_air_conditioner: false,
     vehicle_unique_owner: false
   };
+
+  public otherFilterImmovable = {
+    immovable_elevator: false,
+    immovable_parking: false,
+    immovable_childis_games: false,
+    immovable_useful_room: false,
+    immovable_pool: false,
+    immovable_full_furnished: false
+  };
+
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
-test = 1;
+
 
   constructor(
     private navigationTopService: NavigationTopService,
@@ -135,7 +145,7 @@ test = 1;
         this.filter = this.productsService.filter;
         this.currentFilter = this.productsService.currentFilter;
         this.otherFilter = this.productsService.carObject.otherFilter;
-
+        this.otherFilterImmovable = this.productsService.immovableObject.otherFilterImmovable;
         if (this.productsService.carObject.minPrice) { this.minPrice = this.productsService.carObject.minPrice; }
         if (this.productsService.carObject.maxPrice) { this.maxPrice = this.productsService.carObject.maxPrice; }
         this.totalPages = this.productsService.getTotalProductsFilters();
@@ -164,7 +174,7 @@ test = 1;
 
       if (event) {
         this.category = event;
-
+        console.log(event);
         if (
           !this.navigationTopService.getCategory() ||
           (this.navigationTopService.getCategory() &&
@@ -381,18 +391,86 @@ test = 1;
     this.routineUpdateProducts(other);
   }
 
+
+  public filterByAntiquity(antiquity: string) {
+    antiquity = this.returnStringOption(antiquity);
+    this.routineUpdateProducts({ immovable_antiquity: antiquity, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByImmovable(immovable: string) {
+    this.routineUpdateProducts({ immovable_floor: immovable, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySellerType(sellerType: string) {
+    sellerType = this.returnStringOption(sellerType);
+    this.routineUpdateProducts({ immovable_seller_type: sellerType, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByRoom(room: string) {
+    room = this.returnStringOption(room);
+    this.routineUpdateProducts({ immovable_rooms: room, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByBathRoom(bathroom: string) {
+    this.routineUpdateProducts({ immovable_bathrooms: bathroom, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySocialClass(socialclass: string) {
+    this.routineUpdateProducts({ immovable_social_class: socialclass, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySquaremeters(squaremeter: string) {
+    squaremeter = this.returnStringOption(squaremeter);
+    this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByQuotaAdmin(quota: string) {
+    quota = this.returnStringOption(quota);
+    this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByGuardHouse(guard: string) {
+    guard = this.returnStringOption(guard);
+    this.routineUpdateProducts({ immovable_guard_house: guard, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByOthersImmovable(other) {
+    other = Object.assign(other, { number: 1 });
+    this.routineUpdateProducts(other);
+  }
+
   removeFilters() {
     this.currentFilter = {
       product_country_id: this.countryId,
       size: 24,
       number: 1
     };
+
     this.otherFilter = {
       vehicle_airbag: false,
       vehicle_abs_brakes: false,
       vehicle_air_conditioner: false,
       vehicle_unique_owner: false
     };
+
+    this.otherFilterImmovable = {
+      immovable_elevator: false,
+      immovable_parking: false,
+      immovable_childis_games: false,
+      immovable_useful_room: false,
+      immovable_pool: false,
+      immovable_full_furnished: false
+    };
+
     this.minPrice = null;
     this.maxPrice = null;
     this.currentFilter = Object.assign({}, this.currentFilter, this.params);
@@ -416,9 +494,13 @@ test = 1;
       otherFilter: this.otherFilter,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
-    }
+    };
 
-    this.productsService.setProductLocationFilter(carObject ,
+    const immovableObject = {
+      otherFilterImmovable: this.otherFilterImmovable
+    };
+
+    this.productsService.setProductLocationFilter(immovableObject , carObject ,
       this.currentFilter,
       this.filter,
       this.products,
