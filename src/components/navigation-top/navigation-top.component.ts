@@ -23,6 +23,7 @@ import { SubcategoryInterface } from '../../commons/interfaces/subcategory.inter
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
 import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
+import { UserInterface } from '../../commons/interfaces/user.interface';
 
 @Component({
   selector: 'navigation-top',
@@ -65,8 +66,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public showOptions;
   public isBancolombiaShop;
   public totalCart = 0;
-
-
+  public userEdit;
+  public message = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
+  public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
+  public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
+  public edit = `/${ROUTES.PROFILE}/${ROUTES.EDITPROFILE}`;
+  public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
+  public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
+  public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -138,7 +145,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       }
     });
 
-
     if (!this.userService.getCommunitiesCurrent()) {
       this.getCommunities();
     } else {
@@ -146,7 +152,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
     this.autoCompleteOptions = this.navigationTopService.getAutoCompleteOptions();
     this.cartNumberSubscription();
+    this.getInfoUser();
 
+  }
+
+  async getInfoUser() {
+    this.userEdit = await this.userService.getInfoUser();
+    console.log(this.userEdit);
   }
 
   isBancolombiaShopValidation() {

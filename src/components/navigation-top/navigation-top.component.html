@@ -33,20 +33,29 @@
           <li class="desktop">
               <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
                 <span>
-                  !Hola ¡
+                  !Hola <span *ngIf ="userEdit">{{userEdit.name}}¡</span>
                 </span>
               </a>
-              <mat-menu xPosition="before" #perfilMenu="matMenu">
+              <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
                 <div class="menu-usuario">
-                  <div class="info">
+                  <div *ngIf="userEdit" class="info">
+                    <div class="photo-container">
+                      <div class="photo">
+                        <img [src]="userEdit.photo?.url" alt="userEdit.name">
+                      </div>
+                      <div class="user-info">
+                        <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
+                        <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
+                      </div>
+                    </div>
                   </div>
-                  <button mat-menu-item>Mensajes</button>
-                  <button mat-menu-item>Mis artículos rotados</button>
-                  <button mat-menu-item>Mis artículos rotando</button>
-                  <button mat-menu-item>Mis datos</button>
-                  <button mat-menu-item>Seguridad</button>
-                  <button mat-menu-item>Configuraciones</button>
-                  <button mat-menu-item>Cerrar sesión</button>
+                  <button routerLinkActive="active" [routerLink]="message" mat-menu-item>Mensajes</button>
+                  <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
+                  <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
+                  <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
+                  <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
+                  <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
+                  <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
                 </div>
               </mat-menu>
           </li>

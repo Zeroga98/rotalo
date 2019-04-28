@@ -507,6 +507,51 @@
 }
 
 
+.photo-container {
+  display: flex;
+  padding: 15px;
+  border-bottom: 1px dashed #E2E2E2;
+  .photo {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border: 1.3px solid #E2E2E2;
+    border-radius: 50%;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+}
+
+.user-info {
+  width: 100%;
+  .name {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color:#272727;
+  }
+
+  .company {
+    font-size: 1.4rem;
+    color:#272727;
+  }
+}
+
+.mat-menu-item {
+  color: #272727;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+}
+
+.mat-menu-item.active {
+ font-weight: bold;
+ background: rgba(0,0,0,.04);
+}
+
 @media screen and (max-width: 1276px) {
   :host {
     .container-car {
