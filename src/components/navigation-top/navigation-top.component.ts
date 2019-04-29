@@ -104,13 +104,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.queryField.valueChanges.pipe(debounceTime(500))
+    this.queryField.valueChanges.pipe(debounceTime(200))
       .subscribe(result => {
         this.search(result);
       }
     );
-
-
 
     this.getCountries();
     this.defaultCountryValue = {
@@ -338,8 +336,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.navigationTopService.getAutoComplete(event).subscribe((response) => {
       if(response.body) {
         this.suggestList =  response.body.sugerencias;
+        this.changeDetector.markForCheck();
       }
-      console.log(response);
     });
   }
 
@@ -348,18 +346,19 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   changeTags() {
-    this.autoCompleteOptions = this.navigationTopService.addOptions(this.tags);
-    this.gapush(
-      'send',
-      'event',
-      'Home',
-      'ClickBusqueda',
-      this.tags
-    );
-    this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-    ], {queryParams: {product_name : this.tags}});
-    // this.navigationTopService.changeSearch(this.tags);
+    if(this.queryField.value) {
+      this.autoCompleteOptions = this.navigationTopService.addOptions(this.queryField.value);
+      this.gapush(
+        'send',
+        'event',
+        'Home',
+        'ClickBusqueda',
+        this.queryField.value
+      );
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ], {queryParams: {product_name : this.queryField.value}});
+    }
   }
 
   public _closeMenu() {
@@ -416,6 +415,20 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
 
+  goToCategory(suggestion) {
+    console.log(suggestion);
+    if(suggestion) {
+      if (suggestion.type == 'category') {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], {queryParams: {product_category_id : suggestion.idSuggestion}});
+      } else  {
+        this.router.navigate([
+          `${suggestion}`
+        ], {queryParams: {product_subcategory_id: suggestion.idSuggestion}});
+      }
+    }
+  }
 
 
 }
