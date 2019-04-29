@@ -438,7 +438,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         ], {queryParams: {product_category_id : suggestion.idSuggestion}});
       } else  {
         this.router.navigate([
-          `${suggestion}`
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_subcategory_id: suggestion.idSuggestion}});
       }
     }
