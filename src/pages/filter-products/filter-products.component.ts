@@ -431,13 +431,11 @@ export class FilterProductsComponent
   }
 
   public filterBySquaremeters(squaremeter: string) {
-    squaremeter = this.returnStringOption(squaremeter);
     this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
     this.scrollToTop();
   }
 
   public filterByQuotaAdmin(quota: string) {
-    quota = this.returnStringOption(quota);
     this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
     this.scrollToTop();
   }

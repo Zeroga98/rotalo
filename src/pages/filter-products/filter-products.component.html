@@ -663,7 +663,7 @@
                   </div>
                   <div *ngFor="let squaremeter of filter.filtroMetrosCuadrados.metrosCuadrados; let i = index" class="md-radio">
                     <input
-                    [checked]="currentFilter && currentFilter['immovable_square_meters'] ==  returnStringOption(squaremeter.rangoMetrosCuadrados)"
+                    [checked]="currentFilter && currentFilter['immovable_square_meters'] ==  squaremeter.rangoMetrosCuadrados"
                     (change)="filterBySquaremeters(squaremeter.rangoMetrosCuadrados)" value="{squaremeter.rangoMetrosCuadrados}}"
                       id="squaremeter{{i}}" type="radio" name="squaremeter">
                     <label for="squaremeter{{i}}">{{squaremeter.labelMetrosCuadrados}}
@@ -690,7 +690,7 @@
                   </div>
                   <div *ngFor="let quota of filter.filtroAdministracion.administraciones; let i = index" class="md-radio">
                     <input
-                    [checked]="currentFilter && currentFilter['immovable_canon_quota'] ==  returnStringOption(quota.rangoAdministracion)"
+                    [checked]="currentFilter && currentFilter['immovable_canon_quota'] ==  quota.rangoAdministracion"
                     (change)="filterByQuotaAdmin(quota.rangoAdministracion)" value="{quota.rangoAdministracion}}"
                       id="quota{{i}}" type="radio" name="quota">
                     <label for="quota{{i}}">{{quota.labelAdministracion}}
