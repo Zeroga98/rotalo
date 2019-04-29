@@ -158,7 +158,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    console.log(this.userEdit);
+    this.changeDetector.markForCheck();
   }
 
   isBancolombiaShopValidation() {
