@@ -28,40 +28,39 @@
               </span>
             </a>
           </li>
-<!--           <li *ngIf="showOptions" class="desktop">
-            <div class="toolbar__filters">
-              <div class="select-community">
-                <select name="community" (change)="changeSelectComunidad($event)">
-                  <option selected value disabled>Comunidades</option>
-                  <option value="-1">Todas</option>
-                  <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-                </select>
-              </div>
-            </div>
-          </li> -->
-          <li class="gtmCentroRotalo rotalo-center">
-            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
-              <span class="gtmCentroRotalo text-rotalo">
-                Centro Rótalo
-                <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-              <span class="gtmCentroRotalo icon-rotalo">
-                <span *ngIf="messagesUnRead && messagesUnRead > 0" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-            </a>
+
+
+          <li class="desktop">
+              <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
+                <span>
+                  !Hola <span *ngIf ="userEdit">{{userEdit.name}}¡</span>
+                </span>
+              </a>
+              <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
+                <div class="menu-usuario">
+                  <div *ngIf="userEdit" class="info">
+                    <div class="photo-container">
+                      <div class="photo">
+                        <img [src]="userEdit.photo?.url" alt="userEdit.name">
+                      </div>
+                      <div class="user-info">
+                        <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
+                        <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <button routerLinkActive="active" [routerLink]="message" mat-menu-item>Mensajes</button>
+                  <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
+                  <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
+                  <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
+                  <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
+                  <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
+                  <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
+                </div>
+              </mat-menu>
           </li>
-          <li class="perfil-container gtmPerfil">
-            <div [ngClass]="{active: isActive('profile')}" (click)="onActivateMenu()" class="container-perfil">
-              <span class="gtmPerfil icon-account-header">
-              </span>
-              <p>Perfil</p>
-              <span *ngIf="hobbyNotification" class="noti-circle">1</span>
-            </div>
-            <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
-              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
-            </div>
-          </li>
+
+
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
@@ -122,17 +121,6 @@
     </div>
     <div class="divisor-right mobile">
       <ul class="list-options">
-<!--         <li>
-          <div class="toolbar__filters">
-            <div class="select-community">
-              <select name="community" (change)="changeSelectComunidad($event)">
-                <option selected value disabled>Comunidades</option>
-                <option value="-1">Todas</option>
-                <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-              </select>
-            </div>
-          </div>
-        </li> -->
         <li>
           <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
             <span>
