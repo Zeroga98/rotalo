@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConfigurationService } from '../../services/configuration.service';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class NavigationTopService {
@@ -19,9 +22,11 @@ export class NavigationTopService {
   private eventLoadNotification = new BehaviorSubject<any>(null);
   currentLoadNotification = this.eventLoadNotification.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient,
+  private configurationService: ConfigurationService) { }
   private autoCompleteOptions: Array<string> = [];
   private category;
+  readonly urlSapi = this.configurationService.getBaseSapiUrl();
 
   setCategory(category) {
     this.category = category;
@@ -63,6 +68,16 @@ export class NavigationTopService {
 
   loadNotifications(event) {
     this.eventLoadNotification.next(event);
+  }
+
+  getAutoComplete(text) {
+    let jsonNequiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonNequiHeaders = Object.assign(jsonNequiHeaders);
+    const headers = new HttpHeaders(jsonNequiHeaders);
+    const url = this.urlSapi + '/sugerencias/categorias?search=' + text;
+    return this.http
+      .get( url, { headers: headers }).pipe(
+      map((response: any) => response));
   }
 
 }

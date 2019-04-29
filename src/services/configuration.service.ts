@@ -9,12 +9,13 @@ export class ConfigurationService {
     server: 'stgn-gateway.rotalo.com.co:1443/gateway/v1',
     inactivityLimit: 86400 // seconds
  };*/
-/*
+
   sapi = {
     protocol: 'https',
     server: 'stgn-gateway.rotalo.com.co:1443/gateway',
     inactivityLimit: 86400 // seconds
-  };*/
+  };
+
   /*Desarrollo*/
 /*
   api = {
@@ -31,7 +32,7 @@ export class ConfigurationService {
 */
 
   /*Produccion*/
-
+/*
   api = {
     protocol: 'https',
     server: 'pdn.gateway.rotalo.com.co/gateway/v1',
@@ -43,7 +44,7 @@ export class ConfigurationService {
     server: 'pdn.gateway.rotalo.com.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',

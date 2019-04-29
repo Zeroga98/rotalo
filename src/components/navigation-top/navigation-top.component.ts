@@ -23,6 +23,9 @@ import { SubcategoryInterface } from '../../commons/interfaces/subcategory.inter
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
 import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
+import {Observable} from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'navigation-top',
@@ -65,7 +68,10 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public showOptions;
   public isBancolombiaShop;
   public totalCart = 0;
+  public suggestList;
 
+  results: any[] = [];
+  queryField: FormControl = new FormControl();
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -97,6 +103,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.queryField.valueChanges.pipe(debounceTime(500))
+      .subscribe(result => {
+        this.search(result);
+      }
+    );
+
+
+
     this.getCountries();
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
@@ -317,6 +332,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     const id = evt.target.value;
     this.navigationTopService.changeCommunity({ name, id });
     this.changeDetector.markForCheck();
+  }
+
+  search(event) {
+    this.navigationTopService.getAutoComplete(event).subscribe((response) => {
+      if(response.body) {
+        this.suggestList =  response.body.sugerencias;
+      }
+      console.log(response);
+    });
   }
 
   onSubmitSearch() {
