@@ -572,7 +572,7 @@
             </article>
           </div>
 
-          <div *ngIf="filter.filtroEstrato && category && category.name == 'Inmuebles'" class="option">
+          <div *ngIf="filter.filtroEstratos && category && category.name == 'Inmuebles'" class="option">
             <input
             [checked]="currentFilter && currentFilter['immovable_social_class']"
             id="in-6" name="accordion-1" type="checkbox" />
@@ -583,9 +583,9 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_social_class']"
                       (change)="filterBySocialClass('')" value="" id="socialclass" type="radio" name="socialclass">
-                    <label for="socialclass">Todos ({{filter.filtroEstrato.total}})</label>
+                    <label for="socialclass">Todos ({{filter.filtroEstratos.total}})</label>
                   </div>
-                  <div *ngFor="let socialclass of filter.filtroEstrato.estratos; let i = index" class="md-radio">
+                  <div *ngFor="let socialclass of filter.filtroEstratos.estratos; let i = index" class="md-radio">
                     <input
                     [checked]="currentFilter && currentFilter['immovable_social_class'] ==  socialclass.estrato"
                     (change)="filterBySocialClass(socialclass.estrato)" value="{socialclass.estrato}}"
