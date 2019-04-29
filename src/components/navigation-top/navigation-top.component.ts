@@ -24,6 +24,9 @@ import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
 import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
 import { UserInterface } from '../../commons/interfaces/user.interface';
+import {Observable} from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'navigation-top',
@@ -74,6 +77,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
   public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
+  public suggestList;
+
+  results: any[] = [];
+  queryField: FormControl = new FormControl();
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -104,6 +112,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.queryField.valueChanges.pipe(debounceTime(200))
+      .subscribe(result => {
+        this.search(result);
+      }
+    );
+
     this.getCountries();
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
@@ -331,23 +346,33 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.changeDetector.markForCheck();
   }
 
+  search(event) {
+    this.navigationTopService.getAutoComplete(event).subscribe((response) => {
+      if(response.body) {
+        this.suggestList =  response.body.sugerencias;
+        this.changeDetector.markForCheck();
+      }
+    });
+  }
+
   onSubmitSearch() {
     this.changeTags();
   }
 
   changeTags() {
-    this.autoCompleteOptions = this.navigationTopService.addOptions(this.tags);
-    this.gapush(
-      'send',
-      'event',
-      'Home',
-      'ClickBusqueda',
-      this.tags
-    );
-    this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-    ], {queryParams: {product_name : this.tags}});
-    // this.navigationTopService.changeSearch(this.tags);
+    if(this.queryField.value) {
+      this.autoCompleteOptions = this.navigationTopService.addOptions(this.queryField.value);
+      this.gapush(
+        'send',
+        'event',
+        'Home',
+        'ClickBusqueda',
+        this.queryField.value
+      );
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ], {queryParams: {product_name : this.queryField.value}});
+    }
   }
 
   public _closeMenu() {
@@ -404,6 +429,20 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
 
+  goToCategory(suggestion) {
+    console.log(suggestion);
+    if(suggestion) {
+      if (suggestion.type == 'category') {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], {queryParams: {product_category_id : suggestion.idSuggestion}});
+      } else  {
+        this.router.navigate([
+          `${suggestion}`
+        ], {queryParams: {product_subcategory_id: suggestion.idSuggestion}});
+      }
+    }
+  }
 
 
 }
