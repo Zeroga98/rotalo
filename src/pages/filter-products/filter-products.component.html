@@ -561,7 +561,7 @@
                   </div>
                   <div *ngFor="let bathroom of filter.filtroBanios.banios; let i = index" class="md-radio">
                     <input
-                    [checked]="currentFilter && currentFilter['immovable_bathbathrooms'] ==  bathroom.banio"
+                    [checked]="currentFilter && currentFilter['immovable_bathrooms'] ==  bathroom.banio"
                     (change)="filterByBathRoom(bathroom.banio)" value="{bathroom.banio}}"
                       id="bathroom{{i}}" type="radio" name="bathroom">
                     <label for="bathroom{{i}}">{{bathroom.banio}}
