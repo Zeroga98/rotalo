@@ -72,6 +72,7 @@ test = 1;
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.params = params;
+      this.getCategories();
       if (this.navigationService.getCurrentCountryId()) {
         this.countryId = this.navigationService.getCurrentCountryId();
       } else {
@@ -197,7 +198,7 @@ test = 1;
             this.category.subCategory = subcategory[0];
           }
         } else  {
-          debugger
+
           if (this.params['product_subcategory_id']) {
             this.category = this.categories.filter(
               category => {
