@@ -586,6 +586,15 @@
   vertical-align: middle;
 }
 
+.clickable{
+  cursor: pointer;
+}
+
+.menu-usuario{
+  overflow-y: auto;
+  height: 427px;
+}
+
 .mat-menu-item {
   color: #272727;
   font-family: 'Lato Regular';
