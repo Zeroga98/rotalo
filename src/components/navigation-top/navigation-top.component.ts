@@ -35,7 +35,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   @Output() countryChanged: EventEmitter<any> = new EventEmitter();
   @Input() hideBackArrow: boolean = false;
   @Input() defaultCountryValue: CountryInterface;
-
+  readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   rotaloCenter: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   rotaloProfile: string = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   rotaloCart: string = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.CAR}`;
@@ -158,7 +158,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    console.log(this.userEdit);
   }
 
   isBancolombiaShopValidation() {
