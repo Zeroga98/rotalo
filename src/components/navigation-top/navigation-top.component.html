@@ -19,9 +19,9 @@
             </button>
           </form>
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
              <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
-                <span (click) = "goToCategory(suggestion)">{{suggestion.suggestion}}</span>
+                <span >{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
 
@@ -38,17 +38,7 @@
               </span>
             </a>
           </li>
-<!--           <li *ngIf="showOptions" class="desktop">
-            <div class="toolbar__filters">
-              <div class="select-community">
-                <select name="community" (change)="changeSelectComunidad($event)">
-                  <option selected value disabled>Comunidades</option>
-                  <option value="-1">Todas</option>
-                  <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-                </select>
-              </div>
-            </div>
-          </li> -->
+
           <li class="gtmCentroRotalo rotalo-center">
             <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
               <span class="gtmCentroRotalo text-rotalo">
@@ -122,14 +112,23 @@
     <div class="divisor-left">
       <div class="search-container">
         <form (ngSubmit)="onSubmitSearch()">
-          <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+          <input [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
           <button class="button-search" type="submit">
             <div class="search-icon">
             </div>
           </button>
         </form>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
+            [value]="suggestion.suggestion">
+            <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
+            <span>{{suggestion.suggestion}}</span>
+          </mat-option>
+        </mat-autocomplete>
       </div>
     </div>
+
+
     <div class="divisor-right mobile">
       <ul class="list-options">
 <!--         <li>
