@@ -433,7 +433,7 @@
                     [checked]="currentFilter && currentFilter['vehicle_type_of_seat'] ==  returnStringOption(typeSeat.tipoAsiento)"
                     (change)="filterByTypeSeat(typeSeat.tipoAsiento)" value="{{typeSeat.tipoAsiento}}"
                       id="typeSeat{{i}}" type="radio" name="typeSeat">
-                    <label for="typeSeat{{i}}">{{typeSeat.tipoAsiento}}
+                    <label for="typeSeat{{i}}">{{typeSeat.name}}
                       ({{typeSeat.quantityForFilter}})</label>
                   </div>
                 </div>
