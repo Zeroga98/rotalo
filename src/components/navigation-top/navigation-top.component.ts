@@ -245,6 +245,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     } else {
       `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
     }
+    this.queryField.reset();
   }
 
   get messageAvailable(): boolean {
@@ -435,10 +436,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_category_id : suggestion.idSuggestion}});
+        this.changeDetector.markForCheck();
       } else  {
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_subcategory_id: suggestion.idSuggestion}});
+        this.changeDetector.markForCheck();
       }
     }
   }

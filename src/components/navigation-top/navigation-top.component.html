@@ -19,9 +19,9 @@
             </button>
           </form>
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
              <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
-                <span (click) = "goToCategory(suggestion)">{{suggestion.suggestion}}</span>
+                <span >{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
 
@@ -38,7 +38,6 @@
               </span>
             </a>
           </li>
-
 
           <li class="desktop">
               <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
@@ -69,7 +68,6 @@
                 </div>
               </mat-menu>
           </li>
-
 
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
@@ -121,14 +119,23 @@
     <div class="divisor-left">
       <div class="search-container">
         <form (ngSubmit)="onSubmitSearch()">
-          <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+          <input [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
           <button class="button-search" type="submit">
             <div class="search-icon">
             </div>
           </button>
         </form>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
+            [value]="suggestion.suggestion">
+            <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
+            <span>{{suggestion.suggestion}}</span>
+          </mat-option>
+        </mat-autocomplete>
       </div>
     </div>
+
+
     <div class="divisor-right mobile">
       <ul class="list-options">
         <li>

@@ -10,8 +10,7 @@ import { ProductsService } from './../../services/products.service';
 @Component({
   selector: 'categories-menu',
   templateUrl: './categories-menu.component.html',
-  styleUrls: ['./categories-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./categories-menu.component.scss']
 })
 export class CategoriesMenuComponent implements OnInit {
   @Output() categorySelected: EventEmitter<CategoryInterface> = new EventEmitter();
@@ -30,16 +29,15 @@ export class CategoriesMenuComponent implements OnInit {
   ngOnInit() {
     if (this.categoriesService.getCategoriesActive()) {
       this.categories = this.categoriesService.getCategoriesActive();
-      this.changeDetectorRef.markForCheck();
     } else {
       this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
         this.categories = response;
         this.categoriesService.setCategoriesActive(this.categories);
-        this.changeDetectorRef.markForCheck();
       }, (error) => {
         console.log(error);
       });
     }
+    this.changeDetectorRef.markForCheck();
     this.clickCloseMenu();
   }
 
