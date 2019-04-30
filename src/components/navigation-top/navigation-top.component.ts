@@ -430,7 +430,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
 
   goToCategory(suggestion) {
-    console.log(suggestion);
     if(suggestion) {
       if (suggestion.type == 'category') {
         this.router.navigate([
