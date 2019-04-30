@@ -503,7 +503,6 @@
     position: relative;
     flex-wrap: wrap;
   }
-
 }
 
 .option-img {
@@ -531,6 +530,7 @@
   display: flex;
   padding: 15px;
   border-bottom: 1px dashed #E2E2E2;
+
   .photo {
     min-width: 60px;
     width: 60px;
@@ -538,6 +538,7 @@
     margin-right: 15px;
     border: 1.3px solid #E2E2E2;
     border-radius: 50%;
+
     img {
       width: 100%;
       height: 100%;
@@ -549,16 +550,40 @@
 
 .user-info {
   width: 100%;
+
   .name {
     font-weight: bold;
     font-size: 1.6rem;
-    color:#272727;
+    color: #272727;
   }
 
   .company {
     font-size: 1.4rem;
-    color:#272727;
+    color: #272727;
   }
+}
+
+.star {
+  margin: 1px;
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url(../../assets/img/estrella_blanca_linea.svg);
+  background-size: 13px 13px;
+  vertical-align: middle;
+}
+
+.star-full {
+  background: url(../../assets/img/estrella_amarilla.svg);
+  background-size: 13px 13px;
+}
+
+.ranking {
+  color: #767676;
+  font-size: 1.4rem;
+  font-family: 'Lato Regular';
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 .mat-menu-item {
@@ -568,8 +593,8 @@
 }
 
 .mat-menu-item.active {
- font-weight: bold;
- background: rgba(0,0,0,.04);
+  font-weight: bold;
+  background: rgba(0, 0, 0, .04);
 }
 
 @media screen and (max-width: 1276px) {
@@ -682,9 +707,9 @@
 
 @media screen and (max-width: 800px) {
   :host {
-    #upload-offer.messages{
+    #upload-offer.messages {
       display: none;
-     }
+    }
   }
 }
 
