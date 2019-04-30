@@ -20,7 +20,7 @@
           </form>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
-
+                <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
                 <span class="suggestion">{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
