@@ -28,9 +28,10 @@
       <div class="filters">
         <div class="title-filter">
           <p class="category bold" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
-          <p class="category bold" *ngIf="category">{{category.name}}</p>
-          <p class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
-            {{category.subCategory.name}}</p>
+          <p class="category" [ngClass]="!category.subCategory || !category.subCategory.name  ?  'bold': ''" *ngIf="category">{{category.name}}
+              <span class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
+                {{category.subCategory.name}}</span>
+          </p>
         </div>
         <div *ngIf="filter" class="ac-container">
           <div *ngIf="filter.filtroComunidad" class="option">
@@ -261,7 +262,7 @@
           </div>
 
           <div *ngIf="filter.filtroCilindraje
-          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
+          && category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_displacement']"
             id="ac-17" name="accordion-1" type="checkbox" />

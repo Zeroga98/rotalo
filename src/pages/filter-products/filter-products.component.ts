@@ -82,6 +82,7 @@ export class FilterProductsComponent
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.params = params;
+      this.getCategories();
       if (this.navigationService.getCurrentCountryId()) {
         this.countryId = this.navigationService.getCurrentCountryId();
       } else {
@@ -206,6 +207,7 @@ export class FilterProductsComponent
             this.category.subCategory = subcategory[0];
           }
         } else  {
+
           if (this.params['product_subcategory_id']) {
             this.category = this.categories.filter(
               category => {
