@@ -20,8 +20,8 @@
           </form>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
-             <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
-                <span >{{suggestion.suggestion}}</span>
+
+                <span class="suggestion">{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
 
@@ -128,13 +128,12 @@
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
             [value]="suggestion.suggestion">
-            <!--   <img class="example-option-img" aria-hidden [src]="suggestion.flag" height="25">-->
-            <span>{{suggestion.suggestion}}</span>
+            <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
+            <span class="suggestion">{{suggestion.suggestion}}</span>
           </mat-option>
         </mat-autocomplete>
       </div>
     </div>
-
 
     <div class="divisor-right mobile">
       <ul class="list-options">
