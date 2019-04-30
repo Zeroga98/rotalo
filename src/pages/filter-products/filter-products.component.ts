@@ -356,11 +356,12 @@ test = 1;
   }
 
   public filterByMileage(operacionLogica, mileage: string) {
-    mileage = mileage.split('.').join('');
-    if (operacionLogica != '-') {
-      mileage = operacionLogica + mileage;
+    if(mileage) {
+      mileage = mileage.split('.').join('');
+      if (operacionLogica != '-') {
+        mileage = operacionLogica + mileage;
+      }
     }
-
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
     this.scrollToTop();
   }

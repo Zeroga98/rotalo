@@ -221,7 +221,7 @@
                   </div>
                   <div *ngFor="let year of filter.filtroAnio.anios; let i = index" class="md-radio">
                     <input
-                    [checked]="currentFilter && currentFilter['vehicle_model'] == year.anio"
+                    [checked]="currentFilter && currentFilter['vehicle_model'] == returnStringOption(year.anio)"
                     (change)="filterByYear(year.anio)" value="{{year.anio}}" id="year{{i}}" type="radio"
                       name="year">
                     <label for="year{{i}}">{{year.anio}} ({{year.quantityForFilter}})</label>
@@ -290,7 +290,7 @@
             <input
             [checked]="currentFilter && currentFilter['vehicle_use_type']"
             id="ac-13" name="accordion-1" type="checkbox" />
-            <label for="ac-13">Tipo de público<div class="icon"></div></label>
+            <label for="ac-13">Tipo de vehículos<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
                 <div>
