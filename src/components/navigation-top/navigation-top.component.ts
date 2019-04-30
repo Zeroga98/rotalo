@@ -74,6 +74,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
   public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
+
+  public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
+  public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
+  public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
+  public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
+  public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
+
+  public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -402,7 +410,16 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.navigationTopService.loadNotifications(true);
   }
 
-
+  isSuperUser() {
+    if (
+      this.currentSessionService.currentUser() &&
+      this.currentSessionService.currentUser()['rol'] &&
+      this.currentSessionService.currentUser()['rol'] === 'superuser'
+    ) {
+      return true;
+    }
+    return false;
+  }
 
 
 }

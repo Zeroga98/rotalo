@@ -40,7 +40,7 @@
                 <div class="menu-usuario">
                   <div *ngIf="userEdit" class="info">
                     <div class="photo-container">
-                      <div class="photo">
+                      <div [routerLink]="profileShow" class="photo clickable">
                         <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
                         <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="userEdit.name">
                       </div>
@@ -62,6 +62,16 @@
                   <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
                   <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
                   <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
+
+
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>Destacados</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>Pre-registro</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>Órdenes tienda</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>Campañas</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>Banners home</button>
+
+
+
                   <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
                 </div>
               </mat-menu>
