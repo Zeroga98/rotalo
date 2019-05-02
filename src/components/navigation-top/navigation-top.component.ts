@@ -67,6 +67,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public isBancolombiaShop;
   public totalCart = 0;
   public userEdit;
+  public userName;
   public message = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
   public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
@@ -166,6 +167,11 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    if(this.userEdit.name) {
+      let name = this.userEdit.name.split(' ');
+      this.userName = name[0];
+      this.changeDetector.markForCheck();
+    }
   }
 
   isBancolombiaShopValidation() {
