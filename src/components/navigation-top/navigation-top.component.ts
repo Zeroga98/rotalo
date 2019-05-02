@@ -181,6 +181,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+
     this.changeDetector.markForCheck();
   }
 
