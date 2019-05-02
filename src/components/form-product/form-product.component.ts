@@ -896,9 +896,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       bathrooms  = immovable['bathrooms'] ? immovable['bathrooms'] : '';
       sellerType = immovable['sellerType'] ? immovable['sellerType'] : '';
       floor = immovable['floor'] ? immovable['floor'] : '';
-      elevator = immovable['elevator'] ? immovable['elevator'] : '';
+      elevator = immovable['elevator'] ? immovable['elevator'] : false;
       guardHouse = immovable['guardHouse'] ? immovable['guardHouse'] : '12 horas';
-      parking = immovable['parking'] ? immovable['parking'] : '';
+      parking = immovable['parking'] ? immovable['parking'] : false;
       canonQuota = immovable['canonQuota'] ? immovable['canonQuota'] : '';
       fullyFurnished = immovable['fullyFurnished'] ? immovable['fullyFurnished'] : '';
       pool = immovable['pool'] ? immovable['pool'] : '';
