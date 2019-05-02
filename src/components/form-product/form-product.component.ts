@@ -227,6 +227,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   async publishPhoto(form) {
+
     this.setValidationVehicle();
     this.setValidationImmovable();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {

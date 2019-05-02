@@ -42,7 +42,7 @@
           <li class="desktop">
               <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
                 <span>
-                  ¡Hola <span *ngIf ="userEdit">{{userEdit.name}}!</span>
+                  ¡Hola <span *ngIf="userName">{{userName}}!</span>
                 </span>
               </a>
               <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
@@ -54,7 +54,7 @@
                         <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="userEdit.name">
                       </div>
                       <div class="user-info">
-                        <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
+                        <p *ngIf="userName" class="name">{{userName}}</p>
                         <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
                         <div  *ngIf="userEdit.calificacionGeneral" class="ranking">
                             <span class="star star-full">
