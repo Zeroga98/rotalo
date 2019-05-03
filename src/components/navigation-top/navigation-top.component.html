@@ -88,8 +88,8 @@
           </li>
 
         </ul>
-        <div  id="upload-offer" class="flexbox center-center centrado">
-          <div [ngClass]="isBancolombiaShop?  'disabled': '' " class="container-offer">
+        <div  id="upload-offer" class="flexbox center-center centrado" [ngClass]="isAtUploadOffer?  'hidden': '' ">
+          <div [ngClass]="isBancolombiaShop?  'disabled hidden': '' " class="container-offer">
             <a (click)="initScrollProduct(); goToUploadProduct()" class="upload-offer-button">
               <div class="gtmSubeTuOferta outside-circle">
                 <div class="gtmSubeTuOferta inside-circle">

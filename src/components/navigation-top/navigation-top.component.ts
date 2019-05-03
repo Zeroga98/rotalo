@@ -64,6 +64,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public tags: Array<string> = [];
   public showOptions;
   public isBancolombiaShop;
+  public isAtUploadOffer;
   public totalCart = 0;
 
 
@@ -121,6 +122,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.showOptions = false;
     }
     this.isBancolombiaShopValidation();
+    this.isAtUploadOfferValidation();
     this.messagesService.setUnreadNotificationParam(path);
 
     this.router.events.subscribe((event: any) => {
@@ -134,6 +136,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
           this.showOptions = false;
         }
         this.isBancolombiaShopValidation();
+        this.isAtUploadOfferValidation();
         this.messagesService.setUnreadNotificationParam(path);
       }
     });
@@ -155,6 +158,15 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.getTotalProductsCart();
     } else {
       this.isBancolombiaShop = false;
+    }
+  }
+
+  isAtUploadOfferValidation() {
+    if (this.router.url.includes(`${ROUTES.PRODUCTS.UPLOAD}`)) {
+      this.isAtUploadOffer = true;
+      this.getTotalProductsCart();
+    } else {
+      this.isAtUploadOffer = false;
     }
   }
 
@@ -277,6 +289,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     if (!this.isBancolombiaShop) {
       this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.UPLOAD}`]);
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
     }
   }
 
