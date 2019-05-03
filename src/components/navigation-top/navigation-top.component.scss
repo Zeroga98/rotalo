@@ -341,7 +341,6 @@
   }
 }
 
-
 :host {
   select {
     border: 0;
@@ -354,6 +353,72 @@
 
   .search-container {
     position: relative;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .search.show {
+    display: block;
+    .search-container-mobile {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    background: white;
+    animation: slide-search .1s cubic-bezier(0, 0.5, 0, 1);
+    animation-iteration-count: 1;
+    display: block;
+    form {
+      height: 100%;
+      width: 85%;
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .back-arrow {
+      display: inline-block;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
+      background-size: 50% 50%;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    .form-control {
+      background-color: #F7F7F7;
+      border-bottom: none;
+      height: 100%;
+      width: 100%;
+    }
+
+    .button-search {
+      top: 3px;
+      right: 3px;
+    }
+  }
+  }
+
+  
+
+  @keyframes slide-search {
+    0% {
+      left: 100%;
+    }
+    100% {
+      left: 0;
+    }
   }
 
   .material-design input[type=text].form-control {
@@ -384,6 +449,17 @@
     background-position: 92% center;
     background-size: 18px 18px;
     background-repeat: no-repeat;
+  }
+
+  .search-icon-dark {
+    width: 18px;
+    height: 18px;
+    margin: 0 auto;
+    background: url(../../assets/img/iconos/ic_header_search_grey.svg);
+    background-position: 92% center;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    cursor: pointer;
   }
 
   .back-categories {
@@ -436,6 +512,8 @@
   }
 
 }
+
+
 
 :host {
   .navbar-header .list-options li .icon-rotalo {
@@ -604,6 +682,27 @@
 .mat-menu-item.active {
   font-weight: bold;
   background: rgba(0, 0, 0, .04);
+}
+
+.option-img {
+  vertical-align: middle;
+}
+
+.suggestion-icon {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  background: url(../../assets/img/iconos/ic_header_search_gris_claro.svg);
+  background-position: 92% center;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+}
+
+.suggestion {
+  font-size: 1.4rem;
+  color:#767676;
+  font-family: 'Lato Regular';
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 1276px) {

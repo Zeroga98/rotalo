@@ -1,0 +1,101 @@
+:host {
+
+  .menu-usuario {
+    padding-bottom: 40px;
+  }
+
+  .photo-container {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px dashed #e2e2e2;
+    background-color: #F8F8F8;
+
+    .photo {
+      min-width: 60px;
+      width: 60px;
+      height: 60px;
+      margin-right: 15px;
+      border: 1.3px solid #E2E2E2;
+      border-radius: 50%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .user-info {
+    width: 100%;
+
+    .name {
+      font-weight: bold;
+      font-size: 1.6rem;
+      color: #272727;
+    }
+
+    .company {
+      font-size: 1.4rem;
+      color: #272727;
+    }
+  }
+
+  .star {
+    margin: 1px;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url(../../assets/img/estrella_blanca_linea.svg);
+    background-size: 13px 13px;
+    vertical-align: middle;
+  }
+
+  .star-full {
+    background: url(../../assets/img/estrella_amarilla.svg);
+    background-size: 13px 13px;
+  }
+
+  .ranking {
+    color: #272727;
+    font-size: 1.4rem;
+    font-family: 'Lato Regular';
+    vertical-align: middle;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .mat-menu-item {
+    color: #272727;
+    font-family: 'Lato Regular';
+    font-size: 1.6rem;
+  }
+
+  .arrow {
+    background-image: url(assets/img/arrow.svg);
+    background-position: 100% center;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    appearance: none;
+    position: absolute;
+    right: 5px;
+    top: 40%;
+  }
+
+  .icon {
+    box-sizing: border-box;
+    transition: transform 0.3s;
+    width: 10px;
+    height: 10px;
+    transform: rotate(270deg);
+  }
+
+  .button-container {
+    width: 100%;
+    position: relative;
+  }
+
+}

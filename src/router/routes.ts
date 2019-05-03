@@ -30,6 +30,7 @@ export const ROUTES = {
         ERROR: 'error',
         PROMO: 'promo',
         MOBILENOTIFICATIONS: 'mobile_notification',
+        MOBILEMENU: 'mobile_menu',
         FILTERS: 'filter'
     },
     MENUROTALOCENTER: {

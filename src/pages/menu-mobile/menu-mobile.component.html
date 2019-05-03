@@ -1,0 +1,93 @@
+<div class="menu-usuario">
+    <div *ngIf="userEdit" class="info">
+      <div class="photo-container">
+        <div [routerLink]="profileShow" class="photo clickable">
+          <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
+          <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="userEdit.name">
+        </div>
+        <div class="user-info">
+          <p *ngIf="userName" class="name">{{userName}}</p>
+          <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
+          <div  *ngIf="userEdit.calificacionGeneral" class="ranking">
+              <span class="star star-full">
+              </span>
+              <span> {{userEdit.calificacionGeneral}}
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button routerLinkActive="active" [routerLink]="message" mat-menu-item>
+        <div class="button-container">
+                Mensajes
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>
+        <div class="button-container">
+                Mis artículos rotados
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>
+        <div class="button-container">
+                Mis artículos rotando
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>
+        <div class="button-container">
+                Mis datos
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button routerLinkActive="active" [routerLink]="security" mat-menu-item>
+        <div class="button-container">
+                Seguridad
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>
+        <div class="button-container">
+                Configuraciones
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>
+        <div class="button-container">
+                Destacados
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>
+        <div class="button-container">
+                Pre-registro
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>
+        <div class="button-container">
+                Órdenes tienda
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>
+        <div class="button-container">
+                Campañas
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>
+         <div class="button-container">
+                Banners home
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+
+    <button (click) = "onLogout()" mat-menu-item>
+        <div class="button-container">
+                Cerrar sesión
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+  </div>

@@ -24,7 +24,7 @@ import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
 import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
 import { UserInterface } from '../../commons/interfaces/user.interface';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 
@@ -85,12 +85,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
 
   public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
-  public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
+  public adminRegister = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
 
   public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
+
+  public showSearchMobile = false;
+
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -113,7 +118,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private collectionService: CollectionSelectService,
     private loginService: LoginService,
     private productsService: ProductsService,
-    private navigationTopService:NavigationTopService,
+    private navigationTopService: NavigationTopService,
     private shoppingCarService: ShoppingCarService,
 
   ) {
@@ -126,7 +131,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         this.search(result);
       }
-    );
+      );
 
     this.getCountries();
     this.defaultCountryValue = {
@@ -143,7 +148,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
 
     let path = {
-      'rutaRenoEscondido':  this.router.url
+      'rutaRenoEscondido': this.router.url
     };
 
     if (this.router.url == `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`) {
@@ -157,7 +162,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         path = {
-          'rutaRenoEscondido':  this.router.url
+          'rutaRenoEscondido': this.router.url
         };
         if (this.router.url == '/products/home') {
           this.showOptions = true;
@@ -182,8 +187,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    if(this.userEdit.name) {
-      let name = this.userEdit.name.split(' ');
+    if (this.userEdit.name) {
+      const name = this.userEdit.name.split(' ');
       this.userName = name[0];
       this.changeDetector.markForCheck();
     }
@@ -213,7 +218,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       if (!this.shoppingCarService.getTotalCartProducts()) {
         const quantityCart = await this.shoppingCarService.getCartInfo();
         this.totalCart = quantityCart;
-      } else  {
+      } else {
         this.totalCart = this.shoppingCarService.getTotalCartProducts();
       }
       this.changeDetector.markForCheck();
@@ -252,7 +257,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    const urlMicrosite  = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    const urlMicrosite = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     if (this.router.url.includes(urlMicrositeProduct) && urlMicrosite != this.router.url) {
       this.router.navigate([urlMicrosite]);
     } else {
@@ -269,7 +274,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return this.notificationHobby;
   }
 
-  private  setListenerMessagesUnread(userId) {
+  private setListenerMessagesUnread(userId) {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
@@ -339,7 +344,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   selectedSubCategory(subCategory: SubcategoryInterface) {
 
     this._closeMenu();
-   // this.subCategorySelected.emit(subCategory);
+    // this.subCategorySelected.emit(subCategory);
     this.navigationTopService.changeSubCategory(subCategory);
   }
 
@@ -350,7 +355,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeSelectComunidad(evt) {
     let name;
-     if (evt.target.selectedOptions) {
+    if (evt.target.selectedOptions) {
       name = evt.target.selectedOptions[0].text;
     } else {
       name = evt.target.options[evt.target.selectedIndex].text;
@@ -362,8 +367,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   search(event) {
     this.navigationTopService.getAutoComplete(event).subscribe((response) => {
-      if(response.body) {
-        this.suggestList =  response.body.sugerencias;
+      if (response.body) {
+        this.suggestList = response.body.sugerencias;
         this.changeDetector.markForCheck();
       }
     });
@@ -374,7 +379,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   changeTags() {
-    if(this.queryField.value) {
+    if (this.queryField.value) {
       this.autoCompleteOptions = this.navigationTopService.addOptions(this.queryField.value);
       this.gapush(
         'send',
@@ -385,7 +390,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       );
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-      ], {queryParams: {product_name : this.queryField.value}});
+      ], { queryParams: { product_name: this.queryField.value } });
     }
   }
 
@@ -431,7 +436,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goToNotifications() {
     if (this.isActive('mobile_notification')) {
       window.history.back();
-    } else  {
+    } else {
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
       ]);
@@ -442,18 +447,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.navigationTopService.loadNotifications(true);
   }
 
-
   goToCategory(suggestion) {
-    if(suggestion) {
+    if (suggestion) {
       if (suggestion.type == 'category') {
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], {queryParams: {product_category_id : suggestion.idSuggestion}});
+        ], { queryParams: { product_category_id: suggestion.idSuggestion } });
         this.changeDetector.markForCheck();
-      } else  {
+      } else {
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], {queryParams: {product_subcategory_id: suggestion.idSuggestion}});
+        ], { queryParams: { product_subcategory_id: suggestion.idSuggestion } });
         this.changeDetector.markForCheck();
       }
     }
@@ -470,5 +474,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  openSearch() {
+    this.showSearchMobile = !this.showSearchMobile;
+  }
 
 }
