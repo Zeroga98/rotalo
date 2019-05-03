@@ -386,6 +386,17 @@
     background-repeat: no-repeat;
   }
 
+  .search-icon-dark {
+    width: 18px;
+    height: 18px;
+    margin: 0 auto;
+    background: url(../../assets/img/iconos/ic_header_search_grey.svg);
+    background-position: 92% center;
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
   .back-categories {
     width: 100%;
     background: transparent;

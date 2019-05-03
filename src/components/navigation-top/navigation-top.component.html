@@ -17,7 +17,6 @@
             </button>
           </form>
         </div>
-
       </div>
       <div class="divisor-right">
         <ul class="list-options">
@@ -28,8 +27,6 @@
               </span>
             </a>
           </li>
-
-
           <li class="desktop">
               <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
                 <span>
@@ -62,21 +59,15 @@
                   <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
                   <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
                   <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
-
-
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>Destacados</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>Pre-registro</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>Órdenes tienda</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>Campañas</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>Banners home</button>
-
-
-
                   <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
                 </div>
               </mat-menu>
           </li>
-
 
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
@@ -87,12 +78,20 @@
             </div>
           </li>
 
+          <li class="mobile-notification bell-container">
+              <div class="container-bell">
+                <span class="search-icon-dark">
+                </span>
+              </div>
+          </li>
+
           <li (click)="goToNotifications();" class="mobile-notification bell-container">
             <div class="container-bell">
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
           </li>
+
           <li class="desktop-notification bell-container">
             <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="container-bell">
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
@@ -101,6 +100,13 @@
             <mat-menu backdropClass="sg-vertical-sub-menu"  class="profile-menu" xPosition="before" #appMenu="matMenu">
               <notifications-component (click)="$event.stopPropagation();"></notifications-component>
             </mat-menu>
+          </li>
+
+          <li (click)="goToNotifications();" class="mobile-notification bell-container">
+              <div class="container-bell">
+                <span class="icon-bell">
+                </span>
+              </div>
           </li>
 
         </ul>
@@ -123,29 +129,4 @@
   <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
     (closeMenu)="_closeMenu()"></categories-menu>
 </nav>
-<div class="navbar-header material-design form-theme toolbar">
-  <div class="toolbar-container">
-    <div class="divisor-left">
-      <div class="search-container">
-        <form (ngSubmit)="onSubmitSearch()">
-          <input [(ngModel)]="tags" class="form-control" type="text" name="search">
-          <button class="button-search" type="submit">
-            <div class="search-icon">
-            </div>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="divisor-right mobile">
-      <ul class="list-options">
-        <li>
-          <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
-            <span>
-              Categorías
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+
