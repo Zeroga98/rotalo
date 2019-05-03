@@ -36,7 +36,6 @@ export class FinanceBamComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
-    //this.loadProduct();
     this.initPriceForm();
   }
 

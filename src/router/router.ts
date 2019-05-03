@@ -50,6 +50,7 @@ import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-bann
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
+import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
 
 export const appRouter: Routes = [
   {
@@ -162,6 +163,10 @@ export const appRouter: Routes = [
       {
         path: ROUTES.PRODUCTS.MOBILENOTIFICATIONS,
         component: NotificationsMobileComponent,
+      },
+      {
+        path: ROUTES.PRODUCTS.MOBILEMENU,
+        component: MenuMobileComponent,
       },
       {
         path: ROUTES.MICROSITE.LINK,

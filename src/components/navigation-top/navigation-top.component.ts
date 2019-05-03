@@ -105,7 +105,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private collectionService: CollectionSelectService,
     private loginService: LoginService,
     private productsService: ProductsService,
-    private navigationTopService:NavigationTopService,
+    private navigationTopService: NavigationTopService,
     private shoppingCarService: ShoppingCarService,
 
   ) {
@@ -167,8 +167,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    if(this.userEdit.name) {
-      let name = this.userEdit.name.split(' ');
+    if (this.userEdit.name) {
+      const name = this.userEdit.name.split(' ');
       this.userName = name[0];
       this.changeDetector.markForCheck();
     }
