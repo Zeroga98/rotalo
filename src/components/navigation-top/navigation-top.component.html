@@ -9,13 +9,19 @@
           <h1 class="sr-only">rótalo</h1>
         </a>
         <div class="search-container desktop">
-          <form (ngSubmit)="onSubmitSearch()">
-            <input [(ngModel)]="tags" class="form-control" type="text" name="search">
-            <button class="button-search" type="submit">
-              <div class="search-icon">
-              </div>
-            </button>
-          </form>
+            <form (ngSubmit)="onSubmitSearch()">
+                <input
+                [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
+                <button class="button-search" type="submit">
+                  <div class="search-icon">
+                  </div>
+                </button>
+              </form>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+                    <span class="suggestion">{{suggestion.suggestion}}</span>
+                  </mat-option>
+              </mat-autocomplete>
         </div>
       </div>
       <div class="divisor-right">
@@ -27,6 +33,7 @@
               </span>
             </a>
           </li>
+
           <li class="desktop">
               <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
                 <span>
@@ -78,7 +85,7 @@
             </div>
           </li>
 
-          <li class="mobile-notification bell-container">
+          <li  (click) = "openSearch()" class="mobile-notification bell-container">
               <div class="container-bell">
                 <span class="search-icon-dark">
                 </span>
@@ -128,5 +135,24 @@
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
   <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
     (closeMenu)="_closeMenu()"></categories-menu>
+  
+  <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
+    <div class="search-container-mobile" >
+        <div (click) = "openSearch()" class="back-arrow"></div>
+        <form class="form-theme" (ngSubmit)="onSubmitSearch()">
+            <input
+            placeholder="¿Qué estás buscando?"
+            [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
+            <button class="button-search" type="submit">
+              <div class="search-icon-dark">
+              </div>
+            </button>
+          </form>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+                <span class="suggestion">{{suggestion.suggestion}}</span>
+              </mat-option>
+          </mat-autocomplete>
+    </div>
+  </div>
 </nav>
-

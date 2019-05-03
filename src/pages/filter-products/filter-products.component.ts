@@ -72,6 +72,7 @@ test = 1;
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.params = params;
+      this.getCategories();
       if (this.navigationService.getCurrentCountryId()) {
         this.countryId = this.navigationService.getCurrentCountryId();
       } else {
@@ -183,17 +184,40 @@ test = 1;
     this.categoriesService.getCategoriesActiveServer().subscribe(
       response => {
         this.categories = response;
-        this.category = this.categories.filter(
-          x => x.id == this.params['product_category_id']
-        );
-        this.category = this.category[0];
-        this.category.subCategory = {};
-        if (this.params['product_subcategory_id']) {
-          const subcategory = this.category.subcategories.filter(
-            x => x.id == this.params['product_subcategory_id']
+
+        if (this.params['product_category_id']) {
+          this.category = this.categories.filter(
+            x => x.id == this.params['product_category_id']
           );
-          this.category.subCategory = subcategory[0];
+          this.category = this.category[0];
+          this.category.subCategory = {};
+          if (this.params['product_subcategory_id']) {
+            const subcategory = this.category.subcategories.filter(
+              x => x.id == this.params['product_subcategory_id']
+            );
+            this.category.subCategory = subcategory[0];
+          }
+        } else  {
+
+          if (this.params['product_subcategory_id']) {
+            this.category = this.categories.filter(
+              category => {
+                for (var i = 0; i < category.subcategories.length; i++) {
+                  if (category.subcategories[i].id == this.params['product_subcategory_id']) {
+                    return category;
+                  }
+                }
+
+              }
+            );
+            this.category = this.category[0];
+            const subcategory = this.category.subcategories.filter(
+              x => x.id == this.params['product_subcategory_id']
+            );
+            this.category.subCategory = subcategory[0];
+          }
         }
+
         this.changeDetectorRef.markForCheck();
       },
       error => {

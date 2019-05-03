@@ -24,6 +24,9 @@ import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { NavigationTopService } from './navigation-top.service';
 import { ShoppingCarService } from '../../microsite/services-microsite/front/shopping-car.service';
 import { UserInterface } from '../../commons/interfaces/user.interface';
+import { Observable } from 'rxjs';
+import { map, debounceTime } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'navigation-top',
@@ -77,12 +80,19 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
 
   public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
-  public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
+  public adminRegister = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
 
   public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
+  public suggestList;
+
+  public showSearchMobile = false;
+
+  results: any[] = [];
+  queryField: FormControl = new FormControl();
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -113,6 +123,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.queryField.valueChanges.pipe(debounceTime(200))
+      .subscribe(result => {
+        this.search(result);
+      }
+      );
+
     this.getCountries();
     this.defaultCountryValue = {
       id: this.navigationService.getCurrentCountryId()
@@ -128,7 +145,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
 
     let path = {
-      'rutaRenoEscondido':  this.router.url
+      'rutaRenoEscondido': this.router.url
     };
 
     if (this.router.url == `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`) {
@@ -142,7 +159,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         path = {
-          'rutaRenoEscondido':  this.router.url
+          'rutaRenoEscondido': this.router.url
         };
         if (this.router.url == '/products/home') {
           this.showOptions = true;
@@ -198,7 +215,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       if (!this.shoppingCarService.getTotalCartProducts()) {
         const quantityCart = await this.shoppingCarService.getCartInfo();
         this.totalCart = quantityCart;
-      } else  {
+      } else {
         this.totalCart = this.shoppingCarService.getTotalCartProducts();
       }
       this.changeDetector.markForCheck();
@@ -237,12 +254,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goToHome() {
     const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
     const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    const urlMicrosite  = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    const urlMicrosite = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
     if (this.router.url.includes(urlMicrositeProduct) && urlMicrosite != this.router.url) {
       this.router.navigate([urlMicrosite]);
     } else {
       `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
     }
+    this.queryField.reset();
   }
 
   get messageAvailable(): boolean {
@@ -253,7 +271,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return this.notificationHobby;
   }
 
-  private  setListenerMessagesUnread(userId) {
+  private setListenerMessagesUnread(userId) {
     this.messagesService.getMessagesUnred(userId).subscribe(
       state => {
         if (state && state.body) {
@@ -323,7 +341,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   selectedSubCategory(subCategory: SubcategoryInterface) {
 
     this._closeMenu();
-   // this.subCategorySelected.emit(subCategory);
+    // this.subCategorySelected.emit(subCategory);
     this.navigationTopService.changeSubCategory(subCategory);
   }
 
@@ -334,7 +352,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   changeSelectComunidad(evt) {
     let name;
-     if (evt.target.selectedOptions) {
+    if (evt.target.selectedOptions) {
       name = evt.target.selectedOptions[0].text;
     } else {
       name = evt.target.options[evt.target.selectedIndex].text;
@@ -344,23 +362,33 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     this.changeDetector.markForCheck();
   }
 
+  search(event) {
+    this.navigationTopService.getAutoComplete(event).subscribe((response) => {
+      if (response.body) {
+        this.suggestList = response.body.sugerencias;
+        this.changeDetector.markForCheck();
+      }
+    });
+  }
+
   onSubmitSearch() {
     this.changeTags();
   }
 
   changeTags() {
-    this.autoCompleteOptions = this.navigationTopService.addOptions(this.tags);
-    this.gapush(
-      'send',
-      'event',
-      'Home',
-      'ClickBusqueda',
-      this.tags
-    );
-    this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-    ], {queryParams: {product_name : this.tags}});
-    // this.navigationTopService.changeSearch(this.tags);
+    if (this.queryField.value) {
+      this.autoCompleteOptions = this.navigationTopService.addOptions(this.queryField.value);
+      this.gapush(
+        'send',
+        'event',
+        'Home',
+        'ClickBusqueda',
+        this.queryField.value
+      );
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ], { queryParams: { product_name: this.queryField.value } });
+    }
   }
 
   public _closeMenu() {
@@ -405,7 +433,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goToNotifications() {
     if (this.isActive('mobile_notification')) {
       window.history.back();
-    } else  {
+    } else {
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
       ]);
@@ -427,5 +455,24 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  goToCategory(suggestion) {
+    if (suggestion) {
+      if (suggestion.type == 'category') {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], { queryParams: { product_category_id: suggestion.idSuggestion } });
+        this.changeDetector.markForCheck();
+      } else {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], { queryParams: { product_subcategory_id: suggestion.idSuggestion } });
+        this.changeDetector.markForCheck();
+      }
+    }
+  }
+
+  openSearch() {
+    this.showSearchMobile = !this.showSearchMobile;
+  }
 
 }
