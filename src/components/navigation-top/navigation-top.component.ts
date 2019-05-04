@@ -95,6 +95,8 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   public showSearchMobile = false;
 
+  public menu  = `${ROUTES.PRODUCTS.MOBILEMENU}`;
+
 
 
   @HostListener('window:resize', ['$event'])
@@ -351,14 +353,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   selectedCategory(category: CategoryInterface) {
     this._closeMenu();
-    // this.categorySelected.emit(category);
     this.navigationTopService.changeCategory(category);
   }
 
   selectedSubCategory(subCategory: SubcategoryInterface) {
 
     this._closeMenu();
-    // this.subCategorySelected.emit(subCategory);
     this.navigationTopService.changeSubCategory(subCategory);
   }
 
@@ -490,6 +490,17 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   openSearch() {
     this.showSearchMobile = !this.showSearchMobile;
+  }
+
+  hideMenuIcon() {
+    if (this.router.url == '/products/mobile_menu') {
+      return true;
+    }
+    return false;
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 
 }
