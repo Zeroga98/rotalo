@@ -1,4 +1,4 @@
-<div class="md-overlay-promo"></div>
+<div (click) = "openSearch()"  [ngClass]="showSearchMobile ?  'show ': '' " class="md-overlay-promo"></div>
 <nav>
   <div class="container">
     <div class="navbar-header material-design form-theme">
@@ -85,7 +85,7 @@
             </div>
           </li>
 
-          <li  (click) = "openSearch()" class="mobile-notification bell-container">
+          <li  (click) = "openSearch()" class="mobile-search bell-container">
               <div class="container-bell">
                 <span class="search-icon-dark">
                 </span>
@@ -109,11 +109,15 @@
             </mat-menu>
           </li>
 
-          <li (click)="goToNotifications();" class="mobile-notification bell-container">
-              <div class="container-bell">
-                <span class="icon-bell">
+          <li class="mobile-notification menu-container">
+              <div *ngIf="!hideMenuIcon()" [routerLink]="menu" class="menu">
+                <span>
                 </span>
               </div>
+              <div *ngIf="hideMenuIcon()" (click) = "goBack()" class="menu">
+                  <span class="close">
+                  </span>
+                </div>
           </li>
 
         </ul>
@@ -149,8 +153,9 @@
             </button>
           </form>
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
-                <span class="suggestion">{{suggestion.suggestion}}</span>
+            <mat-option (click) = "goToCategory(suggestion); showSearchMobile = false" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+                <span 
+                class="suggestion">{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
     </div>

@@ -181,6 +181,39 @@
         }
       }
 
+
+      li.mobile-search {
+        display: none;
+      }
+
+      li.menu-container {
+        margin-top: 2px;
+        display: none;
+
+        .menu {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          span {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: url(../../assets/img/iconos/ic_menu.svg) no-repeat;
+            background-size: contain;
+          }
+
+          span.close {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: url(../../assets/img/iconos/ic_close.svg) no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+
       li.bell-container {
         .container-bell {
           display: flex;
@@ -357,67 +390,78 @@
 
   .search {
     display: none;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    min-height: 55px;
+    position: absolute;
+    top: 0;
+    z-index: 1000000;
+  }
+
+  .md-overlay-promo.show {
+    z-index: 1000000;
+    visibility: visible;
+    opacity: 1;
+    background: rgba(57, 57, 57, 0.21);
   }
 
   .search.show {
     display: block;
     .search-container-mobile {
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    padding: 12px;
-    background: white;
-    animation: slide-search .1s cubic-bezier(0, 0.5, 0, 1);
-    animation-iteration-count: 1;
-    display: block;
-    form {
-      height: 100%;
-      width: 85%;
-      position: relative;
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .back-arrow {
-      display: inline-block;
-      vertical-align: middle;
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      border-radius: 50%;
-      background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
-      background-size: 50% 50%;
-      background-position: center;
-      cursor: pointer;
-    }
-
-    .form-control {
-      background-color: #F7F7F7;
-      border-bottom: none;
-      height: 100%;
       width: 100%;
-    }
+      float: right;
+      height: 100%;
+      padding: 12px;
+      background: white;
+      animation: slide-search 0.2s cubic-bezier(0, 0.5, 0, 1);
+      animation-iteration-count: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      form {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+      }
 
-    .button-search {
-      top: 3px;
-      right: 3px;
+      .back-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
+        background-size: 50% 50%;
+        background-position: center;
+        cursor: pointer;
+      }
+
+      .form-control {
+        background-color: #F7F7F7;
+        border-bottom: none;
+        height: 100%;
+        width: 100%;
+      }
+
+      .button-search {
+        top: 3px;
+        right: 3px;
+      }
     }
   }
-  }
 
-  
+
 
   @keyframes slide-search {
     0% {
-      left: 100%;
+      width: 0%;
     }
     100% {
-      left: 0;
+      width: 100%;
     }
   }
 
@@ -644,11 +688,11 @@
   vertical-align: middle;
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
 }
 
-.menu-usuario{
+.menu-usuario {
   overflow-y: auto;
   height: 427px;
 }
@@ -680,7 +724,7 @@
 
 .suggestion {
   font-size: 1.4rem;
-  color:#767676;
+  color: #767676;
   font-family: 'Lato Regular';
   margin-left: 10px;
 }
@@ -795,8 +839,17 @@
       padding-right: 0px;
     }
 
+    .navbar-header .list-options li.menu-container {
+      display: block;
+    }
+
+    .navbar-header .list-options li.bell-container.mobile-search {
+      display: block;
+    }
+
 
   }
+
 }
 
 @media screen and (max-width: 800px) {
