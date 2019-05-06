@@ -76,4 +76,13 @@ export class CategoriesMenuComponent implements OnInit {
   clickCloseMenu() {
     this.closeMenu.emit();
   }
+
+  hideCloseButton() {
+    if (this.router.url == '/products/categories') {
+      return true;
+    }
+    return false;
+  }
+
+
 }
