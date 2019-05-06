@@ -31,7 +31,8 @@ export const ROUTES = {
         PROMO: 'promo',
         MOBILENOTIFICATIONS: 'mobile_notification',
         MOBILEMENU: 'mobile_menu',
-        FILTERS: 'filter'
+        FILTERS: 'filter',
+        CATEGORIES: 'categories',
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',
@@ -46,7 +47,7 @@ export const ROUTES = {
         ADMINREGISTER: 'admin-register',
         CAMPAIGN: 'campaign',
         UPLOAD: 'upload-campaign',
-        BANNER: 'admin-banners'
+        BANNER: 'admin-banners',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

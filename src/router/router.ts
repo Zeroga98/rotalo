@@ -51,6 +51,7 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
+import { CategoriesComponent } from '../pages/categories-page/categories.component';
 
 export const appRouter: Routes = [
   {
@@ -203,6 +204,10 @@ export const appRouter: Routes = [
             pathMatch: 'full'
           }
         ]
+      },
+      {
+        path: ROUTES.PRODUCTS.CATEGORIES,
+        component: CategoriesComponent,
       },
       {
         path: '',

@@ -27,6 +27,10 @@ export class MenuMobileComponent implements OnInit {
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
 
+  public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
+
+  public categories = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.CATEGORIES}`;
+
   constructor(private userService: UserService,
     private router: Router,
     private changeDetector: ChangeDetectorRef,
