@@ -48,6 +48,10 @@
             <div class="ico banner-icon"></div>
             <a>Banners home</a>
         </div>
+        <div *ngIf="isSuperUser()" [routerLink]="users" class="option" routerLinkActive="active">
+            <div class="ico banner-icon"></div>
+            <a>Usuarios</a>
+        </div>
       </div>
     </div>
   </div>

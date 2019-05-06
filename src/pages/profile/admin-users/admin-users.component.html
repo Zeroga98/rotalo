@@ -1,0 +1,79 @@
+<div class="info-container">
+    <div class="tittle main-title">
+      <h1 class="text ">Administrador de usuarios</h1>
+    </div>
+
+    <div class="first-row">
+      <div *ngIf="campaigns && campaigns.length > 0" class="filter-container">
+        <form class="form-theme">
+          <div class="material-design">
+            <div class="row">
+              <div class="form-group half">
+                <label class="label-title">Filtar por</label>
+                <select [(ngModel)]="selectState" name="communityId" class="category form-control">
+                  <option value="">Estado</option>
+                  <option *ngFor="let state of states" value="{{state}}">{{state}}
+                </select>
+              </div>
+              <div class="form-group half" data-input="searchText">
+                <label class="label-title">Fecha de creación</label>
+                <input class="form-control" type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText"
+                  placeholder="dd/mm/aaaa">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <mat-tab-group class="tab-table">
+        <mat-tab label="Activos">
+            <div *ngIf="campaigns && campaigns.length > 0" class="tabla-campaign">
+                <table id="campaigns-wrap" class="campaigns">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Email</th>
+                    <th>Último ingreso</th>
+                    <th>Nº Ingresos</th>
+                    <th>Fecha registro</th>
+                    <th>Fecha inactivado</th>
+                    <th>Ciudad</th>
+                    <th>Pais</th>
+                    <th>Empresa</th>
+                    <th>Administrador</th>
+                    <th class="table-no-border"></th>
+                    <th class="table-no-border"></th>
+                  </tr>
+                  <tr *ngFor="let campaign of  (campaigns | searchByDate: searchText: selectState)">
+                    <td>90923</td>
+                    <td>Laura Melissa Duque</td>
+                    <td>1089374783</td>
+                    <td>lauduque@bancolombia.com.co</td>
+                    <td>01/03/2018</td>
+                    <td>13</td>
+                    <td>01/03/2018</td>
+                    <td>01/03/2018</td>
+                    <td>Medellín</td>
+                    <td>Colombia</td>
+                    <td>Bancolombia</td>
+                    <td>No</td>
+                    <td>
+                      <div class="switch-container">
+                        <input type="checkbox" [checked]="campaign.active" id="id-name--{{campaign.id}}" name="state"
+                          class="switch-input" (change)="saveCheck(campaign.active, campaign.id)">
+                        <label for="id-name--{{campaign.id}}" class="switch-label"></label>
+                      </div>
+                    </td>
+                    <td><a [routerLink]="getUrlCampaign(campaign.id)">Editar</a></td>
+                  </tr>
+                </table>
+              </div>
+        </mat-tab>
+        <mat-tab label="Inactivos"> Content 2 </mat-tab>
+        <mat-tab label="Administradores"> Content 3 </mat-tab>
+    </mat-tab-group>
+
+
+  </div>
