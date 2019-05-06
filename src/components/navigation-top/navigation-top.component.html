@@ -49,7 +49,7 @@
                     <div class="photo-container">
                       <div [routerLink]="profileShow" class="photo clickable">
                         <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
-                        <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="userEdit.name">
+                        <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="imagen-perfil">
                       </div>
                       <div class="user-info">
                         <p *ngIf="userName" class="name">{{userName}}</p>
@@ -142,7 +142,7 @@
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
   <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
     (closeMenu)="_closeMenu()"></categories-menu>
-  
+
   <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
     <div class="search-container-mobile" >
         <div (click) = "openSearch()" class="back-arrow"></div>
@@ -158,8 +158,7 @@
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option (click) = "goToCategory(suggestion); showSearchMobile = false" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
                 <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
-              <span 
-                class="suggestion">{{suggestion.suggestion}}</span>
+              <span class="suggestion">{{suggestion.suggestion}}</span>
               </mat-option>
           </mat-autocomplete>
     </div>
