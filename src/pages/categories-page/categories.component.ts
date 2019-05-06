@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 
 @Component({
-  selector: 'menu-mobile',
-  templateUrl: './menu-mobile.component.html',
-  styleUrls: ['./menu-mobile.component.scss']
+  selector: 'categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss']
 })
-export class MenuMobileComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
   public userEdit;
   public userName;
   public message = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
