@@ -463,8 +463,8 @@
         background-color: #FFFFFF;
         border: 1px solid #FF3646;
         padding: 9px;
-        width: 100%;
-        max-width: 203px;
+        width: 220px;;
+        max-width: 220px;
         min-height: 44px;
         color: #FF3646;
         font-weight: bold;
@@ -497,7 +497,7 @@
 
       .btn-item:first-child {
         .botons {
-          margin-left: 0;
+          margin-left: 5px;
           /*background-color: #ffffff;
           color: #FF3646;
           border: 1px solid #A2A2A2;*/
@@ -747,7 +747,7 @@
         border: 1px solid #FF3646;
         background-color: #FF3646;
         padding: 9px;
-        width: 203px;
+        width: 220px;
         min-height: 44px;
         color: #FFFFFF;
         font-weight: bold;
@@ -757,7 +757,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0 auto;
+        //margin: 0 auto;
         position: relative;
         .icon-custom--mail {
           color: white;
@@ -1297,7 +1297,6 @@ input:checked+.switch-slider:before {
         width: 100%;
         min-height: 22px;
         p {
-       //   padding: 5px 0;
           font-size: 1.0rem;
           color: #767676;
           position: absolute;
@@ -1436,11 +1435,18 @@ input:checked+.switch-slider:before {
   :host {
     .btns-container .btn-two-container {
       flex-wrap: wrap;
+      display: block;
+    }
+
+    .product-btn,
+    .product-btn .product-btns,
+    .product-btn .product-btns .cont-botons{
+      width: 220px;
     }
 
     .btns-container .creditImmovables .btn-item,
     .btns-container .creditImmovables .btn-item.credit-leasing {
-      width: 100%;
+      width: 220px;
     }
 
     .btns-container .creditImmovables .btn-item .botons {
@@ -1496,7 +1502,6 @@ input:checked+.switch-slider:before {
       .product {
         flex-direction: column;
         display: flex;
-        // align-items: center;
         width: 90%;
         margin: 0 auto;
 
@@ -1523,7 +1528,7 @@ input:checked+.switch-slider:before {
       }
     }
 
-    .product-btn {
+    /*.product-btn {
       width: 100%;
       float: none;
       display: block;
@@ -1538,7 +1543,7 @@ input:checked+.switch-slider:before {
 
         }
       }
-    }
+    }*/
 
     .container-simulator {
       width: 100%;
@@ -1591,7 +1596,7 @@ input:checked+.switch-slider:before {
     }
 
     .btns-container .btn-two-container .btn-item .botons {
-      margin-left: 0px;
+      margin-left: 5px;
     }
 
     .product-info-user--data .panel-product {
@@ -1607,9 +1612,6 @@ input:checked+.switch-slider:before {
     }
 
     .price-container {
-      /*  display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;*/
       margin-top: 0px;
     }
 
@@ -1633,8 +1635,7 @@ input:checked+.switch-slider:before {
     .btns-container {
       .btn-item {
         width: 100%;
-        //  text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
 
         .botons {
           max-width: 264px;
