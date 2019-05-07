@@ -296,9 +296,9 @@ export class DetailProductComponent implements OnInit {
   }
 
   loadProduct() {
-    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
-      if (reponse.body) {
-        this.products = reponse.body.productos[0];
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((response) => {
+      if (response.body) {
+        this.products = response.body.productos[0];
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
         }

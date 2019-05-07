@@ -36,34 +36,38 @@ export class FinanceBamComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+    this.loadProduct();
     this.initPriceForm();
   }
 
-  /*async loadProduct() {
-    try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
-      if (this.product.photoList) {
-        this.photoProduct = this.product.photoList.url || this.product.photoList[0].url;
+  async loadProduct() {
+    this.currentUser = await this.userService.getInfoUser();
+    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((response) => {
+      if (response.body) {
+        this.product = response.body.productos[0];
+        if (this.product.photoList) {
+          this.photoProduct = this.product.photoList.url || this.product.photoList[0].url;
+        }
+        this.priceProduct = this.product.price;
+        this.nameUser = this.currentUser.name;
+        this.typeDocument = 'DPI';
+        this.documentNumber = this.currentUser['id-number'];
+        this.usarId = this.currentUser.id;
+        this.email = this.currentUser.email;
+        this.cellphone = this.currentUser.cellphone;
+        const price = this.sendInfoPrice.get('price');
+        price.clearValidators();
+        price.setValidators([Validators.required, Validators.min(1) , Validators.max(this.priceProduct)]);
+        price.updateValueAndValidity();
       }
-      this.priceProduct = this.product.price;
-      this.currentUser = await this.userService.getInfoUser();
-      this.nameUser = this.currentUser.name;
-      this.typeDocument = 'DPI';
-      this.documentNumber = this.currentUser['id-number'];
-      this.usarId = this.currentUser.id;
-      this.email = this.currentUser.email;
-      this.cellphone = this.currentUser.cellphone;
-      const price = this.sendInfoPrice.get('price');
-      price.clearValidators();
-      price.setValidators([Validators.required, Validators.min(1) , Validators.max(this.priceProduct)]);
-      price.updateValueAndValidity();
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      if (error.status === 404) {
-        this.redirectErrorPage();
-      }
-    }
-  }*/
+        this.changeDetectorRef.markForCheck();
+      }, (error) => {
+        if (error.status === 404) {
+          this.redirectErrorPage();
+        }
+      });
+
+  }
 
   redirectErrorPage() {
     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`]);
