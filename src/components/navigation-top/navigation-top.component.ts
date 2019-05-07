@@ -95,7 +95,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   public showSearchMobile = false;
 
-  public menu  = `${ROUTES.PRODUCTS.MOBILEMENU}`;
+  public menu  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`;
 
 
 
@@ -455,6 +455,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILENOTIFICATIONS}`
       ]);
     }
+  }
+
+  goToMenu() {
+    this.router.navigate([
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`
+    ]);
   }
 
   loadNotifications() {

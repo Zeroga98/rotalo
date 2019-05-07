@@ -113,7 +113,7 @@
           </li>
 
           <li class="mobile-notification menu-container">
-              <div *ngIf="!hideMenuIcon()" [routerLink]="menu" class="menu">
+              <div *ngIf="!hideMenuIcon()" (click) = "goToMenu()" class="menu">
                 <span>
                 </span>
               </div>
