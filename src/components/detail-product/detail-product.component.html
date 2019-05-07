@@ -1011,7 +1011,11 @@
                   </div>
                 </div>
                 <div *ngIf="products.user.company" class="media-middle product-info-user--data">
-                  <p class="name-user">{{products.user.name}}</p>
+                  <div class="name-user">
+                    <span class="name-user">{{products.user.name}}</span>
+                    <span *ngIf="products && products.userCalification" class="star star-full name-user"></span>
+                    <span *ngIf="products && products.userCalification" class="calification" >{{products.userCalification}}</span>
+                  </div>
                   <p class="panel-product">
                     {{products.user.company.name}}
                     -
