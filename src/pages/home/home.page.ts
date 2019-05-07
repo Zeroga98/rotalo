@@ -33,6 +33,7 @@ export class HomePage implements OnInit {
   public errorMessageId;
   public errorMessageDoc;
   public country = 'Colombia';
+  public userEmail = '';
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -216,6 +217,8 @@ export class HomePage implements OnInit {
         this.idCountry = 1;
       }
 
+      this.userEmail=this.registerForm.get('email').value.toLowerCase();
+      
       const idDocument: number = +this.registerForm.get('type-document-id').value;
       const params = {
         'pais': this.idCountry,
