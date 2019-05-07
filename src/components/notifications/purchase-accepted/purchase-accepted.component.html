@@ -4,7 +4,7 @@
   <div class="notification">
 
     <div
-    [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
+    *ngIf="!notification.informacionAdicional" [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
     (click)="goToDetail(notification)" class="notification-img">
         <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
     </div>
@@ -38,17 +38,31 @@
 
       <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
     </div>
-    <div *ngIf="notification.informacionAdicional" class="notification-body">
-      <span>
-        <p class="notification-text align">
-          <span>Tu compra por
-            <span class="highlight">
-              ${{amountPurchase | currency:" " | removeDigits}}
-            </span>
-            en la tienda Bancolombia se ha realizado exitosamente.
+
+    <div *ngIf="notification.informacionAdicional">
+      <span class="store-purchase highlight">Este es el resumen de tu compra en {{notification.nombreEmisor}}</span>
+      <div class="notification-text">
+        <div class="store-purchase">
+          <div
+            [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
+          (click)="goToDetail(notification)" class="notification-img">
+              <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+          </div>
+          <div *ngIf="informacionAdicional.order_details" class="notification-body">
+              {{informacionAdicional.order_details[0].product_name}}  
+              <br>${{informacionAdicional.order_details[0].unit_price}} x {{informacionAdicional.order_details[0].units}} unidades
+              <br><span class="highlight">Total: ${{informacionAdicional.order_details[0].total_price}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="border-dotted">
+        <div class=text-order-status>Estado de la orden:  
+          <span [ngClass]="informacionAdicional.order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
+            {{informacionAdicional.order_state_name}}
           </span>
-        </p>
-      </span>
+          <div class="total highlight">Total: ${{informacionAdicional.total_order}}</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="notification-buttons" *ngIf="!notification.informacionAdicional && notification.producto && !notification.status">

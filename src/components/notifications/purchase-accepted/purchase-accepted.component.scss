@@ -17,4 +17,38 @@
     cursor: pointer;
   }
 
+  .highlight{
+    font-weight: bold;
+  }
+
+  .store-purchase{
+    font-size: 1.6rem;
+    color: #272727;
+    display: flex;
+    margin: 5px;
+  }
+
+  .text-order-status{
+    font-size: 1.4rem;
+    display: flex;
+    margin: 5px;
+    display: block;
+  }
+
+  .text-order-approved{
+    color: #0FBBD8;
+  }
+
+  .text-order-declined{
+    color: #FF3646;
+  }
+
+  .border-dotted{
+    border-top: 1px dashed #D3E0E9;
+  }
+
+  .total{
+    font-size: 1.8rem;
+    color: #272727;
+  }
 }

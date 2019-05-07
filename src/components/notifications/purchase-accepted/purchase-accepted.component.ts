@@ -14,7 +14,8 @@ export class PurchaseAcceptedComponent implements OnInit {
   @Output() userClicked: EventEmitter<any> = new EventEmitter();
   @Output() onContactSeller: EventEmitter<any> = new EventEmitter();
   @Output() notificationDelete: EventEmitter<any> = new EventEmitter();
-  public amountPurchase = 0;
+  //public amountPurchase = 0;
+  public informacionAdicional;
   constructor(private productsService: ProductsService, private router: Router,
     private notificationService: MessagesService) {
   }
@@ -22,7 +23,8 @@ export class PurchaseAcceptedComponent implements OnInit {
   ngOnInit() {
     if (this.notification.informacionAdicional) {
       const obj = JSON.parse(this.notification.informacionAdicional);
-      this.amountPurchase = obj.total_order;
+      //this.amountPurchase = obj.total_order;
+      this.informacionAdicional = obj;
     }
   }
 
