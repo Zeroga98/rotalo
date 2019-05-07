@@ -616,6 +616,26 @@ mat-tab-group.mat-tab-group.tab-table {
 
 }
 
+.material-design {
+  .mat-header-cell {
+    background-color: #E6E7E7;
+  }
+  .mat-sort-header-button {
+    color: #555555;
+    font-size: 1.4rem;
+    font-family: 'Lato Regular';
+    font-weight: bold;
+  }
+  .mat-row {
+    background-color:#F8F8F8;
+    border-bottom-color: transparent;
+    .mat-cell {
+      color: #272727;
+      font-size: 1.4rem;
+      font-family: 'Lato Regular';
+    }
+  }
+}
 
 
 

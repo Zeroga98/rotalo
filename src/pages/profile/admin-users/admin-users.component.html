@@ -28,52 +28,31 @@
 
     <mat-tab-group class="tab-table">
         <mat-tab label="Activos">
-            <div *ngIf="campaigns && campaigns.length > 0" class="tabla-campaign">
-                <table id="campaigns-wrap" class="campaigns">
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Cédula</th>
-                    <th>Email</th>
-                    <th>Último ingreso</th>
-                    <th>Nº Ingresos</th>
-                    <th>Fecha registro</th>
-                    <th>Fecha inactivado</th>
-                    <th>Ciudad</th>
-                    <th>Pais</th>
-                    <th>Empresa</th>
-                    <th>Administrador</th>
-                    <th class="table-no-border"></th>
-                    <th class="table-no-border"></th>
-                  </tr>
-                  <tr *ngFor="let campaign of  (campaigns | searchByDate: searchText: selectState)">
-                    <td>90923</td>
-                    <td>Laura Melissa Duque</td>
-                    <td>1089374783</td>
-                    <td>lauduque@bancolombia.com.co</td>
-                    <td>01/03/2018</td>
-                    <td>13</td>
-                    <td>01/03/2018</td>
-                    <td>01/03/2018</td>
-                    <td>Medellín</td>
-                    <td>Colombia</td>
-                    <td>Bancolombia</td>
-                    <td>No</td>
-                    <td>
-                      <div class="switch-container">
-                        <input type="checkbox" [checked]="campaign.active" id="id-name--{{campaign.id}}" name="state"
-                          class="switch-input" (change)="saveCheck(campaign.active, campaign.id)">
-                        <label for="id-name--{{campaign.id}}" class="switch-label"></label>
-                      </div>
-                    </td>
-                    <td><a [routerLink]="getUrlCampaign(campaign.id)">Editar</a></td>
-                  </tr>
-                </table>
+            <div class="material-design">
+                <mat-table [dataSource]="dataSource" matSort matSortActive="title" matSortDirection="asc">
+                  <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Blah</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.title}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="createdAt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>username</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.createdAt}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="communitiesText">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.communitiesText}}</mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+                </mat-table>
               </div>
         </mat-tab>
         <mat-tab label="Inactivos"> Content 2 </mat-tab>
         <mat-tab label="Administradores"> Content 3 </mat-tab>
     </mat-tab-group>
+
+
+
 
 
   </div>
