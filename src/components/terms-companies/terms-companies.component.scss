@@ -2,6 +2,7 @@
 @import '../../styles/settings/_variables.scss';
 
 :host {
+
   .container-terms {
     color: $grey-dark;
     font-size: 1.6rem;
@@ -9,28 +10,43 @@
     overflow: auto;
     padding: 1rem 5rem;
     padding-bottom: 5rem;
+    font-family: 'Lato Regular';
     .title {
       font-size: 2.0rem;
-      color: $red;
+      color: #272727;
       margin: 1rem 0;
     }
+
     .subtitle {
-      font-size: 1.8rem;
+      color: #272727;
+      font-size: 1.6rem;
       font-weight: bold;
       margin: 1rem 0;
     }
-    h5{
+
+    h5 {
       margin: 1rem 0;
       font-size: 2rem;
       font-weight: 100;
     }
-    p{
-      color: $grey-dark;
+
+    p, li {
+      font-size: 1.4rem;
+      color: #707070;
     }
-    h4, h5{
-      color: $grey-dark;
+
+    li {
+      strong {
+        color: #272727;
+      }
+    }
+
+    h4,
+    h5 {
+      color: #707070;
     }
   }
+
 }
 
 @media screen and (max-width: 600px){
@@ -50,3 +66,4 @@
     }
   }
 }
+

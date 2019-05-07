@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 
 
@@ -10,6 +10,7 @@ import { SettingsService } from '../../services/settings.service';
 export class TermsComponent implements OnInit {
   private currentUrl = '';
   public terms = '';
+  @Input() showTitle = true;
   constructor( private settingsService: SettingsService, private changeDetector: ChangeDetectorRef) {
     this.currentUrl = window.location.href;
   }
@@ -32,5 +33,6 @@ export class TermsComponent implements OnInit {
     }
     return false;
   }
+
 
 }

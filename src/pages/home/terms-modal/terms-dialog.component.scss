@@ -1,5 +1,16 @@
 :host {
 
+  .container-terms {
+    margin-bottom: 20px;
+    .title {
+      margin: 0.5rem 0;
+    }
+    h3 {
+      font-weight: normal;
+    }
+  }
+
+
   .modal-container {
     min-height: 500px;
   }
@@ -278,4 +289,13 @@
     }
 
   }
+}
+
+@media screen and (max-width: 680px) {
+  .container-terms {
+    .title, h3 {
+      font-size: 1.8rem;
+    }
+  }
+
 }

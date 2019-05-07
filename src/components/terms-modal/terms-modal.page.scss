@@ -19,6 +19,7 @@
         width: 50%;
         display: flex;
         flex-direction: column;
+        border-radius: 5px;
         .modal__header{
             display: flex;
             justify-content: space-between;
@@ -35,7 +36,8 @@
         }
         .modal__body{
             padding: 1rem 5rem 5rem;
-            min-height: 500px;
+       //     min-height: 500px;
+            min-height: 470px;
             overflow: auto;
         }
         .modal__footer{
