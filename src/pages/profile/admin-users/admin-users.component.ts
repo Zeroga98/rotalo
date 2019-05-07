@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { SettingsService } from '../../../services/settings.service';
 import * as moment from 'moment';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatTabChangeEvent } from '@angular/material';
 
 @Component({
   selector: 'app-admin-users',
@@ -340,6 +340,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
 
   getUrlCampaign (idCampaign) {
     return this.edit + idCampaign;
+  }
+
+  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    console.log('tabChangeEvent => ', tabChangeEvent);
+    console.log('index => ', tabChangeEvent.index);
   }
 
 }

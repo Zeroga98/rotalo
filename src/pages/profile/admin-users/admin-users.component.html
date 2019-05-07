@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <mat-tab-group class="tab-table">
+    <mat-tab-group (selectedTabChange)="tabChanged($event)" class="tab-table">
         <mat-tab label="Activos">
             <div class="material-design">
                 <mat-table [dataSource]="dataSource" matSort matSortActive="title" matSortDirection="asc">

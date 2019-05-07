@@ -14,7 +14,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 })
 export class FinanceBamComponent implements OnInit {
   public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-  public product: ProductInterface;
+  public product;
   private currentUser;
   public nameUser;
   public typeDocument;
@@ -36,13 +36,13 @@ export class FinanceBamComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
-    //this.loadProduct();
+    this.loadProduct();
     this.initPriceForm();
   }
 
-  /*async loadProduct() {
+  async loadProduct() {
     try {
-      this.product = await this.productsService.getProductsById(this.idProduct);
+      this.product = await this.productsService.getProductsByIdDetail(this.idProduct);
       if (this.product.photoList) {
         this.photoProduct = this.product.photoList.url || this.product.photoList[0].url;
       }
@@ -64,7 +64,7 @@ export class FinanceBamComponent implements OnInit {
         this.redirectErrorPage();
       }
     }
-  }*/
+  }
 
   redirectErrorPage() {
     this.router.navigate([`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.ERROR}`]);
