@@ -742,6 +742,20 @@ export class DetailProductComponent implements OnInit {
     return false;
   }
 
+  get isSubcategoryCars() {
+    if (this.products && this.products.subcategory && this.products.subcategory.name == 'Carros') {
+      return true;
+    }
+    return false;
+  }
+
+  get isSubcategoryMotos() {
+    if (this.products && this.products.subcategory && this.products.subcategory.name == 'Motos') {
+      return true;
+    }
+    return false;
+  }
+
   goToHipotecario() {
     this.sufiRegister();
     window.open(
