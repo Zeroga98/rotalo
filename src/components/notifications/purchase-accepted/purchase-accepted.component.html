@@ -58,7 +58,7 @@
       <div *ngIf="aditionalInformation.order_details" class="border-dotted">
         <div class=text-order-status>Estado de la orden:  
           <span [ngClass]="aditionalInformation.order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
-            {{aditionalInformation.order_state_name}}
+            {{aditionalInformation.order_state_name.toLowerCase()}}
           </span>
           <div class="total highlight">Total: ${{aditionalInformation.total_order}}</div>
         </div>

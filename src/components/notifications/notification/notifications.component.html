@@ -201,7 +201,7 @@ class="conversation">
             <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
               <div class=text-order-status>Estado de la orden:  
                 <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
-                  {{getAdditionalInfo(message).order_state_name}}
+                  {{getAdditionalInfo(message).order_state_name.toLowerCase()}}
                 </span>
                 <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
               </div>
@@ -308,7 +308,7 @@ class="conversation">
               <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
                 <div class=text-order-status>Estado de la orden:  
                   <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
-                    {{getAdditionalInfo(message).order_state_name}}
+                    {{getAdditionalInfo(message).order_state_name.toLowerCase()}}
                   </span>
                   <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
                 </div>
