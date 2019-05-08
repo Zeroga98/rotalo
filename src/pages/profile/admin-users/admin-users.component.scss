@@ -617,7 +617,9 @@
 }
 
 .material-design {
-  width: 85rem;
+  width: 100%;
+  max-width: 85rem;
+  overflow-x: scroll;
   .mat-table {
     width: 120rem;
   }

@@ -17,7 +17,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   dataSource;
   displayedColumns = ['id', 'name', 'idNumber', 'email',
   'lastSignInAt', 'signInCount', 'createdAt',
-  'deletedAt', 'city', 'country', 'company', 'contentAdmin'];
+  'deletedAt', 'city', 'country', 'company', 'contentAdmin', 'state', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
   private currentFilter: Object = {
     'size': 5,
@@ -55,6 +55,12 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
           if (item['deletedAt']) {
             const dateMoment: any = moment(item['deletedAt']);
             item['deletedAt'] = dateMoment.format('DD/MM/YYYY');
+          }
+
+          if (item['deletedAt']) {
+            item['state'] = false;
+          } else {
+            item['state'] = true;
           }
 
         });
