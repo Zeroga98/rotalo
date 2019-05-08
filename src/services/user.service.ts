@@ -9,7 +9,7 @@ import { UserRequestInterface } from '../commons/interfaces/user-request.interfa
 
 @Injectable()
 export class UserService {
-  //readonly url: string = `${this.configurationService.getBaseUrl()}/users`;
+
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
   currentUser: UserInterface;
   idUser: string;
@@ -55,17 +55,6 @@ export class UserService {
     } catch (error) {}
   }
 
-  /*saveUser(params: UserRequestInterface): Promise<any> {
-    return this.httpClient
-      .post(this.urlSapi, {
-        data: {
-          attributes: params,
-          type: 'users'
-        }
-      })
-      .toPromise();
-  }*/
-
   private getUser(): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -77,6 +66,7 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
+
   getInfomationUser(idUser) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -87,6 +77,7 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
+
   getCommunities(): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -126,6 +117,22 @@ export class UserService {
     const url =
     `${this.urlSapi}/registro`;
     return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+
+  getUsers(params): Promise<any> {
+    const url = this.urlSapi + '/usuarios?';
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.httpClient
+      .get(url, { headers: headers, params: params})
+      .toPromise()
+      .then((response: any) => {
+       /* if (response.body.totalUsuarios) {
+         // this.setTotalProducts(response.body.totalProductos);
+        }*/
+        return response.body;
+      });
   }
 
 }

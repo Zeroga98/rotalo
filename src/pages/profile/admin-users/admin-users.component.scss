@@ -616,6 +616,13 @@
   }
 }
 
+.material-design {
+  width: 85rem;
+  .mat-table {
+    width: 120rem;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   :host() {
     .first-row {

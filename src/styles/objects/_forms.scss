@@ -633,6 +633,9 @@ mat-tab-group.mat-tab-group.tab-table {
       color: #272727;
       font-size: 1.4rem;
       font-family: 'Lato Regular';
+      p {
+        width: 100%;
+      }
     }
   }
 }
