@@ -39,30 +39,48 @@
       <p class="notification-text" *ngIf="notification.status" [innerHTML]="notification.status"></p>
     </div>
 
-    <div *ngIf="notification.informacionAdicional">
-      <span class="store-purchase highlight">Este es el resumen de tu compra en {{notification.nombreEmisor}}</span>
-      <div class="notification-text">
-        <div class="store-purchase">
+    <div *ngIf="aditionalInformation" class="notification">
+      <span *ngIf="aditionalInformation.order_details" class="span-store-purchase highlight">Este es el resumen de tu compra en {{notification.nombreEmisor}}</span>
+      <div *ngIf="aditionalInformation.order_details" class="notification-text">
+        <div *ngFor="let order_detail of aditionalInformation.order_details" class="detail-store-purchase">
           <div
-            [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
           (click)="goToDetail(notification)" class="notification-img">
-              <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+              <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
           </div>
-          <div *ngIf="informacionAdicional.order_details" class="notification-body">
-              {{informacionAdicional.order_details[0].product_name}}  
-              <br>${{informacionAdicional.order_details[0].unit_price}} x {{informacionAdicional.order_details[0].units}} unidades
-              <br><span class="highlight">Total: ${{informacionAdicional.order_details[0].total_price}}</span>
+          <div class="notification-body">
+              {{order_detail.product_name}}  
+              <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
+              <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
           </div>
         </div>
       </div>
-      <div class="border-dotted">
+      <div *ngIf="aditionalInformation.order_details" class="border-dotted">
         <div class=text-order-status>Estado de la orden:  
-          <span [ngClass]="informacionAdicional.order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
-            {{informacionAdicional.order_state_name}}
+          <span [ngClass]="aditionalInformation.order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
+            {{aditionalInformation.order_state_name}}
           </span>
-          <div class="total highlight">Total: ${{informacionAdicional.total_order}}</div>
+          <div class="total highlight">Total: ${{aditionalInformation.total_order}}</div>
         </div>
       </div>
+      
+        <div *ngIf="!aditionalInformation.order_details"
+        [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
+        (click)="goToDetail(notification)" class="notification-img">
+            <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+        </div>
+        <div class="notification-body" *ngIf="!aditionalInformation.order_details">
+          <span>
+            <p class="notification-text">
+              <span>Tu compra por
+                <span class="highlight">
+                  ${{aditionalInformation.total_order | currency:" " | removeDigits}}
+                </span>
+                en la tienda Bancolombia se ha realizado exitosamente.
+              </span>
+            </p>
+          </span>
+        </div>
     </div>
   </div>
   <div class="notification-buttons" *ngIf="!notification.informacionAdicional && notification.producto && !notification.status">

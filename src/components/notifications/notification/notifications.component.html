@@ -139,13 +139,13 @@ class="conversation">
           <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
           </span>
           <div class="notification">
-            <div
+            <div *ngIf="!message.informacionAdicional"
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
                <div
                [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
             </div>
-            <div class="notification-body">
+            <div class="notification-body" *ngIf="!message.informacionAdicional">
               <span *ngIf="!message.informacionAdicional && message.producto">
                 <p class="notification-text">
                   <span>{{message.compra.nombreUsuario}}</span>
@@ -169,7 +169,7 @@ class="conversation">
                   <span class="highlight bold" *ngIf="message.status">{{message.status}}</span>
                 </p>
               </span>
-              <span *ngIf="message.informacionAdicional">
+              <!--span *ngIf="message.informacionAdicional">
                 <p class="notification-text align">
                   <span class="highlight">{{message.nombreEmisor}}</span>
                   <span> ha realizado una compra por
@@ -179,8 +179,50 @@ class="conversation">
                     en la tienda Bancolombia.
                   </span>
                 </p>
-              </span>
+              </span-->
             </div>
+          </div>
+          <div *ngIf="message.informacionAdicional" class="notification">
+            <span *ngIf="getAdditionalInfo(message).order_details" class="span-store-purchase highlight">{{message.nombreEmisor}} <span class="no-highlight">&nbsp;ha comprado los productos</span></span>
+            <div *ngIf="getAdditionalInfo(message).order_details" class="notification-text">
+              <div *ngFor="let order_detail of getAdditionalInfo(message).order_details" class="detail-store-purchase">
+                <div
+                  [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
+                (click)="goToDetail(notification)" class="notification-img">
+                    <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
+                </div>
+                <div class="notification-text">
+                    {{order_detail.product_name}}  
+                    <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
+                    <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
+              <div class=text-order-status>Estado de la orden:  
+                <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
+                  {{getAdditionalInfo(message).order_state_name}}
+                </span>
+                <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
+              </div>
+            </div>
+              
+            <div *ngIf="!getAdditionalInfo(message).order_details"
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToDetail(message)" class="notification-img ">
+                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+            </div>
+            <span class="notification-body" *ngIf="!getAdditionalInfo(message).order_details">
+              <p class="notification-text align">
+                <span class="highlight">{{message.nombreEmisor}}</span>
+                <span> ha realizado una compra por
+                  <span class="highlight">
+                    ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
+                  </span>
+                  en la tienda Bancolombia.
+                </span>
+              </p>
+            </span>
           </div>
           <div class="notification-buttons" *ngIf="message.producto && !message.informacionAdicional && !message.status">
             <div class="button-item">
@@ -211,10 +253,9 @@ class="conversation">
         <!-- INICIO NOTIFICACIÓN COMPRA RECHAZADA -->
         <div *ngIf="message.tipoNotificacion == 'purchase_declined'" class="notifications-item">
 
-          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
-          </span>
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close"></span>
           <div class="notification">
-            <div
+            <!--div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
@@ -247,6 +288,45 @@ class="conversation">
                     en la tienda Bancolombia ha sido rechazada.</span>
                 </p>
               </span>
+            </div-->
+            <div *ngIf="message.informacionAdicional" class="notification">
+              <span *ngIf="getAdditionalInfo(message).order_details" class="span-store-purchase highlight">Este es el resumen de tu compra en {{message.nombreEmisor}}</span>
+              <div *ngIf="getAdditionalInfo(message).order_details" class="notification-text">
+                <div *ngFor="let order_detail of getAdditionalInfo(message).order_details" class="detail-store-purchase">
+                  <div
+                    [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
+                  (click)="goToDetail(notification)" class="notification-img">
+                      <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
+                  </div>
+                  <div class="notification-body">
+                      {{order_detail.product_name}}  
+                      <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
+                      <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
+                <div class=text-order-status>Estado de la orden:  
+                  <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
+                    {{getAdditionalInfo(message).order_state_name}}
+                  </span>
+                  <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
+                </div>
+              </div>
+              <div *ngIf="!getAdditionalInfo(message).order_details"
+              [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+              (click)="goToDetail(message)" class="notification-img ">
+                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+              </div>
+              <div class="notification-body" *ngIf="!getAdditionalInfo(message).order_details">
+                <span>
+                  <p class="notification-text align">
+                    <span>Tu compra por
+                      ${{returnTotalPurchase(message) | currency:" " | removeDigits}}
+                      en la tienda Bancolombia ha sido rechazada.</span>
+                  </p>
+                </span>
+              </div>
             </div>
           </div>
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}

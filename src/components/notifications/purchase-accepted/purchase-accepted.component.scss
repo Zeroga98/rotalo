@@ -21,11 +21,18 @@
     font-weight: bold;
   }
 
-  .store-purchase{
+  .span-store-purchase{
     font-size: 1.6rem;
     color: #272727;
     display: flex;
     margin: 5px;
+  }
+
+  .detail-store-purchase{
+    font-size: 1.6rem;
+    color: #272727;
+    display: flex;
+    margin: 10px;
   }
 
   .text-order-status{
@@ -50,5 +57,9 @@
   .total{
     font-size: 1.8rem;
     color: #272727;
+  }
+
+  .store-old{
+    display: flex;
   }
 }

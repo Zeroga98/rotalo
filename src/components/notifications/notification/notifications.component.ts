@@ -39,7 +39,6 @@ export class NotificationsComponent implements OnInit {
   public totalNotificationes;
   public isInfiniteScrollDisabled: boolean = false;
 
-
   constructor(
     private notificationService: MessagesService,
     private router: Router,
@@ -253,6 +252,15 @@ export class NotificationsComponent implements OnInit {
       amountPurchase = obj.total_order;
     }
     return amountPurchase;
+  }
+
+  getAdditionalInfo(notification){
+    let aditionalInformation;
+    if(notification.informacionAdicional){
+      const obj = JSON.parse(notification.informacionAdicional);
+      aditionalInformation = obj;
+    }
+    return aditionalInformation;
   }
 
   updateSellUnknow(notification) {
