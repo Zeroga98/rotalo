@@ -6,14 +6,17 @@
   font-size: 1.6rem;
   flex-shrink: 1;
   overflow: auto;
+  font-family: 'Lato Regular';
+
   .title {
     font-size: 2.0rem;
-    color: $red;
+    color: #272727;
     margin: 1rem 0;
   }
 
   .subtitle {
-    font-size: 1.8rem;
+    color: #272727;
+    font-size: 1.6rem;
     font-weight: bold;
     margin: 1rem 0;
   }
@@ -24,32 +27,48 @@
     font-weight: 100;
   }
 
-  p {
-    color: $grey-dark;
+  p, li {
+    font-size: 1.4rem;
+    color: #707070;
+  }
+
+  li {
+    strong {
+      color: #272727;
+    }
   }
 
   h4,
   h5 {
-    color: $grey-dark;
+    color: #707070;
+  }
+
+  a {
+    color: #272727;
+    font-weight: bold;
+  }
+
+}
+
+.mat-dialog-container {
+  border-radius: 5px !important;
+  .container-terms {
+    .subtitle {
+      font-size: 1.4rem;
+    }
   }
 }
 
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
   .container-terms {
-    font-size: 1.3rem;
-    padding: 1rem 3rem;
-
     .title {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
     }
+  }
 
-    .subtitle {
-      font-size: 2rem;
-    }
-
-    h5 {
-      font-size: 1.7rem;
+  .mat-dialog-container {
+    .title {
+    font-size: 1.8rem;
     }
   }
 
