@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import * as moment from 'moment';
-import { MatTableDataSource, MatSort, MatTabChangeEvent } from '@angular/material';
+import { MatTableDataSource, MatSort, MatTabChangeEvent, MatTabGroup } from '@angular/material';
 import { UserService } from '../../../services/user.service';
+import { UtilsService } from './../../../util/utils.service';
+import { SettingsService } from '../../../services/settings.service';
+
 
 @Component({
   selector: 'app-admin-users',
@@ -11,13 +14,15 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit, AfterViewInit {
-  searchText = '';
-  selectState = '';
+  name = '';
+  idNumber = '';
+  since = '';
+  until = '';
+  email = '';
+  @ViewChild('tabs') tabGroup: MatTabGroup;
   edit: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOAD}/`;
   dataSource;
-  displayedColumns = ['id', 'name', 'idNumber', 'email',
-  'lastSignInAt', 'signInCount', 'createdAt',
-  'deletedAt', 'city', 'country', 'company', 'contentAdmin', 'state', 'edit'];
+  displayedColumns = ['id', 'name'];
   @ViewChild(MatSort) sort: MatSort;
   private currentFilter: Object = {
     'size': 5,
@@ -25,14 +30,22 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     'active': true
   };
 
-  constructor(private router: Router,  private userService: UserService) { }
+  constructor(private utilService: UtilsService, private userService: UserService, private settingsService: SettingsService) { }
 
   ngOnInit() {
-   this.getUserList(this.currentFilter);
+    this.getUserList(this.currentFilter);
   }
 
-  ngAfterViewInit (){
+  ngAfterViewInit() {
 
+  }
+
+  getFormatDate(date) {
+    if (date) {
+      const dateMoment: any = moment(date);
+      return dateMoment.format('DD/MM/YYYY');
+    }
+    return '';
   }
 
   async getUserList(params: Object = {}) {
@@ -42,32 +55,16 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       if (listUsers.usuarios) {
 
         listUsers.usuarios.map((item) => {
-          if (item['lastSignInAt']) {
-            const dateMoment: any = moment(item['lastSignInAt']);
-            item['lastSignInAt'] = dateMoment.format('DD/MM/YYYY');
-          }
-
-          if (item['createdAt']) {
-            const dateMoment: any = moment(item['createdAt']);
-            item['createdAt'] = dateMoment.format('DD/MM/YYYY');
-          }
-
           if (item['deletedAt']) {
-            const dateMoment: any = moment(item['deletedAt']);
-            item['deletedAt'] = dateMoment.format('DD/MM/YYYY');
-          }
-
-          if (item['deletedAt']) {
-            item['state'] = false;
+            item['status'] = false;
           } else {
-            item['state'] = true;
+            item['status'] = true;
           }
-
         });
 
         this.dataSource = new MatTableDataSource(listUsers.usuarios);
         this.dataSource.sortingDataAccessor = (item, property) => {
-          switch(property) {
+          switch (property) {
             case 'city': return item.city.name;
             case 'country': return item.city.state.country.name;
             case 'company': return item.company.name;
@@ -75,7 +72,6 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
           }
         };
         this.dataSource.sort = this.sort;
-        console.log(listUsers);
       }
 
     } catch (error) {
@@ -83,11 +79,87 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-    console.log('tabChangeEvent => ', tabChangeEvent);
-    console.log('index => ', tabChangeEvent.index);
+    this.setInitialValues();
+    switch (tabChangeEvent.index) {
+      case 0:
+        this.currentFilter = {
+          'size': 5,
+          'number': 1,
+          'active': true
+        };
+        break;
+      case 1:
+        this.currentFilter = {
+          'size': 5,
+          'number': 1,
+          'active': false
+        };
+        break;
+      case 2:
+        this.currentFilter = {
+          'size': 5,
+          'number': 1,
+          'content_admin': true
+        };
+        break;
+      default:
+        this.currentFilter = {
+          'size': 5,
+          'number': 1,
+          'active': true
+        };
+        break;
+    }
+    this.getUserList(this.currentFilter);
   }
 
+  setFilter() {
+   const filter = {
+      name: this.name ? `/${this.name}/`  : '' ,
+      id_number: this.idNumber ? `/${ this.idNumber}/` : '',
+      email: this.email ? `/${this.email}/`  : '' ,
+      created_at_from: this.since ? this.since: '',
+      created_at_until: this.until ? this.until : ''
+    };
+    this.currentFilter = Object.assign({}, this.currentFilter, filter);
+    this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
+    this.getUserList(this.currentFilter);
+  }
+
+  setInitialValues() {
+    this.name = '';
+    this.idNumber = '';
+    this.since = '';
+    this.until = '';
+    this.email = '';
+  }
+
+  removeFilter() {
+    this.setInitialValues();
+    this.currentFilter = {
+      'size': 5,
+      'number': 1,
+      'active': true
+    };
+    this.tabGroup.selectedIndex = 0;
+    this.getUserList(this.currentFilter);
+  }
+
+  changeStatus(check, idUser) {
+    check = !check;
+    const param =  {
+      activar: check,
+      idUsuario: idUser
+    };
+    this.userService.changeStatusUserAdmin(param).subscribe((response) => {
+      this.getUserList(this.currentFilter);
+    }, (error) => {
+      if (error.error) {
+        this.getUserList(this.currentFilter);
+        alert(error.error.message);
+      }
+      console.log(error, 'error');
+    });
+  }
 }

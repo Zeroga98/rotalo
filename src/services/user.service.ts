@@ -135,4 +135,11 @@ export class UserService {
       });
   }
 
+  changeStatusUserAdmin(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/usuarios/activacion`;
+    return this.httpClient.put(url , params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
