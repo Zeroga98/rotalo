@@ -299,3 +299,14 @@
   }
 
 }
+
+@media screen and (max-width:900px) {
+  :host {
+    .container-terms {
+      margin-bottom: 10px;
+    }
+  }
+  .mat-dialog-content {
+    max-height: 40vh;
+  }
+}
