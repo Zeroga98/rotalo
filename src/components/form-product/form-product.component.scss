@@ -1204,6 +1204,24 @@ image-upload {
   }
 }
 
+.tool-tip-whatsapp {
+  border-radius: 17px;
+  background-color: rgba(75, 40, 120, .14);
+  max-width: 313px;
+  min-height: 126px;
+  padding: 40px 25px;
+  vertical-align: top;
+  transition: opacity 1s ease-out;
+  position: absolute;
+  top: -10px;
+  right: 5px;
+
+  label {
+    color: #383838;
+    font-size: 1.4rem;
+  }
+}
+
 .container-prev-photos:hover>.tool-tip {
   display: inline-block;
   opacity: 1;
