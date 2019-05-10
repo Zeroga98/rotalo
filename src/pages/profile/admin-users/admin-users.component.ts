@@ -22,7 +22,9 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   @ViewChild('tabs') tabGroup: MatTabGroup;
   edit: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOAD}/`;
   dataSource;
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'idNumber', 'email',
+  'lastSignInAt', 'signInCount', 'createdAt',
+  'deletedAt', 'city', 'country', 'company', 'contentAdmin', 'status', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
   private currentFilter: Object = {
     'size': 5,

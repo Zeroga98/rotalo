@@ -2,7 +2,7 @@
 @import "../../../styles/settings/_variables.scss";
 
 :host {
-  width: 100%;
+  width: 60%;
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
@@ -640,8 +640,6 @@
 
 .material-design {
   width: 100%;
-  max-width: 85rem;
-
   .mat-table {
     width: 170rem;
     min-height: 300px;
