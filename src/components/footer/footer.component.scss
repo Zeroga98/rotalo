@@ -55,5 +55,10 @@
       display: none;
     }
   }
+  @media (max-width: 1080px){
+    .container-footer{
+      padding-bottom: 6rem;
+    }
+  }
 }
 
