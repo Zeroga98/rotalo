@@ -5,7 +5,7 @@
   display: block;
   background-color: #fff;
   border-color: #fff;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16);
   z-index: 1;
   position: relative;
 
@@ -103,7 +103,7 @@
       img {
         height: auto;
         width: 100%;
-        min-width: 92px;
+       // min-width: 92px;
       }
     }
 
