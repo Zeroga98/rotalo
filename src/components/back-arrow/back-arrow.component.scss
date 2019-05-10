@@ -10,14 +10,15 @@
       height: inherit;
       width: inherit;
       border-radius: 50%;
-      background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
+      background: url(../../assets/img/iconos/arrow_back.svg) no-repeat;
       background-size: 50% 50%;
+    // background-size: contain;
       background-position: center;
       cursor: pointer;
       margin-right: 40px;
 
       &:hover {
-        background: url(../../assets/img/iconos/ic_arrow_back_hover.svg) no-repeat;
+        background: url(../../assets/img/iconos/arrow_back_hover.svg) no-repeat;
         background-size: contain;
       }
     }

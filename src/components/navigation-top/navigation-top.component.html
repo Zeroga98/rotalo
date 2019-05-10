@@ -73,13 +73,13 @@
 
           <li (click)="goToNotifications();" class="mobile-notification bell-container">
             <div class="container-bell">
-              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell active">
+              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
           </li>
           <li class="desktop-notification bell-container">
             <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="container-bell">
-              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell active">
+              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
             <mat-menu backdropClass="sg-vertical-sub-menu"  class="profile-menu" xPosition="before" #appMenu="matMenu">
