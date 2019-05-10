@@ -191,7 +191,7 @@ class="conversation">
                 (click)="goToDetail(notification)" class="notification-img">
                     <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
                 </div>
-                <div class="notification-text">
+                <div class="notification-body">
                     {{order_detail.product_name}}  
                     <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
                     <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
