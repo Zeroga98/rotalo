@@ -51,7 +51,7 @@
         margin: 0 auto;
         margin-bottom: 20px;
         max-width: 224px;
-        height: 318px;
+        height: 300px;
 
         .item__card {
           cursor: pointer;
@@ -60,7 +60,7 @@
           margin: 0;
           width: 100%;
           max-width: 224px;
-          height: 318px;
+          height: 300px;
           color: #333;
           white-space: normal;
           background-color: #fff;
@@ -94,6 +94,7 @@
           .item__content {
             position: relative;
             padding: 5px 10px;
+            padding-top: 15px;
             border-top: 1px solid rgba(51, 51, 51, .1);
 
             .item__name {
@@ -123,7 +124,7 @@
               color: #A2A2A2;
               font-size: 1.4rem;
               line-height: 17px;
-              padding-bottom: 2px;
+              padding-bottom: 8px;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -191,7 +192,7 @@
         }
 
         .item__card:hover {
-          height: 355px;
+          height: 345px;
           z-index: 2;
           box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
