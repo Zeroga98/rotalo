@@ -202,6 +202,7 @@ import { ModalDeleteProductComponent } from '../components/modal-delete-product/
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { FilterService } from '../pages/filter-products/filter.service';
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
+import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 
 @NgModule({
   declarations: [
@@ -327,6 +328,7 @@ import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.co
     ModalDeleteProductComponent,
     FilterProductsComponent,
     AdminUsersComponent,
+    EditUsersComponent,
   ],
   imports: [
     BrowserModule,
