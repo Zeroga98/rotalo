@@ -63,15 +63,19 @@
           padding: 9px 6px;
           height: 3rem;
           width: 3rem;
-          background-color: #4BD6EF;
           border-radius: 50%;
           justify-content: center;
           align-items: center;
 
           span {
-            font-size: 35px;
+          /*  font-size: 35px;
             font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-            color: white;
+            color: white;*/
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            background-size: 22px 22px;
+            background-image: url(../../assets/img/iconos/camara.svg);
           }
         }
 
