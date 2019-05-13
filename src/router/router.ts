@@ -94,7 +94,7 @@ export const appRouter: Routes = [
       {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
       {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
-      {path: ROUTES.MENUROTALOCENTER.EDITUSERS, component: EditUsersComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
