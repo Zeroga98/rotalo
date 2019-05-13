@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 export class ConfigurationService {
   /*Staging*/
 
- /*api = {
+ api = {
     protocol: 'https',
     server: 'stgn-gateway.rotalo.com.co:1443/gateway/v1',
     inactivityLimit: 86400 // seconds
- };*/
+ };
 
   sapi = {
     protocol: 'https',

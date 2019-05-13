@@ -52,6 +52,8 @@ import { TermsCompaniesComponent } from '../components/terms-companies/terms-com
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
 import { CategoriesComponent } from '../pages/categories-page/categories.component';
+import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
+import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 
 export const appRouter: Routes = [
   {
@@ -93,6 +95,8 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
       {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
       {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
+      {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
+      {path: ROUTES.MENUROTALOCENTER.EDITUSERS, component: EditUsersComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

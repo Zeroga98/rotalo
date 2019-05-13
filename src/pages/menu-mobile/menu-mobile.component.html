@@ -90,6 +90,13 @@
         </div>
     </button>
 
+    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>
+      <div class="button-container">
+        Usuarios
+        <div class="arrow icon"></div>
+      </div>
+    </button>
+
     <button (click) = "onLogout()" mat-menu-item>
         <div class="button-container">
                 Cerrar sesión

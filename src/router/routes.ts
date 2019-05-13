@@ -48,6 +48,8 @@ export const ROUTES = {
         CAMPAIGN: 'campaign',
         UPLOAD: 'upload-campaign',
         BANNER: 'admin-banners',
+        ADMINUSERS: 'admin-users',
+        EDITUSERS: 'edit-users',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {
