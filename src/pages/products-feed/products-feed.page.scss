@@ -135,7 +135,9 @@
         width: 23%;
         overflow: hidden;
         margin: 0 1rem 2.5rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        border-radius: 5px;
+        border: 1px solid #e2e2e2;
+        border-radius: 5px;
       }
 
     }
@@ -226,16 +228,15 @@
         margin: 0 auto;
         margin-bottom: 20px;
         max-width: 224px;
-        height: 318px;
+          height: 300px;
         .item__card {
           cursor: pointer;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
           display: inline-block;
           vertical-align: text-top;
           margin: 0;
           width: 100%;
           max-width: 224px;
-          height: 318px;
+          height: 300px;
           color: #333;
           white-space: normal;
           background-color: #fff;
@@ -244,6 +245,8 @@
           flex-direction: column;
           transition: height .1s ease-out;
           z-index: 1;
+          transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+          border: 1px solid #e2e2e2;
           .item__image-container {
             display: flex;
             width: 100%;
@@ -265,6 +268,7 @@
           .item__content {
             position: relative;
             padding: 5px 10px;
+            padding-top: 15px;
             border-top: 1px solid rgba(51,51,51,.1);
             .item__name {
               position: relative;
@@ -291,7 +295,7 @@
               color: #A2A2A2;
               font-size: 1.4rem;
               line-height: 17px;
-              padding-bottom: 2px;
+              padding-bottom: 8px;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -352,9 +356,9 @@
           }
         }
         .item__card:hover {
-          height: 355px;
+          height: 345px;
           z-index: 2;
-          box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
           .item__content {
             .item_info-user {
               opacity: 1;

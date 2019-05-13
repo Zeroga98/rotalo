@@ -558,7 +558,7 @@
         </div>
         <div class="title-product">{{products.name}}</div>
         <div class="date">
-            Publicado 
+            Publicado
             <span class="date">{{products['published-at'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
         </div>
         <div
@@ -696,7 +696,7 @@
 
           </div>
             <!--/Botones Colombia-->
-            
+
           <!--Botones Guatemala-->
           <div class="btn-two-container"
             *ngIf="products && !isSellProcess() && !validateSession()">
@@ -723,7 +723,7 @@
               class="gtmProdComprar botons" (click)="buyProduct(products.id)">
                 Comprar
               </button>
-              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" 
+              <button *ngIf="products && products['sell-type'] == 'SUBASTA'"
               class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
                   Hacer oferta
               </button>
@@ -1053,18 +1053,41 @@
                   </p>
                 </div>
               </div>
+              <!---->
+              <div class="product-btn" *ngIf="!validateSession()">
+                <div class="product-btns">
+                  <div class="cont-botons">
+                    <div class="gtmEnviarMensaje botons" [matMenuTriggerFor]="appMenu">
+                      Contacta a {{firstName}}
+                      <div class="ic_arrow_contact"></div>
+                    </div>
+                    <mat-menu backdropClass="sg-vertical-sub-menu-whatsapp" class="share-product" #appMenu="matMenu">
+                        <div class="gtmEnviarMensajeRotalo" (click)="sendMessage()" mat-menu-item>
+                            <div class="ic_rotalo align-ico"></div>  Por Rótalo
+                        </div>
+                        <div class="gtmEnviarMensajeWhatsapp" *ngIf="products.contactSeller" (click)="sendMessageWhatsappUser()" mat-menu-item>
+                          <div class="ic_share_whatsapp align-ico"  ></div>  Por Whatsapp
+                        </div>
+                    </mat-menu>
+                  </div>
+                </div>
+                <div *ngIf="products && products.negotiable" class="get-offer">
+                  <span class="icon-check"></span>
+                  <span>Recibe ofertas</span>
+                </div>
+              </div>
             </div>
             <div class="product-info-ubicacion">
               <div class="mobile gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
                     aquí.</a></p>
               </div>
-              
+
               <div class="location">
                 <span class="icon icon-location"></span>
                 <span>{{getLocation(products)}}</span>
               </div>
-      
+
               <div class="desktop  gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
                     aquí.</a></p>

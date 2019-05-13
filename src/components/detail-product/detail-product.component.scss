@@ -546,6 +546,8 @@
       .flex {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1.6rem;
+        align-items: center;
       }
 
       .share {
@@ -978,8 +980,9 @@ input:checked+.switch-slider:before {
 
     h1 {
       color: #272727;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: bold;
+      margin: 1.6rem 0;
     }
 
     .table-info {
@@ -991,7 +994,7 @@ input:checked+.switch-slider:before {
 
       div {
         color: #8B8B8B;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
 
         /*min-width: 193px;
         width: auto;*/
