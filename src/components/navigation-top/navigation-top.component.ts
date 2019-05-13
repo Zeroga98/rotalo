@@ -79,6 +79,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
   public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
+  public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
   public suggestList;
 
   results: any[] = [];

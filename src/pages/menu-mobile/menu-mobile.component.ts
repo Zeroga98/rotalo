@@ -30,6 +30,8 @@ export class MenuMobileComponent implements OnInit {
   public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
 
   public categories = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.CATEGORIES}`;
+
+  public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   constructor(private userService: UserService,
     private router: Router,
