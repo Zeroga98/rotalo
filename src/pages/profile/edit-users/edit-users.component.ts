@@ -27,20 +27,25 @@ import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../../services/user.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
 
-
-
-
 @Component({
   selector: 'edit-users',
   templateUrl: './edit-users.component.html',
   styleUrls: ['./edit-users.component.scss']
 })
+
 export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
   public editProfileForm: FormGroup;
+  public selectIsCompleted = false;
   public location: Object = {};
   public country: Object = {};
   public state: Object = {};
   public city: Object = {};
+  public countryValue = {};
+  public stateValue;
+  public cityValue;
+  public countryId;
+
+  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
 
   constructor(
     private router: Router,
@@ -52,18 +57,20 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
     private utilsService: UtilsService,
     private userService: UserService,
     private collectionService: CollectionSelectService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
+  //  this.utilsService.goToTopWindow(20, 600);
     this.setForm();
   }
 
   ngAfterViewInit(): void {
+    this.getInfoUser();
+
   }
 
   ngOnChanges(): void {
+
   }
 
   setForm() {
@@ -82,6 +89,39 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
+  getInfoUser() {
+    this.userService.getInfomationUser(this.idProduct).then((response) => {
+      this.onInfoRetrieved(response);
+    }) .catch(httpErrorResponse => {
+      console.log(httpErrorResponse);
+    });
+  }
+
   editUser(): void {}
+
+
+  onInfoRetrieved(user): void {
+    if (this.editProfileForm) {
+      this.editProfileForm.reset();
+    }
+    if(user) {
+      this.editProfileForm.patchValue({
+        name: user.name,
+        'id-number': user['id-number'],
+        email: user.email.toLowerCase(),
+        cellphone: user.cellphone
+      });
+
+      this.countryValue = user.city.state.country;
+      this.stateValue = user.city.state;
+      this.cityValue = user.city;
+    }
+
+  }
+
+
+
+
+
 
 }

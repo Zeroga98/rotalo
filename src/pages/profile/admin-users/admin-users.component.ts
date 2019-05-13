@@ -187,7 +187,6 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   }
 
   getUrlUser (idUser) {
-    console.log(this.edit + idUser);
     return this.edit + idUser;
   }
 

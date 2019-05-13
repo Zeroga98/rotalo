@@ -61,24 +61,6 @@ export class BuyService {
     ));
   }
 
-  /*confirmPurchase(id) {
-    this.sendResponsePurchase(id, 'confirm');
-  }
-
-  declinePurchase(id) {
-    this.sendResponsePurchase(id, 'decline');
-  }*/
-
-  /*private sendResponsePurchase(id: number, action: string) {
-    const url = `${this.url}/${id}/${action}`;
-    return this.httpClient.post(url, {
-        data: {
-          id,
-          type: 'purchases'
-        }
-      })
-      .toPromise();
-  }*/
 
   private buildParams(params) {
     return {

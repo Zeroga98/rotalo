@@ -50,13 +50,13 @@ export class SelectStatesComponent implements OnChanges, OnInit {
           const id = this.initialValue.id;
           this.currentState = id;
           this.selected.emit({ name, id });
-        }else {
+        } else {
           const name = '';
           const id = '';
           this.currentState = '';
           this.selected.emit({ name, id });
         }
-      }else {
+      } else {
         const name = '';
         const id = '';
         this.currentState = '';

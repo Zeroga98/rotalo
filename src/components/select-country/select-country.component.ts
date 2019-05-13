@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { CollectionSelectService } from "../../services/collection-select.service";
 import { CountryInterface } from "./country.interface";
+import { CurrentSessionService } from '../../services/current-session.service';
 @Component({
   selector: "select-country",
   templateUrl: "./select-country.component.html",
@@ -16,6 +17,7 @@ export class SelectCountryComponent implements OnInit {
   currentCountryId: number | string = "";
   private currentUrl = '';
   constructor(
+    private currentSessionSevice: CurrentSessionService,
     private collectionService: CollectionSelectService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
@@ -45,12 +47,24 @@ export class SelectCountryComponent implements OnInit {
 
   changeArrayCountries(countries) {
     this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      countries = this.filterGuatemala(countries);
-    } else {
-      countries = this.filterColombia(countries);
+    if(!this.isSuperUser()) {
+      if (this.currentUrl.includes('gt')) {
+        countries = this.filterGuatemala(countries);
+      } else {
+        countries = this.filterColombia(countries);
+      }
     }
     return countries;
+  }
+
+  isSuperUser() {
+    if (
+      this.currentSessionSevice.currentUser()['rol'] &&
+      this.currentSessionSevice.currentUser()['rol'] === 'superuser'
+    ) {
+      return true;
+    }
+    return false;
   }
 
   async getCountries() {

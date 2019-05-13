@@ -2,7 +2,7 @@
 @import '../../../styles/settings/_variables.scss';
 
 :host {
-  width: 60%;
+  width: 100%;
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
@@ -431,7 +431,6 @@
   }
 
   .row-section {
-    border-bottom: #d0d0d0 dashed 1px;
     padding: 20px 0;
   }
 
@@ -441,7 +440,7 @@
     border: 1px solid #A2A2A2;
     border-radius: 10px;
   }
-  
+
   ::-webkit-input-placeholder {
     color: #A2A2A2;
     font-size: 1.7rem;
