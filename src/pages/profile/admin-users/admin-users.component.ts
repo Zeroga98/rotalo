@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import * as moment from 'moment';
-import { MatTableDataSource, MatSort, MatTabChangeEvent, MatTabGroup } from '@angular/material';
+import { MatTableDataSource, MatSort, MatTabChangeEvent, MatTabGroup, MatPaginator } from '@angular/material';
 import { UserService } from '../../../services/user.service';
 import { UtilsService } from './../../../util/utils.service';
 import { SettingsService } from '../../../services/settings.service';
@@ -20,18 +20,20 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   until = '';
   email = '';
   @ViewChild('tabs') tabGroup: MatTabGroup;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   edit: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOAD}/`;
   dataSource;
   displayedColumns = ['id', 'name', 'idNumber', 'email',
   'lastSignInAt', 'signInCount', 'createdAt',
   'deletedAt', 'city', 'country', 'company', 'contentAdmin', 'status', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
-  private currentFilter: Object = {
-    'size': 5,
+  itemsPerPage = 10;
+  public currentFilter: Object = {
+    'size': this.itemsPerPage,
     'number': 1,
     'active': true
   };
-
+  public totalUsers = 0;
   constructor(private utilService: UtilsService, private userService: UserService, private settingsService: SettingsService) { }
 
   ngOnInit() {
@@ -54,6 +56,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     try {
       let listUsers;
       listUsers = await this.userService.getUsers(params);
+      this.totalUsers = listUsers.totalUsuarios;
+
       if (listUsers.usuarios) {
 
         listUsers.usuarios.map((item) => {
@@ -86,28 +90,28 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     switch (tabChangeEvent.index) {
       case 0:
         this.currentFilter = {
-          'size': 5,
+          'size': this.itemsPerPage,
           'number': 1,
           'active': true
         };
         break;
       case 1:
         this.currentFilter = {
-          'size': 5,
+          'size': this.itemsPerPage,
           'number': 1,
           'active': false
         };
         break;
       case 2:
         this.currentFilter = {
-          'size': 5,
+          'size': this.itemsPerPage,
           'number': 1,
           'content_admin': true
         };
         break;
       default:
         this.currentFilter = {
-          'size': 5,
+          'size': this.itemsPerPage,
           'number': 1,
           'active': true
         };
@@ -117,6 +121,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   }
 
   setFilter() {
+   this.resetPaginator () ;
    const filter = {
       name: this.name ? `/${this.name}/`  : '' ,
       id_number: this.idNumber ? `/${ this.idNumber}/` : '',
@@ -135,12 +140,18 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     this.since = '';
     this.until = '';
     this.email = '';
+    this.resetPaginator () ;
+  }
+
+  resetPaginator () {
+    this.paginator.pageIndex = 0;
+    this.paginator.pageSize = this.itemsPerPage;
   }
 
   removeFilter() {
     this.setInitialValues();
     this.currentFilter = {
-      'size': 5,
+      'size': this.itemsPerPage,
       'number': 1,
       'active': true
     };
@@ -164,4 +175,14 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       console.log(error, 'error');
     });
   }
+
+  getPaginatorData($event) {
+    const filter = {
+      'size': $event.pageSize,
+      'number': $event.pageIndex + 1,
+    };
+    this.currentFilter = Object.assign({}, this.currentFilter, filter);
+    this.getUserList(this.currentFilter);
+  }
+
 }

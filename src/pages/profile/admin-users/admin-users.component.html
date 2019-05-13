@@ -62,112 +62,114 @@
   <div class="material-design table">
 
     <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> ID</th>
-            <td mat-cell *matCellDef="let user"><p>{{user.id}}</p></td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Nombre</th>
-            <td mat-cell *matCellDef="let user"><p>{{user.name}}</p></td>
-        </ng-container>
-        <ng-container matColumnDef="idNumber">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header> Cédula</th>
-          <td mat-cell *matCellDef="let user"><p>{{user.idNumber}}</p></td>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.id}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.name}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cédula</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.idNumber}}</p>
+        </td>
       </ng-container>
       <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef  mat-sort-header> Email</th>
-          <td mat-cell *matCellDef="let user"><p>{{user.email}}</p></td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.email}}</p>
+        </td>
       </ng-container>
-
       <ng-container matColumnDef="lastSignInAt">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Último ingreso</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Último ingreso</th>
         <td mat-cell *matCellDef="let user">
-            <p>
-                {{getFormatDate(user.lastSignInAt)}}
-              </p>
+          <p>
+            {{getFormatDate(user.lastSignInAt)}}
+          </p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="signInCount">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Nº Ingresos</th>
+      </ng-container>
+      <ng-container matColumnDef="signInCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº Ingresos</th>
         <td mat-cell *matCellDef="let user">
-            <p>
-              {{user.signInCount}}
-            </p>
+          <p>
+            {{user.signInCount}}
+          </p>
         </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Fecha registro</th>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha registro</th>
         <td mat-cell *matCellDef="let user">
-            <p>
-                {{getFormatDate(user.createdAt)}}
-            </p>
+          <p>
+            {{getFormatDate(user.createdAt)}}
+          </p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="deletedAt">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Fecha inactivado</th>
+      </ng-container>
+      <ng-container matColumnDef="deletedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha inactivado</th>
         <td mat-cell *matCellDef="let user">
-            <p *ngIf="user.deletedAt">
-                {{getFormatDate(user.deletedAt)}}
-              </p>
-              <p *ngIf="!user.deletedAt">
-                  N/A
-              </p>
+          <p *ngIf="user.deletedAt">
+            {{getFormatDate(user.deletedAt)}}
+          </p>
+          <p *ngIf="!user.deletedAt">
+            N/A
+          </p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="city">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Ciudad</th>
+      </ng-container>
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
         <td mat-cell *matCellDef="let user">
-            <p>{{user.city.name}}</p>
+          <p>{{user.city.name}}</p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="country">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>País</th>
+      </ng-container>
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>País</th>
         <td mat-cell *matCellDef="let user">
-            <p>{{user.city.state.country.name}}</p>
+          <p>{{user.city.state.country.name}}</p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="company">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Empresa</th>
+      </ng-container>
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
         <td mat-cell *matCellDef="let user">
-            <p>{{user.company.name}}</p>
+          <p>{{user.company.name}}</p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="contentAdmin">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Administrador</th>
+      </ng-container>
+      <ng-container matColumnDef="contentAdmin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Administrador</th>
         <td mat-cell *matCellDef="let user">
-            <p *ngIf="user.contentAdmin">Sí</p>
-            <p *ngIf="!user.contentAdmin">No</p>
+          <p *ngIf="user.contentAdmin">Sí</p>
+          <p *ngIf="!user.contentAdmin">No</p>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Estado</th>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
         <td mat-cell *matCellDef="let user">
-            <div class="switch-container">
-                <input
-                (change)="changeStatus(user.status, user.id)"
-                id="id-{{user.id}}" type="checkbox" [checked]="user.status" name="status" class="switch-input">
-                <label for="id-{{user.id}}" class="switch-label"></label>
-              </div>
+          <div class="switch-container">
+            <input (change)="changeStatus(user.status, user.id)" id="id-{{user.id}}" type="checkbox"
+              [checked]="user.status" name="status" class="switch-input">
+            <label for="id-{{user.id}}" class="switch-label"></label>
+          </div>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header>Estado</th>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
         <td mat-cell *matCellDef="let user">
-            Edit
+          Edit
         </td>
-    </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
     </table>
   </div>
+  <mat-paginator
+  #paginator
+  (page)="pageEvent = getPaginatorData($event)"
+  [length]="totalUsers" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="currentFilter['size']">
+  </mat-paginator>
 </div>
+

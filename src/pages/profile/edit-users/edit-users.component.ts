@@ -26,16 +26,14 @@ import { CurrentSessionService } from '../../../services/current-session.service
 import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../../services/user.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
-import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
-import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../../commons/constants/dates-promos.contants';
-import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS, ANTIGUEDAD } from './immovable.constant';
+
+
 
 
 @Component({
   selector: 'edit-users',
   templateUrl: './edit-users.component.html',
-  styleUrls: ['./edit-users.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./edit-users.component.scss']
 })
 export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
   public editProfileForm: FormGroup;
