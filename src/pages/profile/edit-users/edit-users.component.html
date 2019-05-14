@@ -60,23 +60,27 @@
               <div class="form-group">
                 <label class="label-title">Contraseña*</label>
                 <input
+                [ngClass]="!validPasswordLenght(editProfileForm.get('password').value) ?  'ng-touched ng-invalid': ''"
+                autocomplete="off"
                 formControlName="password"
                 type="password" class="form-control" name="password">
-        
-                <span class="help-block" *ngIf="editProfileForm.get('password').errors?.minlength && !editProfileForm.get('password').pristine">
+
+                <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('password').value)">
                     El campo no cumple la longitud mínima.
                 </span>
               </div>
               <div class="form-group">
                 <label class="label-title">Confirmar contraseña*</label>
                 <input
+                [ngClass]="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) || editProfileForm?.errors?.match ?  'ng-touched ng-invalid': ''"
+                autocomplete="off"
                 formControlName="confirmNewPassword"
                 type="password" class="form-control" name="confirmNewPassword">
- 
-                <span class="help-block" *ngIf="editProfileForm.get('confirmNewPassword').errors?.minlength && !editProfileForm.get('confirmNewPassword').pristine">
+
+                <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) && !editProfileForm?.errors?.match">
                     El campo no cumple la longitud mínima.
                 </span>
-                <span class="help-block" *ngIf="editProfileForm?.errors?.match && !editProfileForm.get('confirmNewPassword').errors?.minlength  &&!editProfileForm.get('confirmNewPassword').pristine">
+                <span class="help-block" *ngIf="editProfileForm?.errors?.match">
                     La contraseña de verificación no coincide.
                 </span>
               </div>
@@ -84,14 +88,36 @@
 
             <div class="row">
               <div class="form-group">
-                <div>
-                  <input formControlName="content-admin" type="checkbox" id="id-system--1" name="system" class="switch-input">
-                  <label for="id-system--1" class="switch-label">Administrador de sistema</label>
+                <div class="check-container" >
+                  <label for="id-system--1">Administrador de sistema</label>
+                  <div>
+                    <input formControlName="content-admin" type="checkbox" id="id-system--1" name="system"
+                      class="switch-input">
+                    <label for="id-system--1" class="switch-label"></label>
+                  </div>
                 </div>
-                <div>
-                  <input type="checkbox" id="id-shop--1" name="shop" class="switch-input">
-                  <label for="id-shop--1" class="switch-label">Administrador de tienda</label>
+
+                <div class="check-container last">
+                  <label for="id-shop--1">Administrador de tienda</label>
+                  <div >
+                    <input formControlName="is-admin-store" type="checkbox" id="id-shop--1" name="shop"
+                      class="switch-input">
+                    <label for="id-shop--1" class="switch-label"></label>
+                  </div>
                 </div>
+
+                <div *ngIf="editProfileForm.get('is-admin-store').value && user && user.stores">
+                  <div *ngFor="let store of user.stores">
+                      <label class="material-checkbox container-check">
+                          <input
+                          [checked]="store.is_assigned_to_user"
+                           type="checkbox" id={{store.id}} name={{store.name}}>
+                          <span class="checkmark"></span>
+                      </label>
+                      <label class="check-text" for={{store.id}}>{{store.name}}</label>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -99,7 +125,8 @@
         </div>
       </div>
      <div class="button-container">
-
+        <a (click) = "onSubmit()" class="btn-red" mat-button>Guardar usuario</a>
+        <a class="btn-white" mat-button>Cancelar</a>
      </div>
     </form>
   </div>
