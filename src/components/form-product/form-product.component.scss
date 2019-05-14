@@ -1238,8 +1238,9 @@ image-upload {
   font-family: 'Lato Regular';
 }
 
-.a-link, .a-link:visited{
+.label-link, .label-link:visited{
   text-decoration: underline;
+  cursor: pointer;
   color: #383838;
 }
 

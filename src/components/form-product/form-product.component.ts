@@ -98,6 +98,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public categorySelected;
   public maxValueNewPrice = 0;
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
+  public modalTermsIsOpen: boolean = false;
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
   items = [1, 2, 3, 4, 5];
@@ -1245,6 +1246,22 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       };
     });
     return order;
+  }
+
+  openTermsModal(): void {
+    this.modalTermsIsOpen = true;
+    }
+    
+  closeTermsModal() {
+    this.modalTermsIsOpen = false;
+  }
+  
+  acceptTerms(checkbox) {
+    this.photosForm.patchValue({
+    'termsCheckbox': true
+    });
+    // checkbox.checked = true;
+    this.closeTermsModal();
   }
 
 }
