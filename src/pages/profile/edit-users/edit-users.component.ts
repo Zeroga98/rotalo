@@ -66,11 +66,10 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
 
   ngAfterViewInit(): void {
     this.getInfoUser();
-
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnChanges(): void {
-
   }
 
   setForm() {
@@ -78,7 +77,10 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       'id-number': ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
-      cellphone: ['', [Validators.required]]
+      'content-admin': ['', [Validators.required]],
+      cellphone: ['', [Validators.required]],
+      confirmNewPassword: [''],
+      password: [''],
     });
   }
 
@@ -104,11 +106,12 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
     if (this.editProfileForm) {
       this.editProfileForm.reset();
     }
-    if(user) {
+    if (user) {
       this.editProfileForm.patchValue({
         name: user.name,
         'id-number': user['id-number'],
         email: user.email.toLowerCase(),
+        'content-admin': user['content-admin'],
         cellphone: user.cellphone
       });
 

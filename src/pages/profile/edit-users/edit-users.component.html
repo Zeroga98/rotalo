@@ -59,13 +59,30 @@
             <div class="row">
               <div class="form-group">
                 <label class="label-title">Contraseña*</label>
-                <input type="password" class="form-control" name="floor">
+                <input
+                formControlName="password"
+                type="password" class="form-control" name="password">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
               <div class="form-group">
                 <label class="label-title">Confirmar contraseña*</label>
-                <input type="password" class="form-control" name="floor">
+                <input
+                formControlName="confirmNewPassword"
+                type="password" class="form-control" name="confirmNewPassword">
                 <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div>
+                  <input formControlName="content-admin" type="checkbox" id="id-system--1" name="system" class="switch-input">
+                  <label for="id-system--1" class="switch-label">Administrador de sistema</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="id-shop--1" name="shop" class="switch-input">
+                  <label for="id-shop--1" class="switch-label">Administrador de tienda</label>
+                </div>
               </div>
             </div>
 
