@@ -881,6 +881,11 @@
 }
 
 :host {
+
+  .no-margin {
+    margin:0;
+  }
+
   .check-container {
     display: flex;
     margin-bottom:20px;

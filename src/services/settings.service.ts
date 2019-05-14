@@ -151,11 +151,11 @@ export class SettingsService {
     return this.idTerms;
   }
 
-  getCommpanyList(idCountry) {
+  getCommpanyList(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/perfil/empresas/${idCountry}`;
-    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+    const url = `${this.urlSapi}/perfil/empresas`;
+    return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
   }
 
 }

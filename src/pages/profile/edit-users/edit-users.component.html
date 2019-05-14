@@ -3,7 +3,7 @@
     <h1 class="text ">Edición de usuario</h1>
   </div>
   <div class="container-form">
-    <form name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="form-theme">
+    <form autocomplete='off' name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="form-theme">
       <div class="material-design">
         <div class="info-product">
           <div class="row-section">
@@ -29,30 +29,42 @@
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
               <div class="form-group">
-                <label class="label-title">Empresa*</label>
-                <input type="text" class="form-control" name="floor">
-                <span class="help-block error-msg"> Este campo es requerido </span>
+                  <label class="label-title">Empresa*</label>
+                  <select name="company-id" class="company form-control"
+                    formControlName="company-id">
+                    <option value="" selected="true" disabled></option>
+                    <option *ngFor="let company of companies" value="{{company.id}}">{{company.nombre}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
               </div>
             </div>
             <div class="row">
               <div class="form-group">
                   <label class="label-title">País*</label>
-                  <select-country class="white-theme-select material-select" [initialValue]="countryValue" (selected)="country=$event"></select-country>
+                  <select-country (change) = "changeCountry (country)" class="white-theme-select material-select" [initialValue]="countryValue" (selected)="country=$event"></select-country>
 
               </div>
               <div class="form-group">
                   <label class="label-title">Departamento*</label>
-                  <select-states class="white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event"></select-states>
+                  <select-states
+                  [ngClass]="{'invalid': errorState}"
+                  class="white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
+                  <span *ngIf="errorState" class="help-block">Este campo es requerido</span>
               </div>
             </div>
             <div class="row">
               <div class="form-group">
                   <label class="label-title">Ciudad*</label>
-                  <select-cities class="white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event"></select-cities>
+                  <select-cities
+                  [ngClass]="{'invalid': errorCity}"
+                  class="white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                  <span *ngIf="errorCity" class="help-block">Este campo es requerido</span>
               </div>
               <div class="form-group">
                 <label class="label-title">Email*</label>
-                <input formControlName="email" type="email" class="form-control"  maxlength="50">
+                <input
+                 autocomplete="off"
+                 formControlName="email" type="email" class="form-control"  maxlength="50">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
             </div>
@@ -85,9 +97,8 @@
                 </span>
               </div>
             </div>
-
             <div class="row">
-              <div class="form-group">
+              <div class="form-group no-margin">
                 <div class="check-container" >
                   <label for="id-system--1">Administrador de sistema</label>
                   <div>
@@ -106,7 +117,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="editProfileForm.get('is-admin-store').value && user && user.stores">
+                <div  id="shop-wrap" *ngIf="editProfileForm.get('is-admin-store').value && user && user.stores">
                   <div *ngFor="let store of user.stores">
                       <label class="material-checkbox container-check">
                           <input

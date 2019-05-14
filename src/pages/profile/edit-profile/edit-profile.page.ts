@@ -177,6 +177,7 @@ export class EditProfilePage implements OnInit {
 
   editUser(): void {
     let currentUser;
+    const idUser = this.currentSessionSevice.currentUser().id;
     if (this.idImagenProfile) {
       currentUser = Object.assign({}, this.editProfileForm.value, { 'city-id': this.city['id'] }, { 'photo-id': this.idImagenProfile });
     } else {
@@ -184,6 +185,10 @@ export class EditProfilePage implements OnInit {
         'city-id': this.city['id']
       });
     }
+
+    currentUser = Object.assign({}, currentUser, {
+      'user-id-to-update': idUser
+    });
 
     this.userService
       .updateUser(currentUser)
