@@ -27,6 +27,20 @@ import { ImageUploadComponent } from 'angular2-image-upload';
 import { UserService } from '../../../services/user.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
 
+function passwordMatcher(c: AbstractControl): {[key: string]: boolean} | null {
+  const password = c.get('password');
+  const confirmNewPassword = c.get('confirmNewPassword');
+  if (password.pristine || confirmNewPassword.pristine) {
+    return null;
+  }
+
+  if (password.value === confirmNewPassword.value) {
+      return null;
+  }
+  return { 'match': true };
+}
+
+
 @Component({
   selector: 'edit-users',
   templateUrl: './edit-users.component.html',
@@ -81,7 +95,9 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit  {
       cellphone: ['', [Validators.required]],
       confirmNewPassword: [''],
       password: [''],
-    });
+  //    confirmNewPassword: ['', [Validators.required, Validators.minLength(6)]],
+   //   password: ['', [Validators.required, Validators.minLength(6)]],
+    }, {validator: passwordMatcher});
   }
 
   onSubmit() {
