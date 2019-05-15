@@ -648,7 +648,7 @@
               <div class="form-group">
                 <div class="tool-tip-whatsapp">
                   <label>
-                    Al aceptar, estás de acuerdo con nuestros <a class="a-link" target="_blank" href="https://rotalo.com.co/terms">Términos y Condiciones.</a>
+                    Al aceptar, estás de acuerdo con nuestros <label class="label-link" (click)="openTermsModal()">Términos y Condiciones.</label>
 Tu número de contacto será expuesto públicamente y podría ser compartido con usuarios fuera de RÓTALO.
                   </label>
                 </div>
@@ -680,5 +680,6 @@ Tu número de contacto será expuesto públicamente y podría ser compartido con
       <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit"
         [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
     </div>
+    <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
   </form>
 </div>
