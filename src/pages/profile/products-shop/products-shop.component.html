@@ -10,81 +10,85 @@
   </mat-tab-group>
 
   <div class="material-design table">
-    <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
+    <table class="grid" mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
+
         <ng-container matColumnDef="photos">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto</th>
-            <td mat-cell *matCellDef="let user">
-              <img *ngIf="user.photos" [src]="user.photos.url" alt="user.name">
-            </td>
-          </ng-container>
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
-        <td mat-cell *matCellDef="let user">
-          <p>{{user.id}}</p>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-        <td mat-cell *matCellDef="let user">
-          <p>{{user.name}}</p>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción</th>
-        <td mat-cell *matCellDef="let user">
-          <p>{{user.description}}</p>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto</th>
+          <td mat-cell *matCellDef="let user">
+            <img *ngIf="user.photos" [src]="user.photos.url" alt="user.name">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td mat-cell *matCellDef="let user">
+            <p>{{user.id}}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+          <td mat-cell *matCellDef="let user">
+            <p>{{user.name}}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción</th>
+          <td mat-cell *matCellDef="let user">
+            <p>{{user.description}}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio</th>
           <td mat-cell *matCellDef="let user">
-            <p>{{user.price}}</p>
+            <p>{{user.price | currency:' ' | removeDigits}}</p>
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="priceIVA">
+        <ng-container matColumnDef="priceIVA">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio + IVA</th>
           <td mat-cell *matCellDef="let user">
 
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="IVA">
+        <ng-container matColumnDef="IVA">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>IVA</th>
           <td mat-cell *matCellDef="let user">
             <p>19%</p>
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="published-at">
+        <ng-container matColumnDef="published-at">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de publicación</th>
           <td mat-cell *matCellDef="let user">
-              <p>{{getFormatDate(user['published-at'])}}</p>
+            <p>{{getFormatDate(user['published-at'])}}</p>
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="stock">
+        <ng-container matColumnDef="stock">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidades</th>
           <td mat-cell *matCellDef="let user">
-              <p>{{user.stock}}</p>
+            <p>{{user.stock}}</p>
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
+        <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
           <td mat-cell *matCellDef="let user">
             {{user.status}}
           </td>
-      </ng-container>
+        </ng-container>
 
-      <ng-container matColumnDef="edit">
+        <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let user">
             Edit
           </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr class="{{row.id}} mat-row" mat-row *matRowDef="let row; columns:displayedColumns">
+        </ng-container>
+        <tbody class="cosmos">
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        </tbody>
+
+      <tr class="{{row.id}} item mat-row" mat-row *matRowDef="let row; columns:displayedColumns">
       </tr>
     </table>
   </div>
