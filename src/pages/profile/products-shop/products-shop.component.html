@@ -3,93 +3,72 @@
     <h1 class="text ">Productos tienda</h1>
   </div>
 
-  <mat-tab-group #tabs class="tab-table">
+  <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
     <mat-tab label="Activos">
     </mat-tab>
     <mat-tab label="Inactivos"></mat-tab>
   </mat-tab-group>
 
-  <div class="material-design table">
-    <table class="grid" mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
-
-        <ng-container matColumnDef="photos">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto</th>
-          <td mat-cell *matCellDef="let user">
-            <img *ngIf="user.photos" [src]="user.photos.url" alt="user.name">
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{user.id}}</p>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{user.name}}</p>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{user.description}}</p>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{user.price | currency:' ' | removeDigits}}</p>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="priceIVA">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio + IVA</th>
-          <td mat-cell *matCellDef="let user">
-
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="IVA">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>IVA</th>
-          <td mat-cell *matCellDef="let user">
-            <p>19%</p>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="published-at">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de publicación</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{getFormatDate(user['published-at'])}}</p>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="stock">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidades</th>
-          <td mat-cell *matCellDef="let user">
-            <p>{{user.stock}}</p>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-          <td mat-cell *matCellDef="let user">
-            {{user.status}}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td mat-cell *matCellDef="let user">
-            Edit
-          </td>
-        </ng-container>
-        <tbody class="cosmos">
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <div *ngIf="productos && productos.length > 0" class="tabla-campaign">
+      <table id="campaigns-wrap" class="campaigns">
+        <tr>
+          <th>Foto</th>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Precio + IVA</th>
+          <th>IVA</th>
+          <th>Fecha de publicación</th>
+          <th>Unidades</th>
+          <th>Estado</th>
+          <th class="table-no-border"></th>
+        </tr>
+        <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
+        class="grid">
+            <tr id = {{product.id}} *ngFor="let product of  productos">
+                <td>
+                  <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+                </td>
+                <td>
+                  {{product.id}}
+                </td>
+                <td>
+                  {{product.name}}
+                </td>
+                <td>
+                  {{product.description}}
+                </td>
+                <td>
+                  {{product.price | currency:'$' | removeDigits}}
+                </td>
+                <td>
+                  {{product.price}}
+                </td>
+                <td>
+                  %19
+                </td>
+                <td>
+                  {{getFormatDate(product['published-at'])}}
+                </td>
+                <td>
+                  {{product.stock}}
+                </td>
+                <td>
+                    <div class="switch-container">
+                        <input #status type="checkbox"
+                        [checked]="product.status == 'active' ? true : false"
+                        id="id-name--{{product.id}}" name="state" class="switch-input"
+                        (change)="saveCheck(status, product.id)">
+                        <label for="id-name--{{product.id}}" class="switch-label"></label>
+                    </div>
+                </td>
+                <td>
+                  <a [routerLink]="getUrlProduct(product.id)" >Editar</a>
+                </td>
+            </tr>
         </tbody>
+      </table>
+    </div>
 
-      <tr class="{{row.id}} item mat-row" mat-row *matRowDef="let row; columns:displayedColumns">
-      </tr>
-    </table>
-  </div>
 </div>

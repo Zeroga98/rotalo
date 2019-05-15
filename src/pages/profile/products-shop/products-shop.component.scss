@@ -596,6 +596,75 @@
 
 }
 
+:host {
+
+  .tabla-campaign {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  .campaigns {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .campaigns td,
+  .campaigns th {
+    padding: 10px;
+  }
+
+  .campaigns tr:nth-child(odd) {
+    background-color: #F8F8F8;
+  }
+
+  .campaigns td:first-child,
+  .campaigns th:first-child {
+    padding: 5px;
+    text-align: center;
+  }
+
+  .campaigns th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #E6E7E7;
+    color: #555555;
+    font-size: 1.4rem;
+  }
+
+  .campaigns td {
+    color: #707070;
+    font-size: 1.4rem;
+  }
+
+  .campaigns th.table-no-border{
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .campaigns {
+    th.no-style {
+      padding: 0;
+      border: 0;
+      background-color: white;
+    }
+  }
+
+  .campaigns {
+    a {
+      color: #686E73;
+      text-decoration: underline;
+    }
+  }
+
+  td {
+    img {
+      width: 75px;
+    }
+  }
+
+}
+
 @media screen and (max-width: 1000px) {
   :host() {
     width: 65%;

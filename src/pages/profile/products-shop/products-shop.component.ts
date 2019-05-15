@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
 import * as moment from 'moment';
 import { UtilsService } from './../../../util/utils.service';
 import { UserService } from '../../../services/user.service';
 import { SettingsService } from '../../../services/settings.service';
 import { ProductsService } from '../../../services/products.service';
+import { ROUTES } from '../../../router/routes';
 
 @Component({
   selector: 'app-products-shop',
@@ -16,22 +17,21 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   dataSource;
   displayedColumns = ['photos', 'id', 'name', 'description', 'price', 'priceIVA', 'IVA', 'published-at', 'stock', 'status', 'edit'];
   @ViewChild(MatSort) sort: MatSort;
-  public productsActive = [];
-  public productsInactive = [];
+  public statusTab = 0;
   public productos = [];
   @ViewChild('grid') grid: ElementRef;
-
+  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
   constructor(private productsService: ProductsService,
     private utilService: UtilsService,
     private userService: UserService,
     private settingsService: SettingsService) { }
 
   ngOnInit() {
-    this.getProductsList();
+    this.getProductsList(0, 1);
   }
 
   ngAfterViewInit() {
-    let inputs = document.getElementsByTagName('tbody');
+
   }
 
   getFormatDate(date) {
@@ -42,25 +42,54 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     return '';
   }
 
-  getProductsList() {
-    this.productsService.getProductsShop(1).subscribe((response) => {
+  getProductsList(option, idShop) {
+    this.productsService.getProductsShop(idShop).subscribe((response) => {
       if(response.body) {
-        this.productsActive = response.body.productosActivos;
-        console.log(this.productsActive);
-        this.productsInactive = response.body.productosInactivos;
-        this.dataSource = new MatTableDataSource(this.productsActive);
-       /* this.dataSource.sortingDataAccessor = (item, property) => {
-          switch (property) {
-            case 'city': return item.city.name;
-            case 'country': return item.city.state.country.name;
-            case 'company': return item.company.name;
-            default: return item[property];
-          }
-        };*/
-        this.dataSource.sort = this.sort;
+        switch (option) {
+          case 0:
+          this.productos = response.body.productosActivos;
+            break;
+          case 1:
+          this.productos = response.body.productosInactivos;
+            break;
+          case 2:
+            break;
+          default:
+          this.productos = response.body.productosActivos;
+            break;
+        }
       }
     },
     (error) =>  console.log(error));
   }
+
+
+  saveCheck(check, idCampaign) {
+    const params = {
+      estado: check.checked ? 'active' : 'inactive'
+    };
+    this.productsService
+      .updateProductStatus(idCampaign, params)
+      .then(response => {
+        this.getProductsList(this.statusTab, 1);
+      });
+  }
+
+  getUrlProduct (idProduct) {
+    return this.edit + idProduct;
+  }
+
+  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    this.statusTab = tabChangeEvent.index;
+    this.getProductsList(tabChangeEvent.index, 1);
+  }
+
+
+
+
+
+
+
+
 
 }
