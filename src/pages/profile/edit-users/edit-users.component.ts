@@ -1,4 +1,5 @@
-import { EventEmitter,
+import {
+  EventEmitter,
   Output,
   Input,
   OnChanges,
@@ -8,7 +9,8 @@ import { EventEmitter,
   ChangeDetectorRef,
   AfterViewInit,
   ViewChildren,
-  QueryList } from '@angular/core';
+  QueryList
+} from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
 import { PhotosService } from '../../../services/photos.service';
@@ -20,11 +22,11 @@ import { UserService } from '../../../services/user.service';
 import { CollectionSelectService } from '../../../services/collection-select.service';
 import { SettingsService } from '../../../services/settings.service';
 
-function passwordMatcher(c: AbstractControl): {[key: string]: boolean} | null {
+function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const password = c.get('password');
   const confirmNewPassword = c.get('confirmNewPassword');
   if (password.value === confirmNewPassword.value) {
-      return null;
+    return null;
   }
   return { 'match': true };
 }
@@ -49,6 +51,8 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
   public user;
   public errorState = false;
   public errorCity = false;
+  public errorChange: String;
+  public messageChange: String;
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
   public companies = [];
   constructor(
@@ -59,7 +63,7 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
     private utilsService: UtilsService,
     private userService: UserService,
     private currentSessionSevice: CurrentSessionService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.setForm();
@@ -67,12 +71,12 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getInfoUser();
-    window.scroll(0,0);
+    window.scroll(0, 0);
     document.body.scrollTop = 0;
     this.changeDetectorRef.markForCheck();
   }
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void { }
 
   setForm() {
     this.editProfileForm = this.fb.group(
@@ -106,8 +110,10 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
       this.validPasswordLenght(this.editProfileForm.get('password').value) &&
       this.validPasswordLenght(this.editProfileForm.get('confirmNewPassword').value)
     ) {
+      this.messageChange = '';
+      this.errorChange = '';
       this.editUser();
-    } else  {
+    } else {
       this.validateAllFormFields(this.editProfileForm);
       if (!this.state['id']) {
         this.errorState = true;
@@ -169,18 +175,18 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
       this.stateValue = user.city.state;
       this.cityValue = user.city;
       if (user.city.state.country) {
-        this. getCommpanyList(user.city.state.country.id);
+        this.getCommpanyList(user.city.state.country.id);
       }
     }
   }
 
   getCommpanyList(idCountry) {
-    const params =  {
+    const params = {
       idPais: idCountry
-    }
-    this.settingsService. getCommpanyList(params).subscribe((response) => {
+    };
+    this.settingsService.getCommpanyList(params).subscribe((response) => {
 
-      if(response && response.body.empresas) {
+      if (response && response.body.empresas) {
         this.companies = response.body.empresas;
       }
     }, (error) => {
@@ -189,10 +195,9 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   editUser(): void {
-
     let currentUser;
     const stores = [];
-    if(this.editProfileForm.get('is-admin-store').value) {
+    if (this.editProfileForm.get('is-admin-store').value) {
       const container = document.getElementById('shop-wrap');
       const inputs = container.getElementsByTagName('input');
       for (let i = 0; i < inputs.length; ++i) {
@@ -213,10 +218,23 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
     this.userService
       .updateUser(currentUser)
       .then(response => {
-
+        this.messageChange = 'Información del usuario actualizada.';
+        this.errorChange = '';
       })
       .catch(httpErrorResponse => {
-        console.log(httpErrorResponse);
+        this.messageChange = '';
+        if (httpErrorResponse.status === 403) {
+        }
+        if (httpErrorResponse.status === 422) {
+          this.errorChange = httpErrorResponse.error.errors[0].title;
+        }
+        if (httpErrorResponse.status === 0) {
+          this.errorChange =
+            '¡No hemos podido conectarnos! Por favor intenta de nuevo.';
+        }
+        if (httpErrorResponse.status === 500) {
+          this.errorChange = httpErrorResponse.error.message;
+        }
       });
   }
 
@@ -231,7 +249,50 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  changeCountry (country) {
-   this.getCommpanyList(country.id);
+  changeCountry(country) {
+    this.getCommpanyList(country.id);
+    this.editProfileForm.patchValue({
+      'company-id': ''
+    });
   }
+
+  goBack(): void {
+    window.history.back();
+  }
+
+  setValidationId() {
+    if (this.country) {
+      const idCountry  = this.country['name'];
+      this.editProfileForm.get('cellphone').clearValidators();
+      if (idCountry == 'Guatemala') {
+        this.editProfileForm.get('cellphone').setValidators([Validators.required,
+          Validators.pattern(/^\d{8}$/)
+        ]);
+      } else  {
+        this.editProfileForm.get('cellphone').setValidators([Validators.required]);
+      }
+
+      this.editProfileForm.get('cellphone').updateValueAndValidity();
+
+    }
+  }
+
+  setValidationDocument() {
+    if (this.country) {
+      const idCountry  = this.country['name'];
+      this.editProfileForm.get('id-number').clearValidators();
+      if (idCountry == 'Guatemala') {
+        this.editProfileForm.get('id-number').setValidators([
+          Validators.pattern('^[0-9]{13}$'),
+           Validators.required
+         ]);
+      } else  {
+        this.editProfileForm.get('id-number').setValidators([Validators.required]);
+      }
+
+      this.editProfileForm.get('id-number').updateValueAndValidity();
+
+    }
+  }
+
 }

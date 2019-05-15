@@ -2,6 +2,23 @@
   <div class="tittle main-title">
     <h1 class="text ">Edición de usuario</h1>
   </div>
+
+
+  <div id="flashMessage" class="flashMessage">
+    <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
+      <p>
+        <span class="icon-check alert-icon"></span> {{messageChange}}</p>
+    </div>
+    <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
+      <ul>
+        <li>
+          <span>{{errorChange}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
   <div class="container-form">
     <form autocomplete='off' name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="form-theme">
       <div class="material-design">
@@ -16,9 +33,16 @@
               <div class="form-group">
                 <label class="label-title">Cedula*</label>
                 <input
-                formControlName="id-number" type="text" class="form-control" maxlength="20"
+                formControlName="id-number" type="text" class="form-control" maxlength="50"
                 onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                <span class="help-block error-msg"> Este campo es requerido </span>
+                <span class="help-block">
+                  <span *ngIf="editProfileForm.get('id-number').invalid && !editProfileForm.get('id-number').pristine && !editProfileForm.get('id-number').errors['pattern']">
+                      Este campo es obligatorio.
+                  </span>
+                  <span *ngIf="editProfileForm.get('id-number').invalid && editProfileForm.get('id-number').errors['pattern']">
+                      El campo no cumple con el formato de documento.
+                  </span>
+                </span>
               </div>
             </div>
             <div class="row">
@@ -26,13 +50,21 @@
                 <label class="label-title">Celular*</label>
                 <input formControlName="cellphone" name="cellphone" type="text" class="form-control"
                 onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="15">
-                <span class="help-block error-msg"> Este campo es requerido </span>
+
+                <span class="help-block">
+                  <span *ngIf="editProfileForm.get('cellphone').invalid && !editProfileForm.get('cellphone').pristine && !editProfileForm.get('cellphone').errors['pattern']">
+                      Este campo es obligatorio.
+                  </span>
+                  <span *ngIf="editProfileForm.get('cellphone').invalid && editProfileForm.get('cellphone').errors['pattern']">
+                      El campo no cumple con el formato de teléfono celular.
+                  </span>
+                </span>
               </div>
               <div class="form-group">
                   <label class="label-title">Empresa*</label>
                   <select name="company-id" class="company form-control"
                     formControlName="company-id">
-                    <option value="" selected="true" disabled></option>
+                    <option value="" disabled></option>
                     <option *ngFor="let company of companies" value="{{company.id}}">{{company.nombre}}</option>
                   </select>
                   <span class="error-msg">Este campo es requerido</span>
@@ -41,7 +73,7 @@
             <div class="row">
               <div class="form-group">
                   <label class="label-title">País*</label>
-                  <select-country (change) = "changeCountry (country)" class="white-theme-select material-select" [initialValue]="countryValue" (selected)="country=$event"></select-country>
+                  <select-country (change) = "changeCountry (country)" class="white-theme-select material-select" [initialValue]="countryValue" (selected)="country=$event; setValidationId(); setValidationDocument();"></select-country>
 
               </div>
               <div class="form-group">
@@ -137,7 +169,7 @@
       </div>
      <div class="button-container">
         <a (click) = "onSubmit()" class="btn-red" mat-button>Guardar usuario</a>
-        <a class="btn-white" mat-button>Cancelar</a>
+        <a (click) = "goBack()" class="btn-white" mat-button>Cancelar</a>
      </div>
     </form>
   </div>

@@ -451,10 +451,6 @@
     padding-left: 0px;
   }
 
-  .row-section {
-    padding: 20px 0;
-  }
-
   input.form-control,
   textarea.form-control,
   .input-price {
@@ -595,7 +591,7 @@
 }
 
 .material-design {
-  margin: 10px 0;
+  margin: 20px 0;
   .check-offer {
     padding-left: 12px;
   }
@@ -901,6 +897,35 @@
     label {
       margin-right: 25px;
     }
+  }
+
+  .alert-success {
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 1.6rem;
+    background-color: #f2f2f2;
+    color: #4a4a4a;
+    border: 1px solid #d6e9c6;
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    p {
+      margin: 0;
+    }
+  }
+  .alert-success .alert-icon {
+    color: #8dba02;
+    margin-right: 10px;
+  }
+  .alert-danger {
+    padding: 15px;
+    color: #ed2f3c;
+    border: 1px solid #ed2f3c;
+    background-color: #f2f2f2;
+    text-align: center;
+    font-size: 1.6rem;
+    border-radius: 30px;
+    margin-top: 15px;
   }
 }
 
