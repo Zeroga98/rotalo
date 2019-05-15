@@ -21,7 +21,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   email = '';
   @ViewChild('tabs') tabGroup: MatTabGroup;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  edit: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOAD}/`;
+  edit: string = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.EDITUSERS}/`;
+
   dataSource;
   displayedColumns = ['id', 'name', 'idNumber', 'email',
   'lastSignInAt', 'signInCount', 'createdAt',
@@ -183,6 +184,10 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     };
     this.currentFilter = Object.assign({}, this.currentFilter, filter);
     this.getUserList(this.currentFilter);
+  }
+
+  getUrlUser (idUser) {
+    return this.edit + idUser;
   }
 
 }

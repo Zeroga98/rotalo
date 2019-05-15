@@ -71,7 +71,7 @@
             <div class="arrow icon"></div>
         </div>
     </button>
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>
+    <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>
         <div class="button-container">
                 Órdenes tienda
             <div class="arrow icon"></div>

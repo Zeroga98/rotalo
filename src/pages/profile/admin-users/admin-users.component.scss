@@ -2,7 +2,7 @@
 @import "../../../styles/settings/_variables.scss";
 
 :host {
-  width: 60%;
+  width: 71%;
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
@@ -644,12 +644,12 @@
   width: 100%;
   .mat-table {
     width: 170rem;
-    min-height: 300px;
   }
 }
 
 @media screen and (max-width: 1000px) {
   :host() {
+    width: 65%;
     .first-row {
       flex-direction: column;
     }
@@ -658,5 +658,18 @@
       width: 100%;
       margin-top: 40px;
     }
+
+    .material-design .mat-table {
+      width: 100%;
+    }
+
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  :host() {
+    width: 100%;
+    padding: 45px 5%;
   }
 }

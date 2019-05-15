@@ -630,10 +630,15 @@ mat-tab-group.mat-tab-group.tab-table {
   .mat-row {
     background-color:#F8F8F8;
     border-bottom-color: transparent;
+    max-height: 48px;
     .mat-cell {
       color: #272727;
       font-size: 1.4rem;
       font-family: 'Lato Regular';
+      a {
+        color: #686E73;
+        text-decoration: underline;
+      }
       p {
         width: 100%;
         padding: 5px 5px 5px 0px;

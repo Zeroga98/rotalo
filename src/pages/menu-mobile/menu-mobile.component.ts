@@ -20,17 +20,13 @@ export class MenuMobileComponent implements OnInit {
   public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
   public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
-
   public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
   public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
-
   public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
-
   public categories = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.CATEGORIES}`;
-
   public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   constructor(private userService: UserService,

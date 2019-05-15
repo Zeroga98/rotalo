@@ -1,21 +1,23 @@
-import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from "@angular/core";
 import { CollectionSelectService } from "../../services/collection-select.service";
 import { CountryInterface } from "./country.interface";
+import { CurrentSessionService } from '../../services/current-session.service';
 @Component({
   selector: "select-country",
   templateUrl: "./select-country.component.html",
   styleUrls: ["./select-country.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectCountryComponent implements OnInit {
+export class SelectCountryComponent implements OnInit, OnChanges {
   @Output() selected: EventEmitter<Object> = new EventEmitter();
   @Output() loaded: EventEmitter<void> = new EventEmitter();
   @Input() initialValue: CountryInterface;
   @Input() turnOffInitialEvent: boolean = false;
   countries: Array<any> = [];
-  currentCountryId: number | string = "";
+  currentCountryId: number | string = '';
   private currentUrl = '';
   constructor(
+    private currentSessionSevice: CurrentSessionService,
     private collectionService: CollectionSelectService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
@@ -23,6 +25,14 @@ export class SelectCountryComponent implements OnInit {
 
   ngOnInit() {
     this.getCountries();
+  }
+
+  ngOnChanges(changes) {
+    if (changes && changes.initialValue && changes.initialValue.currentValue && changes.initialValue.currentValue.id) {
+      this.currentCountryId = changes.initialValue.currentValue.id;
+      const country = this.countries.find((country: any) => country.id == changes.initialValue.currentValue.id );
+      if (!this.turnOffInitialEvent) {this.selected.emit(country); }
+    }
   }
 
   onSelected(ev) {
@@ -45,12 +55,24 @@ export class SelectCountryComponent implements OnInit {
 
   changeArrayCountries(countries) {
     this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      countries = this.filterGuatemala(countries);
-    } else {
-      countries = this.filterColombia(countries);
+    if(!this.isSuperUser()) {
+      if (this.currentUrl.includes('gt')) {
+        countries = this.filterGuatemala(countries);
+      } else {
+        countries = this.filterColombia(countries);
+      }
     }
     return countries;
+  }
+
+  isSuperUser() {
+    if (
+      this.currentSessionSevice.currentUser()['rol'] &&
+      this.currentSessionSevice.currentUser()['rol'] === 'superuser'
+    ) {
+      return true;
+    }
+    return false;
   }
 
   async getCountries() {
@@ -70,7 +92,7 @@ export class SelectCountryComponent implements OnInit {
     if (this.initialValue && this.initialValue.id) {
       this.currentCountryId = this.initialValue.id;
       const country = this.countries.find((country: any) => country.id == this.initialValue.id );
-      if(!this.turnOffInitialEvent) this.selected.emit(country);
+      if (!this.turnOffInitialEvent) {this.selected.emit(country); }
     }
   }
 }

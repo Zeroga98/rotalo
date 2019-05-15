@@ -24,7 +24,7 @@
                 <select name="category-id" class="category form-control"
                   (change)="selectedComunity($event.target.value)" (click)="resetPromo()" #categorySelect
                   formControlName="category">
-                  <option value="" selected="true" disabled></option>
+                  <option value=""  disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                 </select>
                 <label class="label-title">Categoría*</label>

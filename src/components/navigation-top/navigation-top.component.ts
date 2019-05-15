@@ -81,24 +81,16 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
   public suggestList;
-
   results: any[] = [];
   queryField: FormControl = new FormControl();
-
-
   public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
   public adminRegister = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
-
   public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
-
   public showSearchMobile = false;
-
   public menu  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`;
-
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -509,5 +501,6 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   goBack(): void {
     window.history.back();
   }
+
 
 }
