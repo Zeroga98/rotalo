@@ -31,11 +31,11 @@ export class adminOrdersPage implements OnInit {
   ngOnInit(): void {
     this.loadTypeOrders();
     const currentUser = this.currentSessionSevice.currentUser();
-    if (currentUser['rol'] != 'superuser') {
+   /* if (currentUser['rol'] != 'superuser') {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
-    }
+    }*/
   }
 
   loadTypeOrders() {
