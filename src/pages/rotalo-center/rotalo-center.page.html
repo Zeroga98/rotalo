@@ -25,9 +25,10 @@
           <div class="ico configuration-icon"></div>
           <a>Configuraciones</a>
         </div>
-        <div *ngIf="isSuperUser()" class="option">
+        <div *ngIf="isSuperUser() || currentUser && currentUser['is-admin-store']" class="option">
           <h3>Administrador</h3>
         </div>
+
         <div *ngIf="isSuperUser()" [routerLink]="featuredProduct" class="option" routerLinkActive="active">
             <div class="ico featured-icon"></div>
             <a>Destacados</a>
@@ -36,10 +37,7 @@
             <div class="ico admin-icon"></div>
             <a>Pre-registro</a>
         </div>
-        <div *ngIf="isSuperUser()" [routerLink]="adminOrders" class="option" routerLinkActive="active">
-          <div class="ico shop-icon"></div>
-          <a>Órdenes tienda</a>
-        </div>
+
         <div *ngIf="isSuperUser()" [routerLink]="campaign" class="option" routerLinkActive="active">
           <div class="ico campaign"></div>
           <a>Campañas</a>
@@ -52,6 +50,16 @@
             <div class="ico banner-icon"></div>
             <a>Usuarios</a>
         </div>
+
+        <div *ngIf="currentUser && currentUser['is-admin-store'] && isSuperUser()" class="option">
+          <h3></h3>
+        </div>
+
+        <div *ngIf="currentUser && currentUser['is-admin-store'] && (isSuperUser() || !isSuperUser())" [routerLink]="adminOrders" class="option" routerLinkActive="active">
+          <div class="ico shop-icon"></div>
+          <a>Órdenes tienda</a>
+        </div>
+
       </div>
     </div>
   </div>

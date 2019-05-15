@@ -196,11 +196,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-  get isColombia(){
+  get isColombia() {
     return this.countryId == 1;
   }
 
-  get isGuatemala(){
+  get isGuatemala() {
     return this.countryId == 9;
   }
 
