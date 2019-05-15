@@ -19,6 +19,10 @@
     padding-right: 15px;
   }
 
+  .center {
+    text-align: center;
+  }
+
   .custom-controls-inline .custom-control+.custom-control {
     margin-left: 20px;
   }
@@ -66,71 +70,6 @@
   }
 }
 
-:host {
-
-  .tabla-campaign {
-    overflow-x: auto;
-    max-width: 85rem;
-    width: 100%;
-  }
-
-  .campaigns {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  .campaigns td,
-  .campaigns th {
-    padding: 5px;
-    padding-left: 12px;
-  }
-
-  .campaigns tr:nth-child(odd) {
-    background-color: #F8F8F8;
-  }
-
-  .campaigns td:first-child,
-  .campaigns th:first-child {
-    padding: 5px;
-    text-align: center;
-  }
-
-  .campaigns th {
-    border: 1px solid #D1D1D1;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #E6E7E7;
-    color: #555555;
-    font-size: 1.4rem;
-  }
-
-  .campaigns td {
-    color: #272727;
-    font-size: 1.4rem;
-  }
-
-  .campaigns th.table-no-border{
-    border-left: 0;
-    border-right: 0;
-  }
-
-  .campaigns {
-    th.no-style {
-      padding: 0;
-      border: 0;
-      background-color: white;
-    }
-  }
-
-  .campaigns {
-    a {
-      color: #686E73;
-      text-decoration: underline;
-    }
-  }
-
-}
 
 :host {
 
@@ -643,8 +582,18 @@
 .material-design {
   width: 100%;
   .mat-table {
-    width: 170rem;
+    width: 100%;
   }
+
+  .mat-row {
+    img {
+      width: 75px;
+    }
+    .mat-cell p {
+      padding: 10px;
+    }
+  }
+
 }
 
 @media screen and (max-width: 1000px) {
