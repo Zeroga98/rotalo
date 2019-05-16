@@ -614,7 +614,6 @@ mat-tab-group.mat-tab-group.tab-table {
     font-weight: bold;
   }
 
-
 }
 
 .material-design {
@@ -626,6 +625,10 @@ mat-tab-group.mat-tab-group.tab-table {
     font-size: 1.4rem;
     font-family: 'Lato Regular';
     font-weight: bold;
+  }
+
+  .mat-row:nth-child(2n){
+    background-color: #F8F8F8;
   }
   .mat-row {
     background-color:#F8F8F8;
@@ -655,6 +658,7 @@ mat-tab-group.mat-tab-group.tab-table {
   }
 
 }
+
 
 
 

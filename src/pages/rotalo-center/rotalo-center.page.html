@@ -47,7 +47,7 @@
             <a>Banners home</a>
         </div>
         <div *ngIf="isSuperUser()" [routerLink]="users" class="option" routerLinkActive="active">
-            <div class="ico banner-icon"></div>
+            <div class="ico user-icon"></div>
             <a>Usuarios</a>
         </div>
 
@@ -59,7 +59,10 @@
           <div class="ico shop-icon"></div>
           <a>Órdenes tienda</a>
         </div>
-
+        <div *ngIf="currentUser && currentUser['is-admin-store'] && (isSuperUser() || !isSuperUser())" [routerLink]="productShop" class="option" routerLinkActive="active">
+          <div class="ico shop-icon"></div>
+          <a>Productos tienda</a>
+        </div>
       </div>
     </div>
   </div>

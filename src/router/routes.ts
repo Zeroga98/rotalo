@@ -50,6 +50,7 @@ export const ROUTES = {
         BANNER: 'admin-banners',
         ADMINUSERS: 'admin-users',
         EDITUSERS: 'edit-users',
+        PRODUCTSSHOP: 'products-shop',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

@@ -54,6 +54,7 @@ import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component'
 import { CategoriesComponent } from '../pages/categories-page/categories.component';
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
+import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -97,6 +98,7 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

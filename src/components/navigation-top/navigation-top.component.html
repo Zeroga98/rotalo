@@ -72,6 +72,7 @@
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>Destacados</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>Pre-registro</button>
                   <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>Órdenes tienda</button>
+                  <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="productShop" mat-menu-item>Productos tienda</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>Campañas</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>Banners home</button>
                   <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="users" mat-menu-item>Usuarios</button>

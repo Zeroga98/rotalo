@@ -113,7 +113,6 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
       this.messageChange = '';
       this.errorChange = '';
       this.editUser();
-      this.utilsService.goToTopWindow(20, 600);
     } else {
       this.validateAllFormFields(this.editProfileForm);
       if (!this.state['id']) {
@@ -216,6 +215,7 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
     delete currentUser['confirmNewPassword'];
     delete currentUser['is-admin-store'];
     currentUser = this.utilsService.removeEmptyValues(currentUser);
+    this.utilsService.goToTopWindow(20, 600);
     this.userService
       .updateUser(currentUser)
       .then(response => {

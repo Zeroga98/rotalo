@@ -205,6 +205,7 @@ import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component'
 import { CategoriesComponent } from '../pages/categories-page/categories.component';
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
+import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 
 @NgModule({
   declarations: [
@@ -333,6 +334,7 @@ import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.compo
     CategoriesComponent,
     AdminUsersComponent,
     EditUsersComponent,
+    ProductsShopComponent,
   ],
   imports: [
     BrowserModule,

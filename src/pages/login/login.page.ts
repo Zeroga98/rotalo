@@ -74,7 +74,7 @@ export class LoginPage implements OnInit {
       const email = this.loginForm.get('email').value.toLowerCase();
       const password = this.loginForm.get('password').value;
       this.login(email, password);
-    }else {
+    } else {
       this.validateAllFormFields(this.loginForm);
     }
   }
@@ -230,7 +230,7 @@ export class LoginPage implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
-    dialogConfig.height = '400px';
+   // dialogConfig.height = '400px';
     dialogConfig.width = '90%';
     dialogConfig.disableClose = true;
     // dialogConfig.autoFocus = false;
