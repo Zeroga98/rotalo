@@ -2,7 +2,7 @@
   <div class="tittle main-title">
     <h1 class="text ">Productos tienda</h1>
   </div>
-  
+
   <div id="flashMessage" class="flashMessage">
     <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
       <p>
@@ -45,7 +45,7 @@
                   <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
                 </td>
                 <td>
-                  {{product.id}}
+                  <a [routerLink]="getUrlProductDetail(product.id)" >{{product.id}}</a>
                 </td>
                 <td>
                   {{product.name}}

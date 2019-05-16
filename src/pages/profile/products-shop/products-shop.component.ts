@@ -18,7 +18,8 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   public statusTab = 0;
   public productos = [];
   @ViewChild('grid') grid: ElementRef;
-  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
+  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/`;
+  show: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
   public messageChange = '';
   public errorChange = '';
   constructor(private productsService: ProductsService,
@@ -77,6 +78,10 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   getUrlProduct (idProduct) {
     return this.edit + idProduct;
+  }
+
+  getUrlProductDetail (idProduct) {
+    return this.show + idProduct;
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
