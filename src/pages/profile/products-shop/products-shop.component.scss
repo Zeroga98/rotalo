@@ -70,7 +70,6 @@
   }
 }
 
-
 :host {
 
   .first-row {
@@ -599,8 +598,9 @@
 :host {
 
   .tabla-campaign {
-    overflow: hidden;
-    overflow-x: auto;
+    overflow: auto;
+    height: 550px;
+    margin-bottom: 5.5rem;
   }
 
   .campaigns {
@@ -663,6 +663,31 @@
     }
   }
 
+}
+
+:host {
+  .button-container {
+    .mat-button:first-child {
+      margin-right: 69px;
+    }
+    .mat-button {
+      min-width: 270px;
+      height: 43px;
+      border-radius: 26px;
+      font-family: 'Lato Regular';
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      line-height: 40px;
+    }
+    .mat-button.btn-red {
+      color:white;
+      background-color: #FF3646;
+    }
+    .mat-button.btn-white {
+      color:#FF3646;
+      border: 1px solid #FF3646;
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {

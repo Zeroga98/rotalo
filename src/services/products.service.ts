@@ -438,4 +438,11 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  setOrderProductsShop(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/productos/ordenar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
