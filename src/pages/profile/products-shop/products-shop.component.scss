@@ -80,7 +80,7 @@
 
   .filter-container {
     width: 50%;
-    padding: 20px ;
+    padding: 20px;
     border: 1px solid #D5D5D5;
     border-radius: 10px;
     background-color: #F8F8F8;
@@ -243,6 +243,7 @@
       .form-group.half {
         width: 47%;
       }
+
       .form-group.half:last-child {
         margin-right: 0;
       }
@@ -253,7 +254,7 @@
     }
 
     .btn-container {
-     // margin-bottom: 20px;
+      // margin-bottom: 20px;
 
       .mat-button {
         border-radius: 5px;
@@ -263,6 +264,7 @@
         font-family: 'Lato Regular';
         min-width: 130px;
       }
+
       .mat-button.primary {
         background-color: rgba(15, 187, 216, 0.11);
         color: #0FBBD8;
@@ -580,6 +582,7 @@
 
 .material-design {
   width: 100%;
+
   .mat-table {
     width: 100%;
   }
@@ -588,6 +591,7 @@
     img {
       width: 75px;
     }
+
     .mat-cell p {
       padding: 10px;
     }
@@ -613,8 +617,10 @@
     padding: 5px;
   }
 
-  .campaigns tr:nth-child(odd) {
-    background-color: #F8F8F8;
+  .campaigns  tr.sortable-chosen.sortable-ghost{
+    cursor: move;
+    background-color: #F2FCFD;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16);
   }
 
   .campaigns td:first-child,
@@ -637,7 +643,7 @@
     font-size: 1.4rem;
   }
 
-  .campaigns th.table-no-border{
+  .campaigns th.table-no-border {
     border-left: 0;
     border-right: 0;
   }
@@ -653,6 +659,7 @@
   .campaigns {
     a {
       color: #686E73;
+      font-size: 1.4rem;
       text-decoration: underline;
     }
   }
@@ -670,6 +677,7 @@
     .mat-button:first-child {
       margin-right: 69px;
     }
+
     .mat-button {
       min-width: 270px;
       height: 43px;
@@ -679,12 +687,14 @@
       margin-bottom: 10px;
       line-height: 40px;
     }
+
     .mat-button.btn-red {
-      color:white;
+      color: white;
       background-color: #FF3646;
     }
+
     .mat-button.btn-white {
-      color:#FF3646;
+      color: #FF3646;
       border: 1px solid #FF3646;
     }
   }
@@ -699,14 +709,17 @@
     border-radius: 30px 30px 30px 30px;
     -moz-border-radius: 30px 30px 30px 30px;
     -webkit-border-radius: 30px 30px 30px 30px;
+
     p {
       margin: 0;
     }
   }
+
   .alert-success .alert-icon {
     color: #8dba02;
     margin-right: 10px;
   }
+
   .alert-danger {
     padding: 15px;
     color: #ed2f3c;
@@ -718,12 +731,18 @@
     margin-top: 15px;
   }
 
+  .campaigns a.link-product {
+    color: #0FBBD8;
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
 
 }
 
 @media screen and (max-width: 1000px) {
   :host() {
     width: 65%;
+
     .first-row {
       flex-direction: column;
     }

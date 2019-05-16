@@ -40,12 +40,12 @@
         </tr>
         <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
         class="grid">
-            <tr id = {{product.id}} *ngFor="let product of  productos">
+            <tr id = {{product.id}}  *ngFor="let product of  productos">
                 <td>
                   <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
                 </td>
                 <td>
-                  <a [routerLink]="getUrlProductDetail(product.id)" >{{product.id}}</a>
+                  <a class = "link-product" [routerLink]="getUrlProductDetail(product.id)" >{{product.id}}</a>
                 </td>
                 <td>
                   {{product.name}}

@@ -228,7 +228,7 @@
 
           .icon-bell.active {
             cursor: pointer;
-            width: 18px;
+            width: 16px;
             height: 18px;
             background: url(../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
             background-size: contain;
@@ -236,7 +236,7 @@
 
           .icon-bell {
             cursor: pointer;
-            width: 18px;
+            width: 16px;
             height: 18px;
             background: url(../../assets/img/iconos/ic_campana.svg) no-repeat;
             background-size: contain;
@@ -450,6 +450,13 @@
         border-bottom: none;
         height: 100%;
         width: 100%;
+        font-size: 1.4rem;
+        color: #707070;
+      }
+
+      .form-control::placeholder {
+        font-size: 1.4rem;
+        color: #AFAFAF;
       }
 
       .button-search {
@@ -509,6 +516,12 @@
     background-size: 18px 18px;
     background-repeat: no-repeat;
     cursor: pointer;
+  }
+
+  .search.show {
+    .search-icon-dark {
+      margin-bottom: 6px;
+    }
   }
 
   .back-categories {

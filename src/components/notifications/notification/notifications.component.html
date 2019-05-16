@@ -289,7 +289,7 @@ class="conversation">
                 </p>
               </span>
             </div-->
-            <div *ngIf="message.informacionAdicional" class="notification">
+            <div *ngIf="message.informacionAdicional" class="notification clear-padding">
               <span *ngIf="getAdditionalInfo(message).order_details" class="span-store-purchase highlight">Este es el resumen de tu compra en {{message.nombreEmisor}}</span>
               <div *ngIf="getAdditionalInfo(message).order_details" class="notification-text">
                 <div *ngFor="let order_detail of getAdditionalInfo(message).order_details" class="detail-store-purchase">

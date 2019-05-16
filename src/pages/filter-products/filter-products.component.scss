@@ -470,11 +470,10 @@
     .mat-mini-fab {
       margin-left: 15px;
       margin-top: 2px;
-      width: 23px;
-      height: 23px;
+      width: 24px;
+      height: 24px;
       background-color: rgba(15, 187, 216, 0.12);
-      box-shadow: 2px 3px 6px -5px rgba(0, 0, 0, 0.75);
-
+      box-shadow: none;
       &:active {
         box-shadow: 1px 3px 10px -5px rgba(0, 0, 0, 0.75);
       }
