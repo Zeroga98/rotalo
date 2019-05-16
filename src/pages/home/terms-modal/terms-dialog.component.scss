@@ -260,6 +260,21 @@
       margin-bottom: 20px;
     }
   }
+
+  .mat-dialog-content::-webkit-scrollbar {
+    transition: all 0.5s;
+    width: 5px;
+    height: 1px;
+    z-index: 10;
+  }
+  .mat-dialog-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .mat-dialog-content::-webkit-scrollbar-thumb {
+    background: #b3ada7;
+  }
+
+
 }
 
 @media screen and (max-width: 648px) {

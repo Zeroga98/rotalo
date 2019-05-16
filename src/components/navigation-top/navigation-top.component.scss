@@ -722,6 +722,19 @@
   height: 427px;
 }
 
+.menu-usuario::-webkit-scrollbar {
+  transition: all 0.5s;
+  width: 5px;
+  height: 1px;
+  z-index: 10;
+}
+.menu-usuario::-webkit-scrollbar-track {
+  background: transparent;
+}
+.menu-usuario::-webkit-scrollbar-thumb {
+  background: #b3ada7;
+}
+
 .mat-menu-item {
   color: #272727;
   font-family: 'Lato Regular';

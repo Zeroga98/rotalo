@@ -396,6 +396,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         'ClickBusqueda',
         this.queryField.value
       );
+      this.showSearchMobile = false;
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
       ], { queryParams: { product_name: this.queryField.value } });
