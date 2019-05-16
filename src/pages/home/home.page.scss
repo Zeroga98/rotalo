@@ -167,6 +167,9 @@ input[type="email"].input__field {
     .text-container {
       margin: 20px auto;
       text-align: center;
+      .title {
+        font-size: 1.8rem;
+      }
       p {
         color: #707070;
         font-size: 1.6rem;

@@ -30,8 +30,10 @@ export class SelectCountryComponent implements OnInit, OnChanges {
   ngOnChanges(changes) {
     if (changes && changes.initialValue && changes.initialValue.currentValue && changes.initialValue.currentValue.id) {
       this.currentCountryId = changes.initialValue.currentValue.id;
-      const country = this.countries.find((country: any) => country.id == changes.initialValue.currentValue.id );
-      if (!this.turnOffInitialEvent) {this.selected.emit(country); }
+      if (this.countries && this.countries.length > 0 ) {
+        const country = this.countries.find((country: any) => country.id == changes.initialValue.currentValue.id );
+        if (!this.turnOffInitialEvent) {this.selected.emit(country); }
+      }
     }
   }
 
@@ -67,6 +69,7 @@ export class SelectCountryComponent implements OnInit, OnChanges {
 
   isSuperUser() {
     if (
+      this.currentSessionSevice.currentUser() &&
       this.currentSessionSevice.currentUser()['rol'] &&
       this.currentSessionSevice.currentUser()['rol'] === 'superuser'
     ) {

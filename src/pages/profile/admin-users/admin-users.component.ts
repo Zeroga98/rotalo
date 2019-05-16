@@ -126,7 +126,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
    this.name = this.name.replace(/\s/g, '');
    this.idNumber = this.idNumber.replace(/\s/g, '');
    this.email = this.email.replace(/\s/g, '');
-   const email = this.email.replace('+', '%2B');
+   const email = this.email.replace('+', '$');
    this.since = this.since.replace(/\s/g, '');
    this.until = this.until.replace(/\s/g, '');
 
