@@ -192,21 +192,21 @@ class="conversation">
                     <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
                 </div>
                 <div class="notification-body">
-                    {{order_detail.product_name}}  
+                    {{order_detail.product_name}}
                     <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
                     <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
                 </div>
               </div>
             </div>
             <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
-              <div class=text-order-status>Estado de la orden:  
+              <div class=text-order-status>Estado de la orden:
                 <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
                   {{getAdditionalInfo(message).order_state_name.toLowerCase()}}
                 </span>
                 <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
               </div>
             </div>
-              
+
             <div *ngIf="!getAdditionalInfo(message).order_details"
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
@@ -299,18 +299,18 @@ class="conversation">
                       <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
                   </div>
                   <div class="notification-body">
-                      {{order_detail.product_name}}  
-                      <br>${{order_detail.unit_price}} x {{order_detail.units}} unidades
-                      <br><span class="highlight">Total: ${{order_detail.total_price}}</span>
+                      {{order_detail.product_name}}
+                      <br>${{order_detail.unit_price | currency:" " | removeDigits}} x {{order_detail.units}} unidades
+                      <br><span class="highlight">Total: ${{order_detail.total_price | currency:" " | removeDigits}}</span>
                   </div>
                 </div>
               </div>
               <div *ngIf="getAdditionalInfo(message).order_details" class="border-dotted">
-                <div class=text-order-status>Estado de la orden:  
+                <div class=text-order-status>Estado de la orden:
                   <span [ngClass]="getAdditionalInfo(message).order_state_name == 'Aprobado' ? 'text-order-approved' : 'text-order-declined'">
                     {{getAdditionalInfo(message).order_state_name.toLowerCase()}}
                   </span>
-                  <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order}}</div>
+                  <div class="total highlight">Total: ${{getAdditionalInfo(message).total_order | currency:" " | removeDigits}}</div>
                 </div>
               </div>
               <div *ngIf="!getAdditionalInfo(message).order_details"

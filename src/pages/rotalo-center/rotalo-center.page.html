@@ -25,7 +25,7 @@
           <div class="ico configuration-icon"></div>
           <a>Configuraciones</a>
         </div>
-        <div *ngIf="isSuperUser() || currentUser && currentUser['is-admin-store']" class="option">
+        <div *ngIf="isSuperUser()" class="option">
           <h3>Administrador</h3>
         </div>
 
@@ -51,8 +51,10 @@
             <a>Usuarios</a>
         </div>
 
-        <div *ngIf="currentUser && currentUser['is-admin-store'] && isSuperUser()" class="option">
-          <h3></h3>
+        <div *ngIf="currentUser && currentUser['is-admin-store']" class="option">
+          <h3>
+            Admin Tienda
+          </h3>
         </div>
 
         <div *ngIf="currentUser && currentUser['is-admin-store'] && (isSuperUser() || !isSuperUser())" [routerLink]="adminOrders" class="option" routerLinkActive="active">
