@@ -5,37 +5,37 @@
 
   <div class="first-row">
     <div class="filter-container">
-      <form class="form-theme">
+      <form autocomplete="off" class="form-theme">
         <div class="material-design">
           <label class="label-title bold">Filtar por</label>
           <div class="row">
               <div class="form-group half" data-input="name">
                 <label class="label-title">Nombre</label>
-                <input class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name"
+                <input autocomplete="off"  class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name"
                  >
               </div>
               <div class="form-group half" data-input="idNumber">
                 <label class="label-title">N° documento</label>
-                <input class="form-control" type="text" id="idNumberId" [(ngModel)]="idNumber" name="idNumber"
+                <input autocomplete="off"  class="form-control" type="text" id="idNumberId" [(ngModel)]="idNumber" name="idNumber"
                  >
               </div>
           </div>
           <div class="row">
               <div class="form-group half" data-input="since">
                 <label class="label-title">Desde</label>
-                <input placeholder="dd/mm/aaaa" class="form-control" type="text" id="since" [(ngModel)]="since" name="since"
+                <input autocomplete="off"  placeholder="dd/mm/aaaa" class="form-control" type="text" id="since" [(ngModel)]="since" name="since"
                  >
               </div>
               <div class="form-group half" data-input="until">
                 <label class="label-title">Hasta</label>
-                <input placeholder="dd/mm/aaaa" class="form-control" type="text" id="untilId" [(ngModel)]="until" name="until"
+                <input autocomplete="off"  placeholder="dd/mm/aaaa" class="form-control" type="text" id="untilId" [(ngModel)]="until" name="until"
                  >
               </div>
           </div>
           <div class="row">
               <div class="form-group full" data-input="email">
                 <label class="label-title">Correo electrónico</label>
-                <input  class="form-control" type="text" id="email" [(ngModel)]="email" name="email"
+                <input autocomplete="new-password"   class="form-control" type="text" id="email" [(ngModel)]="email" name="email"
                  >
               </div>
           </div>

@@ -107,6 +107,7 @@
                 [ngClass]="!validPasswordLenght(editProfileForm.get('password').value) ?  'ng-touched ng-invalid': ''"
                 autocomplete="off"
                 formControlName="password"
+                autocomplete="new-password"
                 type="password" class="form-control" name="password">
 
                 <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('password').value)">
@@ -119,6 +120,7 @@
                 [ngClass]="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) || editProfileForm?.errors?.match ?  'ng-touched ng-invalid': ''"
                 autocomplete="off"
                 formControlName="confirmNewPassword"
+                autocomplete="new-password"
                 type="password" class="form-control" name="confirmNewPassword">
 
                 <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) && !editProfileForm?.errors?.match">

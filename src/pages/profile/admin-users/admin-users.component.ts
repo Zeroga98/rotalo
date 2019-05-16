@@ -126,13 +126,14 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
    this.name = this.name.replace(/\s/g, '');
    this.idNumber = this.idNumber.replace(/\s/g, '');
    this.email = this.email.replace(/\s/g, '');
+   const email = this.email.replace('+', '%2B');
    this.since = this.since.replace(/\s/g, '');
    this.until = this.until.replace(/\s/g, '');
 
    const filter = {
       name: this.name ? `/${this.name}/`  : '' ,
       id_number: this.idNumber ? `/${ this.idNumber}/` : '',
-      email: this.email ? `/${this.email}/`  : '' ,
+      email: this.email ? `/${email}/`  : '' ,
       created_at_from: this.since ? this.since : '',
       created_at_until: this.until ? this.until : ''
     };
