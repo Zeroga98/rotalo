@@ -6,11 +6,11 @@
     <div
     [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
     (click)="goToDetail(notification)" class="notification-img">
-        <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+        <div [ngStyle]="{'background-image': getUrlImge(notification)}" class="thumbnail-img"></div>
     </div>
     <div *ngIf="!notification.informacionAdicional && notification.producto" class="notification-body">
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">
-        <span>Se ha registrado tu compra a 
+        <span>Se ha registrado tu compra a
           {{notification.producto.nombreUsuario}}
            de </span>
         <span class="highlight bold clickable" (click)="goToDetail(notification)">
@@ -18,7 +18,7 @@
         </span>
         <br>
         <span>Precio: ${{ (notification.compra.monto | currency:' ' | removeDigits) }}</span>
-        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}} 
+        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}}
             <span *ngIf="notification.compra.unidadesCompradas==1">unidad</span>
             <span *ngIf="notification.compra.unidadesCompradas>=2">unidades</span>
         </span>

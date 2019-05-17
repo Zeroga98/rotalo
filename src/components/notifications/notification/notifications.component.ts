@@ -343,4 +343,8 @@ export class NotificationsComponent implements OnInit {
     this.loadMoreNotification();
   }
 
+  getUrlImge(notification) {
+    return ('url(' + notification.fotoNotificacion.replace(/ /g, '%20')) + ')';
+  }
+
 }

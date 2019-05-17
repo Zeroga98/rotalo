@@ -60,6 +60,8 @@ export class PurchaseAcceptedComponent implements OnInit {
     this.notificationDelete.emit(idNotifications);
   }
 
-
+  getUrlImge(notification) {
+    return ('url(' + notification.fotoNotificacion.replace(/ /g, '%20')) + ')';
+  }
 
 }
