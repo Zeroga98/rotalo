@@ -6,7 +6,7 @@
     <div *ngIf="!notification.informacionAdicional"
       [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
       (click)="goToDetail(notification)" class="notification-img">
-      <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+      <div [ngStyle]="{'background-image': getUrlImge(notification)}" class="thumbnail-img"></div>
     </div>
     <div *ngIf="!notification.informacionAdicional && notification.producto" class="notification-body">
       <p class="notification-text" *ngIf="notification.producto.tipoVenta !== 'GRATIS'">

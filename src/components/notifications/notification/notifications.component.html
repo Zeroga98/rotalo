@@ -24,7 +24,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -63,7 +63,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Tu oferta ha sido aceptada
@@ -95,7 +95,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Tu oferta ha sido rechazada
@@ -117,7 +117,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -143,7 +143,7 @@ class="conversation">
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
                <div
-               [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body" *ngIf="!message.informacionAdicional">
               <span *ngIf="!message.informacionAdicional && message.producto">
@@ -258,7 +258,7 @@ class="conversation">
             <!--div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <span *ngIf="!message.informacionAdicional && message.producto">
@@ -344,7 +344,7 @@ class="conversation">
               <div
               [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
               (click)="goToDetail(message)" class="notification-img ">
-                 <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                 <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body">
                 <p class="notification-text">Tu publicación
@@ -369,7 +369,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class=" notification-img">
-              <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img">
+              <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img">
               </div>
             </div>
             <div class="notification-body">
@@ -469,7 +469,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -495,7 +495,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -520,7 +520,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -546,7 +546,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
              (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -572,7 +572,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Has ganado la subasta
@@ -606,7 +606,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
              (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -632,7 +632,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-               <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Han superado tu oferta en la subasta del producto
@@ -663,7 +663,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">
@@ -686,7 +686,7 @@ class="conversation">
               <div
               [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
               (click)="goToDetail(message)" class="notification-img ">
-                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                  <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body">
                 <p class="notification-text">
@@ -707,7 +707,7 @@ class="conversation">
               <div
               [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
               (click)="goToDetail(message)" class="notification-img ">
-                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                  <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body">
                 <p class="notification-text">
@@ -728,7 +728,7 @@ class="conversation">
             <div
             [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(message)" class="notification-img ">
-                <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
             </div>
             <div class="notification-body">
               <p class="notification-text">Tus gustos y aficiones nos ayudan a ofrecerte los productos rotados más afines y

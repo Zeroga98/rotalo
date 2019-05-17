@@ -442,7 +442,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   getUrlImge() {
-    return ('url(' + this.products.user.photos.url.replace(/ /g,'%20')) + ')';
+    return ('url(' + this.products.user.photos.url.replace(/ /g, '%20')) + ')';
   }
 
   saveCheck() {
