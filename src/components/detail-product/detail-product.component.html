@@ -700,7 +700,7 @@
           <!--Botones Guatemala-->
           <div class="btn-two-container"
             *ngIf="products && !isSellProcess() && !validateSession()">
-            
+
               <div class="product-btn">
               <div class="product-btns">
                 <div class="cont-botons">
@@ -737,7 +737,7 @@
                 Lo quiero
               </button>
             </div>
-            
+
             <div class="btn-item">
               <button *ngIf="products && checkBAMBotton() && products['sell-type'] == 'VENTA'"
               class="gtmFinanciar botons" (click)="creditProduct(products.id)">

@@ -4,7 +4,7 @@
 :host {
   width: 100%;
   height: auto;
-  padding: 0 5%;
+  padding: 0 20%;
   padding-left: 2%;
   position: relative;
   background-color: #FAFAFA;
@@ -17,8 +17,8 @@
     }
 
     h1.text {
-      font-size: 2.4rem;
-      font-weight: normal;
+      font-size: 2.0rem;
+      font-weight: bold;
       margin: 0;
     }
   }
@@ -319,6 +319,7 @@
 
   select {
     background-position: 99% center;
+    background-color: transparent;
   }
 
   custom-spinner {
