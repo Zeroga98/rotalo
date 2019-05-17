@@ -535,6 +535,12 @@
     margin: 15px auto;
   }
 
+
+  .product-btns .botons:hover {
+    border: 1px solid #ae1631;
+    color: #ae1631;
+  }
+
   @media screen and (max-width: 1110px) {
     .container-masonry .masonry product,
     .container-masonry .masonry product-rotalo-center {

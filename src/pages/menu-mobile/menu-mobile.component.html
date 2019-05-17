@@ -6,7 +6,7 @@
           <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="imagen-perfil">
         </div>
         <div class="user-info">
-          <p *ngIf="userName" class="name">{{userName}}</p>
+          <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
           <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
           <div  *ngIf="userEdit.calificacionGeneral" class="ranking">
               <span class="star star-full">

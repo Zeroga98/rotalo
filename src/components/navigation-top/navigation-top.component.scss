@@ -754,6 +754,10 @@
   font-size: 1.6rem;
 }
 
+.mat-menu-item:hover {
+  font-weight: bold;
+}
+
 .mat-menu-item.active {
   font-weight: bold;
   background: rgba(0, 0, 0, .04);
@@ -897,6 +901,10 @@
       display: block;
     }
 
+    back-arrow {
+      height: 33px;
+      width: 33px;
+    }
 
   }
 

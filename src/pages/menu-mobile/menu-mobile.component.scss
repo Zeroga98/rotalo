@@ -74,6 +74,10 @@
     font-size: 1.6rem;
   }
 
+  .mat-menu-item:hover {
+    font-weight: bold;
+  }
+
   .arrow {
     background-image: url(assets/img/arrow.svg);
     background-position: 100% center;
