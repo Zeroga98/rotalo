@@ -115,9 +115,6 @@
     .list-options {
       display: flex;
       color: #707070;
-      //margin-right: 35px;
-      padding-right: 20px;
-
       li {
         font-size: 1.6rem;
         display: flex;
@@ -168,7 +165,7 @@
       }
 
       li.car-container {
-        margin-right: 5rem;
+       // margin-right: 1.6rem;
 
         .container-car {
           display: flex;
@@ -559,7 +556,7 @@
   }
 
   .categories {
-    padding-right: 3rem;
+    padding-right: 2.5rem;
     background-image: url(../../assets/img/arrow.svg);
     background-position: 95% center;
     background-size: 10px 10px;
@@ -870,6 +867,10 @@
 
     .navbar-header .list-options {
       margin-right: 0px;
+    }
+
+    .navbar-header .upload-offer-button .outside-circle {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
   }
 }
