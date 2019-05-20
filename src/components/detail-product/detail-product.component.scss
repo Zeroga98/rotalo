@@ -199,7 +199,7 @@
       .description,
       .contTipo,
       .capitalize {
-        margin: 0 0 15px;
+        margin: 0;
       }
 
       .contTipo {
@@ -391,6 +391,7 @@
     .date,
     .visit {
       font-size: 1.6rem;
+      margin: 0 0 10px 0;
     }
 
     .location span {
@@ -735,7 +736,7 @@
     }
 
     .calification{
-      font-weight: normal;
+      font-size: 1.5rem;
       color: #707070;
     }
 
