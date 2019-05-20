@@ -45,7 +45,8 @@ export const ROUTES = {
         ADMINREGISTER: 'admin-register',
         CAMPAIGN: 'campaign',
         UPLOAD: 'upload-campaign',
-        BANNER: 'admin-banners'
+        BANNER: 'admin-banners',
+        DETAILORDERS: 'detail-orders',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

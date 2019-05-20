@@ -201,6 +201,7 @@ import { CarouselProductComponent } from '../components/carousel-product/carouse
 import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { FilterService } from '../pages/filter-products/filter.service';
+import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
@@ -324,7 +325,8 @@ import { FilterService } from '../pages/filter-products/filter.service';
     CustomScrollDirective,
     CarouselProductComponent,
     ModalDeleteProductComponent,
-    FilterProductsComponent
+    FilterProductsComponent,
+    DetailOrderComponent,
   ],
   imports: [
     BrowserModule,
