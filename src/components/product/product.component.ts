@@ -149,7 +149,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       let gaPushParam = 'VendiRotaloExitoso';
       if (result && result.seleccion && result.seleccion === 'otro'){
       gaPushParam = 'OtroExitoso';
-      } 
+      }
       this.gapush(
         'send',
         'event',
@@ -193,7 +193,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         let gaPushParam = 'VendiRotaloExitoso';
       if (result && result.seleccion && result.seleccion === 'otro'){
       gaPushParam = 'OtroExitoso';
-      } 
+      }
       this.gapush(
         'send',
         'event',

@@ -32,6 +32,7 @@
               <div class="grid-item">
                 <product  *ngFor="let productSold of productsSold | paginate: { itemsPerPage: 9, currentPage: pageNumberSold, totalItems: totalItemsSold }"
                   class="product-feed product-sold"
+                  [ngClass]=""
                   (updateProducts)="updateProduct($event)"
                   [isProductSold]="true" [isProductSelling]="false" [showField]="false"
                   [product]="productSold"
@@ -60,10 +61,11 @@
             <div class="masonry">
               <div class="grid-item">
                 <product  *ngFor="let productPurchased of productsPurchased | paginate: { itemsPerPage: 9, currentPage: pageNumberPurchased, totalItems: totalItemsPurchased }"
-                  class="product-feed product-sold"
+                  class="product-feed  product-sold"
                   (updateProducts)="updateProductPurchased($event)"
                   [isProductPurchased]="true" [isProductSelling]="false" [showField]="false"
                   [product]="productPurchased"
+                  [ngClass]="productPurchased.referenceNumber ? 'referenceNumber' : ''"
                   [colourCompany]="productPurchased['seller_company_color']  ? productPurchased['seller_company_color'] : '#FF3646'" id="{{productPurchased.product_id}}">
                 </product>
               </div>
