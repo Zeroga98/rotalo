@@ -161,7 +161,7 @@ class="conversation">
                   </span>
                   <br>
                   <span *ngIf="message.compra.unidadesCompradas" class="price-18 bold">
-                    Total: ${{message.compra.unidadesCompradas * message.compra.monto | currency:' ' | removeDigits}}.
+                    Total: ${{message.compra.unidadesCompradas * message.compra.monto | currency:' ' | removeDigits}}
                   </span>
                   <br><br>
                   <span class="highlight bold">Pago: {{paymentTypes[message.compra.tipoPago]}}</span>

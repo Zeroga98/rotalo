@@ -250,6 +250,22 @@ export class DetailProductComponent implements OnInit {
       nombreUsuarioChat: this.products.user.name,
       calificacion: this.products.userCalification ? this.products.userCalification : 0
     };
+
+    if (this.products.subcategory && (
+      this.products.subcategory.name == 'Carros' ||
+      this.products.subcategory.name == 'Motos'  ||
+      this.products.subcategory.category &&
+      this.products.subcategory.category.name == 'Inmuebles'))  {
+        this.gapush(
+          'send',
+          'event',
+          'Productos',
+          this.products.subcategory.name,
+          'ContactaPorRotaloExitoso'
+        );
+    }
+
+
     this.shareInfoChatService.setNewConversation(newUser);
     this.router.navigate([
       `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`
@@ -874,13 +890,19 @@ export class DetailProductComponent implements OnInit {
   }
 
   sendMessageWhatsapp(id) {
-    this.gapush(
-      'send',
-      'event',
-      'Productos',
-      'ClicInferior',
-      'ComparteProductoWhatsapp'
-    );
+    if (this.products.subcategory && (
+      this.products.subcategory.name == 'Carros' ||
+      this.products.subcategory.name == 'Motos'  ||
+      this.products.subcategory.category &&
+      this.products.subcategory.category.name == 'Inmuebles'))  {
+        this.gapush(
+          'send',
+          'event',
+          'Productos',
+          this.products.subcategory.name,
+          'ComparteProductoWhatsapp'
+        );
+    }
     const base_url = window.location.origin;
     const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
     ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
@@ -892,6 +914,17 @@ export class DetailProductComponent implements OnInit {
   sendMessageWhatsappUser() {
     const productName = this.products.name;
     let phoneNumber = this.products.user.cellphone;
+    if (this.products.subcategory &&
+      this.products.subcategory.category &&
+      this.products.subcategory.category.name == 'Inmuebles')  {
+        this.gapush(
+          'send',
+          'event',
+          'Productos',
+          this.products.subcategory.name,
+          'ContactaPorWhatsappExitoso'
+        );
+    }
     if (window.location.href.includes('gt')) {
       phoneNumber = '502' + phoneNumber;
     } else {
