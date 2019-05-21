@@ -65,7 +65,7 @@
                   (updateProducts)="updateProductPurchased($event)"
                   [isProductPurchased]="true" [isProductSelling]="false" [showField]="false"
                   [product]="productPurchased"
-                  [ngClass]="productPurchased.referenceNumber ? 'referenceNumber' : ''"
+                  [ngClass]="productPurchased.reference_number ? 'referenceNumber' : ''"
                   [colourCompany]="productPurchased['seller_company_color']  ? productPurchased['seller_company_color'] : '#FF3646'" id="{{productPurchased.product_id}}">
                 </product>
               </div>
