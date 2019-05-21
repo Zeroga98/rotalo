@@ -189,7 +189,7 @@
       }
 
       li.menu-container {
-        margin-top: 2px;
+        margin-top: 0px;
         display: none;
 
         .menu {
@@ -204,14 +204,16 @@
             height: 18px;
             background: url(../../assets/img/iconos/ic_menu.svg) no-repeat;
             background-size: contain;
+            margin-top: 2px;
           }
 
           span.close {
             cursor: pointer;
-            width: 18px;
+            width: 17px;
             height: 18px;
             background: url(../../assets/img/iconos/ic_close.svg) no-repeat;
             background-size: contain;
+            margin-top: 0px;
           }
         }
       }
