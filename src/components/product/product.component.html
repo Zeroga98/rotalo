@@ -134,7 +134,7 @@
             {{product['seller_name']}}
         </div>
         <div class="btn-container">
-          <a mat-button>Ver detalle</a>
+          <a  [routerLink]="detailOrder" mat-button>Ver detalle</a>
         </div>
       </div>
       <div (click)="selectProduct($event)" *ngIf="showField && !isProductChecked" class="container-info-user">

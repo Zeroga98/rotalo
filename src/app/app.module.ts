@@ -339,7 +339,10 @@ import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order
     MyDatePickerModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
-    RouterModule.forRoot(appRouter),
+    /**componente inicio de la pagina**/
+    RouterModule.forRoot(appRouter , {
+      scrollPositionRestoration: 'enabled'
+    }),
     LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule,
     BarRatingModule,

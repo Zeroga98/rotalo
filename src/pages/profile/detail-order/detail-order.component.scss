@@ -1,6 +1,6 @@
 :host {
   width: 100%;
-  padding: 45px 5% 70px 2%;
+  padding: 45px 2% 70px 2%;
   position: relative;
   background-color: #FAFAFA;
   .detail-order {
@@ -122,9 +122,80 @@
       .detail-info {
         width: 40%;
         background-color: #FFFFFF;
+        padding: 27px;
+
+        .info-intro {
+          color: #595959;
+          font-size: 1.6rem;
+          margin-bottom: 35px;
+          span {
+            font-weight: bold;
+          }
+          p {
+            line-height: 25px;
+          }
+        }
+
+        ul {
+          padding: 0;
+          color: #595959;
+          font-size: 1.6rem;
+          margin-bottom: 35px;
+          li {
+            margin-bottom: 5px;
+          }
+          span {
+            font-weight: bold;
+          }
+        }
+
+        .row {
+          width: 100%;
+          .title {
+            width: 100%;
+            color: #414141;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+          }
+
+          .item {
+            display: flex;
+            .img {
+              position: relative;
+              margin-right: 20px;
+              margin-left: 10px;
+              width: 60px;
+              min-width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              background-color: blue;
+            //  background-color: #FAFAFA;
+              .location {
+                width: 30px;
+                height: 30px;
+                background: url(../../../assets/img/iconos/ic_map.svg);
+                background-size: contain;
+                margin: 0 auto;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+            }
+
+            .item-description {
+              color: #595959;
+              font-size: 1.6rem;
+            }
+
+          }
+
+
+
+        }
+
       }
-
-
 
     }
 

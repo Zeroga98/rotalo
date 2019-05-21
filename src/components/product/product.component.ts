@@ -61,7 +61,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public starSelected = false;
   private status = '';
   public numbersOrder = ['1', '2', '3', '4', '5'];
-
+  public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/WEbeOr8s190521110125000365`;
 
   constructor(
     public dialog: MatDialog,
@@ -485,6 +485,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         break;
     }
   }
+
 
 
 
