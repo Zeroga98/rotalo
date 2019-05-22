@@ -18,6 +18,7 @@
       display: flex;
       color:#707070;
       font-size: 1.6rem;
+      align-items: flex-start;
       .list-orders {
         width: 60%;
         padding: 15px 15px 0px 18px;
@@ -45,7 +46,7 @@
             min-width: 124px;
             height: 94.03px;
             margin-right: 16px;
-            background-color: blue;
+            background-color: #FAFAFA;
             border-radius: 5px;
             border: 1px solid #E3E3E3;
             img {
@@ -151,9 +152,10 @@
 
         .row {
           width: 100%;
+          margin-bottom: 20px;
           .title {
             width: 100%;
-            color: #414141;
+            color: #595959;
             font-size: 1.6rem;
             font-weight: bold;
             margin-bottom: 30px;
@@ -169,7 +171,7 @@
               min-width: 60px;
               height: 60px;
               border-radius: 50%;
-              background-color: blue;
+              background-color: #FAFAFA;
             //  background-color: #FAFAFA;
               .location {
                 width: 30px;
@@ -191,8 +193,37 @@
 
           }
 
+          .item-description{
+            div {
+              p {
+                margin-bottom: 5px;
+              }
+             
+            }
+          }
 
+        }
 
+        .logistic-info {
+          padding: 21px;
+          background-color: #edb0b514;
+          border: 1px solid #e5e5e514;
+          div {
+            margin-bottom: 10px;
+          }
+          p, a {
+            color: #414141;
+            font-size: 1.6rem;
+          }
+          a {
+            text-decoration: underline;
+          }
+          .company {
+            p {
+              color: #272727;
+              font-size: 1.6rem;
+            }
+          }
         }
 
       }
