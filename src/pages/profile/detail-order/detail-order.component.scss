@@ -245,4 +245,35 @@
 
   }
 
+  .info-label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .text-label {
+    color: #414141;
+    font-size: 1.6rem;
+  }
+
+  .icon-label {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .icon-shopping-car {
+    background: url(../../../assets/img/iconos/ic_local_shipping_24px.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .icon-watch {
+    background: url(../../../assets/img/iconos/ic_history_24px.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+
 }
