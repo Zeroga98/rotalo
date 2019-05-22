@@ -44,7 +44,7 @@
                 <a mat-button>Borrar filtros</a>
               </div>
               <div (click) = 'setFilter()' class="btn-container">
-                  <a mat-button class="primary">Filtrar</a>
+                  <button (keyup.enter)="setFilter()" mat-button class="primary">Filtrar</button>
               </div>
             </div>
         </div>
