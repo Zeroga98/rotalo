@@ -4,157 +4,148 @@
   </div>
   <div class="container">
     <div class="list-orders">
-      <div class="number-order">
-        <p><span>Órden #1916246315</span> - 18 de enero de 2019</p>
+      <div *ngIf="detailOrder">
+          <div class="number-order">
+              <p><span>Órden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
+            </div>
+
+            <ul *ngFor="let product of detailOrder.productos" class="order">
+              <li class="first">
+                <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb"></div>
+              </li>
+              <li>
+                <p>
+                  {{product.nombreProducto}}
+                </p>
+              </li>
+              <li>
+                <p>
+                  {{product.precioProducto  | currency:'$' | removeDigits}}
+                  x {{product.unidades}} unidad<span *ngIf="product.unidades > 1">es</span>
+                </p>
+              </li>
+              <li class="total-product">
+                <p>
+                  Total: {{product.totalProducto | currency:'$' | removeDigits}}
+                </p>
+              </li>
+
+            </ul>
+
+            <ul class="order-total">
+              <li class="first">
+                <div>Subtotal</div>
+                <div>IVA</div>
+              </li>
+              <li>
+              </li>
+              <li>
+              </li>
+              <li class="right">
+                <div>{{detailOrder.subtotalOrden  | currency:'$' | removeDigits}}</div>
+                <div>{{detailOrder.ivaOrden  | currency:'$' | removeDigits}}</div>
+              </li>
+              <div class="line"></div>
+            </ul>
+
+            <ul class="order-total sum">
+              <li class="first">
+                <div>TOTAL</div>
+              </li>
+              <li>
+              </li>
+              <li>
+              </li>
+              <li class="right">
+                <div class="total-price">{{detailOrder.totalOrden | currency:'$' | removeDigits}}</div>
+              </li>
+            </ul>
       </div>
-
-      <ul class="order">
-        <li class="first">
-          <img src="" alt="no foto">
-        </li>
-        <li>
-          <p>
-            Renault Duster 2014 con carnet
-          </p>
-        </li>
-        <li>
-          <p>
-            $25.000.000 x 1 unidad
-          </p>
-        </li>
-        <li class="total-product">
-          <p>
-            Total: 20.000
-          </p>
-        </li>
-
-      </ul>
-
-      <ul class="order">
-        <li class="first">
-          <img src="" alt="no foto">
-        </li>
-        <li>
-          <p>
-            Renault Duster 2014 con carnet
-          </p>
-        </li>
-        <li>
-          <p>
-            $25.000.000 x 1 unidad
-          </p>
-        </li>
-        <li class="total-product">
-          <p>
-            Total: 20.000
-          </p>
-        </li>
-
-      </ul>
-
-      <ul class="order-total">
-        <li class="first">
-          <div>Subtotal</div>
-          <div>IVA</div>
-        </li>
-        <li>
-        </li>
-        <li>
-        </li>
-        <li class="right">
-          <div>$60.000</div>
-          <div>$60.000</div>
-        </li>
-        <div class="line"></div>
-      </ul>
-
-      <ul class="order-total sum">
-        <li class="first">
-          <div>TOTAL</div>
-        </li>
-        <li>
-        </li>
-        <li>
-        </li>
-        <li class="right">
-          <div class="total-price">$70.000</div>
-        </li>
-      </ul>
-
     </div>
     <div class="detail-info">
-      <div class="info-intro">
-        <p>
-          <span>¡Genial! Tu pedido esta listo </span>para ser enviado, puede llegarte en un plazo máximo de 5 días hábiles.
-        </p>
-      </div>
-      <ul>
-        <li>
-          <p>
-            <span>Medio de pago:</span> Bancolombia
-          </p>
-        </li>
-        <li>
-          <p>
-            <span>Número de guía:</span> 10281haxsiya37
-          </p>
-        </li>
-      </ul>
-      <div class="row">
-        <div class="title">
-          Datos de envío
-        </div>
-        <div class="item">
-          <div class="img">
-            <div class="location"></div>
-          </div>
-          <div class="item-description">
-            <div>
-              <p>Calle 61 sur 4059</p> <p> Sabaneta - Antioquia</p>
+      <div *ngIf="detailOrder">
+          <div class="info-intro">
+              <p>
+                <span class = "strong">¡Genial! Tu pedido esta listo </span>para ser enviado, puede llegarte en un plazo máximo de 5 días hábiles.
+              </p>
             </div>
-            <div>
-              <p>Celular: 3052544715</p>
+            <ul>
+              <li>
+                <p>
+                  <span class = "strong">Medio de pago: </span>
+                  <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='CARD'">Tarjeta de Crédito</span>
+                  <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='NEQUI'">Nequi</span>
+                </p>
+              </li>
+              <li *ngIf="detailOrder.numeroGuia">
+                <p>
+                  <span class = "strong">Número de guía:</span> {{detailOrder.numeroGuia}}
+                </p>
+              </li>
+            </ul>
+            <div *ngIf="detailOrder.datosEnvio" class="row">
+              <div class="title">
+                Datos de envío
+              </div>
+              <div class="item">
+                <div class="img">
+                  <div class="location"></div>
+                </div>
+                <div class="item-description">
+                  <div>
+                    <p>{{detailOrder.datosEnvio.direccion}}</p>
+                    <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> - <span>{{detailOrder.datosEnvio.departamento}}</span></p>
+                  </div>
+                  <div>
+                    <p>Celular: <span>{{detailOrder.datosEnvio.celular}}</span></p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="title">
-          Datos de envío
-        </div>
-        <div class="item">
-          <div class="img">
-            <div class="user"></div>
-          </div>
-          <div class="item-description">
-            <div>
-              <p>Sergio Andrés Londoño</p> <a>Contactar</a>
+            <div *ngIf="user" class="row">
+              <div class="title">
+                Información del comprador
+              </div>
+              <div class="item">
+                <div class="img">
+                  <div class="user"></div>
+                </div>
+                <div class="item-description">
+                  <div>
+                    <p>Sergio Andrés Londoño</p> <a>Contactar</a>
+                  </div>
+                  <div>
+                    <p>Bancolombia - Rótalo</p>
+                  </div>
+                  <div>
+                    <p>dmejiac@rentingcolombia.com</p>
+                  </div>
+                  <div>
+                    <p>3187789009</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <p>Bancolombia - Rótalo</p>
+            <div class="contact">
+                <div class="icon-bank icon-label"></div>
+                <a>
+                    Contactar al vendedor
+                </a>
             </div>
-            <div>
-              <p>dmejiac@rentingcolombia.com</p>
+            <div class="logistic-info">
+                <div class="info-label">
+                    <div class="icon-label icon-shopping-car"></div>
+                    <div class="text-label">Envío incluido</div>
+                </div>
+                <div class="info-label">
+                    <div class="icon-label icon-watch"></div>
+                    <div class="text-label">Devoluciones aplican  <a href="">términos y condiciones.</a></div>
+                </div>
+                 <div class="company">
+                   <p>Empresa transportadora: Coordinadora. S.A</p>
+                   <p>Entrega hasta 5 días hábiles</p>
+                 </div>
             </div>
-            <div>
-              <p>3187789009</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="logistic-info">
-          <div class="info-label">
-              <div class="icon-label icon-shopping-car"></div>
-              <div class="text-label">Envío incluido</div>
-          </div>
-          <div class="info-label">
-              <div class="icon-label icon-watch"></div>
-              <div class="text-label">Devoluciones aplican  <a href="">términos y condiciones.</a></div>
-          </div>
-           <div class="company">
-             <p>Empresa transportadora: Coordinadora. S.A</p>
-             <p>Entrega hasta 5 días hábiles</p>
-           </div>
       </div>
     </div>
   </div>

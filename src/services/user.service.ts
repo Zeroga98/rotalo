@@ -77,6 +77,7 @@ export class UserService {
       .toPromise()
       .catch(err => console.error(err));
   }
+
   getInfomationUser(idUser) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);

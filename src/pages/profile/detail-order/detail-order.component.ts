@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-
+import { ProductsService } from '../../../services/products.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
+import { UserService } from '../../../services/user.service';
 @Component({
   selector: 'app-detail-order',
   templateUrl: './detail-order.component.html',
@@ -7,15 +10,54 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 })
 export class DetailOrderComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  public detailOrder;
+  public user;
+
+  constructor( private userService: UserService,
+    private actRoute: ActivatedRoute,
+    private productsService: ProductsService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.actRoute.params.subscribe((response) => {
+      console.log(response.id);
+      this.getDetailOrders(response.id);
+    });
+
   }
 
   ngAfterViewInit(): void {
+  }
 
-    /*document.body.scrollTop = 0;
-    document.querySelector('body').scrollTo(0,0)*/
+  getDetailOrders(reference) {
+    this.productsService.detailOrders(reference).subscribe((response) => {
+      if (response.body) {
+       this.detailOrder = response.body.detalleOrden;
+       console.log(this.detailOrder.userId );
+        this.getInfoUser(this.detailOrder.userId);
+      }
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  formatDate(date) {
+    const dateMoment: any = moment(date);
+    date = dateMoment.format('DD [de] MMMM [de] YYYY');
+    return date;
+  }
+
+  getUrlImge(photo) {
+    return ('url(' + photo.replace(/ /g, '%20')) + ')';
+  }
+
+  getInfoUser(userId) {
+    this.userService.getInfomationUser(userId).then((response) => {
+      this.user = response;
+      console.log(this.user);
+    }) .catch(httpErrorResponse => {
+      console.log(httpErrorResponse);
+    });
   }
 
 }

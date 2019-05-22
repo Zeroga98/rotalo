@@ -433,4 +433,12 @@ export class ProductsService {
     return this.paramsProductChecked.data = data;
   }
 
+  detailOrders(reference) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =
+      `${this.urlSapi}/ordenes/detalle/${reference}`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }

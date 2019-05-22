@@ -58,6 +58,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('locations')
       && !req.url.includes('envios-correos')
       && !req.url.includes('contactanos')
-      && !req.url.includes('ofertas');
+      && !req.url.includes('ofertas')
+      && !req.url.includes('detalle');
     }
 }
