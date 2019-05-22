@@ -123,7 +123,6 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
 
   setFilter() {
    this.resetPaginator () ;
-   this.name = this.name.replace(/\s/g, '');
    this.idNumber = this.idNumber.replace(/\s/g, '');
    this.email = this.email.replace(/\s/g, '');
    const email = this.email.replace('+', '$');
