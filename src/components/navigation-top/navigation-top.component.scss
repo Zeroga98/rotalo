@@ -145,7 +145,7 @@
         .noti-circle {
           position: absolute;
           top: 0px;
-          right: -25px;
+          right: -20px;
           margin-left: 5px;
           background-color: $blue;
           border-radius: 50%;
@@ -161,7 +161,7 @@
       }
 
       li:not(:last-child) {
-        margin-right: 2rem;
+        margin-right: 2.4rem;
       }
 
       li.car-container {
