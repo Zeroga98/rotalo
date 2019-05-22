@@ -70,6 +70,11 @@
               </p>
             </div>
             <ul>
+                <li>
+                    <p>
+                        <span class = "strong">Estado del pedido:</span> Aprobado
+                    </p>
+                  </li>
               <li>
                 <p>
                   <span class = "strong">Medio de pago: </span>
@@ -112,16 +117,19 @@
                 </div>
                 <div class="item-description">
                   <div>
-                    <p>Sergio Andrés Londoño</p> <a>Contactar</a>
+                    <p>{{user.name}}</p>
                   </div>
                   <div>
-                    <p>Bancolombia - Rótalo</p>
+                    <p *ngIf="user.company"><span>{{user.company.name}}</span> - <span>{{user.company.community.name}}</span></p>
                   </div>
                   <div>
-                    <p>dmejiac@rentingcolombia.com</p>
+                    <p>{{user.email}}</p>
                   </div>
                   <div>
-                    <p>3187789009</p>
+                    <p>{{user.cellphone}}</p>
+                  </div>
+                  <div>
+                      <a>Contactar</a>
                   </div>
                 </div>
               </div>
@@ -139,10 +147,10 @@
                 </div>
                 <div class="info-label">
                     <div class="icon-label icon-watch"></div>
-                    <div class="text-label">Devoluciones aplican  <a href="">términos y condiciones.</a></div>
+                    <div class="text-label">Devoluciones aplican  <a [routerLink]="terms" >términos y condiciones.</a></div>
                 </div>
                  <div class="company">
-                   <p>Empresa transportadora: Coordinadora. S.A</p>
+                   <p>Empresa transportadora: {{detailOrder.transportadora}}</p>
                    <p>Entrega hasta 5 días hábiles</p>
                  </div>
             </div>

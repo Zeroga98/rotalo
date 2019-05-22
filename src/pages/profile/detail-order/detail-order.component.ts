@@ -3,6 +3,7 @@ import { ProductsService } from '../../../services/products.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { UserService } from '../../../services/user.service';
+import { ROUTES } from '../../../router/routes';
 @Component({
   selector: 'app-detail-order',
   templateUrl: './detail-order.component.html',
@@ -12,6 +13,7 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
 
   public detailOrder;
   public user;
+  public terms = `/${ROUTES.TERMS}`;
 
   constructor( private userService: UserService,
     private actRoute: ActivatedRoute,
@@ -59,5 +61,7 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
       console.log(httpErrorResponse);
     });
   }
+
+
 
 }
