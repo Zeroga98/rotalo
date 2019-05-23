@@ -98,6 +98,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   public categorySelected;
   public maxValueNewPrice = 0;
   public numberOfPhotos = [1, 2, 3, 4, 5, 6];
+  public modalTermsIsOpen: boolean = false;
   @ViewChild('grid') grid: ElementRef;
   @ViewChildren('photosEnd') endForRender: QueryList<any>;
   items = [1, 2, 3, 4, 5];
@@ -196,11 +197,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-  get isColombia(){
+  get isColombia() {
     return this.countryId == 1;
   }
 
-  get isGuatemala(){
+  get isGuatemala() {
     return this.countryId == 9;
   }
 
@@ -227,6 +228,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   async publishPhoto(form) {
+
     this.setValidationVehicle();
     this.setValidationImmovable();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
@@ -1245,6 +1247,22 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       };
     });
     return order;
+  }
+
+  openTermsModal(): void {
+    this.modalTermsIsOpen = true;
+    }
+    
+  closeTermsModal() {
+    this.modalTermsIsOpen = false;
+  }
+  
+  acceptTerms(checkbox) {
+    this.photosForm.patchValue({
+    'termsCheckbox': true
+    });
+    // checkbox.checked = true;
+    this.closeTermsModal();
   }
 
 }

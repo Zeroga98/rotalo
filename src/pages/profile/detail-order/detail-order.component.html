@@ -1,159 +1,173 @@
 <div class="detail-order">
   <div class="breadcrumb">
-    <a>Artículos comprados y vendidos </a> <span>> Detalle de la orden</span>
+    <div>
+      <p *ngIf="!detailOrder" class="loading" [ngClass]="{'animate-loading': !detailOrder}"></p>
+      <p *ngIf="isOwnOrder && detailOrder">
+        <a [routerLink]="sold">Artículos comprados y vendidos </a> <span>> Detalle de la orden</span>
+      </p>
+      <p *ngIf="!isOwnOrder  && detailOrder">
+        <a [routerLink]="adminOrders">Órdenes tienda</a> <span>> Detalle de la orden</span>
+      </p>
+    </div>
   </div>
   <div class="container">
-    <div class="list-orders">
+    <div [ngClass]="{'animate-loading': !detailOrder}" class="list-orders">
       <div *ngIf="detailOrder">
-          <div class="number-order">
-              <p><span>Órden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
-            </div>
+        <div class="number-order">
+          <p><span>Órden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
+        </div>
+        <ul *ngFor="let product of detailOrder.productos" class="order">
+          <li class="first">
+            <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb"></div>
+          </li>
+          <div class="order-info">
+            <li>
+              <p>
+                {{product.nombreProducto}}
+              </p>
+            </li>
+            <li>
+              <p>
+                {{product.precioProducto  | currency:'$' | removeDigits}}
+                x {{product.unidades}} unidad<span *ngIf="product.unidades > 1">es</span>
+              </p>
+            </li>
+            <li class="total-product">
+              <p>
+                <span>Total:</span> {{product.totalProducto | currency:'$' | removeDigits}}
+              </p>
+            </li>
 
-            <ul *ngFor="let product of detailOrder.productos" class="order">
-              <li class="first">
-                <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb"></div>
-              </li>
-              <li>
-                <p>
-                  {{product.nombreProducto}}
-                </p>
-              </li>
-              <li>
-                <p>
-                  {{product.precioProducto  | currency:'$' | removeDigits}}
-                  x {{product.unidades}} unidad<span *ngIf="product.unidades > 1">es</span>
-                </p>
-              </li>
-              <li class="total-product">
-                <p>
-                  Total: {{product.totalProducto | currency:'$' | removeDigits}}
-                </p>
-              </li>
+          </div>
 
-            </ul>
 
-            <ul class="order-total">
-              <li class="first">
-                <div>Subtotal</div>
-                <div>IVA</div>
-              </li>
-              <li>
-              </li>
-              <li>
-              </li>
-              <li class="right">
-                <div>{{detailOrder.subtotalOrden  | currency:'$' | removeDigits}}</div>
-                <div>{{detailOrder.ivaOrden  | currency:'$' | removeDigits}}</div>
-              </li>
-              <div class="line"></div>
-            </ul>
+        </ul>
 
-            <ul class="order-total sum">
-              <li class="first">
-                <div>TOTAL</div>
-              </li>
-              <li>
-              </li>
-              <li>
-              </li>
-              <li class="right">
-                <div class="total-price">{{detailOrder.totalOrden | currency:'$' | removeDigits}}</div>
-              </li>
-            </ul>
+        <ul class="order-total">
+          <li class="first">
+            <div>Subtotal</div>
+            <div>IVA</div>
+          </li>
+          <li>
+          </li>
+          <li>
+          </li>
+          <li class="right">
+            <div>{{detailOrder.subtotalOrden  | currency:'$' | removeDigits}}</div>
+            <div>{{detailOrder.ivaOrden  | currency:'$' | removeDigits}}</div>
+          </li>
+          <div class="line"></div>
+        </ul>
+
+        <ul class="order-total sum">
+          <li class="first">
+            <div>TOTAL</div>
+          </li>
+          <li>
+          </li>
+          <li>
+          </li>
+          <li class="right">
+            <div class="total-price">{{detailOrder.totalOrden | currency:'$' | removeDigits}}</div>
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="detail-info">
+    <div [ngClass]="{'animate-loading': !detailOrder}" class="detail-info">
       <div *ngIf="detailOrder">
-          <div class="info-intro">
-              <p>
-                <span class = "strong">¡Genial! Tu pedido esta listo </span>para ser enviado, puede llegarte en un plazo máximo de 5 días hábiles.
-              </p>
+        <div  *ngIf="isOwnOrder" class="info-intro">
+          <p>
+            <span class="strong">¡Genial! Tu pedido esta listo </span>para ser enviado, puede llegarte en un plazo
+            máximo de 5 días hábiles.
+          </p>
+        </div>
+        <ul>
+          <li>
+            <p>
+              <span class="strong">Estado del pedido:</span> Aprobado
+            </p>
+          </li>
+          <li>
+            <p>
+              <span class="strong">Medio de pago: </span>
+              <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='CARD'">Tarjeta de Crédito</span>
+              <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='NEQUI'">Nequi</span>
+            </p>
+          </li>
+          <li *ngIf="detailOrder.numeroGuia">
+            <p>
+              <span class="strong">Número de guía:</span> {{detailOrder.numeroGuia}}
+            </p>
+          </li>
+        </ul>
+        <div *ngIf="detailOrder.datosEnvio" class="row">
+          <div class="title">
+            Datos de envío
+          </div>
+          <div class="item">
+            <div class="img">
+              <div class="location"></div>
             </div>
-            <ul>
-                <li>
-                    <p>
-                        <span class = "strong">Estado del pedido:</span> Aprobado
-                    </p>
-                  </li>
-              <li>
-                <p>
-                  <span class = "strong">Medio de pago: </span>
-                  <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='CARD'">Tarjeta de Crédito</span>
-                  <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='NEQUI'">Nequi</span>
-                </p>
-              </li>
-              <li *ngIf="detailOrder.numeroGuia">
-                <p>
-                  <span class = "strong">Número de guía:</span> {{detailOrder.numeroGuia}}
-                </p>
-              </li>
-            </ul>
-            <div *ngIf="detailOrder.datosEnvio" class="row">
-              <div class="title">
-                Datos de envío
+            <div class="item-description">
+              <div class="flex">
+                <p>{{detailOrder.datosEnvio.direccion}}</p>
+                <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> -
+                  <span>{{detailOrder.datosEnvio.departamento}}</span></p>
               </div>
-              <div class="item">
-                <div class="img">
-                  <div class="location"></div>
-                </div>
-                <div class="item-description">
-                  <div class="flex">
-                    <p>{{detailOrder.datosEnvio.direccion}}</p>
-                    <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> - <span>{{detailOrder.datosEnvio.departamento}}</span></p>
-                  </div>
-                  <div>
-                    <p>Celular: <span>{{detailOrder.datosEnvio.celular}}</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="user" class="row">
-              <div class="title">
-                Información del comprador
-              </div>
-              <div class="item">
-                <div class="img">
-                  <div class="user"></div>
-                </div>
-                <div class="item-description">
-                  <div>
-                    <p>{{user.name}}</p>
-                  </div>
-                  <div>
-                    <p *ngIf="user.company"><span>{{user.company.name}}</span> - <span>{{user.company.community.name}}</span></p>
-                  </div>
-                  <div>
-                    <p>{{user.email}}</p>
-                  </div>
-                  <div>
-                    <p>{{user.cellphone}}</p>
-                  </div>
-                  <div>
-                      <a>Contactar</a>
-                  </div>
-                </div>
+              <div>
+                <p>Celular: <span>{{detailOrder.datosEnvio.celular}}</span></p>
               </div>
             </div>
-            <div class="contact">
-                <div class="icon-bank icon-label"></div>
-                <a>
-                    Contactar al vendedor
-                </a>
+          </div>
+        </div>
+        <div  *ngIf="!isOwnOrder && user" class="row">
+          <div class="title">
+            Información del comprador
+          </div>
+          <div class="item">
+            <div class="img">
+              <div class="user"></div>
             </div>
-            <div class="logistic-info">
-                <div class="info-label">
-                    <div class="icon-label icon-shopping-car"></div>
-                    <div class="text-label">Envío incluido</div>
-                </div>
-                <div class="info-label">
-                    <div class="icon-label icon-watch"></div>
-                    <div class="text-label">Devoluciones aplican  <a [routerLink]="terms" >términos y condiciones.</a></div>
-                </div>
-                 <div class="company">
-                   <p>Empresa transportadora: {{detailOrder.transportadora}}</p>
-                   <p>Entrega hasta 5 días hábiles</p>
-                 </div>
+            <div class="item-description">
+              <div>
+                <p>{{user.name}}</p>
+              </div>
+              <div>
+                <p *ngIf="user.company"><span>{{user.company.name}}</span> -
+                  <span>{{user.company.community.name}}</span></p>
+              </div>
+              <div>
+                <p>{{user.email}}</p>
+              </div>
+              <div>
+                <p>{{user.cellphone}}</p>
+              </div>
+              <div>
+                <a>Contactar</a>
+              </div>
             </div>
+          </div>
+        </div>
+        <div *ngIf="isOwnOrder" class="contact">
+          <div class="icon-bank icon-label"></div>
+          <a>
+            Contactar al vendedor
+          </a>
+        </div>
+        <div class="logistic-info">
+          <div class="info-label">
+            <div class="icon-label icon-shopping-car"></div>
+            <div class="text-label">Envío incluido</div>
+          </div>
+          <div class="info-label">
+            <div class="icon-label icon-watch"></div>
+            <div class="text-label">Devoluciones aplican <a [routerLink]="terms">términos y condiciones.</a></div>
+          </div>
+          <div class="company">
+            <p>Empresa transportadora: {{detailOrder.transportadora}}</p>
+            <p>Entrega hasta 5 días hábiles</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -30,6 +30,7 @@ export class ProductsService {
   public filter = {};
   public currentFilter;
   public carObject;
+  public immovableObject;
 
   constructor(
     private http: HttpClient,
@@ -193,8 +194,6 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
-
-
   deleteProduct(params){
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -330,7 +329,8 @@ export class ProductsService {
     this.currentPage = currentPage;
   }
 
-  setProductLocationFilter(carObject, currentFilter, filter , products, name, currentPage) {
+  setProductLocationFilter(immovableObject, carObject, currentFilter, filter , products, name, currentPage) {
+    this.immovableObject = immovableObject;
     this.carObject = carObject;
     this.productsFilter = products;
     this.scrollFilter = name;
@@ -439,6 +439,20 @@ export class ProductsService {
     const url =
       `${this.urlSapi}/ordenes/detalle/${reference}`;
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  getProductsShop(id: number) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/tiendas/${id}/productos`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  setOrderProductsShop(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/tiendas/productos/ordenar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
 }

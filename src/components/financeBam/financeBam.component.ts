@@ -14,7 +14,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 })
 export class FinanceBamComponent implements OnInit {
   public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
-  public product: ProductInterface;
+  public product;
   private currentUser;
   public nameUser;
   public typeDocument;

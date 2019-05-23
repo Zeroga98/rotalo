@@ -180,7 +180,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { DragAndDropImgComponent } from '../components/drag-and-drop-img/drag-and-drop-img.component';
-import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule, MatButtonToggleModule } from '@angular/material';
+import { MatIconModule, MatDialog, MatDialogModule, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatMenuModule, MatToolbarModule, MatButtonToggleModule, MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatAutocompleteModule } from '@angular/material';
 import { DeleteConversationComponent } from '../components/chat-threads/delete-conversation/delete-conversation.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AdminCampaignComponent } from '../pages/profile/admin-campaign/admin-campaign.component';
@@ -202,6 +202,11 @@ import { ModalDeleteProductComponent } from '../components/modal-delete-product/
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { FilterService } from '../pages/filter-products/filter.service';
 import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order.component';
+import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
+import { CategoriesComponent } from '../pages/categories-page/categories.component';
+import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
+import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
+import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 
 @NgModule({
   declarations: [
@@ -327,6 +332,11 @@ import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order
     ModalDeleteProductComponent,
     FilterProductsComponent,
     DetailOrderComponent,
+    MenuMobileComponent,
+    CategoriesComponent,
+    AdminUsersComponent,
+    EditUsersComponent,
+    ProductsShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -356,7 +366,13 @@ import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order
     SortablejsModule,
     MatMenuModule,
     MatButtonToggleModule,
-    CountUpModule
+    CountUpModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatTabsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [
     UserService,

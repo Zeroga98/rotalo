@@ -1,0 +1,178 @@
+<div class="info-container">
+  <div class="tittle main-title">
+    <h1 class="text ">Edición de usuario</h1>
+  </div>
+
+
+  <div id="flashMessage" class="flashMessage">
+    <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
+      <p>
+        <span class="icon-check alert-icon"></span> {{messageChange}}</p>
+    </div>
+    <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
+      <ul>
+        <li>
+          <span>{{errorChange}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="container-form">
+    <form autocomplete='off' name="editUserForm" role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="form-theme">
+      <div class="material-design">
+        <div class="info-product">
+          <div class="row-section">
+            <div class="row">
+              <div class="form-group">
+                <label class="label-title">Nombre*</label>
+                <input formControlName="name" maxlength="400" type="text" class="form-control" name="name">
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+              <div class="form-group">
+                <label class="label-title">Cedula*</label>
+                <input
+                formControlName="id-number" type="text" class="form-control" maxlength="50"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                <span class="help-block">
+                  <span *ngIf="editProfileForm.get('id-number').invalid && !editProfileForm.get('id-number').pristine && !editProfileForm.get('id-number').errors['pattern']">
+                      Este campo es obligatorio.
+                  </span>
+                  <span *ngIf="editProfileForm.get('id-number').invalid && editProfileForm.get('id-number').errors['pattern']">
+                      El campo no cumple con el formato de documento.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label class="label-title">Celular*</label>
+                <input formControlName="cellphone" name="cellphone" type="text" class="form-control"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="15">
+
+                <span class="help-block">
+                  <span *ngIf="editProfileForm.get('cellphone').invalid && !editProfileForm.get('cellphone').pristine && !editProfileForm.get('cellphone').errors['pattern']">
+                      Este campo es obligatorio.
+                  </span>
+                  <span *ngIf="editProfileForm.get('cellphone').invalid && editProfileForm.get('cellphone').errors['pattern']">
+                      El campo no cumple con el formato de teléfono celular.
+                  </span>
+                </span>
+              </div>
+              <div class="form-group">
+                  <label class="label-title">Empresa*</label>
+                  <select name="company-id" class="company form-control"
+                    formControlName="company-id">
+                    <option value="" disabled></option>
+                    <option *ngFor="let company of companies" value="{{company.id}}">{{company.nombre}}</option>
+                  </select>
+                  <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                  <label class="label-title">País*</label>
+                  <select-country (change) = "changeCountry (country)" class="white-theme-select material-select" [initialValue]="countryValue" (selected)="country=$event; setValidationId(); setValidationDocument();"></select-country>
+
+              </div>
+              <div class="form-group">
+                  <label class="label-title">Departamento*</label>
+                  <select-states
+                  [ngClass]="{'invalid': errorState}"
+                  class="white-theme-select material-select" [initialValue]="stateValue" [country]="country" (selected)="state=$event; validateState()"></select-states>
+                  <span *ngIf="errorState" class="help-block">Este campo es requerido</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                  <label class="label-title">Ciudad*</label>
+                  <select-cities
+                  [ngClass]="{'invalid': errorCity}"
+                  class="white-theme-select material-select" [initialValue]="cityValue" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
+                  <span *ngIf="errorCity" class="help-block">Este campo es requerido</span>
+              </div>
+              <div class="form-group">
+                <label class="label-title">Email*</label>
+                <input
+                 autocomplete="off"
+                 formControlName="email" type="email" class="form-control"  maxlength="50">
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label class="label-title">Contraseña*</label>
+                <input
+                [ngClass]="!validPasswordLenght(editProfileForm.get('password').value) ?  'ng-touched ng-invalid': ''"
+                autocomplete="off"
+                formControlName="password"
+                autocomplete="new-password"
+                type="password" class="form-control" name="password">
+
+                <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('password').value)">
+                    El campo no cumple la longitud mínima.
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="label-title">Confirmar contraseña*</label>
+                <input
+                [ngClass]="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) || editProfileForm?.errors?.match ?  'ng-touched ng-invalid': ''"
+                autocomplete="off"
+                formControlName="confirmNewPassword"
+                autocomplete="new-password"
+                type="password" class="form-control" name="confirmNewPassword">
+
+                <span class="help-block" *ngIf="!validPasswordLenght(editProfileForm.get('confirmNewPassword').value) && !editProfileForm?.errors?.match">
+                    El campo no cumple la longitud mínima.
+                </span>
+                <span class="help-block" *ngIf="editProfileForm?.errors?.match">
+                    La contraseña de verificación no coincide.
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group full no-margin">
+                <div class="check-container" >
+                  <label for="id-system--1">Administrador de sistema</label>
+                  <div>
+                    <input formControlName="content-admin" type="checkbox" id="id-system--1" name="system"
+                      class="switch-input">
+                    <label for="id-system--1" class="switch-label"></label>
+                  </div>
+                </div>
+
+                <div class="check-container last">
+                  <label for="id-shop--1">Administrador de tienda</label>
+                  <div >
+                    <input formControlName="is-admin-store" type="checkbox" id="id-shop--1" name="shop"
+                      class="switch-input">
+                    <label for="id-shop--1" class="switch-label"></label>
+                  </div>
+                </div>
+
+                <div  id="shop-wrap" *ngIf="editProfileForm.get('is-admin-store').value && user && user.stores">
+                  <div *ngFor="let store of user.stores">
+                      <label class="material-checkbox container-check">
+                          <input
+                          [checked]="store.is_assigned_to_user"
+                           type="checkbox" id={{store.id}} name={{store.name}}>
+                          <span class="checkmark"></span>
+                      </label>
+                      <label class="check-text" for={{store.id}}>{{store.name}}</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+     <div class="button-container">
+        <a (click) = "onSubmit()" class="btn-red" mat-button>Guardar usuario</a>
+        <a (click) = "goBack()" class="btn-white" mat-button>Cancelar</a>
+     </div>
+    </form>
+  </div>
+</div>

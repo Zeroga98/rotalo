@@ -17,4 +17,54 @@
     cursor: pointer;
   }
 
+  .highlight{
+    font-weight: bold;
+  }
+
+  .span-store-purchase{
+    font-size: 1.6rem;
+    color: #272727;
+    display: flex;
+    margin: 5px;
+    margin-top: 0;
+  }
+
+  .detail-store-purchase{
+    font-size: 1.6rem;
+    color: #272727;
+    display: inline-table;
+    margin: 10px 0 10px 0;
+  }
+
+  .text-order-status{
+    font-size: 1.4rem;
+    display: flex;
+    margin: 5px;
+    display: block;
+  }
+
+  .text-order-approved{
+    color: #0FBBD8;
+  }
+
+  .text-order-declined{
+    color: #FF3646;
+  }
+
+  .border-dotted{
+    border-top: 1px dashed #D3E0E9;
+  }
+
+  .total{
+    font-size: 1.8rem;
+    color: #272727;
+  }
+
+  .store-old{
+    display: flex;
+  }
+
+  .price-18{
+    font-size: 1.8rem;
+  }
 }

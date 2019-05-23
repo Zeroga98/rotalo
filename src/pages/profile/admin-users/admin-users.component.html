@@ -1,0 +1,175 @@
+<div class="info-container">
+  <div class="tittle main-title">
+    <h1 class="text ">Administrador de usuarios</h1>
+  </div>
+
+  <div class="first-row">
+    <div class="filter-container">
+      <form autocomplete="off" class="form-theme">
+        <div class="material-design">
+          <label class="label-title bold">Filtar por</label>
+          <div class="row">
+              <div class="form-group half" data-input="name">
+                <label class="label-title">Nombre</label>
+                <input autocomplete="off"  class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name"
+                 >
+              </div>
+              <div class="form-group half" data-input="idNumber">
+                <label class="label-title">N° documento</label>
+                <input autocomplete="off"  class="form-control" type="text" id="idNumberId" [(ngModel)]="idNumber" name="idNumber"
+                 >
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group half" data-input="since">
+                <label class="label-title">Desde</label>
+                <input autocomplete="off"  placeholder="dd/mm/aaaa" class="form-control" type="text" id="since" [(ngModel)]="since" name="since"
+                 >
+              </div>
+              <div class="form-group half" data-input="until">
+                <label class="label-title">Hasta</label>
+                <input autocomplete="off"  placeholder="dd/mm/aaaa" class="form-control" type="text" id="untilId" [(ngModel)]="until" name="until"
+                 >
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group full" data-input="email">
+                <label class="label-title">Correo electrónico</label>
+                <input autocomplete="new-password"   class="form-control" type="text" id="email" [(ngModel)]="email" name="email"
+                 >
+              </div>
+          </div>
+          <div class="row justify">
+              <div (click) ="removeFilter()" class="btn-container">
+                <a mat-button>Borrar filtros</a>
+              </div>
+              <div (click) = 'setFilter()' class="btn-container">
+                  <button (keyup.enter)="setFilter()" mat-button class="primary">Filtrar</button>
+              </div>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
+    <mat-tab label="Activos">
+    </mat-tab>
+    <mat-tab label="Inactivos"></mat-tab>
+    <mat-tab label="Administradores"></mat-tab>
+  </mat-tab-group>
+
+  <div class="material-design table">
+
+    <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.id}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.name}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cédula</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.idNumber}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.email}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="lastSignInAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Último ingreso</th>
+        <td mat-cell *matCellDef="let user">
+          <p>
+            {{getFormatDate(user.lastSignInAt)}}
+          </p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="signInCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº Ingresos</th>
+        <td mat-cell *matCellDef="let user">
+          <p>
+            {{user.signInCount}}
+          </p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha registro</th>
+        <td mat-cell *matCellDef="let user">
+          <p>
+            {{getFormatDate(user.createdAt)}}
+          </p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="deletedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha inactivado</th>
+        <td mat-cell *matCellDef="let user">
+          <p *ngIf="user.deletedAt">
+            {{getFormatDate(user.deletedAt)}}
+          </p>
+          <p *ngIf="!user.deletedAt">
+            N/A
+          </p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciudad</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.city.name}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>País</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.city.state.country.name}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
+        <td mat-cell *matCellDef="let user">
+          <p>{{user.company.name}}</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="contentAdmin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Administrador</th>
+        <td mat-cell *matCellDef="let user">
+          <p *ngIf="user.contentAdmin">Sí</p>
+          <p *ngIf="!user.contentAdmin">No</p>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let user">
+          <div class="switch-container">
+            <input (change)="changeStatus(user.status, user.id)" id="id-{{user.id}}" type="checkbox"
+              [checked]="user.status" name="status" class="switch-input">
+            <label for="id-{{user.id}}" class="switch-label"></label>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let user">
+          <a [routerLink]="getUrlUser(user.id)" >Editar</a>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+    </table>
+  </div>
+  <mat-paginator
+  #paginator
+  (page)="getPaginatorData($event)"
+  [length]="totalUsers" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="currentFilter['size']">
+  </mat-paginator>
+</div>
+

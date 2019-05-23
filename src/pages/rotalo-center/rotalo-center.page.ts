@@ -5,6 +5,7 @@ import { ResumeRotaloCenterService } from '../../services/resume-rotalo-center.s
 import { CurrentSessionService } from '../../services/current-session.service';
 import { HostListener } from '@angular/core';
 import { NavigationService } from '../products/navigation.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'rotalo-center',
@@ -22,11 +23,13 @@ export class RotaloCenterPage implements OnInit  {
   public infoRotalo = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
   public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
+  public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
+  public productShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`;
   public screenHeight;
   public screenWidth;
   public showMenu: boolean = true;
   public messagesUnRead: number = 0;
-
+  public currentUser;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -40,6 +43,7 @@ export class RotaloCenterPage implements OnInit  {
   constructor(public router: Router,
     private navigationService: NavigationService,
     private activatedRoute: ActivatedRoute,
+    private userService: UserService,
     private currentSessionSevice: CurrentSessionService
     ) {
     this.onResize();
@@ -53,15 +57,16 @@ export class RotaloCenterPage implements OnInit  {
     if (this.screenWidth <= 700) {
       if (currentPage === `/${ROUTES.ROTALOCENTER}`) {
         this.showMenu = true;
-      }else {
+      } else {
         this.showMenu = false;
       }
-    }else {
+    } else {
       this.showMenu = true;
     }
   }
 
   ngOnInit() {
+    this.getInfoUser();
   }
 
   get messageAvailable(): boolean {
@@ -85,6 +90,11 @@ export class RotaloCenterPage implements OnInit  {
       return true;
     }
     return false;
+  }
+
+  async getInfoUser() {
+    const user = await this.userService.getInfoUser();
+    this.currentUser = user;
   }
 
 }

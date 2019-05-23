@@ -1200,7 +1200,24 @@ image-upload {
 
   label {
     color: #383838;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+  }
+}
+
+.tool-tip-whatsapp {
+  border-radius: 17px;
+  background-color: rgba(75, 40, 120, .14);
+  max-width: 313px;
+  padding: 15px 15px;
+  vertical-align: top;
+  transition: opacity 1s ease-out;
+  position: relative;
+  top: 0px;
+  right: 5px;
+
+  label {
+    color: #383838;
+    font-size: 1.4rem;
   }
 }
 
@@ -1220,6 +1237,11 @@ image-upload {
   font-family: 'Lato Regular';
 }
 
+.label-link, .label-link:visited{
+  text-decoration: underline;
+  cursor: pointer;
+  color: #383838;
+}
 
 @media screen and (max-width: 1290px) {
   .grid,

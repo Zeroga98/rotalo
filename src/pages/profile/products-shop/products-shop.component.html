@@ -1,0 +1,91 @@
+<div class="info-container">
+  <div class="tittle main-title">
+    <h1 class="text ">Productos tienda</h1>
+  </div>
+
+  <div id="flashMessage" class="flashMessage">
+    <div *ngIf="messageChange && !errorChange" class="alert alert-success text--center" role="success">
+      <p>
+        <span class="icon-check alert-icon"></span> {{messageChange}}</p>
+    </div>
+    <div *ngIf="errorChange && !messageChange" class="alert alert-danger" role="alert">
+      <ul>
+        <li>
+          <span>{{errorChange}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
+    <mat-tab label="Activos">
+    </mat-tab>
+    <mat-tab label="Inactivos"></mat-tab>
+  </mat-tab-group>
+
+  <div *ngIf="productos && productos.length > 0" class="tabla-campaign">
+      <table id="campaigns-wrap" class="campaigns">
+        <tr>
+          <th>Foto</th>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Precio + IVA</th>
+          <th>IVA</th>
+          <th>Fecha de publicación</th>
+          <th>Unidades</th>
+          <th>Estado</th>
+          <th class="table-no-border"></th>
+        </tr>
+        <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
+        class="grid">
+            <tr id = {{product.id}}  *ngFor="let product of  productos">
+                <td>
+                  <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+                </td>
+                <td>
+                  <a class = "link-product" [routerLink]="getUrlProductDetail(product.id)" >{{product.id}}</a>
+                </td>
+                <td>
+                  {{product.name}}
+                </td>
+                <td>
+                  {{product.description}}
+                </td>
+                <td>
+                  {{product.price | currency:'$' | removeDigits}}
+                </td>
+                <td>
+                  {{calculateIVA(product.price) | currency:'$' | removeDigits}}
+                </td>
+                <td>
+                  %19
+                </td>
+                <td>
+                  {{getFormatDate(product['published-at'])}}
+                </td>
+                <td>
+                  {{product.stock}}
+                </td>
+                <td>
+                    <div class="switch-container">
+                        <input #status type="checkbox"
+                        [checked]="product.status == 'active' ? true : false"
+                        id="id-name--{{product.id}}" name="state" class="switch-input"
+                        (change)="saveCheck(status, product.id)">
+                        <label for="id-name--{{product.id}}" class="switch-label"></label>
+                    </div>
+                </td>
+                <td>
+                  <a [routerLink]="getUrlProduct(product.id)" >Editar</a>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="productos && productos.length > 0 && statusTab == 0" class="button-container">
+      <a (click) = "onSubmit()" class="btn-red" mat-button>Guardar cambios</a>
+      <a (click) = "goBack()" class="btn-white" mat-button>Cancelar</a>
+   </div>
+</div>

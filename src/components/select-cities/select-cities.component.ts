@@ -44,7 +44,7 @@ export class SelectCitiesComponent implements OnChanges {
         } else {
           this.setInitialValuesCities();
         }
-    }else {
+    } else {
       this.setInitialValuesCities();
       this.cities = [];
     }

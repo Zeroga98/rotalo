@@ -1,12 +1,17 @@
+<div class="container-terms">
+    <h2 class="title">¡Hay una nueva versión de términos y condiciones!</h2>
+    <h3>Lee y acepta para continuar:</h3>
+</div>
+
 <mat-dialog-content>
 <div>
   <div class="modal-container">
-    <terms></terms>
+    <terms [showTitle] = "false"></terms>
   </div>
 </div>
-<div class="btn-container">
-  <button (click) ="save()" mat-flat-button color="primary">Aceptar</button>
-</div>
 </mat-dialog-content>
+<div class="btn-container">
+  <button (click) ="save()" mat-flat-button color="primary">Acepto</button>
+</div>
 
 

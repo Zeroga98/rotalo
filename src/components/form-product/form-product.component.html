@@ -24,7 +24,7 @@
                 <select name="category-id" class="category form-control"
                   (change)="selectedComunity($event.target.value)" (click)="resetPromo()" #categorySelect
                   formControlName="category">
-                  <option value="" selected="true" disabled></option>
+                  <option value=""  disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                 </select>
                 <label class="label-title">Categoría*</label>
@@ -211,7 +211,7 @@
                       <input type="checkbox" id="checkTerms" name="negotiable" formControlName="negotiable" checked>
                       <span class="checkmark"></span>
                     </label>
-                    <span class="check-label">Recibo ofertas</span>
+                    <span class="check-label">Recibe ofertas</span>
                   </div>
                 </div>
               </div>
@@ -646,10 +646,10 @@
                   </div>
               </div>
               <div class="form-group">
-                <div class="tool-tip">
+                <div class="tool-tip-whatsapp">
                   <label>
-                    Al aceptar que se comuniquen contigo por WhatsApp, estás de acuerdo con nuestros términos y
-                    condiciones.
+                    Al aceptar, estás de acuerdo con nuestros <label class="label-link" (click)="openTermsModal()">Términos y Condiciones.</label>
+Tu número de contacto será expuesto públicamente y podría ser compartido con usuarios fuera de RÓTALO.
                   </label>
                 </div>
               </div>
@@ -680,5 +680,6 @@
       <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit"
         [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
     </div>
+    <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
   </form>
 </div>

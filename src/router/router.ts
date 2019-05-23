@@ -51,6 +51,11 @@ import { NotificationsMobileComponent } from '../pages/notifications-mobile/noti
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order.component';
+import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
+import { CategoriesComponent } from '../pages/categories-page/categories.component';
+import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
+import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
+import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -93,6 +98,9 @@ export const appRouter: Routes = [
       {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
       {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.DETAILORDERS}/:id`, component: DetailOrderComponent},
+      {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
@@ -166,6 +174,10 @@ export const appRouter: Routes = [
         component: NotificationsMobileComponent,
       },
       {
+        path: ROUTES.PRODUCTS.MOBILEMENU,
+        component: MenuMobileComponent,
+      },
+      {
         path: ROUTES.MICROSITE.LINK,
         canActivate: [AuthGuardService],
         children: [
@@ -200,6 +212,10 @@ export const appRouter: Routes = [
             pathMatch: 'full'
           }
         ]
+      },
+      {
+        path: ROUTES.PRODUCTS.CATEGORIES,
+        component: CategoriesComponent,
       },
       {
         path: '',

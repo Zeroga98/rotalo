@@ -1,4 +1,4 @@
-<div class="md-overlay-promo"></div>
+<div (click) = "openSearch()"  [ngClass]="showSearchMobile ?  'show ': '' " class="md-overlay-promo"></div>
 <nav>
   <div class="container">
     <div class="navbar-header material-design form-theme">
@@ -9,15 +9,23 @@
           <h1 class="sr-only">rótalo</h1>
         </a>
         <div class="search-container desktop">
+
           <form (ngSubmit)="onSubmitSearch()">
-            <input [(ngModel)]="tags" class="form-control" type="text" name="search">
+            <input
+            [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
             <button class="button-search" type="submit">
               <div class="search-icon">
               </div>
             </button>
           </form>
-        </div>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+              <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
+              <span class="suggestion">{{suggestion.suggestion}}</span>
+            </mat-option>
+          </mat-autocomplete>
 
+        </div>
       </div>
       <div class="divisor-right">
         <ul class="list-options">
@@ -28,40 +36,51 @@
               </span>
             </a>
           </li>
-<!--           <li *ngIf="showOptions" class="desktop">
-            <div class="toolbar__filters">
-              <div class="select-community">
-                <select name="community" (change)="changeSelectComunidad($event)">
-                  <option selected value disabled>Comunidades</option>
-                  <option value="-1">Todas</option>
-                  <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-                </select>
-              </div>
-            </div>
-          </li> -->
-          <li class="gtmCentroRotalo rotalo-center">
-            <a (click)="initScrollProduct()" [routerLink]="rotaloCenter" [ngClass]="{active: isActive('rotalo-center')}">
-              <span class="gtmCentroRotalo text-rotalo">
-                Centro Rótalo
-                <span *ngIf="messageAvailable" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-              <span class="gtmCentroRotalo icon-rotalo">
-                <span *ngIf="messagesUnRead && messagesUnRead > 0" class="noti-circle">{{messagesUnRead}}</span>
-              </span>
-            </a>
+
+          <li class="desktop">
+              <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
+                <span>
+                  ¡Hola <span *ngIf="userName">{{userName}}!</span>
+                </span>
+              </a>
+              <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
+                <div class="menu-usuario">
+                  <div *ngIf="userEdit" class="info">
+                    <div class="photo-container">
+                      <div [routerLink]="profileShow" class="photo clickable">
+                        <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
+                        <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="imagen-perfil">
+                      </div>
+                      <div class="user-info">
+                        <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
+                        <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
+                        <div  *ngIf="userEdit.calificacionGeneral" class="ranking">
+                            <span class="star star-full">
+                            </span>
+                            <span> {{userEdit.calificacionGeneral}}
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button routerLinkActive="active" [routerLink]="message" mat-menu-item>Mensajes</button>
+                  <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
+                  <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
+                  <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
+                  <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
+                  <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>Destacados</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>Pre-registro</button>
+                  <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>Órdenes tienda</button>
+                  <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="productShop" mat-menu-item>Productos tienda</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>Campañas</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>Banners home</button>
+                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="users" mat-menu-item>Usuarios</button>
+                  <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
+                </div>
+              </mat-menu>
           </li>
-          <li class="perfil-container gtmPerfil">
-            <div [ngClass]="{active: isActive('profile')}" (click)="onActivateMenu()" class="container-perfil">
-              <span class="gtmPerfil icon-account-header">
-              </span>
-              <p>Perfil</p>
-              <span *ngIf="hobbyNotification" class="noti-circle">1</span>
-            </div>
-            <div [ngClass]="{'dropdown-menu--show': showDropdownMenu}" class="dropdown-menu">
-              <button (click)="onActivateMenu(); initScrollProduct()" [routerLink]="rotaloProfile" class="dropdown-item">Perfil</button>
-              <button (click)="onLogout()" routerLink="/login" class="dropdown-item">Cerrar Sesión</button>
-            </div>
-          </li>
+
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
@@ -71,12 +90,20 @@
             </div>
           </li>
 
+          <li  (click) = "openSearch()" class="mobile-search bell-container">
+              <div class="container-bell">
+                <span class="search-icon-dark">
+                </span>
+              </div>
+          </li>
+
           <li (click)="goToNotifications();" class="mobile-notification bell-container">
             <div class="container-bell">
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
           </li>
+
           <li class="desktop-notification bell-container">
             <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="container-bell">
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
@@ -87,13 +114,24 @@
             </mat-menu>
           </li>
 
+          <li class="mobile-notification menu-container">
+              <div *ngIf="!hideMenuIcon()" (click) = "goToMenu()" class="menu">
+                <span>
+                </span>
+              </div>
+              <div *ngIf="hideMenuIcon()" (click) = "goBack()" class="menu">
+                  <span class="close">
+                  </span>
+                </div>
+          </li>
+
         </ul>
-        <div  id="upload-offer" class="flexbox center-center">
-          <div [ngClass]="isBancolombiaShop?  'disabled': '' " class="container-offer">
+        <div  id="upload-offer" class="flexbox center-center centrado" [ngClass]="isAtUploadOffer?  'hidden': '' ">
+          <div [ngClass]="isBancolombiaShop?  'disabled hidden': '' " class="container-offer">
             <a (click)="initScrollProduct(); goToUploadProduct()" class="upload-offer-button">
               <div class="gtmSubeTuOferta outside-circle">
                 <div class="gtmSubeTuOferta inside-circle">
-                  <span>+</span>
+                  <span></span>
                 </div>
                 <label class="gtmSubeTuOferta">Subir oferta</label>
               </div>
@@ -106,41 +144,25 @@
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
   <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
     (closeMenu)="_closeMenu()"></categories-menu>
-</nav>
-<div class="navbar-header material-design form-theme toolbar">
-  <div class="toolbar-container">
-    <div class="divisor-left">
-      <div class="search-container">
-        <form (ngSubmit)="onSubmitSearch()">
-          <input [(ngModel)]="tags" class="form-control" type="text" name="search">
-          <button class="button-search" type="submit">
-            <div class="search-icon">
-            </div>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="divisor-right mobile">
-      <ul class="list-options">
-<!--         <li>
-          <div class="toolbar__filters">
-            <div class="select-community">
-              <select name="community" (change)="changeSelectComunidad($event)">
-                <option selected value disabled>Comunidades</option>
-                <option value="-1">Todas</option>
-                <option *ngFor="let community of communities" value="{{community.id}}">{{community.nombre}}
-              </select>
-            </div>
-          </div>
-        </li> -->
-        <li>
-          <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
-            <span>
-              Categorías
-            </span>
-          </a>
-        </li>
-      </ul>
+
+  <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
+    <div class="search-container-mobile" >
+        <div (click) = "openSearch()" class="back-arrow"></div>
+        <form class="form-theme" (ngSubmit)="onSubmitSearch()">
+            <input
+            placeholder="¿Qué estás buscando?"
+            [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
+            <button  class="button-search" type="submit">
+              <div class=" search-icon-dark">
+              </div>
+            </button>
+          </form>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option (click) = "goToCategory(suggestion); showSearchMobile = false" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
+                <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
+              <span class="suggestion">{{suggestion.suggestion}}</span>
+              </mat-option>
+          </mat-autocomplete>
     </div>
   </div>
-</div>
+</nav>

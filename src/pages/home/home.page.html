@@ -165,10 +165,15 @@
       <div class="img-send">
       </div>
       <div class="text-container">
-        <p>¡Genial! Ya estás a un paso de hacer parte de esta comunidad. Revisa tu bandeja de entrada, te acabamos de enviar un correo electrónico para que confirmes tu registro</p>
+        <div class="reenviar-correo">
+          <div class="title"><strong>¡Revisa tu correo!</strong></div>
+          <br>
+          <div>Acabamos de enviar la activación de tu cuenta a <strong>{{userEmail}}</strong></div>
+          <div>Si no lo ves, verifica tu Correo No Deseado.</div>
+        </div>
       </div>
       <div class="btn-container">
-        <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el correo"></custom-button>
+        <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el email"></custom-button>
       </div>
       <div *ngIf="showMessageEmail" class="success-message">
         <span class="icon-check">

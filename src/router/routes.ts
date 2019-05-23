@@ -30,7 +30,9 @@ export const ROUTES = {
         ERROR: 'error',
         PROMO: 'promo',
         MOBILENOTIFICATIONS: 'mobile_notification',
-        FILTERS: 'filter'
+        MOBILEMENU: 'mobile_menu',
+        FILTERS: 'filter',
+        CATEGORIES: 'categories',
     },
     MENUROTALOCENTER: {
         INFOROTALOCENTER: 'info-rotalo-center',
@@ -47,6 +49,9 @@ export const ROUTES = {
         UPLOAD: 'upload-campaign',
         BANNER: 'admin-banners',
         DETAILORDERS: 'detail-orders',
+        ADMINUSERS: 'admin-users',
+        EDITUSERS: 'edit-users',
+        PRODUCTSSHOP: 'products-shop',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

@@ -1,4 +1,7 @@
 <div *ngIf="!isGuatemala">
+    <div *ngIf="showTitle" class="container-terms">
+        <h2 class="title">TÉRMINOS Y CONDICIONES PARA USUARIOS RÓTALO</h2>
+    </div>
     <div [innerHtml]="terms">
     </div>
 </div>

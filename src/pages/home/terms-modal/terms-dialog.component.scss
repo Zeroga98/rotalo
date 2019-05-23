@@ -1,5 +1,16 @@
 :host {
 
+  .container-terms {
+    margin-bottom: 20px;
+    .title {
+      margin: 0.5rem 0;
+    }
+    h3 {
+      font-weight: normal;
+    }
+  }
+
+
   .modal-container {
     min-height: 500px;
   }
@@ -249,6 +260,21 @@
       margin-bottom: 20px;
     }
   }
+
+  .mat-dialog-content::-webkit-scrollbar {
+    transition: all 0.5s;
+    width: 5px;
+    height: 1px;
+    z-index: 10;
+  }
+  .mat-dialog-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .mat-dialog-content::-webkit-scrollbar-thumb {
+    background: #b3ada7;
+  }
+
+
 }
 
 @media screen and (max-width: 648px) {
@@ -277,5 +303,25 @@
       height: 0;
     }
 
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .container-terms {
+    .title, h3 {
+      font-size: 1.8rem;
+    }
+  }
+
+}
+
+@media screen and (max-width:900px) {
+  :host {
+    .container-terms {
+      margin-bottom: 10px;
+    }
+  }
+  .mat-dialog-content {
+    max-height: 40vh;
   }
 }

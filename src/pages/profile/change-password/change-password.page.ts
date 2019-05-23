@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { ChangePasswordService } from '../../../services/profile/changePassword.service';
 
 function passwordMatcher(c: AbstractControl): {[key: string]: boolean} | null {
-  let newPassword = c.get('newPassword');
-  let confirmNewPassword = c.get('confirmNewPassword');
+  const newPassword = c.get('newPassword');
+  const confirmNewPassword = c.get('confirmNewPassword');
   if (newPassword.pristine || confirmNewPassword.pristine) {
     return null;
   }

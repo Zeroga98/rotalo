@@ -40,6 +40,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
   }
 
   async getStates() {
+
     this.updateDefaultOption();
     if (this.country && this.country.id) {
       this.currentState = '';
@@ -50,13 +51,13 @@ export class SelectStatesComponent implements OnChanges, OnInit {
           const id = this.initialValue.id;
           this.currentState = id;
           this.selected.emit({ name, id });
-        }else {
+        } else {
           const name = '';
           const id = '';
           this.currentState = '';
           this.selected.emit({ name, id });
         }
-      }else {
+      } else {
         const name = '';
         const id = '';
         this.currentState = '';
@@ -85,7 +86,7 @@ export class SelectStatesComponent implements OnChanges, OnInit {
     if (this.country && this.country.id) {
       if (this.country.id == 1) {
         this.defaultOption = options[this.country.id];
-      }else {
+      } else {
         this.defaultOption = options[0];
       }
     } else {

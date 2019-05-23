@@ -82,6 +82,17 @@
   }
 }
 
+.sg-vertical-sub-menu-user +* .mat-menu-panel  {
+  max-width: 324px !important;
+  min-width: 324px !important;
+  overflow: hidden !important;
+}
+
+.sg-vertical-sub-menu-user +* .cdk-overlay-pane {
+  padding-top: 15px;
+}
+
+
 .sg-vertical-sub-menu+* .mat-menu-panel  {
   max-width: 490px !important;
   min-width: 490px !important;
@@ -113,6 +124,10 @@
   transition: all 0.2s ease;
   width: 100%;
   padding: 1.5rem 0 0;
+}
+
+.notification.clear-padding{
+  padding: 0;
 }
 
 .notification-img {
