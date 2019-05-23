@@ -1,14 +1,21 @@
 :host {
-  width: 100%;
+  width: 60%;
   padding: 45px 5% 70px 2%;
   position: relative;
   background-color: #FAFAFA;
+
+  .flex {
+    display: flex;
+  }
+
   .detail-order {
     width: 100%;
+
     .breadcrumb {
-      color:#383838;
+      color: #383838;
       font-size: 2.0rem;
       margin-bottom: 40px;
+
       span {
         font-weight: bold;
       }
@@ -16,20 +23,24 @@
 
     .container {
       display: flex;
-      color:#707070;
+      color: #707070;
       font-size: 1.6rem;
       align-items: flex-start;
+
       .list-orders {
         width: 60%;
         padding: 15px 15px 0px 18px;
         background-color: #FFFFFF;
         margin-right: 19px;
         min-height: 422px;
+
         .number-order {
           margin-bottom: 26px;
+
           p {
             color: #272727;
             font-size: 1.8rem;
+
             span {
               font-weight: bold;
             }
@@ -42,11 +53,12 @@
           border-bottom: 1px dashed #E5E5E5;
           padding-bottom: 23px;
           margin-top: 15px;
+
           .first {
 
             .thumb {
               background-color: #E3E3E3;
-             // background-image: url('http://www.google.com/images/logos/ps_logo2.png');
+              // background-image: url('http://www.google.com/images/logos/ps_logo2.png');
               background-position: center center;
               background-repeat: no-repeat;
               border: 1px solid #E3E3E3;
@@ -67,7 +79,7 @@
             }
           }
 
-          .first ~ li {
+          .first~li {
             width: 28%;
             padding: 20px 10px;
           }
@@ -86,6 +98,7 @@
           display: flex;
           margin-top: 30px;
           position: relative;
+
           .first {
             width: 124px;
             min-width: 124px;
@@ -93,7 +106,7 @@
             margin-right: 16px;
           }
 
-          .first ~ li {
+          .first~li {
             width: 28%;
             padding: 0px 10px;
           }
@@ -101,6 +114,7 @@
           li {
             color: #707070;
             font-size: 1.8rem;
+
             div {
               margin: 10px 0;
             }
@@ -123,10 +137,11 @@
           margin: 0;
 
           li {
-           font-weight: bold;
-           color: #414141;
+            font-weight: bold;
+            color: #414141;
+
             .total-price {
-             color: #FF3646;
+              color: #FF3646;
             }
           }
         }
@@ -142,9 +157,11 @@
           color: #595959;
           font-size: 1.6rem;
           margin-bottom: 35px;
+
           .strong {
             font-weight: bold;
           }
+
           p {
             line-height: 25px;
           }
@@ -155,9 +172,11 @@
           color: #595959;
           font-size: 1.6rem;
           margin-bottom: 35px;
+
           li {
             margin-bottom: 5px;
           }
+
           .strong {
             font-weight: bold;
           }
@@ -166,6 +185,7 @@
         .row {
           width: 100%;
           margin-bottom: 20px;
+
           .title {
             width: 100%;
             color: #595959;
@@ -176,6 +196,7 @@
 
           .item {
             display: flex;
+
             .img {
               position: relative;
               margin-right: 20px;
@@ -185,7 +206,8 @@
               height: 60px;
               border-radius: 50%;
               background-color: #FAFAFA;
-            //  background-color: #FAFAFA;
+
+              //  background-color: #FAFAFA;
               .location {
                 width: 25px;
                 height: 25px;
@@ -215,6 +237,8 @@
             .item-description {
               color: #595959;
               font-size: 1.6rem;
+              width: 65%;
+              word-wrap: break-word;
             }
 
             a {
@@ -224,7 +248,7 @@
 
           }
 
-          .item-description{
+          .item-description {
             div {
               p {
                 margin-bottom: 5px;
@@ -239,16 +263,21 @@
           padding: 21px;
           background-color: #edb0b514;
           border: 1px solid #e5e5e514;
+
           div {
             margin-bottom: 10px;
           }
-          p, a {
+
+          p,
+          a {
             color: #414141;
             font-size: 1.6rem;
           }
+
           a {
             text-decoration: underline;
           }
+
           .company {
             p {
               color: #272727;
@@ -265,6 +294,7 @@
 
   .contact {
     display: flex;
+
     a {
       font-weight: bold;
       font-size: 1.6rem;
@@ -312,4 +342,19 @@
 
 
 
+}
+
+
+@media screen and (max-width: 1280px) {
+  :host {
+    .detail-order .container {
+      flex-direction: column;
+    }
+
+    .detail-order .container .list-orders, .detail-order .container .detail-info {
+      width: 100%;
+      margin: 0px;
+    }
+
+  }
 }
