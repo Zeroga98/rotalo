@@ -18,7 +18,7 @@
         </div>
         <ul *ngFor="let product of detailOrder.productos" class="order">
           <li class="first">
-            <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb"></div>
+            <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb cover"></div>
           </li>
           <div class="order-info">
             <li>
