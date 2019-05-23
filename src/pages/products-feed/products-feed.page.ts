@@ -181,7 +181,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   async loadInfoUser() {
     try {
       this.currentUser = await this.userService.getInfoUser();
-      this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Pragma' ?
+      this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Bancolombia' ?
       this.showBancolombiaProducts = true : this.showBancolombiaProducts = false;
     } catch (error) {
       if (error.status === 404) {
