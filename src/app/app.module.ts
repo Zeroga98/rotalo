@@ -201,6 +201,7 @@ import { CarouselProductComponent } from '../components/carousel-product/carouse
 import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { FilterService } from '../pages/filter-products/filter.service';
+import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order.component';
 import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
 import { CategoriesComponent } from '../pages/categories-page/categories.component';
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
@@ -330,6 +331,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
     CarouselProductComponent,
     ModalDeleteProductComponent,
     FilterProductsComponent,
+    DetailOrderComponent,
     MenuMobileComponent,
     CategoriesComponent,
     AdminUsersComponent,
@@ -347,7 +349,10 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
     MyDatePickerModule,
     SlimLoadingBarModule.forRoot(),
     ImageUploadModule.forRoot(),
-    RouterModule.forRoot(appRouter),
+    /**componente inicio de la pagina**/
+    RouterModule.forRoot(appRouter , {
+      scrollPositionRestoration: 'enabled'
+    }),
     LottieAnimationViewModule.forRoot(),
     CurrencyMaskModule,
     BarRatingModule,

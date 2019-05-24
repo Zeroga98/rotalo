@@ -59,6 +59,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('envios-correos')
       && !req.url.includes('contactanos')
       && !req.url.includes('ofertas')
+      && !req.url.includes('detalle')
       && !req.url.includes('sugerencias')
       && !req.url.includes('usuarios?')
       && !req.url.includes('activacion');

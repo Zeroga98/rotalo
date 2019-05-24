@@ -50,6 +50,7 @@ import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-bann
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
 import { TermsCompaniesComponent } from '../components/terms-companies/terms-companies.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
+import { DetailOrderComponent } from '../pages/profile/detail-order/detail-order.component';
 import { MenuMobileComponent } from '../pages/menu-mobile/menu-mobile.component';
 import { CategoriesComponent } from '../pages/categories-page/categories.component';
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
@@ -96,6 +97,7 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
       {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
       {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.DETAILORDERS}/:id`, component: DetailOrderComponent},
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
