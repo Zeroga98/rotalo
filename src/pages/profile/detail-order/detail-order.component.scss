@@ -97,8 +97,11 @@
             font-size: 1.8rem;
             color: #383838;
             font-weight: bold;
-            text-align: right;
             line-height: 18px;
+            .right {
+              text-align: right;
+              float: right;
+            }
           }
 
         }
@@ -439,8 +442,12 @@
     .detail-order .container .list-orders .order .total-product {
       font-size: 1.6rem;
       color:#383838;
+      text-align: right;
       span {
         font-weight: normal;
+      }
+      span:first-child {
+        font-weight: bold;
       }
     }
 
