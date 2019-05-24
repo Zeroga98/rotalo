@@ -17,7 +17,7 @@
           <p><span>Órden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
         </div>
         <ul *ngFor="let product of detailOrder.productos" class="order">
-          <li class="first">
+          <li *ngIf="product.urlFotoProducto" class="first">
             <div [ngStyle]="{'background-image': getUrlImge(product.urlFotoProducto)}" class="thumb cover"></div>
           </li>
           <div class="order-info">

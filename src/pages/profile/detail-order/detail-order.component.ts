@@ -57,7 +57,7 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
   }
 
   getUrlImge(photo) {
-    return ('url(' + photo.replace(/ /g, '%20')) + ')';
+      return ('url(' + photo.replace(/ /g, '%20')) + ')';
   }
 
   getInfoUser(userId) {
