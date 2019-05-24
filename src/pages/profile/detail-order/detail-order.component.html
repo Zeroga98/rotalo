@@ -14,7 +14,7 @@
     <div [ngClass]="{'animate-loading': !detailOrder}" class="list-orders">
       <div *ngIf="detailOrder">
         <div class="number-order">
-          <p><span>Órden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
+          <p><span>Orden #{{detailOrder.referencia}}</span> - {{formatDate(detailOrder.fechaTransaccion)}}</p>
         </div>
         <ul *ngFor="let product of detailOrder.productos" class="order">
           <li *ngIf="product.urlFotoProducto" class="first">
@@ -110,7 +110,7 @@
             </div>
             <div class="item-description">
               <div class="flex">
-                <p>{{detailOrder.datosEnvio.direccion}}</p>
+                <p class="address">{{detailOrder.datosEnvio.direccion}}</p>
                 <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> -
                   <span>{{detailOrder.datosEnvio.departamento}}</span></p>
               </div>
