@@ -76,7 +76,7 @@
   <div class="msg-no-products" *ngIf="showAnyProductsMessage">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div [ngStyle]="{'padding-top':!productsBancolombia ? '30px' : '1rem',
+  <div [ngStyle]="{'padding-top':!productsBancolombia || productsBancolombia && productsBancolombia.length <= 0 ? '20px' : '1rem',
   'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
     <div class="list">
       <div class="masonry">
