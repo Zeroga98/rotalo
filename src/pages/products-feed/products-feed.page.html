@@ -63,10 +63,10 @@
   </div>
 </div>
 
-<carousel-product *ngIf="showBancolombiaProducts && showBanner && !configFiltersSubcategory"
+<carousel-product *ngIf="productsBancolombia && showBanner && !configFiltersSubcategory"
 [products] = "productsBancolombia"
 [imgRoute] = "'../../assets/img/iconos/ic_bancolombia.png'"
-[title] = "'Haz tus compras con Bancolombia'"
+[title] = "'¡Realiza tus compras con el nuevo botón transferencia Bancolombia!'"
 ></carousel-product>
 
 <div>
@@ -76,7 +76,8 @@
   <div class="msg-no-products" *ngIf="showAnyProductsMessage">
     ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
   </div>
-  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+  <div [ngStyle]="{'padding-top':!productsBancolombia || productsBancolombia && productsBancolombia.length <= 0 ? '25px' : '1rem',
+  'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
     <div class="list">
       <div class="masonry">
         <div class="grid-item">

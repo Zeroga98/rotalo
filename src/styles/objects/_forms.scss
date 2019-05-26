@@ -659,7 +659,13 @@ mat-tab-group.mat-tab-group.tab-table {
 
 }
 
+.option .mat-mini-fab .mat-button-wrapper {
+  padding: 7px 0;
+}
 
+.tab-table.mat-tab-group {
+  width: fit-content;
+}
 
 
 

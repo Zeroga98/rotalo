@@ -151,17 +151,17 @@ class="conversation">
                   <span>{{message.compra.nombreUsuario}}</span>
                   <span *ngIf="message.producto.tipoVenta === 'GRATIS'"> te ha pedido </span>
                   <span *ngIf="message.producto.tipoVenta !== 'GRATIS'"> ha comprado el producto: </span>
-                  <span class="highlight bold clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
+                  <span class="clickable" (click)="goToDetail(message)">{{(message.producto.nombreProducto) + '.' }}</span>
                   <br>
-                  <span>${{(message.compra.monto | currency:' ' | removeDigits) }}</span>
-                  <span *ngIf="message.compra.unidadesCompradas"> x
+                  <span class="price-18">${{(message.compra.monto | currency:' ' | removeDigits) }}</span>
+                  <span *ngIf="message.compra.unidadesCompradas" class="price-18"> x
                     {{message.compra.unidadesCompradas}}
                     <span *ngIf="message.compra.unidadesCompradas==1">unidad</span>
                     <span *ngIf="message.compra.unidadesCompradas>=2">unidades</span>
                   </span>
                   <br>
-                  <span *ngIf="message.compra.unidadesCompradas">
-                    Total: ${{message.compra.unidadesCompradas * message.compra.monto | currency:' ' | removeDigits}}.
+                  <span *ngIf="message.compra.unidadesCompradas" class="price-18 bold">
+                    Total: ${{message.compra.unidadesCompradas * message.compra.monto | currency:' ' | removeDigits}}
                   </span>
                   <br><br>
                   <span class="highlight bold">Pago: {{paymentTypes[message.compra.tipoPago]}}</span>

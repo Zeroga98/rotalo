@@ -21,7 +21,7 @@
     margin: 0 auto;
     margin-bottom: 50px;
   }
-  
+
   .product-photos {
     width: 50%;
     float: left;
@@ -355,7 +355,7 @@
 
   .get-offer {
     display: inline-block;
-    margin-left: 5px;
+   // margin-left: 5px;
 
     span {
       color: #707070;
@@ -761,7 +761,7 @@
     position: relative;
     display: block;
     width: auto;
-    margin: 5px;
+    margin: 5px 0px;
     //margin-top: 1rem;
     flex-grow: 1;
 
@@ -1624,7 +1624,7 @@ input:checked+.switch-slider:before {
     }
 
     .btns-container .btn-two-container .btn-item .botons {
-      margin-left: 5px;
+      margin-left: 0px;
     }
 
     .product-info-user--data .panel-product {
@@ -1824,6 +1824,7 @@ input:checked+.switch-slider:before {
 
 .ic_arrow_contact {
   position: absolute;
+  top: 17px;
   right: 20px;
   display: inline-block;
   width: 10px;

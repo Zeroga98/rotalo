@@ -13,24 +13,24 @@
         <span>Se ha registrado tu compra a
           {{notification.producto.nombreUsuario}}
           de </span>
-        <span class="highlight bold clickable" (click)="goToDetail(notification)">
+        <span class="clickable" (click)="goToDetail(notification)">
           {{ notification.producto.nombreProducto + '. '}}
         </span>
         <br>
-        <span>Precio: ${{ (notification.compra.monto | currency:' ' | removeDigits) }}</span>
-        <span *ngIf="notification.compra.unidadesCompradas"> x {{notification.compra.unidadesCompradas}}
+        <span class="price-18">${{ (notification.compra.monto | currency:' ' | removeDigits) }}</span>
+        <span *ngIf="notification.compra.unidadesCompradas" class="price-18"> x {{notification.compra.unidadesCompradas}}
           <span *ngIf="notification.compra.unidadesCompradas==1">unidad</span>
           <span *ngIf="notification.compra.unidadesCompradas>=2">unidades</span>
         </span>
         <br>
-        <span *ngIf="notification.compra.unidadesCompradas">
+        <span *ngIf="notification.compra.unidadesCompradas" class="bold price-18">
           Total: ${{notification.compra.unidadesCompradas * notification.compra.monto | currency:' ' | removeDigits}}
         </span>
 
       </p>
       <p class="notification-text" *ngIf="notification.producto.tipoVenta === 'GRATIS'">
         <span>Has pedido a {{notification.producto.nombreUsuario}} el artículo</span>
-        <span class="highlight bold clickable" (click)="goToDetail(notification)">
+        <span class="clickable" (click)="goToDetail(notification)">
           {{ notification.producto.nombreProducto + ': ' + (notification.compra.monto | currency:'$' | removeDigits) +
           ' pesos.'}}
         </span>

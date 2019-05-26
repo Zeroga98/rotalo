@@ -491,7 +491,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           'precio': element.product.price * element.quantity,
           'talla': '',
           'color': '',
-          'numeroUnidades': element.quantity
+          'numeroUnidades': element.quantity,
+          'urlPhotoProducto': element.product.photos.url,
         }
       );
     });
