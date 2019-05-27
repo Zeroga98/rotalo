@@ -38,7 +38,6 @@ export class TermsDialogComponent implements OnInit , AfterViewInit {
     });
   }
 
-
   close() {
     this.dialogRef.close();
   }

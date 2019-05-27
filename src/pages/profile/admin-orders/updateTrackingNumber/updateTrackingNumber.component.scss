@@ -1,0 +1,62 @@
+:host {
+  .container-tracking-number {
+    padding: 30px 60px;
+    .title {
+      color: #272727;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+    .code  {
+      width: 100%;
+      margin: 10px 5px;
+      input {
+        width: 100%;
+        border-radius: 2px;
+        border: 1px solid #BABABC;
+        font-size: 1.8rem;
+        color: #383838;
+        padding: 7px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-around;
+      .mat-flat-button {
+        border-radius: 22px;
+        font-size: 1.4rem;
+        min-width: 120px;
+        height: 42px;
+        font-family: 'Lato Regular';
+      }
+
+      .red {
+        .mat-flat-button {
+          background-color: #FF3646;
+          color:#FFFFFF;
+        }
+        .mat-flat-button:hover {
+          background-color: #C61B27;
+        }
+      }
+
+      .white {
+        .mat-flat-button {
+          background-color: #FFFFFF;
+          color:#FF3646;
+          border: 1px solid #FF3646;
+        }
+        .mat-flat-button:hover {
+          background-color: #FFFFFF;
+          border: 1px solid #ae1631;
+          color: #ae1631;
+        }
+      }
+
+    }
+
+
+  }
+}

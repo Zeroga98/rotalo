@@ -52,7 +52,7 @@
 
   .main-title {
     padding-bottom: 10px;
-    min-height: 170px;
+    min-height: 220px;
   }
 
   .create-campaign {
@@ -78,7 +78,7 @@
     justify-content: flex-end;
     padding-bottom: 2rem;
     position: absolute;
-    top: 0;
+    top: 40px;
     right: 0;
   }
 
@@ -121,7 +121,7 @@
       color: #A2A2A2;
       font-size: 1.2rem;
     }
-    .form-control::-moz-placeholder { 
+    .form-control::-moz-placeholder {
       color: #A2A2A2;
       font-size: 1.2rem;
     }
@@ -574,6 +574,7 @@
     overflow: auto;
     height: 550px;
     margin-bottom: 5.5rem;
+    width: 86rem;
   }
 
   .campaigns {
@@ -610,6 +611,17 @@
   .campaigns td {
     color:  #272727;
     font-size: 1.4rem;
+    min-width: 100px;
+  }
+
+  .campaigns{
+    td.material-design .btn-container .mat-flat-button {
+      min-width: 80px;
+    }
+    td.material-design .btn-container .mat-flat-button.secundary {
+     color:#FF4655;
+     background-color: #FFF2F3;
+    }
   }
 
   .campaigns th.table-no-border {

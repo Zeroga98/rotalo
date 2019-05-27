@@ -14,10 +14,13 @@
                 <label class="label-title">Nombre</label>
                 <input autocomplete="off" class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name">
               </div>
-              <div class="form-group half" data-input="idNumber">
-                <label class="label-title">N° documento</label>
-                <input autocomplete="off" class="form-control" type="text" id="idNumberId" [(ngModel)]="idNumber"
-                  name="idNumber">
+              <div class="form-group half" data-input="typeOrder">
+                <label class="label-title">Estado</label>
+                <select (change)="onSelect($event)" class="form-control">
+                  <option value="" selected="true" disabled>Todas</option>
+                  <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="row">
@@ -53,66 +56,80 @@
     </div>
   </div>
 
-  <div *ngIf="productos && productos.length > 0" class="tabla-campaign">
+  <div class="tabla-campaign">
     <table id="campaigns-wrap" class="campaigns">
       <tr>
-        <th>Foto</th>
         <th>ID</th>
-        <th>Título</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Precio + IVA</th>
-        <th>IVA</th>
-        <th>Fecha de publicación</th>
-        <th>Unidades</th>
+        <th>Fecha</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Ciudad</th>
+        <th>N° referencia</th>
+        <th>N° guía</th>
+        <th>Transportadora</th>
         <th>Estado</th>
+        <th>Acción</th>
+        <th class="table-no-border"></th>
+        <th class="table-no-border"></th>
         <th class="table-no-border"></th>
       </tr>
-      <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid" class="grid">
-        <tr id={{product.id}} *ngFor="let product of  productos">
+
+      <tbody>
+        <tr *ngFor="let order of  orders">
           <td>
-            <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+            <p>{{order.idOrder}}</p>
           </td>
           <td>
-            <a class="link-product" [routerLink]="getUrlProductDetail(product.id)">{{product.id}}</a>
+            <p>{{getFormatDate(order['createDate'])}}</p>
           </td>
           <td>
-            {{product.name}}
+            <p>{{order.buyerName}}</p>
           </td>
           <td>
-            {{product.description}}
+            <p>{{order.buyerEmail}}</p>
           </td>
           <td>
-            {{product.price | currency:'$' | removeDigits}}
+            <p *ngIf="order.shippingAddress">{{order.shippingAddress.city}}</p>
           </td>
           <td>
-            {{calculateIVA(product.price) | currency:'$' | removeDigits}}
+            <p>{{order.referenceNumber}}</p>
           </td>
           <td>
-            %19
-          </td>
-          <td>
-            {{getFormatDate(product['published-at'])}}
-          </td>
-          <td>
-            {{product.stock}}
-          </td>
-          <td>
-            <div class="switch-container">
-              <input #status type="checkbox" [checked]="product.status == 'active' ? true : false"
-                id="id-name--{{product.id}}" name="state" class="switch-input" (change)="saveCheck(status, product.id)">
-              <label for="id-name--{{product.id}}" class="switch-label"></label>
+            <div>
+                <p>{{order.trackingNumber}}</p>
+                <input (click) = "openDialog()" type="text"/>
             </div>
+
           </td>
           <td>
-            <a [routerLink]="getUrlProduct(product.id)">Editar</a>
+            <p *ngIf="order.shippingCompany">
+              {{order.shippingCompany.name}}
+            </p>
+          </td>
+          <td>
+            <p *ngIf="order.orderStatus">
+              {{order.orderStatus.label}}
+            </p>
+          </td>
+          <td>
+            <a>Contactar</a>
+          </td>
+          <td>
+            <a>Ver detalle</a>
+          </td>
+          <td class="material-design">
+              <div  class="btn-container">
+                  <button class="primary" mat-flat-button>Aceptar</button>
+              </div>
+          </td>
+          <td class="material-design">
+              <div  class="btn-container">
+                  <button class="secundary" mat-flat-button>Rechazar</button>
+              </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div *ngIf="productos && productos.length > 0 && statusTab == 0" class="button-container">
-    <a (click)="onSubmit()" class="btn-red" mat-button>Guardar cambios</a>
-    <a (click)="goBack()" class="btn-white" mat-button>Cancelar</a>
-  </div>
+
 </div>
