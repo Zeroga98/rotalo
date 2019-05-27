@@ -1,83 +1,118 @@
 <div class="info-container">
   <div class="tittle main-title">
-    <h1 class="text ">Administrador de órdenes</h1>
+    <h1 class="text ">Órdenes tienda</h1>
   </div>
-  <div class="material-design">
-    <form class="form-theme">
-      <div class="form-group field-form valid">
-        <select (change)="onSelect($event)" class="form-control">
-          <option value="" selected="true" disabled>Tipo de orden*</option>
-          <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}</option>
-        </select>
-        <!--  <label class="label-title">Categoría*</label>-->
-      </div>
-    </form>
-    <div class="msg-no-products" *ngIf="noOrders">
-      ¡Aún no tenemos ordenes en esta categoría!.
+
+  <div class="first-row">
+    <div class="filter-container">
+      <form autocomplete="off" class="form-theme">
+        <div class="material-design">
+          <label class="label-title bold">Filtar por</label>
+          <div class="filter">
+            <div class="row">
+              <div class="form-group half" data-input="name">
+                <label class="label-title">Nombre</label>
+                <input autocomplete="off" class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name">
+              </div>
+              <div class="form-group half" data-input="idNumber">
+                <label class="label-title">N° documento</label>
+                <input autocomplete="off" class="form-control" type="text" id="idNumberId" [(ngModel)]="idNumber"
+                  name="idNumber">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group half" data-input="since">
+                <label class="label-title">Desde</label>
+                <input autocomplete="off" placeholder="dd/mm/aaaa" class="form-control" type="text" id="since"
+                  [(ngModel)]="since" name="since">
+              </div>
+              <div class="form-group half" data-input="until">
+                <label class="label-title">Hasta</label>
+                <input autocomplete="off" placeholder="dd/mm/aaaa" class="form-control" type="text" id="untilId"
+                  [(ngModel)]="until" name="until">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group full" data-input="email">
+                <label class="label-title">Correo electrónico</label>
+                <input autocomplete="new-password" class="form-control" type="text" id="email" [(ngModel)]="email"
+                  name="email">
+              </div>
+            </div>
+          </div>
+          <div class="row justify">
+            <div (click)="removeFilter()" class="btn-container">
+              <a mat-flat-button>Borrar filtros</a>
+            </div>
+            <div (click)='setFilter()' class="btn-container">
+              <button (keyup.enter)="setFilter()" mat-flat-button class="primary">Filtrar</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-    <table *ngIf="!noOrders && selectChanged" class="table-orders-title">
-      <tbody class="table-body">
-        <tr>
-          <th class="order-id">ID orden</th>
-          <th class="order-ref">Número de referencia</th>
-          <th class="order-user">ID usuario</th>
-          <th class="order-num">Tracking number</th>
-          <th class="order-date">Fecha de creación</th>
+  </div>
+
+  <div *ngIf="productos && productos.length > 0" class="tabla-campaign">
+    <table id="campaigns-wrap" class="campaigns">
+      <tr>
+        <th>Foto</th>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Precio + IVA</th>
+        <th>IVA</th>
+        <th>Fecha de publicación</th>
+        <th>Unidades</th>
+        <th>Estado</th>
+        <th class="table-no-border"></th>
+      </tr>
+      <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid" class="grid">
+        <tr id={{product.id}} *ngFor="let product of  productos">
+          <td>
+            <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+          </td>
+          <td>
+            <a class="link-product" [routerLink]="getUrlProductDetail(product.id)">{{product.id}}</a>
+          </td>
+          <td>
+            {{product.name}}
+          </td>
+          <td>
+            {{product.description}}
+          </td>
+          <td>
+            {{product.price | currency:'$' | removeDigits}}
+          </td>
+          <td>
+            {{calculateIVA(product.price) | currency:'$' | removeDigits}}
+          </td>
+          <td>
+            %19
+          </td>
+          <td>
+            {{getFormatDate(product['published-at'])}}
+          </td>
+          <td>
+            {{product.stock}}
+          </td>
+          <td>
+            <div class="switch-container">
+              <input #status type="checkbox" [checked]="product.status == 'active' ? true : false"
+                id="id-name--{{product.id}}" name="state" class="switch-input" (change)="saveCheck(status, product.id)">
+              <label for="id-name--{{product.id}}" class="switch-label"></label>
+            </div>
+          </td>
+          <td>
+            <a [routerLink]="getUrlProduct(product.id)">Editar</a>
+          </td>
         </tr>
       </tbody>
     </table>
-    <div *ngIf="orders" class="tabla-orders-container">
-      <table *ngIf="!noOrders && selectChanged" class="table-orders-info">
-        <tbody class="table-body">
-          <tr *ngFor="let order of orders">
-            <td class="order-id">
-              <p>{{order.idOrder}}</p>
-            </td>
-            <td class="order-ref">
-              <p>{{order.referenceNumber}}</p>
-            </td>
-            <td class="order-user">
-              <p>{{order.userId}}</p>
-            </td>
-            <td class="order-num">
-              <p>{{order.trackingNumber}}</p>
-            </td>
-            <td class="order-date">
-              <p>{{order.createDate | date}}</p>
-            </td>
-            <td class="buttons-section">
-              <div *ngIf="order.orderStatus.name == 'VALIDATION'">
-                <button (click)="openModal(order.referenceNumber,2)" class="primary" type="submit">
-                  <p>Aprobar</p>
-                </button>
-                <button (click)="openModal(order.referenceNumber, 3)" class="primary-light" type="submit">
-                  <p>Rechazar</p>
-                  <p class="responsive-button">x</p>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
-</div>
-
-<div class="back-modal" *ngIf="showModalDescription">
-  <div class="modal-detail">
-    <div class="button-close-modal" (click)="closeModal()">
-      <p>x</p>
-    </div>
-    <div class="section-text">
-      <p>Agrega una descripción</p>
-      <textarea id="description" [(ngModel)]='description' maxlength="100">
-        </textarea>
-        <span class="msj-error" *ngIf="isEmpty">
-          Este campo es obligatorio
-        </span>
-    </div>
-    <div class="buttons-container">
-      <button type="button" class="btn-go-confirm" (click)="changeStatusOrder()">Confirmar</button>
-    </div>
+  <div *ngIf="productos && productos.length > 0 && statusTab == 0" class="button-container">
+    <a (click)="onSubmit()" class="btn-red" mat-button>Guardar cambios</a>
+    <a (click)="goBack()" class="btn-white" mat-button>Cancelar</a>
   </div>
 </div>

@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { MatSort, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
+import * as moment from 'moment';
+import { UtilsService } from './../../../util/utils.service';
+import { UserService } from '../../../services/user.service';
 import { SettingsService } from '../../../services/settings.service';
-import { CurrentSessionService } from '../../../services/current-session.service';
-import { Router } from '@angular/router';
+import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
 
 
@@ -11,100 +14,113 @@ import { ROUTES } from '../../../router/routes';
   styleUrls: ['admin-orders.page.scss']
 })
 export class adminOrdersPage implements OnInit {
-
-  public orders: Array<any> = [];
-  public typeOrders: Array<any> = [];
-  public noOrders;
-  public selectChanged = false;
-  public description = '';
-  public showModalDescription: boolean;
-  public referenceNumber;
-  public statusOrder;
-  public isEmpty: boolean = false;
-
+  displayedColumns = ['photos', 'id', 'name', 'description', 'price', 'priceIVA', 'IVA', 'published-at', 'stock', 'status', 'edit'];
+  @ViewChild(MatSort) sort: MatSort;
+  public statusTab = 0;
+  public productos = [];
+  @ViewChild('grid') grid: ElementRef;
+  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/`;
+  show: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
+  public messageChange = '';
+  public errorChange = '';
   constructor(
-    private router: Router,
-    private settingsService: SettingsService,
-    private currentSessionSevice: CurrentSessionService) {
+    private productsService: ProductsService,
+    private utilService: UtilsService,
+    private userService: UserService,
+    private settingsService: SettingsService
+   ) {
   }
 
   ngOnInit(): void {
-    this.loadTypeOrders();
-    const currentUser = this.currentSessionSevice.currentUser();
-   /* if (currentUser['rol'] != 'superuser') {
-      this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-      ]);
-    }*/
+    this.getProductsList(0, 1);
   }
 
-  loadTypeOrders() {
-    this.settingsService.getTypeOrders().subscribe((response) => {
-      this.typeOrders = response.body.estadosOrdenes;
-    }, (error) => {
-      console.log(error);
-    });
+  getFormatDate(date) {
+    if (date) {
+      const dateMoment: any = moment(date);
+      return dateMoment.format('DD/MM/YYYY');
+    }
+    return '';
   }
 
-  loadOrders(idOrderStatus) {
-    const params = {
-      estado: idOrderStatus
-    };
-    this.settingsService.getOrders(params).subscribe((response) => {
-      this.orders = response.body.ordenes;
-      if (this.orders && this.orders.length > 0) {
-        this.noOrders = false;
-        this.selectChanged = true;
-      } else {
-        this.noOrders = true;
+  getProductsList(option, idShop) {
+    this.productsService.getProductsShop(idShop).subscribe((response) => {
+      if(response.body) {
+        switch (option) {
+          case 0:
+          this.productos = response.body.productosActivos;
+            break;
+          case 1:
+          this.productos = response.body.productosInactivos;
+            break;
+          case 2:
+            break;
+          default:
+          this.productos = response.body.productosActivos;
+            break;
+        }
       }
-    }, (error) => {
-      console.log(error);
-    });
+    },
+    (error) =>  console.log(error));
   }
 
-  onSelect(ev) {
-    const id = ev.target.value;
-    this.loadOrders(id);
+
+  saveCheck(check, idCampaign) {
+    const params = {
+      estado: check.checked ? 'active' : 'inactive'
+    };
+    this.productsService
+      .updateProductStatus(idCampaign, params)
+      .then(response => {
+        this.getProductsList(this.statusTab, 1);
+      });
   }
 
-  changeStatusOrder() {
-    if (this.description.length === 0) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
+  getUrlProduct (idProduct) {
+    return this.edit + idProduct;
+  }
+
+  getUrlProductDetail (idProduct) {
+    return this.show + idProduct;
+  }
+
+  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    this.statusTab = tabChangeEvent.index;
+    this.getProductsList(tabChangeEvent.index, 1);
+  }
+
+  calculateIVA(price) {
+    const iva = (price * 19) / 100;
+    return price + iva;
+  }
+
+
+  onSubmit() {
+    let productId = [];
+    this.messageChange = '';
+    this.errorChange = '';
+    if (this.productos) {
+      productId = this.productos.map((product: any) => {
+        return product.id;
+      });
       const params = {
-        'referencia': this.referenceNumber,
-        'estado': this.statusOrder,
-        'descripcion': this.description
+        'productos': productId
       };
-      this.settingsService.changeStatusOrders(params).subscribe((response) => {
-        this.showModalDescription = false;
-        alert(response.message);
-        this.filterOrder(this.referenceNumber);
-        this.referenceNumber = null;
-        this.statusOrder = null;
-        this.description = null;
+      this.productsService.setOrderProductsShop(params).subscribe((response) => {
+        this.messageChange = 'Se ha guardado correctamente .';
+        this.errorChange = '';
+        this.utilService.goToTopWindow(20, 600);
       }, (error) => {
+        this.messageChange = '';
+        this.errorChange = 'Error';
+        this.utilService.goToTopWindow(20, 600);
         console.log(error);
       });
     }
   }
 
-  filterOrder(reference) {
-    this.orders = this.orders.filter(order => order.referenceNumber != reference);
+  goBack(): void {
+    window.history.back();
   }
 
-  openModal(referencia, estado) {
-    this.referenceNumber = referencia;
-    this.statusOrder = estado;
-    this.showModalDescription = true;
-  }
-
-  closeModal() {
-    this.showModalDescription = false;
-    this.referenceNumber = null;
-    this.statusOrder = null;
-    this.description = null;
-  }
 }
