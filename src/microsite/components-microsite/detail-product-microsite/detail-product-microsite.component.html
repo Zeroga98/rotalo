@@ -3,7 +3,6 @@
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div *ngIf="products" class="container">
   <div class="product">
-    <div>
       <div *ngIf="!products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">
           <div class="icon-clock label-sell--center"></div>
@@ -39,32 +38,90 @@
             </span>
           </ngx-carousel>
         </div>
-        <div class="description">
-          <p class="description-title">Descripción</p>
-          {{products.description}}
-        </div>
+        <div class="tabla-container description desktop">
+            <div class="flex">
+                <h1>Descripción</h1>
+                <!--div class="share">
+                    <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
+                      <div class="ic_arrow_share"></div>
+                      Compartir publicación
+                    </button>
+                    <mat-menu class="share-product" #menu="matMenu">
+                      <div mat-menu-item>
+                          <button mat-icon-button>
+                              <div (click)="shareProduct('custom-modal-2' , products)" class="gtmComparteProductoRotalo ic_share_email"></div>
+                           </button>
+                           <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
+                              <div class="ic_share_whatsapp"></div>
+                           </button>
+                      </div>
+                    </mat-menu>
+                </div-->
+            </div>
+            {{products.description}}
+          </div>
+      <div *ngIf="products.childrens" class="tabla-container desktop">
+        <h1>Características</h1>
+        <table class="table-info">
+          <tbody>
+            <tr>
+              <td class=" ">
+                <div>
+                  Género
+                  <p *ngIf="products.childrens[0].gender">{{products.childrens[0].gender}}</p>
+                </div>
+              </td>
+              <td class="padding-cell-left middle-cell">
+                <div>
+                  Color
+                  <p *ngIf="products.childrens[0].color">{{products.childrens[0].color}}</p>
+                </div>
+              </td>
+              <td class="padding-cell-left">
+                <div>
+                  Marca
+                  <p *ngIf="products.childrens[0].brand">{{products.childrens[0].brand}}</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
     <div *ngIf="products" class="product-info">
       <div class="card-product">
         <div class="title-product">{{products.name}}</div>
+        <div class="date">
+            Publicado
+            <span class="date">{{products['published-at'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
+        </div>
 
-
-        <div class="btns-container">
-          <div [ngClass]="products['is-low-price'] || isActivePromo? 'btn-item-full' : ''" class="btn-item ">
+          <div
+          [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
+          class="btn-item ">
             <div class="price-container">
+                <div
+                [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''"
+                *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
+                <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1"
+                  class="valor-product">
+                  {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
+              </div>
               <div>
-                <span *ngIf="products.price != 0 && products.currency == 'GTQ'" class="valor-product">
-                  {{products.price | currency:"Q" | removeDigits}}</span>
-                <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 9" class="valor-product">
-                  {{products.price | currency:"$" | removeDigits}}</span>
                 <span *ngIf="products.price != 0 && products.currency != 'GTQ' && idCountry == 1" class="valor-product">
                   {{products.price | currency:"$" | removeDigits}}</span>
-                <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
             </div>
           </div>
+          <div class="size-div" *ngIf="products && products.childrens">
+              <label class="label-title">Talla</label>
+              <select [(ngModel)]="childrens" class="form-control-select">
+                <option value="" selected="true" disabled> </option>
+                <option *ngFor="let children of products.childrens" value="{{children.id}}" class="option-select">{{children.size}}
+                </option>
+              </select>
+            </div>
+          <div class="btns-container">
           <div class="full-width quantity-container">
             <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)"
               #form>
@@ -102,39 +159,31 @@
           <div *ngIf="validateSession()" class="total-stock quantity-on-stock">
             ({{totalStock}} disponibles)
           </div>
-          <div class="product-info-ubicacion">
-            <div class="visit contTipo">
-              <span class="icon icon-eye"></span> {{visitsNumber}} visitas
-            </div>
-          </div>
         </div>
         <div class="info-section">
-          <div>
-            <div class="product-info-user">
-              <div class="info-container">
-                <div class="media-middle">
-                  <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
-                    <span class="icon-account"></span>
-                  </div>
-                  <div *ngIf="products.user.photos" class="photo-user">
-                    <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
-                  </div>
+          <div class="product-info-user">
+            <div class="info-container">
+              <div class="media-middle">
+                <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
+                  <span class="icon-account"></span>
                 </div>
-                <div *ngIf="products.user.company" class="media-middle product-info-user--data">
-                  <p class="name-user">{{products.user.name}}</p>
-                  <p class="panel-product" [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.name}}
-                    -
-                    <span [ngStyle]="{'color':products.user.company.colour}">{{products.user.company.community.name}}</span>
-                  </p>
+                <div *ngIf="products.user.photos" class="photo-user">
+                  <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
                 </div>
               </div>
-              <div class="product-btn" *ngIf="!validateSession()">
-                <div class="product-btns">
-                  <div class="cont-botons">
-                    <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                      <span class="icon-chat-detalle"></span>
-                      Chatea con el asesor
-                    </div>
+              <div *ngIf="products.user.company" class="media-middle product-info-user--data">
+                <p class="name-user">{{products.user.name}}</p>
+                <p class="panel-product color-company">{{products.user.company.name}}
+                  -
+                  {{products.user.company.community.name}}
+                </p>
+              </div>
+            </div>
+            <div class="product-btn" *ngIf="!validateSession()">
+              <div class="product-btns">
+                <div class="cont-botons">
+                  <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
+                    Chatea con el asesor
                   </div>
                 </div>
               </div>
@@ -188,6 +237,10 @@
               </div>
             </div>
           </div-->
+        </div>
+        <div class="location">
+          <span class="icon icon-location"></span>
+          <span>{{getLocation(products)}}</span>
         </div>
       </div>
     </div>

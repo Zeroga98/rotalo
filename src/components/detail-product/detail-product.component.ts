@@ -116,6 +116,7 @@ export class DetailProductComponent implements OnInit {
   public simulateForm: FormGroup;
   public interesNominal = 0.0105;
   public porcentajeSimulacion = 20;
+  public childrens;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -363,6 +364,10 @@ export class DetailProductComponent implements OnInit {
           this.productStatus = this.products.status === 'active';
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
+        }
+        if (this.products.childrens)
+        {
+          this.childrens = this.products.childrens;
         }
       }
     },

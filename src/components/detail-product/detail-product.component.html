@@ -547,6 +547,33 @@
             </tbody>
           </table>
         </div>
+        <div *ngIf="products.childrens" class="tabla-container desktop">
+          <h1>Características</h1>
+          <table class="table-info">
+            <tbody>
+              <tr>
+                <td class=" ">
+                  <div>
+                    Género
+                    <p *ngIf="products.childrens[0].gender">{{products.childrens[0].gender}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left middle-cell">
+                  <div>
+                    Color
+                    <p *ngIf="products.childrens[0].color">{{products.childrens[0].color}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left">
+                  <div>
+                    Marca
+                    <p *ngIf="products.childrens[0].brand">{{products.childrens[0].brand}}</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <promo-animation *ngIf="showSticker" (click)="hideAnimation()" [stickerUrl]="stickerUrl"
           [promoCode]='codeCampaign'></promo-animation>
       </div>
@@ -590,8 +617,16 @@
           </div>
           <div *ngIf="products && products.negotiable" class="get-offer">
               <span class="icon-check"></span>
-              <span>Recibo ofertas</span>
+              <span>Recibe ofertas</span>
           </div>
+        <div class="size-div" *ngIf="products && products.childrens">
+          <label class="label-title">Talla</label>
+          <select [(ngModel)]="childrens" class="form-control-select">
+            <option value="" selected="true" disabled> </option>
+            <option *ngFor="let children of products.childrens" value="{{children.id}}" class="option-select">{{children.size}}
+            </option>
+          </select>
+        </div>
         <div class="btns-container">
           <div
             *ngIf="products['sell-type'] == 'VENTA' && !validateSession() && showOptionsVehicles &&  showOptionEstate"
@@ -1045,8 +1080,8 @@
                 <div *ngIf="products.user.company" class="media-middle product-info-user--data">
                   <div class="name-user">
                     <span class="name-user">{{products.user.name}}</span>
-                    <span *ngIf="products && products.userCalification" class="star star-full name-user"></span>
                     <span *ngIf="products && products.userCalification" class="calification" >{{products.userCalification}}</span>
+                    <span *ngIf="products && products.userCalification" class="star star-full name-user"></span>
                   </div>
                   <p class="panel-product">
                     {{products.user.company.name}}
@@ -1061,7 +1096,7 @@
             <div class="product-info-ubicacion">
               <div class="mobile gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
-                    aquí.</a></p>
+                    aquí</a></p>
               </div>
 
               <div class="location">
@@ -1071,7 +1106,7 @@
 
               <div class="desktop  gtmProdReporAqui report-container">
                 <p>Ayúdanos a mantener la confianza. <a class="gtmProdReporAqui" (click)='openDialog()'>Reporta
-                    aquí.</a></p>
+                    aquí</a></p>
               </div>
             </div>
           </div>
