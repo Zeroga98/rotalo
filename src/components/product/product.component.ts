@@ -61,7 +61,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public starSelected = false;
   private status = '';
   public numbersOrder = ['1', '2', '3', '4', '5'];
-
+  public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
 
   constructor(
     public dialog: MatDialog,
@@ -149,7 +149,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       let gaPushParam = 'VendiRotaloExitoso';
       if (result && result.seleccion && result.seleccion === 'otro'){
       gaPushParam = 'OtroExitoso';
-      } 
+      }
       this.gapush(
         'send',
         'event',
@@ -193,7 +193,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         let gaPushParam = 'VendiRotaloExitoso';
       if (result && result.seleccion && result.seleccion === 'otro'){
       gaPushParam = 'OtroExitoso';
-      } 
+      }
       this.gapush(
         'send',
         'event',
@@ -485,6 +485,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         break;
     }
   }
+
 
 
 

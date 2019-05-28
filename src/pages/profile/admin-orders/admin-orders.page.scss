@@ -52,7 +52,8 @@
 
   .main-title {
     padding-bottom: 10px;
-    min-height: 220px;
+    min-height: 170px;
+   // min-height: 220px;
   }
 
   .create-campaign {
@@ -68,6 +69,18 @@
       width: 200px;
     }
   }
+
+  .tracking {
+    input {
+      width: 84px;
+      border: 1px solid #BABABC;
+      border-radius: 2px;
+      text-align: center;
+      color: #272727;
+      font-size: 1.4rem;
+    }
+  }
+
 }
 
 
@@ -78,7 +91,8 @@
     justify-content: flex-end;
     padding-bottom: 2rem;
     position: absolute;
-    top: 40px;
+   // top: 40px;
+    top: 0px;
     right: 0;
   }
 
@@ -92,6 +106,11 @@
 
 
   .material-design {
+    select.form-control {
+      background-color: transparent;
+      font-size: 1.0rem;
+      color:#383838;
+    }
 
     .filter {
       display: flex;
@@ -674,4 +693,95 @@
   .tabla-campaign tr:nth-child(even){
     background-color: #F8F8F8;
   }
+}
+
+:host {
+  .back-modal {
+    background: rgba(44,44,44, 0.71);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal-detail {
+      background: white;
+      padding: 40px 70px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+      min-width: 650px;
+      max-width: 1000px;
+      .button-close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        background: white;
+        border: 2px solid #383838;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        p {
+          font-size: 2rem;
+          color: #383838;
+          line-height: 1;
+          font-weight: bold;
+        }
+      }
+      .section-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-weight: bold;
+          font-size: 2.4rem;
+          color: #414141;
+          text-align: center;
+        }
+        textarea {
+          margin-top: 20px;
+          font-size: 2rem;
+          color: #414141;
+          resize: none;
+          width: 500px;
+          height: 100px;
+        }
+        .msj-error {
+          color: #ed2f3c;
+          font-size: 14px;
+        }
+      }
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        .btn-go-confirm  {
+          width: 170px;
+          padding: 8px 0px;
+          border-style: none;
+          border-radius: 25px;
+          font-size: 16px;
+          transition: 100ms;
+          font-weight: bold;
+          background: #FF3646;
+          border: 1px solid #FF3646;
+          color: white;
+          &:hover {
+            background: #bf111c;
+            border: 1px solid #bf111c;
+          }
+        }
+      }
+    }}
 }

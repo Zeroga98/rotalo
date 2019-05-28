@@ -9,6 +9,7 @@ import { SettingsService } from '../../../../services/settings.service';
 })
 export class UpdateTrackingNumberComponent implements OnInit {
   public trackingNumber;
+
   public shippings = [];
   constructor(
     private dialogRef: MatDialogRef<UpdateTrackingNumberComponent>,
@@ -24,6 +25,10 @@ export class UpdateTrackingNumberComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  save() {
+    this.dialogRef.close(true);
   }
 
   loadShipping() {

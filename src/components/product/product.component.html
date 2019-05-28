@@ -79,7 +79,6 @@
             <show-star [numberStar]="product.calification" class="price"> </show-star>
           </div>
         </div>
-
         <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
           <span class="icon-margin">$</span>
           <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
@@ -116,19 +115,23 @@
             <span>Fecha de compra</span>
             {{product['transaction_date'] | date}}</p>
         </div>
-
-        <div *ngIf="isProductSold && product['buyer_name'] && !isProductChecked" class="container-date">
+        <div *ngIf="isProductSold && product['buyer_name'] && !isProductChecked" class="container-info-user container-date">
           <span class="icon-account"></span>
-          <p>
-            <span>Comprador</span>
+          <p class = "title">
+            <span >Comprador</span>
             {{product['buyer_name']}}
         </div>
-
-        <div *ngIf="product['seller_name'] && isProductPurchased && !isProductChecked" class="container-date">
-          <span class="icon-account"></span>
-          <p>
-            <span>Vendedor</span>
+        <div *ngIf="product['seller_name'] && isProductPurchased && !isProductChecked" class="container-info-user container-date">
+          <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
+            <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
+            <img *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">
+          </div>
+          <p class = "title">
+            <span  >Vendedor</span>
             {{product['seller_name']}}
+        </div>
+        <div class="btn-container">
+          <a  [routerLink]="detailOrder + product['reference_number']" mat-flat-button>Ver detalle</a>
         </div>
       </div>
       <div (click)="selectProduct($event)" *ngIf="showField && !isProductChecked" class="container-info-user">

@@ -48,6 +48,7 @@ export const ROUTES = {
         CAMPAIGN: 'campaign',
         UPLOAD: 'upload-campaign',
         BANNER: 'admin-banners',
+        DETAILORDERS: 'detail-orders',
         ADMINUSERS: 'admin-users',
         EDITUSERS: 'edit-users',
         PRODUCTSSHOP: 'products-shop',

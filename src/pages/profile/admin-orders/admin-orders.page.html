@@ -18,7 +18,7 @@
                 <label class="label-title">Estado</label>
                 <select (change)="onSelect($event)" class="form-control">
                   <option value="" selected="true" disabled>Todas</option>
-                  <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.name}}
+                  <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.label}}
                   </option>
                 </select>
               </div>
@@ -95,9 +95,8 @@
             <p>{{order.referenceNumber}}</p>
           </td>
           <td>
-            <div>
-                <p>{{order.trackingNumber}}</p>
-                <input (click) = "openDialog()" type="text"/>
+            <div class="tracking">
+                <input [(ngModel)] = "order.trackingNumber" (click) = "openDialog(order.trackingNumber, order.orderStatus)" type="text"/>
             </div>
 
           </td>
@@ -115,21 +114,43 @@
             <a>Contactar</a>
           </td>
           <td>
-            <a>Ver detalle</a>
+            <a [routerLink]="detailOrder">Ver detalle</a>
           </td>
-          <td class="material-design">
+          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
               <div  class="btn-container">
-                  <button class="primary" mat-flat-button>Aceptar</button>
+                  <button 
+                  (click)="openModal(order.referenceNumber,2)"
+                  class="primary" mat-flat-button>Aceptar</button>
               </div>
           </td>
-          <td class="material-design">
+          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
               <div  class="btn-container">
-                  <button class="secundary" mat-flat-button>Rechazar</button>
+                  <button 
+                  (click)="openModal(order.referenceNumber, 3)"
+                  class="secundary" mat-flat-button>Rechazar</button>
               </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
 </div>
+
+<div class="back-modal" *ngIf="showModalDescription">
+    <div class="modal-detail">
+      <div class="button-close-modal" (click)="closeModal()">
+        <p>x</p>
+      </div>
+      <div class="section-text">
+        <p>Agrega una descripción</p>
+        <textarea id="description" [(ngModel)]='description' maxlength="100">
+          </textarea>
+          <span class="msj-error" *ngIf="isEmpty">
+            Este campo es obligatorio
+          </span>
+      </div>
+      <div class="buttons-container">
+        <button type="button" class="btn-go-confirm" (click)="changeStatusOrder()">Confirmar</button>
+      </div>
+    </div>
+  </div>

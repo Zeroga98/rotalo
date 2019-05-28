@@ -16,8 +16,7 @@ import { UpdateTrackingNumberComponent } from './updateTrackingNumber/updateTrac
 export class adminOrdersPage implements OnInit {
   public orders = [];
   public typeOrders: Array<any> = [];
-  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/`;
-  show: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
+  public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
   public messageChange = '';
   public errorChange = '';
   public currentFilter: Object = {
@@ -28,6 +27,11 @@ export class adminOrdersPage implements OnInit {
   public since = '';
   public until = '';
   public typeOrder = '';
+  public referenceNumber;
+  public statusOrder;
+  public showModalDescription: boolean;
+  public description = '';
+  public isEmpty: boolean = false;
 
   constructor(
     private router: Router,
@@ -107,11 +111,52 @@ export class adminOrdersPage implements OnInit {
     this.typeOrder = id;
   }
 
-  openDialog(): void {
+  openDialog(trackingNumber , orderStatus): void {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this.dialog.open(UpdateTrackingNumberComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
     });
   }
+
+  openModal(referencia, estado) {
+    this.referenceNumber = referencia;
+    this.statusOrder = estado;
+    this.showModalDescription = true;
+  }
+
+  closeModal() {
+    this.showModalDescription = false;
+    this.referenceNumber = null;
+    this.statusOrder = null;
+    this.description = null;
+  }
+
+  changeStatusOrder() {
+    if (!this.description || this.description && this.description.length === 0) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+      const params = {
+        'referencia': this.referenceNumber,
+        'estado': this.statusOrder,
+        'descripcion': this.description
+      };
+      this.settingsService.changeStatusOrders(params).subscribe((response) => {
+        this.showModalDescription = false;
+        alert(response.message);
+        this.getOrderList(this.currentFilter);
+        this.referenceNumber = null;
+        this.statusOrder = null;
+        this.description = null;
+      }, (error) => {
+        console.log(error);
+      });
+    }
+  }
+
+
 
 }

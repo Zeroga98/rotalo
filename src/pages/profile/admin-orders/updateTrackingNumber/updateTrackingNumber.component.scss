@@ -1,6 +1,18 @@
 :host {
   .container-tracking-number {
-    padding: 30px 60px;
+    padding: 20px 30px;
+    position: relative;
+    .close {
+      cursor: pointer;
+      width: 12px;
+      height: 12px;
+      background: url(../../../../assets/img/iconos/ic_close.svg) no-repeat;
+      background-size: contain;
+      margin-top: 0px;
+      position: absolute;
+      top: -12px;
+      right: -12px;
+    }
     .title {
       color: #272727;
       font-size: 1.6rem;

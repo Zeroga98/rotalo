@@ -1,4 +1,5 @@
 <div class="container-tracking-number">
+  <div (click) ="close()" class="close"></div>
   <div class="form-theme">
       <div class="title">
           Actualiza el número de guía
@@ -22,7 +23,7 @@
         <button mat-flat-button>Guardar</button>
       </div>
       <div class="btn-container white">
-        <button mat-flat-button>Cancelar</button>
+        <button (click) ="close()" mat-flat-button>Cancelar</button>
       </div>
   </div>
 </div>
