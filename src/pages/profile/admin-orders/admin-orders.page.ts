@@ -33,6 +33,7 @@ export class adminOrdersPage implements OnInit {
   public description = '';
   public isEmpty: boolean = false;
 
+
   constructor(
     private router: Router,
     private utilService: UtilsService,
@@ -111,12 +112,17 @@ export class adminOrdersPage implements OnInit {
     this.typeOrder = id;
   }
 
-  openDialog(trackingNumber , orderStatus): void {
+  openDialog(order): void {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = order;
     const dialogRef = this.dialog.open(UpdateTrackingNumberComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.orders.map(order => {
+          if (order && order.idOrder == result.idOrder) {
+            order = result;
+          }
+        });
       }
     });
   }

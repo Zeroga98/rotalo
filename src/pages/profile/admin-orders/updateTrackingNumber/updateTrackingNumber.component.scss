@@ -32,7 +32,6 @@
         font-weight: bold;
       }
     }
-
     .row {
       display: flex;
       justify-content: space-around;
@@ -68,7 +67,12 @@
       }
 
     }
-
+    .error {
+      color: #d61320;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
   }
 }

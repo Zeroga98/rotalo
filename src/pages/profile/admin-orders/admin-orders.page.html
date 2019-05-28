@@ -14,9 +14,9 @@
                 <label class="label-title">Nombre</label>
                 <input autocomplete="off" class="form-control" type="text" id="nameId" [(ngModel)]="name" name="name">
               </div>
-              <div class="form-group half" data-input="typeOrder">
+              <div class="form-group half">
                 <label class="label-title">Estado</label>
-                <select (change)="onSelect($event)" class="form-control">
+                <select [ngModelOptions]="{standalone: true}" [(ngModel)]="typeOrder"  class="form-control">
                   <option value="" selected="true" disabled>Todas</option>
                   <option *ngFor="let typeOrder of typeOrders" value="{{typeOrder.idOrderStatus}}">{{typeOrder.label}}
                   </option>
@@ -96,7 +96,7 @@
           </td>
           <td>
             <div class="tracking">
-                <input [(ngModel)] = "order.trackingNumber" (click) = "openDialog(order.trackingNumber, order.orderStatus)" type="text"/>
+                <input [(ngModel)] = "order.trackingNumber" (click) = "openDialog(order)" type="text"/>
             </div>
 
           </td>
@@ -118,14 +118,14 @@
           </td>
           <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
               <div  class="btn-container">
-                  <button 
+                  <button
                   (click)="openModal(order.referenceNumber,2)"
                   class="primary" mat-flat-button>Aceptar</button>
               </div>
           </td>
           <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
               <div  class="btn-container">
-                  <button 
+                  <button
                   (click)="openModal(order.referenceNumber, 3)"
                   class="secundary" mat-flat-button>Rechazar</button>
               </div>
