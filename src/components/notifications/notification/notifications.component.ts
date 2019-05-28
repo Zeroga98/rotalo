@@ -171,6 +171,10 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
+  goToOrderDetail(reference) {
+      window.location.href = `${window.location.origin}/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/${reference}`;
+  }
+
   buyProduct(notification) {
     const id = notification.producto.idProducto;
     if ( notification.producto && notification.producto.idProducto) {
@@ -352,7 +356,10 @@ export class NotificationsComponent implements OnInit {
   }
 
   getUrlImge(notification) {
-    return ('url(' + notification.fotoNotificacion.replace(/ /g, '%20')) + ')';
+    if(notification && notification.fotoNotificacion)
+    {
+      return ('url(' + notification.fotoNotificacion.replace(/ /g, '%20')) + ')';
+    }
   }
 
 }
