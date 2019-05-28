@@ -752,6 +752,25 @@ class="conversation">
           </small>
         </div>
         <!-- FIN NOTIFICACIÓN OFERTA RECHAZADA -->
+
+        <!-- INICIO NOTIFICACION NUMERO DE GUIA ACTUALIZADO-->
+        <div *ngIf="message.tipoNotificacion == 'tracking_number_updated'" class="notifications-item">
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close"></span>
+          <div class="notification">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+            (click)="goToOrderDetail(getAdditionalInfo(message).reference_number)" class="notification-img">
+                <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+                <p class="notification-text">
+                    El número de guía de tu orden <strong>#{{getAdditionalInfo(message).reference_number}}</strong> en {{getAdditionalInfo(message).store_name}} se actualizó, ahora es: <strong>{{getAdditionalInfo(message).tracking_number}}</strong>
+                </p>
+                <p class="notification-text">Si quieres hacerle seguimiento ingresa al sitio web de {{getAdditionalInfo(message).shipping_company}}.</p>
+            </div>
+          </div>
+        </div>
+        <!-- FIN NOTIFICACION NUMERO DE GUIA ACTUALIZADO-->
       </div>
 
     </div>

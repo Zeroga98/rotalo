@@ -11,10 +11,6 @@ export class SettingsService {
   public idTerms;
   constructor(private http: HttpClient, private configurationService: ConfigurationService) {}
 
-  /*getSettings(): Promise<any> {
-    return this.http.get(this.url).toPromise().then( (response: any) => response.data);
-  }*/
-
   getTypeOrders() {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -26,7 +22,21 @@ export class SettingsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/ordenes`;
-    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
+    return this.http.get(url, { headers: headers , params: params}).pipe(map((response: any) => response));
+  }
+
+  getShipping() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/ordenes/transportadoras`;
+    return this.http.get(url, { headers: headers}).pipe(map((response: any) => response));
+  }
+
+  updateOrden(params, id) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/ordenes/${id}/guias`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getPreRegisters() {

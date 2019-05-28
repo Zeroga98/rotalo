@@ -207,6 +207,7 @@ import { CategoriesComponent } from '../pages/categories-page/categories.compone
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
+import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/updateTrackingNumber/updateTrackingNumber.component';
 
 @NgModule({
   declarations: [
@@ -337,6 +338,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
     AdminUsersComponent,
     EditUsersComponent,
     ProductsShopComponent,
+    UpdateTrackingNumberComponent,
   ],
   imports: [
     BrowserModule,
@@ -450,7 +452,12 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
     windowService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteConversationComponent, CommunitiesModalComponent, ReportPublicationComponent, TermsDialogComponent, ModalDeleteProductComponent]
+  entryComponents: [DeleteConversationComponent,
+    CommunitiesModalComponent,
+    ReportPublicationComponent,
+    TermsDialogComponent,
+    ModalDeleteProductComponent,
+    UpdateTrackingNumberComponent]
 })
 
 export class AppModule { }

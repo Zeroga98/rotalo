@@ -1,0 +1,32 @@
+<div class="container-tracking-number">
+  <div (click) ="close()" class="close"></div>
+  <div class="form-theme">
+      <div class="title">
+          Actualiza el número de guía
+      </div>
+      <div class="code">
+          <input [(ngModel)] ="trackingNumber" type="text"/>
+      </div>
+      <div class="title">
+          Selecciona la empresa transportadora
+      </div>
+      <div class="form-group">
+          <select [(ngModel)]="shippingCompany" class="form-control">
+            <option value="" selected="true" disabled>Todas</option>
+            <option *ngFor="let shipping of shippings" value="{{shipping.idShippingCompany}}">{{shipping.name}}
+            </option>
+          </select>
+      </div>
+  </div>
+  <div *ngIf="errorMessage" class="error">
+    <p>Por favor ingrese los datos</p>
+  </div>
+  <div class="row">
+      <div class="btn-container red">
+        <button (click) = "save()" mat-flat-button>Guardar</button>
+      </div>
+      <div class="btn-container white">
+        <button (click) ="close()" mat-flat-button>Cancelar</button>
+      </div>
+  </div>
+</div>

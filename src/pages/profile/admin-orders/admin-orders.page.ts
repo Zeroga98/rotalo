@@ -1,9 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ROUTES } from '../../../router/routes';
+import { Router } from '@angular/router';
 import { SettingsService } from '../../../services/settings.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
-import { Router } from '@angular/router';
-import { ROUTES } from '../../../router/routes';
-
+import * as moment from 'moment';
+import { UtilsService } from '../../../util/utils.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { UpdateTrackingNumberComponent } from './updateTrackingNumber/updateTrackingNumber.component';
 
 @Component({
   selector: 'admin-orders',
@@ -11,31 +14,50 @@ import { ROUTES } from '../../../router/routes';
   styleUrls: ['admin-orders.page.scss']
 })
 export class adminOrdersPage implements OnInit {
-
-  public orders: Array<any> = [];
+  public orders = [];
   public typeOrders: Array<any> = [];
-  public noOrders;
-  public selectChanged = false;
-  public description = '';
-  public showModalDescription: boolean;
+  public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
+  public messageChange = '';
+  public errorChange = '';
+  public currentFilter: Object = {
+  };
+
+  public name = '';
+  public email = '';
+  public since = '';
+  public until = '';
+  public typeOrder = '';
   public referenceNumber;
   public statusOrder;
+  public showModalDescription: boolean;
+  public description = '';
   public isEmpty: boolean = false;
+
 
   constructor(
     private router: Router,
+    private utilService: UtilsService,
     private settingsService: SettingsService,
-    private currentSessionSevice: CurrentSessionService) {
+    private currentSessionSevice: CurrentSessionService,
+    public dialog: MatDialog
+   ) {
   }
 
   ngOnInit(): void {
+    this.getOrderList(this.currentFilter);
     this.loadTypeOrders();
-    const currentUser = this.currentSessionSevice.currentUser();
-   /* if (currentUser['rol'] != 'superuser') {
-      this.router.navigate([
-        `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
-      ]);
-    }*/
+  }
+
+
+   getOrderList(params: Object = {}) {
+    this.settingsService.getOrders(params).subscribe((response) => {
+      if (response.body) {
+        this.orders = response.body.ordenes;
+      }
+    },
+    (error) => {
+      console.log(error);
+    });
   }
 
   loadTypeOrders() {
@@ -46,53 +68,63 @@ export class adminOrdersPage implements OnInit {
     });
   }
 
-  loadOrders(idOrderStatus) {
-    const params = {
-      estado: idOrderStatus
-    };
-    this.settingsService.getOrders(params).subscribe((response) => {
-      this.orders = response.body.ordenes;
-      if (this.orders && this.orders.length > 0) {
-        this.noOrders = false;
-        this.selectChanged = true;
-      } else {
-        this.noOrders = true;
-      }
-    }, (error) => {
-      console.log(error);
-    });
+  getFormatDate(date) {
+    if (date) {
+      const dateMoment: any = moment(date);
+      return dateMoment.format('DD/MM/YYYY');
+    }
+    return '';
+  }
+
+  setFilter() {
+    this.email = this.email.replace(/\s/g, '');
+    const email = this.email.replace('+', '$');
+    this.since = this.since.replace(/\s/g, '');
+    this.until = this.until.replace(/\s/g, '');
+    const filter = {
+       buyer_name: this.name ? `/${this.name}/`  : '' ,
+       buyer_email: this.email ? `/${email}/`  : '' ,
+       created_at_from: this.since ? this.since : '',
+       created_at_until: this.until ? this.until : '',
+       id_order_status: this.typeOrder ? this.typeOrder : ''
+     };
+     this.currentFilter = Object.assign({}, this.currentFilter, filter);
+     this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
+     this.getOrderList(this.currentFilter)
+   }
+
+   setInitialValues() {
+    this.name = '';
+    this.typeOrder = '';
+    this.since = '';
+    this.until = '';
+    this.email = '';
+  }
+
+  removeFilter() {
+    this.setInitialValues();
+    this.currentFilter = {};
+    this.getOrderList(this.currentFilter);
   }
 
   onSelect(ev) {
     const id = ev.target.value;
-    this.loadOrders(id);
+    this.typeOrder = id;
   }
 
-  changeStatusOrder() {
-    if (this.description.length === 0) {
-      this.isEmpty = true;
-    } else {
-      this.isEmpty = false;
-      const params = {
-        'referencia': this.referenceNumber,
-        'estado': this.statusOrder,
-        'descripcion': this.description
-      };
-      this.settingsService.changeStatusOrders(params).subscribe((response) => {
-        this.showModalDescription = false;
-        alert(response.message);
-        this.filterOrder(this.referenceNumber);
-        this.referenceNumber = null;
-        this.statusOrder = null;
-        this.description = null;
-      }, (error) => {
-        console.log(error);
-      });
-    }
-  }
-
-  filterOrder(reference) {
-    this.orders = this.orders.filter(order => order.referenceNumber != reference);
+  openDialog(order): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = order;
+    const dialogRef = this.dialog.open(UpdateTrackingNumberComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.orders.map(order => {
+          if (order && order.idOrder == result.idOrder) {
+            order = result;
+          }
+        });
+      }
+    });
   }
 
   openModal(referencia, estado) {
@@ -107,4 +139,30 @@ export class adminOrdersPage implements OnInit {
     this.statusOrder = null;
     this.description = null;
   }
+
+  changeStatusOrder() {
+    if (!this.description || this.description && this.description.length === 0) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+      const params = {
+        'referencia': this.referenceNumber,
+        'estado': this.statusOrder,
+        'descripcion': this.description
+      };
+      this.settingsService.changeStatusOrders(params).subscribe((response) => {
+        this.showModalDescription = false;
+        alert(response.message);
+        this.getOrderList(this.currentFilter);
+        this.referenceNumber = null;
+        this.statusOrder = null;
+        this.description = null;
+      }, (error) => {
+        console.log(error);
+      });
+    }
+  }
+
+
+
 }
