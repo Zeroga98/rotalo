@@ -222,7 +222,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       elem.checked = true;
       this.disabledField = false;
       this.photosForm.controls['negotiable'].disable();
-    }else {
+    } else {
       this.disabledField = false;
     }
   }
@@ -1138,6 +1138,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
     return true;
   }
+
   get showOptionEstate () {
     if (this.photosForm.get('category').value == 7) {
       return false;
@@ -1145,6 +1146,12 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return true;
   }
 
+  get showOptionsModa () {
+    if (this.photosForm.get('category').value == 10) {
+      return false;
+    }
+    return true;
+  }
 
   addStock() {
     if (this.showOptionsVehicles &&  this.showOptionEstate) {
@@ -1252,11 +1259,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   openTermsModal(): void {
     this.modalTermsIsOpen = true;
     }
-    
+
   closeTermsModal() {
     this.modalTermsIsOpen = false;
   }
-  
+
   acceptTerms(checkbox) {
     this.photosForm.patchValue({
     'termsCheckbox': true
