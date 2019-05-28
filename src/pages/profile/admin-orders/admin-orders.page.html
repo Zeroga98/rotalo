@@ -114,7 +114,7 @@
             <a>Contactar</a>
           </td>
           <td>
-            <a [routerLink]="detailOrder">Ver detalle</a>
+            <a [routerLink]="detailOrder + order['referenceNumber']">Ver detalle</a>
           </td>
           <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
               <div  class="btn-container">

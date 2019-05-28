@@ -5,13 +5,13 @@
           Actualiza el número de guía
       </div>
       <div class="code">
-          <input type="text"/>
+          <input [(ngModel)] ="trackingNumber" type="text"/>
       </div>
       <div class="title">
           Selecciona la empresa transportadora
       </div>
       <div class="form-group">
-          <select class="form-control">
+          <select [(ngModel)]="shipping" class="form-control">
             <option value="" selected="true" disabled>Todas</option>
             <option *ngFor="let shipping of shippings" value="{{shipping.idShippingCompany}}">{{shipping.name}}
             </option>

@@ -8,8 +8,8 @@ import { SettingsService } from '../../../../services/settings.service';
   styleUrls: ['./updateTrackingNumber.component.scss']
 })
 export class UpdateTrackingNumberComponent implements OnInit {
-  public trackingNumber;
-
+  public trackingNumber = '';
+  public shipping = '';
   public shippings = [];
   constructor(
     private dialogRef: MatDialogRef<UpdateTrackingNumberComponent>,
@@ -29,6 +29,12 @@ export class UpdateTrackingNumberComponent implements OnInit {
 
   save() {
     this.dialogRef.close(true);
+    const params = {
+      'numeroGuia': this.trackingNumber,
+      'idTransportadora': this.shipping
+    };
+  /*  this.settingsService.updateOrden(params).subscribe((response) => {},
+    (error) => {console.log(error); });*/
   }
 
   loadShipping() {

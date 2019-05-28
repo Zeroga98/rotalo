@@ -83,9 +83,9 @@
           </p>
         </div>
         <ul>
-          <li>
+          <li *ngIf="detailOrder.estado">
             <p>
-              <span class="strong">Estado del pedido:</span> Aprobado
+              <span class="strong">Estado del pedido:</span> {{detailOrder.estado}}
             </p>
           </li>
           <li>
