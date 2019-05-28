@@ -182,7 +182,7 @@
       .title-product {
         color: #272727;
         font-size: 2.4rem;
-        margin: 2px 0;
+        margin: 0;
         font-weight: bold;
       }
 
@@ -478,13 +478,13 @@
       width: 48%;
 
       .botons {
-        background-color: #FFFFFF;
+        background-color: #FF3646;
         border: 1px solid #FF3646;
         padding: 9px;
         width: 220px;;
         max-width: 220px;
         min-height: 44px;
-        color: #FF3646;
+        color: #FFFFFF;
         font-weight: bold;
         cursor: pointer;
         font-size: 1.5rem;
@@ -492,7 +492,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 5px;
+        margin-top: 5px;
 
         span {
           color: #fff;
@@ -503,13 +503,15 @@
 
       .botons:hover {
         border: 1px solid #ae1631;
-        color: #ae1631;
+        //color: #ae1631;
+        background-color: #ae1631;
       }
     }
 
     .btn-two-container {
       width: 100%;
-      margin-top: 15px;
+      margin-top: 10px;
+      margin-bottom: 15px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -520,14 +522,14 @@
           /*background-color: #ffffff;
           color: #FF3646;
           border: 1px solid #A2A2A2;*/
-          background-color: #FF3646;
-          color: #FFFFFF;
+          background-color: #FFFFFF;
+          color: #FF3646;
           border: 1px solid #FF3646;
         }
 
         .botons:hover {
           /*color: #707070;*/
-          background-color: #AE1631;
+          color: #AE1631;
           border: 1px solid #AE1631;
 
         }
@@ -738,6 +740,7 @@
     .calification{
       font-size: 1.5rem;
       color: #707070;
+      margin-left: 20px;
     }
 
     * {
@@ -770,12 +773,15 @@
       margin: 0;
       position: relative;
       .botons {
+        //border: 1px solid #FF3646;
+        //background-color: #FF3646;
         border: 1px solid #FF3646;
-        background-color: #FF3646;
+        background-color: #FFFFFF;
         padding: 9px;
         width: 220px;
         min-height: 44px;
-        color: #FFFFFF;
+        //color: #FFFFFF;
+        color: #FF3646;
         font-weight: bold;
         cursor: pointer;
         font-size: 1.5rem;
@@ -793,7 +799,8 @@
 
       .botons:hover {
         border: 1px solid #c61b27;
-        background-color: #C61B27;
+        //background-color: #C61B27;
+        color: #C61B27;
       }
     }
   }
@@ -1144,17 +1151,45 @@ input:checked+.switch-slider:before {
 
   .label-title {
     display: block;
+    color: #383838!important;
+    font-size: 1.8rem!important;
+    margin-top: 15px;
+  }
+
+  .form-control-select{
+    display: block;
+    min-width: 80px;
+    height: 36px;
+    font-size: 1.8rem!important;
+    line-height: 1.4;
+    color: #383838!important;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1px solid #383838;
+    box-shadow: none;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    margin-top: 10px;
+  }
+
+  .option-select{
+    font-size: 1.8rem!important;
+    line-height: 1.4;
+    color: #383838!important;
+  }
+
+  .size-div{
+    margin-top: 10px;
   }
 
   .quantity-wrapper {
     display: inline-block;
     margin-top: 10px;
     border: 1px solid #A2A2A2;
-    border-radius: 13px;
+    border-radius: 7px;
   }
 
   .quantity-container {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .product {
@@ -1179,8 +1214,9 @@ input:checked+.switch-slider:before {
 
   .form-control.quantity-style {
     text-align: center !important;
-    font-size: 1.6rem;
+    font-size: 2rem;
     padding: 6px 6px;
+    color: #383838;
     background: white;
     border: 0 solid #A2A2A2;
     border-radius: 0;
@@ -1284,8 +1320,8 @@ input:checked+.switch-slider:before {
 
       .label-title,
       input {
-        font-size: 1.6rem;
-        color: #767676;
+        font-size: 1.8rem;
+        color: #383838;
         padding-right: 10px;
       }
 
@@ -1342,6 +1378,7 @@ input:checked+.switch-slider:before {
       padding: 9px;
       min-height: 44px;
       color: #FF3646;
+      background-color: #FFFFFF;
       font-weight: bold;
       cursor: pointer;
       font-size: 1.6rem;
@@ -1350,6 +1387,7 @@ input:checked+.switch-slider:before {
      button:hover {
         border: 1px solid #AE1631;
         color: #AE1631;
+        //background-color: #0080FF;
      }
    }
 
@@ -1831,7 +1869,7 @@ input:checked+.switch-slider:before {
   height: 10px;
   min-width: 10px;
   background-size: 10px 10px;
-  background-image: url(../../assets/img/iconos/ic_arrow_contact_white.svg);
+  background-image: url(../../assets/img/iconos/ic_arrow_contact_red.svg);
 }
 
 .botons[aria-expanded="true"] {

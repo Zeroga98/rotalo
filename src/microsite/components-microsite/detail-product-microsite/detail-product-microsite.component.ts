@@ -86,6 +86,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   private currentFilter: Object;
   showModalBuy = false;
   productForModal = {};
+  public childrens;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -279,6 +280,10 @@ export class DetailProductMicrositeComponent implements OnInit {
           this.productStatus = this.products.status === 'active';
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
+        }
+        if (this.products.childrens)
+        {
+          this.childrens = this.products.childrens;
         }
       }
     },
