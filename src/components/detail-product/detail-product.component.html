@@ -547,7 +547,7 @@
             </tbody>
           </table>
         </div>
-        <div *ngIf="products.childrens" class="tabla-container desktop">
+        <div *ngIf="products.children" class="tabla-container desktop">
           <h1>Características</h1>
           <table class="table-info">
             <tbody>
@@ -555,19 +555,19 @@
                 <td class=" ">
                   <div>
                     Género
-                    <p *ngIf="products.childrens[0].gender">{{products.childrens[0].gender}}</p>
+                    <p *ngIf="products.children[0].genderName">{{products.children[0].genderName}}</p>
                   </div>
                 </td>
                 <td class="padding-cell-left middle-cell">
                   <div>
                     Color
-                    <p *ngIf="products.childrens[0].color">{{products.childrens[0].color}}</p>
+                    <p *ngIf="products.children[0].color">{{products.children[0].color}}</p>
                   </div>
                 </td>
                 <td class="padding-cell-left">
                   <div>
                     Marca
-                    <p *ngIf="products.childrens[0].brand">{{products.childrens[0].brand}}</p>
+                    <p *ngIf="products.children[0].brand">{{products.children[0].brand}}</p>
                   </div>
                 </td>
               </tr>
@@ -619,13 +619,14 @@
               <span class="icon-check"></span>
               <span>Recibe ofertas</span>
           </div>
-        <div class="size-div" *ngIf="products && products.childrens">
+        <div class="size-div" *ngIf="products && products.children">
           <label class="label-title">Talla</label>
           <select [(ngModel)]="childrens" class="form-control-select">
             <option value="" selected="true" disabled> </option>
-            <option *ngFor="let children of products.childrens" value="{{children.id}}" class="option-select">{{children.size}}
+            <option *ngFor="let children of products.children" value="{{children.id}}" class="option-select">{{children.sizeName}}
             </option>
           </select>
+          <span *ngIf="errorSize" class="error-msg">Selecciona la talla</span>
         </div>
         <div class="btns-container">
           <div
@@ -666,7 +667,7 @@
             </p>
           </div>
 
-          <!--Botones Colombia-->
+          <!--Inicio Botones Colombia-->
           <div class="btn-two-container" *ngIf="!validateSession() && !checkBAMBotton()">
               <div class="product-btn">
                 <div class="product-btns">
@@ -690,8 +691,12 @@
             <div
               *ngIf="products && !checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA' && !isSubcategoryCars && !isSubcategoryMotos"
               class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && !products.children"
                 (click)="buyProduct(products.id)">
+                {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+              </button>
+              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
+                (click)="buyProduct(childrens)">
                 {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
               <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
@@ -703,8 +708,12 @@
             <div class="btn-item"
               *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA' && !isCategoryImmovables && !isSubcategoryCars && !isSubcategoryMotos">
               <div>
-                <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+                <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && !products.children"
                   (click)="buyProduct(products.id)">
+                  {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                </button>
+                <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
+                  (click)="buyProduct(childrens)">
                   {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
                 <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
@@ -730,7 +739,7 @@
               </div>
 
           </div>
-            <!--/Botones Colombia-->
+            <!--Fin Botones Colombia-->
 
           <!--Botones Guatemala-->
           <div class="btn-two-container"

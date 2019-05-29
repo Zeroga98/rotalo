@@ -117,6 +117,7 @@ export class DetailProductComponent implements OnInit {
   public interesNominal = 0.0105;
   public porcentajeSimulacion = 20;
   public childrens;
+  public errorSize;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -365,10 +366,10 @@ export class DetailProductComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.childrens)
+        /*if (this.products.children)
         {
-          this.childrens = this.products.childrens;
-        }
+          this.childrens = this.products.children;
+        }*/
       }
     },
       (error) => {
@@ -580,19 +581,27 @@ export class DetailProductComponent implements OnInit {
 
   buyProduct(id: number | string) {
     if (!this.formIsInValid) {
-      let quantity = 1;
-      if (this.quantityForm.get('stock').value) {
-        quantity = this.quantityForm.get('stock').value;
+      if(!id)
+      {
+        this.errorSize = true;
       }
-      const quantityProduct = {
-        idProduct: id,
-        quantity: quantity
-      };
-      this.buyService.setQuantityProduct(quantityProduct);
-      const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
-        ROUTES.PRODUCTS.BUY
-        }/${id}`;
-      this.router.navigate([urlBuyProduct]);
+      else
+      {
+        let quantity = 1;
+        if (this.quantityForm.get('stock').value) {
+          quantity = this.quantityForm.get('stock').value;
+        }
+        const quantityProduct = {
+          idProduct: id,
+          quantity: quantity
+        };
+        this.buyService.setQuantityProduct(quantityProduct);
+        const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
+          ROUTES.PRODUCTS.BUY
+          }/${id}`;
+        this.router.navigate([urlBuyProduct]);
+      }
+      
     }
   }
 

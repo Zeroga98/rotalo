@@ -60,7 +60,7 @@
             </div>
             {{products.description}}
           </div>
-      <div *ngIf="products.childrens" class="tabla-container desktop">
+      <div *ngIf="products.children" class="tabla-container desktop">
         <h1>Características</h1>
         <table class="table-info">
           <tbody>
@@ -68,19 +68,19 @@
               <td class=" ">
                 <div>
                   Género
-                  <p *ngIf="products.childrens[0].gender">{{products.childrens[0].gender}}</p>
+                  <p *ngIf="products.children[0].genderName">{{products.children[0].genderName}}</p>
                 </div>
               </td>
               <td class="padding-cell-left middle-cell">
                 <div>
                   Color
-                  <p *ngIf="products.childrens[0].color">{{products.childrens[0].color}}</p>
+                  <p *ngIf="products.children[0].color">{{products.children[0].color}}</p>
                 </div>
               </td>
               <td class="padding-cell-left">
                 <div>
                   Marca
-                  <p *ngIf="products.childrens[0].brand">{{products.childrens[0].brand}}</p>
+                  <p *ngIf="products.children[0].brand">{{products.children[0].brand}}</p>
                 </div>
               </td>
             </tr>
@@ -113,11 +113,11 @@
               </div>
             </div>
           </div>
-          <div class="size-div" *ngIf="products && products.childrens">
+          <div class="size-div" *ngIf="products && products.children">
               <label class="label-title">Talla</label>
               <select [(ngModel)]="childrens" class="form-control-select">
                 <option value="" selected="true" disabled> </option>
-                <option *ngFor="let children of products.childrens" value="{{children.id}}" class="option-select">{{children.size}}
+                <option *ngFor="let children of products.children" value="{{children.id}}" class="option-select">{{children.sizeName}}
                 </option>
               </select>
             </div>
@@ -151,7 +151,13 @@
             </form>
           </div>
           <div class="btn-item">
-            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA'" (click)="addToShoppingCar(products)">
+            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && !products.children" 
+              (click)="addToShoppingCar(products)">
+              <span class="icon-shop_car"></span>
+              Agregar al carrito
+            </button>
+            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && products.children" 
+              (click)="addToShoppingCar(childrens)">
               <span class="icon-shop_car"></span>
               Agregar al carrito
             </button>
