@@ -47,7 +47,7 @@
 
               <div *ngIf="!showOptionsFashion" class="form-group field-form"
                 [ngClass]="{'valid': photosForm.get('genderId').value}">
-                <select name="genderId-id" class="genderId form-control" formControlName="genderId">
+                <select (change)="loadSizes();" name="genderId-id" class="genderId form-control" formControlName="genderId">
                   <option value="" disabled></option>
                   <option *ngFor="let gender of genders" value="{{gender.id}}">{{gender.nombre}}</option>
                 </select>
@@ -298,8 +298,7 @@
               <div class="form-group field-form">
                 <select name="color-id" class="color form-control">
                   <option value="" disabled></option>
-                  <!--  <option *ngFor="let color of categories" value="{{color.id}}">{{color.name}}</option>
-                    -->
+                  <option *ngFor="let color of colorListFashion" value="{{color}}">{{color}}</option>
                 </select>
                 <label class="label-title">¿De qué color es tu producto?</label>
                 <span class="error-msg">Este campo es requerido</span>
@@ -315,21 +314,45 @@
             </div>
             <div class="row">
               <div class="size-container">
-                  <div class="form-group field-form">
-                      <select name="color-id" class="color form-control">
-                        <option value="" disabled></option>
-                        <!--  <option *ngFor="let color of categories" value="{{color.id}}">{{color.name}}</option>
-                              -->
-                      </select>
-                      <label class="label-title">¿De qué color es tu producto?</label>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                    <div class="form-group">
-                      <label class="label-title">Marca*</label>
-                      <input type="text" class="form-control" maxlength="50">
-                      <span class="help-block error-msg"> Este campo es requerido </span>
-                    </div>
+                <a mat-icon-button>
+                  <div class="trash-icon"></div>
+                </a>
+                <div class="form-group field-form">
+                  <select name="size-id" class="size form-control">
+                    <option value="" disabled></option>
+                    <option *ngFor="let size of sizesList" value="{{size.id}}">{{size.nombre}}</option>
+                  </select>
+                  <label class="label-title">Talla</label>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+                <div class="form-group">
+                  <label class="label-title">Número de unidades disponibles</label>
+                  <div class="input-group quantity-wrapper">
+                    <span class="input-group-btn">
+                      <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
+                        <span>-</span>
+                      </button>
+                    </span>
+                    <input type="text" class="form-control input-number input-sm quantity-style" name="stock"
+                      currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
+                      placeholder="1" maxlength="5" autocomplete="off">
+                    <span class="input-group-btn">
+                      <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
+                        <span>+</span>
+                      </button>
+                    </span>
+                    <span class="error-stock error-msg">
+                      Este campo debe ser mayor o igual a 1.
+                    </span>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="row">
+                <div class="btn-container">
+                  <a mat-button>+ Agregar otra talla</a>
+                </div>
             </div>
           </div>
 

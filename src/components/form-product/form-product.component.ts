@@ -19,6 +19,7 @@ import { CollectionSelectService } from '../../services/collection-select.servic
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS, ANTIGUEDAD } from './immovable.constant';
+import { COLOR_FASHION } from './colors-clothes.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -60,6 +61,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
   colorList: Array<any> = COLOR;
+  colorListFashion: Array<any> = COLOR_FASHION;
   vehicleNumberList: Array<any> = PLACA;
   cylinderList: Array<any> = CILINDRAJE;
   combustibleList: Array<any> = COMBUSTIBLE;
@@ -68,6 +70,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   modelList: Array<any> = [];
   brandsList: Array<any> = [];
   linesList: Array<any> = [];
+  sizesList: Array<any> = [];
   currentSubcategory: String = '';
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
@@ -204,6 +207,16 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   get isGuatemala() {
     return this.countryId == 9;
+  }
+
+  getSizes(params) {
+    this.collectionService.getSizes(params).subscribe((response) => {
+      if (response.body) {
+        this.sizesList = response.body.tallas;
+      }
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   changeKindOfProduct(evt) {
@@ -803,11 +816,34 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.genders = this.subCategory.generos;
   }
 
+  loadSizes() {
+    if (this.photosForm.get('subcategory-id').value && this.photosForm.get('genderId').value) {
+      const params = {
+        'subcategoryId': this.photosForm.get('subcategory-id').value,
+        'genderId': this.photosForm.get('genderId').value
+      };
+      this.getSizes(params);
+    }
+  }
+
   loadYearsModelVehicle() {
     const years = (new Date()).getFullYear() - 1968;
     for (let i = 0; i < years; i++) {
       this.yearsVehicle.push((new Date()).getFullYear() + 1 - i);
     }
+  }
+
+  private createItem(childrenForm) {
+    const children = childrenForm.map(child => {
+      return this.fb.group({
+        genderId:  [child['genderId'], [Validators.required]],
+        'sizeId': [child['sizeId'], [Validators.required]],
+        'brand': [child['brand'], [Validators.required]],
+        'color': [child['color'], [Validators.required]],
+        'stock': [child['stock'], [Validators.required]]
+      });
+    });
+    return children;
   }
 
   private setInitialForm(config: ProductInterface) {
@@ -993,6 +1029,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }, { validator: validatePrice });
 
     if (this.product) {
+      console.log(this.product);
       if (this.isActivePromo(this.product)) {
         const price = this.photosForm.get('special-price').value;
         this.maxValueNewPrice = price;
@@ -1072,6 +1109,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.selectedComunity(subCategory.category.id as number);
         this.photosForm.controls['category'].setValue(subCategory.category.id);
         this.photosForm.controls['subcategory-id'].setValue(subCategory.id);
+        this.loadFashionGender(subCategory.id);
+      }
+    }
+  }
+
+  loadFashionGender(subcategoryValue) {
+    const subcategory = this.findSubCategory(subcategoryValue);
+    if (subcategory && subcategory.generos) {
+      this.genders = subcategory.generos;
+      if (this.product && this.product['children'] && this.product['children'][0]) {
+        this.photosForm.controls['genderId'].setValue(this.product['children'][0].genderId);
+        this.loadSizes();
       }
     }
   }

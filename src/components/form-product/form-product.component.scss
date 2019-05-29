@@ -160,15 +160,38 @@
 
         .size-container {
           margin-top: 14px;
+          margin-bottom: 8px;
           border: 1px solid #A2A2A2;
           border-radius: 10px;
           padding: 15px 25px;
           display: flex;
           flex-wrap: wrap;
           width: 57%;
+          position: relative;
           .form-group {
-            width: 50%;
+            width: 45%;
+            margin-right: 9%;
           }
+          .form-group:last-child {
+            margin-right: 0px;
+          }
+          .mat-icon-button {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+          }
+          .trash-icon {
+            width: 20px;
+            height: 20px;
+            background: url(../../assets/img/trash.svg);
+            background-size: 20px 20px;
+            margin: 0 auto;
+            margin-top: 10px;
+          }
+        }
+
+        .mat-button {
+          border-radius: 5px;
         }
 
         .item-price {
