@@ -2,7 +2,7 @@ import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
 import { PhotosService } from '../../services/photos.service';
@@ -112,6 +112,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   antiguedades: Array<any> = ANTIGUEDAD;
   socialClasses: Array<any> = SOCIALCLASS;
   cellphone: String;
+  public formFashion;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -213,6 +215,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.collectionService.getSizes(params).subscribe((response) => {
       if (response.body) {
         this.sizesList = response.body.tallas;
+        this.changeDetectorRef.markForCheck();
       }
     }, (error) => {
       console.log(error);
@@ -245,6 +248,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     this.setValidationVehicle();
     this.setValidationImmovable();
+    this.setFashionValidation();
     if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
@@ -291,10 +295,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
           delete params['publish-until'];
         }
       } else {
-
-      const publishDate = {
+        const publishDate = {
           'published-at': new Date()
-      };
+        };
         // const photosIds2 = [{ 'photo-id': 12408, 'position': 1}]
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
@@ -316,8 +319,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       delete params['air-conditioner'];
       delete params['abs-brakes'];
       delete params['unique-owner'];
-
-
 
       delete params['antiquity'];
       delete params['squareMeters'];
@@ -721,6 +722,20 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
+  setFashionValidation () {
+    const genderId = this.photosForm.get('genderId');
+    const colorFashion = this.photosForm.get('colorFashion');
+    genderId.clearValidators();
+    colorFashion.clearValidators();
+    if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+      genderId.setValidators([Validators.required]);
+      colorFashion.setValidators([Validators.required]);
+    }
+    genderId.updateValueAndValidity();
+    colorFashion.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
+  }
+
   setLinesVehicle (id) {
     if (this.brandsList) {
       const brands = this.brandsList.filter(value => {
@@ -836,10 +851,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   private createItem(childrenForm) {
     const children = childrenForm.map(child => {
       return this.fb.group({
-        genderId:  [child['genderId'], [Validators.required]],
         'sizeId': [child['sizeId'], [Validators.required]],
-        'brand': [child['brand'], [Validators.required]],
-        'color': [child['color'], [Validators.required]],
         'stock': [child['stock'], [Validators.required]]
       });
     });
@@ -847,6 +859,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   private setInitialForm(config: ProductInterface) {
+
     /**Vehiculos**/
     let typeVehicle = '';
     let model = '';
@@ -952,6 +965,16 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
 
 
+    /**Moda**/
+    let genderId = '';
+    let colorFashion = '';
+    let brandFashion = '';
+    if (config['children'] && config['children'].length > 0) {
+       genderId = config['children'][0].genderId;
+       colorFashion = config['children'][0].color;
+       brandFashion = config['children'][0].brand;
+    }
+
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -965,7 +988,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     if (this.product) {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
-      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos') {
+      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos' ||
+      config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
       }
@@ -1007,7 +1031,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
-      genderId: [config['genderId'], []],
 
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
@@ -1025,11 +1048,14 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       usefulRoom: [usefulRoom, []],
       squareMetersTerrain: [squareMetersTerrain, []],
       socialClass: [socialClass, []],
+      children: [],
+      genderId: [genderId, []],
+      colorFashion: [colorFashion, []],
+      brandFashion: [brandFashion, []],
 
     }, { validator: validatePrice });
 
     if (this.product) {
-      console.log(this.product);
       if (this.isActivePromo(this.product)) {
         const price = this.photosForm.get('special-price').value;
         this.maxValueNewPrice = price;
@@ -1038,9 +1064,56 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         specialPrice.setValidators([Validators.required, Validators.max(this.maxValueNewPrice)]);
         specialPrice.updateValueAndValidity();
       }
+
+      /**Moda**/
+      if (config['children'] && config['children'].length > 0) {
+        this.setInitialFormFashion(config['children']);
+      }
+      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
+        this.photosForm.get('genderId').disable();
+      }
+
     }
 
+  }
 
+  private setInitialFormFashion(children) {
+    this.formFashion = this.fb.group({
+      children: this.fb.array(
+        this.createItem(children)
+      )
+    });
+  }
+
+  private initialSize() {
+    const children = {
+      'sizeId': '',
+      'stock': 1
+    };
+    return children;
+  }
+
+  addSizeFashion(): void {
+    const children = this.formFashion.get('children') as FormArray;
+    children.push(this.createBasicItem(this.initialSize()));
+  }
+
+  removeBannerColombia(id) {
+    const children = this.formFashion.get('children').controls;
+     if (children.length > 1) {
+       this.formFashion.get('children').controls = children.filter((item, index) => {
+         if (index != id) {
+           return item;
+         }
+       });
+     }
+  }
+
+  private createBasicItem(children) {
+    return this.fb.group({
+        'sizeId': [children['sizeId'], [Validators.required]],
+        'stock': [children['stock'], [Validators.required]]
+      });
   }
 
   private getInitialConfig(): ProductInterface {
@@ -1225,6 +1298,22 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         stock = --stock;
         this.photosForm.patchValue({stock: stock});
       }
+    }
+  }
+
+  addStockSize(sizeStock, element) {
+    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock < 9999) {
+      let stock = sizeStock;
+      stock = ++stock;
+      element.patchValue({ stock: stock });
+    }
+  }
+
+  minusStockSize(sizeStock , element) {
+    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock > 1) {
+      let stock = sizeStock;
+      stock = --stock;
+      element.patchValue({ stock: stock });
     }
   }
 

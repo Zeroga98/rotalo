@@ -164,10 +164,12 @@
           border: 1px solid #A2A2A2;
           border-radius: 10px;
           padding: 15px 25px;
-          display: flex;
-          flex-wrap: wrap;
           width: 57%;
           position: relative;
+          .size {
+            display: flex;
+            flex-wrap: wrap;
+          }
           .form-group {
             width: 45%;
             margin-right: 9%;
@@ -304,13 +306,16 @@
       }
 
       .form-control.category[disabled],
-      .form-control.subcategory[disabled] {
+      .form-control.subcategory[disabled],
+      .form-control.genderId[disabled] {
         background: transparent;
         border-bottom: 1px solid transparent;
       }
 
       .form-control.category[disabled]+.label-title,
-      .form-control.subcategory[disabled]+.label-title {
+      .form-control.subcategory[disabled]+.label-title,
+      .form-control.genderId[disabled]+.label-title
+       {
         color: #383838;
         font-weight: bold;
       }
