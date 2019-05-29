@@ -51,7 +51,8 @@ export class CategoriesService {
           id:  subcategory.id,
           name: subcategory.nombre,
           productsActives: subcategory.productosActivos,
-          url: subcategory.url
+          url: subcategory.url,
+          generos: subcategory.generos ? subcategory.generos : [],
         };
         return interfaceSubCategory;
       });

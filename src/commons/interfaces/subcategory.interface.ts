@@ -5,4 +5,5 @@ export interface SubcategoryInterface {
     id:string | number;
     name:string;
     url:string;
+    generos: any;
 }

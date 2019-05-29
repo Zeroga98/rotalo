@@ -55,6 +55,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];
   subCategories: Array<SubcategoryInterface> = [];
+  genders: Array<any> = [];
   subCategory: SubcategoryInterface;
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
@@ -776,9 +777,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   selectedComunity(idCategory: number ) {
     this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
+    this.photosForm.patchValue({'genderId': ''});
+    this.genders = [];
     this.currentSubcategory = '';
     this.subCategory = null;
-    if (idCategory == 7 || idCategory == 6) {
+    if (idCategory == 7 || idCategory == 6 || idCategory == 10) {
       let sellType = '';
       sellType = this.photosForm.get('sell-type').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
@@ -796,6 +799,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   selectedSubcategory(idSubcategory) {
     this.subCategory = this.findSubCategory(idSubcategory);
+    this.photosForm.patchValue({'genderId': ''});
+    this.genders = this.subCategory.generos;
   }
 
   loadYearsModelVehicle() {
@@ -966,6 +971,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'special-price': [newPrice, []],
       category: [config['category'], [Validators.required]],
+      genderId: [config['genderId'], []],
 
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
@@ -1146,7 +1152,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return true;
   }
 
-  get showOptionsModa () {
+  get showOptionsFashion () {
     if (this.photosForm.get('category').value == 10) {
       return false;
     }
