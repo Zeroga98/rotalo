@@ -366,10 +366,10 @@ export class DetailProductComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.children)
+        /*if (this.products.children)
         {
           this.childrens = this.products.children;
-        }
+        }*/
       }
     },
       (error) => {
@@ -581,7 +581,7 @@ export class DetailProductComponent implements OnInit {
 
   buyProduct(id: number | string) {
     if (!this.formIsInValid) {
-      if(id>1)
+      if(!id)
       {
         this.errorSize = true;
       }
