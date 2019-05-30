@@ -98,9 +98,11 @@
             color: #383838;
             font-weight: bold;
             line-height: 18px;
+            span {
+              display: block;
+            }
             .right {
               text-align: right;
-              float: right;
             }
           }
 
@@ -444,6 +446,7 @@
       color:#383838;
       text-align: right;
       span {
+        display: inline;
         font-weight: normal;
       }
       span:first-child {
