@@ -551,7 +551,23 @@
           <h1>Características</h1>
           <table class="table-info">
             <tbody>
-              <tr>
+              <tr *ngIf="!products.children[0].brand">
+                <td class=" ">
+                  <div>
+                    Género
+                    <p *ngIf="products.children[0].genderName">{{products.children[0].genderName}}</p>
+                  </div>
+                </td>
+                <td class="padding-cell-left middle-cell-no-right">
+                  <div>
+                    Color
+                    <p *ngIf="products.children[0].color">{{products.children[0].color}}</p>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+
+              <tr *ngIf="products.children[0].brand">
                 <td class=" ">
                   <div>
                     Género
