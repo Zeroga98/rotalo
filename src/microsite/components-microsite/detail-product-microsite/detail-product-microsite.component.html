@@ -115,41 +115,43 @@
           </div>
           <div class="size-div" *ngIf="products && products.children">
               <label class="label-title">Talla</label>
-              <select [(ngModel)]="childrens" class="form-control-select">
+              <select [(ngModel)]="childrens" class="form-control-select" (change)="updateSize(childrens)">
                 <option value="" selected="true" disabled> </option>
-                <option *ngFor="let children of products.children" value="{{children.id}}" class="option-select">{{children.sizeName}}
+                <option *ngFor="let children of products.children" value="{{children.id}}" class="option-select">
+                  {{children.sizeName}}
                 </option>
               </select>
+              <span *ngIf="errorSize == true" class="error-msg">Selecciona la talla</span>
             </div>
           <div class="btns-container">
-          <div class="full-width quantity-container">
-            <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" (ngSubmit)="quantity(form)"
-              #form>
-              <div class="form-group">
-                <label class="label-title">Cantidad</label>
-                <div class="input-group quantity-wrapper">
-                  <span class="input-group-btn">
-                    <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
-                      <span>-</span>
-                    </button>
-                  </span>
-                  <input type="text" class="form-control input-number input-sm quantity-style" name="stock"
-                    currencyMask [options]="{prefix: '' , align: 'left', precision: 0}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                    formControlName="stock" placeholder="0" maxlength="5" autocomplete="off">
-                  <span class="input-group-btn">
-                    <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm">
-                      <span>+</span>
-                    </button>
-                  </span>
+            <div class="full-width quantity-container">
+              <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"
+                (ngSubmit)="quantity(form)" #form>
+                <div class="form-group">
+                  <label class="label-title">Cantidad</label>
+                  <div class="input-group quantity-wrapper">
+                    <span class="input-group-btn">
+                      <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm button-center">
+                        <span>-</span>
+                      </button>
+                    </span>
+                    <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask
+                      [options]="{prefix: '' , align: 'left', precision: 0}"
+                      onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
+                      placeholder="0" maxlength="5" autocomplete="off">
+                    <span class="input-group-btn">
+                      <button (click)="addStock()" type="button" class="btn btn-default btn-number btn-sm button-center">
+                        <span>+</span>
+                      </button>
+                    </span>
+                  </div>
+                  <span class="quantity-on-stock" *ngIf="totalStock==1">({{totalStock}} disponible)</span>
+                  <span class="quantity-on-stock" *ngIf="totalStock>1">({{totalStock}} disponibles)</span>
+                  <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este
+                    campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
                 </div>
-                <span class="quantity-on-stock">
-                  ({{totalStock}} disponibles)
-                </span>
-                <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este
-                  campo debe ser mayor a 0 y menor o igual a {{totalStock}}</span>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
           <div class="btn-item">
             <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && !products.children" 
               (click)="addToShoppingCar(products)">
