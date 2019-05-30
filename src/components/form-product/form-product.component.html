@@ -22,7 +22,8 @@
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
                 <select name="category-id" class="category form-control"
-                  (change)="selectedComunity($event.target.value)" (click)="resetPromo()" #categorySelect
+                  (change)="selectedComunity($event.target.value);
+                  setFashionValidation()" (click)="resetPromo()" #categorySelect
                   formControlName="category">
                   <option value="" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
@@ -313,7 +314,8 @@
             <div class="subTitle">
               <p>Si tu prenda de moda tiene varias tallas aquí puedes agregarlas</p>
             </div>
-            <form [formGroup]="formFashion">
+            <div *ngIf="formFashion">
+              <form [formGroup]="formFashion">
                 <div formArrayName="children" class="row">
                     <div *ngFor="let child of formFashion.get('children').controls; let i = index;" class="size-container">
                       <div class = "size" [formGroupName]="i">
@@ -364,7 +366,7 @@
                     </div>
                   </div>
             </form>
-
+            </div>
             <div class="row">
                 <div class="btn-container">
                   <a (click) = "addSizeFashion()" mat-button>+ Agregar otra talla</a>

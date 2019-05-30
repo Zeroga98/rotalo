@@ -134,6 +134,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const currentUser = this.currentSessionSevice.currentUser();
     this.countryId = Number(currentUser['countryId']);
     try {
+    
       this.setInitialForm(this.getInitialConfig());
       this.categoryService.getCategoriesActiveServer().subscribe((response) => {
         this.loadYearsModelVehicle();
@@ -249,7 +250,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.setValidationVehicle();
     this.setValidationImmovable();
     this.setFashionValidation();
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
+
+    if ((!this.formIsInValid && (this.city['id']) /* &&  this.photosUploaded.length > 0*/)
+    && (this.showOptionsFashion || !this.showOptionsFashion && this.formFashion && !this.formFashion.invalid)) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
 
@@ -298,8 +301,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         const publishDate = {
           'published-at': new Date()
         };
-        // const photosIds2 = [{ 'photo-id': 12408, 'position': 1}]
-        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
+         const photosIds2 = [{ 'photo-id': 12965, 'position': 1}];
+        params = Object.assign({}, this.photosForm.value, photosIds2, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
 
@@ -384,6 +387,19 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     }
       params.stock = this.photosForm.get('stock').value;
+
+      if (!this.showOptionsFashion && this.formFashion && !this.formFashion.invalid) {
+        params.children = this.formFashion.get('children').value;
+        params.children.map((item) => {
+          item.genderId = Number(this.photosForm.get('genderId').value);
+          item.brand = this.photosForm.get('brandFashion').value;
+          item.color = this.photosForm.get('colorFashion').value;
+        });
+        delete params['genderId'];
+        delete params['brandFashion'];
+        delete params['colorFashion'];
+      }
+
       const request = {
         'data': {
           'attributes': params
@@ -391,7 +407,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       };
 
       this.publish.emit(request);
-
 
     } else {
       this.validateAllFormFields(this.photosForm);
@@ -727,7 +742,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const colorFashion = this.photosForm.get('colorFashion');
     genderId.clearValidators();
     colorFashion.clearValidators();
-    if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
+    if (!this.showOptionsFashion) {
       genderId.setValidators([Validators.required]);
       colorFashion.setValidators([Validators.required]);
     }
@@ -848,15 +863,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-  private createItem(childrenForm) {
-    const children = childrenForm.map(child => {
-      return this.fb.group({
-        'sizeId': [child['sizeId'], [Validators.required]],
-        'stock': [child['stock'], [Validators.required]]
-      });
-    });
-    return children;
-  }
+ 
 
   private setInitialForm(config: ProductInterface) {
 
@@ -1000,6 +1007,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         checkNewPrice = true;
       }
     }
+
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
@@ -1055,6 +1063,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     }, { validator: validatePrice });
 
+    this.setInitialFormFashion(this.getInitialConfigSize());
     if (this.product) {
       if (this.isActivePromo(this.product)) {
         const price = this.photosForm.get('special-price').value;
@@ -1093,20 +1102,44 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return children;
   }
 
+  private getInitialConfigSize() {
+    const children = [
+      {
+        'sizeId': '',
+        'stock': 1
+      }
+    ];
+    return children;
+  }
+
+  private createItem(childrenForm) {
+    const children = childrenForm.map(child => {
+      return this.fb.group({
+        'sizeId': [child['sizeId'], [Validators.required]],
+        'stock': [child['stock'], [Validators.required]]
+      });
+    });
+    return children;
+  }
+
   addSizeFashion(): void {
-    const children = this.formFashion.get('children') as FormArray;
-    children.push(this.createBasicItem(this.initialSize()));
+    if (this.formFashion) {
+      const children = this.formFashion.get('children') as FormArray;
+      children.push(this.createBasicItem(this.initialSize()));
+    }
   }
 
   removeBannerColombia(id) {
-    const children = this.formFashion.get('children').controls;
-     if (children.length > 1) {
-       this.formFashion.get('children').controls = children.filter((item, index) => {
-         if (index != id) {
-           return item;
-         }
-       });
-     }
+    if (this.formFashion) {
+      const children = this.formFashion.get('children').controls;
+      if (children.length > 1) {
+        this.formFashion.get('children').controls = children.filter((item, index) => {
+          if (index != id) {
+            return item;
+          }
+        });
+      }
+    }
   }
 
   private createBasicItem(children) {
