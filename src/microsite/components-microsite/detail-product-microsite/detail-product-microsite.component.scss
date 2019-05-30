@@ -146,10 +146,13 @@
       padding-left: 30px;
       min-height: 400px;
 
-      .card-product{
-        //border: 1px solid #E5E5E5;
-        //padding: 5%;
-        //border-radius: 8px;
+      .error-msg {
+        padding-left: 0px;
+        color: #d61320;
+        font-size: 1.4rem;
+      }
+      .button-center{
+        margin: 0 3px 0 3px;
       }
 
       .title-product {

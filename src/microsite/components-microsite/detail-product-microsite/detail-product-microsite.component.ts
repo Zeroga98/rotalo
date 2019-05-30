@@ -87,6 +87,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   showModalBuy = false;
   productForModal = {};
   public childrens;
+  public errorSize;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -419,6 +420,22 @@ export class DetailProductMicrositeComponent implements OnInit {
     return `${city.name}, ${state.name}`;
   }
 
+  updateSize(id){
+    this.errorSize = false;
+    for(let child of this.products.children)
+    {
+      if(child.id==id)
+      {
+        this.totalStock = child.stock;
+      }
+    }
+    this.quantityForm = this.fb.group(
+      {
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.totalStock)]]
+      }
+    );
+  }
+
   creditProduct(id: number | string) {
     const urlBuyProduct = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.FINANCEBAM
@@ -567,11 +584,33 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   async addToShoppingCar(product) {
+    console.log(product);
+    let idProducto;
+    let nombreProducto = this.products.name;
+    let fotoProducto = this.products.photoList;
+    if(!product)
+    {
+      this.errorSize = true;
+    }
+    if(!product.id)
+    {
+      for(let children of this.products.children)
+      {
+        if(children.id==product)
+        {
+          idProducto = children.id;
+        }
+      }
+    }
+    else
+    {
+      idProducto = product.id;
+    }
     if (this.quantityForm.get('stock').value > 0 && this.quantityForm.get('stock').value <= this.totalStock) {
       const body = {
         productos: [
           {
-            'idProducto': product.id,
+            'idProducto': idProducto,
             'cantidad': this.quantityForm.get('stock').value,
             'adicionar': true
           }
@@ -581,10 +620,10 @@ export class DetailProductMicrositeComponent implements OnInit {
         const added = await this.back.addProductToBD(body);
         try {
           this.productForModal = {
-            'name': product.name,
+            'name': nombreProducto,
             'quantity': this.quantityForm.get('stock').value,
             'price': this.quantityForm.get('stock').value * product.price,
-            'photos': product.photoList
+            'photos': fotoProducto
           };
           this.showModalBuy = true;
           const quantityCart = await this.car.getCartInfo();

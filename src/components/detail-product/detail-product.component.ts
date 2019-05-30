@@ -188,7 +188,7 @@ export class DetailProductComponent implements OnInit {
   initQuantityForm() {
     this.quantityForm = this.fb.group(
       {
-        stock: [1, [Validators.required, Validators.min(1), Validators.max(1)]]
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.totalStock)]]
       }
     );
   }
@@ -340,10 +340,13 @@ export class DetailProductComponent implements OnInit {
         } else {
           this.totalStock = 1;
         }
+        
         const price = this.quantityForm.get('stock');
         price.clearValidators();
         price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
         price.updateValueAndValidity();
+        
+      
 
 
         const fullName = this.products.user.name.split(' ');
@@ -366,10 +369,6 @@ export class DetailProductComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        /*if (this.products.children)
-        {
-          this.childrens = this.products.children;
-        }*/
       }
     },
       (error) => {
@@ -579,6 +578,22 @@ export class DetailProductComponent implements OnInit {
     return `${city.name}, ${state.name}`;
   }
 
+  updateSize(id){
+    this.errorSize = false;
+    for(let child of this.products.children)
+    {
+      if(child.id==id)
+      {
+        this.totalStock = child.stock;
+      }
+    }
+    this.quantityForm = this.fb.group(
+      {
+        stock: [1, [Validators.required, Validators.min(1), Validators.max(this.totalStock)]]
+      }
+    );
+  }
+
   buyProduct(id: number | string) {
     if (!this.formIsInValid) {
       if(!id)
@@ -601,7 +616,6 @@ export class DetailProductComponent implements OnInit {
           }/${id}`;
         this.router.navigate([urlBuyProduct]);
       }
-      
     }
   }
 
