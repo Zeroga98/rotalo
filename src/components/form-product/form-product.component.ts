@@ -2,7 +2,7 @@ import { DATAPICKER_CONFIG } from './../../commons/constants/datapicker.config';
 import { ProductInterface } from './../../commons/interfaces/product.interface';
 import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { CategoryInterface } from '../../commons/interfaces/category.interface';
 import { SubcategoryInterface } from '../../commons/interfaces/subcategory.interface';
 import { PhotosService } from '../../services/photos.service';
@@ -19,6 +19,7 @@ import { CollectionSelectService } from '../../services/collection-select.servic
 import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehicle.constant';
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/dates-promos.contants';
 import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS, ANTIGUEDAD } from './immovable.constant';
+import { COLOR_FASHION } from './colors-clothes.constant';
 
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
@@ -55,10 +56,12 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];
   subCategories: Array<SubcategoryInterface> = [];
+  genders: Array<any> = [];
   subCategory: SubcategoryInterface;
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
   colorList: Array<any> = COLOR;
+  colorListFashion: Array<any> = COLOR_FASHION;
   vehicleNumberList: Array<any> = PLACA;
   cylinderList: Array<any> = CILINDRAJE;
   combustibleList: Array<any> = COMBUSTIBLE;
@@ -67,6 +70,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   modelList: Array<any> = [];
   brandsList: Array<any> = [];
   linesList: Array<any> = [];
+  sizesList: Array<any> = [];
   currentSubcategory: String = '';
   customStyleImageLoader = IMAGE_LOAD_STYLES;
   isModalShowed: boolean = false;
@@ -108,6 +112,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   antiguedades: Array<any> = ANTIGUEDAD;
   socialClasses: Array<any> = SOCIALCLASS;
   cellphone: String;
+  public formFashion;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -128,6 +134,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const currentUser = this.currentSessionSevice.currentUser();
     this.countryId = Number(currentUser['countryId']);
     try {
+    
       this.setInitialForm(this.getInitialConfig());
       this.categoryService.getCategoriesActiveServer().subscribe((response) => {
         this.loadYearsModelVehicle();
@@ -205,6 +212,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return this.countryId == 9;
   }
 
+  getSizes(params) {
+    this.collectionService.getSizes(params).subscribe((response) => {
+      if (response.body) {
+        this.sizesList = response.body.tallas;
+        this.changeDetectorRef.markForCheck();
+      }
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
   changeKindOfProduct(evt) {
     this.photosForm.controls['negotiable'].enable();
     this.photosForm.patchValue({stock: 1});
@@ -222,7 +240,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       elem.checked = true;
       this.disabledField = false;
       this.photosForm.controls['negotiable'].disable();
-    }else {
+    } else {
       this.disabledField = false;
     }
   }
@@ -231,7 +249,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     this.setValidationVehicle();
     this.setValidationImmovable();
-    if (!this.formIsInValid && (this.city['id']) &&  this.photosUploaded.length > 0  ) {
+    this.setFashionValidation();
+
+    if ((!this.formIsInValid && (this.city['id'])  &&  this.photosUploaded.length > 0)
+    && (this.showOptionsFashion || !this.showOptionsFashion && this.formFashion && !this.formFashion.invalid)) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
 
@@ -277,11 +298,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
           delete params['publish-until'];
         }
       } else {
-
-      const publishDate = {
+        const publishDate = {
           'published-at': new Date()
-      };
-        // const photosIds2 = [{ 'photo-id': 12408, 'position': 1}]
+        };
+        // const photosIds2 = [{ 'photo-id': 12965, 'position': 1}];
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
@@ -302,8 +322,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       delete params['air-conditioner'];
       delete params['abs-brakes'];
       delete params['unique-owner'];
-
-
 
       delete params['antiquity'];
       delete params['squareMeters'];
@@ -369,6 +387,19 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     }
       params.stock = this.photosForm.get('stock').value;
+
+      if (!this.showOptionsFashion && this.formFashion && !this.formFashion.invalid) {
+        params.children = this.formFashion.get('children').value;
+        params.children.map((item) => {
+          item.genderId = Number(this.photosForm.get('genderId').value);
+          item.brand = this.photosForm.get('brandFashion').value;
+          item.color = this.photosForm.get('colorFashion').value;
+        });
+        delete params['genderId'];
+        delete params['brandFashion'];
+        delete params['colorFashion'];
+      }
+
       const request = {
         'data': {
           'attributes': params
@@ -376,7 +407,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       };
 
       this.publish.emit(request);
-
 
     } else {
       this.validateAllFormFields(this.photosForm);
@@ -707,6 +737,20 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.changeDetectorRef.markForCheck();
   }
 
+  setFashionValidation () {
+    const genderId = this.photosForm.get('genderId');
+    const colorFashion = this.photosForm.get('colorFashion');
+    genderId.clearValidators();
+    colorFashion.clearValidators();
+    if (!this.showOptionsFashion) {
+      genderId.setValidators([Validators.required]);
+      colorFashion.setValidators([Validators.required]);
+    }
+    genderId.updateValueAndValidity();
+    colorFashion.updateValueAndValidity();
+    this.changeDetectorRef.markForCheck();
+  }
+
   setLinesVehicle (id) {
     if (this.brandsList) {
       const brands = this.brandsList.filter(value => {
@@ -776,9 +820,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   selectedComunity(idCategory: number ) {
     this.categorySelected = idCategory;
     this.subCategories = this.findCategory(idCategory).subcategories;
+    this.photosForm.patchValue({'genderId': ''});
+    this.genders = [];
     this.currentSubcategory = '';
     this.subCategory = null;
-    if (idCategory == 7 || idCategory == 6) {
+    if (idCategory == 7 || idCategory == 6 || idCategory == 10) {
       let sellType = '';
       sellType = this.photosForm.get('sell-type').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
@@ -796,6 +842,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   selectedSubcategory(idSubcategory) {
     this.subCategory = this.findSubCategory(idSubcategory);
+    this.photosForm.patchValue({'genderId': ''});
+    this.genders = this.subCategory.generos;
+  }
+
+  loadSizes() {
+    if (this.photosForm.get('subcategory-id').value && this.photosForm.get('genderId').value) {
+      const params = {
+        'subcategoryId': this.photosForm.get('subcategory-id').value,
+        'genderId': this.photosForm.get('genderId').value
+      };
+      this.getSizes(params);
+    }
   }
 
   loadYearsModelVehicle() {
@@ -805,7 +863,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
+ 
+
   private setInitialForm(config: ProductInterface) {
+
     /**Vehiculos**/
     let typeVehicle = '';
     let model = '';
@@ -911,6 +972,16 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
 
 
+    /**Moda**/
+    let genderId = '';
+    let colorFashion = '';
+    let brandFashion = '';
+    if (config['children'] && config['children'].length > 0) {
+       genderId = config['children'][0].genderId;
+       colorFashion = config['children'][0].color;
+       brandFashion = config['children'][0].brand;
+    }
+
     if (config['sell-type'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
@@ -924,7 +995,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     if (this.product) {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
-      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos') {
+      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos' ||
+      config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
         this.photosForm.get('category').disable();
         this.photosForm.get('subcategory-id').disable();
       }
@@ -935,6 +1007,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         checkNewPrice = true;
       }
     }
+
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
@@ -983,9 +1056,14 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       usefulRoom: [usefulRoom, []],
       squareMetersTerrain: [squareMetersTerrain, []],
       socialClass: [socialClass, []],
+      children: [],
+      genderId: [genderId, []],
+      colorFashion: [colorFashion, []],
+      brandFashion: [brandFashion, []],
 
     }, { validator: validatePrice });
 
+    this.setInitialFormFashion(this.getInitialConfigSize());
     if (this.product) {
       if (this.isActivePromo(this.product)) {
         const price = this.photosForm.get('special-price').value;
@@ -995,9 +1073,80 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         specialPrice.setValidators([Validators.required, Validators.max(this.maxValueNewPrice)]);
         specialPrice.updateValueAndValidity();
       }
+
+      /**Moda**/
+      if (config['children'] && config['children'].length > 0) {
+        this.setInitialFormFashion(config['children']);
+      }
+      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
+        this.photosForm.get('genderId').disable();
+      }
+
     }
 
+  }
 
+  private setInitialFormFashion(children) {
+    this.formFashion = this.fb.group({
+      children: this.fb.array(
+        this.createItem(children)
+      )
+    });
+  }
+
+  private initialSize() {
+    const children = {
+      'sizeId': '',
+      'stock': 1
+    };
+    return children;
+  }
+
+  private getInitialConfigSize() {
+    const children = [
+      {
+        'sizeId': '',
+        'stock': 1
+      }
+    ];
+    return children;
+  }
+
+  private createItem(childrenForm) {
+    const children = childrenForm.map(child => {
+      return this.fb.group({
+        'sizeId': [child['sizeId'], [Validators.required]],
+        'stock': [child['stock'], [Validators.required]]
+      });
+    });
+    return children;
+  }
+
+  addSizeFashion(): void {
+    if (this.formFashion) {
+      const children = this.formFashion.get('children') as FormArray;
+      children.push(this.createBasicItem(this.initialSize()));
+    }
+  }
+
+  removeBannerColombia(id) {
+    if (this.formFashion) {
+      const children = this.formFashion.get('children').controls;
+      if (children.length > 1) {
+        this.formFashion.get('children').controls = children.filter((item, index) => {
+          if (index != id) {
+            return item;
+          }
+        });
+      }
+    }
+  }
+
+  private createBasicItem(children) {
+    return this.fb.group({
+        'sizeId': [children['sizeId'], [Validators.required]],
+        'stock': [children['stock'], [Validators.required]]
+      });
   }
 
   private getInitialConfig(): ProductInterface {
@@ -1066,6 +1215,18 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.selectedComunity(subCategory.category.id as number);
         this.photosForm.controls['category'].setValue(subCategory.category.id);
         this.photosForm.controls['subcategory-id'].setValue(subCategory.id);
+        this.loadFashionGender(subCategory.id);
+      }
+    }
+  }
+
+  loadFashionGender(subcategoryValue) {
+    const subcategory = this.findSubCategory(subcategoryValue);
+    if (subcategory && subcategory.generos) {
+      this.genders = subcategory.generos;
+      if (this.product && this.product['children'] && this.product['children'][0]) {
+        this.photosForm.controls['genderId'].setValue(this.product['children'][0].genderId);
+        this.loadSizes();
       }
     }
   }
@@ -1138,6 +1299,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
     return true;
   }
+
   get showOptionEstate () {
     if (this.photosForm.get('category').value == 7) {
       return false;
@@ -1145,6 +1307,12 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     return true;
   }
 
+  get showOptionsFashion () {
+    if (this.photosForm.get('category').value == 10) {
+      return false;
+    }
+    return true;
+  }
 
   addStock() {
     if (this.showOptionsVehicles &&  this.showOptionEstate) {
@@ -1163,6 +1331,22 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         stock = --stock;
         this.photosForm.patchValue({stock: stock});
       }
+    }
+  }
+
+  addStockSize(sizeStock, element) {
+    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock < 9999) {
+      let stock = sizeStock;
+      stock = ++stock;
+      element.patchValue({ stock: stock });
+    }
+  }
+
+  minusStockSize(sizeStock , element) {
+    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock > 1) {
+      let stock = sizeStock;
+      stock = --stock;
+      element.patchValue({ stock: stock });
     }
   }
 
@@ -1252,11 +1436,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   openTermsModal(): void {
     this.modalTermsIsOpen = true;
     }
-    
+
   closeTermsModal() {
     this.modalTermsIsOpen = false;
   }
-  
+
   acceptTerms(checkbox) {
     this.photosForm.patchValue({
     'termsCheckbox': true

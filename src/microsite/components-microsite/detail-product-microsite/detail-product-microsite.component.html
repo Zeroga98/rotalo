@@ -13,7 +13,9 @@
             <img src="/assets/img/product-no-image.png">
           </div>
         </div>
-        <div class="description">{{products.description}}</div>
+        <div class="description">
+          <pre>{{products.description}}</pre>
+        </div>
         <div>
           tabla
         </div>
@@ -58,7 +60,7 @@
                     </mat-menu>
                 </div-->
             </div>
-            {{products.description}}
+            <pre>{{products.description}}</pre>
           </div>
       <div *ngIf="products.children" class="tabla-container desktop">
         <h1>Características</h1>

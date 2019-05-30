@@ -435,6 +435,13 @@
       margin-top: 2rem;
       font-size: 1.6rem;
 
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-size: 1.6rem;
+        font-family: 'Lato Regular';
+      }
+
       .description-title {
         font-size: 2.2rem;
         font-weight: bold;

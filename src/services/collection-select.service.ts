@@ -40,7 +40,7 @@ export class CollectionSelectService {
     });
   }
 
-    async getStatesById(id: number) { 
+    async getStatesById(id: number) {
       const country = await this.getCountryById(id);
         this.states = country.states;
         return this.states.map( state => {
@@ -100,6 +100,13 @@ export class CollectionSelectService {
       const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
       const headers = new HttpHeaders(jsonSapiHeaders);
       const url = this.urlSapi + '/categorias/vehiculos';
+      return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
+    }
+
+    getSizes(params) {
+      const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+      const headers = new HttpHeaders(jsonSapiHeaders);
+      const url = this.urlSapi + '/categorias/tallas';
       return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
     }
 

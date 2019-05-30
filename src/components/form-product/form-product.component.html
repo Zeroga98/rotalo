@@ -22,9 +22,10 @@
             <div class="row">
               <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('category').value}">
                 <select name="category-id" class="category form-control"
-                  (change)="selectedComunity($event.target.value)" (click)="resetPromo()" #categorySelect
+                  (change)="selectedComunity($event.target.value);
+                  setFashionValidation()" (click)="resetPromo()" #categorySelect
                   formControlName="category">
-                  <option value=""  disabled></option>
+                  <option value="" disabled></option>
                   <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                 </select>
                 <label class="label-title">Categoría*</label>
@@ -44,6 +45,17 @@
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
               </div>
+
+              <div *ngIf="!showOptionsFashion" class="form-group field-form"
+                [ngClass]="{'valid': photosForm.get('genderId').value}">
+                <select (change)="loadSizes();" name="genderId" class="genderId form-control" formControlName="genderId">
+                  <option value="" disabled></option>
+                  <option *ngFor="let gender of genders" value="{{gender.id}}">{{gender.nombre}}</option>
+                </select>
+                <label class="label-title">Género*</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+
             </div>
             <div class="row-img">
               <div class="step-number">
@@ -140,19 +152,19 @@
                       id="vender" type="radio" name="sell-type">
                     <label for="vender">Vender</label>
                   </div>
-                  <div *ngIf="showOptionsVehicles" class="md-radio">
+                  <div *ngIf="showOptionsVehicles && showOptionsFashion" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
                       [attr.disabled]="disabledFieldType ? '' : null" value="ALQUILA" formControlName="sell-type"
                       id="alquilar" type="radio" name="sell-type">
                     <label for="alquilar">Alquilar</label>
                   </div>
-                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate && showOptionsFashion" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
                       [attr.disabled]="disabledFieldType ? '' : null" value="SUBASTA" formControlName="sell-type"
                       id="subastar" type="radio" name="sell-type">
                     <label for="subastar">Subastar</label>
                   </div>
-                  <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
+                  <div *ngIf="showOptionsVehicles &&  showOptionEstate && showOptionsFashion" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
                       [attr.disabled]="disabledFieldType ? '' : null" value="GRATIS" formControlName="sell-type"
                       id="regalar" type="radio" name="sell-type">
@@ -162,7 +174,7 @@
                 </div>
               </div>
 
-              <div *ngIf="showOptionsVehicles && showOptionEstate" class="form-group">
+              <div *ngIf="showOptionsVehicles && showOptionEstate && showOptionsFashion" class="form-group">
                 <label class="label-title">Número de unidades disponibles</label>
                 <div class="input-group quantity-wrapper">
                   <span class="input-group-btn">
@@ -271,6 +283,97 @@
               </div>
             </div>
           </div>
+
+
+          <div *ngIf="!showOptionsFashion" class="row-section">
+            <div class="title-form">
+              <div class="numberCircle">2</div>
+              <div class="step-info">
+                <h1>Todos los que buscan artículos de moda, necesitan esta información</h1>
+                <p class="msg-field-required">
+                  *Campos obligatorios
+                </p>
+              </div>
+            </div>
+            <div class="fashion row">
+              <div [ngClass]="{'valid': photosForm.get('colorFashion').value}" class="form-group field-form">
+                <select
+                  name="colorFashion" formControlName="colorFashion" class="color form-control">
+                  <option value="" disabled></option>
+                  <option *ngFor="let color of colorListFashion" value="{{color}}">{{color}}</option>
+                </select>
+                <label class="label-title">¿De qué color es tu producto?</label>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+              <div class="form-group">
+                <label class="label-title">Marca*</label>
+                <input name="brandFashion" formControlName="brandFashion" type="text" class="form-control" maxlength="50">
+                <span class="help-block error-msg"> Este campo es requerido </span>
+              </div>
+            </div>
+            <div class="subTitle">
+              <p>Si tu prenda de moda tiene varias tallas aquí puedes agregarlas</p>
+            </div>
+            <div *ngIf="formFashion">
+              <form [formGroup]="formFashion">
+                <div formArrayName="children" class="row">
+                    <div *ngFor="let child of formFashion.get('children').controls; let i = index;" class="size-container">
+                      <div class = "size" [formGroupName]="i">
+                          <a mat-icon-button>
+                            <div (click) = "removeBannerColombia(i)" class="trash-icon"></div>
+                          </a>
+                          <div
+                          [ngClass]="{'valid':
+                          formFashion.get('children').controls[i] &&
+                          formFashion.get('children').controls[i].controls['sizeId'] &&
+                          formFashion.get('children').controls[i].controls['sizeId'].value}"
+
+                           class="form-group field-form">
+                              <select formControlName="sizeId" name="sizeId" class="size form-control">
+                                <option value="" disabled></option>
+                                <option *ngFor="let size of sizesList" value="{{size.id}}">{{size.nombre}}</option>
+                              </select>
+                              <label class="label-title">Talla</label>
+                              <span class="error-msg">Este campo es requerido</span>
+                          </div>
+                          <div class="form-group">
+                              <label class="label-title">Número de unidades disponibles</label>
+                              <div class="input-group quantity-wrapper">
+                                <span class="input-group-btn">
+                                  <button
+                                  (click)="minusStockSize(formFashion.get('children').controls[i].controls['stock'].value ,
+                                  formFashion.get('children').controls[i])" type="button" class="btn btn-default btn-number btn-sm">
+                                    <span>-</span>
+                                  </button>
+                                </span>
+                                <input formControlName="stock" type="text" class="form-control input-number input-sm quantity-style" name="stock"
+                                  currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                                  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                  placeholder="1" maxlength="5" autocomplete="off">
+                                <span class="input-group-btn">
+                                  <button
+                                  (click)="addStockSize(formFashion.get('children').controls[i].controls['stock'].value,
+                                  formFashion.get('children').controls[i])" type="button" class="btn btn-default btn-number btn-sm">
+                                    <span>+</span>
+                                  </button>
+                                </span>
+                                <span class="error-stock error-msg">
+                                  Este campo debe ser mayor o igual a 1.
+                                </span>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+            </form>
+            </div>
+            <div class="row">
+                <div class="btn-container">
+                  <a (click) = "addSizeFashion()" mat-button>+ Agregar otra talla</a>
+                </div>
+            </div>
+          </div>
+
           <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos()" class="row-section">
             <div class="title-form">
               <div class="numberCircle">2</div>
@@ -602,10 +705,14 @@
           </div>
           <div class="row-section">
             <div class="title-form">
-              <div *ngIf="subcategoryIsVehicle() || subcategoryIsMotos() || subcategoryIsHouse() || subcategoryIsFlat()"
-                class="numberCircle">4</div>
               <div
-                *ngIf="!subcategoryIsVehicle() && !subcategoryIsMotos() && !subcategoryIsHouse() && !subcategoryIsFlat()"
+                *ngIf="subcategoryIsVehicle() || subcategoryIsMotos() || subcategoryIsHouse() || subcategoryIsFlat()"
+                class="numberCircle">4</div>
+                <div
+                *ngIf="!showOptionsFashion"
+                class="numberCircle">3</div>
+              <div
+                *ngIf="showOptionsFashion && !subcategoryIsVehicle() && !subcategoryIsMotos() && !subcategoryIsHouse() && !subcategoryIsFlat()"
                 class="numberCircle">2</div>
               <div class="step-info">
                 <h1>Por último agrega la información de la publicación</h1>
@@ -631,25 +738,29 @@
                 </div>
               </div>
               <div class="form-group">
-                  <label class="label-title">¿Quieres que te contacten a tu WhatsApp {{cellphone}}?</label>
-                  <div>
-                    <div class="md-radio">
-                      <input [value]="true" formControlName="contactSeller" id="contactSeller1" type="radio" name="contactSeller">
-                      <label for="contactSeller1">Sí
-                      </label>
-                    </div>
-                    <div class="md-radio">
-                      <input [value]="false" formControlName="contactSeller" id="contactSeller2" type="radio" name="contactSeller">
-                      <label for="contactSeller2">No</label>
-                    </div>
-                    <span class="error-msg">Este campo es requerido</span>
+                <label class="label-title">¿Quieres que te contacten a tu WhatsApp {{cellphone}}?</label>
+                <div>
+                  <div class="md-radio">
+                    <input [value]="true" formControlName="contactSeller" id="contactSeller1" type="radio"
+                      name="contactSeller">
+                    <label for="contactSeller1">Sí
+                    </label>
                   </div>
+                  <div class="md-radio">
+                    <input [value]="false" formControlName="contactSeller" id="contactSeller2" type="radio"
+                      name="contactSeller">
+                    <label for="contactSeller2">No</label>
+                  </div>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
               </div>
               <div class="form-group">
                 <div class="tool-tip-whatsapp">
                   <label>
-                    Al aceptar, estás de acuerdo con nuestros <label class="label-link" (click)="openTermsModal()">Términos y Condiciones.</label>
-Tu número de contacto será expuesto públicamente y podría ser compartido con usuarios fuera de RÓTALO.
+                    Al aceptar, estás de acuerdo con nuestros <label class="label-link"
+                      (click)="openTermsModal()">Términos y Condiciones.</label>
+                    Tu número de contacto será expuesto públicamente y podría ser compartido con usuarios fuera de
+                    RÓTALO.
                   </label>
                 </div>
               </div>
@@ -680,6 +791,7 @@ Tu número de contacto será expuesto públicamente y podría ser compartido con
       <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit"
         [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
     </div>
-    <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
+    <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()"
+      (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
   </form>
 </div>

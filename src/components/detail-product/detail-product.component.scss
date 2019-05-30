@@ -549,6 +549,13 @@
       font-size: 1.6rem;
       word-wrap: break-word;
 
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-size: 1.6rem;
+        font-family: 'Lato Regular';
+      }
+
         h1 {
           margin: 0;
         }
