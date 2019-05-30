@@ -134,7 +134,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const currentUser = this.currentSessionSevice.currentUser();
     this.countryId = Number(currentUser['countryId']);
     try {
-    
+
       this.setInitialForm(this.getInitialConfig());
       this.categoryService.getCategoriesActiveServer().subscribe((response) => {
         this.loadYearsModelVehicle();
@@ -410,6 +410,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     } else {
       this.validateAllFormFields(this.photosForm);
+      if (!this.showOptionsFashion && this.formFashion && this.formFashion.invalid) {
+        this.validateAllFormFieldsArray(this.formFashion);
+      }
       if (this.photosUploaded.length <= 0) {
         this.errorMaxImg = true;
         this.changeDetectorRef.markForCheck();
@@ -463,6 +466,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
+  validateAllFormFieldsArray(formGroup: FormGroup) {
+    Object.keys(formGroup.controls.children['controls']).forEach(field => {
+      const control = formGroup.controls.children['controls'][field];
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
       } else if (control instanceof FormGroup) {
@@ -863,7 +877,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
- 
+
 
   private setInitialForm(config: ProductInterface) {
 
@@ -995,9 +1009,17 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     if (this.product) {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
-      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos' ||
-      config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
+      || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos') {
         this.photosForm.get('category').disable();
+        this.photosForm.get('subcategory-id').disable();
+      }
+
+      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
+        this.photosForm.get('category').disable();
+      }
+
+      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios'
+      && config['children'] && config['children'].length > 0) {
         this.photosForm.get('subcategory-id').disable();
       }
 
@@ -1078,7 +1100,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       if (config['children'] && config['children'].length > 0) {
         this.setInitialFormFashion(config['children']);
       }
-      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
+
+      if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios' &&
+      config['children'] && config['children'].length > 0) {
         this.photosForm.get('genderId').disable();
       }
 
