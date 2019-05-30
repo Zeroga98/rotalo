@@ -764,11 +764,15 @@ class="conversation">
             </div>
             <div class="notification-body">
                 <p class="notification-text">
-                    El número de guía de tu orden <strong>#{{getAdditionalInfo(message).reference_number}}</strong> en {{getAdditionalInfo(message).store_name}} se actualizó, ahora es: <strong>{{getAdditionalInfo(message).tracking_number}}</strong>
-                </p>
-                <p class="notification-text">Si quieres hacerle seguimiento ingresa al sitio web de {{getAdditionalInfo(message).shipping_company}}.</p>
+                    El número de guía de tu orden #{{getAdditionalInfo(message).reference_number}} en {{getAdditionalInfo(message).store_name}} se actualizó, ahora es:
+                    <br>
+                    <strong>{{getAdditionalInfo(message).tracking_number}}.</strong>
+                    <br>
+                    <br>
+                    Si quieres hacerle seguimiento ingresa al sitio web de {{getAdditionalInfo(message).shipping_company}}.</p>
             </div>
           </div>
+          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}</small>
         </div>
         <!-- FIN NOTIFICACION NUMERO DE GUIA ACTUALIZADO-->
       </div>
