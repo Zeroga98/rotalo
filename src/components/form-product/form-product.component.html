@@ -295,7 +295,7 @@
                 </p>
               </div>
             </div>
-            <div class="row">
+            <div class="fashion row">
               <div [ngClass]="{'valid': photosForm.get('colorFashion').value}" class="form-group field-form">
                 <select
                   name="colorFashion" formControlName="colorFashion" class="color form-control">
@@ -706,8 +706,11 @@
           <div class="row-section">
             <div class="title-form">
               <div
-                *ngIf="!showOptionsFashion || subcategoryIsVehicle() || subcategoryIsMotos() || subcategoryIsHouse() || subcategoryIsFlat()"
+                *ngIf="subcategoryIsVehicle() || subcategoryIsMotos() || subcategoryIsHouse() || subcategoryIsFlat()"
                 class="numberCircle">4</div>
+                <div
+                *ngIf="!showOptionsFashion"
+                class="numberCircle">3</div>
               <div
                 *ngIf="showOptionsFashion && !subcategoryIsVehicle() && !subcategoryIsMotos() && !subcategoryIsHouse() && !subcategoryIsFlat()"
                 class="numberCircle">2</div>

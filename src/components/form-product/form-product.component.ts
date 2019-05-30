@@ -251,7 +251,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.setValidationImmovable();
     this.setFashionValidation();
 
-    if ((!this.formIsInValid && (this.city['id']) /* &&  this.photosUploaded.length > 0*/)
+    if ((!this.formIsInValid && (this.city['id'])  &&  this.photosUploaded.length > 0)
     && (this.showOptionsFashion || !this.showOptionsFashion && this.formFashion && !this.formFashion.invalid)) {
       const photosIds = { 'photo-ids': this.loadOrderPhotos() };
       let dateMoment: any;
@@ -301,8 +301,8 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         const publishDate = {
           'published-at': new Date()
         };
-         const photosIds2 = [{ 'photo-id': 12965, 'position': 1}];
-        params = Object.assign({}, this.photosForm.value, photosIds2, publishDate, dataAdditional, {
+        // const photosIds2 = [{ 'photo-id': 12965, 'position': 1}];
+        params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
           'city-id': this.city['id']
         });
 
