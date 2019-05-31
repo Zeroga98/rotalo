@@ -152,7 +152,7 @@
                       id="vender" type="radio" name="sell-type">
                     <label for="vender">Vender</label>
                   </div>
-                  <div *ngIf="showOptionsVehicles && showOptionsFashion" class="md-radio">
+                  <div *ngIf="showOptionsVehicles" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
                       [attr.disabled]="disabledFieldType ? '' : null" value="ALQUILA" formControlName="sell-type"
                       id="alquilar" type="radio" name="sell-type">
