@@ -295,8 +295,8 @@ class="conversation">
                 <div *ngFor="let order_detail of getAdditionalInfo(message).order_details" class="detail-store-purchase">
                   <div
                     [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
-                  (click)="goToDetail(notification)" class="notification-img">
-                      <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
+                  (click)="goToDetail(message)" class="notification-img">
+                      <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
                   </div>
                   <div class="notification-body">
                       {{order_detail.product_name}}
@@ -316,7 +316,7 @@ class="conversation">
               <div *ngIf="!getAdditionalInfo(message).order_details"
               [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
               (click)="goToDetail(message)" class="notification-img ">
-                  <div [ngStyle]="{'background-image': 'url(' + message.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+                  <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
               </div>
               <div class="notification-body" *ngIf="!getAdditionalInfo(message).order_details">
                 <span>

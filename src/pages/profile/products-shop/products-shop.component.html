@@ -51,7 +51,9 @@
                   {{product.name}}
                 </td>
                 <td>
-                  {{product.description}}
+                  <p class="description">
+                    {{product.description}}
+                  </p>
                 </td>
                 <td>
                   {{product.price | currency:'$' | removeDigits}}
@@ -60,7 +62,7 @@
                   {{calculateIVA(product.price) | currency:'$' | removeDigits}}
                 </td>
                 <td>
-                  %19
+                  19%
                 </td>
                 <td>
                   {{getFormatDate(product['published-at'])}}
