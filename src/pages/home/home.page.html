@@ -31,12 +31,14 @@
                 formControlName="name" name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
                 type="text" />
               <label class="input__label input__label--float">
-                <span class="input__label-content input__label-content--float" data-content="Nombre completo">Nombre
-                  completo</span>
+                <span class="input__label-content input__label-content--float" data-content="Nombres y apellidos">Nombres y apellidos</span>
               </label>
               <span class="help-block">
-                <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
+                <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine && !registerForm.get('name').errors.nameError">
                   Este campo es requerido.
+                </span>
+                <span *ngIf="registerForm.get('name').dirty && registerForm.get('name').errors && registerForm.get('name').errors.nameError">
+                  Ingresa nombre y apellido.
                 </span>
               </span>
             </span>
