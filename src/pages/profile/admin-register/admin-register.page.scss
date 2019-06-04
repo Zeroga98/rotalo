@@ -431,6 +431,25 @@
 
   }
 
+  .material-design {
+    .btn-container .mat-flat-button {
+      border-radius: 5px;
+      color: #383838;
+      background-color: rgba(56,56,56,.09);
+      font-size: 1.2rem;
+      font-family: 'Lato Regular';
+     //  min-width: 130px;
+    }
+    .btn-container .mat-flat-button.primary {
+      background-color: rgba(15,187,216,.11);
+      color: #0fbbd8;
+    }
+    .btn-container .mat-flat-button.secundary {
+      color: #ff4655;
+      background-color: #fff2f3;
+    }
+  }
+
   .material-checkbox {
     position: relative;
     display: inline-block;
@@ -612,6 +631,21 @@
     overflow: auto;
     height: 550px;
     margin-bottom: 5.5rem;
+  }
+
+  .tabla-campaign::-webkit-scrollbar {
+    transition: all 0.5s;
+    width: 5px;
+    height: 1px;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  .tabla-campaign::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .tabla-campaign::-webkit-scrollbar-thumb {
+    background: #CBCBCB;
+    border-radius: 4px;
   }
 
   .campaigns {
