@@ -159,7 +159,7 @@ rl-tag-input-item {
     margin: 1em;
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
-    max-width: 350px;
+    max-width: 390px;
     width: calc(100% - 2em);
     vertical-align: top;
   }
@@ -305,7 +305,7 @@ rl-tag-input-item {
   .number-document {
     display: inline-block;
     .input--float{
-      width: 25rem;
+      width: 29rem;
       margin-left: 1rem;
     }
   }
@@ -322,15 +322,48 @@ rl-tag-input-item {
     border-color: #ED2F3C;
   }
 
+  @media screen and (max-width: 460px) {
+    .input {
+      max-width: 350px;
+    }
 
-  @media screen and (max-width: 360px) {
-    .number-document .input {
-      width: 24rem;
+    .number-document {
+      width: 24.5rem;
+    }
+
+    .number-document .input--float {
+      width: 100%;
+      min-width: 180px;
     }
   }
-  @media screen and (max-width: 360px) {
-    .number-document .input {
-      width: 20rem;
+
+  @media screen and (max-width: 380px) {
+
+    .number-document {
+      width: 23rem;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+
+    .number-document {
+      width: 68%;
+    }
+
+    .number-document .input--float {
+      width: 96%;
+      min-width: 180px;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+
+    .number-document {
+      width: 64%;
+    }
+
+    .number-document .input--float {
+      width: 89%;
     }
   }
 

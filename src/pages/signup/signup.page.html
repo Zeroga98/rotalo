@@ -76,28 +76,6 @@
         </div>
       </div>
 
-      <div class="material-input text-center">
-          <span [ngClass]="{'input--filled': registerForm.get('cellphone').value}" class="text-left input input--label-md">
-            <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}" name="cellphone"
-              formControlName="cellphone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control"
-              maxlength="10" class="form-control" class="input__field input__field--label-md" id="txt-cellphone" autocomplete="off"/>
-            <label class="input__label input__label--label-md">
-              <span class="input__label-content input__label-content--label-md" data-content="Celular">Celular</span>
-            </label>
-          </span>
-          <span class="help-block">
-              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
-              && !registerForm.get('cellphone').errors['pattern']">
-                  Este campo es requerido.
-              </span>
-              <span *ngIf="registerForm.get('cellphone').touched && registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine
-              && registerForm.get('cellphone').errors['pattern']">
-                  El campo no cumple con el formato de teléfono.
-              </span>
-            </span>
-        </div>
-
-
       <div class="btn-signup">
         <custom-button buttonClass="gtmSignUpValidCrearCuenta primary" type="submit" text="Finalizar registro"></custom-button>
       </div>

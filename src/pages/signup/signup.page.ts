@@ -54,8 +54,7 @@ export class SignUpPage implements OnInit {
     this.registerForm = new FormGroup({
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
       identification: new FormControl({value: '', disabled: true}, [Validators.required]),
-      email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
-      cellphone: new FormControl('', [Validators.required])
+      email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email])
     });
     this.getCountries();
   }
@@ -101,7 +100,6 @@ export class SignUpPage implements OnInit {
     );
     return documents;
   }
-
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -180,7 +178,6 @@ export class SignUpPage implements OnInit {
     });
   }
 
-
   async onSubmit() {
       if (!this.formIsInvalid) {
         const params = this.buildParamsUserRequest();
@@ -225,12 +222,10 @@ export class SignUpPage implements OnInit {
   buildParamsUserRequest() {
     const params = {
       'idCiudad': this.city['id'],
-      'celular': this.registerForm.get('cellphone').value,
       'codigoActivacion': this.codeSignup
     };
     return params;
   }
-
 
   selectedCountry(ev) {
     this.country = ev;
@@ -239,7 +234,6 @@ export class SignUpPage implements OnInit {
   selectedStates(ev) {
     this.state = ev;
   }
-
 
   get formIsInvalid(): boolean {
     return this.registerForm.invalid || !this.selectIsCompleted();
@@ -252,37 +246,6 @@ export class SignUpPage implements OnInit {
       }
     }
     return false;
-  }
-
-  setValidationId(): void {
-    if (this.country) {
-      const idCountry = this.country.name;
-      const phoneNumberControl = this.registerForm.get('cellphone');
-      switch (idCountry) {
-        case 'Colombia': {
-          phoneNumberControl.setValidators([Validators.required]);
-          this.registerForm.get('cellphone').setValidators([Validators.required]);
-          phoneNumberControl.setValidators([
-            Validators.required,
-            Validators.pattern(/^\d{10}$/)
-          ]);
-          break;
-        }
-        case 'Guatemala': {
-          phoneNumberControl.setValidators([
-            Validators.required,
-            Validators.pattern(/^\d{8}$/)
-          ]);
-          this.errorMessageId = 'El campo no cumple el formato.';
-          break;
-        }
-        default: {
-          phoneNumberControl.setValidators([Validators.required]);
-          break;
-        }
-      }
-      phoneNumberControl.updateValueAndValidity();
-    }
   }
 
   validateState() {

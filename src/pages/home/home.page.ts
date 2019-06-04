@@ -72,7 +72,8 @@ export class HomePage implements OnInit {
         Validators.minLength(6),
         this.validatePasswordConfirm.bind(this)
       ]],
-      'termsCheckbox': [true, [this.checkBoxRequired.bind(this)]]
+      'termsCheckbox': [true, [this.checkBoxRequired.bind(this)]],
+      cellphone: ['', [Validators.required]]
     });
 
     this.currentUrl = window.location.href;
@@ -83,7 +84,39 @@ export class HomePage implements OnInit {
       this.loadTypeDocument(1);
       this.country =  'Colombia';
     }
+    this.setValidationPhone(this.country);
 
+  }
+
+  setValidationPhone(country): void {
+    if (country) {
+      const idCountry = country;
+      const phoneNumberControl = this.registerForm.get('cellphone');
+      switch (idCountry) {
+        case 'Colombia': {
+          phoneNumberControl.setValidators([Validators.required]);
+          this.registerForm.get('cellphone').setValidators([Validators.required]);
+          phoneNumberControl.setValidators([
+            Validators.required,
+            Validators.pattern(/^\d{10}$/)
+          ]);
+          break;
+        }
+        case 'Guatemala': {
+          phoneNumberControl.setValidators([
+            Validators.required,
+            Validators.pattern(/^\d{8}$/)
+          ]);
+          this.errorMessageId = 'El campo no cumple el formato.';
+          break;
+        }
+        default: {
+          phoneNumberControl.setValidators([Validators.required]);
+          break;
+        }
+      }
+      phoneNumberControl.updateValueAndValidity();
+    }
   }
 
  loadTypeDocument(idCountry) {
@@ -227,8 +260,8 @@ export class HomePage implements OnInit {
         this.idCountry = 1;
       }
 
-      this.userEmail=this.registerForm.get('email').value.toLowerCase();
-      
+      this.userEmail = this.registerForm.get('email').value.toLowerCase();
+
       const idDocument: number = +this.registerForm.get('type-document-id').value;
       const params = {
         'pais': this.idCountry,
@@ -237,6 +270,7 @@ export class HomePage implements OnInit {
         'contrasena': this.registerForm.get('password').value,
         'idTipoDocumento': idDocument,
         'documento': this.registerForm.get('id-number').value,
+        'celular': this.registerForm.get('cellphone').value
       };
 
       this.userService.preSignup(params).subscribe(response => {
