@@ -189,7 +189,7 @@ class="conversation">
                 <div
                   [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
                 (click)="goToDetail(notification)" class="notification-img">
-                    <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img"></div>
+                    <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
                 </div>
                 <div class="notification-body">
                     {{order_detail.product_name}}
