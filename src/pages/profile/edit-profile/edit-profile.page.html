@@ -36,8 +36,13 @@
       <div class="form-group">
         <input formControlName="name" id="txt-name" type="text" class="form-control" maxlength="400" placeholder="Nombre*">
         <span class="help-block">
-          <span *ngIf="editProfileForm.get('name').invalid && !editProfileForm.get('name').pristine">
+          <span
+          *ngIf="editProfileForm.get('name').invalid && !editProfileForm.get('name').pristine && !editProfileForm.get('name').errors.nameError">
             Este campo es obligatorio.
+          </span>
+          <span
+          *ngIf="editProfileForm.get('name').dirty && editProfileForm.get('name').errors && editProfileForm.get('name').errors['nameError']">
+              Ingresa nombre y apellido.
           </span>
         </span>
       </div>

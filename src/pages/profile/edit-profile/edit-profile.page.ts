@@ -3,7 +3,8 @@ import {
   FormControl,
   FormBuilder,
   FormGroup,
-  Validators
+  Validators,
+  AbstractControl
 } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { PhotosService } from '../../../services/photos.service';
@@ -12,6 +13,18 @@ import { TypeDocumentsService } from '../../../services/type-documents.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 
+function validateNameUser (
+  name: AbstractControl
+): { [key: string]: boolean } | null {
+  const nameValue = name.value;
+  if (nameValue) {
+    const arrayName = nameValue.split(' ').filter(function(v) {return v !== ''; } );
+    if (arrayName.length == 1) {
+      return { nameError: true };
+    }
+  }
+  return null;
+}
 
 @Component({
   selector: 'edit-profile',
@@ -56,7 +69,7 @@ export class EditProfilePage implements OnInit {
     const currentUser = this.currentSessionSevice.currentUser();
     this.countryId = Number(currentUser['countryId']);
     this.editProfileForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
+      name: ['', [Validators.required, Validators.maxLength(50), validateNameUser]],
       idNumber: [{ value: '', disabled: true }, Validators.required],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
       cellphone: ['', [Validators.required]]
