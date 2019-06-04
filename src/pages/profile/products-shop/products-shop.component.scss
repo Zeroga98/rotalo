@@ -607,6 +607,21 @@
     margin-bottom: 5.5rem;
   }
 
+  .tabla-campaign::-webkit-scrollbar {
+    transition: all 0.5s;
+    width: 5px;
+    height: 1px;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  .tabla-campaign::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .tabla-campaign::-webkit-scrollbar-thumb {
+    background: #CBCBCB;
+    border-radius: 4px;
+  }
+
   .campaigns {
     border-collapse: collapse;
     width: 100%;
@@ -641,6 +656,13 @@
   .campaigns td {
     color: #707070;
     font-size: 1.4rem;
+  }
+
+  .campaigns td p.description {
+    width:180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .campaigns th.table-no-border {

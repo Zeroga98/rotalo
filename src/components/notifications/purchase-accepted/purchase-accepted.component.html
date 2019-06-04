@@ -46,7 +46,7 @@
         <div *ngFor="let order_detail of aditionalInformation.order_details" class="detail-store-purchase">
           <div [ngClass]="order_detail.product_photo && !order_detail.product_photo.includes('svg') ?  'img-round': ''"
             (click)="goToDetail(notification)" class="notification-img">
-            <div [ngStyle]="{'background-image': 'url(' + order_detail.product_photo + ')'}" class="thumbnail-img">
+            <div [ngStyle]="{'background-image': getUrlImge(notification)}" class="thumbnail-img">
             </div>
           </div>
           <div class="notification-body">
@@ -69,7 +69,7 @@
       <div *ngIf="!aditionalInformation.order_details"
         [ngClass]="notification.fotoNotificacion && !notification.fotoNotificacion.includes('svg') ?  'img-round': ''"
         (click)="goToDetail(notification)" class="notification-img">
-        <div [ngStyle]="{'background-image': 'url(' + notification.fotoNotificacion + ')'}" class="thumbnail-img"></div>
+        <div [ngStyle]="{'background-image': getUrlImge(notification)}" class="thumbnail-img"></div>
       </div>
       <div class="notification-body" *ngIf="!aditionalInformation.order_details">
         <span>
