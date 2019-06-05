@@ -4,7 +4,7 @@ import { CurrentSessionService } from '../../../services/current-session.service
 import { Router } from '@angular/router';
 import { ROUTES } from '../../../router/routes';
 import { UserService } from '../../../services/user.service';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'admin-register',
@@ -89,4 +89,14 @@ export class AdminRegisterPage implements OnInit {
     this.statusOrder = null;
     this.description = null;
   }
+
+  getFormatDate(date) {
+    if (date) {
+      const dateMoment: any = moment(date);
+      return dateMoment.format('DD/MM/YYYY');
+    }
+    return '';
+  }
+
+
 }

@@ -1,20 +1,24 @@
 <div class="info-container">
-  <div class="tittle main-title">
-    <h1 class="text ">Admin. Pre-registro</h1>
+  <div class="title main-title">
+    <h1 class="text ">Pre-registro</h1>
   </div>
   <div class="material-design">
     <div class="msg-no-products" *ngIf="noRegisters">
       ¡Aún no tenemos Pre-registros!.
     </div>
-    <div *ngIf="registers" class="tabla-orders-container">
-      <table *ngIf="!noRegisters" class="table-orders-info table-orders-title">
+
+    <div *ngIf="registers" class="tabla-campaign tabla-orders-container">
+      <table *ngIf="!noRegisters" class="table-orders-info campaigns table-orders-title">
         <tbody class="table-body">
           <tr class="title-table">
             <th class="order-user">Nombre</th>
             <th class="order-user">Correo</th>
-            <th class="order-user">Tipo documento</th>
+            <th class="order-user">Tipo doc</th>
             <th class="order-user">Número documento</th>
             <th class="order-user">Fecha de creación</th>
+            <th class="order-user">Celular</th>
+            <th class="table-no-border"></th>
+            <th class="table-no-border"></th>
           </tr>
           <div class="margin-table">
           </div>
@@ -26,23 +30,28 @@
               <p>{{register.email}}</p>
             </td>
             <td class="order-user">
-              <p class="desktop">{{register.documentType.nameDocument}}</p>
               <p class="mobile">{{register.documentType.abrev}}</p>
             </td>
-            <td class="order-user">
+            <td class="order-user min">
               <p>{{register.idNumber}}</p>
             </td>
-            <td class="order-user">
-              <p>{{register.createdAt | date}}</p>
+            <td class="order-user min">
+              <p>{{getFormatDate(register.createdAt)}}</p>
+            </td>
+            <td class="order-user min">
+                <p>{{register.cellphone}}</p>
             </td>
             <td class="buttons-section">
-              <div>
-                <button (click)="reSendEmail(register)" class="primary" type="submit">
-                  <p>Reenviar correo</p>
+              <div class="btn-container">
+                <button (click)="reSendEmail(register)" mat-flat-button class="primary" type="submit">
+                  Reenviar correo
                 </button>
-                <button (click)="deletePreRegister(register.id)" class="primary-light" type="submit">
-                  <p>Eliminar</p>
-                  <p class="responsive-button">x</p>
+              </div>
+            </td>
+            <td class="buttons-section">
+              <div class="btn-container">
+                <button (click)="deletePreRegister(register.id)" mat-flat-button class="secundary" type="submit">
+                  Eliminar
                 </button>
               </div>
             </td>
