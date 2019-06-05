@@ -339,8 +339,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   getUrlImge(notification) {
-    if(notification && notification.fotoNotificacion)
-    {
+    if (notification && notification.fotoNotificacion){
       return ('url(' + notification.fotoNotificacion.replace(/ /g, '%20')) + ')';
     }
   }
