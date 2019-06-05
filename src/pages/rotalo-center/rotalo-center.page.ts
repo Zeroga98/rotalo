@@ -7,11 +7,13 @@ import { HostListener } from '@angular/core';
 import { NavigationService } from '../products/navigation.service';
 import { UserService } from '../../services/user.service';
 
+
 @Component({
   selector: 'rotalo-center',
   templateUrl: './rotalo-center.page.html',
   styleUrls: ['./rotalo-center.page.scss']
 })
+
 export class RotaloCenterPage implements OnInit  {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;

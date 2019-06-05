@@ -1,0 +1,91 @@
+<div class="upload-products">
+    <div class="title">
+      <p>Carga de productos</p>
+    </div>
+    <div class="container">
+      <div class="steps">
+
+        <div [ngClass]="{'animate-loading': !detailOrder}" class="card">
+          <div *ngIf="detailOrder">
+              <div class="number-steps">
+                  <p>Sube tus productos en 3 pasos</p>
+              </div>
+              <ul *ngFor="let product of detailOrder.productos" class="order">
+                  <div class="steps-info">
+                    <li>
+                      <div class = "item">
+                          <span>1.</span>
+                          <a href="www.google.com" mat-button download>Descarga la plantilla</a>
+                      </div>
+                    </li>
+                    <li>
+                        <div class = "item">
+                          <span>2.</span>
+                          <button mat-button>Adjunta el archivo</button>
+                        </div>
+                        <div class = "item-check ">
+                          <div class="check"></div>
+                          <p>Archivo adjunto</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class = "item">
+                            <span>3.</span>
+                            <button mat-button>Selecciona la url de las fotos</button>
+                        </div>
+                        <div class = "item-check ">
+                            <div class="check"></div>
+                            <p>Archivo adjunto</p>
+                        </div>
+                    </li>
+                    <li>
+                      <button mat-flat-button color="primary">Finalizar carga</button>
+                    </li>
+                  </div>
+              </ul>
+          </div>
+        </div>
+        <br>
+        <div class="">
+
+        </div>
+      </div>
+      <div [ngClass]="{'animate-loading': !detailOrder}" class="detail-info">
+        <div class="msg-process">
+          <div class="icon-load"></div>
+          <div class="msg">
+            <div class="first">
+              <p>En proceso</p>
+            </div>
+            <div class="second">
+              <p>Esto tardará unos segundos…</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-process">
+            <div class="icon-error"></div>
+            <div class="msg">
+              <div class="first">
+                <p>¡Hubo un error!</p>
+              </div>
+              <div class="second">
+                <p>Tu archivo presenta algunos errores.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="msg-process">
+            <div class="icon-check-upload"></div>
+            <div class="msg">
+              <div class="first">
+                <p>¡Perfecto!</p>
+              </div>
+              <div class="second">
+                <p>Tu archivo se cargo satisfactoriamente.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
