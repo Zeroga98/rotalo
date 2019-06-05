@@ -32,6 +32,19 @@ function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null 
 }
 
 
+function validateNameUser (
+  name: AbstractControl
+): { [key: string]: boolean } | null {
+  const nameValue = name.value;
+  if (nameValue) {
+    const arrayName = nameValue.split(' ').filter(function(v) {return v !== ''; } );
+    if (arrayName.length == 1) {
+      return { nameError: true };
+    }
+  }
+  return null;
+}
+
 @Component({
   selector: 'edit-users',
   templateUrl: './edit-users.component.html',
@@ -81,7 +94,7 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
   setForm() {
     this.editProfileForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.maxLength(50)]],
+        name: ['', [Validators.required, Validators.maxLength(50), validateNameUser]],
         'id-number': ['', Validators.required],
         email: [
           '',

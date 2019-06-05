@@ -8,7 +8,7 @@
     <div class="hero-image"></div>
     <div class="play-container">
       <div class="btn-container-video">
-        <div (click)= "showVideo('custom-modal-3')"  class="btn-play"></div>
+        <div (click)="showVideo('custom-modal-3')" class="btn-play"></div>
         <div class="label-text">Ver video</div>
       </div>
       <div class="info-rotalo">
@@ -23,29 +23,37 @@
         <div class="text-center title-text">
           <h1>Haz parte de Rótalo ¡Regístrate!</h1>
         </div>
-        <form  role="form" [formGroup]="registerForm" name="registerForm" class="form-theme" (ngSubmit)="submitForm(form)"
-          #form>
+        <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme"
+          (ngSubmit)="submitForm(form)" #form>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="input-full-name text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('name').value}"
+              class="input-full-name text-left input input--float">
               <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
                 formControlName="name" name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
                 type="text" />
               <label class="input__label input__label--float">
-                <span class="input__label-content input__label-content--float" data-content="Nombre completo">Nombre
-                  completo</span>
+                <span class="input__label-content input__label-content--float"
+                  data-content="Nombres y apellidos">Nombres y apellidos</span>
               </label>
               <span class="help-block">
-                <span *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine">
+                <span
+                  *ngIf="registerForm.get('name').invalid && !registerForm.get('name').pristine && !registerForm.get('name').errors.nameError">
                   Este campo es requerido.
+                </span>
+                <span
+                  *ngIf="registerForm.get('name').dirty && registerForm.get('name').errors && registerForm.get('name').errors.nameError">
+                  Ingresa nombre y apellido.
                 </span>
               </span>
             </span>
           </div>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('email').value}" class="input-email-user text-left input input--float">
-              <input (keypress)="removeError()" [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
-                formControlName="email" name="email" maxlength="64" class=" input__field input__field--float " id="txt-email-register"
-                type="email" />
+            <span [ngClass]="{'input--filled': registerForm.get('email').value}"
+              class="input-email-user text-left input input--float">
+              <input (keypress)="removeError()"
+                [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
+                formControlName="email" name="email" maxlength="64" class=" input__field input__field--float "
+                id="txt-email-register" type="email" />
               <label class="input__label input__label--float">
                 <span class="input__label-content input__label-content--float" data-content="Email corporativo">
                   Email corporativo</span>
@@ -60,27 +68,31 @@
               </span>
             </span>
           </div>
-
           <div>
             <div class="row text-center">
               <div class="text-center type-document">
-                  <span [ngClass]="{'input--filled': registerForm.get('type-document-id').value}" class="input-pass-user text-left input input--float">
-                      <select class="select-text input__field input__field--float" name="type-id" formControlName="type-document-id"
-                      (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
-                      <option value="" disabled selected></option>
-                      <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">{{typeDocument['abrev']}}</option>
-                    </select>
-                    <label class="input__label input__label--float">
-                      <span class="input__label-content input__label-content--float" data-content="Tipo doc.">
-                        Tipo doc.</span>
-                    </label>
-                  </span>
+                <span [ngClass]="{'input--filled': registerForm.get('type-document-id').value}"
+                  class="input-pass-user text-left input input--float">
+                  <select class="select-text input__field input__field--float" name="type-id"
+                    formControlName="type-document-id"
+                    (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
+                    <option value="" disabled selected></option>
+                    <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">
+                      {{typeDocument['abrev']}}</option>
+                  </select>
+                  <label class="input__label input__label--float">
+                    <span class="input__label-content input__label-content--float" data-content="Tipo doc.">
+                      Tipo doc.</span>
+                  </label>
+                </span>
               </div>
               <div class="text-center number-document">
-                <span [ngClass]="{'input--filled': registerForm.get('id-number').value}" class="input-pass-user text-left input input--float">
-                  <input (keypress)="removeError()" [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine || errorMessageDoc}"
-                    formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--float" id="txt-id-number"
-                    autocomplete="off" type="text">
+                <span [ngClass]="{'input--filled': registerForm.get('id-number').value}"
+                  class="input-pass-user text-left input input--float">
+                  <input (keypress)="removeError()"
+                    [ngClass]="{'invalid': registerForm.get('id-number').invalid && !registerForm.get('id-number').pristine || errorMessageDoc}"
+                    formControlName="id-number" name="id-number" maxlength="40" class="input__field input__field--float"
+                    id="txt-id-number" autocomplete="off" type="text">
                   <label class="input__label input__label--float">
                     <span class="input__label-content input__label-content--float" data-content=" Número de documento">
                       Número de documento</span>
@@ -88,32 +100,59 @@
                 </span>
               </div>
               <span class="error-document text-center help-block">
-                  <span  class="error-text" *ngIf="!errorMessageDoc && (registerForm.get('type-document-id').touched && registerForm.get('type-document-id').invalid) || registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
-                      Estos campos son requeridos.
-                  </span>
-                  <span class="error-text-long" *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid">
-                      {{errorMessageId}}
-                  </span>
-                  <span *ngIf="errorMessageDoc" class="error-message-doc">
-                    {{errorMessageDoc}}
-                  </span>
+                <span class="error-text"
+                  *ngIf="!errorMessageDoc && (registerForm.get('type-document-id').touched && registerForm.get('type-document-id').invalid) || registerForm.get('id-number').touched && registerForm.get('id-number').errors?.required && !registerForm.get('id-number').pristine">
+                  Estos campos son requeridos.
+                </span>
+                <span class="error-text-long"
+                  *ngIf="!registerForm.get('id-number').errors?.required && registerForm.get('id-number').invalid">
+                  {{errorMessageId}}
+                </span>
+                <span *ngIf="errorMessageDoc" class="error-message-doc">
+                  {{errorMessageDoc}}
+                </span>
               </span>
             </div>
           </div>
 
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('password').value}" class="input-pass-user text-left input input--float">
+            <span [ngClass]="{'input--filled': registerForm.get('cellphone').value}"
+              class="input-full-cellphone text-left input input--float">
               <input
-              autocomplete="new-password"
-              [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
-                formControlName="password" name="password" maxlength="20" class="input__field input__field--float" id="txt-password-register"
-                type="password" />
+                [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}"
+                formControlName="cellphone" name="cellphone" class="input__field input__field--float" id="txt-cellphone"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" />
+              <label class="input__label input__label--float">
+                <span class="input__label-content input__label-content--float" data-content="Número celular">Número
+                  celular</span>
+              </label>
+              <span class="help-block">
+                <span
+                  *ngIf="registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine && !registerForm.get('cellphone').errors['pattern']">
+                  Este campo es requerido.
+                </span>
+                <span
+                  *ngIf="registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine && registerForm.get('cellphone').errors['pattern']">
+                  El campo no cumple con el formato de teléfono.
+                </span>
+              </span>
+            </span>
+          </div>
+
+          <div class="text-center">
+            <span [ngClass]="{'input--filled': registerForm.get('password').value}"
+              class="input-pass-user text-left input input--float">
+              <input autocomplete="new-password"
+                [ngClass]="{'invalid': registerForm.get('password').invalid && !registerForm.get('password').pristine}"
+                formControlName="password" name="password" maxlength="20" class="input__field input__field--float"
+                id="txt-password-register" type="password" />
               <label class="input__label input__label--float">
                 <span class="input__label-content input__label-content--float" data-content="Contraseña">
                   Contraseña</span>
               </label>
               <span class="help-block">
-                <span *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
+                <span
+                  *ngIf="registerForm.get('password').touched && registerForm.get('password').errors?.required && !registerForm.get('password').pristine">
                   Este campo es requerido.
                 </span>
                 <span *ngIf="registerForm.get('password').errors?.minlength && !registerForm.get('password').pristine">
@@ -123,40 +162,41 @@
             </span>
           </div>
           <div class="text-center">
-            <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}" class="input-pass-confirm text-left input input--float">
-              <input [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
-                name="password-confirmation" formControlName="password-confirmation" maxlength="20" class="input__field input__field--float"
-                id="txt-password-confirmation" type="password" />
+            <span [ngClass]="{'input--filled': registerForm.get('password-confirmation').value}"
+              class="input-pass-confirm text-left input input--float">
+              <input
+                [ngClass]="{'invalid': registerForm.get('password-confirmation').invalid && !registerForm.get('password-confirmation').pristine}"
+                name="password-confirmation" formControlName="password-confirmation" maxlength="20"
+                class="input__field input__field--float" id="txt-password-confirmation" type="password" />
               <label class="input__label input__label--float">
                 <span class="input__label-content input__label-content--float" data-content="Confirmar Contraseña">
                   Confirmar Contraseña</span>
               </label>
               <span class="help-block">
-                <span *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
+                <span
+                  *ngIf="registerForm.get('password-confirmation').touched && registerForm.get('password-confirmation').errors?.required && !registerForm.get('password-confirmation').pristine">
                   Este campo es requerido.
                 </span>
-                <span *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
+                <span
+                  *ngIf="registerForm.get('password-confirmation').errors?.minlength && !registerForm.get('password-confirmation').pristine">
                   El campo no cumple la longitud mínima.
                 </span>
-                <span *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
+                <span
+                  *ngIf="registerForm.get('password-confirmation').errors?.match && !registerForm.get('password-confirmation').errors?.minlength &&!registerForm.get('password-confirmation').pristine">
                   La contraseña de verificación no coincide.
                 </span>
               </span>
             </span>
           </div>
           <div class="text-center form-group terms input-terms">
-      <!--      <label class="material-checkbox gtmSignUpAcepTermYCond" for="checkTerms">
-              <input #checkBoxTerms class="gtmSignUpAcepTermYCond" type="checkbox" id="checkTerms" name="checkTerms" formControlName="termsCheckbox">
-              <span class="checkmark"></span>
-            </label> -->
-            Al dar click en REGISTRARME aceptas nuestros
-            <br>
+            Al dar clic en Registrarme aceptas los
+
             <a class="terms-link" (click)="openTermsModal()">
-                términos y condiciones</a>
-            para rotar en confianza.
+              términos y condiciones</a>
           </div>
           <div class="btn-container">
-            <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme"></custom-button>
+            <custom-button buttonClass="gtmSignUpValidCrearCuenta primary register" type="submit" text="Registrarme">
+            </custom-button>
           </div>
         </form>
       </div>
@@ -173,19 +213,21 @@
         </div>
       </div>
       <div class="btn-container">
-        <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el email"></custom-button>
+        <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el email">
+        </custom-button>
       </div>
       <div *ngIf="showMessageEmail" class="success-message">
         <span class="icon-check">
         </span>
         <span class="text">
-            ¡Hemos enviado el correo con éxito!
-          </span>
+          ¡Hemos enviado el correo con éxito!
+        </span>
       </div>
     </div>
   </div>
 
 </div>
 <company-slider></company-slider>
-<terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)"></terms-modal>
+<terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeModal()" (accept)="acceptTerms(checkBoxTerms)">
+</terms-modal>
 <custom-footer></custom-footer>

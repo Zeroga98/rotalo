@@ -1,12 +1,22 @@
 import { ROUTES } from './../../router/routes';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalVideoService } from '../../components/modal-video/modal-video.service';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { TypeDocumentsService } from '../../services/type-documents.service';
 
+function validateNameUser (
+  name: AbstractControl
+): { [key: string]: boolean } | null {
+  const nameValue = name.value;
+  const arrayName = nameValue.split(' ').filter(function(v) {return v !== ''; } );
+  if (arrayName.length == 1) {
+    return { nameError: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'home-page',
@@ -47,7 +57,7 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      'name': ['', [Validators.required]],
+      'name': ['', [Validators.required, validateNameUser]],
       'email': ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
       'type-document-id': ['', Validators.required],
       'password': ['', [
@@ -62,7 +72,8 @@ export class HomePage implements OnInit {
         Validators.minLength(6),
         this.validatePasswordConfirm.bind(this)
       ]],
-      'termsCheckbox': [true, [this.checkBoxRequired.bind(this)]]
+      'termsCheckbox': [true, [this.checkBoxRequired.bind(this)]],
+      cellphone: ['', [Validators.required]]
     });
 
     this.currentUrl = window.location.href;
@@ -73,7 +84,39 @@ export class HomePage implements OnInit {
       this.loadTypeDocument(1);
       this.country =  'Colombia';
     }
+    this.setValidationPhone(this.country);
 
+  }
+
+  setValidationPhone(country): void {
+    if (country) {
+      const idCountry = country;
+      const phoneNumberControl = this.registerForm.get('cellphone');
+      switch (idCountry) {
+        case 'Colombia': {
+          phoneNumberControl.setValidators([Validators.required]);
+          this.registerForm.get('cellphone').setValidators([Validators.required]);
+          phoneNumberControl.setValidators([
+            Validators.required,
+            Validators.pattern(/^\d{10}$/)
+          ]);
+          break;
+        }
+        case 'Guatemala': {
+          phoneNumberControl.setValidators([
+            Validators.required,
+            Validators.pattern(/^\d{8}$/)
+          ]);
+          this.errorMessageId = 'El campo no cumple el formato.';
+          break;
+        }
+        default: {
+          phoneNumberControl.setValidators([Validators.required]);
+          break;
+        }
+      }
+      phoneNumberControl.updateValueAndValidity();
+    }
   }
 
  loadTypeDocument(idCountry) {
@@ -217,8 +260,8 @@ export class HomePage implements OnInit {
         this.idCountry = 1;
       }
 
-      this.userEmail=this.registerForm.get('email').value.toLowerCase();
-      
+      this.userEmail = this.registerForm.get('email').value.toLowerCase();
+
       const idDocument: number = +this.registerForm.get('type-document-id').value;
       const params = {
         'pais': this.idCountry,
@@ -227,6 +270,7 @@ export class HomePage implements OnInit {
         'contrasena': this.registerForm.get('password').value,
         'idTipoDocumento': idDocument,
         'documento': this.registerForm.get('id-number').value,
+        'celular': this.registerForm.get('cellphone').value
       };
 
       this.userService.preSignup(params).subscribe(response => {
