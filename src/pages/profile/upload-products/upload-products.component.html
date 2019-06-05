@@ -3,44 +3,51 @@
       <p>Carga de productos</p>
     </div>
     <div class="container">
-      <div [ngClass]="{'animate-loading': !detailOrder}" class="steps">
-        <div *ngIf="detailOrder">
-          <div class="number-steps">
-            <p>Sube tus productos en 3 pasos</p>
+      <div class="steps">
+
+        <div [ngClass]="{'animate-loading': !detailOrder}" class="card">
+          <div *ngIf="detailOrder">
+              <div class="number-steps">
+                  <p>Sube tus productos en 3 pasos</p>
+              </div>
+              <ul *ngFor="let product of detailOrder.productos" class="order">
+                  <div class="steps-info">
+                    <li>
+                      <div class = "item">
+                          <span>1.</span>
+                          <a href="www.google.com" mat-button download>Descarga la plantilla</a>
+                      </div>
+                    </li>
+                    <li>
+                        <div class = "item">
+                          <span>2.</span>
+                          <button mat-button>Adjunta el archivo</button>
+                        </div>
+                        <div class = "item-check ">
+                          <div class="check"></div>
+                          <p>Archivo adjunto</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class = "item">
+                            <span>3.</span>
+                            <button mat-button>Selecciona la url de las fotos</button>
+                        </div>
+                        <div class = "item-check ">
+                            <div class="check"></div>
+                            <p>Archivo adjunto</p>
+                        </div>
+                    </li>
+                    <li>
+                      <button mat-flat-button color="primary">Finalizar carga</button>
+                    </li>
+                  </div>
+              </ul>
           </div>
-          <ul *ngFor="let product of detailOrder.productos" class="order">
-            <div class="steps-info">
-              <li>
-                <div class = "item">
-                    <span>1.</span>
-                    <button mat-button>Descarga la plantilla</button>
-                </div>
-              </li>
-              <li>
-                  <div class = "item">
-                    <span>2.</span>
-                    <button mat-button>Adjunta el archivo</button>
-                  </div>
-                  <div class = "item-check ">
-                    <div class="check"></div>
-                    <p>Archivo adjunto</p>
-                  </div>
-              </li>
-              <li>
-                  <div class = "item">
-                      <span>3.</span>
-                      <button mat-button>Selecciona la url de las fotos</button>
-                  </div>
-                  <div class = "item-check ">
-                      <div class="check"></div>
-                      <p>Archivo adjunto</p>
-                  </div>
-              </li>
-              <li>
-                <button mat-flat-button color="primary">Finalizar carga</button>
-              </li>
-            </div>
-          </ul>
+        </div>
+        <br>
+        <div class="">
+
         </div>
       </div>
       <div [ngClass]="{'animate-loading': !detailOrder}" class="detail-info">

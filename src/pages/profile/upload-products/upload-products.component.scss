@@ -27,10 +27,14 @@
 
       .steps {
         width: 75%;
-        padding: 19px 21px 0px 21px;
-        background-color: #FFFFFF;
-        margin-right: 10px;
-        min-height: 132px;
+        .card {
+          padding: 19px 21px 0px 21px;
+          background-color: #FFFFFF;
+          margin-right: 10px;
+          min-height: 132px;
+          margin-bottom: 44px;
+        }
+
         .sub-title {
           margin-bottom: 26px;
 
@@ -77,6 +81,7 @@
                font-weight: normal;
                 color:#0FBBD8;
                 font-size: 1.4rem;
+                font-family: 'Lato Regular';
               }
               .mat-flat-button {
                 margin: 0 auto;
@@ -193,7 +198,7 @@
     margin-right: 5px;
   }
 
-  .upload-products .container .steps.animate-loading,
+  .upload-products .container .steps .card.animate-loading,
   .upload-products .container .detail-info.animate-loading {
     background-color: #E3E3E3;
   }
