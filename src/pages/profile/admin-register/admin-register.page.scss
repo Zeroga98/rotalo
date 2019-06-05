@@ -685,9 +685,12 @@
   .campaigns td {
     color: #272727;
     font-size: 1.4rem;
-    min-width: 100px;
     padding: 5px;
   }
+  .campaigns td.min {
+    min-width: 100px;
+  }
+
 
   .campaigns th.table-no-border {
     border-left: 0;

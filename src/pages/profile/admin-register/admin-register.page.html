@@ -13,7 +13,7 @@
           <tr class="title-table">
             <th class="order-user">Nombre</th>
             <th class="order-user">Correo</th>
-            <th class="order-user">Tipo documento</th>
+            <th class="order-user">Tipo doc</th>
             <th class="order-user">Número documento</th>
             <th class="order-user">Fecha de creación</th>
             <th class="order-user">Celular</th>
@@ -32,14 +32,14 @@
             <td class="order-user">
               <p class="mobile">{{register.documentType.abrev}}</p>
             </td>
-            <td class="order-user">
+            <td class="order-user min">
               <p>{{register.idNumber}}</p>
             </td>
-            <td class="order-user">
+            <td class="order-user min">
               <p>{{getFormatDate(register.createdAt)}}</p>
             </td>
-            <td class="order-user">
-                <p>21231321</p>
+            <td class="order-user min">
+                <p>{{register.cellphone}}</p>
             </td>
             <td class="buttons-section">
               <div class="btn-container">
