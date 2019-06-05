@@ -207,6 +207,7 @@ import { CategoriesComponent } from '../pages/categories-page/categories.compone
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
+import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 
 @NgModule({
   declarations: [
@@ -337,6 +338,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
     AdminUsersComponent,
     EditUsersComponent,
     ProductsShopComponent,
+    UploadProductsComponent,
   ],
   imports: [
     BrowserModule,

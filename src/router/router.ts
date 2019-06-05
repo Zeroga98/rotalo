@@ -56,6 +56,7 @@ import { CategoriesComponent } from '../pages/categories-page/categories.compone
 import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.component';
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
+import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 
 export const appRouter: Routes = [
   {
@@ -101,6 +102,7 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
+      {path: ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS, component: UploadProductsComponent },
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,

@@ -52,6 +52,7 @@ export const ROUTES = {
         ADMINUSERS: 'admin-users',
         EDITUSERS: 'edit-users',
         PRODUCTSSHOP: 'products-shop',
+        UPLOADPRODUCTS: 'upload-products',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

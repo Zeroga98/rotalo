@@ -1,0 +1,339 @@
+:host {
+  width: 82%;
+  padding: 45px 5% 70px 2%;
+  position: relative;
+  background-color: #FAFAFA;
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .upload-products {
+    width: 100%;
+
+    .title {
+      font-size: 2.0rem;
+      color: #272727;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .container {
+      display: flex;
+      color: #707070;
+      font-size: 1.6rem;
+      align-items: flex-start;
+
+      .steps {
+        width: 75%;
+        padding: 19px 21px 0px 21px;
+        background-color: #FFFFFF;
+        margin-right: 10px;
+        min-height: 132px;
+        .sub-title {
+          margin-bottom: 26px;
+
+          p {
+            color: #333333;
+            font-size: 1.6rem;
+          }
+        }
+
+        .order {
+          padding: 0px;
+          display: flex;
+          padding-bottom: 23px;
+          margin-top: 15px;
+
+          .steps-info {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            li {
+              color: #333333;
+              font-size: 1.6rem;
+              font-weight: bold;
+              width: 100%;
+              .item-check {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #383838;
+
+                .check {
+                  width: 20px;
+                  height: 20px;
+                  background: url(../../../assets/img/iconos/upload-check.svg);
+                  background-size: 20px 20px;
+                  margin: 0 auto;
+                  margin-right: 5px;
+                }
+                p, .check {
+                  display: inline-block;
+                  vertical-align: middle;
+                }
+              }
+              .mat-button {
+               font-weight: normal;
+                color:#0FBBD8;
+                font-size: 1.4rem;
+              }
+              .mat-flat-button {
+                margin: 0 auto;
+                border-radius: 22px;
+                background-color:#FF3646;
+                color: #FFFFFF;
+                font-size: 1.6rem;
+                font-family: 'Lato Regular';
+                min-width: 100px;
+                &:hover {
+                  background-color: #bf111c;
+                }
+              }
+
+            }
+          }
+        }
+
+      }
+
+      .detail-info {
+        width: 25%;
+        background-color: #FFFFFF;
+        padding: 24px 12px 0 12px;
+        min-height: 132px;
+        .msg-process {
+          display: flex;
+          .icon-load {
+            width: 60px;
+            height: 60px;
+            background: url(../../../assets/img/loading.gif) no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin-right: 10px;
+          }
+          .icon-error{
+            width: 60px;
+            height: 60px;
+            background: url(../../../assets/img/error.svg) no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin-right: 10px;
+          }
+          .icon-check-upload{
+            width: 60px;
+            height: 60px;
+            background: url(../../../assets/img/check-upload.svg) no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin-right: 10px;
+          }
+          .msg {
+            color:#383838;
+            .first {
+              font-weight: bold;
+              font-size: 1.8rem;
+            }
+            .second {
+              font-size: 1.6rem;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .contact {
+    display: flex;
+    margin-bottom: 18px;
+
+    a {
+      font-weight: bold;
+      font-size: 1.6rem;
+      color: #272727;
+      text-decoration: underline;
+    }
+  }
+
+  .info-label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .text-label {
+    color: #414141;
+    font-size: 1.6rem;
+  }
+
+  .icon-label {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .icon-shopping-car {
+    background: url(../../../assets/img/iconos/ic_local_shipping_24px.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .icon-watch {
+    background: url(../../../assets/img/iconos/ic_history_24px.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .icon-bank {
+    background: url(../../../assets/img/iconos/ic_bancolombia.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-right: 5px;
+  }
+
+  .upload-products .container .steps.animate-loading,
+  .upload-products .container .detail-info.animate-loading {
+    background-color: #E3E3E3;
+  }
+
+  .animate-loading {
+    -webkit-animation: loadAnimation 3s infinite;
+    -moz-animation: loadAnimation 3s infinite;
+    -o-animation: loadAnimation 3s infinite;
+    animation: loadAnimation 3s infinite;
+  }
+
+}
+
+
+@media screen and (max-width: 1249px) {
+  :host {
+    .upload-products .container {
+      flex-direction: column;
+    }
+
+    .upload-products .container .steps {
+      width: 100%;
+      margin: 0px;
+    }
+
+    .upload-products .container .steps {
+      margin-bottom: 10px;
+    }
+
+  }
+}
+
+@media screen and (max-width: 760px) {
+  :host {
+    padding: 20px 0% 0px 0%;
+
+    .upload-products .container .steps {
+      padding: 13px 0px 0px 0px;
+    }
+
+    .upload-products .container .steps .number-steps p {
+      font-size: 1.6rem;
+    }
+
+    .upload-products .container .steps .order .first .thumb {
+      width: 71.13px;
+      min-width: 71.13px;
+      height: 71.13px;
+    }
+
+    .upload-products .container .steps .order .first~.steps-info {
+      flex-direction: column;
+    }
+
+    .upload-products .container .steps .order .steps-info {
+      font-size: 1.4rem;
+    }
+
+    .upload-products .container .steps .order .steps-info li {
+      padding: 10px 0px 0px 10px;
+    }
+
+    .upload-products .container .steps .order .total-product {
+      font-size: 1.6rem;
+      color: #383838;
+      text-align: right;
+
+      span {
+        display: inline;
+        font-weight: normal;
+      }
+
+      span:first-child {
+        font-weight: bold;
+      }
+    }
+
+    .flex {
+      flex-direction: column;
+    }
+
+    .text-label {
+      font-size: 1.4rem;
+    }
+
+  }
+}
+
+@keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
