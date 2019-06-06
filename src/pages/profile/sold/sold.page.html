@@ -61,7 +61,7 @@
             <div class="masonry">
               <div class="grid-item">
                 <product  *ngFor="let productPurchased of productsPurchased | paginate: { itemsPerPage: 9, currentPage: pageNumberPurchased, totalItems: totalItemsPurchased }"
-                  class="product-feed  product-sold"
+                  class="product-feed  product-purchased"
                   (updateProducts)="updateProductPurchased($event)"
                   [isProductPurchased]="true" [isProductSelling]="false" [showField]="false"
                   [product]="productPurchased"
