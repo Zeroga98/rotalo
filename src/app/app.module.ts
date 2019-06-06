@@ -208,6 +208,7 @@ import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.co
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/updateTrackingNumber/updateTrackingNumber.component';
+import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 
 @NgModule({
   declarations: [
@@ -339,6 +340,7 @@ import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/upd
     EditUsersComponent,
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
+    UploadProductsComponent,
   ],
   imports: [
     BrowserModule,
