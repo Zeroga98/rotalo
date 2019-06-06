@@ -45,9 +45,47 @@
               </ul>
           </div>
         </div>
-        <br>
-        <div class="">
 
+        <div class="historical-table">
+          <div class="sub">Historial de archivos cargados</div>
+          <div class="table">
+              <table>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th class="center max-table">Productos Aprobados</th>
+                    <th class="center max-table">Productos Rechazados</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Cargaproductos_2019/01/06.xlsx</p>
+                    </td>
+                    <td>
+                      <p>21/01/2019</p>
+                    </td>
+                    <td>
+                      <p>
+                        Finalizado exitoso
+                      </p>
+                    </td>
+                    <td class="center max-table">
+                      <p>
+                        234
+                      </p>
+                    </td>
+                    <td class="center max-table">
+                      <p>0</p>
+                    </td>
+                  </tr>
+              </table>
+              <div class="download-container">
+                <a>Descargar informe de errores</a>
+                <div class="circle">
+                  <div class="icon-refresh"></div>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
       <div [ngClass]="{'animate-loading': !detailOrder}" class="detail-info">
@@ -85,6 +123,10 @@
                 <p>Tu archivo se cargo satisfactoriamente.</p>
               </div>
             </div>
+        </div>
+
+        <div class="error-container">
+          <p>El nombre del archivo no es permitido.</p>
         </div>
       </div>
     </div>
