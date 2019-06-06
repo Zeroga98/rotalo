@@ -223,8 +223,8 @@
               background-color: #FAFAFA;
 
               .location {
-                width: 25px;
-                height: 25px;
+                width: 24px;
+                height: 24px;
                 background: url(../../../assets/img/iconos/ic_map.svg);
                 background-size: contain;
                 margin: 0 auto;
@@ -413,6 +413,7 @@
 
     .detail-order .container .list-orders {
       padding: 13px 0px 0px 0px;
+      min-height: 375px;
     }
 
     .detail-order .container .detail-info {
@@ -433,7 +434,7 @@
       flex-direction: column;
     }
 
-    .detail-order .container .list-orders .order .order-info {
+    .detail-order .container .list-orders .order .order-info, .detail-order .container .detail-info .logistic-info a {
       font-size: 1.4rem;
     }
 
