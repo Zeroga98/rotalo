@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.2" height="22.197" viewBox="0 0 21.2 22.197">
+  <g id="admin_tienda_2" transform="translate(-960.4 -815.812)">
+    <path id="Trazado_5850" data-name="Trazado 5850" d="M981,824.5a4.66,4.66,0,0,0-6,1.818,2.009,2.009,0,0,0-4,0,2.009,2.009,0,0,0-4,0,2.009,2.009,0,0,0-4,0,1.915,1.915,0,0,1-2-1.818" transform="translate(0 -0.727)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+    <path id="Trazado_5851" data-name="Trazado 5851" d="M961,823.773l2.085-6.614a.908.908,0,0,1,.874-.659h14.084a.908.908,0,0,1,.874.659L981,823.773" transform="translate(0 0)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <path id="Trazado_5852" data-name="Trazado 5852" d="M979.773,826.5v10.909a.909.909,0,0,1-.909.909H963.409a.909.909,0,0,1-.909-.909V826.5" transform="translate(-0.136 -0.909)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+    <line id="Línea_67" data-name="Línea 67" y2="12.727" transform="translate(968.727 824.682)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_68" data-name="Línea 68" y2="0.909" transform="translate(966.909 830.136)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_69" data-name="Línea 69" x1="2.727" y2="2.727" transform="translate(971.455 828.318)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_70" data-name="Línea 70" x1="3.636" y2="3.636" transform="translate(972.364 830.136)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_71" data-name="Línea 71" x1="1.095" y1="7.273" transform="translate(975.905 816.5)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_72" data-name="Línea 72" x1="0.674" y1="7.273" transform="translate(972.326 816.5)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_73" data-name="Línea 73" y1="7.273" x2="0.617" transform="translate(969 816.5)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+    <line id="Línea_74" data-name="Línea 74" y1="7.273" x2="1.17" transform="translate(965 816.5)" fill="none" stroke="#a2a2a2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2"/>
+  </g>
+</svg>

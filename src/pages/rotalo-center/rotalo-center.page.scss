@@ -35,8 +35,8 @@
    /* padding-top: 45px;
     padding-bottom: 70px;*/
     .menu {
-      width: 40%;
-      padding-left: 7%;
+      width: 21%;
+      max-width: 377px;
       list-style: none;
       text-align: left;
       order: -1;
@@ -48,19 +48,24 @@
 
     .menu {
       .menu-options {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
         border-radius: 2px;
         padding-left: 15%;
+        color: #333333;
+        font-family: 'Lato Regular';
       }
+
       .menu-options a {
         display: block;
         padding: 15px 0;
         text-decoration: none;
         padding-left: 2.5em;
       }
-      .menu-options .active {
-        color: #ed2f3c;
-        background: #eae9e8;
+
+      .menu-options .active,  .menu-options .option:hover{
+        font-weight: bold;
+        background-color: #F8F8FB;
+        border-right: 5px solid #FF3646;
       }
     }
 
@@ -120,68 +125,78 @@
           transform: translateY(-50%);
         }
         .message-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/mensaje_menu.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/logos_menu/mensajes_2.svg);
+          background-size: 20px 20px;
         }
         .rotando-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/articulos_rotando.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/articulos_rotando.svg);
+          background-size: 20px 20px;
         }
         .rotados-icon {
-          left: 3px;
-          width: 50px;
-          height: 50px;
-          background: url(../../assets/img/articulos_rotados.svg);
-          background-size: 50px 50px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/articulos_rotados.svg);
+          background-size: 20px 20px;
         }
         .configuration-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/configuracion.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/configuracion.svg);
+          background-size: 20px 20px;
         }
         .shop-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/ic_tienda_cr.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/ic_tienda_cr.svg);
+          background-size: 20px 20px;
         }
         .admin-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/admin.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/admin.svg);
+          background-size: 20px 20px;
         }
         .featured-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/ic_destacados_cr.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/ic_destacados_cr.svg);
+          background-size: 20px 20px;
         }
         .campaign {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/ic_campanas.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/ic_campanas.svg);
+          background-size: 20px 20px;
         }
         .banner-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/ic_banner_admin.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/ic_banner_admin.svg);
+          background-size: 20px 20px;
         }
         .user-icon {
-          width: 30px;
-          height: 30px;
-          background: url(../../assets/img/ic_user_option.svg);
-          background-size: 30px 30px;
+          width: 20px;
+          height: 20px;
+          background-image: url(../../assets/img/ic_user_option.svg);
+          background-size: 20px 20px;
         }
       }
     }
+
+    .menu-options .active,  .menu-options .option:hover{
+      .message-icon {
+        background-image: url(../../assets/img/logos_menu/mensajes_1.svg);
+      }
+    }
+
+
+
+
+
   }
 
   .footer {
