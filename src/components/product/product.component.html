@@ -1,5 +1,5 @@
 <div class="container-product" *ngIf="product" #containerProducts>
-  <a onclick="return false;" [href]="getUrlProduct(product)">
+  <a class="urlProduct" onclick="return false;" [href]="getUrlProduct(product)">
     <div [ngClass]="isProductChecked || isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <div>
         <div (click)="selectProduct($event)" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''" *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"

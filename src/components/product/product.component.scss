@@ -150,8 +150,8 @@
     .btn-container {
       display: none;
     }
-
   }
+
   .container-product:hover {
     .delete {
       background: url(../../assets/img/eliminar.svg);
@@ -175,6 +175,7 @@
       bottom: 0;
     }
   }
+
   .container-product {
     .star {
       background: url(../../assets/img/estrella_marcador.svg);
@@ -183,6 +184,7 @@
       background: url(../../assets/img/estrella_marcador_relleno.svg);
     }
   }
+
   .container-photo {
     .options-container {
       position: absolute;
@@ -204,6 +206,7 @@
       }
     }
   }
+
   .mini-card {
     .container-name {
       font-size: 2rem;
@@ -249,12 +252,14 @@
       }
     }
   }
+
   .container-date {
     .icon-account {
       font-size: 2rem;
    //   margin-right: 1rem;
     }
   }
+
   .blue-ranking{
     position: absolute;
     height: 26px;
@@ -569,6 +574,12 @@
 :host(.basic-product) {
   .container-product {
     height: auto;
+  }
+}
+
+:host(.product-purchased) {
+  .urlProduct {
+    cursor: auto;
   }
 }
 
