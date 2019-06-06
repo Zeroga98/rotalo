@@ -104,6 +104,13 @@ export class UserService {
     return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  loadUserInfoCode(code) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/preregistro/${code}`;
+    return this.httpClient.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
   reSendEmail (params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);

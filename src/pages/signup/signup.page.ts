@@ -79,13 +79,8 @@ export class SignUpPage implements OnInit {
       this.route.queryParamMap.subscribe(params => {
         this.paramsUrl = params['params'];
         this.setCountry(this.paramsUrl.country);
-        let email = this.paramsUrl.email;
-        email = email.replace(' ', '+');
-        email = email.replace(/\s+/g, '+');
-        this.registerForm.patchValue({ name: this.paramsUrl.name });
-        this.registerForm.patchValue({ email: email });
-        this.registerForm.patchValue({ identification: this.paramsUrl.documentType + ' ' + this.paramsUrl.document });
         this.codeSignup =  this.paramsUrl.code;
+        this.loadUserInfoCode(this.codeSignup);
         this.userCountry = this.paramsUrl.country;
       });
     } catch (error) {
@@ -93,6 +88,24 @@ export class SignUpPage implements OnInit {
     }
   }
 
+  loadUserInfoCode(code) {
+    this.userService.loadUserInfoCode(code).subscribe((response) => {
+      if (response) {
+        let email = response.email;
+        email = email.replace(' ', '+');
+        email = email.replace(/\s+/g, '+');
+        this.registerForm.patchValue({ name: response.name });
+        this.registerForm.patchValue({ email: email });
+        this.registerForm.patchValue({ identification: response.documentType.abrev + ' ' + response.idNumber });
+      }
+    }, (error) => {
+      if (error.status) {
+        console.log(error.status);
+        this.errorMessage = error.error.message;
+        this.utilsService.goToTopWindow(20, 600);
+      }
+    });
+  }
 
   filterDocuments(typeDocuments, idCountry) {
     const documents = typeDocuments.filter(
