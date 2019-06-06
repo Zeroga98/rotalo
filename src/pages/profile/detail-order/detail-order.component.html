@@ -78,7 +78,7 @@
       <div *ngIf="detailOrder">
         <div  *ngIf="isOwnOrder" class="info-intro">
           <p>
-            <span class="strong">¡Genial! Tu pedido esta listo </span>para ser enviado, puede llegarte en un plazo
+            <span class="strong">¡Genial! Tu pedido está listo </span>para ser enviado, puede llegarte en un plazo
             máximo de 5 días hábiles.
           </p>
         </div>
@@ -90,7 +90,7 @@
           </li>
           <li>
             <p>
-              <span class="strong">Medio de pago: </span>
+              <span *ngIf="detailOrder.medioPago" class="strong">Medio de pago: </span>
               <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='CARD'">Tarjeta de Crédito</span>
               <span *ngIf="detailOrder.medioPago && detailOrder.medioPago =='NEQUI'">Nequi</span>
             </p>
@@ -116,7 +116,7 @@
                   <span>{{detailOrder.datosEnvio.departamento}}</span></p>
               </div>
               <div>
-                <p>Celular: <span>{{detailOrder.datosEnvio.celular}}</span></p>
+                <p><span>{{detailOrder.datosEnvio.celular}}</span></p>
               </div>
             </div>
           </div>
