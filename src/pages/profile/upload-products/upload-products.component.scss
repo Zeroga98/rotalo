@@ -27,10 +27,10 @@
 
       .steps {
         width: 75%;
+        margin-right: 10px;
         .card {
           padding: 19px 21px 0px 21px;
           background-color: #FFFFFF;
-          margin-right: 10px;
           min-height: 132px;
           margin-bottom: 44px;
         }
@@ -58,7 +58,7 @@
               color: #333333;
               font-size: 1.6rem;
               font-weight: bold;
-              width: 100%;
+             // width: 100%;
               .item-check {
                 font-size: 1.2rem;
                 font-weight: bold;
@@ -96,6 +96,72 @@
                 }
               }
 
+            }
+          }
+        }
+
+        .historical-table {
+          .sub {
+            color: #333333;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 1.4rem;
+          }
+          .table {
+            width: 100%;
+            padding: 5px 0 10px 10px;
+            background-color: white;
+            table {
+              color:#333333;
+              font-size: 1.4rem;
+              th {
+                font-weight: bold;
+                text-align: left;
+              }
+              td , th {
+                padding: 5px 10px;
+              }
+              .center {
+                text-align: center;
+              }
+              .max-table {
+                max-width: 140px;
+              }
+            }
+          }
+
+        }
+
+        .download-container {
+          width: 100%;
+          text-align: right;
+          padding-top: 10px;
+          a {
+           color: #0FBBD8;
+           font-size: 1.4rem;
+           text-decoration: underline;
+           cursor: pointer;
+          }
+          .circle{
+            background-color: #0FBBD8;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            position: relative;
+            margin: 0 10px;
+            .icon-refresh{
+              width: 15px;
+              height: 15px;
+              background: url(../../../assets/img/iconos/refresh.svg) no-repeat;
+              background-size: contain;
+              background-position: center;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
             }
           }
         }
@@ -144,7 +210,14 @@
             }
           }
         }
-
+        .error-container {
+          width: 100%;
+          p {
+            color: #FF3646;
+            font-size: 1.4rem;
+            padding: 5px 0;
+          }
+        }
       }
     }
   }
