@@ -54,7 +54,8 @@ export class SignUpPage implements OnInit {
     this.registerForm = new FormGroup({
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
       identification: new FormControl({value: '', disabled: true}, [Validators.required]),
-      email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email])
+      email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
+      cellphone: new FormControl({value: '', disabled: true}, [Validators.required])
     });
     this.getCountries();
   }
@@ -96,6 +97,7 @@ export class SignUpPage implements OnInit {
         email = email.replace(/\s+/g, '+');
         this.registerForm.patchValue({ name: response.name });
         this.registerForm.patchValue({ email: email });
+        this.registerForm.patchValue({ cellphone: response.cellphone });
         this.registerForm.patchValue({ identification: response.documentType.abrev + ' ' + response.idNumber });
       }
     }, (error) => {
