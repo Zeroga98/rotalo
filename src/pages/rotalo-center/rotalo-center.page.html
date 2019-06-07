@@ -7,7 +7,17 @@
       </div>
     </div>
     <div class="menu-options">
-      <div class="menu-container">
+      <div class="menu-container ac-container">
+        <div [ngClass]="myAccount ? 'open' : ''">
+          <div class="option">
+            <div class="ico user-icon"></div>
+            <input [(ngModel)] = "myAccount" id="ac-1" name="accordion-1" type="checkbox" />
+            <label for="ac-1">Mi cuenta<div class="icon"></div></label>
+          </div>
+          <article class="ac-small">
+            black
+          </article>
+        </div>
         <div [routerLink]="messages" class="option gtmMensajes" routerLinkActive="active">
           <div class="ico message-icon"></div>
           <a class="gtmMensajes">Mensajes</a>
@@ -15,15 +25,15 @@
         </div>
         <div [routerLink]="selling" class="option" routerLinkActive="active">
           <div class="ico rotando-icon"></div>
-          <a>Artículos rotando</a>
+          <a>Artículos publicados</a>
         </div>
         <div [routerLink]="sold" class="option" routerLinkActive="active">
           <div class="ico rotados-icon"></div>
-          <a>Artículos rotados</a>
+          <a>Artículos comprados y vendidos</a>
         </div>
         <div [routerLink]="notificationsSettings" class="option" routerLinkActive="active">
           <div class="ico configuration-icon"></div>
-          <a>Configuraciones</a>
+          <a>Mi Configuraciones</a>
         </div>
         <div *ngIf="isSuperUser()" class="option">
           <h3>Administrador</h3>

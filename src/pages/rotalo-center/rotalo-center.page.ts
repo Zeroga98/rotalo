@@ -30,6 +30,7 @@ export class RotaloCenterPage implements OnInit  {
   public showMenu: boolean = true;
   public messagesUnRead: number = 0;
   public currentUser;
+  public myAccount = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
