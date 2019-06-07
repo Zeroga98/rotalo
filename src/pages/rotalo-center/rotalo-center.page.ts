@@ -25,12 +25,21 @@ export class RotaloCenterPage implements OnInit  {
   public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
   public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
   public productShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`;
+
+  public edit = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.EDITPROFILE}`;
+  public security = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PROFILEPASS}`;
+  public hobbies = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`;
+  public profileShow = `/${ROUTES.ROTALOCENTER}/${ROUTES.SHOW}`;
+
   public screenHeight;
   public screenWidth;
   public showMenu: boolean = true;
   public messagesUnRead: number = 0;
   public currentUser;
   public myAccount = false;
+  public myConfiguration = false;
+  public adminShop = false;
+  public adminSystem = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {

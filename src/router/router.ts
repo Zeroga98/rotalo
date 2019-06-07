@@ -101,6 +101,10 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
+      { path: ROUTES.MENUROTALOCENTER.PROFILEPASS, component: ChangePasswordPage },
+      { path: ROUTES.MENUROTALOCENTER.HOBBIES, component: HobbiesPage },
+      { path: ROUTES.MENUROTALOCENTER.EDITPROFILE, component: EditProfilePage },
+      { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
@@ -251,10 +255,6 @@ export const appRouter: Routes = [
     canActivate: [AuthGuardService],
     component: ProfileMenu,
     children: [
-      { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
-      { path: ROUTES.PROFILEPASS, component: ChangePasswordPage },
-      { path: ROUTES.HOBBIES, component: HobbiesPage },
-      { path: ROUTES.EDITPROFILE, component: EditProfilePage },
       {
         path: '',
         redirectTo: ROUTES.PROFILE,

@@ -15,7 +15,16 @@
             <label for="ac-1">Mi cuenta<div class="icon"></div></label>
           </div>
           <article class="ac-small">
-            black
+            <ul>
+              <li [routerLink]="profileShow" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Mi perfil</a>
+              </li>
+              <li [routerLink]="hobbies" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Mis intereses</a>
+              </li>
+            </ul>
           </article>
         </div>
         <div [routerLink]="messages" class="option gtmMensajes" routerLinkActive="active">
@@ -31,49 +40,94 @@
           <div class="ico rotados-icon"></div>
           <a>Artículos comprados y vendidos</a>
         </div>
-        <div [routerLink]="notificationsSettings" class="option" routerLinkActive="active">
-          <div class="ico configuration-icon"></div>
-          <a>Mi Configuraciones</a>
-        </div>
-        <div *ngIf="isSuperUser()" class="option">
-          <h3>Administrador</h3>
+        <div [ngClass]="myConfiguration ? 'open' : ''">
+            <div class="option">
+              <div class="ico configuration-icon"></div>
+              <input [(ngModel)] = "myConfiguration" id="ac-2" name="accordion-2" type="checkbox" />
+              <label for="ac-2">Mi Configuración<div class="icon"></div></label>
+            </div>
+            <article class="ac-small">
+              <ul>
+                <li [routerLink]="edit" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Mis datos</a>
+                </li>
+                <li [routerLink]="security" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Seguridad</a>
+                </li>
+                <li [routerLink]="notificationsSettings" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Configuración</a>
+                </li>
+              </ul>
+            </article>
+          </div>
+
+        <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
 
-        <div *ngIf="isSuperUser()" [routerLink]="featuredProduct" class="option" routerLinkActive="active">
-            <div class="ico featured-icon"></div>
-            <a>Destacados</a>
-        </div>
-        <div *ngIf="isSuperUser()" [routerLink]="adminRegister" class="option" routerLinkActive="active">
-            <div class="ico admin-icon"></div>
-            <a>Pre-registro</a>
+        <div *ngIf="currentUser && currentUser['is-admin-store']" [ngClass]="adminShop ? 'open' : ''">
+            <div class="option">
+              <div class="ico shop-icon"></div>
+              <input [(ngModel)] = "adminShop" id="ac-3" name="accordion-3" type="checkbox" />
+              <label for="ac-3">Admin. Tienda<div class="icon"></div></label>
+            </div>
+            <article class="ac-small">
+              <ul>
+                <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Ordenes</a>
+                </li>
+                <li routerLinkActive="active" [routerLink]="productShop" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Productos</a>
+                </li>
+                <li class="subOption">
+                  <div class="bullet"></div>
+                  <a>Destacados</a>
+                </li>
+                <li class="subOption">
+                  <div class="bullet"></div>
+                  <a>Carga de productos</a>
+                </li>
+              </ul>
+            </article>
         </div>
 
-        <div *ngIf="isSuperUser()" [routerLink]="campaign" class="option" routerLinkActive="active">
-          <div class="ico campaign"></div>
-          <a>Campañas</a>
-        </div>
-        <div *ngIf="isSuperUser()" [routerLink]="banners" class="option" routerLinkActive="active">
-            <div class="ico banner-icon"></div>
-            <a>Banners home</a>
-        </div>
-        <div *ngIf="isSuperUser()" [routerLink]="users" class="option" routerLinkActive="active">
-            <div class="ico user-icon"></div>
-            <a>Usuarios</a>
+        <div *ngIf="isSuperUser()" class="line">
         </div>
 
-        <div *ngIf="currentUser && currentUser['is-admin-store']" class="option">
-          <h3>
-            Admin Tienda
-          </h3>
-        </div>
-
-        <div *ngIf="currentUser && currentUser['is-admin-store'] && (isSuperUser() || !isSuperUser())" [routerLink]="adminOrders" class="option" routerLinkActive="active">
-          <div class="ico shop-icon"></div>
-          <a>Órdenes tienda</a>
-        </div>
-        <div *ngIf="currentUser && currentUser['is-admin-store'] && (isSuperUser() || !isSuperUser())" [routerLink]="productShop" class="option" routerLinkActive="active">
-          <div class="ico shop-icon"></div>
-          <a>Productos tienda</a>
+        <div *ngIf="isSuperUser()" [ngClass]="adminSystem ? 'open' : ''">
+            <div class="option">
+              <div class="ico admin-icon "></div>
+              <input [(ngModel)] = "adminSystem" id="ac-4" name="accordion-4" type="checkbox" />
+              <label for="ac-4">Admin. Sistema<div class="icon"></div></label>
+            </div>
+            <article class="ac-small">
+              <ul>
+                <li [routerLink]="users" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Usuarios</a>
+                </li>
+                <li [routerLink]="adminRegister" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Pre-registro</a>
+                </li>
+                <li [routerLink]="featuredProduct" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Destacados</a>
+                </li>
+                <li [routerLink]="banners" routerLinkActive="active" class="subOption">
+                  <div class="bullet"></div>
+                  <a>Banners home</a>
+                </li>
+                <li [routerLink]="campaign" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Campañas</a>
+                </li>
+              </ul>
+            </article>
         </div>
       </div>
     </div>

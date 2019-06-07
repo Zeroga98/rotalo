@@ -14,9 +14,9 @@ import { NavigationService } from '../../products/navigation.service';
   styleUrls: ['profile-menu.scss']
 })
 export class ProfileMenu implements OnInit {
-  public edit = `/${ROUTES.PROFILE}/${ROUTES.EDITPROFILE}`;
-  public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
-  public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
+  public edit = ``;
+  public security = ``;
+  public hobbies = ``;
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   userInfo: any;
   photoUrl: String;

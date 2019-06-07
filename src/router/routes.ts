@@ -11,9 +11,6 @@ export const ROUTES = {
     TERMS: 'terms',
     TERMSCOMPANIES: 'terms-companies',
     SHOW: 'show',
-    PROFILEPASS: 'change-password',
-    HOBBIES: 'hobbies',
-    EDITPROFILE: 'edit',
     ACTIVACION: 'activation',
     SUCCESS: 'success-activation',
     STEPS: 'steps',
@@ -52,6 +49,9 @@ export const ROUTES = {
         ADMINUSERS: 'admin-users',
         EDITUSERS: 'edit-users',
         PRODUCTSSHOP: 'products-shop',
+        HOBBIES: 'hobbies',
+        EDITPROFILE: 'edit',
+        PROFILEPASS: 'change-password'
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {
