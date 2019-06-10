@@ -455,4 +455,28 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getProductsHistorical() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/cargas/masivas/consultas/historiales`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  uploadPhotosShop(file: File) {
+    debugger
+    const formData: FormData = this.buildFormDataPhotos(file);
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/cargas/masivas/validaciones/imagenes`;
+    return this.http.post(url, formData, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  private buildFormDataPhotos(file: File): FormData {
+    const formData = new FormData();
+    formData.append('imagenesProductos', file);
+    formData.append('idTienda', '1');
+    formData.append('data[type]', 'imagenesProductos');
+    return formData;
+  }
+
 }

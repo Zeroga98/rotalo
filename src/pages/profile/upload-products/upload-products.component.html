@@ -5,12 +5,12 @@
     <div class="container">
       <div class="steps">
 
-        <div [ngClass]="{'animate-loading': !detailOrder}" class="card">
-          <div *ngIf="detailOrder">
+        <div class="card">
+          <div>
               <div class="number-steps">
                   <p>Sube tus productos en 3 pasos</p>
               </div>
-              <ul *ngFor="let product of detailOrder.productos" class="order">
+              <ul class="order">
                   <div class="steps-info">
                     <li>
                       <div class = "item">
@@ -31,7 +31,13 @@
                     <li>
                         <div class = "item">
                             <span>3.</span>
-                            <button mat-button>Selecciona la url de las fotos</button>
+                       <image-upload id="image-upload" #imageInput [preview]="false"
+                            [extensions]="['jpeg','png', 'jpg', 'webp']" [buttonCaption]="'Seleccionar imágenes'"
+                            [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
+                            [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)">
+                          </image-upload>
+                         <input type="file" (change)="onFileChanged($event)" multiple accept='image/*' multiple>
+                          <button (click) = "uploadFiles(imageInput)" mat-button>Selecciona la url de las fotos</button>
                         </div>
                         <div class = "item-check ">
                             <div class="check"></div>
@@ -57,38 +63,41 @@
                     <th class="center max-table">Productos Aprobados</th>
                     <th class="center max-table">Productos Rechazados</th>
                   </tr>
-                  <tr>
+                  <tr *ngFor="let historicalProduct of historicalProducts">
                     <td>
-                      <p>Cargaproductos_2019/01/06.xlsx</p>
+                      <p>{{historicalProduct.nombreArchivo}}</p>
                     </td>
                     <td>
-                      <p>21/01/2019</p>
+                      <p>{{formatDate(historicalProduct.fecha)}}</p>
                     </td>
                     <td>
                       <p>
-                        Finalizado exitoso
+                        {{historicalProduct.estado}}
                       </p>
                     </td>
                     <td class="center max-table">
                       <p>
-                        234
+                        {{historicalProduct.productosAprobados}}
                       </p>
                     </td>
                     <td class="center max-table">
-                      <p>0</p>
+                      <p>{{historicalProduct.productosRechazados}}</p>
+                    </td>
+                    <td *ngIf="historicalProduct.urlLog" class="download-container">
+                      <!--download-->
+                      <a [href]="historicalProduct.urlLog" target="_blank" download>Descargar informe de errores</a>
                     </td>
                   </tr>
               </table>
               <div class="download-container">
-                <a>Descargar informe de errores</a>
-                <div class="circle">
+                <div (click)="refreshRegister()" class="circle">
                   <div class="icon-refresh"></div>
                 </div>
               </div>
           </div>
         </div>
       </div>
-      <div [ngClass]="{'animate-loading': !detailOrder}" class="detail-info">
+      <div class="detail-info">
         <div class="msg-process">
           <div class="icon-load"></div>
           <div class="msg">

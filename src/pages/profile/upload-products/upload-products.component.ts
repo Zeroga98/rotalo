@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { UserService } from '../../../services/user.service';
 import { ROUTES } from '../../../router/routes';
 import { CurrentSessionService } from '../../../services/current-session.service';
+import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
 
 @Component({
   selector: 'app-upload-products',
@@ -18,6 +19,8 @@ export class UploadProductsComponent implements OnInit {
   public isOwnOrder;
   public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
+  public historicalProducts = [];
+  customStyleImageLoader = IMAGE_LOAD_STYLES;
   constructor(private userService: UserService,
     private currentSession: CurrentSessionService,
     private actRoute: ActivatedRoute,
@@ -25,19 +28,14 @@ export class UploadProductsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.actRoute.params.subscribe((response) => {
-      this.getDetailOrders('2zHFXEUn190604050159000177');
-    });
+    this.getProductsHistorical();
   }
 
-  getDetailOrders(reference) {
-    this.productsService.detailOrders(reference).subscribe((response) => {
+  getProductsHistorical() {
+    this.productsService.getProductsHistorical().subscribe((response) => {
       if (response.body) {
-       this.detailOrder = response.body.detalleOrden;
-        if (this.currentSession.currentUser().id == this.detailOrder.userId) {
-          this.isOwnOrder = true;
-        }
-        this.getInfoUser(this.detailOrder.userId);
+        this.historicalProducts = response.body.historialCargasMasivas;
+        console.log(response.body);
       }
     }, (error) => {
       console.log(error);
@@ -46,7 +44,7 @@ export class UploadProductsComponent implements OnInit {
 
   formatDate(date) {
     const dateMoment: any = moment(date);
-    date = dateMoment.format('DD [de] MMMM [de] YYYY');
+    date = dateMoment.format('DD/MM/YYYY');
     return date;
   }
 
@@ -62,6 +60,32 @@ export class UploadProductsComponent implements OnInit {
     });
   }
 
+  refreshRegister() {
+    this.getProductsHistorical();
+  }
 
+  onUploadImageFinished(event) {
+    console.log(event);
+  }
+
+  uploadFiles(img) {
+    console.log(img);
+    const element: HTMLElement = document.querySelector('input[type="file"]') as HTMLElement;
+    element.click();
+  }
+
+  onFileChanged(event) {
+    debugger
+    console.log(event);
+    const file = event.target.files[0];
+    this.productsService.uploadPhotosShop(file).subscribe((response) => {
+
+      console.log(response);
+      if (response.body) {
+      }
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
 }
