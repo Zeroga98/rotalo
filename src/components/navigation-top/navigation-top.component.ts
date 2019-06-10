@@ -72,26 +72,31 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public totalCart = 0;
   public userEdit;
   public userName;
-  public message = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
-  public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
+
+  public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
+  public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
+  public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
+  public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
   public selling = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`;
+  public sold = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SOLD}`;
+  public messages = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}`;
+  public infoRotalo = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.INFOROTALOCENTER}`;
+  public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
+  public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
+  public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
+  public productShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`;
+
   public edit = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.EDITPROFILE}`;
   public security = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PROFILEPASS}`;
   public hobbies = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`;
-  public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
-  public users = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINUSERS}`;
+  public profileShow = `/${ROUTES.ROTALOCENTER}/${ROUTES.SHOW}`;
+
   public suggestList;
   results: any[] = [];
   queryField: FormControl = new FormControl();
-  public featuredProduct = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT}`;
-  public adminRegister = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
-  public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
-  public productShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`;
-  public campaign = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.CAMPAIGN}`;
-  public banners = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.BANNER}`;
-  public profileShow = `/${ROUTES.PROFILE}/${ROUTES.SHOW}`;
   public showSearchMobile = false;
   public menu  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`;
+  public options = [false, false, false, false];
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -100,7 +105,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     const currentPage = this.router.url;
     if (this.screenWidth <= 700) {
       this.rotaloCenter = `/${ROUTES.ROTALOCENTER}`;
-      this.rotaloProfile = `/${ROUTES.PROFILE}`;
+      this.rotaloProfile = `/${ROUTES.ROTALOCENTER}`;
     }
   }
 
@@ -502,6 +507,27 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     window.history.back();
+  }
+
+  validateIfIsActive(option) {
+    if (option.classList.contains('active')) {
+      return true;
+    }
+    return false;
+  }
+
+  closeOptions(option) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (option != i) {
+        this.options[i] = false;
+      }
+    }
+  }
+
+  closeAllOptions() {
+    for (let i = 0; i < this.options.length; i++) {
+      this.options[i] = false;
+    }
   }
 
 

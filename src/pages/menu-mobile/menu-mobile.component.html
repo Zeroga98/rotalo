@@ -23,7 +23,31 @@
             <div class="arrow icon"></div>
         </div>
     </button>
-    <button routerLinkActive="active" [routerLink]="message" mat-menu-item>
+
+    <div class="ac-container">
+        <div #option1 routerLinkActive="active" [ngClass]="options[0] ? 'open' : ''">
+          <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+            <div class="ico user-icon"></div>
+            <input [disabled]="validateIfIsActive(option1)" [(ngModel)]="options[0]" id="menu-1"
+              name="accordion-1" type="checkbox" />
+            <label for="menu-1">Mi cuenta<div class="icon-down"></div></label>
+          </div>
+          <article (click)="closeOptions(0)" class="ac-small">
+            <ul>
+              <li [routerLink]="profileShow" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Mi perfil</a>
+              </li>
+              <li [routerLink]="hobbies" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Mis intereses</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+    <button routerLinkActive="active" [routerLink]="messages" mat-menu-item>
         <div class="button-container">
                 Mensajes
             <div class="arrow icon"></div>
@@ -41,67 +65,100 @@
             <div class="arrow icon"></div>
         </div>
     </button>
-    <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>
-        <div class="button-container">
-                Mis datos
-            <div class="arrow icon"></div>
+  
+    <div class="ac-container">
+        <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
+          <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+            <div class="ico configuration-icon"></div>
+            <input [disabled]="validateIfIsActive(option2)" [(ngModel)]="options[1]" id="menu-2"
+              name="accordion-2" type="checkbox" />
+            <label for="menu-2">Mi Configuración<div class="icon-down"></div></label>
+          </div>
+          <article (click)="closeOptions(1)" class="ac-small">
+            <ul>
+              <li [routerLink]="edit" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Mis datos</a>
+              </li>
+              <li [routerLink]="security" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Seguridad</a>
+              </li>
+              <li [routerLink]="notificationsSettings" routerLinkActive="active" class="subOption">
+                <div class="bullet"></div>
+                <a>Configuración</a>
+              </li>
+            </ul>
+          </article>
         </div>
-    </button>
-    <button routerLinkActive="active" [routerLink]="security" mat-menu-item>
-        <div class="button-container">
-                Seguridad
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>
-        <div class="button-container">
-                Configuraciones
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>
-        <div class="button-container">
-                Destacados
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>
-        <div class="button-container">
-                Pre-registro
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())" routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>
-        <div class="button-container">
-                Órdenes tienda
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())" routerLinkActive="active" [routerLink]="productShop" mat-menu-item>
-        <div class="button-container">
-                Productos tienda
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>
-        <div class="button-container">
-                Campañas
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>
-         <div class="button-container">
-                Banners home
-            <div class="arrow icon"></div>
-        </div>
-    </button>
-
-    <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="users" mat-menu-item>
-      <div class="button-container">
-        Usuarios
-        <div class="arrow icon"></div>
       </div>
-    </button>
+
+      <div class="ac-container">
+        <div #option3 *ngIf="userEdit && userEdit['is-admin-store']" routerLinkActive="active"
+        [ngClass]="options[2] ? 'open' : ''">
+        <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+          <div class="ico shop-icon"></div>
+          <input [disabled]="validateIfIsActive(option3)" [(ngModel)]="options[2]" id="menu-3"
+            name="accordion-3" type="checkbox" />
+          <label for="menu-3">Admin. Tienda<div class="icon-down"></div></label>
+        </div>
+        <article (click)="closeOptions(2)" class="ac-small">
+          <ul>
+            <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
+              <div class="bullet"></div>
+              <a>Ordenes</a>
+            </li>
+            <li routerLinkActive="active" [routerLink]="productShop" class="subOption">
+              <div class="bullet"></div>
+              <a>Productos</a>
+            </li>
+            <!--    <li class="subOption">
+                <div class="bullet"></div>
+                <a>Destacados</a>
+              </li> -->
+            <li class="subOption">
+              <div class="bullet"></div>
+              <a>Carga de productos</a>
+            </li>
+          </ul>
+        </article>
+      </div>
+      </div>
+ 
+      <div class="ac-container">
+            <div #option4 *ngIf="isSuperUser()" routerLinkActive="active" [ngClass]="options[3] ? 'open' : ''">
+              <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+                <div class="ico admin-icon "></div>
+                <input [disabled]="validateIfIsActive(option4)" [(ngModel)]="options[3]" id="menu-4"
+                  name="accordion-4" type="checkbox" />
+                <label for="menu-4">Admin. Sistema<div class="icon-down"></div></label>
+              </div>
+              <article (click)="closeOptions(3)" class="ac-small">
+                <ul>
+                  <li [routerLink]="users" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Usuarios</a>
+                  </li>
+                  <li [routerLink]="adminRegister" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Pre-registro</a>
+                  </li>
+                  <li [routerLink]="featuredProduct" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Destacados</a>
+                  </li>
+                  <li [routerLink]="banners" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Banners home</a>
+                  </li>
+                  <li [routerLink]="campaign" routerLinkActive="active" class="subOption">
+                    <div class="bullet"></div>
+                    <a>Campañas</a>
+                  </li>
+                </ul>
+              </article>
+            </div>
+      </div>
 
     <button (click) = "onLogout()" mat-menu-item>
         <div class="button-container">

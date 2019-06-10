@@ -64,6 +64,17 @@ export class RotaloCenterPage implements OnInit  {
     this.router.events.subscribe((val) => {
       this.validateMobileMenu();
     });
+
+    this.userService.changePhoto.subscribe(response => {
+      const photo = {
+        id: response.photoId,
+        url: response.urlPhoto ? response.urlPhoto : ''
+      };
+      this.userInfo.photo = photo;
+      if (response  && response.urlPhoto) {
+        this.photoUrl = this.userInfo.photo.url;
+      }
+    });
   }
 
   validateMobileMenu() {
