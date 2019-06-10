@@ -1,4 +1,4 @@
-<div (click) = "openSearch()"  [ngClass]="showSearchMobile ?  'show ': '' " class="md-overlay-promo"></div>
+<div (click)="openSearch()" [ngClass]="showSearchMobile ?  'show ': '' " class="md-overlay-promo"></div>
 <nav>
   <div class="container">
     <div class="navbar-header material-design form-theme">
@@ -11,16 +11,17 @@
         <div class="search-container desktop">
 
           <form (ngSubmit)="onSubmitSearch()">
-            <input
-            [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
+            <input [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
             <button class="button-search" type="submit">
               <div class="search-icon">
               </div>
             </button>
           </form>
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option (click) = "goToCategory(suggestion)" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
-              <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
+            <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
+              [value]="suggestion.suggestion">
+              <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg"
+                height="15">
               <span class="suggestion">{{suggestion.suggestion}}</span>
             </mat-option>
           </mat-autocomplete>
@@ -38,47 +39,156 @@
           </li>
 
           <li class="desktop">
-              <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
-                <span>
-                  ¡Hola <span *ngIf="userName">{{userName}}!</span>
-                </span>
-              </a>
-              <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
-                <div class="menu-usuario">
-                  <div *ngIf="userEdit" class="info">
-                    <div class="photo-container">
-                      <div [routerLink]="profileShow" class="photo clickable">
-                        <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
-                        <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="imagen-perfil">
-                      </div>
-                      <div class="user-info">
-                        <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
-                        <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
-                        <div  *ngIf="userEdit.calificacionGeneral" class="ranking">
-                            <span class="star star-full">
-                            </span>
-                            <span> {{userEdit.calificacionGeneral}}
-                            </span>
-                        </div>
+            <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
+              <span>
+                ¡Hola <span *ngIf="userName">{{userName}}!</span>
+              </span>
+            </a>
+            <mat-menu backdropClass="sg-vertical-sub-menu-user" xPosition="before" #perfilMenu="matMenu">
+              <div class="menu-usuario">
+                <div *ngIf="userEdit" class="info">
+                  <div class="photo-container">
+                    <div [routerLink]="profileShow" class="photo clickable">
+                      <img *ngIf="!userEdit.photo || !userEdit.photo.url" [src]="defaultImage" alt="no imagen">
+                      <img *ngIf="userEdit.photo && userEdit.photo.url" [src]="userEdit.photo.url" alt="imagen-perfil">
+                    </div>
+                    <div class="user-info">
+                      <p *ngIf="userEdit.name" class="name">{{userEdit.name}}</p>
+                      <p *ngIf="userEdit.company && userEdit.company.name" class="company">{{userEdit.company.name}}</p>
+                      <div *ngIf="userEdit.calificacionGeneral" class="ranking">
+                        <span class="star star-full">
+                        </span>
+                        <span> {{userEdit.calificacionGeneral}}
+                        </span>
                       </div>
                     </div>
                   </div>
-                  <button routerLinkActive="active" [routerLink]="message" mat-menu-item>Mensajes</button>
-                  <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
-                  <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
-                  <button routerLinkActive="active" [routerLink]="edit" mat-menu-item>Mis datos</button>
-                  <button routerLinkActive="active" [routerLink]="security" mat-menu-item>Seguridad</button>
-                  <button routerLinkActive="active" [routerLink]="notificationsSettings" mat-menu-item>Configuraciones</button>
-                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="featuredProduct" mat-menu-item>Destacados</button>
-                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="adminRegister" mat-menu-item>Pre-registro</button>
-                  <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="adminOrders" mat-menu-item>Órdenes tienda</button>
-                  <button *ngIf="userEdit && userEdit['is-admin-store'] && (isSuperUser() || !isSuperUser())"  routerLinkActive="active" [routerLink]="productShop" mat-menu-item>Productos tienda</button>
-                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="campaign" mat-menu-item>Campañas</button>
-                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="banners" mat-menu-item>Banners home</button>
-                  <button *ngIf="isSuperUser()" routerLinkActive="active" [routerLink]="users" mat-menu-item>Usuarios</button>
-                  <button (click) = "onLogout()" mat-menu-item>Cerrar sesión</button>
                 </div>
-              </mat-menu>
+                <div class="ac-container">
+                  <div #option1 routerLinkActive="active" [ngClass]="options[0] ? 'open' : ''">
+                    <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+                      <div class="ico user-icon"></div>
+                      <input [disabled]="validateIfIsActive(option1)" [(ngModel)]="options[0]" id="menu-1"
+                        name="accordion-1" type="checkbox" />
+                      <label for="menu-1">Mi cuenta<div class="icon"></div></label>
+                    </div>
+                    <article (click)="closeOptions(0)" class="ac-small">
+                      <ul>
+                        <li [routerLink]="profileShow" routerLinkActive="active" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Mi perfil</a>
+                        </li>
+                        <li [routerLink]="hobbies" routerLinkActive="active" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Mis intereses</a>
+                        </li>
+                      </ul>
+                    </article>
+                  </div>
+                </div>
+                <button routerLinkActive="active" [routerLink]="messages" mat-menu-item>Mensajes</button>
+                <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
+                <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
+
+                <div class="ac-container">
+                  <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
+                    <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+                      <div class="ico configuration-icon"></div>
+                      <input [disabled]="validateIfIsActive(option2)" [(ngModel)]="options[1]" id="menu-2"
+                        name="accordion-2" type="checkbox" />
+                      <label for="menu-2">Mi Configuración<div class="icon"></div></label>
+                    </div>
+                    <article (click)="closeOptions(1)" class="ac-small">
+                      <ul>
+                        <li [routerLink]="edit" routerLinkActive="active" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Mis datos</a>
+                        </li>
+                        <li [routerLink]="security" routerLinkActive="active" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Seguridad</a>
+                        </li>
+                        <li [routerLink]="notificationsSettings" routerLinkActive="active" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Configuración</a>
+                        </li>
+                      </ul>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="ac-container">
+                  <div #option3 *ngIf="userEdit && userEdit['is-admin-store']" routerLinkActive="active"
+                  [ngClass]="options[2] ? 'open' : ''">
+                  <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+                    <div class="ico shop-icon"></div>
+                    <input [disabled]="validateIfIsActive(option3)" [(ngModel)]="options[2]" id="menu-3"
+                      name="accordion-3" type="checkbox" />
+                    <label for="menu-3">Admin. Tienda<div class="icon"></div></label>
+                  </div>
+                  <article (click)="closeOptions(2)" class="ac-small">
+                    <ul>
+                      <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
+                        <div class="bullet"></div>
+                        <a>Ordenes</a>
+                      </li>
+                      <li routerLinkActive="active" [routerLink]="productShop" class="subOption">
+                        <div class="bullet"></div>
+                        <a>Productos</a>
+                      </li>
+                      <!--    <li class="subOption">
+                          <div class="bullet"></div>
+                          <a>Destacados</a>
+                        </li> -->
+                      <li class="subOption">
+                        <div class="bullet"></div>
+                        <a>Carga de productos</a>
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+                </div>
+           
+                <div class="ac-container">
+                      <div #option4 *ngIf="isSuperUser()" routerLinkActive="active" [ngClass]="options[3] ? 'open' : ''">
+                        <div (click)="$event.stopPropagation();" mat-menu-item class="option">
+                          <div class="ico admin-icon "></div>
+                          <input [disabled]="validateIfIsActive(option4)" [(ngModel)]="options[3]" id="menu-4"
+                            name="accordion-4" type="checkbox" />
+                          <label for="menu-4">Admin. Sistema<div class="icon"></div></label>
+                        </div>
+                        <article (click)="closeOptions(3)" class="ac-small">
+                          <ul>
+                            <li [routerLink]="users" routerLinkActive="active" class="subOption">
+                              <div class="bullet"></div>
+                              <a>Usuarios</a>
+                            </li>
+                            <li [routerLink]="adminRegister" routerLinkActive="active" class="subOption">
+                              <div class="bullet"></div>
+                              <a>Pre-registro</a>
+                            </li>
+                            <li [routerLink]="featuredProduct" routerLinkActive="active" class="subOption">
+                              <div class="bullet"></div>
+                              <a>Destacados</a>
+                            </li>
+                            <li [routerLink]="banners" routerLinkActive="active" class="subOption">
+                              <div class="bullet"></div>
+                              <a>Banners home</a>
+                            </li>
+                            <li [routerLink]="campaign" routerLinkActive="active" class="subOption">
+                              <div class="bullet"></div>
+                              <a>Campañas</a>
+                            </li>
+                          </ul>
+                        </article>
+                      </div>
+                </div>
+
+               
+
+                <button (click)="onLogout()" mat-menu-item>Cerrar sesión</button>
+              </div>
+            </mat-menu>
           </li>
 
           <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
@@ -90,11 +200,11 @@
             </div>
           </li>
 
-          <li  (click) = "openSearch()" class="mobile-search bell-container">
-              <div class="container-bell">
-                <span class="search-icon-dark">
-                </span>
-              </div>
+          <li (click)="openSearch()" class="mobile-search bell-container">
+            <div class="container-bell">
+              <span class="search-icon-dark">
+              </span>
+            </div>
           </li>
 
           <li (click)="goToNotifications();" class="mobile-notification bell-container">
@@ -109,24 +219,24 @@
               <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
               </span>
             </div>
-            <mat-menu backdropClass="sg-vertical-sub-menu"  class="profile-menu" xPosition="before" #appMenu="matMenu">
+            <mat-menu backdropClass="sg-vertical-sub-menu" class="profile-menu" xPosition="before" #appMenu="matMenu">
               <notifications-component (click)="$event.stopPropagation();"></notifications-component>
             </mat-menu>
           </li>
 
           <li class="mobile-notification menu-container">
-              <div *ngIf="!hideMenuIcon()" (click) = "goToMenu()" class="menu">
-                <span>
-                </span>
-              </div>
-              <div *ngIf="hideMenuIcon()" (click) = "goBack()" class="menu">
-                  <span class="close">
-                  </span>
-                </div>
+            <div *ngIf="!hideMenuIcon()" (click)="goToMenu()" class="menu">
+              <span>
+              </span>
+            </div>
+            <div *ngIf="hideMenuIcon()" (click)="goBack()" class="menu">
+              <span class="close">
+              </span>
+            </div>
           </li>
 
         </ul>
-        <div  id="upload-offer" class="flexbox center-center centrado" [ngClass]="isAtUploadOffer?  'hidden': '' ">
+        <div id="upload-offer" class="flexbox center-center centrado" [ngClass]="isAtUploadOffer?  'hidden': '' ">
           <div [ngClass]="isBancolombiaShop?  'disabled hidden': '' " class="container-offer">
             <a (click)="initScrollProduct(); goToUploadProduct()" class="upload-offer-button">
               <div class="gtmSubeTuOferta outside-circle">
@@ -142,27 +252,27 @@
     </div>
   </div>
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
-  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)" (subCategorySelected)="selectedSubCategory($event)"
-    (closeMenu)="_closeMenu()"></categories-menu>
+  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)"
+    (subCategorySelected)="selectedSubCategory($event)" (closeMenu)="_closeMenu()"></categories-menu>
 
   <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
-    <div class="search-container-mobile" >
-        <div (click) = "openSearch()" class="back-arrow"></div>
-        <form class="form-theme" (ngSubmit)="onSubmitSearch()">
-            <input
-            placeholder="¿Qué estás buscando?"
-            [matAutocomplete]="auto" [formControl]="queryField" class="form-control" type="text" name="search">
-            <button  class="button-search" type="submit">
-              <div class=" search-icon-dark">
-              </div>
-            </button>
-          </form>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option (click) = "goToCategory(suggestion); showSearchMobile = false" *ngFor="let suggestion of suggestList" [value]="suggestion.suggestion">
-                <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
-              <span class="suggestion">{{suggestion.suggestion}}</span>
-              </mat-option>
-          </mat-autocomplete>
+    <div class="search-container-mobile">
+      <div (click)="openSearch()" class="back-arrow"></div>
+      <form class="form-theme" (ngSubmit)="onSubmitSearch()">
+        <input placeholder="¿Qué estás buscando?" [matAutocomplete]="auto" [formControl]="queryField"
+          class="form-control" type="text" name="search">
+        <button class="button-search" type="submit">
+          <div class=" search-icon-dark">
+          </div>
+        </button>
+      </form>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option (click)="goToCategory(suggestion); showSearchMobile = false" *ngFor="let suggestion of suggestList"
+          [value]="suggestion.suggestion">
+          <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg" height="15">
+          <span class="suggestion">{{suggestion.suggestion}}</span>
+        </mat-option>
+      </mat-autocomplete>
     </div>
   </div>
 </nav>

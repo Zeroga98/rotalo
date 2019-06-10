@@ -14,9 +14,9 @@ import { NavigationService } from '../../products/navigation.service';
   styleUrls: ['profile-menu.scss']
 })
 export class ProfileMenu implements OnInit {
-  public edit = `/${ROUTES.PROFILE}/${ROUTES.EDITPROFILE}`;
-  public security = `/${ROUTES.PROFILE}/${ROUTES.PROFILEPASS}`;
-  public hobbies = `/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`;
+  public edit = ``;
+  public security = ``;
+  public hobbies = ``;
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   userInfo: any;
   photoUrl: String;
@@ -37,8 +37,7 @@ export class ProfileMenu implements OnInit {
 
   constructor(private sanitizer: DomSanitizer, private loginService: LoginService, private userService: UserService,
     private currentSession: CurrentSessionService, public router: Router, private navigationService: NavigationService)
-    {
-    this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
+    { this.defaultCountry = { id: this.currentSession.currentUser()['countryId'] };
     }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class ProfileMenu implements OnInit {
       const photo = {
         id: response.photoId,
         url: response.urlPhoto ? response.urlPhoto : ''
-      }
+      };
       this.userInfo.photo = photo;
       if (response  && response.urlPhoto) {
         this.photoUrl = this.userInfo.photo.url;

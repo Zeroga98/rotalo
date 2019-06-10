@@ -321,7 +321,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   goToHobbies() {
-    this.router.navigate([`/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`]);
+    this.router.navigate([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`]);
   }
 
   loadMoreNotification() {

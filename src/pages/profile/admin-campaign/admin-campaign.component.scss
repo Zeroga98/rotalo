@@ -6,6 +6,8 @@
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
+  padding-top: 45px;
+  padding-bottom: 45px;
 
   .container {
     width: 100%;
@@ -127,8 +129,6 @@
   }
 
 }
-
-
 
 :host {
 
@@ -610,6 +610,12 @@
       width: 30%;
       margin-right: 3%;
     }
+  }
+}
+
+@media (max-width: 1100px) {
+  :host {
+    width: 100%;
   }
 }
 

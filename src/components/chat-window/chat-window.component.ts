@@ -240,7 +240,7 @@ export class ChatWindowComponent
   }
 
   goToHobbies() {
-    this.router.navigate([`/${ROUTES.PROFILE}/${ROUTES.HOBBIES}`]);
+    this.router.navigate([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`]);
   }
 
   productIsFree(notification) {

@@ -3,17 +3,12 @@
 
 :host {
   width: 79%;
-  height: auto;
   padding: 0 5%;
   padding-left: 2%;
   position: relative;
   background-color: #FAFAFA;
   padding-top: 45px;
   padding-bottom: 70px;
-
-  .info-container {
-    position: relative;
-  }
 
   .container {
     width: 100%;
@@ -86,12 +81,15 @@
 
 :host {
 
+  .info-container {
+    position: relative;
+  }
+
   .first-row {
     display: flex;
     justify-content: flex-end;
     padding-bottom: 2rem;
     position: absolute;
-   // top: 40px;
     top: 0px;
     right: 0;
   }
@@ -785,4 +783,10 @@
         }
       }
     }}
+}
+
+@media (max-width: 1100px) {
+  :host {
+    width: 100%;
+  }
 }
