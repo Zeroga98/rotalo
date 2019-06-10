@@ -32,6 +32,7 @@ export class RotaloCenterPage implements OnInit  {
   public security = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PROFILEPASS}`;
   public hobbies = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`;
   public profileShow = `/${ROUTES.ROTALOCENTER}/${ROUTES.SHOW}`;
+  public uploadProducts = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS}`;
 
   public screenHeight;
   public screenWidth;

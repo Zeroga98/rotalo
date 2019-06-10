@@ -140,7 +140,7 @@
                           <div class="bullet"></div>
                           <a>Destacados</a>
                         </li> -->
-                      <li class="subOption">
+                      <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
                         <div class="bullet"></div>
                         <a>Carga de productos</a>
                       </li>
@@ -148,7 +148,7 @@
                   </article>
                 </div>
                 </div>
-           
+
                 <div class="ac-container">
                       <div #option4 *ngIf="isSuperUser()" routerLinkActive="active" [ngClass]="options[3] ? 'open' : ''">
                         <div (click)="$event.stopPropagation();" mat-menu-item class="option">
@@ -184,7 +184,7 @@
                       </div>
                 </div>
 
-               
+
 
                 <button (click)="onLogout()" mat-menu-item>Cerrar sesión</button>
               </div>
