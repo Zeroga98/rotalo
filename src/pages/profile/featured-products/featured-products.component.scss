@@ -238,3 +238,9 @@
     }
   }
 }
+
+@media (max-width: 1100px) {
+  :host {
+    width: 100%;
+  }
+} 

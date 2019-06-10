@@ -1,20 +1,31 @@
 <navigation-top [hideBackArrow]="isHideBackArrow"></navigation-top>
 <div class="main">
   <div *ngIf="showMenu" class="menu">
-    <div class="logo-container">
-      <div [routerLink]="infoRotalo" class="logo-circle">
-        <img class="logo-rotalo" src="../../assets/img/logo_rotalo.svg" alt="logo rotalo">
+    <div class="photo-container">
+      <div [routerLink]="profileShow" class="photo clickable">
+        <img *ngIf="userInfo && !userInfo.photo || userInfo && !userInfo.photo.url" [src]="defaultImage" alt="no imagen" (error)="updateSrc($event)">
+        <img *ngIf="userInfo && userInfo.photo && photoUrl" [src]="photoUrl" alt="imagen-perfil" (error)="updateSrc($event)">
+      </div>
+      <div class="user-info">
+        <p *ngIf="userName" class="name">{{userName}}</p>
+        <p *ngIf="userInfo && userInfo.company && userInfo.company.name" class="company">{{userInfo.company.name}}</p>
+        <div  *ngIf="userInfo && userInfo.calificacionGeneral" class="ranking">
+            <span class="star star-full">
+            </span>
+            <span> {{userInfo.calificacionGeneral}}
+            </span>
+        </div>
       </div>
     </div>
     <div class="menu-options">
       <div class="menu-container ac-container">
-        <div [ngClass]="myAccount ? 'open' : ''">
+        <div  #option1 routerLinkActive="active" [ngClass]="options[0] ? 'open' : ''">
           <div class="option">
             <div class="ico user-icon"></div>
-            <input [(ngModel)] = "myAccount" id="ac-1" name="accordion-1" type="checkbox" />
+            <input [disabled]="validateIfIsActive(option1)" [(ngModel)] = "options[0]" id="ac-1" name="accordion-1" type="checkbox" />
             <label for="ac-1">Mi cuenta<div class="icon"></div></label>
           </div>
-          <article class="ac-small">
+          <article (click)="closeOptions(0)" class="ac-small">
             <ul>
               <li [routerLink]="profileShow" routerLinkActive="active" class="subOption">
                 <div class="bullet"></div>
@@ -27,26 +38,26 @@
             </ul>
           </article>
         </div>
-        <div [routerLink]="messages" class="option gtmMensajes" routerLinkActive="active">
+        <div (click)="closeAllOptions()" [routerLink]="messages" class="option gtmMensajes" routerLinkActive="active">
           <div class="ico message-icon"></div>
           <a class="gtmMensajes">Mensajes</a>
           <span *ngIf="messageAvailable" class="noti-circle">{{getMessagesUnRead}}</span>
         </div>
-        <div [routerLink]="selling" class="option" routerLinkActive="active">
+        <div (click)="closeAllOptions()" [routerLink]="selling" class="option" routerLinkActive="active">
           <div class="ico rotando-icon"></div>
           <a>Artículos publicados</a>
         </div>
-        <div [routerLink]="sold" class="option" routerLinkActive="active">
+        <div (click)="closeAllOptions()" [routerLink]="sold" class="option" routerLinkActive="active">
           <div class="ico rotados-icon"></div>
           <a>Artículos comprados y vendidos</a>
         </div>
-        <div [ngClass]="myConfiguration ? 'open' : ''">
+        <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
             <div class="option">
               <div class="ico configuration-icon"></div>
-              <input [(ngModel)] = "myConfiguration" id="ac-2" name="accordion-2" type="checkbox" />
+              <input [disabled]="validateIfIsActive(option2)" [(ngModel)] = "options[1]" id="ac-2" name="accordion-2" type="checkbox" />
               <label for="ac-2">Mi Configuración<div class="icon"></div></label>
             </div>
-            <article class="ac-small">
+            <article (click)="closeOptions(1)" class="ac-small">
               <ul>
                 <li [routerLink]="edit" routerLinkActive="active" class="subOption">
                   <div class="bullet"></div>
@@ -67,13 +78,13 @@
         <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
 
-        <div *ngIf="currentUser && currentUser['is-admin-store']" [ngClass]="adminShop ? 'open' : ''">
+        <div #option3 *ngIf="currentUser && currentUser['is-admin-store']"  routerLinkActive="active"  [ngClass]="options[2] ? 'open' : ''">
             <div class="option">
               <div class="ico shop-icon"></div>
-              <input [(ngModel)] = "adminShop" id="ac-3" name="accordion-3" type="checkbox" />
+              <input [disabled]="validateIfIsActive(option3)" [(ngModel)] = "options[2]" id="ac-3" name="accordion-3" type="checkbox" />
               <label for="ac-3">Admin. Tienda<div class="icon"></div></label>
             </div>
-            <article class="ac-small">
+            <article (click)="closeOptions(2)" class="ac-small">
               <ul>
                 <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
                   <div class="bullet"></div>
@@ -98,13 +109,13 @@
         <div *ngIf="isSuperUser()" class="line">
         </div>
 
-        <div *ngIf="isSuperUser()" [ngClass]="adminSystem ? 'open' : ''">
+        <div #option4 *ngIf="isSuperUser()" routerLinkActive="active"  [ngClass]="options[3] ? 'open' : ''">
             <div class="option">
               <div class="ico admin-icon "></div>
-              <input [(ngModel)] = "adminSystem" id="ac-4" name="accordion-4" type="checkbox" />
+              <input [disabled]="validateIfIsActive(option4)"  [(ngModel)] = "options[3]" id="ac-4" name="accordion-4" type="checkbox" />
               <label for="ac-4">Admin. Sistema<div class="icon"></div></label>
             </div>
-            <article class="ac-small">
+            <article (click)="closeOptions(3)" class="ac-small">
               <ul>
                 <li [routerLink]="users" routerLinkActive="active" class="subOption">
                   <div class="bullet"></div>

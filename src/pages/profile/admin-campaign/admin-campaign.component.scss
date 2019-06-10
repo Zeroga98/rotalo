@@ -129,8 +129,6 @@
 
 }
 
-
-
 :host {
 
   .first-row {
@@ -611,6 +609,12 @@
       width: 30%;
       margin-right: 3%;
     }
+  }
+}
+
+@media (max-width: 1100px) {
+  :host {
+    width: 100%;
   }
 }
 
