@@ -462,23 +462,29 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  uploadPhotosShop(file: File) {
-    const formData: FormData = this.buildFormDataPhotos(file);
-    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const headers = new HttpHeaders(jsonSapiHeaders);
+  uploadPhotosShop(files) {
+    const formData: FormData = this.buildFormDataPhotos(files);
     const url = `${this.urlSapi}/cargas/masivas/validaciones/imagenes`;
-    return this.http.post(url, formData, { headers: headers }).pipe(map((response: any) => response));
+    return this.http.post(url, formData,  {
+      headers: new HttpHeaders().delete('Content-Type')
+    }).pipe(map((response: any) => response));
   }
 
-  private buildFormDataPhotos(file): FormData {
+  private buildFormDataPhotos(files): FormData {
     const formData = new FormData();
-    formData.append('idTienda', '1');
-    formData.append('imagenesProductos', file);
-    formData.append('data[type]', 'imagenesProductos');
-    const xhr = new XMLHttpRequest;
-    xhr.open('POST', '/echo/html/', true);
-    xhr.send(formData);
+    const idTienda = '1';
+    for (let i = 0; i < files.length; i++) {
+      formData.append('imagenesProductos', files[i]);
+    }
+    formData.append('idTienda', idTienda);
     return formData;
+  }
+
+  proccessProducts(params) {
+    const url = `${this.urlSapi}/cargas/masivas/procesar`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http.post(url, params,  { headers: headers }).pipe(map((response: any) => response));
   }
 
 }

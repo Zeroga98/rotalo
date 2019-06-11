@@ -21,14 +21,14 @@
                     <li>
                         <div class = "item">
                           <span>2.</span>
-                          <input 
+                          <input
                           style="display: none"
                           #fileInput
-                          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                          accept=" .xlsx, .xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                           type="file" (change)="onFileChanged($event)">
-                          <button (click)="fileInput.click()" mat-button>Adjunta el archivo</button>
+                          <button  [disabled]="isInProccess() || checkFile[0]"  (click)="fileInput.click()" mat-button>Adjunta el archivo</button>
                         </div>
-                        <div *ngIf="selectedFile" class = "item-check ">
+                        <div *ngIf="checkFile[0]" class = "item-check ">
                           <div class="check"></div>
                           <p>Archivo adjunto</p>
                         </div>
@@ -36,20 +36,26 @@
                     <li>
                         <div class = "item">
                             <span>3.</span>
-                       <image-upload id="image-upload" #imageInput [preview]="false"
+                            <!--
+<image-upload id="image-upload" #imageInput [preview]="false"
                             [extensions]="['jpeg','png', 'jpg', 'webp']" [buttonCaption]="'Seleccionar imágenes'"
                             [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
                             [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event)">
                           </image-upload>
-                          <button [disabled]="!selectedFile" (click) = "uploadFiles(imageInput)" mat-button>Selecciona la url de las fotos</button>
+                            -->
+                            <input
+                            style="display: none"
+                            #fileInputImages
+                            type="file" (change)="onFileChangedImages($event)" accept="image/*" multiple>
+                          <button [disabled]="!selectedFile || isInProccess()  || checkFile[1]" (click) = "fileInputImages.click()" mat-button>Selecciona la url de las fotos</button>
                         </div>
-                        <div class = "item-check ">
+                        <div *ngIf="checkFile[1]" class = "item-check ">
                             <div class="check"></div>
                             <p>Archivo adjunto</p>
                         </div>
                     </li>
                     <li>
-                      <button [disabled]="!selectedFile" mat-flat-button color="primary">Finalizar carga</button>
+                      <button (click)="proccessProducts()" [disabled]="!checkFile[0] || !checkFile[1]" mat-flat-button color="primary">Finalizar carga</button>
                     </li>
                   </div>
               </ul>
@@ -89,7 +95,7 @@
                     </td>
                     <td *ngIf="historicalProduct.urlLog" class="download-container">
                       <!--download-->
-                      <a [href]="historicalProduct.urlLog" target="_blank" download>Descargar informe de errores</a>
+                      <a class="text-left" [href]="historicalProduct.urlLog" target="_blank" download>Descargar informe de errores</a>
                     </td>
                   </tr>
               </table>
@@ -101,8 +107,8 @@
           </div>
         </div>
       </div>
-      <div class="detail-info">
-        <div class="msg-process">
+      <div *ngIf="success || error || loading || isInProccess()" class="detail-info">
+        <div *ngIf="loading || isInProccess()" class="msg-process">
           <div class="icon-load"></div>
           <div class="msg">
             <div class="first">
@@ -114,7 +120,7 @@
           </div>
         </div>
 
-        <div class="msg-process">
+        <div  *ngIf="error" class="msg-process">
             <div class="icon-error"></div>
             <div class="msg">
               <div class="first">
@@ -126,7 +132,7 @@
             </div>
         </div>
 
-        <div class="msg-process">
+        <div  *ngIf="success" class="msg-process">
             <div class="icon-check-upload"></div>
             <div class="msg">
               <div class="first">
@@ -138,8 +144,11 @@
             </div>
         </div>
 
-        <div class="error-container">
-          <p>El nombre del archivo no es permitido.</p>
+        <div *ngIf="messageError" class="error-container">
+          <p>{{messageError}}</p>
+          <div *ngFor="let maxFile of maxFiles">
+              <p>({{maxFile.name}})</p>
+          </div>
         </div>
       </div>
     </div>
