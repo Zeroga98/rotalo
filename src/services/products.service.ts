@@ -463,7 +463,6 @@ export class ProductsService {
   }
 
   uploadPhotosShop(file: File) {
-    debugger
     const formData: FormData = this.buildFormDataPhotos(file);
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -471,11 +470,14 @@ export class ProductsService {
     return this.http.post(url, formData, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  private buildFormDataPhotos(file: File): FormData {
+  private buildFormDataPhotos(file): FormData {
     const formData = new FormData();
-    formData.append('imagenesProductos', file);
     formData.append('idTienda', '1');
+    formData.append('imagenesProductos', file);
     formData.append('data[type]', 'imagenesProductos');
+    const xhr = new XMLHttpRequest;
+    xhr.open('POST', '/echo/html/', true);
+    xhr.send(formData);
     return formData;
   }
 

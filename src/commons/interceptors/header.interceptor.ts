@@ -23,7 +23,7 @@ export class HeadersInterceptor implements HttpInterceptor {
         return next.handle(request);
     }
 
-    private isNecessaryHeader(req: HttpRequest<any>): boolean{
+    private isNecessaryHeader(req: HttpRequest<any>): boolean {
       const ablesMethods = ['post', 'put'];
       const method = req.method.toLocaleLowerCase();
           /**Valida si el request es de la API de nequi---en este caso no se debe aplicar el interceptor**/

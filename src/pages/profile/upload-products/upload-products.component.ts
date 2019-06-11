@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ROUTES } from '../../../router/routes';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
+import { PhotosService } from '../../../services/photos.service';
 
 @Component({
   selector: 'app-upload-products',
@@ -21,7 +22,9 @@ export class UploadProductsComponent implements OnInit {
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public historicalProducts = [];
   customStyleImageLoader = IMAGE_LOAD_STYLES;
+  selectedFile = null;
   constructor(private userService: UserService,
+    private photosService: PhotosService,
     private currentSession: CurrentSessionService,
     private actRoute: ActivatedRoute,
     private productsService: ProductsService,
@@ -68,24 +71,9 @@ export class UploadProductsComponent implements OnInit {
     console.log(event);
   }
 
-  uploadFiles(img) {
-    console.log(img);
-    const element: HTMLElement = document.querySelector('input[type="file"]') as HTMLElement;
-    element.click();
-  }
-
   onFileChanged(event) {
-    debugger
-    console.log(event);
-    const file = event.target.files[0];
-    this.productsService.uploadPhotosShop(file).subscribe((response) => {
-
-      console.log(response);
-      if (response.body) {
-      }
-    }, (error) => {
-      console.log(error);
-    });
+    this.selectedFile = event.target.files[0];
   }
+
 
 }
