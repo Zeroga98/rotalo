@@ -63,9 +63,12 @@ export class UploadProductsComponent implements OnInit {
   }
 
   formatDate(date) {
-    const dateMoment: any = moment(date);
-    date = dateMoment.format('DD/MM/YYYY');
-    return date;
+    if (date) {
+      const test = new Date(date);
+      const dateMoment: any = moment(test);
+      return dateMoment.format('DD/MM/YYYY');
+    }
+    return '';
   }
 
   getUrlImge(photo) {
