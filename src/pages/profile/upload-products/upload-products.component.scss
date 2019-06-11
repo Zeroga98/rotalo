@@ -96,6 +96,12 @@
                 }
               }
 
+              .mat-flat-button[disabled][disabled] {
+                color:#FFFFFF;
+                background-color: #D1D1D1;
+                cursor: not-allowed;
+              }
+
             }
           }
         }
@@ -130,6 +136,10 @@
             }
           }
 
+        }
+
+        .text-left {
+          text-align: left;
         }
 
         .download-container {
@@ -212,10 +222,13 @@
         }
         .error-container {
           width: 100%;
+          margin-top: 10px;
+          margin-bottom: 20px;
           p {
             color: #FF3646;
             font-size: 1.4rem;
             padding: 5px 0;
+            word-break: break-word;
           }
         }
       }
@@ -283,6 +296,9 @@
     animation: loadAnimation 3s infinite;
   }
 
+  image-upload {
+    display:none;
+  }
 }
 
 

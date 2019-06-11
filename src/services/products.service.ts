@@ -455,4 +455,36 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getProductsHistorical() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/cargas/masivas/consultas/historiales`;
+    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  uploadPhotosShop(files) {
+    const formData: FormData = this.buildFormDataPhotos(files);
+    const url = `${this.urlSapi}/cargas/masivas/validaciones/imagenes`;
+    return this.http.post(url, formData,  {
+      headers: new HttpHeaders().delete('Content-Type')
+    }).pipe(map((response: any) => response));
+  }
+
+  private buildFormDataPhotos(files): FormData {
+    const formData = new FormData();
+    const idTienda = '1';
+    for (let i = 0; i < files.length; i++) {
+      formData.append('imagenesProductos', files[i]);
+    }
+    formData.append('idTienda', idTienda);
+    return formData;
+  }
+
+  proccessProducts(params) {
+    const url = `${this.urlSapi}/cargas/masivas/procesar`;
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    return this.http.post(url, params,  { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
