@@ -39,7 +39,7 @@
           </li>
 
           <li class="desktop">
-            <a class="categories" (click)="loadNotifications()" [matMenuTriggerFor]="perfilMenu">
+            <a class="categories"  [matMenuTriggerFor]="perfilMenu">
               <span>
                 ¡Hola <span *ngIf="userName">{{userName}}!</span>
               </span>
@@ -87,8 +87,9 @@
                   </div>
                 </div>
                 <button routerLinkActive="active" [routerLink]="messages" mat-menu-item>Mensajes</button>
-                <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Mis artículos rotados</button>
-                <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Mis artículos rotando</button>
+                <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>Artículos publicados</button>
+                <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>Artículos comprados y vendidos</button>
+
 
                 <div class="ac-container">
                   <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
