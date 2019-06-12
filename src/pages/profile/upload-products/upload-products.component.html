@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <div class="historical-table">
+        <div *ngIf="historicalProducts && historicalProducts.length > 0" class="historical-table">
           <div class="sub">Historial de archivos cargados</div>
           <div class="table">
               <table>
