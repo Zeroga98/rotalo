@@ -54,11 +54,11 @@ export class UploadProductsComponent implements OnInit {
   }
 
   isInProccess() {
-   /* if(this.historicalProducts) {
+   if (this.historicalProducts) {
       for (let i = 0; i < this.historicalProducts.length; i++) {
         return this.historicalProducts[i].estado == 'En proceso';
       }
-    }*/
+    }
     return false;
   }
 
@@ -88,7 +88,6 @@ export class UploadProductsComponent implements OnInit {
   }
 
   onFileChanged(event) {
-    this.checkFile[0] = true;
     this.messageError = '';
     this.success = false;
     this.error = false;
@@ -97,14 +96,25 @@ export class UploadProductsComponent implements OnInit {
       this.loading = true;
       if (this.selectedFile.name.includes('.xls') || this.selectedFile.name.includes('.xlsx')) {
         this.selectedFileName = this.selectedFile.name;
+        this.productsService.uploadFileProducts(this.selectedFile, 1).subscribe((response) => {
+          this.checkFile[0] = true;
+          this.loading = false;
+          this.messageError = '';
+          this.error = false;
+        }, (error) => {
+          this.loading = false;
+          this.error = true;
+          if (error.error && error.error.message) {
+            this.messageError = error.error.message;
+          }
+        });
+
       } else {
         this.loading = false;
         this.error = true;
         this.messageError = 'Formato de archivo no admitido ' + this.selectedFile.name;
       }
-
     }
-
   }
 
   onFileChangedImages(event) {
@@ -139,7 +149,7 @@ export class UploadProductsComponent implements OnInit {
   }
 
   maxSizeFiles() {
-    const files = []
+    const files = [];
     if(this.selectedFilesImages) {
       for (let i = 0; i < this.selectedFilesImages.length; i++) {
         if (this.selectedFilesImages[i].size >=  10000000) {
@@ -166,7 +176,6 @@ export class UploadProductsComponent implements OnInit {
         this.error = false;
         this.success = true;
         this.getProductsHistorical();
-        console.log(response);
       }, (error)=> {
         this.loading = false;
         this.error = true;
