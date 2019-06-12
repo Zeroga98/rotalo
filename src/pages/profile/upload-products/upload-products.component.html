@@ -93,9 +93,8 @@
                     <td class="center max-table">
                       <p>{{historicalProduct.productosRechazados}}</p>
                     </td>
-                    <td *ngIf="historicalProduct.urlLog" class="download-container">
-                      <!--download-->
-                      <a class="text-left" [href]="historicalProduct.urlLog" target="_blank" download>Descargar informe de errores</a>
+                    <td *ngIf="historicalProduct.urlLog" class="download-container text-left">
+                      <a [href]="historicalProduct.urlLog" target="_blank" download>Descargar informe de errores</a>
                     </td>
                   </tr>
               </table>

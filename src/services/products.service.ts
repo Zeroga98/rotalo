@@ -487,4 +487,18 @@ export class ProductsService {
     return this.http.post(url, params,  { headers: headers }).pipe(map((response: any) => response));
   }
 
+  uploadFileProducts(file, idShop) {
+    const formData: FormData = this.buildFormDataFile(file);
+    const url = `${this.urlSapi}/cargas/masivas/validaciones/archivo/${idShop}`;
+    return this.http.post(url, formData,  {
+      headers: new HttpHeaders().delete('Content-Type')
+    }).pipe(map((response: any) => response));
+  }
+
+  private buildFormDataFile(file): FormData {
+    const formData = new FormData();
+    formData.append('archivo', file);
+    return formData;
+  }
+
 }
