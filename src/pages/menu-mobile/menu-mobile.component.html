@@ -53,19 +53,19 @@
             <div class="arrow icon"></div>
         </div>
     </button>
-    <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>
-        <div class="button-container">
-                Mis artículos rotados
-            <div class="arrow icon"></div>
-        </div>
-    </button>
     <button routerLinkActive="active" [routerLink]="selling" mat-menu-item>
         <div class="button-container">
-                Mis artículos rotando
+              Artículos publicados
             <div class="arrow icon"></div>
         </div>
     </button>
-  
+    <button routerLinkActive="active" [routerLink]="sold" mat-menu-item>
+        <div class="button-container">
+            Artículos comprados y vendidos
+            <div class="arrow icon"></div>
+        </div>
+    </button>
+
     <div class="ac-container">
         <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
           <div (click)="$event.stopPropagation();" mat-menu-item class="option">
@@ -124,7 +124,7 @@
         </article>
       </div>
       </div>
- 
+
       <div class="ac-container">
             <div #option4 *ngIf="isSuperUser()" routerLinkActive="active" [ngClass]="options[3] ? 'open' : ''">
               <div (click)="$event.stopPropagation();" mat-menu-item class="option">
