@@ -67,8 +67,8 @@ export class RotaloCenterPage implements OnInit  {
 
     this.userService.changePhoto.subscribe(response => {
       const photo = {
-        id: response.photoId,
-        url: response.urlPhoto ? response.urlPhoto : ''
+        id: response.photoId || response.id,
+        url: response.urlPhoto || response.url
       };
       this.userInfo.photo = photo;
       if (response  && response.urlPhoto) {

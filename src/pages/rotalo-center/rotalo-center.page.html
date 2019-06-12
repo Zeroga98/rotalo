@@ -4,7 +4,7 @@
     <div class="photo-container">
       <div [routerLink]="profileShow" class="photo clickable">
         <img *ngIf="userInfo && !userInfo.photo || userInfo && !userInfo.photo.url" [src]="defaultImage" alt="no imagen" (error)="updateSrc($event)">
-        <img *ngIf="userInfo && userInfo.photo && photoUrl" [src]="photoUrl" alt="imagen-perfil" (error)="updateSrc($event)">
+        <img *ngIf="userInfo && userInfo.photo && userInfo.photo.url" [src]="photoUrl" alt="imagen-perfil" (error)="updateSrc($event)">
       </div>
       <div class="user-info">
         <p *ngIf="userName" class="name">{{userName}}</p>
