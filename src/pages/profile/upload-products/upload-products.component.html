@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div  *ngIf="error" class="msg-process">
+        <div  *ngIf="error && !isInProccess()" class="msg-process">
             <div class="icon-error"></div>
             <div class="msg">
               <div class="first">
@@ -131,7 +131,7 @@
             </div>
         </div>
 
-        <div  *ngIf="success" class="msg-process">
+        <div  *ngIf="success && !isInProccess()" class="msg-process">
             <div class="icon-check-upload"></div>
             <div class="msg">
               <div class="first">
