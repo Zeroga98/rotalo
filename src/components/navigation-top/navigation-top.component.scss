@@ -735,7 +735,7 @@
 
 .menu-usuario {
   overflow-y: auto;
- // height: 427px;
+  max-height: 56rem;
 }
 
 .menu-usuario::-webkit-scrollbar {
@@ -1100,7 +1100,7 @@
 
   }
 }
- 
+
 @media screen and (max-width: 800px) {
   :host {
     #upload-offer.messages {
