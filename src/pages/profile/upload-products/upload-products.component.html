@@ -47,7 +47,7 @@
                             style="display: none"
                             #fileInputImages
                             type="file" (change)="onFileChangedImages($event)" accept="image/*" multiple>
-                          <button [disabled]="!selectedFile || isInProccess()  || checkFile[1]" (click) = "fileInputImages.click()" mat-button>Selecciona la url de las fotos</button>
+                          <button [disabled]="!selectedFile || isInProccess()  || checkFile[1]" (click) = "fileInputImages.click()" mat-button>Sube las fotos</button>
                         </div>
                         <div *ngIf="checkFile[1]" class = "item-check ">
                             <div class="check"></div>
