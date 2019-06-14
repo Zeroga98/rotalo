@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTES } from '../../router/routes';
 import { ResumeRotaloCenterService } from '../../services/resume-rotalo-center.service';
@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './rotalo-center.page.html',
   styleUrls: ['./rotalo-center.page.scss']
 })
-export class RotaloCenterPage implements OnInit  {
+export class RotaloCenterPage implements OnInit   {
   public notificationsSettings = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.NOTIFICATIONSSETTINGS}`;
   public adminOrders = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINORDERS}`;
   public adminRegister  = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.ADMINREGISTER}`;
@@ -143,11 +143,13 @@ export class RotaloCenterPage implements OnInit  {
     evt.currentTarget.src = this.defaultImage;
   }
 
-  validateIfIsActive(option) {
-    if (option.classList.contains('active')) {
-      return true;
+  selectOption(option, indexOption) {
+    if (option.classList.contains('open') && option.classList.contains('active')) {
+      this.options[indexOption] = false;
+      option.classList.remove('open');
+    } else  {
+      this.options[indexOption] = !this.options[indexOption];
     }
-    return false;
   }
 
   closeOptions(option) {

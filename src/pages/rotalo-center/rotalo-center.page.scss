@@ -322,8 +322,8 @@
     cursor: pointer;
   }
 
-  .ac-container input:checked+label,
-  .ac-container input:checked+label:hover {
+  .ac-container .open input+label,
+  .ac-container .open input+label:hover {
     .icon {
       transform: rotate(0deg);
     }
@@ -364,19 +364,8 @@
     transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
   }
 
-  .ac-container .open article.ac-small,
-  .ac-container .active article.ac-small {
+  .ac-container .open article.ac-small {
     height: auto;
-  }
-
-  .ac-container .open article.ac-medium,
-  .ac-container .active article.ac-medium {
-    height: 180px;
-  }
-
-  .ac-container .open article.ac-large,
-  .ac-container .active article.ac-large {
-    height: 230px;
   }
 
   .icon {
@@ -443,20 +432,19 @@
     transform: rotate(0deg) translateY(-50%);
   }
 
-  .option:hover .icon,
-  input:checked+label .icon,
-  input:checked+label:hover .icon,
-  .active .option .icon {
+ .open .option:hover .icon,
+ .open  input+label .icon,
+ .open input+label:hover .icon,
+ .active .option .icon {
     background-image: url(../../assets/img/logos_menu/arrow_down_2.svg);
   }
 
-  .ac-container input:checked+label .icon,
-  .ac-container input:checked+label:hover .icon,
-  .ac-container .active .option .icon {
+  .ac-container .open input+label .icon,
+  .ac-container .open input+label:hover .icon{
     transform: scale(1, -1) translateY(50%);
   }
 
-  .ac-container input:checked+label {
+  .ac-container .open input+label {
     font-weight: bold;
   }
 
