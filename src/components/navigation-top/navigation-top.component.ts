@@ -532,5 +532,13 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     }
   }
 
+  selectOption(option, indexOption) {
+    if (option.classList.contains('open') && option.classList.contains('active')) {
+      this.options[indexOption] = false;
+      option.classList.remove('open');
+    } else  {
+      this.options[indexOption] = !this.options[indexOption];
+    }
+  }
 
 }

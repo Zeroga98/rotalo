@@ -19,10 +19,10 @@
     </div>
     <div class="menu-options">
       <div class="menu-container ac-container">
-        <div  #option1 routerLinkActive="active" [ngClass]="options[0] ? 'open' : ''">
+        <div  #option1 routerLinkActive="active open" [ngClass]="options[0] ? 'open' : ''">
           <div class="option">
             <div class="ico user-icon"></div>
-            <input [disabled]="validateIfIsActive(option1)" [(ngModel)] = "options[0]" id="ac-1" name="accordion-1" type="checkbox" />
+            <input (change) = " selectOption(option1, 0)"  id="ac-1" name="accordion-1" type="checkbox" />
             <label for="ac-1">Mi cuenta<div class="icon"></div></label>
           </div>
           <article (click)="closeOptions(0)" class="ac-small">
@@ -51,10 +51,10 @@
           <div class="ico rotados-icon"></div>
           <a>Artículos comprados y vendidos</a>
         </div>
-        <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
+        <div #option2 routerLinkActive="active open" [ngClass]="options[1] ? 'open' : ''">
             <div class="option">
               <div class="ico configuration-icon"></div>
-              <input [disabled]="validateIfIsActive(option2)" [(ngModel)] = "options[1]" id="ac-2" name="accordion-2" type="checkbox" />
+              <input  (change) = " selectOption(option2, 1)" id="ac-2" name="accordion-2" type="checkbox" />
               <label for="ac-2">Mi Configuración<div class="icon"></div></label>
             </div>
             <article (click)="closeOptions(1)" class="ac-small">
@@ -78,10 +78,10 @@
         <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
 
-        <div #option3 *ngIf="currentUser && currentUser['is-admin-store']"  routerLinkActive="active"  [ngClass]="options[2] ? 'open' : ''">
+        <div #option3 *ngIf="currentUser && currentUser['is-admin-store']"  routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
             <div class="option">
               <div class="ico shop-icon"></div>
-              <input [disabled]="validateIfIsActive(option3)" [(ngModel)] = "options[2]" id="ac-3" name="accordion-3" type="checkbox" />
+              <input  (change) = " selectOption(option3, 2)" id="ac-3" name="accordion-3" type="checkbox" />
               <label for="ac-3">Admin. Tienda<div class="icon"></div></label>
             </div>
             <article (click)="closeOptions(2)" class="ac-small">
@@ -109,10 +109,10 @@
         <div *ngIf="isSuperUser()" class="line">
         </div>
 
-        <div #option4 *ngIf="isSuperUser()" routerLinkActive="active"  [ngClass]="options[3] ? 'open' : ''">
+        <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open"  [ngClass]="options[3] ? 'open' : ''">
             <div class="option">
               <div class="ico admin-icon "></div>
-              <input [disabled]="validateIfIsActive(option4)"  [(ngModel)] = "options[3]" id="ac-4" name="accordion-4" type="checkbox" />
+              <input  (change) = " selectOption(option4, 3)" id="ac-4" name="accordion-4" type="checkbox" />
               <label for="ac-4">Admin. Sistema<div class="icon"></div></label>
             </div>
             <article (click)="closeOptions(3)" class="ac-small">
