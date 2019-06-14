@@ -15,7 +15,7 @@
                     <li>
                       <div class = "item">
                           <span>1.</span>
-                          <a href="www.google.com" mat-button download>Descarga la plantilla</a>
+                          <a href="https://rotalomstg.s3.amazonaws.com/staging/uploads/carga_masiva/descarga/NombreTienda_YYYYMMDD.xlsx" mat-button download>Descarga la plantilla</a>
                       </div>
                     </li>
                     <li>
@@ -65,6 +65,7 @@
         <div *ngIf="historicalProducts && historicalProducts.length > 0" class="historical-table">
           <div class="sub">Historial de archivos cargados</div>
           <div class="table">
+
               <table>
                   <tr>
                     <th>Nombre</th>
@@ -72,6 +73,13 @@
                     <th>Estado</th>
                     <th class="center max-table">Productos Aprobados</th>
                     <th class="center max-table">Productos Rechazados</th>
+                    <th>
+                      <div class="download-container">
+                        <div (click)="refreshRegister()" class="circle">
+                          <div class="icon-refresh"></div>
+                        </div>
+                      </div>
+                    </th>
                   </tr>
                   <tr *ngFor="let historicalProduct of historicalProducts">
                     <td>
@@ -98,11 +106,7 @@
                     </td>
                   </tr>
               </table>
-              <div class="download-container">
-                <div (click)="refreshRegister()" class="circle">
-                  <div class="icon-refresh"></div>
-                </div>
-              </div>
+
           </div>
         </div>
       </div>
