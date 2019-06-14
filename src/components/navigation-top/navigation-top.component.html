@@ -65,10 +65,10 @@
                   </div>
                 </div>
                 <div class="ac-container">
-                  <div #option1 routerLinkActive="active" [ngClass]="options[0] ? 'open' : ''">
+                  <div #option1 routerLinkActive="active open" [ngClass]="options[0] ? 'open' : ''">
                     <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                       <div class="ico user-icon"></div>
-                      <input [disabled]="validateIfIsActive(option1)" [(ngModel)]="options[0]" id="menu-1"
+                      <input  (change) = "selectOption(option1, 0)" id="menu-1"
                         name="accordion-1" type="checkbox" />
                       <label for="menu-1">Mi cuenta<div class="icon"></div></label>
                     </div>
@@ -92,10 +92,10 @@
 
 
                 <div class="ac-container">
-                  <div #option2 routerLinkActive="active" [ngClass]="options[1] ? 'open' : ''">
+                  <div #option2 routerLinkActive="active open" [ngClass]="options[1] ? 'open' : ''">
                     <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                       <div class="ico configuration-icon"></div>
-                      <input [disabled]="validateIfIsActive(option2)" [(ngModel)]="options[1]" id="menu-2"
+                      <input  (change) = "selectOption(option2, 1)"  id="menu-2"
                         name="accordion-2" type="checkbox" />
                       <label for="menu-2">Mi Configuración<div class="icon"></div></label>
                     </div>
@@ -119,11 +119,11 @@
                 </div>
 
                 <div class="ac-container">
-                  <div #option3 *ngIf="userEdit && userEdit['is-admin-store']" routerLinkActive="active"
+                  <div #option3 *ngIf="userEdit && userEdit['is-admin-store']" routerLinkActive="active open"
                   [ngClass]="options[2] ? 'open' : ''">
                   <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                     <div class="ico shop-icon"></div>
-                    <input [disabled]="validateIfIsActive(option3)" [(ngModel)]="options[2]" id="menu-3"
+                    <input (change) = "selectOption(option3, 2)"  id="menu-3"
                       name="accordion-3" type="checkbox" />
                     <label for="menu-3">Admin. Tienda<div class="icon"></div></label>
                   </div>
@@ -151,10 +151,10 @@
                 </div>
 
                 <div class="ac-container">
-                      <div #option4 *ngIf="isSuperUser()" routerLinkActive="active" [ngClass]="options[3] ? 'open' : ''">
+                      <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open" [ngClass]="options[3] ? 'open' : ''">
                         <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                           <div class="ico admin-icon "></div>
-                          <input [disabled]="validateIfIsActive(option4)" [(ngModel)]="options[3]" id="menu-4"
+                          <input (change) = "selectOption(option4, 3)"  id="menu-4"
                             name="accordion-4" type="checkbox" />
                           <label for="menu-4">Admin. Sistema<div class="icon"></div></label>
                         </div>
