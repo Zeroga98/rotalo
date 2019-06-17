@@ -340,6 +340,7 @@
               </div>
             </article>
           </div>
+
           <div *ngIf="filter.filtroTransmision && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_transmission']"
@@ -365,6 +366,7 @@
               </div>
             </article>
           </div>
+
           <div *ngIf="filter.filtroCombustible && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_gas']"
@@ -390,6 +392,7 @@
               </div>
             </article>
           </div>
+
           <div *ngIf="filter.filtroNumeroPlaca && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_license_plate']"
@@ -415,6 +418,7 @@
               </div>
             </article>
           </div>
+
           <div *ngIf="filter.filtroTipoAsiento && category && category.subCategory && category.subCategory.name == 'Carros'" class="option">
             <input
             [checked]="currentFilter && currentFilter['vehicle_type_of_seat']"
@@ -675,7 +679,6 @@
             </article>
           </div>
 
-
           <div *ngIf="filter.filtroAdministracion && category && category.name == 'Inmuebles'" class="option">
             <input
             [checked]="currentFilter && currentFilter['immovable_canon_quota']"
@@ -727,7 +730,6 @@
               </div>
             </article>
           </div>
-
 
           <div *ngIf="category && category.name == 'Inmuebles'" class="option">
               <input id="in-10" name="accordion-1" type="checkbox" />
@@ -798,6 +800,84 @@
                     <label class="check-text" for="games">Juegos infantiles</label>
                 </div>
               </article>
+          </div>
+
+          <div class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_guard_house']"
+            id="fashion-1" name="accordion-1" type="checkbox" />
+            <label for="fashion-1">Género<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
+                      (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
+                    <label for="guard">Todos ({{filter.filtroPorteria.total}})</label>
+                  </div>
+                  <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_guard_house'] ==  returnStringOption(guard.porteria)"
+                    (change)="filterByGuardHouse(guard.porteria)" value="{guard.porteria}}"
+                      id="guard{{i}}" type="radio" name="guard">
+                    <label for="guard{{i}}">{{guard.porteria}}
+                      ({{guard.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_guard_house']"
+            id="fashion-2" name="accordion-1" type="checkbox" />
+            <label for="fashion-2">Talla<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
+                      (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
+                    <label for="guard">Todos ({{filter.filtroPorteria.total}})</label>
+                  </div>
+                  <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_guard_house'] ==  returnStringOption(guard.porteria)"
+                    (change)="filterByGuardHouse(guard.porteria)" value="{guard.porteria}}"
+                      id="guard{{i}}" type="radio" name="guard">
+                    <label for="guard{{i}}">{{guard.porteria}}
+                      ({{guard.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_guard_house']"
+            id="fashion-3" name="accordion-1" type="checkbox" />
+            <label for="fashion-3">Color<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
+                      (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
+                    <label for="guard">Todos ({{filter.filtroPorteria.total}})</label>
+                  </div>
+                  <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_guard_house'] ==  returnStringOption(guard.porteria)"
+                    (change)="filterByGuardHouse(guard.porteria)" value="{guard.porteria}}"
+                      id="guard{{i}}" type="radio" name="guard">
+                    <label for="guard{{i}}">{{guard.porteria}}
+                      ({{guard.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
 
         </div>
