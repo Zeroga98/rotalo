@@ -23,6 +23,9 @@ export class ProductsMicrositeService {
   private totalProducts = 0;
   private featuredProducts;
   private urlShopBancolombia;
+  public filter = {};
+  public currentFilter;
+  public filterObject;
 
   constructor(
     private http: HttpClient,
@@ -311,5 +314,9 @@ export class ProductsMicrositeService {
       .then((response: any) => {
         return response;
       });
+  }
+
+  loadProductsFilter(params) {
+
   }
 }

@@ -2,7 +2,7 @@ import { FeedMicrositeService } from './feedMicrosite.service';
 import { CountryInterface } from './../../../components/select-country/country.interface';
 import { CityInterface } from './../../../commons/interfaces/city.interface';
 import { NavigationService } from '../../../pages/products/navigation.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SubcategoryInterface } from './../../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../../commons/interfaces/product.interface';
@@ -66,9 +66,16 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public showPagination = false;
   public idCountry = 1;
   public counter = '';
+  public params;
+  public sub;
+  public filter;
+  public maxPrice;
+  public minPrice;
+
   constructor(
     private productsService: ProductsMicrositeService,
     private router: Router,
+    private route: ActivatedRoute,
     private utilService: UtilsService,
     private navigationService: NavigationService,
     private feedService: FeedMicrositeService,
@@ -82,18 +89,19 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.countDown();
+
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
     } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.params = params;
+    });
   }
 
   ngOnDestroy(): void {
@@ -119,25 +127,65 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
-  countDown() {
-    const countDownDate = new Date('Nov 30, 2018 23:59:59').getTime();
-    const that = this;
-    const x = setInterval(function () {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const h = d * 24 + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((distance % (1000 * 60)) / 1000);
-      const hours = h > 9 ? '' + h : '0' + h;
-      const minutes = m > 9 ? '' + m : '0' + m;
-      const seconds = s > 9 ? '' + s : '0' + s;
-      that.counter = hours + ': ' + minutes + ': ' + seconds;
-      that.changeDetectorRef.markForCheck();
-      if (distance < 0) {
-        clearInterval(x);
+
+  loadProductsFilter(countryId) {
+    this.currentFilter = {
+      product_country_id: countryId,
+      size: 24,
+      number: 1
+    };
+    this.currentFilter = Object.assign({}, this.currentFilter, this.params);
+    this.feedService.setCurrentFilter(this.currentFilter);
+    const params = this.getParamsToProducts();
+    this.loadProducts(params);
+  }
+
+  async loadProducts(params: Object = {}) {
+    try {
+   /*   this.stateRequest = this.statesRequestEnum.loading;
+      this.isInfiniteScrollDisabled = true;*/
+      if (this.productsService.products.length > 0) {
+        this.products = this.productsService.products;
+        this.currentPage = this.productsService.currentPage;
+        this.pageNumber = this.currentPage;
+        this.filter = this.productsService.filter;
+        this.currentFilter = this.productsService.currentFilter;
+        if (this.productsService.filterObject.minPrice) { this.minPrice = this.productsService.filterObject.minPrice; }
+        if (this.productsService.filterObject.maxPrice) { this.maxPrice = this.productsService.filterObject.maxPrice; }
+        this.changeDetectorRef.markForCheck();
+      } else {
+        let responseFilter: any;
+        responseFilter = await this.productsService.loadProductsFilter(params);
+        this.products = responseFilter.productos;
+        Object.keys(responseFilter.filtros).forEach((key) => (responseFilter.filtros[key] == null) && delete responseFilter.filtros[key]);
+        this.filter = Object.assign({}, this.filter , responseFilter.filtros);
+        this.changeDetectorRef.markForCheck();
       }
-    }, 1000);
+      this.totalPages = this.productsService.getTotalProducts();
+      this.stateRequest = this.statesRequestEnum.success;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      this.stateRequest = this.statesRequestEnum.error;
+      this.changeDetectorRef.markForCheck();
+    }
+
+    if (this.products.length <= 0) {
+      this.showAnyProductsMessage = true;
+    } else {
+      this.showAnyProductsMessage = false;
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
+  private updateProducts(newProducts: Array<ProductInterface>) {
+    this.waitNewPage
+      ? this.addNewPage(newProducts)
+      : (this.products = [].concat(newProducts));
+    this.waitNewPage = false;
+  }
+
+  addNewPage(newProducts) {
+    newProducts.forEach(product => this.products.push(product));
   }
 
   updateSrc(evt) {
@@ -165,37 +213,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.countrySelected = { id: countryId };
     const params = this.getParamsToProducts();
     this.loadProducts(params);
-  }
-
-  async loadProducts(params: Object = {}) {
-    try {
-      this.stateRequest = this.statesRequestEnum.loading;
-      this.isInfiniteScrollDisabled = true;
-      if (this.productsService.products.length > 0) {
-        this.products = this.productsService.products;
-        this.currentPage = this.productsService.currentPage;
-        this.pageNumber = this.currentPage;
-        this.changeDetectorRef.markForCheck();
-      } else {
-        let products;
-        products = await this.productsService.getProductsMicrosite(this.userId, params);
-        this.updateProducts(products);
-        this.changeDetectorRef.markForCheck();
-      }
-      this.totalPages = this.productsService.getTotalProducts();
-      this.stateRequest = this.statesRequestEnum.success;
-      this.changeDetectorRef.markForCheck();
-    } catch (error) {
-      this.stateRequest = this.statesRequestEnum.error;
-      this.changeDetectorRef.markForCheck();
-    }
-
-    if (this.products.length <= 0) {
-      this.showAnyProductsMessage = true;
-    } else {
-      this.showAnyProductsMessage = false;
-    }
-    this.changeDetectorRef.markForCheck();
   }
 
   setScroll(event) {
@@ -317,17 +334,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  private updateProducts(newProducts: Array<ProductInterface>) {
-    this.waitNewPage
-      ? this.addNewPage(newProducts)
-      : (this.products = [].concat(newProducts));
-    this.waitNewPage = false;
-  }
-
-  addNewPage(newProducts) {
-    newProducts.forEach(product => this.products.push(product));
-  }
-
   private routineUpdateProducts(filter: Object = {}, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
     filter = Object.assign({}, filter, this.getPageFilter(numberPage));
@@ -349,7 +355,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.feedService.setCurrentFilter(this.currentFilter);
     return this.currentFilter;
   }
-
 
   private setconfigFiltersSubcategory(filter) {
     this.configFiltersSubcategory = filter;
@@ -400,4 +405,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     },
       (error) => { console.log(error); });
   }
+
+
+
+
 }
