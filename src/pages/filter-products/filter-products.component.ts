@@ -476,6 +476,27 @@ export class FilterProductsComponent
     this.routineUpdateProducts(other);
   }
 
+  public filterByGender(genderId) {
+    this.routineUpdateProducts({ fashion_gender_id: genderId, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySizeClothes(sizeId) {
+    this.routineUpdateProducts({ fashion_gender_id: sizeId, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByColorClothes(color: string) {
+    color = this.returnStringOption(color);
+    this.routineUpdateProducts({ fashion_color: color, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySubCategoryClothes(subcategoryId) {
+    this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
+    this.scrollToTop();
+  }
+
   removeFilters() {
     this.currentFilter = {
       product_country_id: this.countryId,
