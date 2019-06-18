@@ -70,8 +70,6 @@ export class AdminBannersComponent implements OnInit {
     });
   }
 
-
-
   private setInitialFormColombia(config) {
     this.formBannerColombia = this.formBuilder.group({
       banners: this.formBuilder.array(
@@ -246,7 +244,6 @@ export class AdminBannersComponent implements OnInit {
       console.log(error);
     });
   }
-
 
   onUploadImageFinished(event, element, type) {
     if (event.file.type == 'image/jpeg'
