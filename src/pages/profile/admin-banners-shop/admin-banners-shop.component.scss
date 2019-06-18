@@ -9,6 +9,18 @@
   padding-top: 45px;
   padding-bottom: 45px;
 
+  .title {
+    .text {
+      color: #272727;
+    }
+
+    h1.text {
+      font-size: 2.0rem;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
   custom-spinner.show {
     position: absolute;
     top: 5px;
@@ -30,26 +42,8 @@
     padding-right: 15px;
   }
 
-  .tittle {
-    .text {
-      color: #ed2f3c;
-    }
-
-    h1.text {
-      font-size: 4rem;
-      font-weight: normal;
-      margin: 0;
-    }
-  }
-
-  .main-title {
-    padding-bottom: 15px;
-    border-bottom: 2px solid #eae9e8;
-    margin-bottom: 25px;
-  }
-
   .form-container {
-    margin-top: 20px;
+    margin-top: 61px;
   }
 
   .dynamic-container {
