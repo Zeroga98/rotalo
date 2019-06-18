@@ -117,7 +117,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-    this.loadBanners();
+
     this.loadBancolombiaProduct();
   }
 
@@ -166,6 +166,11 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.settingsService.getBannersHomeList().subscribe(response => {
       if (response.body) {
         this.imagesBanner = response.body.banners;
+        this.imagesBanner = this.imagesBanner.filter((image) =>{
+         return image['url-photo-desktop'].includes('buro') && this.currentUser
+            && this.currentUser.city && (this.currentUser.city.state.id == 11 || this.currentUser.city.state.id == 3)
+            || !image['url-photo-desktop'].includes('buro');
+          });
         this.currentUrl = window.location.href;
         if (this.currentUrl.includes('gt')) {
           this.showBannerToShop = false;
@@ -177,12 +182,12 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-
   async loadInfoUser() {
     try {
       this.currentUser = await this.userService.getInfoUser();
       this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Bancolombia' ?
       this.showBancolombiaProducts = true : this.showBancolombiaProducts = false;
+      this.loadBanners();
     } catch (error) {
       if (error.status === 404) {
         console.log(error);
@@ -209,7 +214,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
       this.changeDetectorRef.markForCheck();
     }
   }
-
 
   loadFeaturedProduct(countryId, communityId) {
     if (!this.productsService.getFeatureProducts()) {
@@ -239,7 +243,6 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     }
     return results;
   }
-
 
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
