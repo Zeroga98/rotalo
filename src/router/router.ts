@@ -57,6 +57,7 @@ import { AdminUsersComponent } from '../pages/profile/admin-users/admin-users.co
 import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.component';
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
+import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -107,6 +108,7 @@ export const appRouter: Routes = [
       { path: ROUTES.MENUROTALOCENTER.HOBBIES, component: HobbiesPage },
       { path: ROUTES.MENUROTALOCENTER.EDITPROFILE, component: EditProfilePage },
       { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
+      {path: ROUTES.MENUROTALOCENTER.SHOPBANNERS, component: AdminBannersShopComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
