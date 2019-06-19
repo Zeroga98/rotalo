@@ -64,8 +64,8 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid" class="button" type="submit"
-        text="Simular"></custom-button>
+      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid || formUntouchedValid" class="button" type="submit"
+        text="Recalcular"></custom-button>
     </div>
   </form>
   <div id="table-simulator">
