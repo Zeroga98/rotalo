@@ -816,13 +816,11 @@
                     <label for="subcategory">Todos ({{filter.filtroSubcategoria.total}})</label>
                   </div>
                   <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
-                    {{currentFilter['fashion_subcategoria_id']}} --
-                    {{subcategory.id}} -----
                     <input
-                    [checked]="currentFilter && currentFilter['fashion_subcategoria_id'] == subcategory.id "
+                    [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
                     (change)="filterBySubCategoryClothes(subcategory.id)" value="{subcategory.id}}"
                       id="subcategory{{i}}" type="radio" name="subcategory">
-                    <label for="subcategory{{i}}">{{subcategory.id}}
+                    <label for="subcategory{{i}}">{{subcategory.name}}
                       ({{subcategory.quantityForFilter}})</label>
                   </div>
                 </div>
