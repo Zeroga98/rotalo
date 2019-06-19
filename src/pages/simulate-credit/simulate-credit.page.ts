@@ -75,7 +75,7 @@ function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
   templateUrl: './simulate-credit.page.html',
   styleUrls: ['./simulate-credit.page.scss']
 })
-export class SimulateCreditPage implements OnInit {
+export class SimulateCreditPage implements OnInit, AfterViewInit {
   [x: string]: any;
   public rangeTimeToPay = '1';
   public simulateForm: FormGroup;
@@ -227,7 +227,6 @@ export class SimulateCreditPage implements OnInit {
   }
 
   simulateCredit() {
-    console.log('exite', this.simulateForm);
     const priceVehicle = this.simulateForm.get('credit-value').value;
     const initialFee = this.simulateForm.get('initial-quota').value;
     let termMonths = this.simulateForm.get('term-months').value;
@@ -301,6 +300,10 @@ export class SimulateCreditPage implements OnInit {
 
   get formContactValid(): boolean {
     return this.contactUser.invalid;
+  }
+
+  get formUntouchedValid(): boolean {
+    return this.simulateForm.untouched;
   }
 
 
