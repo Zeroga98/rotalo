@@ -36,7 +36,7 @@ export class AdminBannersShopComponent implements OnInit {
     this.loadBanners();
     this.setInitialFormColombia(this.getInitialConfig(1));
     this.setInitialFormGuatemala(this.getInitialConfig(9));
-    this.getCommunitiesBanner();
+
   }
 
 
@@ -227,24 +227,6 @@ export class AdminBannersShopComponent implements OnInit {
     return this.guatemalaPositions;
   }
 
-  getCommunitiesBanner() {
-    const bannerid = {
-      'bannerid': null
-    };
-    this.settingsService.getCommunitiesBanner(bannerid).subscribe((response) => {
-      if (response.body) {
-        response.body.paises.map((community) => {
-          if (community.nombre == 'Colombia') {
-            this.communitiesColombia = community.comunidades;
-          } else if (community.nombre == 'Guatemala') {
-            this.communitiesGuatemala = community.comunidades;
-          }
-        });
-      }
-    }, (error) => {
-      console.log(error);
-    });
-  }
 
   onUploadImageFinished(event, element, type) {
     if (event.file.type == 'image/jpeg'
