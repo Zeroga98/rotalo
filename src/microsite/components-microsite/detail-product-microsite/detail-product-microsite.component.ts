@@ -45,6 +45,7 @@ function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   templateUrl: './detail-product-microsite.component.html',
   styleUrls: ['./detail-product-microsite.component.scss']
 })
+
 export class DetailProductMicrositeComponent implements OnInit {
   public carouselConfig: NgxCarousel;
   public products;
