@@ -49,6 +49,132 @@
     }
   }
 
+  .item {
+    display: block;
+    border-radius: 8px;
+    width: 192px;
+    height: 95px;
+    margin-right: 1.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #D5D5D5;
+  }
+
+  .item.logo {
+    width: 134px;
+    .item-content {
+      width: 134px;
+      .container-img {
+        width: 134px;
+        height: 96px;
+      }
+    }
+  }
+
+  .item.place-holder {
+    cursor: pointer;
+    border: 2px dashed #D5D5D5;
+    transition: .25s;
+  }
+
+  .item.place-holder:hover {
+    border: 2px dashed #0FBBD8;
+    color: #0FBBD8;
+  }
+
+  .item.place-holder {
+    .container-wrapper.hover {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .item.muuri-item-dragging {
+    z-index: 3;
+  }
+
+  .item.muuri-item-releasing {
+    z-index: 2;
+  }
+
+  .item.muuri-item-hidden {
+    z-index: 0;
+  }
+
+  .item-content {
+    position: relative;
+    width: 192px;
+    height: 95px;
+    text-align: center;
+  }
+
+  .item-content {
+    .container-img {
+      width: 193px;
+      height: 96px;
+      border-radius: 8px;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      &:hover {
+        .remove-action {
+          display: block;
+        }
+      }
+
+      .remove-action {
+        cursor: pointer;
+        right: 5px;
+        top: 5px;
+        position: absolute;
+        display: none;
+        width: 20px;
+        height: 20px;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 50%;
+
+        span {
+          cursor: pointer;
+          color: white;
+          font-size: 1rem;
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    .title-first {
+      color: #383838;
+      font-size: 1.4rem;
+    }
+
+  }
+
+  .item-content {
+    .container-wrapper {
+      display: table;
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrapper {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
   custom-spinner.show {
     position: absolute;
     top: 5px;
@@ -456,129 +582,6 @@
     .grid-holder {
       position: relative;
       width: 100%;
-    }
-  }
-
-  .item {
-    display: block;
-    border-radius: 8px;
-    width: 192px;
-    height: 95px;
-    margin-right: 1.5rem;
-    margin-bottom: 2.5rem;
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #D5D5D5;
-  }
-
-  .item.place-holder {
-    cursor: pointer;
-    border: 2px dashed #D5D5D5;
-    transition: .25s;
-  }
-
-  .item.place-holder:hover {
-    border: 2px dashed #0FBBD8;
-    color: #0FBBD8;
-  }
-
-  .item.place-holder {
-    .container-wrapper.hover {
-      position: relative;
-      z-index: 1;
-    }
-  }
-
-  .item.muuri-item-dragging {
-    z-index: 3;
-  }
-
-  .item.muuri-item-releasing {
-    z-index: 2;
-  }
-
-  .item.muuri-item-hidden {
-    z-index: 0;
-  }
-
-  .item-content {
-    position: relative;
-    width: 192px;
-    height: 95px;
-    text-align: center;
-  }
-
-  .item-content {
-    .container-img {
-      width: 193px;
-      height: 96px;
-      border-radius: 8px;
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      &:hover {
-        .remove-action {
-          display: block;
-        }
-      }
-
-      .remove-action {
-        cursor: pointer;
-        right: 5px;
-        top: 5px;
-        position: absolute;
-        display: none;
-        width: 20px;
-        height: 20px;
-        z-index: 10;
-        background: rgba(0, 0, 0, 0.35);
-        border-radius: 50%;
-
-        span {
-          cursor: pointer;
-          color: white;
-          font-size: 1rem;
-          position: absolute;
-          top: 0.5rem;
-          right: 0.5rem;
-        }
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        -o-object-fit: cover;
-        object-fit: cover;
-        border-radius: 8px;
-      }
-    }
-
-    .title-first {
-      color: #383838;
-      font-size: 1.4rem;
-    }
-
-  }
-
-  .item-content.logo {
-    width: 134px;
-    .container-img {
-      width: 134px;
-      height: 96px;
-    }
-  }
-
-  .item-content {
-    .container-wrapper {
-      display: table;
-      width: 100%;
-      height: 100%;
-    }
-
-    .wrapper {
-      display: table-cell;
-      vertical-align: middle;
     }
   }
 

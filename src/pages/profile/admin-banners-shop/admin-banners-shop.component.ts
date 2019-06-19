@@ -284,14 +284,10 @@ export class AdminBannersShopComponent implements OnInit {
     element.click();
   }
 
-  onRemovePreviewImage(event, element, type) {
+  onRemovePreviewImage(event, type) {
     event.deleteAll();
     if (type == 'desktop') {
-      element.patchValue({ 'url-photo-desktop': null });
-      element.patchValue({ 'id-photo-desktop': null });
     } else if (type == 'mobile') {
-      element.patchValue({ 'url-photo-mobile': null });
-      element.patchValue({ 'id-photo-mobile': null });
     }
   }
 
