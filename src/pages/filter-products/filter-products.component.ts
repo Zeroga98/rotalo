@@ -482,7 +482,7 @@ export class FilterProductsComponent
   }
 
   public filterBySizeClothes(sizeId) {
-    this.routineUpdateProducts({ fashion_gender_id: sizeId, number: 1 });
+    this.routineUpdateProducts({ fashion_size_id: sizeId, number: 1 });
     this.scrollToTop();
   }
 
