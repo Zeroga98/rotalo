@@ -171,12 +171,12 @@
               </form>
             </div>
           <div class="btn-item">
-            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && !products.children" 
+            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && !products.children"
               (click)="addToShoppingCar(products)">
               <span class="icon-shop_car"></span>
               Agregar al carrito
             </button>
-            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && products.children" 
+            <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && products.children"
               (click)="addToShoppingCar(childrens)">
               <span class="icon-shop_car"></span>
               Agregar al carrito

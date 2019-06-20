@@ -12,7 +12,7 @@
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div class="item-banner">
       <a target="_blank" *ngIf="image['link']" [href]="image['link']">
-          <img [src]="image['url-photo-desktop']">
+        <img [src]="image['url-photo-desktop']">
       </a>
       <img *ngIf="!image['link']" [src]="image['url-photo-desktop']">
     </div>

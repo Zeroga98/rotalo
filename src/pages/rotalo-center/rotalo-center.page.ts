@@ -46,7 +46,7 @@ export class RotaloCenterPage implements OnInit  {
   public userInfo;
   public userName: String;
   public photoUrl: String;
-
+  public bannersShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SHOPBANNERS}`;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;

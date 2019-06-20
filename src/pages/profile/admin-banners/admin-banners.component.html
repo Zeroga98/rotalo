@@ -1,179 +1,31 @@
 <div class="info-container">
-  <div class="tittle main-title">
-    <h1 class="text ">Banners home</h1>
-  </div>
-  <div id="flashMessage" class="flashMessage">
-      <div *ngIf="successChange" class="alert alert-success text--center" role="success">
-        <p>
-          <span class="icon-check alert-icon"></span>Tus banners se actualizaron exitosamente.</p>
-      </div>
-      <div *ngIf="errorChange" class="alert alert-danger" role="alert">
-        <ul>
-          <li>
-            <span>{{errorChange}}</span>
-          </li>
-        </ul>
-      </div>
-  </div>
-  <div class="form-container">
-    <div class="breadcrumbs">
-      <a>Colombia</a>
+    <div class="tittle main-title">
+      <h1 class="text ">Banners home</h1>
     </div>
-    <form [formGroup]="formBannerColombia" name="formBanner" role="form" class="form-theme">
-      <div class="material-design">
-        <div formArrayName="banners" class="row">
-          <div *ngFor="let banner of formBannerColombia.get('banners').controls; let i = index;" class="dynamic-container">
-            <div [formGroupName]="i">
-              <div class="row">
-                <a (click)="removeBannerById (i, formBannerColombia.get('banners').controls[i], 'Colombia')" mat-icon-button>
-                  <div class="trash-icon"></div>
-                </a>
-              </div>
-              <div class="row">
-                <div class="images-container">
-                  <div class="container-prev-photos">
-                    <div class="grid-wrapper">
-                      <div id="grid-holder{{i}}" class="grid-holder">
-                        <div class="item place-holder">
-                          <div id='photo1{{i}}' class="item-content">
-
-                            <div *ngIf="
-                            formBannerColombia.get('banners').controls[i] &&
-                            formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'] &&
-                            formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'].value"
-                              class="container-img">
-                              <div (click)="onRemovePreviewImage(imageInputDesktop, formBannerColombia.get('banners').controls[i], 'desktop')" class="remove-action">
-                                <span class="icon-close"></span>
-                              </div>
-                              <img class="imagenUpload" [src]="formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'].value">
-                            </div>
-
-                            <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false"
-                              [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
-                              [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                              (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'desktop')">
-                            </image-upload>
-
-                            <div class="container-wrapper" (click)="uploadFiles(imageInputDesktop)" (drop)="onDrop($event, imageInputDesktop)"
-                              (dragover)="onDragOver($event, imageInputDesktop)">
-                              <div class="wrapper">
-                                <div class="icon-camera"></div>
-                                <p>
-                                  Agregar
-                                </p>
-                              </div>
-                            </div>
-                            <span class="title-first">Banner Desktop</span>
-                          </div>
-                        </div>
-                        <div class="item place-holder">
-                          <div id='photo2{{i}}' class="item-content">
-                            <div *ngIf="
-                                formBannerColombia.get('banners').controls[i] &&
-                                formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'] &&
-                                formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'].value"
-                              class="container-img">
-                              <div (click)="onRemovePreviewImage(imageInputMobile, formBannerColombia.get('banners').controls[i], 'mobile')" class="remove-action">
-                                <span class="icon-close"></span>
-                              </div>
-                              <img class="imagenUpload" [src]="formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'].value">
-                            </div>
-                            <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false"
-                              [extensions]="['jpeg', 'jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
-                              [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                              (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'mobile')">
-                            </image-upload>
-                            <div class="container-wrapper" (click)="uploadFiles(imageInputMobile)" (drop)="onDrop($event, imageInputMobile)"
-                              (dragover)="onDragOver($event, imageInputMobile)">
-                              <div class="wrapper">
-                                <div class="icon-camera"></div>
-                                <p>
-                                  Agregar
-                                </p>
-                              </div>
-                            </div>
-                            <span class="title-first">Banner Mobile</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="banner-info">
-                      <p><strong>Banner</strong> ( Formato .jpg .png o .gif )</p>
-                      <p>Desktop: 1920 x 400 px Mobile: 375 x 214</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-info">
-                  <div class="row">
-                    <div class="form-group field-form half">
-                      <label class="label-title">País</label>
-                      <select formControlName="country-id" name="country-id" class="form-control">
-                        <option value="1">Colombia
-                      </select>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                    <div class="form-group field-form half">
-                      <label
-                      class="label-title">Comunidad
-                      </label>
-                      <div class="btn-container">
-                        <a
-                        (click)= "openDialog('Colombia', formBannerColombia.get('banners').controls[i])" mat-button>Agregar comunidad</a>
-                      </div>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group  field-form link" data-input="name">
-                      <label class="label-title">Link (Opcional)</label>
-                      <input formControlName="link" name="link" type="text" class="form-control">
-                      <span class="help-block error-msg"> Este campo es requerido </span>
-                    </div>
-                    <div class="form-group field-form position">
-                      <label class="label-title">Posición</label>
-                      <select formControlName="position" name="position" class="form-control">
-                        <option *ngFor="let position of numberPositionsColombia" value="{{position}}">{{position}}</option>
-                      </select>
-                      <span class="error-msg">Este campo es requerido</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div id="flashMessage" class="flashMessage">
+        <div *ngIf="successChange" class="alert alert-success text--center" role="success">
+          <p>
+            <span class="icon-check alert-icon"></span>Tus banners se actualizaron exitosamente.</p>
         </div>
-        <div class="row">
-          <div class="btn-container">
-            <a (click)="addBannerColombia(1)" mat-button>+ Agregar</a>
-          </div>
+        <div *ngIf="errorChange" class="alert alert-danger" role="alert">
+          <ul>
+            <li>
+              <span>{{errorChange}}</span>
+            </li>
+          </ul>
         </div>
-      </div>
-      <div class="row">
-          <div class="btn-container">
-            <button (click) ="uploadBannerColombia()" mat-flat-button color="primary">Actualizar cambios</button>
-          </div>
-      </div>
-    </form>
-  </div>
-
-
-
-
-
-
-
-  <div class="form-container">
+    </div>
+    <div class="form-container">
       <div class="breadcrumbs">
-        <a>Guatemala</a>
+        <a>Colombia</a>
       </div>
-      <form [formGroup]="formBannerGuatemala" name="formBanner" role="form" class="form-theme">
+      <form [formGroup]="formBannerColombia" name="formBanner" role="form" class="form-theme">
         <div class="material-design">
           <div formArrayName="banners" class="row">
-            <div *ngFor="let banner of formBannerGuatemala.get('banners').controls; let i = index;" class="dynamic-container">
+            <div *ngFor="let banner of formBannerColombia.get('banners').controls; let i = index;" class="dynamic-container">
               <div [formGroupName]="i">
                 <div class="row">
-                  <a (click)="removeBannerById (i, formBannerGuatemala.get('banners').controls[i], 'Guatemala')" mat-icon-button>
+                  <a (click)="removeBannerById (i, formBannerColombia.get('banners').controls[i], 'Colombia')" mat-icon-button>
                     <div class="trash-icon"></div>
                   </a>
                 </div>
@@ -186,21 +38,22 @@
                             <div id='photo1{{i}}' class="item-content">
 
                               <div *ngIf="
-                              formBannerGuatemala.get('banners').controls[i] &&
-                              formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'] &&
-                              formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'].value"
+                              formBannerColombia.get('banners').controls[i] &&
+                              formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'] &&
+                              formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'].value"
                                 class="container-img">
-                                <div (click)="onRemovePreviewImage(imageInputDesktop, formBannerGuatemala.get('banners').controls[i], 'desktop')" class="remove-action">
+                                <div (click)="onRemovePreviewImage(imageInputDesktop, formBannerColombia.get('banners').controls[i], 'desktop')" class="remove-action">
                                   <span class="icon-close"></span>
                                 </div>
-                                <img class="imagenUpload" [src]="formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'].value">
+                                <img class="imagenUpload" [src]="formBannerColombia.get('banners').controls[i].controls['url-photo-desktop'].value">
                               </div>
 
                               <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false"
                                 [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
                                 [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                                (uploadFinished)="onUploadImageFinished($event, formBannerGuatemala.get('banners').controls[i], 'desktop')">
+                                (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'desktop')">
                               </image-upload>
+
                               <div class="container-wrapper" (click)="uploadFiles(imageInputDesktop)" (drop)="onDrop($event, imageInputDesktop)"
                                 (dragover)="onDragOver($event, imageInputDesktop)">
                                 <div class="wrapper">
@@ -215,22 +68,20 @@
                           </div>
                           <div class="item place-holder">
                             <div id='photo2{{i}}' class="item-content">
-                           <!--   <custom-spinner ></custom-spinner> -->
                               <div *ngIf="
-                                  formBannerGuatemala.get('banners').controls[i] &&
-                                  formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'] &&
-                                  formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'].value"
+                                  formBannerColombia.get('banners').controls[i] &&
+                                  formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'] &&
+                                  formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'].value"
                                 class="container-img">
-                                <div (click)="onRemovePreviewImage(imageInputMobile, formBannerGuatemala.get('banners').controls[i], 'mobile')" class="remove-action">
+                                <div (click)="onRemovePreviewImage(imageInputMobile, formBannerColombia.get('banners').controls[i], 'mobile')" class="remove-action">
                                   <span class="icon-close"></span>
                                 </div>
-                                <img class="imagenUpload" [src]="formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'].value">
+                                <img class="imagenUpload" [src]="formBannerColombia.get('banners').controls[i].controls['url-photo-mobile'].value">
                               </div>
-
                               <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false"
                                 [extensions]="['jpeg', 'jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
                                 [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
-                                (uploadFinished)="onUploadImageFinished($event, formBannerGuatemala.get('banners').controls[i], 'mobile')">
+                                (uploadFinished)="onUploadImageFinished($event, formBannerColombia.get('banners').controls[i], 'mobile')">
                               </image-upload>
                               <div class="container-wrapper" (click)="uploadFiles(imageInputMobile)" (drop)="onDrop($event, imageInputMobile)"
                                 (dragover)="onDragOver($event, imageInputMobile)">
@@ -258,7 +109,7 @@
                       <div class="form-group field-form half">
                         <label class="label-title">País</label>
                         <select formControlName="country-id" name="country-id" class="form-control">
-                          <option value="9">Guatemala
+                          <option value="1">Colombia
                         </select>
                         <span class="error-msg">Este campo es requerido</span>
                       </div>
@@ -268,7 +119,7 @@
                         </label>
                         <div class="btn-container">
                           <a
-                          (click)= "openDialog('Guatemala', formBannerGuatemala.get('banners').controls[i])" mat-button>Agregar comunidad</a>
+                          (click)= "openDialog('Colombia', formBannerColombia.get('banners').controls[i])" mat-button>Agregar comunidad</a>
                         </div>
                         <span class="error-msg">Este campo es requerido</span>
                       </div>
@@ -282,7 +133,7 @@
                       <div class="form-group field-form position">
                         <label class="label-title">Posición</label>
                         <select formControlName="position" name="position" class="form-control">
-                          <option *ngFor="let position of numberPositionsGuatemala" value="{{position}}">{{position}}</option>
+                          <option *ngFor="let position of numberPositionsColombia" value="{{position}}">{{position}}</option>
                         </select>
                         <span class="error-msg">Este campo es requerido</span>
                       </div>
@@ -294,15 +145,164 @@
           </div>
           <div class="row">
             <div class="btn-container">
-              <a (click)="addBannerGuatemala(9)" mat-button>+ Agregar</a>
+              <a (click)="addBannerColombia(1)" mat-button>+ Agregar</a>
             </div>
           </div>
         </div>
         <div class="row">
             <div class="btn-container">
-              <button (click) ="uploadBannerGuatemala()" mat-flat-button color="primary">Actualizar cambios</button>
+              <button (click) ="uploadBannerColombia()" mat-flat-button color="primary">Actualizar cambios</button>
             </div>
         </div>
       </form>
     </div>
-</div>
+
+
+
+
+
+
+
+    <div class="form-container">
+        <div class="breadcrumbs">
+          <a>Guatemala</a>
+        </div>
+        <form [formGroup]="formBannerGuatemala" name="formBanner" role="form" class="form-theme">
+          <div class="material-design">
+            <div formArrayName="banners" class="row">
+              <div *ngFor="let banner of formBannerGuatemala.get('banners').controls; let i = index;" class="dynamic-container">
+                <div [formGroupName]="i">
+                  <div class="row">
+                    <a (click)="removeBannerById (i, formBannerGuatemala.get('banners').controls[i], 'Guatemala')" mat-icon-button>
+                      <div class="trash-icon"></div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <div class="images-container">
+                      <div class="container-prev-photos">
+                        <div class="grid-wrapper">
+                          <div id="grid-holder{{i}}" class="grid-holder">
+                            <div class="item place-holder">
+                              <div id='photo1{{i}}' class="item-content">
+
+                                <div *ngIf="
+                                formBannerGuatemala.get('banners').controls[i] &&
+                                formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'] &&
+                                formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'].value"
+                                  class="container-img">
+                                  <div (click)="onRemovePreviewImage(imageInputDesktop, formBannerGuatemala.get('banners').controls[i], 'desktop')" class="remove-action">
+                                    <span class="icon-close"></span>
+                                  </div>
+                                  <img class="imagenUpload" [src]="formBannerGuatemala.get('banners').controls[i].controls['url-photo-desktop'].value">
+                                </div>
+
+                                <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false"
+                                  [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                                  [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
+                                  (uploadFinished)="onUploadImageFinished($event, formBannerGuatemala.get('banners').controls[i], 'desktop')">
+                                </image-upload>
+                                <div class="container-wrapper" (click)="uploadFiles(imageInputDesktop)" (drop)="onDrop($event, imageInputDesktop)"
+                                  (dragover)="onDragOver($event, imageInputDesktop)">
+                                  <div class="wrapper">
+                                    <div class="icon-camera"></div>
+                                    <p>
+                                      Agregar
+                                    </p>
+                                  </div>
+                                </div>
+                                <span class="title-first">Banner Desktop</span>
+                              </div>
+                            </div>
+                            <div class="item place-holder">
+                              <div id='photo2{{i}}' class="item-content">
+                             <!--   <custom-spinner ></custom-spinner> -->
+                                <div *ngIf="
+                                    formBannerGuatemala.get('banners').controls[i] &&
+                                    formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'] &&
+                                    formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'].value"
+                                  class="container-img">
+                                  <div (click)="onRemovePreviewImage(imageInputMobile, formBannerGuatemala.get('banners').controls[i], 'mobile')" class="remove-action">
+                                    <span class="icon-close"></span>
+                                  </div>
+                                  <img class="imagenUpload" [src]="formBannerGuatemala.get('banners').controls[i].controls['url-photo-mobile'].value">
+                                </div>
+
+                                <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false"
+                                  [extensions]="['jpeg', 'jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                                  [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
+                                  (uploadFinished)="onUploadImageFinished($event, formBannerGuatemala.get('banners').controls[i], 'mobile')">
+                                </image-upload>
+                                <div class="container-wrapper" (click)="uploadFiles(imageInputMobile)" (drop)="onDrop($event, imageInputMobile)"
+                                  (dragover)="onDragOver($event, imageInputMobile)">
+                                  <div class="wrapper">
+                                    <div class="icon-camera"></div>
+                                    <p>
+                                      Agregar
+                                    </p>
+                                  </div>
+                                </div>
+                                <span class="title-first">Banner Mobile</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="banner-info">
+                          <p><strong>Banner</strong> ( Formato .jpg .png o .gif )</p>
+                          <p>Desktop: 1920 x 400 px Mobile: 375 x 214</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-info">
+                      <div class="row">
+                        <div class="form-group field-form half">
+                          <label class="label-title">País</label>
+                          <select formControlName="country-id" name="country-id" class="form-control">
+                            <option value="9">Guatemala
+                          </select>
+                          <span class="error-msg">Este campo es requerido</span>
+                        </div>
+                        <div class="form-group field-form half">
+                          <label
+                          class="label-title">Comunidad
+                          </label>
+                          <div class="btn-container">
+                            <a
+                            (click)= "openDialog('Guatemala', formBannerGuatemala.get('banners').controls[i])" mat-button>Agregar comunidad</a>
+                          </div>
+                          <span class="error-msg">Este campo es requerido</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group  field-form link" data-input="name">
+                          <label class="label-title">Link (Opcional)</label>
+                          <input formControlName="link" name="link" type="text" class="form-control">
+                          <span class="help-block error-msg"> Este campo es requerido </span>
+                        </div>
+                        <div class="form-group field-form position">
+                          <label class="label-title">Posición</label>
+                          <select formControlName="position" name="position" class="form-control">
+                            <option *ngFor="let position of numberPositionsGuatemala" value="{{position}}">{{position}}</option>
+                          </select>
+                          <span class="error-msg">Este campo es requerido</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="btn-container">
+                <a (click)="addBannerGuatemala(9)" mat-button>+ Agregar</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="btn-container">
+                <button (click) ="uploadBannerGuatemala()" mat-flat-button color="primary">Actualizar cambios</button>
+              </div>
+          </div>
+        </form>
+      </div>
+  </div>

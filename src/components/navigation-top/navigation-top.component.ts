@@ -92,7 +92,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public profileShow = `/${ROUTES.ROTALOCENTER}/${ROUTES.SHOW}`;
 
   public uploadProducts = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS}`;
-
+  public bannersShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SHOPBANNERS}`;
   public suggestList;
   results: any[] = [];
   queryField: FormControl = new FormControl();

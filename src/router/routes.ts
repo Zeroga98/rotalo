@@ -52,7 +52,8 @@ export const ROUTES = {
         UPLOADPRODUCTS: 'upload-products',
         HOBBIES: 'hobbies',
         EDITPROFILE: 'edit',
-        PROFILEPASS: 'change-password'
+        PROFILEPASS: 'change-password',
+        SHOPBANNERS: 'admin-banners-shop',
     },
     NOTIFICATIONCONFIRMATION: 'notification-confirmation',
     MICROSITE: {

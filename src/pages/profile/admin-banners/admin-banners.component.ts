@@ -402,3 +402,4 @@ export class AdminBannersComponent implements OnInit {
 
 
 }
+;

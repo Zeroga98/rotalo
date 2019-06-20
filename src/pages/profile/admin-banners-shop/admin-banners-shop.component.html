@@ -1,0 +1,262 @@
+<div class="info-container">
+  <div class="title main-title">
+    <h1 class="text ">Banners home</h1>
+  </div>
+  <div id="flashMessage" class="flashMessage">
+    <div *ngIf="successChange" class="alert alert-success text--center" role="success">
+      <p>
+        <span class="icon-check alert-icon"></span>Tus banners se actualizaron exitosamente.</p>
+    </div>
+    <div *ngIf="errorChange" class="alert alert-danger" role="alert">
+      <ul>
+        <li>
+          <span>{{errorChange}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="form-container">
+    <form [formGroup]="bannerHomeTienda" class="form-theme">
+      <div class="material-design">
+        <div class="row">
+          <div class="dynamic-container">
+            <div class="subtitle">
+              <a>Añade las imágenes del home de tu tienda</a>
+            </div>
+            <div class="info">
+              <p>Está será la vitrina de tu negocio, sube fotos profesionales y con poco texto. (Válido formato .jpg
+                .png o .gif)</p>
+            </div>
+            <div class="banner">
+              <div class="row">
+                <div class="images-container full">
+                  <div class="container-prev-photos">
+                    <div class="grid-wrapper">
+                      <div id="grid-holder-principal" class="grid-holder">
+                        <div class="item place-holder logo">
+                          <div id='photo-principal' class="item-content">
+                            <div *ngIf="
+                                    bannerHomeTienda &&
+                                    bannerHomeTienda.get('urlLogo') &&
+                                    bannerHomeTienda.get('urlLogo').value" class="container-img">
+                              <div (click)="onRemovePreviewImage(imageInputLogo, 'logo')" class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload" [src]="bannerHomeTienda.get('urlLogo').value">
+                            </div>
+
+                            <image-upload id="image-upload-logo-principal" [max]="1" #imageInputLogo [preview]="false"
+                              [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                              [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
+                              [style]="customStyleImageLoader" (uploadFinished)="onUploadImageFinished($event, 'logo')">
+                            </image-upload>
+
+                            <div class="container-wrapper" (click)="uploadFiles(imageInputLogo)"
+                              (drop)="onDrop($event, imageInputLogo)" (dragover)="onDragOver($event, imageInputLogo)">
+                              <div class="wrapper">
+                                <div class="icon-camera"></div>
+                                <p>
+                                  Agregar
+                                </p>
+                              </div>
+                            </div>
+                            <div class="title-first">Logotipo</div>
+                            <div class="title-first">300 x 300 px</div>
+                          </div>
+                        </div>
+                        <div class="item place-holder">
+                          <div id='photo2-principal' class="item-content">
+                            <div *ngIf="
+                                    bannerHomeTienda &&
+                                    bannerHomeTienda.get('urlBannerDesktop') &&
+                                    bannerHomeTienda.get('urlBannerDesktop').value" class="container-img">
+                              <div (click)="onRemovePreviewImage(imageInputDesktop, 'desktop')" class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload" [src]="bannerHomeTienda.get('urlBannerDesktop').value">
+                            </div>
+                            <image-upload id="image-upload-desktop-principal" [max]="1" #imageInputDesktop
+                              [preview]="false" [extensions]="['jpeg', 'jpg', 'png', 'gif']"
+                              [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
+                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
+                              (uploadFinished)="onUploadImageFinished($event, 'desktop')">
+                            </image-upload>
+                            <div class="container-wrapper" (click)="uploadFiles(imageInputDesktop)"
+                              (drop)="onDrop($event, imageInputDesktop)"
+                              (dragover)="onDragOver($event, imageInputDesktop)">
+                              <div class="wrapper">
+                                <div class="icon-camera"></div>
+                                <p>
+                                  Agregar
+                                </p>
+                              </div>
+                            </div>
+                            <div class="title-first">Banner versión desktop</div>
+                            <div class="title-first">1000 px X 300 px</div>
+                          </div>
+                        </div>
+                        <div class="item place-holder">
+                          <div id='photo2-principal' class="item-content">
+                            <div *ngIf="
+                                      bannerHomeTienda &&
+                                      bannerHomeTienda.get('urlBannerMobile') &&
+                                      bannerHomeTienda.get('urlBannerMobile').value" class="container-img">
+                              <div (click)="onRemovePreviewImage(imageInputMobile, 'mobile')" class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload" [src]="bannerHomeTienda.get('urlBannerMobile').value">
+                            </div>
+                            <image-upload id="image-upload-mobile-principal" [max]="1" #imageInputMobile
+                              [preview]="false" [extensions]="['jpeg', 'jpg', 'png', 'gif']"
+                              [buttonCaption]="'Seleccionar imágenes'" [dropBoxMessage]="'Arrastra tus imágenes aquí!'"
+                              [clearButtonCaption]="'Limpiar'" [style]="customStyleImageLoader"
+                              (uploadFinished)="onUploadImageFinished($event, 'mobile')">
+                            </image-upload>
+                            <div class="container-wrapper" (click)="uploadFiles(imageInputMobile)"
+                              (drop)="onDrop($event, imageInputMobile)"
+                              (dragover)="onDragOver($event, imageInputMobile)">
+                              <div class="wrapper">
+                                <div class="icon-camera"></div>
+                                <p>
+                                  Agregar
+                                </p>
+                              </div>
+                            </div>
+                            <div class="title-first">Banner versión mobile</div>
+                            <div class="title-first">1000 px X 300 px</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="bannersCategoriaForm" class="form-theme">
+      <div class="material-design">
+        <div formArrayName="bannersCategoria" class="row">
+          <div *ngFor="let banner of bannersCategoriaForm.get('bannersCategoria').controls; let i = index;"
+            class="dynamic-container">
+            <div class="subtitle">
+                <a>Haz que cada categoría sea más llamativa</a>
+              </div>
+              <div class="info">
+                <p>Añade un banner a cada categoría para destacar los productos que ofreces.</p>
+              </div>
+            <div class="banner" [formGroupName]="i">
+              <div class="row">
+                <a (click)="removeBannerById (i, bannersCategoriaForm.get('bannersCategoria').controls[i])"
+                  mat-icon-button>
+                  <div class="trash-icon"></div>
+                </a>
+              </div>
+              <div class="row">
+                <div class="images-container full">
+                  <div class="container-prev-photos">
+                    <div class="grid-wrapper">
+                      <div id="grid-holder{{i}}" class="grid-holder">
+                        <div class="item place-holder">
+                          <div id='photo1{{i}}' class="item-content">
+
+                            <div
+                              *ngIf="
+                                      bannersCategoriaForm.get('bannersCategoria').controls[i] &&
+                                      bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'] &&
+                                      bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'].value"
+                              class="container-img">
+                              <div
+                                (click)="onRemovePreviewImageDynamic(imageInputDesktop, bannersCategoriaForm.get('bannersCategoria').controls[i], 'desktop')"
+                                class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload"
+                                [src]="bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'].value">
+                            </div>
+
+                            <image-upload id="image-upload-desktop{{i}}" [max]="1" #imageInputDesktop [preview]="false"
+                              [extensions]="['jpeg', 'jpg','png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                              [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
+                              [style]="customStyleImageLoader"
+                              (uploadFinished)="onUploadImageFinishedDynamic($event, bannersCategoriaForm.get('bannersCategoria').controls[i], 'desktop')">
+                            </image-upload>
+
+                            <div class="container-wrapper" (click)="uploadFiles(imageInputDesktop)"
+                              (drop)="onDrop($event, imageInputDesktop)"
+                              (dragover)="onDragOver($event, imageInputDesktop)">
+                              <div class="wrapper">
+                                <div class="icon-camera"></div>
+                                <p>
+                                  Agregar
+                                </p>
+                              </div>
+                            </div>
+                            <div class="title-first">Banner versión desktop</div>
+                            <div class="title-first">1000 px X 300 px</div>
+                          </div>
+                        </div>
+                        <div class="item place-holder">
+                          <div id='photo2{{i}}' class="item-content">
+                            <div
+                              *ngIf="bannersCategoriaForm.get('bannersCategoria').controls[i] &&
+                                            bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerMobile'] &&
+                                            bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerMobile'].value"
+                              class="container-img">
+                              <div
+                                (click)="onRemovePreviewImageDynamic(imageInputMobile, bannersCategoriaForm.get('bannersCategoria').controls[i], 'mobile')"
+                                class="remove-action">
+                                <span class="icon-close"></span>
+                              </div>
+                              <img class="imagenUpload"
+                                [src]="bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerMobile'].value">
+                            </div>
+                            <image-upload id="image-upload-mobile{{i}}" [max]="1" #imageInputMobile [preview]="false"
+                              [extensions]="['jpeg', 'jpg', 'png', 'gif']" [buttonCaption]="'Seleccionar imágenes'"
+                              [dropBoxMessage]="'Arrastra tus imágenes aquí!'" [clearButtonCaption]="'Limpiar'"
+                              [style]="customStyleImageLoader"
+                              (uploadFinished)="onUploadImageFinishedDynamic($event, bannersCategoriaForm.get('bannersCategoria').controls[i], 'mobile')">
+                            </image-upload>
+                            <div class="container-wrapper" (click)="uploadFiles(imageInputMobile)"
+                              (drop)="onDrop($event, imageInputMobile)"
+                              (dragover)="onDragOver($event, imageInputMobile)">
+                              <div class="wrapper">
+                                <div class="icon-camera"></div>
+                                <p>
+                                  Agregar
+                                </p>
+                              </div>
+                            </div>
+                            <div class="title-first">Banner versión mobile</div>
+                            <div class="title-first">1000 px X 300 px</div>
+                          </div>
+                        </div>
+                        <div class="form-group field-form position">
+                            <label class="label-title">Categoría</label>
+                            <select formControlName="idCategoria" name="position" class="form-control">
+                           <!--   <option *ngFor="let position of numberPositionsColombia" value="{{position}}">{{position}}</option>-->
+                            </select>
+                            <span class="error-msg">Este campo es requerido</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="btn-container">
+              <a (click)="addBanner()" mat-button>+ Agregar</a>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

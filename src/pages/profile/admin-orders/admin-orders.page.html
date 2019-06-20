@@ -116,14 +116,14 @@
           <td>
             <a [routerLink]="detailOrder + order['referenceNumber']">Ver detalle</a>
           </td>
-          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
+          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="buttons material-design">
               <div  class="btn-container">
                   <button
                   (click)="openModal(order.referenceNumber,2)"
                   class="primary" mat-flat-button>Aceptar</button>
               </div>
           </td>
-          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="material-design">
+          <td *ngIf="order.orderStatus.name == 'VALIDATION'" class="buttons material-design">
               <div  class="btn-container">
                   <button
                   (click)="openModal(order.referenceNumber, 3)"
