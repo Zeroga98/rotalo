@@ -39,6 +39,7 @@ export class AdminBannersShopComponent implements OnInit {
     this.settingsService.getBannersShop(1).subscribe(response => {
       if (response.body) {
         this.setFormHomeShop(response.body.bannerHomeTienda);
+        this.setInitialFormCategories(response.body);
       }
     });
   }
@@ -189,7 +190,7 @@ export class AdminBannersShopComponent implements OnInit {
     this.successChange = false;
     this.errorChange = '';
     if (element && element.controls && element.controls.idBannerCategoria.value) {
-      this.settingsService.deleteBannerShop(element.get('id').value).subscribe((response) => {
+      this.settingsService.deleteBannerShop(element.get('idBannerCategoria').value).subscribe((response) => {
         this.removeBanner(id);
       }, (error) => {
         this.errorChange = error.error.message;
