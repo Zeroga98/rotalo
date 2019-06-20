@@ -158,7 +158,7 @@
                 </a>
               </div>
               <div class="row">
-                <div class="images-container">
+                <div class="images-container full">
                   <div class="container-prev-photos">
                     <div class="grid-wrapper">
                       <div id="grid-holder{{i}}" class="grid-holder">
@@ -236,6 +236,13 @@
                             <div class="title-first">1000 px X 300 px</div>
                           </div>
                         </div>
+                        <div class="form-group field-form position">
+                            <label class="label-title">Categoría</label>
+                            <select formControlName="idCategoria" name="position" class="form-control">
+                           <!--   <option *ngFor="let position of numberPositionsColombia" value="{{position}}">{{position}}</option>-->
+                            </select>
+                            <span class="error-msg">Este campo es requerido</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -250,7 +257,6 @@
             </div>
         </div>
       </div>
-
     </form>
   </div>
 </div>
