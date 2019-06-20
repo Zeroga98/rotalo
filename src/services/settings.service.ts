@@ -168,4 +168,18 @@ export class SettingsService {
     return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getBannersShop(idShop) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/tienda/${idShop}`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
+  deleteBannerShop(idBanner) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/tienda/eliminar/${idBanner}`;
+    return this.http.put(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
