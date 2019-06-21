@@ -211,6 +211,7 @@ import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/upd
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -342,7 +343,7 @@ import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/a
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
-    AdminBannersShopComponent,
+    AdminBannersShopComponent
   ],
   imports: [
     BrowserModule,

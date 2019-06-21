@@ -182,4 +182,11 @@ export class SettingsService {
     return this.http.put(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
+  uploadBannerShop(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/banners/tienda/actualizar`;
+    return this.http.put(url , params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }
