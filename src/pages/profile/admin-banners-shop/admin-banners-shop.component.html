@@ -241,8 +241,14 @@
                           <div class="form-group field-form position">
                               <label class="label-title">Categoría</label>
                               <select formControlName="idCategoria" name="position" class="form-control">
+                                <option value="" selected="true"></option>
                                 <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                               </select>
+                              <span class="error-msg">Este campo es requerido</span>
+                          </div>
+                          <div class="form-group field-form position">
+                              <label class="label-title">Link</label>
+                              <input class="form-control" formControlName="link" type="text">
                               <span class="error-msg">Este campo es requerido</span>
                           </div>
                         </div>
@@ -359,6 +365,7 @@
                           <div class="form-group field-form position">
                               <label class="label-title">Categoría</label>
                               <select formControlName="idCategoria" name="position" class="form-control">
+                                <option value="" selected="true"></option>
                                 <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                               </select>
                               <span class="error-msg">Este campo es requerido</span>

@@ -314,6 +314,10 @@ export class AdminBannersShopComponent implements OnInit {
         bannerPromocional: this.bannerPromocionalForm.value.bannerPromocional,
         bannersCategoria: null
       };
+      if(this.bannersCategoriaForm.value && this.bannersCategoriaForm.value.bannersCategoria) {
+        body.bannersCategoria = this.bannersCategoriaForm.value.bannersCategoria;
+      }
+      console.log(this.bannersCategoriaForm.value);
       this.settingsService.uploadBannerShop(body).subscribe((response) => {
       /*  this.successChange = true;
         this.utilsService.goToTopWindow(20, 600);*/
@@ -326,11 +330,6 @@ export class AdminBannersShopComponent implements OnInit {
       });
     }
 
-   // if (!this.formBannerColombia.invalid) {
-     /* const body = {
-        data: this.formBannerColombia.value.banners
-      };*/
-   // }
   }
 
 
