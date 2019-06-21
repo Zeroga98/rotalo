@@ -10,6 +10,10 @@
   padding-bottom: 45px;
   background-color: #FAFAFA;
 
+  .main-title {
+    margin-bottom: 40px;
+  }
+
   .title {
     .text {
       color: #272727;
@@ -27,7 +31,7 @@
   }
 
   .form-container {
-    margin-top: 40px;
+    margin-top: 25px;
   }
 
   .dynamic-container {
@@ -36,20 +40,34 @@
     background-color: #ffffff;
     position: relative;
     margin-bottom: 20px;
-    .subtitle {
-      color: #333333;
-      font-size: 1.6rem;
-      padding: 0;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
 
-    .info {
-      color: #707070;
-      font-size: 1.4rem;
-      padding: 0;
-      margin-bottom: 10px;
-    }
+  }
+
+  .sub-container {
+    padding: 21px 20px 0 20px;
+  }
+
+  .subtitle {
+    color: #333333;
+    font-size: 1.6rem;
+    padding: 0;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+  .subtitle-banner {
+    color: #383838;
+    font-size: 1.4rem;
+    padding: 0;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+  .info {
+    color: #707070;
+    font-size: 1.4rem;
+    padding: 0;
+    margin-bottom: 10px;
   }
 
   .item {
@@ -178,6 +196,10 @@
     }
   }
 
+  .full-card {
+    background-color: #ffffff;
+  }
+
   custom-spinner.show {
     position: absolute;
     top: 5px;
@@ -230,8 +252,6 @@
 
 }
 
-
-
 .btn-container {
   width: 100%;
   button, a.cancel {
@@ -274,6 +294,7 @@
 
     select.form-control {
       padding-left: 0;
+      padding-right: 20px;
       background-position: 97% center;
     }
 

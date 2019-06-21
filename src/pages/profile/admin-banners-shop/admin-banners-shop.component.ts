@@ -5,6 +5,7 @@ import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.c
 import { PhotosService } from '../../../services/photos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UtilsService } from '../../../util/utils.service';
+import { CategoriesService } from '../../../services/categories.service';
 
 @Component({
   selector: 'app-admin-banners-shop',
@@ -18,28 +19,40 @@ export class AdminBannersShopComponent implements OnInit {
   public successChange = false;
   public bannerHomeTienda;
   public bannersCategoriaForm;
+  public bannerPromocionalForm;
   public bannersCategorias;
-
+  public categories;
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
     private photosService: PhotosService,
     public dialog: MatDialog,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private categoriesService: CategoriesService,
   ) { }
 
   ngOnInit() {
+    this.loadCategories();
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormCategories(this.getInitialConfigCategories());
+    this.setInitialFormPromo(this.getInitialConfigPromo());
   }
 
+  loadCategories() {
+    this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
+      this.categories = response;
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
   loadBanners() {
     this.settingsService.getBannersShop(1).subscribe(response => {
       if (response.body) {
-        this.setFormHomeShop(response.body.bannerHomeTienda);
-        this.setInitialFormCategories(response.body);
+      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
+      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
+      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
       }
     });
   }
@@ -67,6 +80,13 @@ export class AdminBannersShopComponent implements OnInit {
     return config;
   }
 
+  private setInitialFormPromo(config) {
+    this.bannerPromocionalForm = this.formBuilder.group({
+      bannerPromocional: this.formBuilder.array(
+        this.createItemShop(config.bannerPromocional)
+      )
+    });
+  }
 
   private setInitialFormCategories(config) {
     this.bannersCategoriaForm = this.formBuilder.group({
@@ -115,6 +135,38 @@ export class AdminBannersShopComponent implements OnInit {
     return bannersCategoria;
   }
 
+  private getInitialConfigPromo() {
+    const bannerPromocional = {
+      bannerPromocional: [
+        {
+          'idBannerPromocional': '',
+          'idBannerDesktop': '',
+          'urlBannerDesktop': '',
+          'idBannerMobile': '',
+          'urlBannerMobile': '',
+          'idCategoria': '',
+          'link': ''
+        }
+      ]
+    };
+    return bannerPromocional;
+  }
+
+  private createItemShop(bannersForm) {
+    const bannerPromocional = bannersForm.map(banner => {
+      return this.formBuilder.group({
+        idBannerPromocional: banner.idBannerPromocional,
+        idBannerDesktop: banner.idBannerDesktop,
+        urlBannerDesktop: banner.urlBannerDesktop,
+        idBannerMobile: banner.idBannerMobile,
+        urlBannerMobile: banner.urlBannerMobile,
+        idCategoria: banner.idCategoria,
+        link: banner.link
+      });
+    });
+    return bannerPromocional;
+  }
+
   private createItem(bannersForm) {
     const bannersCategoria = bannersForm.map(banner => {
       return this.formBuilder.group({
@@ -144,7 +196,7 @@ export class AdminBannersShopComponent implements OnInit {
             this.bannerHomeTienda.patchValue({ 'idBannerMobile': response.photoId });
           } else if (type == 'logo') {
             this.bannerHomeTienda.patchValue({ 'urlLogo': response.urlPhoto });
-            this.bannerHomeTienda.patchValue({ 'idLogoe': response.photoId });
+            this.bannerHomeTienda.patchValue({ 'idLogo': response.photoId });
           }
 
         }, (error) => {
@@ -231,6 +283,7 @@ export class AdminBannersShopComponent implements OnInit {
     || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
+          debugger
           if (type == 'desktop') {
             element.patchValue({ 'urlBannerDesktop': response.urlPhoto });
             element.patchValue({ 'idBannerDesktop': response.photoId });
@@ -250,8 +303,34 @@ export class AdminBannersShopComponent implements OnInit {
     this.bannersCategorias.push(this.createBasicItem(this.initialCommunity()));
   }
 
-  openDialog(country, element) {
 
+  uploadBanners () {
+    this.successChange = false;
+    this.errorChange = '';
+
+    if(!this.bannerHomeTienda.invalid && !this.bannerPromocionalForm.invalid) {
+      const body = {
+        bannerHomeTienda: this.bannerHomeTienda.value,
+        bannerPromocional: this.bannerPromocionalForm.value.bannerPromocional,
+        bannersCategoria: null
+      };
+      this.settingsService.uploadBannerShop(body).subscribe((response) => {
+      /*  this.successChange = true;
+        this.utilsService.goToTopWindow(20, 600);*/
+        alert('Cambios guardados correctamente');
+        location.reload();
+      }, (error) => {
+        this.errorChange = error.error.message;
+        this.utilsService.goToTopWindow(20, 600);
+        console.log(error);
+      });
+    }
+
+   // if (!this.formBannerColombia.invalid) {
+     /* const body = {
+        data: this.formBannerColombia.value.banners
+      };*/
+   // }
   }
 
 
