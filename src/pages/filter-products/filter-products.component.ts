@@ -130,6 +130,7 @@ export class FilterProductsComponent
       size: 24,
       number: 1
     };
+
     this.currentFilter = Object.assign({}, this.currentFilter, this.params);
     this.filterService.setCurrentFilter(this.currentFilter);
     const params = this.getParamsToProducts();
