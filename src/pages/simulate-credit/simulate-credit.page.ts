@@ -296,8 +296,8 @@ export class SimulateCreditPage implements OnInit {
     return this.contactUser.invalid;
   }
 
-  get formUntouchedValid(): boolean {
-    return this.simulateForm.untouched;
+  get formDirtyValid(): boolean {
+    return this.simulateForm.dirty;
   }
 
 

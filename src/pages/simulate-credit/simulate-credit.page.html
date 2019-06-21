@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="actions-form">
-      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid || formUntouchedValid" class="button" type="submit"
+      <custom-button buttonClass="gtmSufiTePrestaSimular primary" [disabled]="formIsInValid || !formDirtyValid" class="button" type="submit"
         text="Recalcular"></custom-button>
     </div>
   </form>
