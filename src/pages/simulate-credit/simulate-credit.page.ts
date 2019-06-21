@@ -17,9 +17,6 @@ import { UserService } from '../../services/user.service';
 import { UserInterface } from '../../commons/interfaces/user.interface';
 import { Subject, Observable } from 'rxjs';
 
-interface AfterViewInit {
-  ngAfterViewInit(): void;
-}
 
 /**Validator**/
 function priceVehicleValidatorMax(
@@ -75,7 +72,7 @@ function checkValidator(c: AbstractControl): { [key: string]: boolean } | null {
   templateUrl: './simulate-credit.page.html',
   styleUrls: ['./simulate-credit.page.scss']
 })
-export class SimulateCreditPage implements OnInit, AfterViewInit {
+export class SimulateCreditPage implements OnInit {
   [x: string]: any;
   public rangeTimeToPay = '1';
   public simulateForm: FormGroup;
@@ -152,6 +149,8 @@ export class SimulateCreditPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    const initialQuota  = this.simulateCreditService.getInitialQuota();
+    const months = this.simulateCreditService.getMonths();
     this.simulateForm = this.fb.group(
       {
         'credit-value': [
@@ -162,8 +161,8 @@ export class SimulateCreditPage implements OnInit, AfterViewInit {
             priceVehicleValidatorMin
           ]
         ],
-        'initial-quota': [this.simulateCreditService.initialQuota != null ? this.simulateCreditService.initialQuota : '0', [Validators.required, initialFeeValidator]],
-        'term-months': [this.simulateCreditService.months != null ? Number(this.simulateCreditService.months) : 12, Validators.required]
+        'initial-quota': [initialQuota != null ? initialQuota : '0', [Validators.required, initialFeeValidator]],
+        'term-months': [months != null ? Number(months) : 12, Validators.required]
       },
       { validator: feeValidator }
     );
@@ -181,17 +180,12 @@ export class SimulateCreditPage implements OnInit, AfterViewInit {
     this.sufiRegister();
   }
 
-  ngAfterViewInit() {
-
-    setTimeout(() => {
-      if (!this.formIsInValid) {
+  loadSimulateCredit() {
+      if (!this.formIsInValid || !this.simulateForm.touched) {
         this.simulateCredit();
       } else {
-        console.log(this.simulateForm);
         this.validateAllFormFields(this.simulateForm);
       }
-    }, 300);
-
   }
 
   onSubmit() {
@@ -318,6 +312,7 @@ export class SimulateCreditPage implements OnInit, AfterViewInit {
   }
 
   loadProduct() {
+    const self = this;
     if (this.idProduct) {
       this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
         if (reponse.body) {
@@ -326,6 +321,7 @@ export class SimulateCreditPage implements OnInit, AfterViewInit {
           this.populatePreciVehicle(this.product);
           this.validateMonths();
           this.changeDetectorRef.markForCheck();
+          self.loadSimulateCredit();
         }
       },
         (error) => {

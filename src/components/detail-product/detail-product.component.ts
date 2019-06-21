@@ -136,9 +136,6 @@ export class DetailProductComponent implements OnInit {
     }
   }
 
-
-
-
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -255,16 +252,16 @@ export class DetailProductComponent implements OnInit {
 
     if (this.products.subcategory && (
       this.products.subcategory.name == 'Carros' ||
-      this.products.subcategory.name == 'Motos'  ||
+      this.products.subcategory.name == 'Motos' ||
       this.products.subcategory.category &&
-      this.products.subcategory.category.name == 'Inmuebles'))  {
-        this.gapush(
-          'send',
-          'event',
-          'Productos',
-          this.products.subcategory.name,
-          'ContactaPorRotaloExitoso'
-        );
+      this.products.subcategory.category.name == 'Inmuebles')) {
+      this.gapush(
+        'send',
+        'event',
+        'Productos',
+        this.products.subcategory.name,
+        'ContactaPorRotaloExitoso'
+      );
     }
 
 
@@ -373,8 +370,8 @@ export class DetailProductComponent implements OnInit {
     },
       (error) => {
         console.log(error);
-        if(error.error){
-          if(error.error.status == '629' || error.status == '500'){
+        if (error.error) {
+          if (error.error.status == '629' || error.status == '500') {
             this.redirectErrorPage()
           }
         }
@@ -413,7 +410,7 @@ export class DetailProductComponent implements OnInit {
   calcularCuotasExtraSegundoPlan() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-     // this.simulateForm.get('credit-value').value &&
+      // this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
@@ -432,7 +429,7 @@ export class DetailProductComponent implements OnInit {
     const i1 = Math.pow((1 + i), 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
-     // this.simulateForm.get('credit-value').value &&
+      // this.simulateForm.get('credit-value').value &&
       this.products.price &&
       this.products.price > this.simulateForm.get('credit-value').value
       ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
@@ -843,8 +840,8 @@ export class DetailProductComponent implements OnInit {
         this.router.navigate([`/${ROUTES.HOME}`]);
       }
       let gaPushParam = 'VendiRotaloExitoso';
-      if (result && result.seleccion && result.seleccion === 'otro'){
-      gaPushParam = 'OtroExitoso';
+      if (result && result.seleccion && result.seleccion === 'otro') {
+        gaPushParam = 'OtroExitoso';
       }
       this.gapush(
         'send',
@@ -882,8 +879,8 @@ export class DetailProductComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         }
         let gaPushParam = 'VendiExitoso';
-        if (result && result.seleccion && result.seleccion === 'otro'){
-        gaPushParam = 'OtroExitoso';
+        if (result && result.seleccion && result.seleccion === 'otro') {
+          gaPushParam = 'OtroExitoso';
         }
         this.gapush(
           'send',
@@ -920,16 +917,16 @@ export class DetailProductComponent implements OnInit {
   sendMessageWhatsapp(id) {
     if (this.products.subcategory && (
       this.products.subcategory.name == 'Carros' ||
-      this.products.subcategory.name == 'Motos'  ||
+      this.products.subcategory.name == 'Motos' ||
       this.products.subcategory.category &&
-      this.products.subcategory.category.name == 'Inmuebles'))  {
-        this.gapush(
-          'send',
-          'event',
-          'Productos',
-          this.products.subcategory.name,
-          'ComparteProductoWhatsapp'
-        );
+      this.products.subcategory.category.name == 'Inmuebles')) {
+      this.gapush(
+        'send',
+        'event',
+        'Productos',
+        this.products.subcategory.name,
+        'ComparteProductoWhatsapp'
+      );
     }
     const base_url = window.location.origin;
     const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
@@ -944,14 +941,14 @@ export class DetailProductComponent implements OnInit {
     let phoneNumber = this.products.user.cellphone;
     if (this.products.subcategory &&
       this.products.subcategory.category &&
-      this.products.subcategory.category.name == 'Inmuebles')  {
-        this.gapush(
-          'send',
-          'event',
-          'Productos',
-          this.products.subcategory.name,
-          'ContactaPorWhatsappExitoso'
-        );
+      this.products.subcategory.category.name == 'Inmuebles') {
+      this.gapush(
+        'send',
+        'event',
+        'Productos',
+        this.products.subcategory.name,
+        'ContactaPorWhatsappExitoso'
+      );
     }
     if (window.location.href.includes('gt')) {
       phoneNumber = '502' + phoneNumber;
