@@ -5,8 +5,8 @@ import { ConfigurationService } from './configuration.service';
 @Injectable()
 export class SimulateCreditService {
 readonly urlSapi = this.configurationService.getBaseSapiUrl();
-initialQuota;
-months;
+private readonly initialQuota = 'initialQuota';
+private readonly months = 'months';
 
 constructor(private http: HttpClient,
   private configurationService: ConfigurationService) { }
@@ -25,20 +25,20 @@ constructor(private http: HttpClient,
     return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
   }
 
-  setInitialQuota(initialQuota) {
-    this.initialQuota = initialQuota;
+  setInitialQuota(_initialQuota) {
+    localStorage.setItem(this.initialQuota, _initialQuota);
   }
 
   getInitialQuota() {
-    return  this.initialQuota;
+    return localStorage.getItem(this.initialQuota);
   }
 
-  setMonths(months){
-    this.months = months;
+  setMonths(_months){
+    localStorage.setItem(this.months, _months);
   }
 
   getMonths(){
-    return this.months;
+    return localStorage.getItem(this.months);
   }
 
 
