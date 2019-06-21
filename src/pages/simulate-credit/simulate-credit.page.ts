@@ -300,6 +300,10 @@ export class SimulateCreditPage implements OnInit {
     return this.simulateForm.untouched;
   }
 
+  get formDirtyValid(): boolean {
+    return this.simulateForm.dirty;
+  }
+
 
   isSpinnerShow() {
     return this.product;
