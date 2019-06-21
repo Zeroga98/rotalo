@@ -40,7 +40,14 @@
     background-color: #ffffff;
     position: relative;
     margin-bottom: 20px;
+  }
 
+  .container-error {
+    p {
+      color: #FF3646;
+      font-size: 1.6rem;
+      padding-top: 20px;
+    }
   }
 
   .sub-container {

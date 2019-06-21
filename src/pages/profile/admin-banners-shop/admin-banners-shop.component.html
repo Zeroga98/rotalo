@@ -2,6 +2,7 @@
   <div class="title main-title">
     <h1 class="text ">Banners home</h1>
   </div>
+   <!--
   <div id="flashMessage" class="flashMessage">
     <div *ngIf="successChange" class="alert alert-success text--center" role="success">
       <p>
@@ -15,7 +16,7 @@
       </ul>
     </div>
   </div>
-
+-->
   <!--banner tienda-->
   <div class="form-container">
     <form [formGroup]="bannerHomeTienda" class="form-theme">
@@ -133,6 +134,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div  id = "bannerHomeTienda"  class="container-error">
+              <p [ngStyle]="{'display': errorHomeTienda ? 'block': 'none'}"  >{{errorHomeTienda}}</p>
             </div>
           </div>
         </div>
@@ -258,6 +262,9 @@
                 </div>
               </div>
             </div>
+            <div  id = "bannerPromocional"  class="container-error">
+                <p [ngStyle]="{'display': errorPromocional ? 'block': 'none'}" >{{errorPromocional}}</p>
+              </div>
           </div>
       </div>
     </form>
@@ -377,6 +384,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div id = "bannersCategoria"  class="container-error">
+              <p  [ngStyle]="{'display': errorCategorias ? 'block': 'none'}">{{errorCategorias}}</p>
           </div>
           <div class="row">
               <div class="btn-container">

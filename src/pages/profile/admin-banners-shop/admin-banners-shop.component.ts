@@ -15,7 +15,9 @@ import { CategoriesService } from '../../../services/categories.service';
 export class AdminBannersShopComponent implements OnInit {
 
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
-  public errorChange = '';
+  public errorHomeTienda = '';
+  public errorPromocional = '';
+  public errorCategorias = '';
   public successChange = false;
   public bannerHomeTienda;
   public bannersCategoriaForm;
@@ -240,13 +242,13 @@ export class AdminBannersShopComponent implements OnInit {
 
   removeBannerById (id, element) {
     this.successChange = false;
-    this.errorChange = '';
+
     if (element && element.controls && element.controls.idBannerCategoria.value) {
       this.settingsService.deleteBannerShop(element.get('idBannerCategoria').value).subscribe((response) => {
         this.removeBanner(id);
       }, (error) => {
-        this.errorChange = error.error.message;
-        this.utilsService.goToTopWindow(20, 600);
+        this.errorHomeTienda  = error.error.message;
+
         console.log(error);
       });
     } else {
@@ -306,9 +308,11 @@ export class AdminBannersShopComponent implements OnInit {
 
   uploadBanners () {
     this.successChange = false;
-    this.errorChange = '';
+    this.errorHomeTienda = '';
+    this.errorPromocional = '';
+    this.errorCategorias = '';
 
-    if(!this.bannerHomeTienda.invalid && !this.bannerPromocionalForm.invalid) {
+  //  if(!this.bannerHomeTienda.invalid && !this.bannerPromocionalForm.invalid) {
       const body = {
         bannerHomeTienda: this.bannerHomeTienda.value,
         bannerPromocional: this.bannerPromocionalForm.value.bannerPromocional,
@@ -319,16 +323,38 @@ export class AdminBannersShopComponent implements OnInit {
       }
       console.log(this.bannersCategoriaForm.value);
       this.settingsService.uploadBannerShop(body).subscribe((response) => {
-      /*  this.successChange = true;
-        this.utilsService.goToTopWindow(20, 600);*/
+
         alert('Cambios guardados correctamente');
         location.reload();
       }, (error) => {
-        this.errorChange = error.error.message;
-        this.utilsService.goToTopWindow(20, 600);
+        if (error.error) {
+
+          if(error.error.status) {
+            if(error.error.status == 615 || error.error.status == 616) {
+              this.errorHomeTienda = error.error.message;
+              const el = document.getElementById('bannerHomeTienda');
+              el.scrollIntoView();
+            }
+            if(error.error.status == 617 || error.error.status == 618 ||
+              error.error.status == 619 || error.error.status == 620 ||
+              error.error.status == 621 ) {
+                this.errorPromocional = error.error.message;
+              const el = document.getElementById('bannerPromocional');
+              el.scrollIntoView();
+            }
+            if(error.error.status == 622 || error.error.status == 623 || error.error.status == 624) {
+              this.errorCategorias = error.error.message;
+              const el = document.getElementById('bannersCategoria');
+              el.scrollIntoView();
+            }
+
+          }
+
+        }
+
         console.log(error);
       });
-    }
+    //}
 
   }
 
