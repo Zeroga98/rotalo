@@ -209,6 +209,7 @@ import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.compo
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/updateTrackingNumber/updateTrackingNumber.component';
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
+import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 
 @NgModule({
   declarations: [
@@ -341,6 +342,7 @@ import { UploadProductsComponent } from '../pages/profile/upload-products/upload
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
+    PreviewProductMicrositeComponent
   ],
   imports: [
     BrowserModule,
