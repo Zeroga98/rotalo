@@ -40,8 +40,9 @@
   .media.active {
     box-shadow: 0 9px 6px -6px rgba(0, 0, 0, 0.1);
     opacity: 1;
-    background: #FAFAFA;
+    background: #F5F5F5;
     z-index: 0;
+    border-right: 5px solid #FF3646;
     filter: alpha(opacity=100);
     .pull-left{
       position: relative;
@@ -224,6 +225,9 @@
     .media {
       margin-left: 0;
       z-index: 0;
+      &.active{
+        border-right: 1px solid #ddd;
+      }
     }
 
     .conversation {
