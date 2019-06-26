@@ -21,9 +21,8 @@
       <div class="masonry">
         <div class="grid-item">
           <product-microsite #productsFinish *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
-            class="product-feed" [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
-            [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
-            [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'" id="{{product.id}}">
+            class="product-feed" [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
+             id="{{product.product_id}}">
           </product-microsite>
         </div>
       </div>

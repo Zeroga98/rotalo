@@ -126,10 +126,16 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
 
   selectProduct(event) {
     if (event.ctrlKey) {
-      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['id']}`;
-      window.open(url, '_blank');
+      //const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
+      const routeDetailProduct = `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
+        ROUTES.MICROSITE.DETAIL}/${this.product['product_id']}`;
+      window.open(routeDetailProduct, '_blank');
     } else {
-      this.selected.emit(this.product);
+      const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
+        ROUTES.MICROSITE.DETAIL
+        }/${this.product['product_id']}`;
+      this.router.navigate([routeDetailProduct]);
+      //this.selected.emit(this.product['product_id']);
     }
   }
 
@@ -213,7 +219,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
   getUrlProduct(product: ProductInterface) {
     const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-      }/${product['id']}`;
+      }/${product.id}`;
     return routeDetailProduct;
   }
 
