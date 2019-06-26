@@ -211,6 +211,7 @@ import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/upd
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 
+import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 
 @NgModule({
   declarations: [
@@ -343,7 +344,8 @@ import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/a
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
-    AdminBannersShopComponent
+    AdminBannersShopComponent,
+    PreviewProductMicrositeComponent
   ],
   imports: [
     BrowserModule,

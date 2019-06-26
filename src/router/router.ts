@@ -58,6 +58,7 @@ import { EditUsersComponent } from '../pages/profile/edit-users/edit-users.compo
 import { ProductsShopComponent } from '../pages/profile/products-shop/products-shop.component';
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
+import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 
 export const appRouter: Routes = [
   {
@@ -208,6 +209,10 @@ export const appRouter: Routes = [
           {
             path: ROUTES.MICROSITE.RESPONSE,
             component: ResponseMicrositePage,
+          },
+          {
+            path: `${ROUTES.MICROSITE.PREVIEW}/:id`,
+            component: PreviewProductMicrositeComponent,
           },
           {
             path: '',
