@@ -14,19 +14,29 @@ import {
   })
   export class BannerLatiendaComponent implements OnInit {
     
-    //@ViewChild("containerBanners", { read: ElementRef })
-    //containerBanners: ElementRef;
+
     public bannerHomeTienda;
-    //public storeId = 1;
     public bannersCategoriaForm;
     public bannerPromocionalForm;
+    public location;
+    public showBannersPromo = false;
     constructor(
       private settingsService: SettingsService,
       private formBuilder: FormBuilder
     ) { }
     ngOnInit() {
+      this.location = window.location.href;
+      console.log(this.location);
+      this.getShowBanner(this.location)     
+      
       this.loadBanners();
       this.setFormHomeShop(this.getInitialConfigHomeShop());
+    }
+
+    getShowBanner(string: String){
+      if(string.indexOf('home')>=0){
+        this.showBannersPromo = true;
+      }
     }
 
     loadBanners(){
