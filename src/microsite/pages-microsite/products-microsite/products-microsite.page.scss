@@ -66,7 +66,7 @@
           .trash-icon {
             width: 20px;
             height: 20px;
-            // background: url(../../assets/img/trash.svg);
+            background: url(../../../assets/img/trash.svg);
             background-size: 20px 20px;
             margin: 0 auto;
           }
@@ -74,7 +74,6 @@
 
         .title-filter {
           color: #383838;
-          text-transform: capitalize;
           font-size: 1.4rem;
           display: flex;
         }
@@ -97,7 +96,6 @@
         border-bottom: 1px solid #ededed;
         font-size: 1.6rem;
         color: #383838;
-        text-transform: capitalize;
         width: 100%;
         padding: 20px;
         min-height: 79px;
@@ -105,7 +103,7 @@
     }
 
     section {
-      padding: 4px 20px;
+      padding: 0px 20px;
       width: 100%;
     }
   }
@@ -182,7 +180,7 @@
   }
 
   .container-masonry {
-    padding: 4rem 0;
+    padding: 0;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
@@ -192,20 +190,21 @@
       max-width: 100%;
       margin: auto;
       .grid-item {
-        width: 100%;
+        width: 105%;
         display: flex;
         flex-flow: row wrap;
-       // justify-content: space-between;
+        justify-content: space-between;
       }
       product-microsite {
         cursor: pointer;
         text-align: left;
-        width: 23%;
+        width: 22%;
         overflow: hidden;
-        margin: 0 1rem 2.5rem;
+        margin: 0 1rem 1.5rem 1.5rem;
         border: 1px solid #e2e2e2;
         background-color: #FFFFFF;
         border-radius: 5px;
+        height: 230px;
       }
     }
   }
@@ -499,7 +498,7 @@
   }
 
   .icon {
-    // background-image: url(../../assets/img/arrow.svg);
+    background-image: url(../../../assets/img/arrow.svg);
     background-position: 92% center;
     background-size: 10px 10px;
     background-repeat: no-repeat;
@@ -509,7 +508,7 @@
 
 
   .icon-blue {
-    // background-image: url(../../assets/img/ic_arrow_blue.svg);
+    background-image: url(../../../assets/img/ic_arrow_blue.svg);
     background-position: 92% center;
     background-size: 10px 10px;
     background-repeat: no-repeat;

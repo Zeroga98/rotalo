@@ -66,6 +66,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public showPagination = false;
   public idCountry = 1;
   public counter = '';
+  public filter;
   constructor(
     private productsService: ProductsMicrositeService,
     private router: Router,
@@ -183,6 +184,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       }
       this.totalPages = this.productsService.getTotalProducts();
+      this.filter = this.productsService.getFiltros();
       this.stateRequest = this.statesRequestEnum.success;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -212,8 +214,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       this.setconfigFiltersSubcategory(null);
       this.routineUpdateProducts({
         'filter[search]': filterValue,
-        'filter[subcategory_id]': undefined,
-        'filter[category]': undefined
+        'filter[subcategory_id]': 25,
+        'filter[category]': 10
       });
       this.showBanner = false;
     } else {
@@ -400,4 +402,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     },
       (error) => { console.log(error); });
   }
+
+  removeFilters() {
+    this.currentFilter = {
+      product_country_id: this.idCountry,
+      size: 24,
+      number: 1
+    };
+  }
+
 }
