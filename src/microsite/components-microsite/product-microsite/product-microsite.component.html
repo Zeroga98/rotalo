@@ -18,9 +18,9 @@
       <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
         <div class="price-container">
           <div>
-            <span *ngIf="product.product_price != 0 && product.currency == 'GTQ'" class="name">{{product.product_price | currency:"Q" | removeDigits}}</span>
-            <span *ngIf="product.product_price != 0 && product.currency != 'GTQ' && idCountry == 9" class="name">{{product.product_price | currency:"$" | removeDigits}}</span>
-            <span *ngIf="product.product_price != 0 && product.currency != 'GTQ' && idCountry == 1" class="name">{{product.product_price | currency:"$" | removeDigits}}</span>
+            <span *ngIf="product.product_price != 0 && product.product_currency == 'GTQ'" class="name">{{product.product_price | currency:"Q" | removeDigits}}</span>
+            <span *ngIf="product.product_price != 0 && product.product_currency != 'GTQ' && idCountry == 9" class="name">{{product.product_price | currency:"$" | removeDigits}}</span>
+            <span *ngIf="product.product_price != 0 && product.product_currency != 'GTQ' && idCountry == 1" class="name">{{product.product_price | currency:"$" | removeDigits}}</span>
             <span *ngIf="product.product_price == 0" class="name">Gratis</span>
           </div>
         </div>

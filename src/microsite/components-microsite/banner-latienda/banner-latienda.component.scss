@@ -3,53 +3,57 @@ div.banner-latienda {
     position: relative;
     margin-bottom: 50px;
     background-size: contain;
-  .img-banner-latienda {
+  .div-banner-tienda {
     width: 100%;
     height: 9vw;
     background: url(../../assets/img/banner_latienda.png) no-repeat;
     background-size: contain;
   }
 
-  .img-logo-latienda {
+  .img-banner-tienda{
+    width: 100%
+  }
+
+  .div-logo-tienda {
     position: absolute;
-    width: 115px;
-    height: 105px;
-    background-color: antiquewhite;
-    left: 15%;
-    bottom: -40px;
+    width: 110px;
+    height: 100px;
+    //background-color: antiquewhite;
+    left: 10%;
+    bottom: -50px;
+  }
+
+  .img-logo-tienda{
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,.29);
+    border-radius: 5px;
   }
 }
 
-div.banner-info-img{
+div.div-banners-promo{
     width: 100%;
+    height: 120px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1170px;
     margin: 0px auto;
-    padding: 20px 0;
-    div{
+    padding: 20px 0 20px 0;
+    .div-banner-promo{
         width: 310px;
         height: 100px;
         background-color: antiquewhite;
         margin: 0px 45px;
         border-radius: 10px;
     }
-    .info-img-1{
-        
-    }
-    .info-img-2{
-
-    }
-    .info-img-3{
-
+    .img-promo{
+      width: 120%;
     }
 }
 
 @media screen and (max-width: 700px) {
-  div.banner-latienda {
+  /*div.banner-latienda {
     background: url(../../assets/img/iconos_mobile/img_banner_tienda.png);
     background-size: contain;
     height: 28vw;
-  }
+  }*/
 }

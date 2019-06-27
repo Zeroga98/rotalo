@@ -1,10 +1,16 @@
 <div class="banner-latienda">
-    <div class="img-banner-latienda"></div>
-    <div class="img-logo-latienda"></div>
+    <div class="div-banner-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlBannerDesktop') 
+                                            && bannerHomeTienda.get('urlBannerDesktop').value">
+        <img class="img-banner-tienda" [src]="bannerHomeTienda.get('urlBannerDesktop').value">
+    </div>
+    <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                        && bannerHomeTienda.get('urlLogo').value">
+        <img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value">
+    </div>
 </div>
 
-<div class="banner-info-img">
-    <div class="info-img-1"></div>
-    <div class="info-img-2"></div>
-    <div class="info-img-3"></div>
+<div class="div-banners-promo" >
+    <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
+        <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+    </div>
 </div>
