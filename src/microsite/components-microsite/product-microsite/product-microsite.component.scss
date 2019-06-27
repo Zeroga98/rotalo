@@ -33,25 +33,26 @@
     }
     .icon-share-container{
       cursor: pointer;
-      width: 45px;
-      height: 45px;
+      width: 30px;
+      height: 30px;
       text-align: center;
-      padding-top: 13px;
+      padding-top: 6px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
       position: absolute;
-      top: -45px;
+      top: -30px;
       right: 0;
       box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
       .icon-share {
         margin: 0 auto;
-        width: 20px;
-        height: 20px;
+        width: 17px;
+        height: 17px;
         background: url(../../../assets/img/icon_share_detalle.svg);
-        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        background-size: 17px 17px;
       }
     }
 
@@ -389,15 +390,15 @@
 
   .container-product .container-name {
     color: #404040;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-bottom: 0;
     line-height: 16px;
     padding-left: 1rem;
-    min-height: 32px;
+    min-height: 20px;
   }
 
   .container-product .container-price {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #FF3646;
     font-weight: bold;
     margin-bottom: 0px;
@@ -452,8 +453,8 @@
   }
 
   .container-product .container-photo {
-    height: 273px;
-    min-height: 273px;
+    height: 170px;
+    min-height: 170px;
     max-width: 100%;
     border-bottom: 1px solid rgba(51, 51, 51, 0.1);
     display: flex;
