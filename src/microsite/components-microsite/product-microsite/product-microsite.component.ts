@@ -30,7 +30,7 @@ import { START_DATE_BF, END_DATE_BF } from "../../../commons/constants/dates-pro
 })
 
 export class ProductMicrositeComponent implements AfterViewInit, AfterContentInit {
-  @Input() product: ProductInterface;
+  @Input() product;
   @Input() masonryInfo;
   @Input() showField: boolean;
   @Input() isProductSelling: boolean;
@@ -126,10 +126,16 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
 
   selectProduct(event) {
     if (event.ctrlKey) {
-      const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['id']}`;
-      window.open(url, '_blank');
+      //const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
+      const routeDetailProduct = `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
+        ROUTES.MICROSITE.DETAIL}/${this.product['product_id']}`;
+      window.open(routeDetailProduct, '_blank');
     } else {
-      this.selected.emit(this.product);
+      const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
+        ROUTES.MICROSITE.DETAIL
+        }/${this.product['product_id']}`;
+      this.router.navigate([routeDetailProduct]);
+      //this.selected.emit(this.product['product_id']);
     }
   }
 
@@ -195,10 +201,10 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
     });
   }
 
-   shareProduct(id: string) {
-    if (this.product.id) {
-      this.modalService.setProductId(this.product.id);
-      this.modalService.open(id);
+   shareProduct(product_id: string) {
+    if (this.product['product_id']) {
+      this.modalService.setProductId(this.product['product_id']);
+      this.modalService.open(product_id);
     }
   }
 
@@ -213,7 +219,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
   getUrlProduct(product: ProductInterface) {
     const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SHOW
-      }/${product['id']}`;
+      }/${product.id}`;
     return routeDetailProduct;
   }
 

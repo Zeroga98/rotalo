@@ -23,6 +23,7 @@ export class ProductsMicrositeService {
   private totalProducts = 0;
   private featuredProducts;
   private urlShopBancolombia;
+  private filtros;
 
   constructor(
     private http: HttpClient,
@@ -37,6 +38,14 @@ export class ProductsMicrositeService {
 
   getTotalProducts() {
     return this.totalProducts;
+  }
+
+  setFiltros(filtros){
+    this.filtros = filtros;
+  }
+
+  getFiltros(){
+    return this.filtros;
   }
 
   setUrlDetailProduct(urlDetailProduct) {
@@ -78,6 +87,9 @@ export class ProductsMicrositeService {
       .then((response: any) => {
         if (response.body.totalProductos) {
           this.setTotalProducts(response.body.totalProductos);
+        }
+        if (response.body.filtros){
+          this.setFiltros(response.body.filtros);
         }
         return response.body.productos;
       });

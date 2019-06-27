@@ -5,32 +5,256 @@
 <!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
 <banner-latienda></banner-latienda>
 
-<div class="emotional-banner"></div>
+<!--div class="emotional-banner"></div>
 <div class="walcome-messaje">
   <p>Artículos exclusivos Bancolombia</p>
-</div>
-<div class="background-feed">
-  <div class="container-spinner" *ngIf="isSpinnerShow">
-    <custom-spinner></custom-spinner>
-  </div>
-  <div class="msg-no-products" *ngIf="showAnyProductsMessage">
-    ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
-  </div>
-  <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
-    <div class="list">
-      <div class="masonry">
-        <div class="grid-item">
-          <product-microsite #productsFinish *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
-            class="product-feed" [ngClass]="product && product.status === 'sell_process' ? 'deactivated-photo' : ''"
-            [isProductSelling]="false" [showField]="true" [product]="product" (selected)="selectProduct($event); setScroll($event)"
-            [colourCompany]="product.user&&product.user.company ? product.user.company.colour : '#FF3646'" id="{{product.id}}">
-          </product-microsite>
+</div-->
+<!-- <filter-products></filter-products> -->
+<div class="filter-container">
+  <div class="main" *ngIf="products">
+    
+    <aside class="accordion" [ngClass]="{'active': !showFilterResponsive}">
+      <div class="filters">
+        <div class="title-filter">
+          <div *ngIf="showFilterResponsive">
+            <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
+            <p class="category" *ngIf="category">{{category.name}}
+              <span class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
+                {{category.subCategory.name}}</span>
+            </p>
+          </div>
+          <p class="bold" *ngIf="!showFilterResponsive">Filtros de tienda</p>
+        </div>
+        <div class="ac-container">
+          <!--div class="option">
+            <input checked id="ac-1" name="accordion-1" type="checkbox" />
+            <label for="ac-1">Comunidades<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input (change)="filteByCommunity('')"
+                      [checked]="currentFilter && !currentFilter['seller_community_id']" value="" id="community"
+                      type="radio" name="community">
+                    <label for="community">Todas ({{filter.filtroComunidad.total}})</label>
+                  </div>
+                  <div *ngFor="let community of filter.filtroComunidad.comunidades; let i = index" class="md-radio">
+                    <input [checked]="currentFilter && currentFilter['seller_community_id'] == community.id"
+                      (change)="filteByCommunity(community.id)" value="{{community.id}}" id="community{{i}}"
+                      type="radio" name="community">
+                    <label for="community{{i}}">{{community.name}} ({{community.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="option">
+            <input checked id="ac-2" name="accordion-1" type="checkbox" />
+            <label for="ac-2">Quiero<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['product_sell_type']"
+                      (change)="filteBySellType('')" value="" id="sellType" type="radio" name="sellType">
+                    <label for="sellType">Todos ({{filter.filtroTipoVenta.total}})</label>
+                  </div>
+
+                  <div *ngFor="let sellType of filter.filtroTipoVenta.tiposVentas; let i = index" class="md-radio">
+                    <input
+                      [checked]="currentFilter && currentFilter['product_sell_type'] == sellType.name.toUpperCase()"
+                      (change)="filteBySellType(sellType.name)" value="{{sellType.name.toUpperCase()}}"
+                      id="sellType{{i}}" type="radio" name="sellType">
+                    <label for="sellType{{i}}">{{sellType.name}} ({{sellType.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div-->
+
+          <div *ngIf="filter.filtroCategoria" class="option">
+            <input checked id="ac-2" name="accordion-1" type="checkbox" />
+            <label for="ac-2">Categorías<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['product_category_id']"
+                      (change)="filterByCategory('')" value="" id="category" type="radio"
+                      name="category">
+                    <label for="category">Todas ({{filter.filtroCategoria.total}})</label>
+                  </div>
+                  <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index"
+                    class="md-radio">
+                    <input [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
+                      (change)="filterByCategory(category.id)" value="{category.id}}"
+                      id="category{{i}}" type="radio" name="category">
+                    <label for="category{{i}}">{{category.name}}
+                      ({{category.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div *ngIf="filter.filtroSubcategoria" class="option">
+            <input checked id="ac-3" name="accordion-1" type="checkbox" />
+            <label for="ac-3">Subcategorías<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
+                      (change)="filterBySubCategoryClothes('')" value="" id="subcategory" type="radio"
+                      name="subcategory">
+                    <label for="subcategory">Todas ({{filter.filtroSubcategoria.total}})</label>
+                  </div>
+                  <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index"
+                    class="md-radio">
+                    <input [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
+                      (change)="filterBySubCategoryClothes(subcategory.id)" value="{subcategory.id}}"
+                      id="subcategory{{i}}" type="radio" name="subcategory">
+                    <label for="subcategory{{i}}">{{subcategory.name}}
+                      ({{subcategory.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="option">
+            <input checked id="ac-4" name="accordion-1" type="checkbox" />
+            <label for="ac-4">Precio<div class="icon"></div></label>
+            <article class="price ac-small">
+              <div class="price-row">
+                <div class="price-container">
+                  <input [(ngModel)]="minPrice" placeholder="Mínimo"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" autocomplete="off"
+                    type="text">
+                </div>
+                <div class="price-container">
+                  <input [(ngModel)]="maxPrice" placeholder="Máximo"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" autocomplete="off"
+                    type="text">
+                </div>
+              </div>
+              <div>
+                <button (click)="filterByMinMax()" mat-mini-fab>
+                  <div class="icon-blue"></div>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!--div *ngIf="filter.filtroGenero" class="option">
+            <input [checked]="currentFilter && currentFilter['fashion_gender_id']" id="fashion-1" name="accordion-1"
+              type="checkbox" />
+            <label for="fashion-1">Género<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['fashion_gender_id']"
+                      (change)="filterByGender('')" value="" id="gender" type="radio" name="gender">
+                    <label for="gender">Todos ({{filter.filtroGenero.total}})</label>
+                  </div>
+                  <div *ngFor="let gender of filter.filtroGenero.generos; let i = index" class="md-radio">
+                    <input [checked]="currentFilter && currentFilter['fashion_gender_id'] == gender.id "
+                      (change)="filterByGender(gender.id)" value="{gender.id}}" id="gender{{i}}" type="radio"
+                      name="gender">
+                    <label for="gender{{i}}">{{gender.name}}
+                      ({{gender.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div *ngIf="filter.filtroTalla" class="option">
+            <input [checked]="currentFilter && currentFilter['fashion_size_id']" id="fashion-2" name="accordion-1"
+              type="checkbox" />
+            <label for="fashion-2">Talla<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['fashion_size_id']"
+                      (change)="filterBySizeClothes('')" value="" id="size" type="radio" name="size">
+                    <label for="size">Todos ({{filter.filtroTalla.total}})</label>
+                  </div>
+                  <div *ngFor="let size of filter.filtroTalla.tallas; let i = index" class="md-radio">
+                    <input [checked]="currentFilter && currentFilter['fashion_size_id'] == size.id "
+                      (change)="filterBySizeClothes(size.id)" value="{size.id}}" id="size{{i}}" type="radio"
+                      name="size">
+                    <label for="size{{i}}">{{size.name}}
+                      ({{size.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div *ngIf="filter.filtroColor && category && category.name == 'Moda y accesorios'" class="option">
+            <input [checked]="currentFilter && currentFilter['fashion_color']" id="fashion-3" name="accordion-1"
+              type="checkbox" />
+            <label for="fashion-3">Color<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['fashion_color']"
+                      (change)="filterByColorClothes('')" value="" id="color" type="radio" name="color">
+                    <label for="color">Todos ({{filter.filtroColor.total}})</label>
+                  </div>
+                  <div *ngFor="let color of filter.filtroColor.colores; let i = index" class="md-radio">
+                    <input
+                      [checked]="currentFilter && currentFilter['fashion_color'] == returnStringOption(color.color) "
+                      (change)="filterByColorClothes(color.color)" value="{color.color}}" id="color{{i}}" type="radio"
+                      name="color">
+                    <label for="color{{i}}">{{color.color}}
+                      ({{color.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div-->
+        </div>
+
+        <div *ngIf="filter" class="product-btns">
+          <div class="cont-botons">
+            <button (click)="removeFilters()" class="botons" mat-flat-button> Borrar filtros</button>
+          </div>
         </div>
       </div>
-      <pagination-controls  class="promo has-text-centered" responsive="true" previousLabel="Anterior"
-        nextLabel="Siguiente" (pageChange)="getPage($event)">
-      </pagination-controls>
-    </div>
+    </aside>
+    <!-- *************************************************************************** -->
+    <section>
+      <div class="background-feed">
+        <div class="container-spinner" *ngIf="isSpinnerShow">
+          <custom-spinner></custom-spinner>
+        </div>
+        <div class="msg-no-products" *ngIf="showAnyProductsMessage">
+          ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
+        </div>
+        <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
+          <div class="list">
+            <div class="masonry">
+              <div class="grid-item">
+                <product-microsite #productsFinish
+                  *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
+                  class="product-feed" [isProductSelling]="false" [showField]="true" [product]="product"
+                  (selected)="selectProduct($event); setScroll($event)" id="{{product.product_id}}">
+                </product-microsite>
+              </div>
+            </div>
+            <pagination-controls class="promo has-text-centered" responsive="true" previousLabel="Anterior"
+              nextLabel="Siguiente" (pageChange)="getPage($event)">
+            </pagination-controls>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
+
 <custom-footer></custom-footer>
