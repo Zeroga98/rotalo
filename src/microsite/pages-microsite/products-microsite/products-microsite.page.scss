@@ -21,6 +21,7 @@
     padding-top: 48px;
     display: flex;
     height: auto;
+    padding-left: 60px;
 
     .head-filter {
       position: absolute;
@@ -198,13 +199,12 @@
       product-microsite {
         cursor: pointer;
         text-align: left;
-        width: 22%;
+        width: 23.5%;
         overflow: hidden;
-        margin: 0 1rem 1.5rem 1.5rem;
+        margin: 0 0rem 1.5rem 0rem;
         border: 1px solid #e2e2e2;
-        background-color: #FFFFFF;
-        border-radius: 5px;
-        height: 230px;
+        background-color: #FAFAFA;
+        border-radius: 5px;    
       }
     }
   }
