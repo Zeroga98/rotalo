@@ -3,8 +3,45 @@
 
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
 <!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
-<banner-latienda></banner-latienda>
+<!--banner-latienda></banner-latienda-->
+<div *ngIf="showBannerPrincipal">
+  <div class="banner-latienda">
+      <div class="div-banner-tienda">
+          <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
+      </div>
+      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                          && bannerHomeTienda.get('urlLogo').value">
+          <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+      </div>
+  </div>
+</div>
 
+<div *ngIf="showBannersPromo">
+  <div class="div-banners-promo">
+      <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
+          <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
+              <a class="pointer" (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
+                  <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+              </a>
+          </div>
+          <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
+              <a class="pointer" (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
+                  <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+              </a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="showLogo">
+  <div class="banner-latienda">
+      <div class="div-banner-tienda-solo"></div>
+      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                          && bannerHomeTienda.get('urlLogo').value">
+          <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+      </div>
+  </div>
+</div>
 <!--div class="emotional-banner"></div>
 <div class="walcome-messaje">
   <p>Artículos exclusivos Bancolombia</p>
@@ -13,7 +50,7 @@
 <div class="filter-container">
   <div class="main" *ngIf="products">
     
-    <aside class="accordion" [ngClass]="{'active': !showFilterResponsive}">
+    <aside class="accordion" *ngIf="filter" [ngClass]="{'active': !showFilterResponsive}">
       <div class="filters">
         <div class="title-filter">
           <div *ngIf="showFilterResponsive">
@@ -26,55 +63,10 @@
           <p class="bold" *ngIf="!showFilterResponsive">Filtros de tienda</p>
         </div>
         <div class="ac-container">
-          <!--div class="option">
-            <input checked id="ac-1" name="accordion-1" type="checkbox" />
-            <label for="ac-1">Comunidades<div class="icon"></div></label>
-            <article class="ac-small">
-              <div class="material-design">
-                <div>
-                  <div class="md-radio">
-                    <input (change)="filteByCommunity('')"
-                      [checked]="currentFilter && !currentFilter['seller_community_id']" value="" id="community"
-                      type="radio" name="community">
-                    <label for="community">Todas ({{filter.filtroComunidad.total}})</label>
-                  </div>
-                  <div *ngFor="let community of filter.filtroComunidad.comunidades; let i = index" class="md-radio">
-                    <input [checked]="currentFilter && currentFilter['seller_community_id'] == community.id"
-                      (change)="filteByCommunity(community.id)" value="{{community.id}}" id="community{{i}}"
-                      type="radio" name="community">
-                    <label for="community{{i}}">{{community.name}} ({{community.quantityForFilter}})</label>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="option">
-            <input checked id="ac-2" name="accordion-1" type="checkbox" />
-            <label for="ac-2">Quiero<div class="icon"></div></label>
-            <article class="ac-small">
-              <div class="material-design">
-                <div>
-                  <div class="md-radio">
-                    <input [checked]="currentFilter && !currentFilter['product_sell_type']"
-                      (change)="filteBySellType('')" value="" id="sellType" type="radio" name="sellType">
-                    <label for="sellType">Todos ({{filter.filtroTipoVenta.total}})</label>
-                  </div>
-
-                  <div *ngFor="let sellType of filter.filtroTipoVenta.tiposVentas; let i = index" class="md-radio">
-                    <input
-                      [checked]="currentFilter && currentFilter['product_sell_type'] == sellType.name.toUpperCase()"
-                      (change)="filteBySellType(sellType.name)" value="{{sellType.name.toUpperCase()}}"
-                      id="sellType{{i}}" type="radio" name="sellType">
-                    <label for="sellType{{i}}">{{sellType.name}} ({{sellType.quantityForFilter}})</label>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div-->
 
           <div *ngIf="filter.filtroCategoria" class="option">
-            <input checked id="ac-2" name="accordion-1" type="checkbox" />
-            <label for="ac-2">Categorías<div class="icon"></div></label>
+            <input checked id="ac-1" name="accordion-1" type="checkbox" />
+            <label for="ac-1">Categorías<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
                 <div>
@@ -82,7 +74,7 @@
                     <input [checked]="currentFilter && !currentFilter['product_category_id']"
                       (change)="filterByCategory('')" value="" id="category" type="radio"
                       name="category">
-                    <label for="category">Todas ({{filter.filtroCategoria.total}})</label>
+                    <label for="category">Todas</label>
                   </div>
                   <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index"
                     class="md-radio">
@@ -98,21 +90,21 @@
           </div>
 
           <div *ngIf="filter.filtroSubcategoria" class="option">
-            <input checked id="ac-3" name="accordion-1" type="checkbox" />
-            <label for="ac-3">Subcategorías<div class="icon"></div></label>
+            <input checked id="ac-2" name="accordion-1" type="checkbox" />
+            <label for="ac-2">Subcategorías<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
                 <div>
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
-                      (change)="filterBySubCategoryClothes('')" value="" id="subcategory" type="radio"
+                      (change)="filterBySubcategory('')" value="" id="subcategory" type="radio"
                       name="subcategory">
-                    <label for="subcategory">Todas ({{filter.filtroSubcategoria.total}})</label>
+                    <label for="subcategory">Todas</label>
                   </div>
                   <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index"
                     class="md-radio">
                     <input [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
-                      (change)="filterBySubCategoryClothes(subcategory.id)" value="{subcategory.id}}"
+                      (change)="filterBySubcategory(subcategory.id)" value="{subcategory.id}}"
                       id="subcategory{{i}}" type="radio" name="subcategory">
                     <label for="subcategory{{i}}">{{subcategory.name}}
                       ({{subcategory.quantityForFilter}})</label>
@@ -123,8 +115,8 @@
           </div>
 
           <div class="option">
-            <input checked id="ac-4" name="accordion-1" type="checkbox" />
-            <label for="ac-4">Precio<div class="icon"></div></label>
+            <input checked id="ac-3" name="accordion-1" type="checkbox" />
+            <label for="ac-3">Precio<div class="icon"></div></label>
             <article class="price ac-small">
               <div class="price-row">
                 <div class="price-container">
@@ -145,10 +137,634 @@
               </div>
             </article>
           </div>
+          <!-- FIN FILTROS BASE -->
 
-          <!--div *ngIf="filter.filtroGenero" class="option">
-            <input [checked]="currentFilter && currentFilter['fashion_gender_id']" id="fashion-1" name="accordion-1"
-              type="checkbox" />
+          <!-- FILTROS CARROS Y/O MOTOS -->
+          <div *ngIf="filter.filtroMarca && category == '6' && (subcategory == '9' || subcategory == '10')" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_brand_id']"
+            id="ac-6" name="accordion-1" type="checkbox" />
+            <label for="ac-6">Marca<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_brand_id']" (change)="filterByBrand('')"
+                      value="" id="brand" type="radio" name="brand">
+                    <label for="brand">Todos</label>
+                  </div>
+                  <div *ngFor="let brand of filter.filtroMarca.marcas; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_brand_id'] == brand.id"
+                    (change)="filterByBrand(brand.id)" value="{{brand.id}}" id="brand{{i}}" type="radio"
+                      name="brand">
+                    <label for="brand{{i}}">{{brand.name}} ({{brand.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroModelo && category == '6' && (subcategory == '9' || subcategory == '10')" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_line_id']"
+            id="ac-7" name="accordion-1" type="checkbox" />
+            <label for="ac-7">Modelo<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_line_id']" (change)="filterByModel('')"
+                      value="" id="model" type="radio" name="model">
+                    <label for="model">Todos</label>
+                  </div>
+                  <div *ngFor="let model of filter.filtroModelo.modelos; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_line_id'] == model.id"
+                    (change)="filterByModel(model.id)" value="{{model.id}}" id="model{{i}}" type="radio"
+                      name="model">
+                    <label for="model{{i}}">{{model.name}} ({{model.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroAnio && category == '6' && (subcategory == '9' || subcategory == '10')" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_model']"
+            id="ac-8" name="accordion-1" type="checkbox" />
+            <label for="ac-8">Año<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_model']" (change)="filterByYear('')"
+                      value="" id="year" type="radio" name="year">
+                    <label for="year">Todos</label>
+                  </div>
+                  <div *ngFor="let year of filter.filtroAnio.anios; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_model'] == returnStringOption(year.anio)"
+                    (change)="filterByYear(year.anio)" value="{{year.anio}}" id="year{{i}}" type="radio"
+                      name="year">
+                    <label for="year{{i}}">{{year.anio}} ({{year.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroKilometraje && category == '6' && (subcategory == '9' || subcategory == '10')" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_mileage']"
+            id="ac-15" name="accordion-1" type="checkbox" />
+            <label for="ac-15">Kilometros<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_mileage']" (change)="filterByMileage('')"
+                      value="" id="kilometer" type="radio" name="kilometer">
+                    <label for="kilometer">Todos</label>
+                  </div>
+                  <div *ngFor="let kilometer of filter.filtroKilometraje.kilometrajes; let i = index" class="md-radio">
+                    <input
+                    [checked]="checkKilometers(kilometer.operacionLogica, kilometer.rangoKilometraje)"
+                    (change)="filterByMileage(kilometer.operacionLogica, kilometer.rangoKilometraje)" value="{{kilometer.rangoKilometraje}}"
+                      id="kilometer{{i}}" type="radio" name="kilometer">
+                    <label for="kilometer{{i}}">{{kilometer.rangoKilometraje}} Km
+                      ({{kilometer.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroCilindraje && category == '6' && subcategory == '10'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_displacement']"
+            id="ac-17" name="accordion-1" type="checkbox" />
+            <label for="ac-17">Cilindraje<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_displacement']" (change)="filterByDisplacement('')"
+                      value="" id="cilindraje" type="radio" name="cilindraje">
+                    <label for="cilindraje">Todos</label>
+                  </div>
+                  <div *ngFor="let cilindraje of filter.filtroCilindraje.cilindrajes; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_displacement'] == returnStringOption(cilindraje.cilindraje)"
+                    (change)="filterByDisplacement(cilindraje.cilindraje)" value="{{cilindraje.cilindraje}}"
+                      id="cilindraje{{i}}" type="radio" name="cilindraje">
+                    <label for="cilindraje{{i}}">{{cilindraje.cilindraje}}
+                      ({{cilindraje.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroTipoUso && category == '6' && subcategory == '9'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_use_type']"
+            id="ac-13" name="accordion-1" type="checkbox" />
+            <label for="ac-13">Tipo de vehículos<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_use_type']"
+                      (change)="filterByUseType('')" value="" id="useType" type="radio" name="useType">
+                    <label for="useType">Todos</label>
+                  </div>
+                  <div *ngFor="let useType of filter.filtroTipoUso.tiposUsos; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_use_type'] == returnStringOption(useType.tipoUso)"
+                    (change)="filterByUseType(useType.tipoUso)" value="{{useType.tipoUso}}" id="useType{{i}}"
+                      type="radio" name="useType">
+                    <label for="useType{{i}}">{{useType.tipoUso}}
+                      ({{useType.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroColor && category == '6' && (subcategory == '9' || subcategory == '10')" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_color']"
+            id="ac-9" name="accordion-1" type="checkbox" />
+            <label for="ac-9">Color<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_color']" (change)="filterByVehicleColor('')"
+                      value="" id="color" type="radio" name="color">
+                    <label for="color">Todos</label>
+                  </div>
+                  <div *ngFor="let color of filter.filtroColor.colores; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_color'] == returnStringOption(color.color)"
+                     (change)="filterByVehicleColor(color.color)" value="{{color.color}}" id="color{{i}}" type="radio"
+                      name="color">
+                    <label for="color{{i}}">{{color.color}} ({{color.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroTransmision && category == '6' && subcategory == '9'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_transmission']"
+            id="ac-10" name="accordion-1" type="checkbox" />
+            <label for="ac-10">Transmisión<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_transmission']"
+                      (change)="filterByTransmission('')" value="" id="transmision" type="radio" name="transmision">
+                    <label for="transmision">Todos</label>
+                  </div>
+                  <div *ngFor="let transmision of filter.filtroTransmision.transmisiones; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_transmission'] == returnStringOption(transmision.transmision)"
+                    (change)="filterByTransmission(transmision.transmision)" value="{{transmision.transmision}}"
+                      id="transmision{{i}}" type="radio" name="transmision">
+                    <label for="transmision{{i}}">{{transmision.transmision}}
+                      ({{transmision.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroCombustible && category == '6' && subcategory == '9'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_gas']"
+            id="ac-11" name="accordion-1" type="checkbox" />
+            <label for="ac-11">Combustible<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_gas']" (change)="filterByGas('')"
+                      value="" id="combustible" type="radio" name="combustible">
+                    <label for="combustible">Todos</label>
+                  </div>
+                  <div *ngFor="let combustible of filter.filtroCombustible.combustibles; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_gas'] == returnStringOption(combustible.combustible)"
+                    (change)="filterByGas(combustible.combustible)" value="{{combustible.combustible}}"
+                      id="combustible{{i}}" type="radio" name="combustible">
+                    <label for="combustible{{i}}">{{combustible.combustible}}
+                      ({{combustible.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroNumeroPlaca && category == '6' && subcategory == '9'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_license_plate']"
+             id="ac-12" name="accordion-1" type="checkbox" />
+            <label for="ac-12">Placa terminada en Nº<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_license_plate']"
+                      (change)="filterByLicensePlate('')" value="" id="numerosPlaca" type="radio" name="numerosPlaca">
+                    <label for="numerosPlaca">Todos</label>
+                  </div>
+                  <div *ngFor="let numerosPlaca of filter.filtroNumeroPlaca.numerosPlacas; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_license_plate'] == returnStringOption(numerosPlaca.numeroPlaca)"
+                    (change)="filterByLicensePlate(numerosPlaca.numeroPlaca)"
+                      value="{{numerosPlaca.numeroPlaca}}" id="numerosPlaca{{i}}" type="radio" name="numerosPlaca">
+                    <label for="numerosPlaca{{i}}">***{{numerosPlaca.numeroPlaca}}
+                      ({{numerosPlaca.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroTipoAsiento && category == '6' && subcategory == '9'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['vehicle_type_of_seat']"
+            id="ac-14" name="accordion-1" type="checkbox" />
+            <label for="ac-14">Tipo de asientos<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['vehicle_type_of_seat']"
+                      (change)="filterByTypeSeat('')" value="" id="typeSeat" type="radio" name="typeSeat">
+                    <label for="typeSeat">Todos</label>
+                  </div>
+                  <div *ngFor="let typeSeat of filter.filtroTipoAsiento.tiposAsientos; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['vehicle_type_of_seat'] ==  returnStringOption(typeSeat.tipoAsiento)"
+                    (change)="filterByTypeSeat(typeSeat.tipoAsiento)" value="{{typeSeat.tipoAsiento}}"
+                      id="typeSeat{{i}}" type="radio" name="typeSeat">
+                    <label for="typeSeat{{i}}">{{typeSeat.name}}
+                      ({{typeSeat.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="category == '6' && subcategory == '9'
+          || category == '6' && subcategory == '10'" class="option">
+              <input id="ac-16" name="accordion-1" type="checkbox" />
+              <label for="ac-16">Otros filtros<div class="icon"></div></label>
+              <article class="ac-small">
+                <div
+                *ngIf="category == '6' && subcategory == '9'"
+                 class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersVehicle({vehicle_airbag: otherFilter.vehicle_airbag})"
+                        [(ngModel)]="otherFilter.vehicle_airbag"
+                        class="otherFilters" type="checkbox" id="airbag" name="airbag">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="airbag">Airbag</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersVehicle({vehicle_abs_brakes: otherFilter.vehicle_abs_brakes})"
+                        [(ngModel)]="otherFilter.vehicle_abs_brakes"
+                        class="otherFilters" type="checkbox" id="frenos" name="frenos">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="frenos">Frenos ABS</label>
+                </div>
+                <div
+                *ngIf="category == '6' && subcategory == '9'"
+                class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersVehicle({vehicle_air_conditioner: otherFilter.vehicle_air_conditioner})"
+                        [(ngModel)]="otherFilter.vehicle_air_conditioner"
+                        class="otherFilters" type="checkbox" id="air" name="air">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="air">Aire acondicionado</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersVehicle({vehicle_unique_owner: otherFilter.vehicle_unique_owner})"
+                        [(ngModel)]="otherFilter.vehicle_unique_owner"
+                        class="otherFilters" type="checkbox" id="owner" name="owner">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="owner">Único dueño</label>
+                </div>
+              </article>
+          </div>
+          <!-- FIN FILTROS CARROS Y/O MOTOS -->
+
+          <!-- INICIO FILTROS INMUEBLES -->
+          <div *ngIf="filter.filtroAntiguedad && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_antiquity']"
+            id="in-1" name="accordion-1" type="checkbox" />
+            <label for="in-1">Antiguedad<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_antiquity']"
+                      (change)="filterByAntiquity('')" value="" id="antiquity" type="radio" name="antiquity">
+                    <label for="antiquity">Todos</label>
+                  </div>
+                  <div *ngFor="let antiquity of filter.filtroAntiguedad.antiguedades; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_antiquity'] ==  returnStringOption(antiquity.antiguedad)"
+                    (change)="filterByAntiquity(antiquity.antiguedad)" value="{{antiquity.antiguedad}}"
+                      id="antiquity{{i}}" type="radio" name="antiquity">
+                    <label for="antiquity{{i}}">{{antiquity.antiguedad}}
+                      ({{antiquity.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroPiso && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_floor']"
+            id="in-2" name="accordion-1" type="checkbox" />
+            <label for="in-2">Piso<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_floor']"
+                      (change)="filterByImmovable('')" value="" id="immovable" type="radio" name="immovable">
+                    <label for="immovable">Todos</label>
+                  </div>
+                  <div *ngFor="let immovable of filter.filtroPiso.pisos; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_floor'] ==  immovable.piso"
+                    (change)="filterByImmovable(immovable.piso)" value="{{immovable.piso}}"
+                      id="immovable{{i}}" type="radio" name="immovable">
+                    <label for="immovable{{i}}">{{immovable.piso}}
+                      ({{immovable.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroTipoVendedor && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_seller_type']"
+            id="in-3" name="accordion-1" type="checkbox" />
+            <label for="in-3">Tipo de vendedor<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_seller_type']"
+                      (change)="filterBySellerType('')" value="" id="sellerType" type="radio" name="sellerType">
+                    <label for="sellerType">Todos</label>
+                  </div>
+                  <div *ngFor="let sellerType of filter.filtroTipoVendedor.tiposVendedores; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_seller_type'] ==  returnStringOption(sellerType.tipoVendedor)"
+                    (change)="filterBySellerType(sellerType.tipoVendedor)" value="{{sellerType.tipoVendedor}}"
+                      id="sellerType{{i}}" type="radio" name="sellerType">
+                    <label for="sellerType{{i}}">{{sellerType.tipoVendedor}}
+                      ({{sellerType.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroHabitaciones && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_rooms']"
+            id="in-4" name="accordion-1" type="checkbox" />
+            <label for="in-4">Nº habitaciones<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_rooms']"
+                      (change)="filterByRoom('')" value="" id="room" type="radio" name="room">
+                    <label for="room">Todos</label>
+                  </div>
+                  <div *ngFor="let room of filter.filtroHabitaciones.habitaciones; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_rooms'] ==  returnStringOption(room.habitacion)"
+                    (change)="filterByRoom(room.habitacion)" value="{{room.habitacion}}"
+                      id="room{{i}}" type="radio" name="room">
+                    <label for="room{{i}}">{{room.habitacion}}
+                      ({{room.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroBanios && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_bathrooms']"
+            id="in-5" name="accordion-1" type="checkbox" />
+            <label for="in-5">Nº baños<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_bathrooms']"
+                      (change)="filterByBathRoom('')" value="" id="bathroom" type="radio" name="bathroom">
+                    <label for="bathroom">Todos</label>
+                  </div>
+                  <div *ngFor="let bathroom of filter.filtroBanios.banios; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_bathrooms'] ==  bathroom.banio"
+                    (change)="filterByBathRoom(bathroom.banio)" value="{bathroom.banio}}"
+                      id="bathroom{{i}}" type="radio" name="bathroom">
+                    <label for="bathroom{{i}}">{{bathroom.banio}}
+                      ({{bathroom.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroEstratos && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_social_class']"
+            id="in-6" name="accordion-1" type="checkbox" />
+            <label for="in-6">Estrato<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_social_class']"
+                      (change)="filterBySocialClass('')" value="" id="socialclass" type="radio" name="socialclass">
+                    <label for="socialclass">Todos</label>
+                  </div>
+                  <div *ngFor="let socialclass of filter.filtroEstratos.estratos; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_social_class'] ==  socialclass.estrato"
+                    (change)="filterBySocialClass(socialclass.estrato)" value="{socialclass.estrato}}"
+                      id="socialclass{{i}}" type="radio" name="socialclass">
+                    <label for="socialclass{{i}}">{{socialclass.estrato}}
+                      ({{socialclass.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroMetrosCuadrados && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_square_meters']"
+            id="in-7" name="accordion-1" type="checkbox" />
+            <label for="in-7">Metros cuadrados<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_square_meters']"
+                      (change)="filterBySquaremeters('')" value="" id="squaremeter" type="radio" name="squaremeter">
+                    <label for="squaremeter">Todos</label>
+                  </div>
+                  <div *ngFor="let squaremeter of filter.filtroMetrosCuadrados.metrosCuadrados; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_square_meters'] ==  squaremeter.rangoMetrosCuadrados"
+                    (change)="filterBySquaremeters(squaremeter.rangoMetrosCuadrados)" value="{squaremeter.rangoMetrosCuadrados}}"
+                      id="squaremeter{{i}}" type="radio" name="squaremeter">
+                    <label for="squaremeter{{i}}">{{squaremeter.labelMetrosCuadrados}}
+                      ({{squaremeter.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroAdministracion && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_canon_quota']"
+            id="in-8" name="accordion-1" type="checkbox" />
+            <label for="in-8">Valor administración<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_canon_quota']"
+                      (change)="filterByQuotaAdmin('')" value="" id="quota" type="radio" name="quota">
+                    <label for="quota">Todos</label>
+                  </div>
+                  <div *ngFor="let quota of filter.filtroAdministracion.administraciones; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_canon_quota'] ==  quota.rangoAdministracion"
+                    (change)="filterByQuotaAdmin(quota.rangoAdministracion)" value="{quota.rangoAdministracion}}"
+                      id="quota{{i}}" type="radio" name="quota">
+                    <label for="quota{{i}}">{{quota.labelAdministracion}}
+                      ({{quota.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="filter.filtroPorteria && category == '7'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['immovable_guard_house']"
+            id="in-9" name="accordion-1" type="checkbox" />
+            <label for="in-9">Portería<div class="icon"></div></label>
+            <article class="ac-small">
+              <div class="material-design">
+                <div>
+                  <div class="md-radio">
+                    <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
+                      (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
+                    <label for="guard">Todos</label>
+                  </div>
+                  <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
+                    <input
+                    [checked]="currentFilter && currentFilter['immovable_guard_house'] ==  returnStringOption(guard.porteria)"
+                    (change)="filterByGuardHouse(guard.porteria)" value="{guard.porteria}}"
+                      id="guard{{i}}" type="radio" name="guard">
+                    <label for="guard{{i}}">{{guard.porteria}}
+                      ({{guard.quantityForFilter}})</label>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="category == '7'" class="option">
+              <input id="in-10" name="accordion-1" type="checkbox" />
+              <label for="in-10">Otros filtros<div class="icon"></div></label>
+              <article class="ac-small">
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_elevator: otherFilterImmovable.immovable_elevator})"
+                        [(ngModel)]="otherFilterImmovable.immovable_elevator"
+                        class="otherFilterImmovables" type="checkbox" id="ascensor" name="ascensor">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="ascensor">Ascensor</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_parking: otherFilterImmovable.immovable_parking})"
+                        [(ngModel)]="otherFilterImmovable.immovable_parking"
+                        class="otherFilterImmovables" type="checkbox" id="parking" name="parking">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="parking">Parqueadero</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_useful_room: otherFilterImmovable.immovable_useful_room})"
+                        [(ngModel)]="otherFilterImmovable.immovable_useful_room"
+                        class="otherFilterImmovables" type="checkbox" id="useful" name="useful">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="useful">Cuarto útil</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_pool: otherFilterImmovable.immovable_pool})"
+                        [(ngModel)]="otherFilterImmovable.immovable_pool"
+                        class="otherFilterImmovables" type="checkbox" id="pool" name="pool">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="pool">Píscina</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_full_furnished: otherFilterImmovable.immovable_full_furnished})"
+                        [(ngModel)]="otherFilterImmovable.immovable_full_furnished"
+                        class="otherFilterImmovables" type="checkbox" id="furnished" name="furnished">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="furnished">Amoblado</label>
+                </div>
+                <div class="material-design">
+                    <label class="material-checkbox container-check">
+                        <input
+                        (change)="filterByOthersImmovable({immovable_childis_games: otherFilterImmovable.immovable_childis_games})"
+                        [(ngModel)]="otherFilterImmovable.immovable_childis_games"
+                        class="otherFilterImmovables" type="checkbox" id="games" name="games">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="check-text" for="games">Juegos infantiles</label>
+                </div>
+              </article>
+          </div>
+
+          <!-- FIN FILTROS INMUEBLES -->
+          
+          <!-- INICIO FILTROS MODA -->
+
+          <div *ngIf="filter.filtroGenero && category == '10'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['fashion_gender_id']"
+            id="fashion-1" name="accordion-1" type="checkbox" />
             <label for="fashion-1">Género<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
@@ -156,12 +772,13 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_gender_id']"
                       (change)="filterByGender('')" value="" id="gender" type="radio" name="gender">
-                    <label for="gender">Todos ({{filter.filtroGenero.total}})</label>
+                    <label for="gender">Todos</label>
                   </div>
                   <div *ngFor="let gender of filter.filtroGenero.generos; let i = index" class="md-radio">
-                    <input [checked]="currentFilter && currentFilter['fashion_gender_id'] == gender.id "
-                      (change)="filterByGender(gender.id)" value="{gender.id}}" id="gender{{i}}" type="radio"
-                      name="gender">
+                    <input
+                    [checked]="currentFilter && currentFilter['fashion_gender_id'] == gender.id "
+                    (change)="filterByGender(gender.id)" value="{gender.id}}"
+                      id="gender{{i}}" type="radio" name="gender">
                     <label for="gender{{i}}">{{gender.name}}
                       ({{gender.quantityForFilter}})</label>
                   </div>
@@ -169,10 +786,10 @@
               </div>
             </article>
           </div>
-
-          <div *ngIf="filter.filtroTalla" class="option">
-            <input [checked]="currentFilter && currentFilter['fashion_size_id']" id="fashion-2" name="accordion-1"
-              type="checkbox" />
+          <div *ngIf="filter.filtroTalla && category == '10'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['fashion_size_id']"
+            id="fashion-2" name="accordion-1" type="checkbox" />
             <label for="fashion-2">Talla<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
@@ -180,12 +797,13 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_size_id']"
                       (change)="filterBySizeClothes('')" value="" id="size" type="radio" name="size">
-                    <label for="size">Todos ({{filter.filtroTalla.total}})</label>
+                    <label for="size">Todos</label>
                   </div>
                   <div *ngFor="let size of filter.filtroTalla.tallas; let i = index" class="md-radio">
-                    <input [checked]="currentFilter && currentFilter['fashion_size_id'] == size.id "
-                      (change)="filterBySizeClothes(size.id)" value="{size.id}}" id="size{{i}}" type="radio"
-                      name="size">
+                    <input
+                    [checked]="currentFilter && currentFilter['fashion_size_id'] == size.id "
+                    (change)="filterBySizeClothes(size.id)" value="{size.id}}"
+                      id="size{{i}}" type="radio" name="size">
                     <label for="size{{i}}">{{size.name}}
                       ({{size.quantityForFilter}})</label>
                   </div>
@@ -193,10 +811,10 @@
               </div>
             </article>
           </div>
-
-          <div *ngIf="filter.filtroColor && category && category.name == 'Moda y accesorios'" class="option">
-            <input [checked]="currentFilter && currentFilter['fashion_color']" id="fashion-3" name="accordion-1"
-              type="checkbox" />
+          <div *ngIf="filter.filtroColor && category == '10'" class="option">
+            <input
+            [checked]="currentFilter && currentFilter['fashion_color']"
+            id="fashion-3" name="accordion-1" type="checkbox" />
             <label for="fashion-3">Color<div class="icon"></div></label>
             <article class="ac-small">
               <div class="material-design">
@@ -204,20 +822,23 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_color']"
                       (change)="filterByColorClothes('')" value="" id="color" type="radio" name="color">
-                    <label for="color">Todos ({{filter.filtroColor.total}})</label>
+                    <label for="color">Todos</label>
                   </div>
                   <div *ngFor="let color of filter.filtroColor.colores; let i = index" class="md-radio">
                     <input
-                      [checked]="currentFilter && currentFilter['fashion_color'] == returnStringOption(color.color) "
-                      (change)="filterByColorClothes(color.color)" value="{color.color}}" id="color{{i}}" type="radio"
-                      name="color">
+                    [checked]="currentFilter && currentFilter['fashion_color'] == returnStringOption(color.color) "
+                    (change)="filterByColorClothes(color.color)" value="{color.color}}"
+                      id="color{{i}}" type="radio" name="color">
                     <label for="color{{i}}">{{color.color}}
                       ({{color.quantityForFilter}})</label>
                   </div>
                 </div>
               </div>
             </article>
-          </div-->
+          </div>
+
+          <!-- FIN FILTROS MODA -->
+          
         </div>
 
         <div *ngIf="filter" class="product-btns">

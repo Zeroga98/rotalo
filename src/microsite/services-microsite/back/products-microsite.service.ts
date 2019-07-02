@@ -24,6 +24,7 @@ export class ProductsMicrositeService {
   private featuredProducts;
   private urlShopBancolombia;
   private filtros;
+  public carObject;
 
   constructor(
     private http: HttpClient,
@@ -31,6 +32,14 @@ export class ProductsMicrositeService {
     private userService: UserService,
     private router: Router,
   ) { }
+
+  setCarObject(carObject){
+    this.carObject = carObject;
+  }
+
+  getCarObject(){
+    return this.carObject;
+  }
 
   setTotalProducts(total) {
     this.totalProducts = total;
