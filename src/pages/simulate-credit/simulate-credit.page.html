@@ -41,7 +41,7 @@
                     <span *ngIf="simulateForm.get('initial-quota').invalid && !simulateForm.get('initial-quota').pristine && simulateForm.get('initial-quota').errors['required']">
                       Este campo es obligatorio.
                     </span>
-                    <span *ngIf="simulateForm.errors && simulateForm.get('credit-value').value">
+                    <span *ngIf="simulateForm.errors && simulateForm.get('credit-value').value"> 
                       El campo no cumple con el valor máximo {{simulateForm.get('credit-value').value | currency:"$"}}
                     </span>
                   </span>
