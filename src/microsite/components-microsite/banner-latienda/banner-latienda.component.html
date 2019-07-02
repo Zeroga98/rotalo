@@ -1,18 +1,26 @@
 <div *ngIf="showBannersPromo">
     <div class="banner-latienda">
-        <div class="div-banner-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlBannerDesktop') 
-                                                && bannerHomeTienda.get('urlBannerDesktop').value">
-            <img class="img-banner-tienda" [src]="bannerHomeTienda.get('urlBannerDesktop').value">
+        <div class="div-banner-tienda">
+            <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
         </div>
         <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
                                             && bannerHomeTienda.get('urlLogo').value">
-            <img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value">
+            <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
         </div>
     </div>
 
     <div class="div-banners-promo">
         <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
-            <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+            <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
+                <a (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
+                    <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+                </a>
+            </div>
+            <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
+                <a (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
+                    <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -22,7 +30,7 @@
         <div class="div-banner-tienda-solo"></div>
         <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
                                             && bannerHomeTienda.get('urlLogo').value">
-            <img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value">
+            <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
         </div>
     </div>
 </div>

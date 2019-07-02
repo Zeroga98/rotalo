@@ -27,7 +27,8 @@ import { UtilsService } from '../../../util/utils.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../../components/modal-ticket/modal-ticket.service';
-
+import { FormBuilder } from '@angular/forms';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'products--microsite',
@@ -67,8 +68,41 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public idCountry = 1;
   public counter = '';
   public filter;
+
+  public maxPrice = null;
+  public minPrice = null;
+  public carObject;
+  public category;
+  public subcategory;
+  public  params;
+
+  public otherFilter = {
+    vehicle_airbag: false,
+    vehicle_abs_brakes: false,
+    vehicle_air_conditioner: false,
+    vehicle_unique_owner: false
+  };
+
+  public otherFilterImmovable = {
+    immovable_elevator: false,
+    immovable_parking: false,
+    immovable_childis_games: false,
+    immovable_useful_room: false,
+    immovable_pool: false,
+    immovable_full_furnished: false
+  };
+
+  public bannerHomeTienda;
+  public bannersCategoriaForm;
+  public bannerPromocionalForm;
+  public location;
+  public showBannerPrincipal = true;
+  public showBannersPromo = true;
+  public showLogo = false;
+  public srcBannerHomeTienda;
+
   constructor(
-    private productsService: ProductsMicrositeService,
+    private productsMicrositeService: ProductsMicrositeService,
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
@@ -76,13 +110,25 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
     private modalService: ModalShareProductService,
-    private modalTicketService: ModalTicketService
+    private modalTicketService: ModalTicketService,
+
+    private settingsService: SettingsService,
+    private formBuilder: FormBuilder
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
   }
 
   ngOnInit() {
+
+    //this.location = window.location.href;
+    //this.getShowBanner(this.location)     
+    
+    this.loadBanners();
+    this.setFormHomeShop(this.getInitialConfigHomeShop());
+    this.setInitialFormPromo(this.getInitialConfigPromo());
+    this.setInitialFormCategories(this.getInitialConfigCategories());
+
     this.countDown();
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
@@ -90,7 +136,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-
+    
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
@@ -104,7 +150,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.showPagination = true;
-    if (this.productsService.products.length > 0) {
+    if (this.productsMicrositeService.products.length > 0) {
       this.endForRender.changes.subscribe(t => {
         this.ngForRender();
         this.changeDetectorRef.markForCheck();
@@ -115,8 +161,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngForRender() {
-    this.productsService.products = [];
-    this.productsService.getProductLocation();
+    this.productsMicrositeService.products = [];
+    this.productsMicrositeService.getProductLocation();
     this.changeDetectorRef.markForCheck();
   }
 
@@ -172,19 +218,20 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
       this.isInfiniteScrollDisabled = true;
-      if (this.productsService.products.length > 0) {
-        this.products = this.productsService.products;
-        this.currentPage = this.productsService.currentPage;
+      if (this.productsMicrositeService.products.length > 0) {
+        this.products = this.productsMicrositeService.products;
+        this.currentPage = this.productsMicrositeService.currentPage;
         this.pageNumber = this.currentPage;
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        products = await this.productsService.getProductsMicrosite(this.userId, params);
+        products = await this.productsMicrositeService.getProductsMicrosite(this.userId, params);
         this.updateProducts(products);
         this.changeDetectorRef.markForCheck();
       }
-      this.totalPages = this.productsService.getTotalProducts();
-      this.filter = this.productsService.getFiltros();
+      this.totalPages = this.productsMicrositeService.getTotalProducts();
+      this.filter = this.productsMicrositeService.getFiltros();
+      this.otherFilter = this.productsMicrositeService.carObject.otherFilter;
       this.stateRequest = this.statesRequestEnum.success;
       this.changeDetectorRef.markForCheck();
     } catch (error) {
@@ -201,7 +248,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setScroll(event) {
-    this.productsService.setProductLocation(this.products, event.id, this.currentPage);
+    this.productsMicrositeService.setProductLocation(this.products, event.id, this.currentPage);
+    const carObject =
+    {
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    };
   }
 
   getParamsToProducts() {
@@ -261,7 +313,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       { 'pagina': page },
       page
     );
-    this.productsService.scroll = 0;
+    this.productsMicrositeService.scroll = 0;
     window.scrollTo(0, 0);
   }
 
@@ -339,10 +391,10 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
-    if (this.isSuperUser()) {
-      return { 'pagina': numberPage };
-    }
-    return { 'page[number]': numberPage };
+    //if (this.isSuperUser()) {
+      return { 'number': numberPage };
+    //}
+    //return { 'page[number]': numberPage };
   }
 
   private updateCurrentFilter(filter = {}) {
@@ -404,11 +456,409 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removeFilters() {
+    this.minPrice = null;
+    this.maxPrice = null;
+    this.category = null;
+    this.subcategory = null;
     this.currentFilter = {
       product_country_id: this.idCountry,
       size: 24,
       number: 1
     };
+    this.otherFilter = {
+      vehicle_airbag: false,
+      vehicle_abs_brakes: false,
+      vehicle_air_conditioner: false,
+      vehicle_unique_owner: false
+    };
+
+    this.otherFilterImmovable = {
+      immovable_elevator: false,
+      immovable_parking: false,
+      immovable_childis_games: false,
+      immovable_useful_room: false,
+      immovable_pool: false,
+      immovable_full_furnished: false
+    };
+    this.routineUpdateProducts(this.feedService.getInitialFilter());
+    this.scrollToTop();
   }
 
+  public returnStringOption(option) {
+    if (option) {
+      option = `'${option}'`;
+    }
+    return option;
+  }
+
+  public scrollToTop() {
+    this.productsMicrositeService.scroll = 0;
+    window.scrollTo(0, 0);
+  }
+
+  /*this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+        ], {queryParams: {product_category_id : category.id}});*/
+
+  
+  public filterByCategory(category: String) {
+    this.changeBanner(category);
+    this.category = category;
+    this.routineUpdateProducts({ product_category_id: category, number: 1 });
+    this.scrollToTop();
+  }
+
+  public changeBanner(category){
+    var i;
+    this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+    this.showBannersPromo = true;
+    this.showBannerPrincipal = true;
+    this.showLogo = false;
+    this.showBannerPrincipal = true;
+    for(i=0; i < this.bannersCategoriaForm.get('bannersCategoria').controls.length; i++){
+      let cat = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['idCategoria'].value;
+      
+      if(category == cat)
+      {
+        this.srcBannerHomeTienda = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'].value;
+        this.showBannersPromo = false;
+        this.showBannerPrincipal = true;
+        this.showLogo = false;
+      }
+    }
+  }
+
+  public filterBySubcategory(subcategory: string) {
+    this.subcategory = subcategory;
+    this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByMinMax() {
+    if (this.maxPrice && this.minPrice) {
+      if (+this.maxPrice < +this.minPrice) {
+        const auxPrice = this.maxPrice;
+        this.maxPrice = this.minPrice;
+        this.minPrice = auxPrice;
+      }
+      this.routineUpdateProducts({
+        product_price: `${this.minPrice}-${this.maxPrice}`,
+        number: 1
+      });
+      this.scrollToTop();
+    } else {
+      if (this.maxPrice) {
+        this.routineUpdateProducts({
+          product_price: `<=${this.maxPrice}`,
+          number: 1
+        });
+        this.scrollToTop();
+      } else if (this.minPrice) {
+        this.routineUpdateProducts({
+          product_price: `>=${this.minPrice}`,
+          number: 1
+        });
+        this.scrollToTop();
+      }
+    }
+  }
+
+  public checkKilometers(operacionLogica , kilometer){
+    kilometer = kilometer.split('.').join('');
+    if (operacionLogica != '-') {
+      kilometer = operacionLogica + kilometer;
+    }
+    if(this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer){
+      return true;
+    }
+    return false;
+  }
+
+  public filterByBrand(brand: string) {
+    this.routineUpdateProducts({ vehicle_brand_id: brand, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByModel(model: string) {
+    this.routineUpdateProducts({ vehicle_line_id: model, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByYear(year: string) {
+    year = this.returnStringOption(year);
+    this.routineUpdateProducts({ vehicle_model: year, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByMileage(operacionLogica, mileage: string) {
+    if(mileage) {
+      mileage = mileage.split('.').join('');
+      if (operacionLogica != '-') {
+        mileage = operacionLogica + mileage;
+      }
+    }
+    this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByDisplacement(displacement: string) {
+    displacement = this.returnStringOption(displacement);
+    this.routineUpdateProducts({ vehicle_displacement: displacement, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByUseType(useType: string) {
+    useType = this.returnStringOption(useType);
+    this.routineUpdateProducts({ vehicle_use_type: useType, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByVehicleColor(color: string) {
+    color = this.returnStringOption(color);
+    this.routineUpdateProducts({ vehicle_color: color, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByTransmission(transmission: string) {
+    transmission = this.returnStringOption(transmission);
+    this.routineUpdateProducts({vehicle_transmission: transmission, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByGas(gas: string) {
+    gas = this.returnStringOption(gas);
+    this.routineUpdateProducts({ vehicle_gas: gas, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByLicensePlate(licensePlate: string) {
+    licensePlate = this.returnStringOption(licensePlate);
+    this.routineUpdateProducts({vehicle_license_plate: licensePlate, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByTypeSeat(typeSeat: string) {
+    typeSeat = this.returnStringOption(typeSeat);
+    this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByOthersVehicle(other) {
+    other = Object.assign(other, { number: 1 });
+    this.routineUpdateProducts(other);
+  }
+
+  public filterByAntiquity(antiquity: string) {
+    antiquity = this.returnStringOption(antiquity);
+    this.routineUpdateProducts({ immovable_antiquity: antiquity, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByImmovable(immovable: string) {
+    this.routineUpdateProducts({ immovable_floor: immovable, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySellerType(sellerType: string) {
+    sellerType = this.returnStringOption(sellerType);
+    this.routineUpdateProducts({ immovable_seller_type: sellerType, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByRoom(room: string) {
+    room = this.returnStringOption(room);
+    this.routineUpdateProducts({ immovable_rooms: room, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByBathRoom(bathroom: string) {
+    this.routineUpdateProducts({ immovable_bathrooms: bathroom, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySocialClass(socialclass: string) {
+    this.routineUpdateProducts({ immovable_social_class: socialclass, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterBySquaremeters(squaremeter: string) {
+    this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByQuotaAdmin(quota: string) {
+    this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByGuardHouse(guard: string) {
+    guard = this.returnStringOption(guard);
+    this.routineUpdateProducts({ immovable_guard_house: guard, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByOthersImmovable(other) {
+    other = Object.assign(other, { number: 1 });
+    this.routineUpdateProducts(other);
+  }
+
+
+
+
+
+
+  public filterByGender(genderId) {
+    this.routineUpdateProducts({ fashion_gender_id: genderId, number: 1 });
+    this.scrollToTop();
+  }
+  
+  public filterBySizeClothes(sizeId) {
+    this.routineUpdateProducts({ fashion_size_id: sizeId, number: 1 });
+    this.scrollToTop();
+  }
+
+  public filterByColorClothes(color: string) {
+    color = this.returnStringOption(color);
+    this.routineUpdateProducts({ fashion_color: color, number: 1 });
+    this.scrollToTop();
+  }
+
+
+  /*************** BANNER LA TIENDA *********************/
+  /*getShowBanner(string: String){
+    if(string.indexOf('home')>=0){
+      this.showBannersPromo = true;
+    }
+  }*/
+
+  loadBanners(){
+    this.settingsService.getBannersShop(1).subscribe(response => {
+      if (response.body) {
+      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
+      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
+      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
+      }
+      
+      this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+    });
+  }
+
+  private getInitialConfigHomeShop() {
+    const config =  {
+      'idLogo': '',
+      'urlLogo': '',
+      'idBannerDesktop': '',
+      'urlBannerDesktop': '',
+      'idBannerMobile': '',
+      'urlBannerMobile': ''
+    };
+    return config;
+  }
+
+  private getInitialConfigPromo() {
+    const bannerPromocional = {
+      bannerPromocional: [
+        {
+          'idBannerPromocional': '',
+          'idBannerDesktop': '',
+          'urlBannerDesktop': '',
+          'idBannerMobile': '',
+          'urlBannerMobile': '',
+          'idCategoria': '',
+          'link': ''
+        }
+      ]
+    };
+    return bannerPromocional;
+  }
+
+  private getInitialConfigCategories() {
+    const bannersCategoria = {
+      bannersCategoria: [
+        {
+          'idBannerCategoria': '',
+          'idBannerDesktop': '',
+          'urlBannerDesktop': '',
+          'idBannerMobile': '',
+          'urlBannerMobile': '',
+          'idCategoria': ''
+        }
+      ]
+    };
+    return bannersCategoria;
+  }
+
+  private setFormHomeShop(config) {
+    this.bannerHomeTienda = this.formBuilder.group({
+      'idLogo': [config.idLogo],
+      'urlLogo': [config.urlLogo],
+      'idBannerDesktop': [config.idBannerDesktop],
+      'urlBannerDesktop': [config.urlBannerDesktop],
+      'idBannerMobile': [config.idBannerMobile],
+      'urlBannerMobile': [config.urlBannerMobile]
+    });
+  }
+
+  private setInitialFormPromo(config) {
+    this.bannerPromocionalForm = this.formBuilder.group({
+      bannerPromocional: this.formBuilder.array(
+        this.createItemShop(config.bannerPromocional)
+      )
+    });
+  }
+
+  private setInitialFormCategories(config) {
+    this.bannersCategoriaForm = this.formBuilder.group({
+      bannersCategoria: this.formBuilder.array(
+        this.createItem(config.bannersCategoria)
+      )
+    });
+  }
+
+  private createItemShop(bannersForm) {
+    const bannerPromocional = bannersForm.map(banner => {
+      return this.formBuilder.group({
+        idBannerPromocional: banner.idBannerPromocional,
+        idBannerDesktop: banner.idBannerDesktop,
+        urlBannerDesktop: banner.urlBannerDesktop,
+        idBannerMobile: banner.idBannerMobile,
+        urlBannerMobile: banner.urlBannerMobile,
+        idCategoria: banner.idCategoria,
+        link: banner.link
+      });
+    });
+    return bannerPromocional;
+  }
+
+  private createItem(bannersForm) {
+    const bannersCategoria = bannersForm.map(banner => {
+      return this.formBuilder.group({
+        idBannerCategoria: banner.idBannerCategoria,
+        idBannerDesktop: banner.idBannerDesktop,
+        urlBannerDesktop: banner.urlBannerDesktop,
+        idBannerMobile: banner.idBannerMobile,
+        urlBannerMobile: banner.urlBannerMobile,
+        idCategoria: banner.idCategoria
+      });
+    });
+    return bannersCategoria;
+  }
+
+  goHomeStore(){
+    const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    var categoria = document.createElement("a");
+    categoria.href = routeHome;
+    categoria.click();
+  }
+
+  redirectLink(url){
+    var categoria = document.createElement("a");
+    categoria.target = "_blank";
+    categoria.href = url;
+    categoria.click();
+  }
+
+  redirectCategory (categoria: String){
+    this.filterByCategory(categoria);
+  }
 }
