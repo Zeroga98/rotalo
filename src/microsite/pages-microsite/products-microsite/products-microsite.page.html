@@ -20,12 +20,12 @@
   <div class="div-banners-promo">
       <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
           <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
-              <a (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
+              <a class="pointer" (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
                   <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
               </a>
           </div>
           <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
-              <a (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
+              <a class="pointer" (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
                   <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
               </a>
           </div>
