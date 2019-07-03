@@ -15,8 +15,8 @@
         <img [src]="image['url-photo-desktop']">
       </a>
       <img *ngIf="!image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [src]="image['url-photo-desktop']">
-      <a target="_blank" class="gtmSliderSoatNProductos" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
-        <img [src]="image['url-photo-desktop']">
+      <a target="_blank" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
+        <img class="gtmSliderSoatNProductos" [src]="image['url-photo-desktop']">
       </a>
     </div>
   </ngx-item>
