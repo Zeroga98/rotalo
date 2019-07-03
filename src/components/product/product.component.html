@@ -116,7 +116,7 @@
             {{product['transaction_date'] | date}}</p>
         </div>
         <div *ngIf="isProductSold && product['buyer_name'] && !isProductChecked" class="container-info-user container-date">
-          <span class="icon-account"></span>
+          <span class="icon-account sold"></span>
           <p class = "title">
             <span >Comprador</span>
             {{product['buyer_name']}}

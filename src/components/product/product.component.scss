@@ -256,18 +256,21 @@
   .container-date {
     .icon-account {
       font-size: 2rem;
-   //   margin-right: 1rem;
-      width: 4rem;
-      height: 4rem;
-      min-width: 4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin-right: 1rem;
-      overflow: hidden;
-      position: relative;
-      border: 1px solid;
+      &.sold {
+     //   margin-right: 1rem;
+        width: 4rem;
+        height: 4rem;
+        min-width: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-right: 1rem;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid;
+      }
+      
     }
   }
 
