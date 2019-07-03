@@ -462,6 +462,44 @@
         border-radius: 5px;
         background-color: #FFFFFF;
       }
+
+      .order-by{
+        margin: 0 15px;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+
+        h4{
+          color: #383838;
+          font-weight: bold;
+          margin-right: 30px;
+        }
+
+        mat-form-field{
+          mat-form-field-wrapper{
+            padding: 0;
+          }
+        }
+        mat-select{
+          font-family: "Lato Regular", "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+          border: none;
+          padding-right: 2.5rem;
+          background-image: url(../../assets/img/arrow.svg);
+          background-position: 95% center;
+          background-size: 10px 10px;
+          background-repeat: no-repeat;
+        }
+
+        mat-option mat-selected mat-active{
+          color: #383838;
+          font-weight: bold;
+        }
+        mat-option-text{
+          color: #383838;
+          font-weight: bold;
+        }
+      }
+
     }
   }
 
