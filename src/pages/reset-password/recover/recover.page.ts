@@ -11,7 +11,7 @@ import { ROUTES } from '../../../router/routes';
 })
 export class RecoverPage implements OnInit {
   public recoverForm: FormGroup;
-  public errorLogin: String;
+  public errorStatus: String;
   constructor(private recoverService: RecoverService,
     private router: Router) { }
 
@@ -40,11 +40,32 @@ export class RecoverPage implements OnInit {
     };
     this.recoverService.recoverUser(params).subscribe(
       (response) => {
-        this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
+        //this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
+        this.errorStatus = response.status + " - " + response.message;
       },
       (error) => {
-       this.errorLogin = error.error.message;
+        if(error.error.status==603){
+          this.errorStatus = error.error.status;
+        }
+        if(error.error.status==607){
+          this.errorStatus = error.error.status;
+        }
+        if(error.error.status==609){
+          this.errorStatus = error.error.status;
+        }
       }
     );
+  }
+
+  goToHome() {
+    const url = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
+    const urlMicrositeProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    const urlMicrosite = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`;
+    if (this.router.url.includes(urlMicrositeProduct) && urlMicrosite != this.router.url) {
+      this.router.navigate([urlMicrosite]);
+    } else {
+      `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
+    }
+    //this.queryField.reset();
   }
 }
