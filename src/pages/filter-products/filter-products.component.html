@@ -34,6 +34,31 @@
           </p>
         </div>
         <div *ngIf="filter" class="ac-container">
+
+            <div *ngIf="filter.filtroSubcategoria" class="option">
+                <input checked id="ac-0" name="accordion-1" type="checkbox" />
+                <label for="ac-0">Subcategorias<div class="icon"></div></label>
+                <article class="ac-small">
+                  <div class="material-design">
+                    <div>
+                      <div class="md-radio">
+                        <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
+                          (change)="filterBySubCategory('')" value="" id="subcategory" type="radio" name="subcategory">
+                        <label for="subcategory">Todas </label>
+                      </div>
+                      <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
+                        <input
+                        [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
+                        (change)="filterBySubCategory(subcategory.id)" value="{subcategory.id}}"
+                          id="subcategory{{i}}" type="radio" name="subcategory">
+                        <label for="subcategory{{i}}">{{subcategory.name}}
+                          ({{subcategory.quantityForFilter}})</label>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
           <div *ngIf="filter.filtroComunidad" class="option">
             <input checked id="ac-1" name="accordion-1" type="checkbox" />
             <label for="ac-1">Comunidades<div class="icon"></div></label>
@@ -800,32 +825,6 @@
                     <label class="check-text" for="games">Juegos infantiles</label>
                 </div>
               </article>
-          </div>
-
-          <div *ngIf="filter.filtroSubcategoria" class="option">
-            <input
-            [checked]="currentFilter && currentFilter['product_subcategory_id']"
-            id="fashion-0" name="accordion-1" type="checkbox" />
-            <label for="fashion-0">Subcategorias<div class="icon"></div></label>
-            <article class="ac-small">
-              <div class="material-design">
-                <div>
-                  <div class="md-radio">
-                    <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
-                      (change)="filterBySubCategoryClothes('')" value="" id="subcategory" type="radio" name="subcategory">
-                    <label for="subcategory">Todos ({{filter.filtroSubcategoria.total}})</label>
-                  </div>
-                  <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
-                    <input
-                    [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
-                    (change)="filterBySubCategoryClothes(subcategory.id)" value="{subcategory.id}}"
-                      id="subcategory{{i}}" type="radio" name="subcategory">
-                    <label for="subcategory{{i}}">{{subcategory.name}}
-                      ({{subcategory.quantityForFilter}})</label>
-                  </div>
-                </div>
-              </div>
-            </article>
           </div>
 
           <div *ngIf="filter.filtroGenero" class="option">

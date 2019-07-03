@@ -493,7 +493,7 @@ export class FilterProductsComponent
     this.scrollToTop();
   }
 
-  public filterBySubCategoryClothes(subcategoryId) {
+  public filterBySubCategory(subcategoryId) {
     this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
     this.scrollToTop();
   }
