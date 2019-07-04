@@ -12,6 +12,7 @@ import { ROUTES } from '../../../router/routes';
 export class RecoverPage implements OnInit {
   public recoverForm: FormGroup;
   public errorStatus: String;
+  public email: String;
   constructor(private recoverService: RecoverService,
     private router: Router) { }
 
@@ -41,7 +42,9 @@ export class RecoverPage implements OnInit {
     this.recoverService.recoverUser(params).subscribe(
       (response) => {
         //this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
-        this.errorStatus = response.status + " - " + response.message;
+        //this.errorStatus = response.status + " - " + response.message;
+        this.errorStatus = '200';
+        this.email = userEmail;
       },
       (error) => {
         if(error.error.status==603){

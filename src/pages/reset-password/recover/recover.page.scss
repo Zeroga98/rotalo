@@ -9,7 +9,7 @@
     width: 100%;
   }*/
   form {
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
     font-size: 1.6rem;
     .text--small {
@@ -32,7 +32,7 @@
     }
   }
   .container--app{
-    max-width: 430px;
+    width: 90%;
     margin: 0 auto;
     padding-top: 30px;
   }
@@ -40,7 +40,7 @@
   .alert-response {
     color: #333333;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid #EAEAEA;
     border-radius: 10px;
     span{
@@ -52,7 +52,9 @@
     min-height: calc(100vh - 140px);
     padding-bottom: 7rem;
     padding-top: 7rem;
-    min-width: 430px;
+    min-width: 600px;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .button-recuperar {
@@ -100,12 +102,40 @@
     margin-top: 15px;
     margin-left: 10px;
   }
+
+  .registrate-aqui {
+    color: #433490;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .paper-plane{
+    margin-right: 10px;
+  }
+
+  .navbar-brand{
+    cursor: pointer;
+  }
 }
 
 :host{
-  @media (max-width: 450px) {
+  @media (max-width: 650px) {
     form {
-      max-width: 235px;
+      //max-width: 235px;
+    }
+    .container-fluid{
+      min-height: calc(100vh - 140px);
+      padding-bottom: 7rem;
+      padding-top: 7rem;
+      min-width: 400px;
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
 }
