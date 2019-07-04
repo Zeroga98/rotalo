@@ -73,7 +73,9 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public minPrice = null;
   public carObject;
   public category;
+  public categoryName;
   public subcategory;
+  public subcategoryName;
   public  params;
 
   public otherFilter = {
@@ -462,10 +464,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removeFilters() {
+    this.showBannersPromo = true;
     this.minPrice = null;
     this.maxPrice = null;
     this.category = null;
+    this.categoryName = null;
     this.subcategory = null;
+    this.subcategoryName = null;
     this.currentFilter = {
       product_country_id: this.idCountry,
       size: 24,
@@ -507,10 +512,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         ], {queryParams: {product_category_id : category.id}});*/
 
   
-  public filterByCategory(category: String) {
-    this.changeBanner(category);
-    this.category = category;
-    this.routineUpdateProducts({ product_category_id: category, number: 1 });
+  public filterByCategory(categoryId: String, name: String) {
+    this.changeBanner(categoryId);
+    this.category = categoryId;
+    this.categoryName = name;
+    this.showBannersPromo = false;
+    this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
     this.scrollToTop();
   }
 
@@ -534,13 +541,16 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public filterBySubcategory(subcategory: string) {
+  public filterBySubcategory(subcategory: string, name: string) {
     this.subcategory = subcategory;
+    this.subcategoryName = name;
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
     this.scrollToTop();
   }
 
   public filterByMinMax() {
+    this.showBannersPromo = false;
     if (this.maxPrice && this.minPrice) {
       if (+this.maxPrice < +this.minPrice) {
         const auxPrice = this.maxPrice;
@@ -570,6 +580,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public checkKilometers(operacionLogica , kilometer){
+    this.showBannersPromo = false;
     kilometer = kilometer.split('.').join('');
     if (operacionLogica != '-') {
       kilometer = operacionLogica + kilometer;
@@ -581,22 +592,26 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public filterByBrand(brand: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ vehicle_brand_id: brand, number: 1 });
     this.scrollToTop();
   }
 
   public filterByModel(model: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ vehicle_line_id: model, number: 1 });
     this.scrollToTop();
   }
 
   public filterByYear(year: string) {
+    this.showBannersPromo = false;
     year = this.returnStringOption(year);
     this.routineUpdateProducts({ vehicle_model: year, number: 1 });
     this.scrollToTop();
   }
 
   public filterByMileage(operacionLogica, mileage: string) {
+    this.showBannersPromo = false;
     if(mileage) {
       mileage = mileage.split('.').join('');
       if (operacionLogica != '-') {
@@ -608,102 +623,120 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public filterByDisplacement(displacement: string) {
+    this.showBannersPromo = false;
     displacement = this.returnStringOption(displacement);
     this.routineUpdateProducts({ vehicle_displacement: displacement, number: 1 });
     this.scrollToTop();
   }
 
   public filterByUseType(useType: string) {
+    this.showBannersPromo = false;
     useType = this.returnStringOption(useType);
     this.routineUpdateProducts({ vehicle_use_type: useType, number: 1 });
     this.scrollToTop();
   }
 
   public filterByVehicleColor(color: string) {
+    this.showBannersPromo = false;
     color = this.returnStringOption(color);
     this.routineUpdateProducts({ vehicle_color: color, number: 1 });
     this.scrollToTop();
   }
 
   public filterByTransmission(transmission: string) {
+    this.showBannersPromo = false;
     transmission = this.returnStringOption(transmission);
     this.routineUpdateProducts({vehicle_transmission: transmission, number: 1 });
     this.scrollToTop();
   }
 
   public filterByGas(gas: string) {
+    this.showBannersPromo = false;
     gas = this.returnStringOption(gas);
     this.routineUpdateProducts({ vehicle_gas: gas, number: 1 });
     this.scrollToTop();
   }
 
   public filterByLicensePlate(licensePlate: string) {
+    this.showBannersPromo = false;
     licensePlate = this.returnStringOption(licensePlate);
     this.routineUpdateProducts({vehicle_license_plate: licensePlate, number: 1 });
     this.scrollToTop();
   }
 
   public filterByTypeSeat(typeSeat: string) {
+    this.showBannersPromo = false;
     typeSeat = this.returnStringOption(typeSeat);
     this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
     this.scrollToTop();
   }
 
   public filterByOthersVehicle(other) {
+    this.showBannersPromo = false;
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
   }
 
   public filterByAntiquity(antiquity: string) {
+    this.showBannersPromo = false;
     antiquity = this.returnStringOption(antiquity);
     this.routineUpdateProducts({ immovable_antiquity: antiquity, number: 1 });
     this.scrollToTop();
   }
 
   public filterByImmovable(immovable: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_floor: immovable, number: 1 });
     this.scrollToTop();
   }
 
   public filterBySellerType(sellerType: string) {
+    this.showBannersPromo = false;
     sellerType = this.returnStringOption(sellerType);
     this.routineUpdateProducts({ immovable_seller_type: sellerType, number: 1 });
     this.scrollToTop();
   }
 
   public filterByRoom(room: string) {
+    this.showBannersPromo = false;
     room = this.returnStringOption(room);
     this.routineUpdateProducts({ immovable_rooms: room, number: 1 });
     this.scrollToTop();
   }
 
   public filterByBathRoom(bathroom: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_bathrooms: bathroom, number: 1 });
     this.scrollToTop();
   }
 
   public filterBySocialClass(socialclass: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_social_class: socialclass, number: 1 });
     this.scrollToTop();
   }
 
   public filterBySquaremeters(squaremeter: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
     this.scrollToTop();
   }
 
   public filterByQuotaAdmin(quota: string) {
+    this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
     this.scrollToTop();
   }
 
   public filterByGuardHouse(guard: string) {
+    this.showBannersPromo = false;
     guard = this.returnStringOption(guard);
     this.routineUpdateProducts({ immovable_guard_house: guard, number: 1 });
     this.scrollToTop();
   }
 
   public filterByOthersImmovable(other) {
+    this.showBannersPromo = false;
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
   }
@@ -865,7 +898,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   redirectCategory (categoria: String){
-    this.filterByCategory(categoria);
+    this.filterByCategory(categoria, '');
   }
 
   public filterOrder(filtro) {

@@ -194,17 +194,18 @@
         width: 105%;
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-between;
+        //justify-content: space-between;
       }
       product-microsite {
         cursor: pointer;
         text-align: left;
         width: 23.5%;
         overflow: hidden;
-        margin: 0 0rem 1.5rem 0rem;
+        //margin: 0 0rem 1.5rem 0rem;
         border: 1px solid #e2e2e2;
         background-color: #FAFAFA;
         border-radius: 5px;    
+        margin: 6px 6px;
       }
       .order-by {
         margin: 0 15px;
@@ -1134,6 +1135,10 @@ div.banner-latienda {
   border-radius: 5px;
   margin-left: 60px;
   cursor: pointer;
+    min-width: 110px;
+    min-height: 93px;
+    max-width: 110px;
+    max-height: 93px;
 }
 }
 
