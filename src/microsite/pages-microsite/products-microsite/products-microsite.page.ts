@@ -101,6 +101,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public showLogo = false;
   public srcBannerHomeTienda;
 
+  public orderBy: string[] = [
+    'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+  ];
+
+  public selected = this.orderBy[0];
+
   constructor(
     private productsMicrositeService: ProductsMicrositeService,
     private router: Router,
@@ -861,4 +867,21 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   redirectCategory (categoria: String){
     this.filterByCategory(categoria);
   }
+
+  public filterOrder(filtro) {
+    console.log(filtro);
+    if (filtro === 'Más reciente') {
+      console.log(1);
+    }
+    if (filtro === 'Más antiguo') {
+      console.log(2);
+    }
+    if (filtro === 'Menor precio') {
+      console.log(3);
+    }
+    if (filtro === 'Mayor precio') {
+      console.log(4);
+    }
+  }
+
 }
