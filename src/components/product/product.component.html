@@ -116,7 +116,10 @@
             {{product['transaction_date'] | date}}</p>
         </div>
         <div *ngIf="isProductSold && product['buyer_name'] && !isProductChecked" class="container-info-user container-date">
-          <span class="icon-account"></span>
+          <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
+            <span class="icon-account" *ngIf="!product['seller_photo_url']"></span>
+            <img *ngIf="product['seller_photo_url']" [src]="product['seller_photo_url']">
+          </div>
           <p class = "title">
             <span >Comprador</span>
             {{product['buyer_name']}}

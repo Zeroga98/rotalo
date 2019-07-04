@@ -1,26 +1,57 @@
-<back-arrow></back-arrow>
-<div class="container-fluid container container--app p-t p-b">
+<div class="div-top">
+  <back-arrow></back-arrow>
+  <a class="navbar-brand" (click)="goToHome()">
+    <img src="./assets/img/logo-red.svg" alt="brand">
+    <h1 class="sr-only">Rótalo</h1>
+  </a>
+</div>
+<div class="container-fluid p-t p-b">
   <div>
-    <div *ngIf="errorLogin" class="container--app">
-      <div class="alert-danger" role="alert">
-        <div>
-          <span [innerHtml]=errorLogin></span>
-        </div>
-      </div>
-    </div>
+    
     <form role="form" [formGroup]="recoverForm" (ngSubmit)="onSubmit()" class="form-theme text-center">
-      <div class="text-left">
-        <p class="text--grey-dark bold">Recuperar Contraseña</p>
-        <p class="text--grey text--small m-b">Ingresa tu email para recuperar tu contraseña. Enviaremos instrucciones para recuperar tu contraseña.</p>
+      <div class="text-center">
+        <p class="text-gray-3 text-titulo bold">¡Recupera tu contraseña!</p>
+        <p class="text-gray-3 text-cont m-b">Introduce la dirección de correo electrónico con la que te registraste, para reestablecer tu contraseña.</p>
       </div>
       <div class="form-group">
         <input [ngClass]="{'invalid': recoverForm.get('email').invalid && !recoverForm.get('email').pristine}" formControlName="email"
-          maxlength="50" id="txt-email" type="email" class="form-control" placeholder="E-mail">
+          maxlength="50" id="txt-email" type="email" class="form-control text-correo" placeholder="Email corporativo">
       </div>
       <div>
-        <custom-button [disabled]="!recoverForm.valid" type="submit" text="Enviar"></custom-button>
+        <custom-button class="button-recuperar" [disabled]="!recoverForm.valid" type="submit" text="Enviar enlace"></custom-button>
       </div>
     </form>
+
+    <div *ngIf="errorStatus" class="container--app">
+      <div class="alert-response" role="alert">
+        <div class="success" *ngIf="errorStatus==200">
+          <img class="paper-plane" src="./assets/img/paper_plane.svg" alt="plane">
+          <span> Hemos enviado un enlace para reestablecer tu contraseña a la dirección <strong>{{email}}.</strong> </span>
+        </div>
+        <div *ngIf="errorStatus==603">
+          <span> <strong>¡Oh rayos!</strong> </span>
+          <br><br>
+          <span> Parece que este dominio aún no hace parte de Rótalo, asegúrate de que tu email esté bien escrito, <strong>prueba usando .com / .com.co /.co</strong> </span>
+          <br>
+          <span> Recuerda que para ingresar a Rótalo debes tener un correo corporativo. </span>
+        </div>
+        <div *ngIf="errorStatus==607">
+          <span> <strong>¡Malas noticias!</strong> </span>
+          <br><br>
+          <span> Hace mucho que no te vemos por acá, y el sistema inactivó tu cuenta. </span>
+          <br>
+          <span> <strong>Escríbenos a info@rotalo.com.co</strong> para darte más información. </span>
+        </div>
+        <div *ngIf="errorStatus==609">
+          <span> ¡Ups! no puedes recuperar tu contraseña porque </span>
+          <br>
+          <span> <strong>aún no te has registrado en Rótalo.</strong> </span>
+          <br><br>
+          <span> <a class="registrate-aqui" (click)="goToHome()">Regístrate aquí</a> </span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 <custom-footer></custom-footer>

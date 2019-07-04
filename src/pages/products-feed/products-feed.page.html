@@ -11,10 +11,13 @@
 <ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div class="item-banner">
-      <a target="_blank" *ngIf="image['link']" [href]="image['link']">
+      <a target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
         <img [src]="image['url-photo-desktop']">
       </a>
-      <img *ngIf="!image['link']" [src]="image['url-photo-desktop']">
+      <img *ngIf="!image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [src]="image['url-photo-desktop']">
+      <a target="_blank" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
+        <img class="gtmSliderSoatNProductos" [src]="image['url-photo-desktop']">
+      </a>
     </div>
   </ngx-item>
 
