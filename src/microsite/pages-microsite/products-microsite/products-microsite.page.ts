@@ -29,6 +29,7 @@ import { ModalShareProductService } from '../../../components/modal-shareProduct
 import { ModalTicketService } from '../../../components/modal-ticket/modal-ticket.service';
 import { FormBuilder } from '@angular/forms';
 import { SettingsService } from '../../../services/settings.service';
+import { CAROUSEL_BANNER_TIENDA_CONFIG } from './carouselBannerTienda.config';
 
 @Component({
   selector: 'products--microsite',
@@ -38,7 +39,6 @@ import { SettingsService } from '../../../services/settings.service';
 })
 export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public carouselConfig: NgxCarousel;
-  public carouselProductsConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
@@ -109,6 +109,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   public selected = this.orderBy[0];
 
+  public carouselProductsConfig: NgxCarousel;
+
   constructor(
     private productsMicrositeService: ProductsMicrositeService,
     private router: Router,
@@ -125,6 +127,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+    this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
   }
 
   ngOnInit() {

@@ -957,7 +957,7 @@
       margin: 0 auto;
       width: 20px;
       height: 20px;
-      background: url(../../../assets/img/icon_share_detalle.svg);
+      // background: url(../../../assets/img/icon_share_detalle.svg);
       background-size: 20px 20px;
     }
   }
@@ -1034,7 +1034,7 @@
     left: 0;
     width: 104px;
     height: 40px;
-    background: url(../../../assets/img/img_insignia_trending.svg);
+    // background: url(../../../assets/img/img_insignia_trending.svg);
     background-size: 104px 40px;
     p {
       color: #FFFFFF;
@@ -1161,6 +1161,558 @@ div.div-banners-promo{
   .img-promo{
     width: 120%;
   }
+}
+
+:host {
+  .featured-section {
+    min-height: 420px;
+
+    .featured-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 0;
+      padding-bottom: 0;
+
+      .header-featured {
+        margin-bottom: 15px;
+
+        h3,
+        .bank-img {
+          display: inline-block;
+        }
+        .star-img {
+          display: inline-block;
+        }
+
+        h3 {
+          color: #383838;
+          font-size: 1.8rem;
+          font-weight: bold;
+          margin: 0 0 0 8px;
+        }
+
+        .bank-img {
+          vertical-align: middle;
+          width: 21px;
+          height: 20px;
+        }
+        .star-img {
+          vertical-align: middle;
+          width: 45px;
+          height: 45px;
+        }
+      }
+    }
+
+    .featured-cards {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .featured-card {
+      width: 100%;
+
+      .item__wrapper {
+        margin: 0 auto;
+        margin-bottom: 20px;
+        max-width: 224px;
+        height: 300px;
+
+        .item__card {
+          cursor: pointer;
+          display: inline-block;
+          vertical-align: text-top;
+          margin: 0;
+          width: 100%;
+          max-width: 224px;
+          height: 300px;
+          color: #333;
+          white-space: normal;
+          background-color: #fff;
+          border-radius: 5px;
+          position: relative;
+          flex-direction: column;
+          transition: height .1s ease-out;
+          z-index: 1;
+          border: 1px solid #e2e2e2;
+          transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+          .item__image-container {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            max-width: 224px;
+            height: 185px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            background-color: #fff;
+            position: relative;
+
+            img {
+              height: auto;
+              max-width: 224px;
+              max-height: 100%;
+              min-width: 130px;
+            }
+          }
+
+          .item__content {
+            position: relative;
+            padding: 5px 10px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(51, 51, 51, .1);
+
+            .item__name {
+              position: relative;
+              overflow-wrap: break-word;
+              color: #404040;
+              font-size: 1.4rem;
+              font-weight: bold;
+              line-height: 17px;
+              display: block;
+              text-overflow: ellipsis;
+              word-wrap: break-word;
+              overflow: hidden;
+              max-height: 3.6rem;
+              line-height: 1.8rem;
+              min-height: 36px;
+            }
+
+            .item__price-block {
+              color: #FF3646;
+              font-size: 1.6rem;
+              font-weight: bold;
+              line-height: 1.9;
+            }
+
+            .item__location {
+              color: #A2A2A2;
+              font-size: 1.4rem;
+              line-height: 17px;
+              padding-bottom: 8px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
+            .item_info-user {
+              display: flex;
+              align-items: center;
+              border-top: 1px solid rgba(51, 51, 51, .1);
+              padding-top: 7px;
+              opacity: 0;
+              visibility: hidden;
+              transition: .1s ease-out;
+              transition-property: opacity, top;
+              transition: visibility 0s;
+
+              .icon-container {
+                color: white;
+                width: 3rem;
+                height: 3rem;
+                min-width: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: #ED2F3C;
+                margin-right: 1rem;
+                overflow: hidden;
+                position: relative;
+
+                img {
+                  width: auto;
+                  height: 100%;
+                }
+              }
+
+              .info-user {
+                width: 90%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                .name-text {
+                  color: #707070;
+                  font-weight: bold;
+                  font-size: 1.4rem;
+                  line-height: 17px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+
+                .company-text {
+                  color: #707070;
+                  font-weight: bold;
+                  font-size: 1.2rem;
+                  line-height: 15px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap
+                }
+              }
+            }
+          }
+        }
+
+        .item__card:hover {
+          height: 345px;
+          z-index: 2;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+          .item__content {
+            .item_info-user {
+              opacity: 1;
+              visibility: visible;
+              transition: visibility .1s .1s;
+            }
+          }
+        }
+      }
+    }
+
+    .featured-card {
+      .item__wrapper {
+        a {
+          position: relative;
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  .featured-section.bancolombia-site .featured-container {
+    padding: 0;
+  }
+
+  .icon-location {
+    margin-right: 5px;
+  }
+
+}
+
+:host {
+  .carousel-inner {
+    position: relative;
+    width: 100%;
+  }
+
+  .carousel-arrow {
+    background: #ffffff;
+    border-radius: 100px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    color: #707070;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+    top: 40%;
+    position: absolute;
+    z-index: 99;
+    text-align: center;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-in;
+    opacity: 1;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      color: #0FBBD8;
+      font-size: 2rem;
+    }
+  }
+
+  .carousel-arrow__next {
+    right: -15px;
+  }
+
+  .carousel-arrow__prev {
+    left: -15px;
+
+  }
+
+
+}
+
+:host {
+  .icon-share-container {
+    cursor: pointer;
+    z-index: 3;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 8px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+
+    .icon-share {
+      margin: 0 auto;
+      width: 20px;
+      height: 20px;
+      // background: url(../../assets/img/icon_share_detalle.svg);
+      background-size: 20px 20px;
+    }
+  }
+
+  .icon-share-container:hover {
+    box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+:host {
+  .container-low-price {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 40px;
+    // background: url(../../assets/img/img_insignia_precio.svg);
+    background-size: 104px 40px;
+    z-index: 2;
+
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+    }
+  }
+
+  .container-black-friday {
+    // background: url(../../assets/img/img_etiqueta_bf.png);
+    background-size: 104px 40px;
+  }
+}
+
+:host {
+  ngx-carousel.carousel-featured {
+    z-index: 0;
+
+    ngx-item {
+      min-height: 35.5rem;
+    }
+  }
+
+  ngx-carousel {
+    position: relative;
+
+    .item-banner {
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .arrow {
+      display: inline-block !important;
+      border: 0;
+      border-bottom: 3px solid white;
+      border-left: 3px solid white;
+      z-index: 1;
+      top: 35%;
+      left: 1.3rem;
+      width: 12px;
+      height: 12px;
+      transform: rotate(45deg);
+      border-radius: 1px;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    .arrow-next {
+      // left: unset;
+      display: block;
+      right: 1.3rem;
+      left: auto;
+      transform: rotate(-135deg);
+    }
+
+  }
+
+
+  ngx-carousel.carousel-featured {
+    .arrow {
+      z-index: 3;
+      border-bottom: 4px solid #A2A2A2;
+      border-left: 4px solid #A2A2A2;
+    }
+
+    .hide.arrow {
+      display: none !important;
+    }
+  }
+
+}
+
+:host {
+  .container-trending {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104px;
+    height: 40px;
+    // background: url(../../assets/img/img_insignia_trending.svg);
+    background-size: 104px 40px;
+
+    p {
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 10px 10px;
+    }
+  }
+
+  .low-price {
+    color: #A2A2A2;
+    text-decoration: line-through;
+  }
+
+  .price-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+:host {
+
+   .carousel-arrow__prev {
+    left: 0px;
+  }
+
+  @media screen and (max-width: 890px) {
+    .featured-section {
+      .featured-container {
+        max-width: 800px;
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 760px) {
+    .featured-section .featured-card .item__wrapper {
+      margin: 0 auto 45px;
+    }
+
+    .featured-section {
+      .featured-container {
+        max-width: 700px;
+      }
+    }
+
+    .carousel-theme.desktop {
+      display: none;
+    }
+
+    .carousel-theme.mobile {
+      display: block;
+    }
+
+    .featured-section.bancolombia-site img.desktop {
+      display: none;
+    }
+
+    .featured-section.bancolombia-site img.mobile {
+      display: block;
+    }
+
+    .carousel-arrow__prev,
+    .carousel-arrow__next {
+      display: none !important;
+    }
+
+    ngx-carousel.carousel-featured ngx-item {
+      height: 35rem;
+    }
+
+    .featured-section .featured-container .header-featured h3 {
+      font-size: 1.6rem;
+    }
+
+  .featured-section .featured-card .item__wrapper .item__card .item__content .item__price-block {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .featured-section .featured-card .item__wrapper .item__card .item__content .item__location {
+    font-size: 1.0rem;
+    line-height: 1.2;
+    padding-bottom: 10px;
+  }
+
+  .featured-section .featured-card .item__wrapper .item__card {
+    height: 335px;
+  }
+
+  .featured-section.featured-products {
+    min-height: 430px;
+    height: 430px;
+  }
+
+
+    .featured-section {
+      .featured-card {
+        .item__wrapper {
+          height: 335px;
+          .item__card {
+            .item__content {
+              .item__name {
+                font-size: 1.2rem;
+                min-height: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+
+              .item__location {
+                font-size: 1.3rem;
+                line-height: 12px;
+              }
+
+              .item_info-user {
+                opacity: 1;
+                visibility: visible;
+                transition: visibility .1s .1s;
+
+                .icon-container {
+                  width: 2.8rem;
+                  height: 2.8rem;
+                }
+
+                .info-user {
+                  .name-text {
+                    font-size: 1.0rem;
+                    line-height: 12px;
+                  }
+
+                  .company-text {
+                    font-size: 0.8rem;
+                    line-height: 10px;
+                  }
+                }
+              }
+            }
+          }
+
+          .item__card:hover {
+            height: auto;
+            z-index: 2;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          }
+        }
+      }
+    }
+  }
+
 }
 
 @media screen and (max-width: 700px) {

@@ -213,6 +213,7 @@ import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/a
 import { MatSelectModule } from '@angular/material';
 
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
+import { CarouselBannerTiendaComponent } from '../components/carousel-banner-tienda/carousel-banner-tienda.component';
 
 @NgModule({
   declarations: [
@@ -346,7 +347,8 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
     AdminBannersShopComponent,
-    PreviewProductMicrositeComponent
+    PreviewProductMicrositeComponent,
+    CarouselBannerTiendaComponent
   ],
   imports: [
     BrowserModule,
