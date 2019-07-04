@@ -102,7 +102,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public srcBannerHomeTienda;
 
   public orderBy: string[] = [
-    'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+    'Por defecto', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
   ];
 
   public selected = this.orderBy[0];
@@ -869,18 +869,31 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public filterOrder(filtro) {
-    console.log(filtro);
+    let order;
+    if (filtro === 'Por defecto') {
+      order = "product_store_index-asc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
     if (filtro === 'Más reciente') {
-      console.log(1);
+      order = "product_published_at-desc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
     }
     if (filtro === 'Más antiguo') {
-      console.log(2);
+      order = "product_published_at-asc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
     }
     if (filtro === 'Menor precio') {
-      console.log(3);
+      order = "product_price-asc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
     }
     if (filtro === 'Mayor precio') {
-      console.log(4);
+      order = "product_price-desc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
     }
   }
 
