@@ -102,7 +102,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public srcBannerHomeTienda;
 
   public orderBy: string[] = [
-    'Por defecto', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+    'Relevancia', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
   ];
 
   public selected = this.orderBy[0];
@@ -870,7 +870,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   public filterOrder(filtro) {
     let order;
-    if (filtro === 'Por defecto') {
+    if (filtro === 'Relevancia') {
       order = "product_store_index-asc";
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
