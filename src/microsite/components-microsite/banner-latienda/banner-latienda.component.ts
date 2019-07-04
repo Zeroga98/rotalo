@@ -1,22 +1,20 @@
 import {
-    Component,
-    OnInit,
-    ViewChild,
-    ElementRef
-  } from '@angular/core';
-  import { SettingsService } from '../../../services/settings.service';
-  import { FormBuilder } from '@angular/forms';
-  import { ROUTES } from './../../../router/routes';
-  import { Router } from '@angular/router';
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import { SettingsService } from '../../../services/settings.service';
+import { FormBuilder } from '@angular/forms';
+import { ROUTES } from './../../../router/routes';
+import { Router } from '@angular/router';
 
-  @Component({
-    selector: 'banner-latienda',
-    templateUrl: 'banner-latienda.component.html',
-    styleUrls: ['banner-latienda.component.scss']
-  })
-  export class BannerLatiendaComponent implements OnInit {
-    
-
+@Component({
+  selector: 'banner-latienda',
+  templateUrl: 'banner-latienda.component.html',
+  styleUrls: ['banner-latienda.component.scss']
+})
+export class BannerLatiendaComponent implements OnInit {
   public bannerHomeTienda;
   public bannersCategoriaForm;
   public bannerPromocionalForm;
@@ -31,33 +29,32 @@ import {
   ) { }
   ngOnInit() {
     this.location = window.location.href;
-    this.getShowBanner(this.location)     
-    
+    this.getShowBanner(this.location);
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
   }
 
-  getShowBanner(string: String){
-    if(string.indexOf('home')>=0){
+  getShowBanner(string: String) {
+    if (string.indexOf('home') >= 0) {
       this.showBannersPromo = true;
     }
   }
 
-  loadBanners(){
+  loadBanners() {
     this.settingsService.getBannersShop(1).subscribe(response => {
       if (response.body) {
-      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
-      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
-      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
+        if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
+        if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
+        if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
-      
+
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     });
   }
 
   private getInitialConfigHomeShop() {
-    const config =  {
+    const config = {
       'idLogo': '',
       'urlLogo': '',
       'idBannerDesktop': '',
@@ -141,21 +138,21 @@ import {
     return bannersCategoria;
   }
 
-  goHomeStore(){
+  goHomeStore() {
     const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
     var categoria = document.createElement("a");
     categoria.href = routeHome;
     categoria.click();
   }
 
-  redirectLink(url){
+  redirectLink(url) {
     var categoria = document.createElement("a");
     categoria.target = "_blank";
     categoria.href = url;
     categoria.click();
   }
 
-  redirectCategory (idCategoria : number){
-    console.log("idCategoria: "+idCategoria);
+  redirectCategory(idCategoria: number) {
+    console.log("idCategoria: " + idCategoria);
   }
 }

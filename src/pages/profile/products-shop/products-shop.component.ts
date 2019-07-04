@@ -20,6 +20,8 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   @ViewChild('grid') grid: ElementRef;
   edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/`;
   show: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
+  preview: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.PREVIEW}/`;
+
   public messageChange = '';
   public errorChange = '';
   constructor(private productsService: ProductsService,
@@ -78,6 +80,10 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   getUrlProduct (idProduct) {
     return this.edit + idProduct;
+  }
+
+  getUrlPreviewProduct (idProduct) {
+    return this.preview + idProduct;
   }
 
   getUrlProductDetail (idProduct) {

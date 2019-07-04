@@ -61,6 +61,7 @@ export const ROUTES = {
         FEED: 'home',
         DETAIL: 'details',
         CAR: 'cart',
-        RESPONSE: 'response'
+        RESPONSE: 'response',
+        PREVIEW: 'preview'
     }
 };

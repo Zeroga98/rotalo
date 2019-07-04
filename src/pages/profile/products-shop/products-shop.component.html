@@ -37,6 +37,7 @@
           <th>Unidades</th>
           <th>Estado</th>
           <th class="table-no-border"></th>
+          <th class="table-no-border"></th>
         </tr>
         <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
         class="grid">
@@ -45,7 +46,7 @@
                   <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
                 </td>
                 <td>
-                  <a class = "link-product" [routerLink]="getUrlProductDetail(product.id)" >{{product.id}}</a>
+                  {{product.id}}
                 </td>
                 <td>
                   {{product.name}}
@@ -81,6 +82,9 @@
                 </td>
                 <td>
                   <a [routerLink]="getUrlProduct(product.id)" >Editar</a>
+                </td>
+                <td>
+                  <a class="a-total" [routerLink]="getUrlPreviewProduct(product.id)" >Vista previa</a>
                 </td>
             </tr>
         </tbody>

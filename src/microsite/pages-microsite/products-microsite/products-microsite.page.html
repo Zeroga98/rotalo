@@ -860,6 +860,14 @@
         <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
           <div class="list">
             <div class="masonry">
+              <div class="order-by">
+                <h4>Ordenar por:</h4>
+                <mat-form-field>
+                    <mat-select (selectionChange)="filterOrder($event.value)" [(value)]="selected">
+                      <mat-option *ngFor="let order of orderBy" [value]="order">{{order}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
               <div class="grid-item">
                 <product-microsite #productsFinish
                   *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
