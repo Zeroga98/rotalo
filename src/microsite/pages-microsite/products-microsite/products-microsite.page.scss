@@ -194,17 +194,91 @@
         width: 105%;
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-between;
       }
       product-microsite {
         cursor: pointer;
         text-align: left;
         width: 23.5%;
         overflow: hidden;
-        margin: 0 0rem 1.5rem 0rem;
+        //margin: 0 0rem 1.5rem 0rem;
         border: 1px solid #e2e2e2;
         background-color: #FAFAFA;
         border-radius: 5px;    
+        margin: 6px 6px;
+      }
+      .order-by {
+        margin: 0 15px;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+
+        h4 {
+          color: #383838;
+          font-weight: bold;
+          margin-right: 30px;
+          font-size: 1.4rem;
+          margin-bottom: 6px;
+        }
+
+        /deep/ mat-form-field {
+          height: 30px;
+          top: -8px;
+
+          /deep/ .mat-form-field-wrapper {
+            padding-bottom: 5px !important;
+
+            .mat-form-field-flex {
+              .mat-form-field-infix {
+                width: 150px !important;
+              }
+            }
+          }
+        }
+
+        mat-select {
+          font-family: "Lato Regular", "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+          border: none;
+          background-image: url(../../../assets/img/arrow.svg);
+          background-position: 95% center;
+          background-size: 10px 10px;
+          background-repeat: no-repeat;
+
+          /deep/ .mat-select-arrow {
+            color: transparent !important;
+          }
+        }
+
+        :host/deep/ .mat-form-field.mat-focused .mat-form-field-appearance-legacy .mat-form-field-underline {
+          background-color: red !important
+        }
+
+        /deep/ .mat-form-field.mat-focused .mat-form-field-label {
+          color: #383838 !important;
+        }
+
+        /deep/ .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+          padding-bottom: 0.95em;
+        }
+
+        /deep/ .mat-form-field-infix {
+          width: 150px !important;
+          top: -10px;
+        }
+
+        mat-option mat-selected mat-active {
+          color: #383838;
+          font-weight: bold;
+        }
+
+        mat-option-text {
+          color: #383838;
+          font-weight: bold;
+        }
+
+        /deep/ .mat-form-field-underline {
+          display: none;
+        }
       }
     }
   }
@@ -736,7 +810,7 @@
       margin: auto;
 
       .grid-item {
-        width: 100%;
+        width: 101%;
         display: flex;
         flex-flow: row wrap;
         //  justify-content: space-around;
@@ -1060,6 +1134,10 @@ div.banner-latienda {
   border-radius: 5px;
   margin-left: 60px;
   cursor: pointer;
+    min-width: 110px;
+    min-height: 93px;
+    max-width: 110px;
+    max-height: 93px;
 }
 }
 

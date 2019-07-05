@@ -210,6 +210,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
 import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/updateTrackingNumber/updateTrackingNumber.component';
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
+import { MatSelectModule } from '@angular/material';
 
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 
@@ -382,6 +383,7 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatSelectModule
   ],
   providers: [
     UserService,

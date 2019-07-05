@@ -60,7 +60,8 @@
                 {{category.subCategory.name}}</span>
             </p>
           </div>
-          <p class="bold" *ngIf="!showFilterResponsive">Filtros de tienda</p>
+          <p class="bold" *ngIf="!categoryName">Filtros</p>
+          <p *ngIf="categoryName">{{categoryName}} <span class="bold" *ngIf="subcategoryName"> - {{subcategoryName}}</span></p>
         </div>
         <div class="ac-container">
 
@@ -72,14 +73,14 @@
                 <div>
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_category_id']"
-                      (change)="filterByCategory('')" value="" id="category" type="radio"
+                      (change)="filterByCategory('','')" value="" id="category" type="radio"
                       name="category">
                     <label for="category">Todas</label>
                   </div>
                   <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index"
                     class="md-radio">
                     <input [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
-                      (change)="filterByCategory(category.id)" value="{category.id}}"
+                      (change)="filterByCategory(category.id, category.name)" value="{category.id}}"
                       id="category{{i}}" type="radio" name="category">
                     <label for="category{{i}}">{{category.name}}
                       ({{category.quantityForFilter}})</label>
@@ -89,7 +90,7 @@
             </article>
           </div>
 
-          <div *ngIf="filter.filtroSubcategoria" class="option">
+          <div *ngIf="filter.filtroSubcategoria && category" class="option">
             <input checked id="ac-2" name="accordion-1" type="checkbox" />
             <label for="ac-2">Subcategorías<div class="icon"></div></label>
             <article class="ac-small">
@@ -97,14 +98,14 @@
                 <div>
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
-                      (change)="filterBySubcategory('')" value="" id="subcategory" type="radio"
+                      (change)="filterBySubcategory('', '')" value="" id="subcategory" type="radio"
                       name="subcategory">
                     <label for="subcategory">Todas</label>
                   </div>
                   <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index"
                     class="md-radio">
                     <input [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
-                      (change)="filterBySubcategory(subcategory.id)" value="{subcategory.id}}"
+                      (change)="filterBySubcategory(subcategory.id, subcategory.name)" value="{subcategory.id}}"
                       id="subcategory{{i}}" type="radio" name="subcategory">
                     <label for="subcategory{{i}}">{{subcategory.name}}
                       ({{subcategory.quantityForFilter}})</label>
@@ -860,6 +861,14 @@
         <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
           <div class="list">
             <div class="masonry">
+              <div class="order-by">
+                <h4>Ordenar por:</h4>
+                <mat-form-field>
+                    <mat-select (selectionChange)="filterOrder($event.value)" [(value)]="selected">
+                      <mat-option *ngFor="let order of orderBy" [value]="order">{{order}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
               <div class="grid-item">
                 <product-microsite #productsFinish
                   *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"

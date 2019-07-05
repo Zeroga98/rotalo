@@ -61,6 +61,13 @@ export class FilterProductsComponent
     immovable_full_furnished: false
   };
 
+  public orderBy: string[] = [
+    'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+  ];
+
+  public selected = this.orderBy[0];
+
+
   @ViewChildren('productsEnd') endForRender: QueryList<any>;
 
 
@@ -122,6 +129,30 @@ export class FilterProductsComponent
 
   ngOnDestroy() {
 
+  }
+
+  public filterOrder(filtro) {
+    let order;
+    if (filtro === 'Más reciente') {
+      order = "product_published_at-desc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
+    if (filtro === 'Más antiguo') {
+      order = "product_published_at-asc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
+    if (filtro === 'Menor precio') {
+      order = "product_price-asc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
+    if (filtro === 'Mayor precio') {
+      order = "product_price-desc";
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
   }
 
   loadProductsFilter(countryId) {
@@ -557,5 +588,4 @@ export class FilterProductsComponent
       event['product_id'],
       this.currentPage);
   }
-
 }
