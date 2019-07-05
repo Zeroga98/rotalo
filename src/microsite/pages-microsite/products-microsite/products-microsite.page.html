@@ -4,46 +4,62 @@
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
 <!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
 <!--banner-latienda></banner-latienda-->
-<div *ngIf="showBannerPrincipal">
-  <div class="banner-latienda">
-      <div class="div-banner-tienda">
-          <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
-      </div>
-      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
-                                          && bannerHomeTienda.get('urlLogo').value">
-          <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
-      </div>
+
+<div class="desktop-latienda">
+  <div *ngIf="showBannerPrincipal">
+    <div class="banner-latienda">
+        <div class="div-banner-tienda">
+            <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
+        </div>
+        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                            && bannerHomeTienda.get('urlLogo').value">
+            <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+        </div>
+    </div>
   </div>
+  <div class="carousel-theme desktop" *ngIf="showBannersPromo">
+    <div class="div-banners-promo">
+        <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
+            <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
+                <a class="pointer" (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
+                    <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+                </a>
+            </div>
+            <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
+                <a class="pointer" (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
+                    <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="showLogo">
+    <div class="banner-latienda">
+        <div class="div-banner-tienda-solo"></div>
+        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                            && bannerHomeTienda.get('urlLogo').value">
+            <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+        </div>
+    </div>
+  </div>
+
 </div>
 
-<div *ngIf="showBannersPromo">
-  <div class="div-banners-promo">
-      <div class="div-banner-promo" *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
-          <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
-              <a class="pointer" (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)" target="_blank">
-                  <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
-              </a>
-          </div>
-          <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
-              <a class="pointer" (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)" target="_blank">
-                  <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">
-              </a>
-          </div>
-      </div>
-  </div>
-</div>
 
-<div *ngIf="showLogo">
-  <div class="banner-latienda">
-      <div class="div-banner-tienda-solo"></div>
-      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
-                                          && bannerHomeTienda.get('urlLogo').value">
-          <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
-      </div>
-  </div>
-</div>
 
-<div>
+
+<div class="carousel-theme mobile">
+    <div *ngIf="showBannerPrincipal">
+        <div class="banner-latienda">
+            <div class="div-banner-tienda">
+                <img class="img-banner-tienda " [src]="bannerHomeTienda.get('urlBannerMobile').value">
+            </div>
+            <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                                && bannerHomeTienda.get('urlLogo').value">
+                <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+            </div>
+        </div>
+      </div>
     <div class="featured-banners featured-section">
         <div class="featured-container">
           <div class="row-featured">
@@ -63,6 +79,15 @@
           </div>
         </div>
       </div>
+      <div *ngIf="showLogo">
+          <div class="banner-latienda">
+              <div class="div-banner-tienda-solo"></div>
+              <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+                                                  && bannerHomeTienda.get('urlLogo').value">
+                  <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+              </div>
+          </div>
+        </div>
   <!-- <app-carousel-banner-tienda
   [banners] = "bannerPromocionalForm.get('bannerPromocional').controls[i].controls"
   ></app-carousel-banner-tienda> -->

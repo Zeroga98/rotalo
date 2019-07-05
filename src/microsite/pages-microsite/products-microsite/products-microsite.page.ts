@@ -30,6 +30,7 @@ import { ModalTicketService } from '../../../components/modal-ticket/modal-ticke
 import { FormBuilder } from '@angular/forms';
 import { SettingsService } from '../../../services/settings.service';
 import { CAROUSEL_BANNER_TIENDA_CONFIG } from './carouselBannerTienda.config';
+import { CAROUSEL_CONFIG } from './carousel.config';
 
 @Component({
   selector: 'products--microsite',
@@ -104,7 +105,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public srcBannerHomeTienda;
 
   public orderBy: string[] = [
-    'Relevancia', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+    'Más relevante', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
   ];
 
   public selected = this.orderBy[0];
@@ -127,6 +128,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+    this.carouselConfig = CAROUSEL_CONFIG;
     this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
   }
 
