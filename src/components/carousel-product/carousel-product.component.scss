@@ -175,11 +175,12 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                   white-space: nowrap;
+                  font-weight: bold;
                 }
 
                 .company-text {
                   color: #707070;
-                  font-weight: bold;
+                  //font-weight: bold;
                   font-size: 1.2rem;
                   line-height: 15px;
                   overflow: hidden;

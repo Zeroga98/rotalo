@@ -446,10 +446,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: bold;
   }
 
   .container-product .container-info-user .company-text {
-    font-weight: bold;
+    //font-weight: bold;
     font-size: 1.4rem;
   }
 

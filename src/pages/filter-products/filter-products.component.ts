@@ -525,6 +525,23 @@ export class FilterProductsComponent
   }
 
   public filterBySubCategory(subcategoryId) {
+    var a = window.location.href.indexOf('product_category_id=');
+    var b = window.location.href.substring(a);
+    var c = b.indexOf('=')
+    var d = b.indexOf('&')
+    if(d>0){var x = b.substring(c+1,d);}
+    else{var x = b.substring(c+1);}
+    if(subcategoryId==''){
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ], {queryParams: {product_category_id : x}});
+    }
+    else{
+      this.router.navigate([
+        `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+      ], {queryParams: {product_category_id : x, product_subcategory_id: subcategoryId}});
+    }    
+    this.getCategories();
     this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
     this.scrollToTop();
   }

@@ -479,7 +479,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       } else {
         this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], { queryParams: { product_subcategory_id: suggestion.idSuggestion } });
+        ], { queryParams: {  product_category_id: suggestion.categoryId, product_subcategory_id: suggestion.idSuggestion } });
         this.changeDetector.markForCheck();
       }
     }

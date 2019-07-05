@@ -45,7 +45,7 @@
                       <div class="md-radio">
                         <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
                           (change)="filterBySubCategory('')" value="" id="subcategory" type="radio" name="subcategory">
-                        <label for="subcategory">Todas </label>
+                        <label for="subcategory">Todas</label>
                       </div>
                       <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
                         <input
@@ -70,7 +70,7 @@
                     <input (change)="filteByCommunity('')"
                       [checked]="currentFilter && !currentFilter['seller_community_id']" value="" id="community"
                       type="radio" name="community">
-                    <label for="community">Todas ({{filter.filtroComunidad.total}})</label>
+                    <label for="community">Todas</label>
                   </div>
                   <div *ngFor="let community of filter.filtroComunidad.comunidades; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['seller_community_id'] == community.id"
@@ -91,7 +91,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_sell_type']"
                       (change)="filteBySellType('')" value="" id="sellType" type="radio" name="sellType">
-                    <label for="sellType">Todos ({{filter.filtroTipoVenta.total}})</label>
+                    <label for="sellType">Todos</label>
                   </div>
 
                   <div *ngFor="let sellType of filter.filtroTipoVenta.tiposVentas; let i = index" class="md-radio">
@@ -138,7 +138,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_state_id']" (change)="filterByState('')"
                       value="" id="departamento" type="radio" name="departamento">
-                    <label for="departamento">Todos ({{filter.filtroDepartamento.total}})</label>
+                    <label for="departamento">Todos</label>
                   </div>
                   <div *ngFor="let departamento of filter.filtroDepartamento.departamentos; let i = index"
                     class="md-radio">
@@ -161,7 +161,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['product_city_id']" (change)="filterByCity('')"
                       value="" id="city" type="radio" name="city">
-                    <label for="city">Todos ({{filter.filtroCiudad.total}})</label>
+                    <label for="city">Todos</label>
                   </div>
                   <div *ngFor="let city of filter.filtroCiudad.ciudades; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['product_city_id'] == city.id"
@@ -186,7 +186,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_brand_id']" (change)="filterByBrand('')"
                       value="" id="brand" type="radio" name="brand">
-                    <label for="brand">Todos ({{filter.filtroMarca.total}})</label>
+                    <label for="brand">Todos</label>
                   </div>
                   <div *ngFor="let brand of filter.filtroMarca.marcas; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['vehicle_brand_id'] == brand.id"
@@ -210,7 +210,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_line_id']" (change)="filterByModel('')"
                       value="" id="model" type="radio" name="model">
-                    <label for="model">Todos ({{filter.filtroModelo.total}})</label>
+                    <label for="model">Todos</label>
                   </div>
                   <div *ngFor="let model of filter.filtroModelo.modelos; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['vehicle_line_id'] == model.id"
@@ -234,7 +234,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_model']" (change)="filterByYear('')"
                       value="" id="year" type="radio" name="year">
-                    <label for="year">Todos ({{filter.filtroAnio.total}})</label>
+                    <label for="year">Todos</label>
                   </div>
                   <div *ngFor="let year of filter.filtroAnio.anios; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['vehicle_model'] == returnStringOption(year.anio)"
@@ -258,7 +258,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_mileage']" (change)="filterByMileage('')"
                       value="" id="kilometer" type="radio" name="kilometer">
-                    <label for="kilometer">Todos ({{filter.filtroKilometraje.total}})</label>
+                    <label for="kilometer">Todos</label>
                   </div>
                   <div *ngFor="let kilometer of filter.filtroKilometraje.kilometrajes; let i = index" class="md-radio">
                     <input [checked]="checkKilometers(kilometer.operacionLogica, kilometer.rangoKilometraje)"
@@ -283,7 +283,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_displacement']"
                       (change)="filterByDisplacement('')" value="" id="cilindraje" type="radio" name="cilindraje">
-                    <label for="cilindraje">Todos ({{filter.filtroCilindraje.total}})</label>
+                    <label for="cilindraje">Todos</label>
                   </div>
                   <div *ngFor="let cilindraje of filter.filtroCilindraje.cilindrajes; let i = index" class="md-radio">
                     <input
@@ -309,7 +309,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_use_type']"
                       (change)="filterByUseType('')" value="" id="useType" type="radio" name="useType">
-                    <label for="useType">Todos ({{filter.filtroTipoUso.total}})</label>
+                    <label for="useType">Todos</label>
                   </div>
                   <div *ngFor="let useType of filter.filtroTipoUso.tiposUsos; let i = index" class="md-radio">
                     <input
@@ -336,7 +336,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_color']" (change)="filterByColor('')"
                       value="" id="color" type="radio" name="color">
-                    <label for="color">Todos ({{filter.filtroColor.total}})</label>
+                    <label for="color">Todos</label>
                   </div>
                   <div *ngFor="let color of filter.filtroColor.colores; let i = index" class="md-radio">
                     <input
@@ -362,7 +362,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_transmission']"
                       (change)="filterByTransmission('')" value="" id="transmision" type="radio" name="transmision">
-                    <label for="transmision">Todos ({{filter.filtroTransmision.total}})</label>
+                    <label for="transmision">Todos</label>
                   </div>
                   <div *ngFor="let transmision of filter.filtroTransmision.transmisiones; let i = index"
                     class="md-radio">
@@ -390,7 +390,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_gas']" (change)="filterByGas('')"
                       value="" id="combustible" type="radio" name="combustible">
-                    <label for="combustible">Todos ({{filter.filtroCombustible.total}})</label>
+                    <label for="combustible">Todos</label>
                   </div>
                   <div *ngFor="let combustible of filter.filtroCombustible.combustibles; let i = index"
                     class="md-radio">
@@ -418,7 +418,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_license_plate']"
                       (change)="filterByLicensePlate('')" value="" id="numerosPlaca" type="radio" name="numerosPlaca">
-                    <label for="numerosPlaca">Todos ({{filter.filtroNumeroPlaca.total}})</label>
+                    <label for="numerosPlaca">Todos</label>
                   </div>
                   <div *ngFor="let numerosPlaca of filter.filtroNumeroPlaca.numerosPlacas; let i = index"
                     class="md-radio">
@@ -446,7 +446,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['vehicle_type_of_seat']"
                       (change)="filterByTypeSeat('')" value="" id="typeSeat" type="radio" name="typeSeat">
-                    <label for="typeSeat">Todos ({{filter.filtroTipoAsiento.total}})</label>
+                    <label for="typeSeat">Todos</label>
                   </div>
                   <div *ngFor="let typeSeat of filter.filtroTipoAsiento.tiposAsientos; let i = index" class="md-radio">
                     <input
@@ -518,7 +518,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_antiquity']"
                       (change)="filterByAntiquity('')" value="" id="antiquity" type="radio" name="antiquity">
-                    <label for="antiquity">Todos ({{filter.filtroAntiguedad.total}})</label>
+                    <label for="antiquity">Todos</label>
                   </div>
                   <div *ngFor="let antiquity of filter.filtroAntiguedad.antiguedades; let i = index" class="md-radio">
                     <input
@@ -543,7 +543,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_floor']"
                       (change)="filterByImmovable('')" value="" id="immovable" type="radio" name="immovable">
-                    <label for="immovable">Todos ({{filter.filtroPiso.total}})</label>
+                    <label for="immovable">Todos</label>
                   </div>
                   <div *ngFor="let immovable of filter.filtroPiso.pisos; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['immovable_floor'] ==  immovable.piso"
@@ -567,7 +567,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_seller_type']"
                       (change)="filterBySellerType('')" value="" id="sellerType" type="radio" name="sellerType">
-                    <label for="sellerType">Todos ({{filter.filtroTipoVendedor.total}})</label>
+                    <label for="sellerType">Todos</label>
                   </div>
                   <div *ngFor="let sellerType of filter.filtroTipoVendedor.tiposVendedores; let i = index"
                     class="md-radio">
@@ -593,7 +593,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_rooms']" (change)="filterByRoom('')"
                       value="" id="room" type="radio" name="room">
-                    <label for="room">Todos ({{filter.filtroHabitaciones.total}})</label>
+                    <label for="room">Todos</label>
                   </div>
                   <div *ngFor="let room of filter.filtroHabitaciones.habitaciones; let i = index" class="md-radio">
                     <input
@@ -618,7 +618,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_bathrooms']"
                       (change)="filterByBathRoom('')" value="" id="bathroom" type="radio" name="bathroom">
-                    <label for="bathroom">Todos ({{filter.filtroBanios.total}})</label>
+                    <label for="bathroom">Todos</label>
                   </div>
                   <div *ngFor="let bathroom of filter.filtroBanios.banios; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['immovable_bathrooms'] ==  bathroom.banio"
@@ -642,7 +642,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_social_class']"
                       (change)="filterBySocialClass('')" value="" id="socialclass" type="radio" name="socialclass">
-                    <label for="socialclass">Todos ({{filter.filtroEstratos.total}})</label>
+                    <label for="socialclass">Todos</label>
                   </div>
                   <div *ngFor="let socialclass of filter.filtroEstratos.estratos; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['immovable_social_class'] ==  socialclass.estrato"
@@ -666,7 +666,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_square_meters']"
                       (change)="filterBySquaremeters('')" value="" id="squaremeter" type="radio" name="squaremeter">
-                    <label for="squaremeter">Todos ({{filter.filtroMetrosCuadrados.total}})</label>
+                    <label for="squaremeter">Todos</label>
                   </div>
                   <div *ngFor="let squaremeter of filter.filtroMetrosCuadrados.metrosCuadrados; let i = index"
                     class="md-radio">
@@ -692,7 +692,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_canon_quota']"
                       (change)="filterByQuotaAdmin('')" value="" id="quota" type="radio" name="quota">
-                    <label for="quota">Todos ({{filter.filtroAdministracion.total}})</label>
+                    <label for="quota">Todos</label>
                   </div>
                   <div *ngFor="let quota of filter.filtroAdministracion.administraciones; let i = index"
                     class="md-radio">
@@ -718,7 +718,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['immovable_guard_house']"
                       (change)="filterByGuardHouse('')" value="" id="guard" type="radio" name="guard">
-                    <label for="guard">Todos ({{filter.filtroPorteria.total}})</label>
+                    <label for="guard">Todos</label>
                   </div>
                   <div *ngFor="let guard of filter.filtroPorteria.porterias; let i = index" class="md-radio">
                     <input
@@ -813,7 +813,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_gender_id']"
                       (change)="filterByGender('')" value="" id="gender" type="radio" name="gender">
-                    <label for="gender">Todos ({{filter.filtroGenero.total}})</label>
+                    <label for="gender">Todos</label>
                   </div>
                   <div *ngFor="let gender of filter.filtroGenero.generos; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['fashion_gender_id'] == gender.id "
@@ -837,7 +837,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_size_id']"
                       (change)="filterBySizeClothes('')" value="" id="size" type="radio" name="size">
-                    <label for="size">Todos ({{filter.filtroTalla.total}})</label>
+                    <label for="size">Todos</label>
                   </div>
                   <div *ngFor="let size of filter.filtroTalla.tallas; let i = index" class="md-radio">
                     <input [checked]="currentFilter && currentFilter['fashion_size_id'] == size.id "
@@ -861,7 +861,7 @@
                   <div class="md-radio">
                     <input [checked]="currentFilter && !currentFilter['fashion_color']"
                       (change)="filterByColorClothes('')" value="" id="color" type="radio" name="color">
-                    <label for="color">Todos ({{filter.filtroColor.total}})</label>
+                    <label for="color">Todos</label>
                   </div>
                   <div *ngFor="let color of filter.filtroColor.colores; let i = index" class="md-radio">
                     <input
