@@ -145,8 +145,7 @@
         <div class="user-info-container">
           <p class="name-text">{{product['seller_name']}}</p>
           <p *ngIf="product['seller_company_name']" class="company-text" [ngStyle]="{'color':colourCompany}">
-            {{product['seller_company_name']}}
-            <span class="comunidad-text"> - {{product['seller_community_name']}}</span>
+            <span class="comunidad-text">{{product['seller_community_name']}}</span>
           </p>
         </div>
       </div>

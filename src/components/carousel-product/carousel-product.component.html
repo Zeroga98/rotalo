@@ -85,8 +85,7 @@
                               <p class="name-text">{{product.user.name}}</p>
                               <p *ngIf="product.user && product.user.company" [ngStyle]="{'color':product.user.company.colour}"
                                 class="company-text">
-                                {{product.user?.company.name}}
-                                <span class="comunidad-text"> - {{product.user?.company.community.name}}</span>
+                                <span class="comunidad-text"> {{product.user?.company.community.name}}</span>
                               </p>
                             </div>
                           </div>
