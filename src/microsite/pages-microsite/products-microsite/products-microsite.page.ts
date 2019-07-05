@@ -464,6 +464,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removeFilters() {
+    this.selected = this.orderBy[0];
     this.showBannersPromo = true;
     this.minPrice = null;
     this.maxPrice = null;
