@@ -11,6 +11,7 @@ import { ROUTES } from '../../router/routes';
 import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { TermsDialogComponent } from '../../pages/home/terms-modal/terms-dialog.component';
+import { ModalReactivateUserComponent } from '../modal-reactivate-user/modal-reactivate-user.component';
 
 
 @Component({
@@ -126,6 +127,18 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     });
   }
 
+  openDialogReactivate(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+   // dialogConfig.height = '600px';
+    dialogConfig.width = '55%';
+    dialogConfig.disableClose = true;
+ //   dialogConfig.autoFocus = false;
+    dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalReactivateUserComponent, dialogConfig);
+  }
+
    login(userEmail: string, password: string) {
      const user = {
        user: userEmail.toLowerCase(),
@@ -179,6 +192,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
             if (response.status === 800) {
               this.errorLogin = 'Tu cuenta fue desactivada, comunícate con info@rotalo.com.co para darte más información.';
               this.changeRef.markForCheck();
+              this.openDialogReactivate();
             }
             if (response.status === 9999) {
               this.openDialog();

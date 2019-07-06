@@ -1,0 +1,94 @@
+<!-- <div class="close-container">
+    <div id="close" class="button-close-modal" (click)="close()">
+     <div class="icon-close">
+     </div>
+    </div>
+  </div>
+  <div class="modal-container">
+    <div class="icon-success">
+    </div>
+    <div class="description">
+      <p>
+          ¡Qué bien, volviste!
+      </p>
+    </div>
+    <div class="">
+        <p>
+            Acabamos de enviarte un mensaje de activación a <span>{{correoUsuario}}</span>
+        </p>
+        <p>
+            Haz clic en el botón que aparece en el email para completar el registro.
+        </p>
+        <form [formGroup]="reportForm" class="form-theme">
+            <div class="material-design">
+              <div class="md-radio">
+                <input (change) ="changeRadioButton()" [value]="false" formControlName="option" id="used1" type="radio" name="option">
+                <label for="used1">Esta persona ya no trabaja en la empresa</label>
+              </div>
+              <div class="md-radio">
+                <input (change) ="changeRadioButton()" [value]="true" formControlName="option" id="used2" type="radio" name="option">
+                <label for="used2">El contenido es inapropiado</label>
+              </div>
+              <div *ngIf="reportForm.get('option').value" class="form-group">
+                <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos más detalles" name="comentario" maxlength="500"></textarea>
+                <span class="error-msg">Este campo es requerido</span>
+              </div>
+            </div>
+        </form>
+    </div>
+  </div>
+   -->
+
+   <div class="close-container">
+      <div id="close" class="button-close-modal" (click)="close()">
+       <div class="icon-close">
+       </div>
+      </div>
+    </div>
+    <div  *ngIf="!showSuccess"  class="modal-container">
+      <div class="icon-question">
+      </div>
+      <div class="description">
+        <p>
+          Cuéntanos por qué quieres eliminar o desactivar esta publicación
+        </p>
+      </div>
+      <form [formGroup]="deleteProductForm" class="form-theme">
+          <div class="material-design">
+            <div class="md-radio">
+              <input (change) ="changeRadioButton()" value="vendido" formControlName="option" id="used1" type="radio" name="option">
+              <label for="used1">Ya vendí mi producto en Rótalo</label>
+            </div>
+            <div class="md-radio">
+              <input (change) ="changeRadioButton()" value="otro" formControlName="option" id="used2" type="radio" name="option">
+              <label for="used2">Otro</label>
+            </div>
+            <div *ngIf="deleteProductForm.get('option').value == 'otro'" class="form-group">
+              <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos ¿Qué pasó?" name="comentario" maxlength="200"></textarea>
+              <span class="error-msg">Este campo es requerido</span>
+            </div>
+          </div>
+      </form>
+      <div class="btn-container">
+        <button (click)='save()' mat-stroked-button>Enviar</button>
+      </div>
+    </div>
+    
+    
+    <div *ngIf="showSuccess"  class="modal-container">
+        <div class="icon-success">
+        </div>
+        <div class="description">
+          <p>
+            ¡Qué bien, sigue rotando!
+          </p>
+          <p>
+              {{email}}
+            </p>
+        </div>
+        <div class="btn-container">
+          <button (click)='close()' mat-stroked-button>Volver</button>
+        </div>
+    </div>
+    
+    
