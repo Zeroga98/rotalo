@@ -378,7 +378,7 @@ import { ModalReactivateUserComponent } from '../components/modal-reactivate-use
     MatTabsModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
+    MatPaginatorModule
   ],
   providers: [
     UserService,
@@ -461,7 +461,8 @@ import { ModalReactivateUserComponent } from '../components/modal-reactivate-use
     ReportPublicationComponent,
     TermsDialogComponent,
     ModalDeleteProductComponent,
-    UpdateTrackingNumberComponent]
+    UpdateTrackingNumberComponent,
+    ModalReactivateUserComponent]
 })
 
 export class AppModule { }

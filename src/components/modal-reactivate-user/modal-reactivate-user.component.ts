@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, AfterViewInit, Input, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 
@@ -15,7 +15,10 @@ export class ModalReactivateUserComponent implements OnInit, AfterViewInit {
     private eleRef: ElementRef,
     private dialogRef: MatDialogRef<ModalReactivateUserComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
+    console.log(MAT_DIALOG_DATA);
+    console.log(data);
     this.email = data;
+    console.log(this.email);
   }
 
   ngOnInit() {

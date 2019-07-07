@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
   public readonly faqLink: string = `/${ROUTES.FAQ}`;
   public registerForm: FormGroup;
   public modalTermsIsOpen: boolean = false;
-  public modalreactivateIsOpen: boolean = false;
+  public modalReactivateIsOpen: boolean = false;
   public idCountry;
   public errorMessage = '';
   public showMessageEmail = false;
@@ -228,6 +228,13 @@ export class HomePage implements OnInit {
 
   closeModal() {
     this.modalTermsIsOpen = false;
+  }
+  openReactivateModal(): void {
+    this.modalReactivateIsOpen = true;
+  }
+
+  closeReactivateModal() {
+    this.modalReactivateIsOpen = false;
   }
 
   closeModalReactivate() {

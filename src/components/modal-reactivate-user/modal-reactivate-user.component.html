@@ -1,4 +1,4 @@
-<!-- <div class="close-container">
+<div class="close-container">
     <div id="close" class="button-close-modal" (click)="close()">
      <div class="icon-close">
      </div>
@@ -12,34 +12,18 @@
           ¡Qué bien, volviste!
       </p>
     </div>
-    <div class="">
+    <div class="sub-description">
         <p>
-            Acabamos de enviarte un mensaje de activación a <span>{{correoUsuario}}</span>
+            Acabamos de enviarte un mensaje de activación a <span>{{email}}</span>
         </p>
         <p>
             Haz clic en el botón que aparece en el email para completar el registro.
         </p>
-        <form [formGroup]="reportForm" class="form-theme">
-            <div class="material-design">
-              <div class="md-radio">
-                <input (change) ="changeRadioButton()" [value]="false" formControlName="option" id="used1" type="radio" name="option">
-                <label for="used1">Esta persona ya no trabaja en la empresa</label>
-              </div>
-              <div class="md-radio">
-                <input (change) ="changeRadioButton()" [value]="true" formControlName="option" id="used2" type="radio" name="option">
-                <label for="used2">El contenido es inapropiado</label>
-              </div>
-              <div *ngIf="reportForm.get('option').value" class="form-group">
-                <textarea  class="form-control" formControlName="comentario" placeholder="Cuéntanos más detalles" name="comentario" maxlength="500"></textarea>
-                <span class="error-msg">Este campo es requerido</span>
-              </div>
-            </div>
-        </form>
     </div>
   </div>
-   -->
+  
 
-   <div class="close-container">
+   <!-- <div class="close-container">
       <div id="close" class="button-close-modal" (click)="close()">
        <div class="icon-close">
        </div>
@@ -89,6 +73,6 @@
         <div class="btn-container">
           <button (click)='close()' mat-stroked-button>Volver</button>
         </div>
-    </div>
+    </div> -->
     
     
