@@ -1,19 +1,38 @@
 <div class="back-categories" (click)="clickCloseMenu()"></div>
-<div *ngIf="!hideCloseButton()" class="close-container">
+<!-- <div *ngIf="!hideCloseButton()" class="close-container">
     <div class="button-close-modal" (click)="clickCloseMenu()">
         <p>x</p>
     </div>
-</div>
+</div> -->
 <div class="categories-container">
-  <div class="category" *ngFor="let category of categories">
-    <div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.productsActives != 0 ?  category.color: ''">
-      <span [ngClass]="category.icon"></span>
-      <a class="gtmMegaMeCateg{{category.url}}" (click)="selectCategory(category, {})">
-        <span></span>
-        <label>{{ category.name }}</label>
-      </a>
+  <div class="menu-mobile-title">
+      <label>Categorías</label>
+  </div>
+  <div class="category" (mouseenter)=showSubCategories(category.id) (mouseleave)=hideSubCategories(category.id) id="category{{category.id}}" *ngFor="let category of categories">
+    <!-- <div class="gtmMegaMeCateg{{category.url}}  title-circle" [ngClass]="category.productsActives != 0 ?  category.color: ''"> -->
+    <div class="gtmMegaMeCateg{{category.url}} title-circle" (click)="selectCategory(category, {})" [ngClass]="category.productsActives != 0 ?  'active-category': ''">
+      <div class="left-container-category">
+
+        <div class="icon-container">
+          <span [ngClass]="category.icon"></span>
+        </div>
+        <a class="gtmMegaMeCateg{{category.url}}">
+          <span></span>
+          <label>{{ category.name }}</label>
+        </a>
+      </div>
+      <span class="icon-arrow"></span>
+
     </div>
-    <div class="sub-categories">
+    <div class="sub-categories hidden flag">
+      <div class="title-category-container">
+        <label>{{ category.name }}</label>
+      </div>
+      <div class="mobile-all-container" (click)="selectCategory(category, {})">
+          <a class="gtmMegaMeCateg{{category.url}}">
+            <label>Ver todos</label>
+          </a>
+      </div>
       <ul>
         <li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories"
           (click)="selectCategory(category, subcategory)">
@@ -24,3 +43,4 @@
     </div>
   </div>
 </div>
+

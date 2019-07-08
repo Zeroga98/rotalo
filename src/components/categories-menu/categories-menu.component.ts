@@ -1,7 +1,7 @@
 import { CategoriesService } from './../../services/categories.service';
 import { SubcategoryInterface } from './../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../commons/interfaces/category.interface';
-import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTES } from './../../router/routes';
 import { NavigationTopService } from '../navigation-top/navigation-top.service';
@@ -18,6 +18,7 @@ export class CategoriesMenuComponent implements OnInit {
   @Output() closeMenu = new EventEmitter();
 
   categories: any;
+  activeCategory: any = false;
 
   constructor(
     private router: Router,
@@ -29,6 +30,7 @@ export class CategoriesMenuComponent implements OnInit {
   ngOnInit() {
     if (this.categoriesService.getCategoriesActive()) {
       this.categories = this.categoriesService.getCategoriesActive();
+      
     } else {
       this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
         this.categories = response;
@@ -39,25 +41,83 @@ export class CategoriesMenuComponent implements OnInit {
     }
     this.changeDetectorRef.markForCheck();
     this.clickCloseMenu();
+
+    if(document.getElementsByClassName("categories-container").length > 1){
+      document.getElementsByClassName("categories-container")[1].classList.add("categories-container-mobile")
+    }
   }
 
-  selectCategory(category: any, subCategory: any) {
-    if (category.productsActives != 0 || subCategory && subCategory.productsActives &&  subCategory.productsActives != 0) {
-      this.clickCloseMenu();
-      category.subCategory = subCategory;
-      this.navigationTopService.changeCategory(category);
-      if (category.subCategory && category.subCategory.id) {
-        this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], {queryParams: {product_category_id : category.id, product_subcategory_id: category.subCategory.id}});
-      } else  {
-        this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], {queryParams: {product_category_id : category.id}});
-      }
+  showSubCategories(index:String){
+    if(screen.width > 900){
+      let element = document.getElementById("category"+index).querySelector(".flag")
+      element.classList.remove("hidden");
+    }else{
+      let element = document.getElementsByClassName("categories-container-mobile")[0].querySelector("#category"+index).querySelector(".flag")
+      element.classList.remove("hidden");
     }
-    this.productsService.productsFilter = [];
-    this.productsService.currentPageFilter = 1;
+  }
+
+  hideSubCategories(index:String){
+    if(screen.width > 900){
+      let element = document.getElementById("category"+index).querySelector(".flag")
+      element.classList.add("hidden");
+    }else{
+      let element = document.getElementsByClassName("categories-container-mobile")[0].querySelector("#category"+index).querySelector(".flag")
+      element.classList.add("hidden");
+    }
+  }
+
+
+  selectCategory(category: any, subCategory: any) {
+    if(screen.width > 900){
+      if(subCategory.productsActives != 0){
+
+        if (category.productsActives != 0 || subCategory && subCategory.productsActives &&  subCategory.productsActives != 0) {
+          this.clickCloseMenu();
+          category.subCategory = subCategory;
+          this.navigationTopService.changeCategory(category);
+          if (category.subCategory && category.subCategory.id) {
+            
+            this.router.navigate([
+              `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+            ], {queryParams: {product_category_id : category.id, product_subcategory_id: category.subCategory.id}});
+            
+          } else {
+            this.router.navigate([
+              `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+            ], {queryParams: {product_category_id : category.id}});
+          }
+        }
+        this.productsService.productsFilter = [];
+        this.productsService.currentPageFilter = 1;
+      }
+    }else{
+      if(this.activeCategory){
+        
+        if(subCategory.productsActives != 0){
+
+          if (category.productsActives != 0 || subCategory && subCategory.productsActives &&  subCategory.productsActives != 0) {
+            this.clickCloseMenu();
+            category.subCategory = subCategory;
+            this.navigationTopService.changeCategory(category);
+            if (category.subCategory && category.subCategory.id) {
+              this.router.navigate([
+                `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+              ], {queryParams: {product_category_id : category.id, product_subcategory_id: category.subCategory.id}});
+            } else  {
+              this.router.navigate([
+                `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
+              ], {queryParams: {product_category_id : category.id}});
+            }
+          }
+        }
+        this.productsService.productsFilter = [];
+        this.productsService.currentPageFilter = 1;
+      }else{
+        this.activeCategory=true;
+      }
+      
+    }
   }
 
   selectSubCategory(subCategory: any, category: any ) {

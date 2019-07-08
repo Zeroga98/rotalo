@@ -5,6 +5,9 @@
         width: 100%;
         height: 40px;
     }
+    .menu-mobile-title{
+        display: none;
+    }
 
     .button-close-modal {
         position: absolute;
@@ -28,43 +31,254 @@
     }
 
     .categories-container{
-        display: inline-flex;
-        flex-direction: column;
-        flex-wrap: wrap;
+
         width: 100%;
-        height: 50rem;
+        /* height: 50rem; */
         max-width: 100%;
-        padding: 2rem;
+        padding: 1.5rem 0rem;
+        font-weight: 100;
+        // background: black;
+
+        .icon-container{
+            
+            // background: #5e5e00;
+            width: 2.5rem;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-arrow{
+            font-size: .5rem;
+            transform: rotate(270deg);
+        }
+
+        .left-container-category{
+            display: flex;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 900px){
+                    
+            .menu-mobile-title{
+                display: block;
+                font-size: 1.6rem;
+                font-weight: bold;
+                color: #333;
+                padding: 2px 10px 18px 20px;
+            }
+        }
 
         .category{
-            margin-bottom: 1rem;
+            // margin-bottom: 0.5rem;
             .title-circle{
-                background: #DFDFDF;
+                // background: #DFDFDF;
                 color: #9F9F9F;
                 display: inline-flex;
-                padding: .5rem 1rem;
-                border-radius: 2rem;
-                margin-bottom: 1rem;
+                /* padding: .5rem .5rem !important; */
+                /* margin: 0.8rem 0rem; */
                 cursor: pointer;
                 min-width: 10rem;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
-                color:white;
+                width: 100%;
+                /* background: black; */
+                padding: 1rem 2rem;
+                @media screen and (max-width: 900px){
+
+                    border: solid;
+                    border-width: 0px;
+                    border-bottom-width: 0.1rem;
+                    border-color: #e2e2e2;
+                    background: #f8f8f8;
+
+                }
                 label{
-                  cursor: pointer;
-                  font-size: 1.7rem;
+                  font-size: 1.6rem;
                   margin-left: 1rem;
                 }
-
+                
             }
-            .sub-categories{
-                ul{
-                    padding:0;
-                    li{
-                        font-size: 1.4rem;
-                        color: #9B9B9B;
+            
+            .icon-container{
+                
+                .icon-bike{
+                    background: url(../../assets/img/iconos/iconos_categorias/deportes.svg) no-repeat;
+                    width: 3rem;
+                    height: 1.6rem;
+                }
+                .icon-electro{
+                    background: url(../../assets/img/iconos/iconos_categorias/electrodomésticos.svg) no-repeat;
+                    width: 1.6rem;
+                    height: 1.7rem;
+                }
+                .icon-apple{
+                    background: url(../../assets/img/iconos/iconos_categorias/alimentacion.svg) no-repeat;
+                    width: 1.6rem;
+                    height: 1.7rem;
+                }
+                .icon-sofa{
+                    background: url(../../assets/img/iconos/iconos_categorias/hogar_y_decoracion.svg) no-repeat;
+                    width: 1.8rem;
+                    height: 1.7rem;
+                }
+                .icon-phone{
+                    background: url(../../assets/img/iconos/iconos_categorias/tecnología.svg) no-repeat;
+                    width: 1.6rem;
+                    height: 2rem;
+                }
+                .icon-car{
+                    background: url(../../assets/img/iconos/iconos_categorias/vehículos.svg) no-repeat;
+                    width: 1.9rem;
+                    height: 1.7rem;
+                }
+                .icon-house{
+                    background: url(../../assets/img/iconos/iconos_categorias/inmuebles.svg) no-repeat;
+                    width: 1.9rem;
+                    height: 1.9rem;
+                }
+                .icon-baby{
+                    background: url(../../assets/img/iconos/iconos_categorias/bebes.svg) no-repeat;
+                    width: 1.6rem;
+                    height: 1.7rem;
+                }
+                .icon-star{
+                    background: url(../../assets/img/iconos/iconos_categorias/SERVICIOS_Y_MAQUINARIA.svg) no-repeat;
+                    width: 1.6rem;
+                    height: 1.7rem;
+                }
+                .icon-shop{
+                    background: url(../../assets/img/iconos/iconos_categorias/Moda_y_accesorios.svg) no-repeat;
+                    width: 1.5rem;
+                    height: 1.1rem;
+                }
+                @media screen and (max-width: 900px){
+                    .icon-bike{
+                        background: url(../../assets/img/iconos/iconos_categorias/deportes_hover.svg) no-repeat;
+                    }
+                    .icon-electro{
+                        background: url(../../assets/img/iconos/iconos_categorias/electrodomésticos_hover.svg) no-repeat;
+                    }
+                    .icon-apple{
+                        background: url(../../assets/img/iconos/iconos_categorias/alimentacion_hover.svg) no-repeat;
+                    }
+                    .icon-sofa{
+                        background: url(../../assets/img/iconos/iconos_categorias/hogar_y_decoracion_hover.svg) no-repeat;
+                    }
+                    .icon-phone{
+                        background: url(../../assets/img/iconos/iconos_categorias/tecnología_hover.svg) no-repeat;
+                    }
+                    .icon-car{
+                        background: url(../../assets/img/iconos/iconos_categorias/vehículos_hover.svg) no-repeat;
+                    }
+                    .icon-house{
+                        background: url(../../assets/img/iconos/iconos_categorias/inmuebles_hover.svg) no-repeat;
+                    }
+                    .icon-baby{
+                        background: url(../../assets/img/iconos/iconos_categorias/bebes_hover.svg) no-repeat;
+                    }
+                    .icon-star{
+                        background: url(../../assets/img/iconos/iconos_categorias/SERVICIOS_Y_MAQUINARIA_hover.svg) no-repeat;
+                    }
+                    .icon-shop{
+                        background: url(../../assets/img/iconos/iconos_categorias/Moda_y_accesorios_hover.svg) no-repeat;
+                    }
+                }
+            }
+
+            .active-category{
+                color: #333333;
+                label{                    
+                  cursor: pointer;
+                }
+                @media screen and (max-width: 900px){
+                    background: #f8f8f8;
+                }
+                &:hover{
+                    background: #f8f8f8;
+                    .icon-arrow{
                         font-weight: bold;
+                    }
+                    label{
+                        font-weight: bold;
+                    }
+                    .icon-container{
+                        .icon-bike{
+                            background: url(../../assets/img/iconos/iconos_categorias/deportes_hover.svg) no-repeat;
+                        }
+                        .icon-electro{
+                            background: url(../../assets/img/iconos/iconos_categorias/electrodomésticos_hover.svg) no-repeat;
+                        }
+                        .icon-apple{
+                            background: url(../../assets/img/iconos/iconos_categorias/alimentacion_hover.svg) no-repeat;
+                        }
+                        .icon-sofa{
+                            background: url(../../assets/img/iconos/iconos_categorias/hogar_y_decoracion_hover.svg) no-repeat;
+                        }
+                        .icon-phone{
+                            background: url(../../assets/img/iconos/iconos_categorias/tecnología_hover.svg) no-repeat;
+                        }
+                        .icon-car{
+                            background: url(../../assets/img/iconos/iconos_categorias/vehículos_hover.svg) no-repeat;
+                        }
+                        .icon-house{
+                            background: url(../../assets/img/iconos/iconos_categorias/inmuebles_hover.svg) no-repeat;
+                        }
+                        .icon-baby{
+                            background: url(../../assets/img/iconos/iconos_categorias/bebes_hover.svg) no-repeat;
+                        }
+                        .icon-star{
+                            background: url(../../assets/img/iconos/iconos_categorias/SERVICIOS_Y_MAQUINARIA_hover.svg) no-repeat;
+                        }
+                        .icon-shop{
+                            background: url(../../assets/img/iconos/iconos_categorias/Moda_y_accesorios_hover.svg) no-repeat;
+                        }
+                    }
+                }
+            }
+
+            .sub-categories{
+                background: #f8f8fb;
+                position: absolute;
+                width: 32.5rem;
+                right: -32.5rem;
+                top: -0.1rem;
+                min-height: 42.2rem;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0.4rem;
+                padding: 1.9rem .8rem .9rem .8rem;
+
+                .mobile-all-container{
+                    display: none
+                }
+
+                .title-category-container{
+                    height: 30px;
+                    width: 100%;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #333;
+                    padding-left: 1.1rem;
+                    padding-top: 1rem;
+                    padding-bottom: 4rem;
+                    border: solid;
+                    border-width: 0px;
+                    border-bottom-width: 1px;
+                    border-style: dashed;
+                    border-color: #a2a2a2;
+                }
+
+                ul{
+                    padding: 1.1rem;
+                    li{
+                        font-size: 1.6rem;
+                        color: #333;
+                        padding: .5rem 0rem;
                         cursor: pointer;
+                        &:hover{
+                            font-weight: bold;
+                            color:#433490
+                        }
                     }
                     a.disabled{
                       cursor: auto;
@@ -72,19 +286,83 @@
                       font-weight: normal;
                     }
                 }
+
+                @media screen and (max-width: 900px){
+                    background: #f8f8fb;
+                    position: absolute;
+                    z-index: 2000000;
+                    margin-top: 5.3rem;
+                    /* width: 32.5rem; */
+                    width: 100%;
+                    right: 0rem;
+                    top: 0rem;
+                    min-height: 100%;
+                    border-radius: 0rem;
+                    padding: 0rem;
+
+                    .mobile-all-container{
+                        display: block;
+                        padding: 1.2rem 1rem 1.5rem 2.6rem;
+                        font-size: 1.6rem;
+                        color: #333;
+                        cursor: pointer;
+                        border: solid;
+                        border-width: 0px;
+                        border-bottom-width: .1rem;
+                        border-color: #E2E2E2;
+                    }
+
+                    .title-category-container{
+                        // height: 30px;
+                        // width: 100%;
+                        background: #fff;
+                        font-size: 1.6rem;
+                        font-weight: bold;
+                        color: #333;
+                        padding: 1.5rem 1rem 3.6rem 2.4rem;
+                        border: solid;
+                        border-width: 0px;
+                        box-shadow: inset 0px 4px 9px -5px rgba(0, 0, 0, 0.16);
+                    }
+
+                    ul{
+                        padding:0rem;
+                        li{
+                            font-size: 1.6rem;
+                            color: #333;
+                            padding: 1.2rem 1rem 1.5rem 2.6rem;
+                            cursor: pointer;
+                            border: solid;
+                            border-width: 0px;
+                            border-bottom-width: 1px;
+                            border-color: #E2E2E2;
+                        }
+                    }
+                }
             }
         }
-
-    }
-}
-
-@media screen and (max-width: 1150px){
-    :host{
-        .categories-container{
-            height: 70rem;
+        &:hover{
+            font-weight: 100;
         }
+
     }
 }
+
+.hidden {
+    display: none;
+}
+
+// .show {
+//     display: block;
+// }
+
+// @media screen and (max-width: 1150px){
+//     :host{
+//         .categories-container{
+//             height: 70rem;
+//         }
+//     }
+// }
 
 @media screen and (max-width: 750px){
     :host{
