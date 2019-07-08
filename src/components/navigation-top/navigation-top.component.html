@@ -31,11 +31,16 @@
       <div class="divisor-right">
         <ul class="list-options">
           <li class="desktop">
-            <a class="gtmCategorias categories" #closeMenu (click)="openCategories($event)">
-              <span>
-                Categorías
-              </span>
-            </a>
+            <div class="categories-sub-container">
+                <a class="gtmCategorias categories" #closeMenu  (mouseenter)="openCategories($event)">
+                  <span>
+                    Categorías
+                  </span>
+                </a>
+                <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)"
+    (subCategorySelected)="selectedSubCategory($event)" (mouseleave)="_closeMenu()" (closeMenu)="_closeMenu()"></categories-menu>
+
+            </div>
           </li>
 
           <li class="desktop">
@@ -253,9 +258,7 @@
     </div>
   </div>
   <div class="back-categories" (click)="_closeMenu()" id="back-categories"></div>
-  <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)"
-    (subCategorySelected)="selectedSubCategory($event)" (closeMenu)="_closeMenu()"></categories-menu>
-
+  
   <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
     <div class="search-container-mobile">
       <div (click)="openSearch()" class="back-arrow"></div>
