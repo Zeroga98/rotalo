@@ -210,6 +210,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
 import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/updateTrackingNumber/updateTrackingNumber.component';
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { ModalReactivateUserComponent } from '../components/modal-reactivate-user/modal-reactivate-user.component';
+import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
 
 @NgModule({
   declarations: [
@@ -342,7 +343,8 @@ import { ModalReactivateUserComponent } from '../components/modal-reactivate-use
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
-    ModalReactivateUserComponent
+    ModalReactivateUserComponent,
+    ModalReactivateUserSuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -462,7 +464,8 @@ import { ModalReactivateUserComponent } from '../components/modal-reactivate-use
     TermsDialogComponent,
     ModalDeleteProductComponent,
     UpdateTrackingNumberComponent,
-    ModalReactivateUserComponent]
+    ModalReactivateUserComponent,
+    ModalReactivateUserSuccessComponent]
 })
 
 export class AppModule { }

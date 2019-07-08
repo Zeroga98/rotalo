@@ -8,6 +8,7 @@ import { ProductsService } from '../../services/products.service';
 import { TypeDocumentsService } from '../../services/type-documents.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalReactivateUserComponent } from '../../components/modal-reactivate-user/modal-reactivate-user.component';
+import { ModalReactivateUserSuccessComponent } from '../../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
 
 function validateNameUser(
   name: AbstractControl
@@ -47,6 +48,7 @@ export class HomePage implements OnInit {
   public errorMessageDoc;
   public country = 'Colombia';
   public userEmail = '';
+  public showReactivateModal = false;
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -87,6 +89,9 @@ export class HomePage implements OnInit {
     } else {
       this.loadTypeDocument(1);
       this.country = 'Colombia';
+    }
+    if (this.currentUrl.includes('email') && this.currentUrl.includes('code')) {
+      this.getUrlParameters(this.currentUrl);
     }
     this.setValidationPhone(this.country);
     // this.openModalDeleteProduct();
@@ -354,6 +359,43 @@ export class HomePage implements OnInit {
 
   showVideo(id: string) {
     this.modalService.open(id);
+  }
+
+  getUrlParameters(url) {
+    let data;
+    let email = '';
+    let code = '';
+    data = url.split('?');
+    data = data[1];
+    data = data.split('&');
+    data[0] = data[0].split('email=');
+    data[1] = data[1].split('code=');
+    email = data[0][1];
+    email = email.replace('%20', '+');
+    code = data[1][1];
+    this.validateParametersUrl(email, code);
+  }
+
+
+  validateParametersUrl(email, code) {
+    if (true) {
+      this.openDialogReactivateSuccess();
+    }
+  }
+
+  openDialogReactivateSuccess(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    // dialogConfig.height = '600px';
+    dialogConfig.width = '55%';
+    dialogConfig.disableClose = true;
+    // dialogConfig.autoFocus = false;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalReactivateUserSuccessComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // this.onSubmit();
+    });
   }
 
 }

@@ -136,7 +136,6 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     dialogConfig.disableClose = true;
  //   dialogConfig.autoFocus = false;
     dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
-    console.log(dialogConfig);
     const dialogRef = this.dialog.open(ModalReactivateUserComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       // this.onSubmit();

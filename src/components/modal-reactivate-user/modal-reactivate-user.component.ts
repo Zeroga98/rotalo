@@ -15,10 +15,7 @@ export class ModalReactivateUserComponent implements OnInit, AfterViewInit {
     private eleRef: ElementRef,
     private dialogRef: MatDialogRef<ModalReactivateUserComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
-    console.log(MAT_DIALOG_DATA);
-    console.log(data);
     this.email = data;
-    console.log(this.email);
   }
 
   ngOnInit() {
