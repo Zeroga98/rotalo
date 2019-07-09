@@ -360,6 +360,7 @@ export class AdminBannersComponent implements OnInit {
 
   }
 
+
   uploadBannerColombia () {
     this.successChange = false;
     this.errorChange = '';
