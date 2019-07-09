@@ -31,14 +31,14 @@
       <div class="divisor-right">
         <ul class="list-options">
           <li class="desktop">
-            <div class="categories-sub-container">
+            <div class="categories-sub-container" (mouseleave)="_closeMenu()">
                 <a class="gtmCategorias categories" #closeMenu  (mouseenter)="openCategories($event)">
                   <span>
                     Categorías
                   </span>
                 </a>
                 <categories-menu #categoriesMenu (categorySelected)="selectedCategory($event)"
-    (subCategorySelected)="selectedSubCategory($event)" (mouseleave)="_closeMenu()" (closeMenu)="_closeMenu()"></categories-menu>
+    (subCategorySelected)="selectedSubCategory($event)" (closeMenu)="_closeMenu()"></categories-menu>
 
             </div>
           </li>
