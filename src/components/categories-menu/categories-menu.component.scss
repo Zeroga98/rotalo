@@ -257,6 +257,7 @@
                 border-bottom-left-radius: 0px;
                 border-bottom-right-radius: 0.4rem;
                 padding: 1.9rem .8rem .9rem .8rem;
+                box-shadow: inset 2px 0px 4px 1px rgba(0,0,0,0.21);
 
                 .mobile-all-container{
                     display: none
@@ -360,8 +361,8 @@
 
 
 .bridge-submenu {
-    height: 100px;
-    width: 100px;
+    height: 5rem;
+    width: 10rem;
     background: #ffff0000;
     position: absolute;
     top: -41px;
