@@ -211,7 +211,7 @@
         //margin: 0 0rem 1.5rem 0rem;
         border: 1px solid #e2e2e2;
         background-color: #FAFAFA;
-        border-radius: 5px;    
+        border-radius: 5px;
         margin: 6px 6px;
       }
 
@@ -1139,32 +1139,16 @@ div.banner-latienda {
     position: relative;
   }
 
-<<<<<<< HEAD
-  .div-logo-tienda {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
   .img-logo-tienda {
-    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, .29);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .29);
     border-radius: 5px;
     margin-left: 60px;
     cursor: pointer;
-    max-height: 145px;
-    min-width: 145px;
-  }
-=======
-.img-logo-tienda{
-  box-shadow: 0 3px 6px 0 rgba(0,0,0,.29);
-  border-radius: 5px;
-  margin-left: 60px;
-  cursor: pointer;
     min-width: 110px;
     min-height: 93px;
     max-width: 110px;
     max-height: 93px;
-}
->>>>>>> 58e07bcb2086ae82ba6fea62e27171566c89c7c5
+  }
 }
 
 div.div-banners-promo {
@@ -1204,14 +1188,14 @@ div.div-banners-promo {
   font-size: 14px !important;
 }
 
-.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple){
-  background: rgba(0,0,0,.04) !important;
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background: rgba(0, 0, 0, .04) !important;
 }
 
 .mat-option.mat-selected:not(.mat-option-multiple) {
-  background: rgba(0,0,0,.04) !important;
+  background: rgba(0, 0, 0, .04) !important;
 }
 
-.mat-option.mat-selected:not(.mat-option-disabled){
+.mat-option.mat-selected:not(.mat-option-disabled) {
   color: #383838;
 }
