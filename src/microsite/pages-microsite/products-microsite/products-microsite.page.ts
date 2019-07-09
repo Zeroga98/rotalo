@@ -111,6 +111,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public selected = this.orderBy[0];
 
   public carouselProductsConfig: NgxCarousel;
+  buttonNameFilter: any;
+  showFilterResponsive: boolean;
 
   constructor(
     private productsMicrositeService: ProductsMicrositeService,
@@ -154,6 +156,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
 
+    this.showToFilter();
   }
 
   ngOnDestroy(): void {
@@ -318,6 +321,15 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       'filter[city]': city.id,
       'filter[state]': undefined
     });
+  }
+
+  showToFilter() {
+    this.showFilterResponsive =
+      !this.buttonNameFilter || this.buttonNameFilter === 'Aplicar';
+    this.buttonNameFilter =
+      !this.buttonNameFilter || this.showFilterResponsive
+        ? 'Filtros'
+        : 'Aplicar';
   }
 
   getPage(page: number) {
