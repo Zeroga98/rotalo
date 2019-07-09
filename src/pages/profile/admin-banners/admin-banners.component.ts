@@ -149,7 +149,8 @@ export class AdminBannersComponent implements OnInit {
       'id-photo-mobile': [banner['id-photo-mobile'], [Validators.required]],
       'url-photo-desktop': [banner['url-photo-desktop'], [Validators.required]],
       'url-photo-mobile': [banner['url-photo-mobile'], [Validators.required]],
-      'communities-ids': [banner['communities-ids'], [Validators.required]],
+      'communities-ids': [banner['communities-ids']],
+      'states-ids': [banner['states-ids']]
     });
   }
 
@@ -357,6 +358,9 @@ export class AdminBannersComponent implements OnInit {
         element.patchValue({ 'communities-ids': result });
       }
     });
+  }
+
+  openDialogState(country, element): void {
 
   }
 
