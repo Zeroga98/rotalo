@@ -77,7 +77,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public categoryName;
   public subcategory;
   public subcategoryName;
-  public  params;
+  public params;
 
   public otherFilter = {
     vehicle_airbag: false,
@@ -138,7 +138,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
     //this.location = window.location.href;
     //this.getShowBanner(this.location)     
-    
+
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
@@ -151,7 +151,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-    
+
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
@@ -417,7 +417,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
     //if (this.isSuperUser()) {
-      return { 'number': numberPage };
+    return { 'number': numberPage };
     //}
     //return { 'page[number]': numberPage };
   }
@@ -528,7 +528,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_category_id : category.id}});*/
 
-  
+
   public filterByCategory(categoryId: String, name: String) {
     this.changeBanner(categoryId);
     this.category = categoryId;
@@ -538,18 +538,17 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.scrollToTop();
   }
 
-  public changeBanner(category){
+  public changeBanner(category) {
     var i;
     this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     this.showBannersPromo = true;
     this.showBannerPrincipal = true;
     this.showLogo = false;
     this.showBannerPrincipal = true;
-    for(i=0; i < this.bannersCategoriaForm.get('bannersCategoria').controls.length; i++){
+    for (i = 0; i < this.bannersCategoriaForm.get('bannersCategoria').controls.length; i++) {
       let cat = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['idCategoria'].value;
-      
-      if(category == cat)
-      {
+
+      if (category == cat) {
         this.srcBannerHomeTienda = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'].value;
         this.showBannersPromo = false;
         this.showBannerPrincipal = true;
@@ -596,13 +595,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public checkKilometers(operacionLogica , kilometer){
+  public checkKilometers(operacionLogica, kilometer) {
     this.showBannersPromo = false;
     kilometer = kilometer.split('.').join('');
     if (operacionLogica != '-') {
       kilometer = operacionLogica + kilometer;
     }
-    if(this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer){
+    if (this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer) {
       return true;
     }
     return false;
@@ -629,7 +628,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
 
   public filterByMileage(operacionLogica, mileage: string) {
     this.showBannersPromo = false;
-    if(mileage) {
+    if (mileage) {
       mileage = mileage.split('.').join('');
       if (operacionLogica != '-') {
         mileage = operacionLogica + mileage;
@@ -663,7 +662,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public filterByTransmission(transmission: string) {
     this.showBannersPromo = false;
     transmission = this.returnStringOption(transmission);
-    this.routineUpdateProducts({vehicle_transmission: transmission, number: 1 });
+    this.routineUpdateProducts({ vehicle_transmission: transmission, number: 1 });
     this.scrollToTop();
   }
 
@@ -677,7 +676,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public filterByLicensePlate(licensePlate: string) {
     this.showBannersPromo = false;
     licensePlate = this.returnStringOption(licensePlate);
-    this.routineUpdateProducts({vehicle_license_plate: licensePlate, number: 1 });
+    this.routineUpdateProducts({ vehicle_license_plate: licensePlate, number: 1 });
     this.scrollToTop();
   }
 
@@ -767,7 +766,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts({ fashion_gender_id: genderId, number: 1 });
     this.scrollToTop();
   }
-  
+
   public filterBySizeClothes(sizeId) {
     this.routineUpdateProducts({ fashion_size_id: sizeId, number: 1 });
     this.scrollToTop();
@@ -787,20 +786,20 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
   }*/
 
-  loadBanners(){
+  loadBanners() {
     this.settingsService.getBannersShop(1).subscribe(response => {
       if (response.body) {
-      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
-      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
-      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
+        if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
+        if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
+        if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
-      
+
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     });
   }
 
   private getInitialConfigHomeShop() {
-    const config =  {
+    const config = {
       'idLogo': '',
       'urlLogo': '',
       'idBannerDesktop': '',
@@ -900,21 +899,21 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     return bannersCategoria;
   }
 
-  goHomeStore(){
+  goHomeStore() {
     const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
     var categoria = document.createElement("a");
     categoria.href = routeHome;
     categoria.click();
   }
 
-  redirectLink(url){
+  redirectLink(url) {
     var categoria = document.createElement("a");
     categoria.target = "_blank";
     categoria.href = url;
     categoria.click();
   }
 
-  redirectCategory (categoria: String){
+  redirectCategory(categoria: String) {
     this.filterByCategory(categoria, '');
   }
 
