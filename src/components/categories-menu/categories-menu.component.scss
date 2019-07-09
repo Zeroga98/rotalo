@@ -9,6 +9,16 @@
         display: none;
     }
 
+    .separator-block{
+        display: none;
+        @media screen and (max-width: 900px){
+            display: block;
+            width: 100%;
+            height: 5.2rem;
+            background: #ffff0000;
+        }
+    }
+
     .button-close-modal {
         position: absolute;
         top: 8px;
@@ -307,7 +317,7 @@
                         color: #333;
                         cursor: pointer;
                         border: solid;
-                        border-width: 0px;
+                        border-width: 0rem;
                         border-bottom-width: .1rem;
                         border-color: #E2E2E2;
                     }
@@ -348,6 +358,17 @@
     }
 }
 
+
+.bridge-submenu {
+    height: 100px;
+    width: 100px;
+    background: #ffff0000;
+    position: absolute;
+    top: -41px;
+    right: 0px;
+}
+  
+
 .hidden {
     display: none;
 }
@@ -364,13 +385,13 @@
 //     }
 // }
 
-@media screen and (max-width: 750px){
-    :host{
-        .categories-container{
-            height: 100rem;
-        }
-    }
-}
+// @media screen and (max-width: 750px){
+//     :host{
+//         .categories-container{
+//             height: 100rem;
+//         }
+//     }
+// }
 
 @media screen and (max-width: 500px){
     :host{
