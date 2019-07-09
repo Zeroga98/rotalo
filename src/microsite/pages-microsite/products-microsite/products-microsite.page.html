@@ -52,7 +52,7 @@
     
     <aside class="accordion" *ngIf="filter" [ngClass]="{'active': !showFilterResponsive}">
       <div class="filters">
-        <div class="title-filter">
+        <div class="title-filter" *ngIf="categoryName || subcategoryName">
           <div *ngIf="showFilterResponsive">
             <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
             <p class="category" *ngIf="category">{{category.name}}
@@ -60,7 +60,6 @@
                 {{category.subCategory.name}}</span>
             </p>
           </div>
-          <p class="bold" *ngIf="!categoryName">Filtros</p>
           <p *ngIf="categoryName">{{categoryName}} <span class="bold" *ngIf="subcategoryName"> - {{subcategoryName}}</span></p>
         </div>
         <div class="ac-container">
