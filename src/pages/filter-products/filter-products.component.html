@@ -198,9 +198,7 @@
             </article>
           </div>
 
-          <div *ngIf="filter.filtroModelo
-          && category && category.subCategory && category.subCategory.name == 'Carros'
-          || category && category.subCategory && category.subCategory.name == 'Motos'" class="option">
+          <div *ngIf="filter.filtroModelo" class="option">
             <input [checked]="currentFilter && currentFilter['vehicle_line_id']" id="ac-7" name="accordion-1"
               type="checkbox" />
             <label for="ac-7">Modelo<div class="icon"></div></label>
