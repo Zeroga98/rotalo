@@ -68,7 +68,32 @@
       max-width: 240px;
       border-radius: 25px;
     }
+    
+    .btn-item{
+      background-color:white;
+      padding: 9px;
+      width: 100%;
+      min-width: 203px;
+      min-height: 44px;
+      color: #FF3646;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.6rem;
+      border: 1px solid #FF3646;
+      border-radius: 22px;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+      &:hover {
+        background-color: #FF3646;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    
   }
+
+
 
   .close-container {
     position: absolute;

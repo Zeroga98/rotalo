@@ -195,8 +195,12 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
             if (response.status === 800) {
               this.errorLogin = 'Tu cuenta fue desactivada, comunícate con info@rotalo.com.co para darte más información.';
               this.changeRef.markForCheck();
-              this.openDialogReactivate();
             }
+            if (response.status === 801) {
+              this.openDialogReactivate();
+              //this.changeRef.markForCheck();
+            }
+            
             if (response.status === 9999) {
               this.openDialog();
             }
