@@ -1,0 +1,405 @@
+:host {
+  min-height: 420px;
+
+  .modal-container {
+    /*   position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);*/
+    position: relative;
+    padding: 30px 0;
+
+    &.modal-container-btn {
+        padding-top: 0;
+    }
+  }
+
+  .description {
+    p {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #272727;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  .sub-description {
+    p {
+      font-size: 2rem;
+      color: #808080;
+      text-align: center;
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 15px;
+    }
+  }
+
+  .icon-question {
+    width: 160px;
+    height: 160px;
+    background: url(../../assets/img/ic_mico_sonriente.svg);
+    background-size: 160px 160px;
+    margin: 0 auto;
+  }
+
+  .icon-success {
+    width: 160px;
+    height: 160px;
+    background: url(../../assets/img/ic_mico_alegre.svg);
+    background-size: 160px 160px;
+    margin: 0 auto;
+  }
+
+  .icon-close {
+    line-height: 25px;
+    color: #A2A2A2;
+    cursor: pointer;
+  }
+
+  .btn-container {
+    text-align: center;
+
+    button {
+      width: 100%;
+      height: 40px;
+      max-width: 240px;
+      border-radius: 25px;
+    }
+    
+    .btn-item{
+      background-color:white;
+      padding: 9px;
+      width: 100%;
+      min-width: 203px;
+      min-height: 44px;
+      color: #FF3646;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.6rem;
+      border: 1px solid #FF3646;
+      border-radius: 22px;
+      justify-content: center;
+      align-items: center;
+      margin: 5px;
+      &:hover {
+        background-color: #FF3646;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    
+  }
+
+
+
+  .close-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .button-close-modal {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: white;
+    border: 2px solid #A2A2A2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+
+    p {
+      font-size: 2rem;
+      color: #A2A2A2;
+      line-height: 1;
+      font-weight: bold;
+    }
+
+    &:hover {
+      border: 2px solid #707070;
+
+      .icon-close {
+        color: #707070;
+      }
+    }
+  }
+}
+
+.mat-fab.mat-primary,
+.mat-flat-button.mat-primary,
+.mat-mini-fab.mat-primary,
+.mat-raised-button.mat-primary {
+  background-color: #FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+
+  &:hover {
+    background-color: #FF4655;
+  }
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: #FF3646;
+
+  &:hover {
+    background-color: #FF3646;
+    color: white;
+  }
+}
+
+.mat-stroked-button {
+  color: #FF3646;
+  font-family: 'Lato Regular';
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.material-design {
+  margin: 0 auto;
+  width: 460px;
+}
+
+.material-design {
+  .success {
+    text-align: center;
+    color: #0FBBD8;
+    font-size: 2.2rem;
+  }
+
+  .label-title {
+    color: #383838;
+    font-size: 1.8rem;
+    padding: 10px 0;
+    display: block;
+  }
+
+  .form-control {
+    color: #383838;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #707070;
+  }
+
+  select.form-control {
+    padding-left: 0;
+  }
+
+  .error-msg {
+    padding-left: 0px;
+  }
+
+  .row-section {
+    border-bottom: #d0d0d0 dashed 1px;
+    padding: 20px 0;
+  }
+
+  textarea.form-control {
+    border: 1px solid #A2A2A2;
+    border-radius: 10px;
+    height: 90px;
+    resize: none;
+    font-size: 1.8rem;
+    color: #B0B0B0;
+  }
+
+  ::-webkit-input-placeholder {
+    color: #A2A2A2;
+    font-size: 1.7rem;
+  }
+
+  ::-moz-placeholder {
+    color: #A2A2A2;
+    font-size: 1.7rem;
+  }
+
+  :-ms-input-placeholder {
+    color: #A2A2A2;
+    font-size: 1.7rem;
+  }
+
+  :-moz-placeholder {
+    color: #A2A2A2;
+    font-size: 1.7rem;
+  }
+
+}
+
+.form-theme .material-design .form-control.ng-touched.ng-invalid,
+.form-theme .material-design select.ng-touched.ng-invalid {
+  border-color: #ED2F3C;
+}
+
+.form-theme .material-design select:focus {
+  border-bottom: 2px solid #0FBBD8;
+}
+
+.material-design .error-price input.ng-valid {
+  border-color: #ED2F3C;
+}
+
+.form-theme .material-design textarea.form-control:focus,
+.form-theme .material-design input[type=text]:focus,
+.form-theme .material-design .input-price:focus {
+  border-color: #0FBBD8;
+}
+
+
+.material-design {
+  @keyframes ripple {
+    0% {
+      box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0);
+    }
+
+    50% {
+      box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    100% {
+      box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0);
+    }
+  }
+
+  .md-radio {
+    margin: 15px 0;
+  }
+
+  .md-radio.md-radio-inline {
+    display: inline-block;
+  }
+
+  .md-radio input[type="radio"] {
+    display: none;
+  }
+
+  .md-radio input[type="radio"]:checked+label:before {
+    border-color: #0FBBD8;
+    animation: ripple 0.2s linear forwards;
+  }
+
+  .md-radio input[type="radio"]:checked+label:after {
+    transform: scale(1);
+  }
+
+  .md-radio label {
+    display: inline-block;
+    position: relative;
+    padding: 0 30px;
+    margin-bottom: 0;
+    color: #B0B0B0;
+    font-size: 2rem;
+    cursor: pointer;
+    vertical-align: bottom;
+  }
+
+  .md-radio label:before,
+  .md-radio label:after {
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    transition: all .3s ease;
+    transition-property: transform, border-color;
+  }
+
+  .md-radio label:before {
+    left: 0;
+    // top: 0;
+    top: 7px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+  }
+
+  .md-radio label:after {
+    // top: 4px;
+    top: 11px;
+    left: 4px;
+    width: 7px;
+    height: 7px;
+    transform: scale(0);
+    background: #0FBBD8;
+  }
+
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+}
+
+.form-theme .form-control.ng-touched.ng-invalid~.error-msg {
+  display: block;
+}
+
+/deep/ .cdk-focused .cdk-keyboard-focused {
+    background-color: white;
+}
+
+@media screen and (max-width: 950px) {
+  :host {
+    .material-design {
+      width: 100%;
+    }
+
+    .modal-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .description p {
+      width: auto;
+      font-size: 1.6rem;
+    }
+
+    .sub-description p {
+      width: auto;
+      font-size: 1.4rem;
+    }
+
+    .material-design .md-radio label {
+      font-size: 1.6rem;
+    }
+
+    .material-design textarea.form-control {
+      font-size: 1.4rem;
+    }
+
+    .material-design .md-radio label:before {
+      top: 2px;
+    }
+
+    .material-design .md-radio label:after {
+      top: 6px;
+    }
+
+  }
+}
+
+@media screen and (max-width: 500px) {
+  :host {
+
+    .modal-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .icon-question {
+      width: 120px;
+      height: 120px;
+      background: url(../../assets/img/ic_mico_sonriente.svg);
+      background-size: 120px 120px;
+    }
+
+    .icon-success {
+      width: 120px;
+      height: 120px;
+      background: url(../../assets/img/ic_mico_alegre.svg);
+      background-size: 120px 120px;
+    }
+  }
+}

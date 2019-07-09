@@ -213,6 +213,9 @@ import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/a
 import { MatSelectModule } from '@angular/material';
 
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
+import { ModalReactivateUserComponent } from '../components/modal-reactivate-user/modal-reactivate-user.component';
+import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
+
 
 @NgModule({
   declarations: [
@@ -345,8 +348,11 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     ProductsShopComponent,
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
+
     AdminBannersShopComponent,
-    PreviewProductMicrositeComponent
+    PreviewProductMicrositeComponent,
+    ModalReactivateUserComponent,
+    ModalReactivateUserSuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -383,7 +389,8 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [
     UserService,
@@ -466,7 +473,9 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     ReportPublicationComponent,
     TermsDialogComponent,
     ModalDeleteProductComponent,
-    UpdateTrackingNumberComponent]
+    UpdateTrackingNumberComponent,
+    ModalReactivateUserComponent,
+    ModalReactivateUserSuccessComponent]
 })
 
 export class AppModule { }

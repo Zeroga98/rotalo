@@ -6,12 +6,15 @@ import { ModalVideoService } from '../../components/modal-video/modal-video.serv
 import { Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { TypeDocumentsService } from '../../services/type-documents.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ModalReactivateUserComponent } from '../../components/modal-reactivate-user/modal-reactivate-user.component';
+import { ModalReactivateUserSuccessComponent } from '../../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
 
-function validateNameUser (
+function validateNameUser(
   name: AbstractControl
 ): { [key: string]: boolean } | null {
   const nameValue = name.value;
-  const arrayName = nameValue.split(' ').filter(function(v) {return v !== ''; } );
+  const arrayName = nameValue.split(' ').filter(function (v) { return v !== ''; });
   if (arrayName.length == 1) {
     return { nameError: true };
   }
@@ -29,6 +32,7 @@ export class HomePage implements OnInit {
   public readonly faqLink: string = `/${ROUTES.FAQ}`;
   public registerForm: FormGroup;
   public modalTermsIsOpen: boolean = false;
+  public modalReactivateIsOpen: boolean = false;
   public idCountry;
   public errorMessage = '';
   public showMessageEmail = false;
@@ -44,6 +48,7 @@ export class HomePage implements OnInit {
   public errorMessageDoc;
   public country = 'Colombia';
   public userEmail = '';
+  public showReactivateModal = false;
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -51,9 +56,10 @@ export class HomePage implements OnInit {
     private modalService: ModalVideoService,
     private router: Router,
     private productsService: ProductsService,
-    private typeDocumentsService: TypeDocumentsService
+    private typeDocumentsService: TypeDocumentsService,
+    public dialog: MatDialog
   ) {
-   }
+  }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -82,10 +88,13 @@ export class HomePage implements OnInit {
       this.country = 'Guatemala';
     } else {
       this.loadTypeDocument(1);
-      this.country =  'Colombia';
+      this.country = 'Colombia';
+    }
+    if (this.currentUrl.includes('email') && this.currentUrl.includes('code')) {
+      this.getUrlParameters(this.currentUrl);
     }
     this.setValidationPhone(this.country);
-
+    // this.openModalDeleteProduct();
   }
 
   setValidationPhone(country): void {
@@ -119,14 +128,14 @@ export class HomePage implements OnInit {
     }
   }
 
- loadTypeDocument(idCountry) {
+  loadTypeDocument(idCountry) {
     const countryDocument = {
       'pais': idCountry
-    } ;
+    };
     this.typeDocumentsService.getTypeDocument(countryDocument).subscribe((response) => {
       if (response.status == 0) {
         this.typeDocumentsFilter = response.body.documentType;
-       }
+      }
     }, (error) => {
       console.log(error);
     });
@@ -190,8 +199,8 @@ export class HomePage implements OnInit {
         }
         case 'Guatemala': {
           idDocumentControl.setValidators([
-           // Validators.pattern('^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'),
-           Validators.pattern('^[0-9]{13}$'),
+            // Validators.pattern('^[0-9]{4}\\s?[0-9]{5}\\s?[0-9]{4}$'),
+            Validators.pattern('^[0-9]{13}$'),
             Validators.required
           ]);
           this.errorMessageId = 'El campo no cumple el formato.';
@@ -225,12 +234,23 @@ export class HomePage implements OnInit {
   closeModal() {
     this.modalTermsIsOpen = false;
   }
+  openReactivateModal(): void {
+    this.modalReactivateIsOpen = true;
+  }
+
+  closeReactivateModal() {
+    this.modalReactivateIsOpen = false;
+  }
+
+  closeModalReactivate() {
+    this.modalTermsIsOpen = false;
+  }
 
   acceptTerms(checkbox) {
     this.registerForm.patchValue({
       'termsCheckbox': true
     });
-   // checkbox.checked = true;
+    // checkbox.checked = true;
     this.closeModal();
   }
 
@@ -277,11 +297,11 @@ export class HomePage implements OnInit {
         this.showSendEmail = true;
         this.sendTokenShareProduct();
       }
-      , error => {
-        console.log(error);
+        , error => {
+          console.log(error);
           if (error.error) {
-            if ( error.error.status == '603' || error.error.status == '604'
-            ||  error.error.status == '608' ||  error.error.status == '606') {
+            if (error.error.status == '603' || error.error.status == '604'
+              || error.error.status == '608' || error.error.status == '606') {
               this.errorMessage = error.error.message;
               this.errorMessageDoc = '';
             } else if (error.error.status == '612' || error.error.status == '613') {
@@ -339,6 +359,50 @@ export class HomePage implements OnInit {
 
   showVideo(id: string) {
     this.modalService.open(id);
+  }
+
+  getUrlParameters(url) {
+    let data;
+    let email = '';
+    let code = '';
+    data = url.split('?');
+    data = data[1];
+    data = data.split('&');
+    data[0] = data[0].split('email=');
+    data[1] = data[1].split('code=');
+    email = data[0][1];
+    email = email.replace('%20', '+');
+    code = data[1][1];
+    this.validateParametersUrl(email, code);
+  }
+
+
+  validateParametersUrl(email, code) {
+
+    const params = {
+      "email": email,
+      "token": code
+    }
+    this.userService.reactivateUser(params).subscribe(response => {
+        this.openDialogReactivateSuccess();
+    }, error => {
+      console.log(error);
+    });
+
+      
+    
+  }
+
+  openDialogReactivateSuccess(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.disableClose = true;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalReactivateUserSuccessComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }
