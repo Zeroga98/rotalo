@@ -471,10 +471,10 @@
         margin-bottom: 5px;
 
         h4 {
-          color: #383838;
-          font-weight: bold;
+          color: #707070;
+          font-weight: normal;
           margin-right: 30px;
-          font-size: 1.4rem;
+          font-size: 16px;
           margin-bottom: 6px;
         }
 
@@ -487,7 +487,9 @@
 
             .mat-form-field-flex {
               .mat-form-field-infix {
-                width: 150px !important;
+                width: 120px !important;
+                font-weight: bold;
+                font-size: 16px;
               }
             }
           }
@@ -504,10 +506,7 @@
           /deep/ .mat-select-arrow {
             color: transparent !important;
           }
-        }
 
-        :host/deep/ .mat-form-field.mat-focused .mat-form-field-appearance-legacy .mat-form-field-underline {
-          background-color: red !important
         }
 
         /deep/ .mat-form-field.mat-focused .mat-form-field-label {
@@ -520,22 +519,13 @@
 
         /deep/ .mat-form-field-infix {
           width: 150px !important;
-          top: -10px;
-        }
-
-        mat-option mat-selected mat-active {
-          color: #383838;
-          font-weight: bold;
-        }
-
-        mat-option-text {
-          color: #383838;
-          font-weight: bold;
+          top: -9px;
         }
 
         /deep/ .mat-form-field-underline {
           display: none;
         }
+
       }
     }
   }
@@ -891,4 +881,21 @@
       bottom: -20px;
     }
   }
+}
+
+.mat-option {
+  font-family: inherit;
+  font-size: 14px !important;
+}
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple){
+  background: rgba(0,0,0,.04) !important;
+}
+
+.mat-option.mat-selected:not(.mat-option-multiple) {
+  background: rgba(0,0,0,.04) !important;
+}
+
+.mat-option.mat-selected:not(.mat-option-disabled){
+  color: #383838;
 }

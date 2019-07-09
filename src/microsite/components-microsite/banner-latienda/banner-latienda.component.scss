@@ -22,13 +22,16 @@ div.banner-latienda {
   .div-logo-tienda {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 15px;
   }
 
   .img-logo-tienda{
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,.29);
+    box-shadow: 0 1px 7px 0 rgba(0,0,0,.29);
     border-radius: 5px;
     margin-left: 60px;
     cursor: pointer;
+    max-height: 145px;
+    min-width: 145px;
   }
 }
 
