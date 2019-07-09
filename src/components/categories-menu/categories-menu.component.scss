@@ -310,6 +310,7 @@
                     min-height: 100%;
                     border-radius: 0rem;
                     padding: 0rem;
+                    box-shadow: initial;
 
                     .mobile-all-container{
                         display: block;
@@ -362,9 +363,10 @@
 
 .bridge-submenu {
     height: 5rem;
-    width: 10rem;
+    width: 30rem;
     background: #ffff0000;
     position: absolute;
+    cursor: pointer;
     top: -41px;
     right: 0px;
 }
