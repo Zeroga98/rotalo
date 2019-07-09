@@ -186,6 +186,7 @@ export class FilterProductsComponent
       } else {
         let responseFilter: any;
         responseFilter = await this.productsService.loadProductsFilter(params);
+
         this.products = responseFilter.productos;
         Object.keys(responseFilter.filtros).forEach((key) => (responseFilter.filtros[key] == null) && delete responseFilter.filtros[key]);
         this.filter = Object.assign({}, this.filter , responseFilter.filtros);
@@ -525,24 +526,33 @@ export class FilterProductsComponent
   }
 
   public filterBySubCategory(subcategoryId) {
-    var a = window.location.href.indexOf('product_category_id=');
-    var b = window.location.href.substring(a);
-    var c = b.indexOf('=')
-    var d = b.indexOf('&')
-    if(d>0){var x = b.substring(c+1,d);}
-    else{var x = b.substring(c+1);}
-    if(subcategoryId==''){
+    this.currentFilter = {
+      product_country_id: this.countryId,
+      product_subcategory_id: '',
+      size: 24,
+      number: 1,
+      product_category_id: this.params['product_category_id']
+    };
+    this.filter = null;
+   const a = window.location.href.indexOf('product_category_id=');
+    const b = window.location.href.substring(a);
+    const c = b.indexOf('=');
+    const d = b.indexOf('&');
+    let x = '';
+    if (d > 0) { x = b.substring(c + 1 , d); } else {  x = b.substring(c + 1); }
+    if (subcategoryId ==''){
+      this.removeFilters();
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
       ], {queryParams: {product_category_id : x}});
-    }
-    else{
+    } else {
       this.router.navigate([
         `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
       ], {queryParams: {product_category_id : x, product_subcategory_id: subcategoryId}});
-    }    
-    this.getCategories();
-    this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
+     this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
+    }
+
+  //  this.routineUpdateProducts({ product_subcategory_id: subcategoryId, number: 1 });
     this.scrollToTop();
   }
 
