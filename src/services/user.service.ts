@@ -150,4 +150,11 @@ export class UserService {
     return this.httpClient.put(url , params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  reactivateUser(params){
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/ausente`;
+    return this.httpClient.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }

@@ -133,9 +133,8 @@
           </div>
           <div class="size-div" *ngIf="products && products.children">
               <label class="label-title">Talla</label>
-              <select [(ngModel)]="childrens" class="form-control-select" (change)="updateSize(childrens)">
-                <option value="" selected="true" disabled> </option>
-                <option *ngFor="let children of products.children" value="{{children.id}}" class="option-select">
+              <select ng-model="childrens" class="form-control-select" (change)="updateSize($event.target.value)">
+                <option ng-selected="childrens" *ngFor="let children of products.children" value="{{children.id}}" class="option-select">
                   {{children.sizeName}}
                 </option>
               </select>

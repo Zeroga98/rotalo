@@ -64,6 +64,7 @@ export class NormalizeInterceptor implements HttpInterceptor {
       && !req.url.includes('usuarios?')
       && !req.url.includes('activacion')
       && !req.url.includes('cargas')
+      && !req.url.includes('ausente')
       ;
     }
     private normalizeResponse(response: HttpResponse<any>) {

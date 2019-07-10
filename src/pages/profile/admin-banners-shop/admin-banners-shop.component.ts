@@ -337,12 +337,13 @@ export class AdminBannersShopComponent implements OnInit {
             }
             if(error.error.status == 617 || error.error.status == 618 ||
               error.error.status == 619 || error.error.status == 620 ||
-              error.error.status == 621 ) {
+              error.error.status == 621 || error.error.status == 626 ) {
                 this.errorPromocional = error.error.message;
               const el = document.getElementById('bannerPromocional');
               el.scrollIntoView();
             }
-            if(error.error.status == 622 || error.error.status == 623 || error.error.status == 624) {
+            if(error.error.status == 622 || error.error.status == 623 || 
+              error.error.status == 624 || error.error.status == 627) {
               this.errorCategorias = error.error.message;
               const el = document.getElementById('bannersCategoria');
               el.scrollIntoView();
