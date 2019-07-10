@@ -29,7 +29,8 @@ import { ModalShareProductService } from '../../../components/modal-shareProduct
 import { ModalTicketService } from '../../../components/modal-ticket/modal-ticket.service';
 import { FormBuilder } from '@angular/forms';
 import { SettingsService } from '../../../services/settings.service';
-
+import { CAROUSEL_BANNER_TIENDA_CONFIG } from './carouselBannerTienda.config';
+import { CAROUSEL_CONFIG } from './carousel.config';
 @Component({
   selector: 'products--microsite',
   templateUrl: 'products-microsite.page.html',
@@ -38,7 +39,6 @@ import { SettingsService } from '../../../services/settings.service';
 })
 export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public carouselConfig: NgxCarousel;
-  public carouselProductsConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
   public configFiltersSubcategory: Object;
@@ -68,7 +68,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public idCountry = 1;
   public counter = '';
   public filter;
-
   public maxPrice = null;
   public minPrice = null;
   public carObject;
@@ -76,15 +75,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public categoryName;
   public subcategory;
   public subcategoryName;
-  public  params;
-
+  public params;
   public otherFilter = {
     vehicle_airbag: false,
     vehicle_abs_brakes: false,
     vehicle_air_conditioner: false,
     vehicle_unique_owner: false
   };
-
   public otherFilterImmovable = {
     immovable_elevator: false,
     immovable_parking: false,
@@ -93,7 +90,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     immovable_pool: false,
     immovable_full_furnished: false
   };
-
   public bannerHomeTienda;
   public bannersCategoriaForm;
   public bannerPromocionalForm;
@@ -102,13 +98,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public showBannersPromo = true;
   public showLogo = false;
   public srcBannerHomeTienda;
-
   public orderBy: string[] = [
-    'Más relevantes', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
+    'Más relevante', 'Más reciente', 'Más antiguo', 'Menor precio', 'Mayor precio'
   ];
-
   public selected = this.orderBy[0];
-
+  public carouselProductsConfig: NgxCarousel;
+  buttonNameFilter: any;
+  showFilterResponsive: boolean;
   constructor(
     private productsMicrositeService: ProductsMicrositeService,
     private router: Router,
@@ -119,24 +115,21 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     private currentSession: CurrentSessionService,
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
-
     private settingsService: SettingsService,
     private formBuilder: FormBuilder
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+    this.carouselConfig = CAROUSEL_CONFIG;
+    this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
   }
-
   ngOnInit() {
-
     //this.location = window.location.href;
     //this.getShowBanner(this.location)     
-    
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
     this.setInitialFormCategories(this.getInitialConfigCategories());
-
     this.countDown();
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
@@ -144,18 +137,15 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-    
     this.idCountry = countryId;
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
-
+    this.showToFilter();
   }
-
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
     this.changeDetectorRef.markForCheck();
   }
-
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsMicrositeService.products.length > 0) {
@@ -167,13 +157,11 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
     this.changeDetectorRef.markForCheck();
   }
-
   ngForRender() {
     this.productsMicrositeService.products = [];
     this.productsMicrositeService.getProductLocation();
     this.changeDetectorRef.markForCheck();
   }
-
   countDown() {
     const countDownDate = new Date('Nov 30, 2018 23:59:59').getTime();
     const that = this;
@@ -194,17 +182,14 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     }, 1000);
   }
-
   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
-
   getLocation(product): string {
     const city = product.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
   }
-
   isSuperUser() {
     if (this.currentSession.currentUser()['rol']) {
       if (this.currentSession.currentUser()['rol'] === 'superuser') {
@@ -215,13 +200,11 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
     return false;
   }
-
   loadProductsUser(countryId) {
     this.countrySelected = { id: countryId };
     const params = this.getParamsToProducts();
     this.loadProducts(params);
   }
-
   async loadProducts(params: Object = {}) {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
@@ -246,7 +229,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       this.stateRequest = this.statesRequestEnum.error;
       this.changeDetectorRef.markForCheck();
     }
-
     if (this.products.length <= 0) {
       this.showAnyProductsMessage = true;
     } else {
@@ -254,7 +236,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     }
     this.changeDetectorRef.markForCheck();
   }
-
   setScroll(event) {
     this.productsMicrositeService.setProductLocation(this.products, event.id, this.currentPage);
     const carObject =
@@ -263,11 +244,9 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       maxPrice: this.maxPrice
     };
   }
-
   getParamsToProducts() {
     return this.currentFilter;
   }
-
   searchByTags(evt: Array<string>) {
     if (evt.length > 0) {
       const filterValue = evt.join('+');
@@ -295,26 +274,29 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       this.showBanner = true;
     }
   }
-
   filteBySellType(sellType: string) {
     this.routineUpdateProducts({ 'filter[sell_type]': sellType.toUpperCase() });
   }
-
   filterBySort(sort: string) {
     this.routineUpdateProducts({ sort });
   }
-
   filterByState(state) {
     this.routineUpdateProducts({ 'filter[state]': state.id });
   }
-
   filterByCity(city: CityInterface) {
     this.routineUpdateProducts({
       'filter[city]': city.id,
       'filter[state]': undefined
     });
   }
-
+  showToFilter() {
+    this.showFilterResponsive =
+      !this.buttonNameFilter || this.buttonNameFilter === 'Aplicar';
+    this.buttonNameFilter =
+      !this.buttonNameFilter || this.showFilterResponsive
+        ? 'Filtros'
+        : 'Aplicar';
+  }
   getPage(page: number) {
     this.pageNumber = page;
     this.routineUpdateProducts(
@@ -324,7 +306,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.productsMicrositeService.scroll = 0;
     window.scrollTo(0, 0);
   }
-
   selectedCategory(category: CategoryInterface) {
     this.setconfigFiltersSubcategory({
       category: category.name,
@@ -337,14 +318,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       'filter[subcategory_id]': undefined
     });
   }
-
   selectProduct(product: ProductInterface) {
     const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
       ROUTES.MICROSITE.DETAIL
       }/${product.id}`;
     this.router.navigate([routeDetailProduct]);
   }
-
   selectedSubCategory(subCategory: SubcategoryInterface) {
     this.setconfigFiltersSubcategory({
       category: subCategory.category.name,
@@ -357,15 +336,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       'filter[category]': undefined
     });
   }
-
   get isSpinnerShow(): boolean {
     return this.stateRequest == this.statesRequestEnum.loading;
   }
-
   get noExistProducts(): boolean {
     return this.products.length <= 0;
   }
-
   private _subscribeCountryChanges() {
     this._subscriptionCountryChanges = this.navigationService.countryChanged.subscribe(
       (country: any) => {
@@ -378,61 +354,50 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     );
   }
-
   private updateProducts(newProducts: Array<ProductInterface>) {
     this.waitNewPage
       ? this.addNewPage(newProducts)
       : (this.products = [].concat(newProducts));
     this.waitNewPage = false;
   }
-
   addNewPage(newProducts) {
     newProducts.forEach(product => this.products.push(product));
   }
-
   private routineUpdateProducts(filter: Object = {}, numberPage = 1) {
     this.isInfiniteScrollDisabled = true;
     filter = Object.assign({}, filter, this.getPageFilter(numberPage));
     const newFilter = this.updateCurrentFilter(filter);
     this.loadProducts(newFilter);
   }
-
   private getPageFilter(numberPage = 1) {
     this.currentPage = numberPage;
     //if (this.isSuperUser()) {
-      return { 'number': numberPage };
+    return { 'number': numberPage };
     //}
     //return { 'page[number]': numberPage };
   }
-
   private updateCurrentFilter(filter = {}) {
     this.currentFilter = Object.assign({}, this.currentFilter, filter);
     this.currentFilter = this.utilService.removeEmptyValues(this.currentFilter);
     this.feedService.setCurrentFilter(this.currentFilter);
     return this.currentFilter;
   }
-
-
   private setconfigFiltersSubcategory(filter) {
     this.configFiltersSubcategory = filter;
     this.feedService.setConfigFiltersSubcategory(this.configFiltersSubcategory);
   }
-
-
   public shareProduct(id: string, product) {
     if (product.id) {
       this.modalService.setProductId(product.id);
       this.modalService.open(id);
     }
   }
-
   public isExclusiveOffer(imageUrl) {
     if (imageUrl.includes('black_friday')) {
       return true;
     }
     return false;
   }
-
   public openModalCupon(imageUrl, id: string) {
     if (this.isExclusiveOffer(imageUrl)) {
       const currentUser = this.currentSession.currentUser();
@@ -445,7 +410,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
-
   public redirectPromo(imageUrl) {
     if (this.isExclusiveOffer(imageUrl)) {
       this.router.navigate([
@@ -453,7 +417,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       ]);
     }
   }
-
   public getCoupon(email, id: string) {
     this.modalTicketService.getCoupon(email).subscribe((response) => {
       this.couponService = response.body.cupon;
@@ -462,9 +425,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     },
       (error) => { console.log(error); });
   }
-
   removeFilters() {
-    this.selected = this.orderBy[0];
     this.showBannersPromo = true;
     this.minPrice = null;
     this.maxPrice = null;
@@ -483,7 +444,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       vehicle_air_conditioner: false,
       vehicle_unique_owner: false
     };
-
     this.otherFilterImmovable = {
       immovable_elevator: false,
       immovable_parking: false,
@@ -495,24 +455,19 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts(this.feedService.getInitialFilter());
     this.scrollToTop();
   }
-
   public returnStringOption(option) {
     if (option) {
       option = `'${option}'`;
     }
     return option;
   }
-
   public scrollToTop() {
     this.productsMicrositeService.scroll = 0;
     window.scrollTo(0, 0);
   }
-
   /*this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_category_id : category.id}});*/
-
-  
   public filterByCategory(categoryId: String, name: String) {
     this.changeBanner(categoryId);
     this.category = categoryId;
@@ -521,19 +476,16 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
     this.scrollToTop();
   }
-
-  public changeBanner(category){
+  public changeBanner(category) {
     var i;
     this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     this.showBannersPromo = true;
     this.showBannerPrincipal = true;
     this.showLogo = false;
     this.showBannerPrincipal = true;
-    for(i=0; i < this.bannersCategoriaForm.get('bannersCategoria').controls.length; i++){
+    for (i = 0; i < this.bannersCategoriaForm.get('bannersCategoria').controls.length; i++) {
       let cat = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['idCategoria'].value;
-      
-      if(category == cat)
-      {
+      if (category == cat) {
         this.srcBannerHomeTienda = this.bannersCategoriaForm.get('bannersCategoria').controls[i].controls['urlBannerDesktop'].value;
         this.showBannersPromo = false;
         this.showBannerPrincipal = true;
@@ -541,7 +493,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
-
   public filterBySubcategory(subcategory: string, name: string) {
     this.subcategory = subcategory;
     this.subcategoryName = name;
@@ -549,7 +500,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
     this.scrollToTop();
   }
-
   public filterByMinMax() {
     this.showBannersPromo = false;
     if (this.maxPrice && this.minPrice) {
@@ -579,41 +529,36 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
-
-  public checkKilometers(operacionLogica , kilometer){
+  public checkKilometers(operacionLogica, kilometer) {
     this.showBannersPromo = false;
     kilometer = kilometer.split('.').join('');
     if (operacionLogica != '-') {
       kilometer = operacionLogica + kilometer;
     }
-    if(this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer){
+    if (this.currentFilter && this.currentFilter['vehicle_mileage'] == kilometer) {
       return true;
     }
     return false;
   }
-
   public filterByBrand(brand: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ vehicle_brand_id: brand, number: 1 });
     this.scrollToTop();
   }
-
   public filterByModel(model: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ vehicle_line_id: model, number: 1 });
     this.scrollToTop();
   }
-
   public filterByYear(year: string) {
     this.showBannersPromo = false;
     year = this.returnStringOption(year);
     this.routineUpdateProducts({ vehicle_model: year, number: 1 });
     this.scrollToTop();
   }
-
   public filterByMileage(operacionLogica, mileage: string) {
     this.showBannersPromo = false;
-    if(mileage) {
+    if (mileage) {
       mileage = mileage.split('.').join('');
       if (operacionLogica != '-') {
         mileage = operacionLogica + mileage;
@@ -622,169 +567,138 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts({ vehicle_mileage: mileage, number: 1 });
     this.scrollToTop();
   }
-
   public filterByDisplacement(displacement: string) {
     this.showBannersPromo = false;
     displacement = this.returnStringOption(displacement);
     this.routineUpdateProducts({ vehicle_displacement: displacement, number: 1 });
     this.scrollToTop();
   }
-
   public filterByUseType(useType: string) {
     this.showBannersPromo = false;
     useType = this.returnStringOption(useType);
     this.routineUpdateProducts({ vehicle_use_type: useType, number: 1 });
     this.scrollToTop();
   }
-
   public filterByVehicleColor(color: string) {
     this.showBannersPromo = false;
     color = this.returnStringOption(color);
     this.routineUpdateProducts({ vehicle_color: color, number: 1 });
     this.scrollToTop();
   }
-
   public filterByTransmission(transmission: string) {
     this.showBannersPromo = false;
     transmission = this.returnStringOption(transmission);
-    this.routineUpdateProducts({vehicle_transmission: transmission, number: 1 });
+    this.routineUpdateProducts({ vehicle_transmission: transmission, number: 1 });
     this.scrollToTop();
   }
-
   public filterByGas(gas: string) {
     this.showBannersPromo = false;
     gas = this.returnStringOption(gas);
     this.routineUpdateProducts({ vehicle_gas: gas, number: 1 });
     this.scrollToTop();
   }
-
   public filterByLicensePlate(licensePlate: string) {
     this.showBannersPromo = false;
     licensePlate = this.returnStringOption(licensePlate);
-    this.routineUpdateProducts({vehicle_license_plate: licensePlate, number: 1 });
+    this.routineUpdateProducts({ vehicle_license_plate: licensePlate, number: 1 });
     this.scrollToTop();
   }
-
   public filterByTypeSeat(typeSeat: string) {
     this.showBannersPromo = false;
     typeSeat = this.returnStringOption(typeSeat);
     this.routineUpdateProducts({ vehicle_type_of_seat: typeSeat, number: 1 });
     this.scrollToTop();
   }
-
   public filterByOthersVehicle(other) {
     this.showBannersPromo = false;
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
   }
-
   public filterByAntiquity(antiquity: string) {
     this.showBannersPromo = false;
     antiquity = this.returnStringOption(antiquity);
     this.routineUpdateProducts({ immovable_antiquity: antiquity, number: 1 });
     this.scrollToTop();
   }
-
   public filterByImmovable(immovable: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_floor: immovable, number: 1 });
     this.scrollToTop();
   }
-
   public filterBySellerType(sellerType: string) {
     this.showBannersPromo = false;
     sellerType = this.returnStringOption(sellerType);
     this.routineUpdateProducts({ immovable_seller_type: sellerType, number: 1 });
     this.scrollToTop();
   }
-
   public filterByRoom(room: string) {
     this.showBannersPromo = false;
     room = this.returnStringOption(room);
     this.routineUpdateProducts({ immovable_rooms: room, number: 1 });
     this.scrollToTop();
   }
-
   public filterByBathRoom(bathroom: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_bathrooms: bathroom, number: 1 });
     this.scrollToTop();
   }
-
   public filterBySocialClass(socialclass: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_social_class: socialclass, number: 1 });
     this.scrollToTop();
   }
-
   public filterBySquaremeters(squaremeter: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_square_meters: squaremeter, number: 1 });
     this.scrollToTop();
   }
-
   public filterByQuotaAdmin(quota: string) {
     this.showBannersPromo = false;
     this.routineUpdateProducts({ immovable_canon_quota: quota, number: 1 });
     this.scrollToTop();
   }
-
   public filterByGuardHouse(guard: string) {
     this.showBannersPromo = false;
     guard = this.returnStringOption(guard);
     this.routineUpdateProducts({ immovable_guard_house: guard, number: 1 });
     this.scrollToTop();
   }
-
   public filterByOthersImmovable(other) {
     this.showBannersPromo = false;
     other = Object.assign(other, { number: 1 });
     this.routineUpdateProducts(other);
   }
-
-
-
-
-
-
   public filterByGender(genderId) {
     this.routineUpdateProducts({ fashion_gender_id: genderId, number: 1 });
     this.scrollToTop();
   }
-  
   public filterBySizeClothes(sizeId) {
     this.routineUpdateProducts({ fashion_size_id: sizeId, number: 1 });
     this.scrollToTop();
   }
-
   public filterByColorClothes(color: string) {
     color = this.returnStringOption(color);
     this.routineUpdateProducts({ fashion_color: color, number: 1 });
     this.scrollToTop();
   }
-
-
   /*************** BANNER LA TIENDA *********************/
   /*getShowBanner(string: String){
     if(string.indexOf('home')>=0){
       this.showBannersPromo = true;
     }
   }*/
-
-  loadBanners(){
+  loadBanners() {
     this.settingsService.getBannersShop(1).subscribe(response => {
       if (response.body) {
-      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
-      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
-      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
+        if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
+        if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
+        if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
-      
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     });
   }
-
   private getInitialConfigHomeShop() {
-    const config =  {
+    const config = {
       'idLogo': '',
       'urlLogo': '',
       'idBannerDesktop': '',
@@ -794,7 +708,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     };
     return config;
   }
-
   private getInitialConfigPromo() {
     const bannerPromocional = {
       bannerPromocional: [
@@ -811,7 +724,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     };
     return bannerPromocional;
   }
-
   private getInitialConfigCategories() {
     const bannersCategoria = {
       bannersCategoria: [
@@ -827,7 +739,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     };
     return bannersCategoria;
   }
-
   private setFormHomeShop(config) {
     this.bannerHomeTienda = this.formBuilder.group({
       'idLogo': [config.idLogo],
@@ -838,7 +749,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       'urlBannerMobile': [config.urlBannerMobile]
     });
   }
-
   private setInitialFormPromo(config) {
     this.bannerPromocionalForm = this.formBuilder.group({
       bannerPromocional: this.formBuilder.array(
@@ -846,7 +756,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       )
     });
   }
-
   private setInitialFormCategories(config) {
     this.bannersCategoriaForm = this.formBuilder.group({
       bannersCategoria: this.formBuilder.array(
@@ -854,7 +763,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       )
     });
   }
-
   private createItemShop(bannersForm) {
     const bannerPromocional = bannersForm.map(banner => {
       return this.formBuilder.group({
@@ -869,7 +777,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     });
     return bannerPromocional;
   }
-
   private createItem(bannersForm) {
     const bannersCategoria = bannersForm.map(banner => {
       return this.formBuilder.group({
@@ -883,28 +790,24 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     });
     return bannersCategoria;
   }
-
-  goHomeStore(){
+  goHomeStore() {
     const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
     var categoria = document.createElement("a");
     categoria.href = routeHome;
     categoria.click();
   }
-
-  redirectLink(url){
+  redirectLink(url) {
     var categoria = document.createElement("a");
     categoria.target = "_blank";
     categoria.href = url;
     categoria.click();
   }
-
-  redirectCategory (categoria: String){
+  redirectCategory(categoria: String) {
     this.filterByCategory(categoria, '');
   }
-
   public filterOrder(filtro) {
     let order;
-    if (filtro === 'Más relevantes') {
+    if (filtro === 'Relevancia') {
       order = "product_store_index-asc";
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
@@ -930,5 +833,4 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       this.scrollToTop();
     }
   }
-
 }
