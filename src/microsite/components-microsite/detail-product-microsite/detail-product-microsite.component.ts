@@ -250,13 +250,17 @@ export class DetailProductMicrositeComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+        this.initQuantityForm();
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
           this.totalStock = this.products['stock'];
         } else {
           this.totalStock = 1;
         }
-        this.initQuantityForm();
+        if(this.products && this.products.children && this.products.children[0].stock){
+          this.totalStock = this.products.children[0].stock;
+        }
+        
         /*      const price = this.quantityForm.get('stock');
               price.clearValidators();
               price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);

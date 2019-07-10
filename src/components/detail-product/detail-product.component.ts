@@ -314,6 +314,7 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((response) => {
       if (response.body) {
         this.products = response.body.productos[0];
+        
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
         }
@@ -336,6 +337,9 @@ export class DetailProductComponent implements OnInit {
           this.totalStock = this.products['stock'];
         } else {
           this.totalStock = 1;
+        }
+        if(this.products && this.products.children && this.products.children[0].stock){
+          this.totalStock = this.products.children[0].stock;
         }
         
         const price = this.quantityForm.get('stock');
