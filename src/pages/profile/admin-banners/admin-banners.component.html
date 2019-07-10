@@ -169,12 +169,6 @@
     </form>
   </div>
 
-
-
-
-
-
-
   <div class="form-container">
       <div class="breadcrumbs">
         <a>Guatemala</a>
@@ -276,6 +270,24 @@
                       </div>
                       <div class="form-group field-form half">
                         <label
+                        class="label-title">Departamento
+                        </label>
+                        <div class="btn-container">
+                          <a
+                          (click)= "openDialogState('Guatemala', formBannerGuatemala.get('banners').controls[i])" mat-button>Agregar departamento</a>
+                        </div>
+                        <span class="error-msg">Este campo es requerido</span>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="form-group  field-form  half" data-input="name">
+                        <label class="label-title">Link (Opcional)</label>
+                        <input formControlName="link" name="link" type="text" class="form-control">
+                        <span class="help-block error-msg"> Este campo es requerido </span>
+                      </div>
+                      <div class="form-group field-form half">
+                        <label
                         class="label-title">Comunidad
                         </label>
                         <div class="btn-container">
@@ -283,13 +295,6 @@
                           (click)= "openDialog('Guatemala', formBannerGuatemala.get('banners').controls[i])" mat-button>Agregar comunidad</a>
                         </div>
                         <span class="error-msg">Este campo es requerido</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group  field-form link" data-input="name">
-                        <label class="label-title">Link (Opcional)</label>
-                        <input formControlName="link" name="link" type="text" class="form-control">
-                        <span class="help-block error-msg"> Este campo es requerido </span>
                       </div>
                       <div class="form-group field-form position">
                         <label class="label-title">Posición</label>

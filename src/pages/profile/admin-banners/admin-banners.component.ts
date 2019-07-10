@@ -6,6 +6,8 @@ import { PhotosService } from '../../../services/photos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CommunitiesModalComponent } from './communities-modal/communities-modal.component';
 import { UtilsService } from '../../../util/utils.service';
+import { CollectionSelectService } from '../../../services/collection-select.service';
+import { StatesModalComponent } from './states-modal/states-modal.component';
 
 @Component({
   selector: 'admin-banners',
@@ -24,15 +26,20 @@ export class AdminBannersComponent implements OnInit {
   public communitiesGuatemala;
   public errorChange = '';
   public successChange = false;
+  public colombiaStates;
+  public guatemalaStates;
+
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
     private photosService: PhotosService,
     public dialog: MatDialog,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private collectionService: CollectionSelectService,
   ) { }
 
   ngOnInit() {
+    this.getCountries();
     this.loadBanners();
     this.setInitialFormColombia(this.getInitialConfig(1));
     this.setInitialFormGuatemala(this.getInitialConfig(9));
@@ -42,16 +49,28 @@ export class AdminBannersComponent implements OnInit {
   loadBanners() {
     this.settingsService.getBannersList().subscribe(response => {
       if (response.body) {
+
        response.body.banners[0].map((item) => {
-        item['communities-ids'] = [];
+          item['communities-ids'] = [];
+          item['states-ids']  = [];
           item.comunidades.map((community) => {
             item['communities-ids'].push(community.id);
           });
+          item.departamentos.map((state) => {
+            item['states-ids'].push(state.id.toString());
+            state.marca = true;
+          });
         });
+
         response.body.banners[1].map((item) => {
           item['communities-ids'] = [];
-            item.comunidades.map((community) => {
+          item['states-ids'] = [];
+          item.comunidades.map((community) => {
               item['communities-ids'].push(community.id);
+          });
+          item.departamentos.map((state) => {
+            item['states-ids'].push(state.id.toString());
+            state.marca = true;
           });
         });
 
@@ -99,7 +118,8 @@ export class AdminBannersComponent implements OnInit {
         'id-photo-mobile': [banner['id-photo-mobile'], [Validators.required]],
         'url-photo-desktop': [banner['url-photo-desktop'], [Validators.required]],
         'url-photo-mobile': [banner['url-photo-mobile'], [Validators.required]],
-        'communities-ids': [banner['communities-ids'], [Validators.required]],
+        'communities-ids': [banner['communities-ids']],
+        'states-ids': [banner['states-ids']],
       });
     });
     return banners;
@@ -117,7 +137,8 @@ export class AdminBannersComponent implements OnInit {
           'id-photo-mobile': null,
           'url-photo-desktop': null,
           'url-photo-mobile': null,
-          'communities-ids': [-1]
+          'communities-ids': [-1],
+          'states-ids': [-1]
         }
       ]
     };
@@ -134,7 +155,8 @@ export class AdminBannersComponent implements OnInit {
       'id-photo-mobile': null,
       'url-photo-desktop': null,
       'url-photo-mobile': null,
-      'communities-ids': [-1]
+      'communities-ids': [-1],
+      'states-ids': [-1]
     };
     return banner;
   }
@@ -249,6 +271,32 @@ export class AdminBannersComponent implements OnInit {
   }
 
 
+  async getCountries() {
+    try {
+      await this.collectionService.isReady();
+      this.getStatesColombia();
+      this.getStatesGuatemala();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getStatesColombia() {
+    try {
+      this.colombiaStates = await this.collectionService.getStatesById(1);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getStatesGuatemala() {
+    try {
+      this.guatemalaStates = await this.collectionService.getStatesById(9);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   onUploadImageFinished(event, element, type) {
     if (event.file.type == 'image/jpeg'
     || event.file.type == 'image/jpg'
@@ -361,7 +409,63 @@ export class AdminBannersComponent implements OnInit {
   }
 
   openDialogState(country, element): void {
+    const statesIds = element.get('states-ids').value;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxHeight = '500px';
+    dialogConfig.width = '70%';
+    dialogConfig.height = '70%';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = [];
+    const states = [
+      {
+        id: -1,
+        nombre: 'Todas',
+        marca: false
+      }
+    ];
+    if (country == 'Colombia') {
+      this.colombiaStates.map((response) => {
+        const item = {
+          id: response.id,
+          nombre: response.name,
+          marca: false
+        };
+        states.push(item);
+      });
 
+      states.map((item) => {
+        if (statesIds.includes(item.id)) {
+          item.marca = true;
+        }
+      });
+
+    } else if (country == 'Guatemala') {
+      this.guatemalaStates.map((response) => {
+        const item = {
+          id: response.id,
+          nombre: response.name,
+          marca: false
+        };
+        states.push(item);
+      });
+
+      states.map((item) => {
+        if (statesIds.includes(item.id)) {
+          item.marca = true;
+        }
+      });
+
+    }
+
+    dialogConfig.data = states;
+    const dialogRef = this.dialog.open(StatesModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        element.patchValue({ 'states-ids': result });
+      }
+    });
   }
 
 
