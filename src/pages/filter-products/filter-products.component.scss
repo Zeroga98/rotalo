@@ -71,7 +71,7 @@
         .title-filter {
           color: #383838;
           text-transform: capitalize;
-          font-size: 1.4rem;
+          font-size: 1.6rem;
           display: flex;
         }
       }
@@ -438,6 +438,9 @@
   .container-masonry {
     width: 100%;
     min-height: 480px;
+    @media screen and (max-width: 1150px){
+      padding-top: 1rem;
+    }
 
     .masonry {
       width: 100%;
@@ -635,12 +638,8 @@
 
   @media screen and (max-width: 500px) {
     .container-masonry {
-      padding: 4rem 0;
+      padding: 1rem 0;
       width: 100%;
-    }
-
-    .container-masonry {
-      padding: 4rem 0;
     }
 
     .container-masonry .masonry product {
@@ -738,6 +737,7 @@
 
     section {
       padding: 0;
+      padding-top:1rem;
     }
   }
 }

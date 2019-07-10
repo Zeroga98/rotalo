@@ -8,10 +8,10 @@
 
   .filter-container {
     display: block;
-    height: 100%;
-    min-height: 100vh;
+    // height: 100%;
+    // min-height: 100vh;
     position: relative;
-    padding-bottom: 100px;
+    // padding-bottom: 100px;
   }
 
   .main {
@@ -25,16 +25,17 @@
 
     .head-filter {
       position: absolute;
-      top: 0px;
+      top: -63px;
+      right: 30px;
       background-color: #ffffff;
-      width: 100%;
-      display: none;
+      // width: 100%;
+      // display: none;
 
       .container-filter {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 800px;
+        // max-width: 800px;
         width: 100%;
         height: 48px;
         margin: 0 auto;
@@ -77,6 +78,7 @@
           color: #383838;
           font-size: 1.4rem;
           display: flex;
+          align-items: center;
         }
       }
     }
@@ -940,12 +942,8 @@
 
   @media screen and (max-width: 500px) {
     .container-masonry {
-      padding: 4rem 0;
+      padding: 0;
       width: 100%;
-    }
-
-    .container-masonry {
-      padding: 4rem 0;
     }
 
     .container-masonry .masonry product {
@@ -1100,7 +1098,7 @@
 
   @media screen and (max-width: 600px) {
     .container-masonry {
-      padding: 4rem 0;
+      padding: 0;
     }
 
     .container-masonry .masonry product-microsite {
@@ -1139,6 +1137,7 @@ div.banner-latienda {
 
   .div-banner-tienda {
     width: 100%;
+    height: 10rem;
     @media screen and (max-width: 1150px) {
       height: 11.5rem;
       @media screen and (max-width: 600px) {
@@ -1152,6 +1151,7 @@ div.banner-latienda {
 
   .img-banner-tienda {
     width: 100%;
+    max-height: 15rem;
     @media screen and (max-width: 1150px) {
       max-height: 16rem;
       @media screen and (max-width: 600px) {
@@ -1641,9 +1641,9 @@ div.div-banners-promo {
   .filter-container {
     display: block;
     height: 100%;
-    min-height: 100vh;
+    // min-height: 100vh;
     position: relative;
-    padding-bottom: 100px;
+    // padding-bottom: 100px;
   }
 
   .main {
@@ -1656,16 +1656,16 @@ div.div-banners-promo {
 
     .head-filter {
       position: absolute;
-      top: 0px;
-      background-color: #ffffff;
-      width: 100%;
+      // top: 0px;
+      background-color: #fafafa;
+      // width: 100%;
       display: none;
 
       .container-filter {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 800px;
+        // max-width: 800px;
         width: 100%;
         height: 48px;
         margin: 0 auto;
@@ -1709,6 +1709,7 @@ div.div-banners-promo {
           text-transform: capitalize;
           font-size: 1.4rem;
           display: flex;
+          align-items: center;
         }
       }
     }
@@ -2271,12 +2272,8 @@ div.div-banners-promo {
 
   @media screen and (max-width: 500px) {
     .container-masonry {
-      padding: 4rem 0;
+      padding: 1rem 0;
       width: 100%;
-    }
-
-    .container-masonry {
-      padding: 4rem 0;
     }
 
     .container-masonry .masonry product {
@@ -2322,6 +2319,8 @@ div.div-banners-promo {
 
 @media screen and (max-width: 1150px) {
   .main {
+    padding-top:1rem !important;
+
     .head-filter {
       display: inline !important;
       background: #ffffff;
@@ -2358,7 +2357,11 @@ div.div-banners-promo {
     .accordion.active {
       position: absolute;
       left: 0;
+      top: -22.6rem;
       width: 100%;
+      @media screen and (max-width: 600px){
+        top: -17.5rem;
+      }
 
       &~section {
         //transition: .6s;
@@ -2601,6 +2604,16 @@ div.div-banners-promo {
   }
 }
 
+@media screen and (max-width: 1150px) {
+  .desktop-filter{
+    display: none;
+  }
+  /deep/ .ngx-pagination{
+      margin-bottom: 4rem !important;
+      margin-top: 1rem;
+    }
+}
+
 @media screen and (max-width: 900px) {
   .mask-box{
     width: 95%;
@@ -2616,6 +2629,16 @@ div.div-banners-promo {
 }*/
 }
 
+.container-filter-responsive{
+  .main{
+    padding: 0px;
+  }
+}
+
+// .container-footer{
+//   padding-bottom: 6rem !important;
+// }
+
 @media screen and (max-width: 600px){
   .featured-container{
     img{
@@ -2625,5 +2648,21 @@ div.div-banners-promo {
   }
   .mask-box{
     height: 15rem;
+  }
+}
+
+.active-filter-menu{
+  .head-filter{
+    position: relative !important;
+    top: 0px !important;
+    width: 100% !important;
+    right: 0px !important;
+    z-index: 4 !important;
+    height: 54px !important;
+  }
+  .container-filter{
+    background: #fff !important;
+    // padding:0 !important;
+    max-width: 3000 !important;
   }
 }
