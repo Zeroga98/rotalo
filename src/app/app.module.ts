@@ -190,6 +190,7 @@ import { CampaignEditComponent } from '../pages/profile/campaign-edit/campaign-e
 import { SearchByNamePipe } from '../pages/profile/admin-campaign/search-by-date.pipe';
 import { AdminBannersComponent } from '../pages/profile/admin-banners/admin-banners.component';
 import { CommunitiesModalComponent } from '../pages/profile/admin-banners/communities-modal/communities-modal.component';
+import { StatesModalComponent } from '../pages/profile/admin-banners/states-modal/states-modal.component';
 import { ReportPublicationComponent } from '../components/report-publication/report-publication.component';
 import { NotificationsComponent } from '../components/notifications/notification/notifications.component';
 import { NotificationsMobileComponent } from '../pages/notifications-mobile/notifications-mobile.component';
@@ -346,7 +347,8 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     UpdateTrackingNumberComponent,
     UploadProductsComponent,
     AdminBannersShopComponent,
-    PreviewProductMicrositeComponent
+    PreviewProductMicrositeComponent,
+    StatesModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -466,7 +468,8 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
     ReportPublicationComponent,
     TermsDialogComponent,
     ModalDeleteProductComponent,
-    UpdateTrackingNumberComponent]
+    UpdateTrackingNumberComponent,
+    StatesModalComponent]
 })
 
 export class AppModule { }
