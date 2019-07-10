@@ -2,14 +2,14 @@ import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'communities-modal',
-  templateUrl: './communities-modal.component.html',
-  styleUrls: ['./communities-modal.component.scss']
+  selector: 'states-modal',
+  templateUrl: './states-modal.component.html',
+  styleUrls: ['./states-modal.component.scss']
 })
-export class CommunitiesModalComponent implements OnInit , AfterViewInit {
+export class StatesModalComponent implements OnInit , AfterViewInit {
   public  params;
 
-  constructor(private dialogRef: MatDialogRef<CommunitiesModalComponent>,
+  constructor(private dialogRef: MatDialogRef<StatesModalComponent>,
   @Inject(MAT_DIALOG_DATA) data) {
     this.params = data;
 
@@ -41,6 +41,7 @@ export class CommunitiesModalComponent implements OnInit , AfterViewInit {
     }
     return checkId;
   }
+
 
   selectAll (element: HTMLInputElement) {
     const container = document.getElementById('check-container');
