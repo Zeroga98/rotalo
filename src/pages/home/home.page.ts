@@ -398,7 +398,7 @@ export class HomePage implements OnInit {
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
-    dialogConfig.disableClose = true;
+    // dialogConfig.disableClose = true;
     // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
     const dialogRef = this.dialog.open(ModalReactivateUserSuccessComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
