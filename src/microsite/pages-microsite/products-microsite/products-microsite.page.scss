@@ -21,12 +21,15 @@
     padding-top: 48px;
     display: flex;
     height: auto;
-    // padding-left: 60px;
+    padding-left: 60px;
+    @media screen and (max-width: 1150px){
+      padding-left: 0 !important;
+    }
 
     .head-filter {
       position: absolute;
       top: -63px;
-      right: 30px;
+      right: -4px;
       background-color: #ffffff;
       // width: 100%;
       // display: none;
@@ -1653,6 +1656,7 @@ div.div-banners-promo {
     padding-top: 48px;
     display: flex;
     height: auto;
+    padding-left: 56px;
 
     .head-filter {
       position: absolute;
@@ -2547,6 +2551,12 @@ div.div-banners-promo {
     .featured-section {
       height: auto;
       min-height: auto;
+      @media screen and (max-width: 900px){
+        height: 180px;
+        @media screen and (max-width: 600px){
+          height: 135px;
+        } 
+      } 
       .featured-container {
         max-width: 900px;
         @media screen and (max-width: 900px){ 
