@@ -421,7 +421,7 @@ export class AdminBannersComponent implements OnInit {
     const states = [
       {
         id: -1,
-        nombre: 'Todas',
+        nombre: 'Todos',
         marca: false
       }
     ];
