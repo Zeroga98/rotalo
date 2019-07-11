@@ -963,9 +963,10 @@
                   {{category.subCategory.name}}</span>
               </p>
             </div>
-            <p class="bold" *ngIf="!categoryName">Filtros</p>
-            <p *ngIf="categoryName">{{categoryName}} <span class="bold" *ngIf="subcategoryName"> -
-                {{subcategoryName}}</span></p>
+            
+            <p *ngIf="categoryName && !subcategoryName" class="bold">{{categoryName}}</p>
+            <p *ngIf="categoryName && subcategoryName"> {{categoryName}} -<span class="bold"> 
+              {{subcategoryName}}</span></p>
           </div>
           <div class="ac-container">
 
