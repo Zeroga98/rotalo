@@ -50,7 +50,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
   stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
-  private currentFilter: Object;
+  public currentFilter: Object;
   @ViewChild('backTop', { read: ElementRef })
   backTop: ElementRef;
   private userId = this.currentSession.getIdUser();

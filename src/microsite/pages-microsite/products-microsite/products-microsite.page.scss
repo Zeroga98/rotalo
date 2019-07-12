@@ -1,4 +1,8 @@
 :host {
+
+  input:checked {
+    background-color: #0FBBD8;
+  }
   display: block;
   height: 100%;
   min-height: 100vh;
@@ -1142,7 +1146,7 @@ div.banner-latienda {
         height: 6.5rem;
       }
     }
-    
+
     //background: url(../../assets/img/banner_latienda.png) no-repeat;
     background-size: contain;
   }
@@ -2548,15 +2552,15 @@ div.div-banners-promo {
         height: 180px;
         @media screen and (max-width: 600px){
           height: 135px;
-        } 
-      } 
+        }
+      }
       .featured-container {
         max-width: 900px;
-        @media screen and (max-width: 900px){ 
-          
+        @media screen and (max-width: 900px){
+
           position: absolute;
 
-          @media screen and (max-width: 600px){ 
+          @media screen and (max-width: 600px){
             max-width: 520px;
           }
         }
