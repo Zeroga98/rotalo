@@ -3,7 +3,7 @@
         <div class="div-banner-tienda">
             <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
         </div>
-        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                             && bannerHomeTienda.get('urlLogo').value">
             <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
         </div>
@@ -28,7 +28,7 @@
 <div *ngIf="!showBannersPromo">
     <div class="banner-latienda">
         <div class="div-banner-tienda-solo"></div>
-        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+        <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                             && bannerHomeTienda.get('urlLogo').value">
             <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
         </div>

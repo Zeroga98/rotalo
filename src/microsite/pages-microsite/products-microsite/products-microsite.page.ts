@@ -50,7 +50,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   isInfiniteScrollDisabled: boolean = true;
   statesRequestEnum = StatesRequestEnum;
   stateRequest: StatesRequestEnum = this.statesRequestEnum.loading;
-  private currentFilter: Object;
+  public currentFilter: Object;
   @ViewChild('backTop', { read: ElementRef })
   backTop: ElementRef;
   private userId = this.currentSession.getIdUser();
@@ -124,9 +124,8 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
   }
   ngOnInit() {
-    //this.location = window.location.href;
-    //this.getShowBanner(this.location)     
-    this.selected='Más relevante';
+
+    this.selected = 'Más relevante';
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());

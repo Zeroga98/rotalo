@@ -27,6 +27,7 @@ import { UserInterface } from '../../commons/interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { map, debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { FeedMicrositeService } from '../../microsite/pages-microsite/products-microsite/feedMicrosite.service';
 
 @Component({
   selector: 'navigation-top',
@@ -124,6 +125,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private navigationTopService: NavigationTopService,
     private shoppingCarService: ShoppingCarService,
+    private feedService: FeedMicrositeService,
 
   ) {
     this.onResize();
@@ -277,6 +279,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.router.navigate([urlMicrosite]);
     } else {
       `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
+      this.feedService.resetFilter();
     }
     this.queryField.reset();
   }
