@@ -38,14 +38,14 @@
 
             <div *ngIf="filter.filtroSubcategoria" class="option">
                 <input checked id="ac-0" name="accordion-1" type="checkbox" />
-                <label for="ac-0">Subcategorias<div class="icon"></div></label>
+                <label for="ac-0">Subcategorías<div class="icon"></div></label>
                 <article class="ac-small">
                   <div class="material-design">
                     <div>
                       <div class="md-radio">
                         <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
                           (change)="filterBySubCategory('')" value="" id="subcategory" type="radio" name="subcategory">
-                        <label for="subcategory">Todos</label>
+                        <label for="subcategory">Todas</label>
                       </div>
                       <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
                         <input
