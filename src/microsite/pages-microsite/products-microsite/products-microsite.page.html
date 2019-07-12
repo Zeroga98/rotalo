@@ -52,9 +52,6 @@
 
 </div>
 
-
-
-
 <div class="carousel-theme mobile">
     <div *ngIf="showBannerPrincipal">
       <div class="banner-latienda">
@@ -139,14 +136,14 @@
                         <div>
                           <div class="md-radio">
                             <input [checked]="currentFilter && !currentFilter['product_category_id']"
-                              (change)="filterByCategory('','')" value="" id="category" type="radio" name="category">
-                            <label for="category">Todas</label>
+                              (change)="filterByCategory('','')" value="" id="category" type="radio" name="mobile_category">
+                            <label for="mobile_category">Todas</label>
                           </div>
                           <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index" class="md-radio">
                             <input [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
-                              (change)="filterByCategory(category.id, category.name)" value="{category.id}}" id="category{{i}}"
+                              (change)="filterByCategory(category.id, category.name)" value="{{category.id}}" id="mobile_category{{i}}"
                               type="radio" name="category">
-                            <label for="category{{i}}">{{category.name}}
+                            <label for="mobile_category{{i}}">{{category.name}}
                               ({{category.quantityForFilter}})</label>
                           </div>
                         </div>
@@ -162,15 +159,15 @@
                         <div>
                           <div class="md-radio">
                             <input [checked]="currentFilter && !currentFilter['product_subcategory_id']"
-                              (change)="filterBySubcategory('', '')" value="" id="subcategory" type="radio" name="subcategory">
-                            <label for="subcategory">Todas</label>
+                              (change)="filterBySubcategory('', '')" value="" id="subcategory" type="radio" name="mobile_subcategory">
+                            <label for="mobile_subcategory">Todas</label>
                           </div>
                           <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index"
                             class="md-radio">
                             <input [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
-                              (change)="filterBySubcategory(subcategory.id, subcategory.name)" value="{subcategory.id}}"
-                              id="subcategory{{i}}" type="radio" name="subcategory">
-                            <label for="subcategory{{i}}">{{subcategory.name}}
+                              (change)="filterBySubcategory(subcategory.id, subcategory.name)" value="{{subcategory.id}}"
+                              id="mobile_subcategory{{i}}" type="radio" name="subcategory">
+                            <label for="mobile_subcategory{{i}}">{{subcategory.name}}
                               ({{subcategory.quantityForFilter}})</label>
                           </div>
                         </div>
@@ -983,9 +980,9 @@
                     </div>
                     <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index" class="md-radio">
                       <input [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
-                        (change)="filterByCategory(category.id, category.name)" value="{category.id}}" id="category{{i}}"
+                        (change)="filterByCategory(category.id, category.name)" value="{{category.id}}" id="ct{{i}}"
                         type="radio" name="category">
-                      <label for="category{{i}}">{{category.name}}
+                      <label for="ct{{i}}">{{category.name}}
                         ({{category.quantityForFilter}})</label>
                     </div>
                   </div>
@@ -1007,7 +1004,7 @@
                     <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index"
                       class="md-radio">
                       <input [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
-                        (change)="filterBySubcategory(subcategory.id, subcategory.name)" value="{subcategory.id}}"
+                        (change)="filterBySubcategory(subcategory.id, subcategory.name)" value="{{subcategory.id}}"
                         id="subcategory{{i}}" type="radio" name="subcategory">
                       <label for="subcategory{{i}}">{{subcategory.name}}
                         ({{subcategory.quantityForFilter}})</label>

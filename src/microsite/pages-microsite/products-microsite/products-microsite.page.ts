@@ -125,7 +125,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
   ngOnInit() {
     //this.location = window.location.href;
-    //this.getShowBanner(this.location)     
+    //this.getShowBanner(this.location)
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
