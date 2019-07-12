@@ -70,7 +70,6 @@
 
         .title-filter {
           color: #383838;
-          text-transform: capitalize;
           font-size: 1.6rem;
           display: flex;
         }
@@ -93,7 +92,6 @@
         border-bottom: 1px solid #ededed;
         font-size: 1.6rem;
         color: #383838;
-        //text-transform: capitalize;
         width: 100%;
         padding: 20px;
         min-height: 79px;
@@ -490,7 +488,7 @@
 
             .mat-form-field-flex {
               .mat-form-field-infix {
-                width: 135px !important;
+                width: 120px !important;
                 font-weight: bold;
                 font-size: 16px;
               }

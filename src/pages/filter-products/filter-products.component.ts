@@ -103,6 +103,7 @@ export class FilterProductsComponent
       } else {
         this.category = null;
       }
+      this.selected='Más reciente';
     });
 
     this.showToFilter();
@@ -540,6 +541,7 @@ export class FilterProductsComponent
     const d = b.indexOf('&');
     let x = '';
     if (d > 0) { x = b.substring(c + 1 , d); } else {  x = b.substring(c + 1); }
+    this.selected='Más reciente';
     if (subcategoryId ==''){
       this.removeFilters();
       this.router.navigate([
