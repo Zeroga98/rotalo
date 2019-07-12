@@ -1724,6 +1724,7 @@ div.div-banners-promo {
     aside {
       width: 22%;
       min-width: 264px;
+      max-width: 270px;
 
       .filters {
         background: #ffffff;
@@ -1744,7 +1745,7 @@ div.div-banners-promo {
     }
 
     section {
-      padding: 0px 20px;
+      padding: 0px 0px 0px 20px;
       width: 100%;
     }
   }
