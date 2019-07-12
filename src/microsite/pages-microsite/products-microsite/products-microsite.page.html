@@ -9,9 +9,9 @@
   <div *ngIf="showBannerPrincipal">
     <div class="banner-latienda">
       <div class="div-banner-tienda">
-        <img class="img-banner-tienda" [src]="srcBannerHomeTienda">
+        <img *ngIf="srcBannerHomeTienda" class="img-banner-tienda" [src]="srcBannerHomeTienda">
       </div>
-      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                             && bannerHomeTienda.get('urlLogo').value">
         <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
       </div>
@@ -43,7 +43,7 @@
   <div *ngIf="showLogo">
     <div class="banner-latienda">
       <div class="div-banner-tienda-solo"></div>
-      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+      <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                             && bannerHomeTienda.get('urlLogo').value">
         <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
       </div>
@@ -61,7 +61,7 @@
           <div class="div-banner-tienda">
               <img class="img-banner-tienda " [src]="bannerHomeTienda.get('urlBannerMobile').value">
           </div>
-          <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+          <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                               && bannerHomeTienda.get('urlLogo').value">
               <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
           </div>
@@ -69,7 +69,7 @@
     </div>
     <div class="container-filter-responsive">
 
-      <div class="filter-container">    
+      <div class="filter-container">
           <div class="main">
             <div class="head-filter">
               <div class="container-filter">
@@ -83,7 +83,7 @@
                   </div>
                   <p class="category bold" *ngIf="!showFilterResponsive">Filtrar por</p>
                 </div>
-    
+
                 <div class="button-filter">
                   <button (click)="removeFilters()" *ngIf="!showFilterResponsive" mat-icon-button>
                     <div class="trash-icon"></div>
@@ -106,7 +106,7 @@
                             </div>
                             <p class="category bold" *ngIf="!showFilterResponsive">Filtrar por</p>
                           </div>
-                
+
                           <div class="button-filter">
                             <button (click)="removeFilters()" *ngIf="!showFilterResponsive" mat-icon-button>
                               <div class="trash-icon"></div>
@@ -130,7 +130,7 @@
                       {{subcategoryName}}</span></p>
                 </div>
                 <div class="ac-container">
-    
+
                   <div *ngIf="filter.filtroCategoria" class="option">
                     <input checked id="ac-1" name="accordion-1" type="checkbox" />
                     <label for="ac-1">Categorías<div class="icon"></div></label>
@@ -153,7 +153,7 @@
                       </div>
                     </article>
                   </div>
-    
+
                   <div *ngIf="filter.filtroSubcategoria && category" class="option">
                     <input checked id="ac-2" name="accordion-1" type="checkbox" />
                     <label for="ac-2">Subcategorías<div class="icon"></div></label>
@@ -177,7 +177,7 @@
                       </div>
                     </article>
                   </div>
-    
+
                   <div class="option">
                     <input checked id="ac-3" name="accordion-1" type="checkbox" />
                     <label for="ac-3">Precio<div class="icon"></div></label>
@@ -202,7 +202,7 @@
                     </article>
                   </div>
                   <!-- FIN FILTROS BASE -->
-    
+
                   <!-- FILTROS CARROS Y/O MOTOS -->
                   <div *ngIf="filter.filtroMarca && category == '6' && (subcategory == '9' || subcategory == '10')"
                     class="option">
@@ -510,7 +510,7 @@
                     </article>
                   </div>
                   <!-- FIN FILTROS CARROS Y/O MOTOS -->
-    
+
                   <!-- INICIO FILTROS INMUEBLES -->
                   <div *ngIf="filter.filtroAntiguedad && category == '7'" class="option">
                     <input [checked]="currentFilter && currentFilter['immovable_antiquity']" id="in-1" name="accordion-1"
@@ -792,11 +792,11 @@
                       </div>
                     </article>
                   </div>
-    
+
                   <!-- FIN FILTROS INMUEBLES -->
-    
+
                   <!-- INICIO FILTROS MODA -->
-    
+
                   <div *ngIf="filter.filtroGenero && category == '10'" class="option">
                     <input [checked]="currentFilter && currentFilter['fashion_gender_id']" id="fashion-1" name="accordion-1"
                       type="checkbox" />
@@ -867,11 +867,11 @@
                       </div>
                     </article>
                   </div>
-    
+
                   <!-- FIN FILTROS MODA -->
-    
+
                 </div>
-    
+
                 <div *ngIf="filter" class="product-btns">
                   <div class="cont-botons">
                     <button (click)="removeFilters()" class="botons" mat-flat-button> Borrar filtros</button>
@@ -911,7 +911,7 @@
     <div *ngIf="showLogo">
       <div class="banner-latienda">
           <div class="div-banner-tienda-solo"></div>
-          <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo') 
+          <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                               && bannerHomeTienda.get('urlLogo').value">
               <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
           </div>
@@ -953,7 +953,7 @@
       </div>
 
       <aside class="accordion" *ngIf="filter" [ngClass]="{'active': !showFilterResponsive}">
-        
+
         <div class="filters">
           <div class="title-filter">
             <div *ngIf="showFilterResponsive">
@@ -963,9 +963,9 @@
                   {{category.subCategory.name}}</span>
               </p>
             </div>
-            
+
             <p *ngIf="categoryName && !subcategoryName" class="bold">{{categoryName}}</p>
-            <p *ngIf="categoryName && subcategoryName"> {{categoryName}} -<span class="bold"> 
+            <p *ngIf="categoryName && subcategoryName"> {{categoryName}} -<span class="bold">
               {{subcategoryName}}</span></p>
           </div>
           <div class="ac-container">
