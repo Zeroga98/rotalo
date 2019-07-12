@@ -126,6 +126,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     //this.location = window.location.href;
     //this.getShowBanner(this.location)     
+    this.selected='Más relevante';
     this.loadBanners();
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
@@ -473,6 +474,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.category = categoryId;
     this.categoryName = name;
     this.showBannersPromo = false;
+    this.selected='Más relevante';
     this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
     this.scrollToTop();
   }
@@ -497,6 +499,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.subcategory = subcategory;
     this.subcategoryName = name;
     this.showBannersPromo = false;
+    this.selected='Más relevante';
     this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
     this.scrollToTop();
   }
