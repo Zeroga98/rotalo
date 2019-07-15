@@ -900,6 +900,11 @@
     text-align: center;
   }
 
+  .pagination-store{
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+  }
+
   .product-btns .botons {
     border: 1px solid #ff3646;
     width: 203px;
@@ -1719,6 +1724,7 @@ div.div-banners-promo {
     aside {
       width: 22%;
       min-width: 264px;
+      max-width: 270px;
 
       .filters {
         background: #ffffff;
@@ -1739,7 +1745,7 @@ div.div-banners-promo {
     }
 
     section {
-      padding: 0px 20px;
+      padding: 0px 0px 0px 20px;
       width: 100%;
     }
   }
@@ -2605,10 +2611,6 @@ div.div-banners-promo {
   .desktop-filter{
     display: none;
   }
-  /deep/ .ngx-pagination{
-      margin-bottom: 4rem !important;
-      margin-top: 1rem;
-    }
 }
 
 @media screen and (max-width: 900px) {
