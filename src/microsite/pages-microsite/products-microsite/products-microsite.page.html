@@ -2,8 +2,6 @@
 <div class="md-overlay-red"></div>
 
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
-<!-- <modal-ticket [coupon] = "couponService" class="md-modal-center md-effect-1 md-modal-coupon" id="custom-modal-3"></modal-ticket> -->
-<!--banner-latienda></banner-latienda-->
 
 <div class="desktop-latienda">
   <div *ngIf="showBannerPrincipal">
@@ -52,7 +50,7 @@
 </div>
 
 <div class="carousel-theme mobile">
-    <div *ngIf="showBannerPrincipal">
+    <div *ngIf="showBannerPrincipal && showFilterResponsive">
       <div class="banner-latienda">
           <div class="div-banner-tienda">
               <img class="img-banner-tienda " [src]="bannerHomeTienda.get('urlBannerMobile').value">
@@ -64,10 +62,9 @@
       </div>
     </div>
     <div class="container-filter-responsive">
-
-      <div class="filter-container">
+      <div  class="filter-container">
           <div class="main">
-            <div class="head-filter">
+            <div [ngClass]="{'active': !showFilterResponsive}" class="head-filter">
               <div class="container-filter">
                 <div class="title-filter">
                   <div *ngIf="showFilterResponsive">
@@ -93,11 +90,10 @@
       </div>
     </div>
 
-    <div class="featured-banners featured-section">
+    <div *ngIf="showBannersPromo" [ngClass]="{'active': !showFilterResponsive}" class="featured-banners featured-section">
       <div class="mask-box">
       <div class="featured-container">
         <div class="row-featured">
-
             <ngx-carousel class="carousel-featured" [inputs]="carouselConfig">
               <ngx-item NgxCarouselItem *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
                 <a class="link-product">
@@ -118,6 +114,7 @@
         </div>
       </div>
     </div>
+
     <div *ngIf="showLogo">
       <div class="banner-latienda">
           <div class="div-banner-tienda-solo"></div>
@@ -129,29 +126,10 @@
     </div>
 </div>
 
-<div class="filter-container">
+<div  class="filter-container">
   <div class="main" *ngIf="products">
-    <div >
-
-      <!--Ocultar en mobile-->
-      <div class="head-filter">
-        <div class="container-filter">
-          <div class="title-filter">
-            <div *ngIf="showFilterResponsive">
-              <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
-              <p class="category" *ngIf="category">{{category.name}}
-                <span class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
-                  {{category.subCategory.name}}</span>
-              </p>
-            </div>
-            <p class="category bold" *ngIf="!showFilterResponsive">Filtrar por</p>
-          </div>
-
-        </div>
-      </div>
-
+    <div>
       <aside class="accordion" *ngIf="filter" [ngClass]="{'active': !showFilterResponsive}">
-
         <div class="filters">
           <div class="title-filter">
             <div *ngIf="showFilterResponsive">
@@ -919,7 +897,8 @@
     </div>
 
     <!-- *************************************************************************** -->
-    <section>
+
+    <section [ngClass]="{'active': !showFilterResponsive}">
       <div class="background-feed">
         <div class="container-spinner" *ngIf="isSpinnerShow">
           <custom-spinner></custom-spinner>
@@ -927,6 +906,23 @@
         <div class="msg-no-products" *ngIf="showAnyProductsMessage">
           ¡Aún no tenemos productos en esta categoría! Por favor busca nuevamente.
         </div>
+
+        <div class="breadcrumb-mobile" *ngIf="showFilterResponsive">
+            <div [ngClass]="{'active': showFilterResponsive}" class="title-filter">
+                <div *ngIf="showFilterResponsive">
+                  <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
+                  <p class="category" *ngIf="category">{{category.name}}
+                    <span class="subcategory bold" *ngIf="category && category.subCategory && category.subCategory.name"> -
+                      {{category.subCategory.name}}</span>
+                  </p>
+                </div>
+
+                <p *ngIf="categoryName && !subcategoryName" class="bold">{{categoryName}}</p>
+                <p *ngIf="categoryName && subcategoryName"> {{categoryName}} -<span class="bold">
+                  {{subcategoryName}}</span></p>
+              </div>
+        </div>
+
         <div [ngStyle]="{'min-height':showAnyProductsMessage ? '0' : '480px' }" class="container-masonry">
           <div class="list">
             <div class="masonry">

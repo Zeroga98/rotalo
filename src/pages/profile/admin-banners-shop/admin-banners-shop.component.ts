@@ -148,6 +148,24 @@ export class AdminBannersShopComponent implements OnInit {
           'urlBannerMobile': '',
           'idCategoria': '',
           'link': ''
+        },
+        {
+          'idBannerPromocional': '',
+          'idBannerDesktop': '',
+          'urlBannerDesktop': '',
+          'idBannerMobile': '',
+          'urlBannerMobile': '',
+          'idCategoria': '',
+          'link': ''
+        }
+        ,   {
+          'idBannerPromocional': '',
+          'idBannerDesktop': '',
+          'urlBannerDesktop': '',
+          'idBannerMobile': '',
+          'urlBannerMobile': '',
+          'idCategoria': '',
+          'link': ''
         }
       ]
     };
@@ -342,7 +360,7 @@ export class AdminBannersShopComponent implements OnInit {
               const el = document.getElementById('bannerPromocional');
               el.scrollIntoView();
             }
-            if(error.error.status == 622 || error.error.status == 623 || 
+            if(error.error.status == 622 || error.error.status == 623 ||
               error.error.status == 624 || error.error.status == 627) {
               this.errorCategorias = error.error.message;
               const el = document.getElementById('bannersCategoria');

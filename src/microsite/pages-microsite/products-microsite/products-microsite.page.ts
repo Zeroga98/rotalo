@@ -289,6 +289,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       'filter[state]': undefined
     });
   }
+
   showToFilter() {
     this.showFilterResponsive =
       !this.buttonNameFilter || this.buttonNameFilter === 'Aplicar';
@@ -297,6 +298,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         ? 'Filtros'
         : 'Aplicar';
   }
+
   getPage(page: number) {
     this.pageNumber = page;
     this.routineUpdateProducts(
