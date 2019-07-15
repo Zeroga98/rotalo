@@ -2602,9 +2602,11 @@ div.div-banners-promo {
 }
 
 @media screen and (max-width: 1150px) {
+
   .desktop-filter{
     display: none;
   }
+
   /deep/ .ngx-pagination{
       margin-bottom: 4rem !important;
       margin-top: 1rem;

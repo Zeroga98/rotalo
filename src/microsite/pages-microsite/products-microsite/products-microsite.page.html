@@ -134,7 +134,7 @@
     <div >
 
       <!--Ocultar en mobile-->
-      <div class="head-filter desktop-filter">
+      <div class="head-filter">
         <div class="container-filter">
           <div class="title-filter">
             <div *ngIf="showFilterResponsive">
@@ -147,12 +147,6 @@
             <p class="category bold" *ngIf="!showFilterResponsive">Filtrar por</p>
           </div>
 
-          <div class="button-filter">
-            <button (click)="removeFilters()" *ngIf="!showFilterResponsive" mat-icon-button>
-              <div class="trash-icon"></div>
-            </button>
-            <button class="filter" (click)="showToFilter()">{{buttonNameFilter}}</button>
-          </div>
         </div>
       </div>
 
