@@ -59,6 +59,7 @@ export const ROUTES = {
         LINK: 'microsite',
         FEED: 'home',
         DETAIL: 'details',
+        UPLOAD: 'form',
         CAR: 'cart',
         RESPONSE: 'response'
     }
