@@ -95,7 +95,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public bannerPromocionalForm;
   public location;
   public showBannerPrincipal = true;
-  public showBannersPromo = true;
+  public showBannersPromo = false;
   public showLogo = false;
   public srcBannerHomeTienda;
   public orderBy: string[] = [
@@ -141,6 +141,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.loadProductsUser(countryId);
     this._subscribeCountryChanges();
     this.showToFilter();
+    //this.loadFirstBanners();
   }
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
@@ -697,6 +698,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+      let j=0;
+      for (let i = 0; i < this.bannerPromocionalForm.get('bannerPromocional').controls.length; i++) {
+            j++;
+      }
+      if(j==3){
+        this.showBannersPromo = true;
+      }
     });
   }
   private getInitialConfigHomeShop() {
