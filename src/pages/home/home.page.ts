@@ -250,8 +250,19 @@ export class HomePage implements OnInit {
     return this.registerForm.invalid;
   }
 
-  submitForm(form) {
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
 
+  submitForm(form) {
     if (!this.formIsInValid) {
       const currentUrl = window.location.href;
       if (currentUrl.includes('gt')) {
@@ -275,6 +286,7 @@ export class HomePage implements OnInit {
 
       this.userService.preSignup(params).subscribe(response => {
         this.showSendEmail = true;
+        this.gapush('send', 'event', 'Ingreso', 'ClicSignUp', 'PrimerFormularioExitoso');
         this.sendTokenShareProduct();
       }
       , error => {

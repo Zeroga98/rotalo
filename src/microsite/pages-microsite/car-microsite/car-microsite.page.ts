@@ -405,6 +405,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
             try {
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
+              this.gapush('send', 'event', 'TiendaCorporativa', 'ClicCarrito', 'ComprarExitoso');
               this.hasANewQuantity = true;
               this.wayboxPay(this.carTotalPrice, orden.body.publicKey, orden.body.referenciaOrden, orden.body.urlRedireccion);
               this.disablePayButton = false;
@@ -415,8 +416,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
             }
             this.changeDetectorRef.markForCheck();
 
-
-
           } catch (error) {
             this.hasPending = true;
             this.disablePayButton = false;
@@ -426,8 +425,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
             } else {
               this.errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
             }
-
-
             this.changeDetectorRef.markForCheck();
           }
           this.changeDetectorRef.markForCheck();
@@ -444,6 +441,18 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         this.disablePayButton = false;
       }
     }
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   generateJson() {

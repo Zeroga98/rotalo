@@ -604,7 +604,7 @@
             Publicado
             <span class="date">{{products['published-at'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
         </div>
-        <div 
+        <div
             [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
             class="btn-item ">
             <div class="price-container">
@@ -875,7 +875,7 @@
                   <input
                   name="credit-value"
                   formControlName="credit-value"
-                  class="form-control input-price" currencyMask
+                  class="gtmProdCuotaInicial form-control input-price" currencyMask
                   [options]="{prefix: '$' , align: 'left', precision: 0 , allowNegative: false}"
                   onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="1.000.000"
                   maxlength="14" autocomplete="off">
@@ -884,7 +884,7 @@
                   <label class="label-title">Plazo en meses</label>
                   <select formControlName="term-months" class="select-time form-control" name="term-months">
                     <option value="" disabled></option>
-                    <option value="{{timetoPay}}" *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
+                    <option class="gtmProdPlazoMeses" value="{{timetoPay}}" *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
                   </select>
                 </div>
               </div>
@@ -991,7 +991,7 @@
                 </div>
             </div>
             <pre>{{products.description}}</pre>
-            
+
         </div>
         <div *ngIf="products.vehicle" class="tabla-container mobile">
             <h1>Características</h1>

@@ -72,8 +72,22 @@ export class MenuMobileComponent implements OnInit {
       this.router.navigate([`${currentUrl}`]);
       return;
     }
+    this.gapush('send', 'event', 'Home', 'ClicPerfil', 'ConfiguracionCerrarSesion');
     this.loginService.logout();
   }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
+
 
   validateIfIsActive(option) {
     if (option.classList.contains('active')) {

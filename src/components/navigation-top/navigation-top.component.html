@@ -185,9 +185,7 @@
                       </div>
                 </div>
 
-
-
-                <button (click)="onLogout()" mat-menu-item>Cerrar sesión</button>
+                <button class="gtmPerfilConfigCerrarSesion" (click)="onLogout()" mat-menu-item>Cerrar sesión</button>
               </div>
             </mat-menu>
           </li>
@@ -209,15 +207,15 @@
           </li>
 
           <li (click)="goToNotifications();" class="mobile-notification bell-container">
-            <div class="container-bell">
-              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
+            <div class="gtmCentrRotNotificCamp container-bell">
+              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="gtmCentrRotNotificCamp icon-bell">
               </span>
             </div>
           </li>
 
           <li class="desktop-notification bell-container">
-            <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="container-bell">
-              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="icon-bell">
+            <div (click)="loadNotifications()" [matMenuTriggerFor]="appMenu" class="gtmCentrRotNotificCamp container-bell">
+              <span [ngClass]="notificationsUnread > 0 ?  'active': '' " class="gtmCentrRotNotificCamp icon-bell">
               </span>
             </div>
             <mat-menu backdropClass="sg-vertical-sub-menu" class="profile-menu" xPosition="before" #appMenu="matMenu">

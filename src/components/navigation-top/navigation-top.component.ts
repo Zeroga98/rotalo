@@ -327,6 +327,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.router.navigate([`${currentUrl}`]);
       return;
     }
+    this.gapush('send', 'event', 'Home', 'ClicPerfil', 'ConfiguracionCerrarSesion');
     this.loginService.logout();
   }
 
