@@ -227,9 +227,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div *ngIf="showOptionsFashion" class="form-group">
                 <label class="label-title">Código SKU o referencia</label>
-                <input type="text" class="form-control" name="referenceCode" maxlength="20">
+                <input formControlName="reference" type="text" class="form-control" name="reference" maxlength="20">
                 <span class="help-block error-msg"> Este campo es requerido </span>
               </div>
               <div *ngIf="isNewPriceShow" class="form-group">
@@ -332,7 +332,6 @@
                           formFashion.get('children').controls[i] &&
                           formFashion.get('children').controls[i].controls['sizeId'] &&
                           formFashion.get('children').controls[i].controls['sizeId'].value}"
-
                            class="form-group field-form">
                               <select formControlName="sizeId" name="sizeId" class="size form-control">
                                 <option value="" disabled></option>
@@ -366,7 +365,14 @@
                                   Este campo debe ser mayor o igual a 1.
                                 </span>
                               </div>
-                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="label-title">Código SKU o referencia</label>
+                            <input type="text" class="form-control" name="reference" maxlength="20">
+                            <span class="help-block error-msg"> Este campo es requerido </span>
+                          </div>
+
                       </div>
                     </div>
                   </div>

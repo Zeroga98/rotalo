@@ -167,8 +167,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     }
 
 
-
-
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
     this.cellphone = this.userEdit.cellphone;
@@ -1031,6 +1029,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     this.photosForm = this.fb.group({
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
+      reference: [config.reference, [Validators.required]],
       currency: [config.currency, [Validators.required]],
       'subcategory-id': [config['subcategory'].id, [Validators.required]],
       'stock': [stock, [Validators.required, Validators.min(1), Validators.max(9999)]],
@@ -1210,6 +1209,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const product = {
       name: null,
       price: null,
+      reference: null,
       'special-price': null,
       currency: currency,
       'subcategory': {id : ''},

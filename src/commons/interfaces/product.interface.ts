@@ -25,4 +25,5 @@ export interface ProductInterface {
     category: string | number;
     city?: any;
     contactSeller?: boolean;
+    'reference'?: string;
 }
