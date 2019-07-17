@@ -154,7 +154,7 @@
                   <div>
                     <div class="md-radio">
                       <input [checked]="currentFilter && !currentFilter['product_category_id']"
-                        (change)="filterByCategory('','')" value="" id="category" type="radio" name="category">
+                        (change)="removeFilters()" value="" id="category" type="radio" name="category">
                       <label for="category">Todas</label>
                     </div>
                     <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index" class="md-radio">

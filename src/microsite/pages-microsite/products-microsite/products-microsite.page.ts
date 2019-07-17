@@ -468,15 +468,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.productsMicrositeService.scroll = 0;
     window.scrollTo(0, 0);
   }
-  /*this.router.navigate([
-          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
-        ], {queryParams: {product_category_id : category.id}});*/
+
   public filterByCategory(categoryId: String, name: String) {
     this.changeBanner(categoryId);
     this.category = categoryId;
     this.categoryName = name;
     this.showBannersPromo = false;
-    this.selected='Más relevante';
+    this.selected = 'Más relevante';
     this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
     this.scrollToTop();
   }
