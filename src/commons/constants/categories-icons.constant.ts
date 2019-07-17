@@ -1,41 +1,41 @@
 export const CATEGORIES_ICONS: Array<any> = [{
     color: 'blue-sea-tag',
-    icon: 'icon-bike'
-  },
-  {
-    color: 'yellow-tag',
-    icon: 'icon-electro'
-  },
-  {
-    color: 'pink-tag',
-    icon: 'icon-apple'
-  },
-  {
-    color: 'orange-tag',
-    icon: 'icon-sofa'
-  },
-  {
-    color: 'violet-tag',
-    icon: 'icon-phone'
-  },
-  {
-    color: 'blue-tag',
     icon: 'icon-car'
   },
   {
-    color: 'green-tag',
+    color: 'yellow-tag',
     icon: 'icon-house'
   },
   {
+    color: 'pink-tag',
+    icon: 'icon-phone'
+  },
+  {
+    color: 'orange-tag',
+    icon: 'icon-shop'
+  },
+  {
+    color: 'violet-tag',
+    icon: 'icon-bike'
+  },
+  {
+    color: 'blue-tag',
+    icon: 'icon-electro'
+  },
+  {
+    color: 'green-tag',
+    icon: 'icon-sofa'
+  },
+  {
     color: 'bg--red',
-    icon: 'icon-baby'
+    icon: 'icon-apple'
   },
   {
     color: 'yellow-dark-tag',
-    icon: 'icon-star'
+    icon: 'icon-baby'
   },
   {
     color: 'violet-light-tag',
-    icon: 'icon-shop'
+    icon: 'icon-star'
   }
 ];
