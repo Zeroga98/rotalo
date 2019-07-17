@@ -118,6 +118,7 @@ export class DetailProductComponent implements OnInit {
   public porcentajeSimulacion = 20;
   public childrens;
   public errorSize;
+  public childSelected;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -340,6 +341,11 @@ export class DetailProductComponent implements OnInit {
         }
         if(this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
+        }
+        if (this.products.children)
+        {
+          this.childrens = this.products.children;
+          this.childSelected = this.products.children[0];
         }
         
         const price = this.quantityForm.get('stock');
@@ -585,6 +591,7 @@ export class DetailProductComponent implements OnInit {
     {
       if(child.id==id)
       {
+        this.childSelected = child;
         this.totalStock = child.stock;
       }
     }
@@ -596,6 +603,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   buyProduct(id: number | string) {
+    console.log(id);
     if (!this.formIsInValid) {
       if(!id)
       {

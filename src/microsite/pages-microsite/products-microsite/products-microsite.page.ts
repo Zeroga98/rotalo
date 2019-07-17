@@ -469,13 +469,17 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   /*this.router.navigate([
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
         ], {queryParams: {product_category_id : category.id}});*/
-  public filterByCategory(categoryId: String, name: String) {
-    this.changeBanner(categoryId);
-    this.category = categoryId;
-    this.categoryName = name;
+  public filterByCategory(id: String, name: String) {
+    
     this.showBannersPromo = false;
+    if(id==='' && name===''){
+      this.showBannersPromo = true;
+    }
+    this.changeBanner(id);
+    this.category = id;
+    this.categoryName = name;
     this.selected='Más relevante';
-    this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
+    this.routineUpdateProducts({ product_category_id: id, number: 1 });
     this.scrollToTop();
   }
   public changeBanner(category) {
@@ -813,7 +817,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     categoria.click();
   }
   redirectCategory(categoria: String) {
-    this.filterByCategory(categoria, '');
+    let name;
+    for(let i = 0; i<this.filter.filtroCategoria.categorias.length;i++){
+      if(this.filter.filtroCategoria.categorias[i].id==categoria){
+        name=this.filter.filtroCategoria.categorias[i].name;
+      }
+    }
+    this.filterByCategory(categoria, name);
   }
   public filterOrder(filtro) {
     let order;

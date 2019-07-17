@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="carousel-theme desktop" *ngIf="showBannersPromo">
+  <div class="carousel-theme desktop" *ngIf="!categoryName">
     <div class="div-banners-promo">
       <div class="div-banner-promo"
         *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
@@ -122,7 +122,6 @@
                         {{category.subCategory.name}}</span>
                     </p>
                   </div>
-                  <p class="bold" *ngIf="!categoryName">Filtros</p>
                   <p *ngIf="categoryName">{{categoryName}} <span class="bold" *ngIf="subcategoryName"> -
                       {{subcategoryName}}</span></p>
                 </div>
