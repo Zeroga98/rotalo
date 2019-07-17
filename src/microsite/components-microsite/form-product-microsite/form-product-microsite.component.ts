@@ -425,14 +425,15 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   scrollToError() {
     /**El numero 3 puede cambiar en caso que se agreguen nuevos campos al formulario**/
+    debugger
     const elements = document.getElementsByClassName('ng-invalid');
     if (this.errorUploadImg || this.errorMaxImg) {
       const element = document.getElementById('image-upload');
       element.scrollIntoView({ block: 'end', behavior: 'smooth' });
-    } else if (!this.product && elements && elements[3]) {
+    } else if (!this.product && elements && elements[5]) {
+      elements[5].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } else if (this.product && elements && elements[3]) {
       elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
-    } else if (this.product && elements && elements[1]) {
-      elements[1].scrollIntoView({ block: 'start', behavior: 'smooth' });
     } else if (this.errorState || this.errorCity) {
       const element = document.getElementById('select-cities');
       element.scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -750,14 +751,17 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   setFashionValidation () {
     const genderId = this.photosForm.get('genderId');
     const colorFashion = this.photosForm.get('colorFashion');
+    const reference = this.photosForm.get('reference');
     genderId.clearValidators();
     colorFashion.clearValidators();
     if (!this.showOptionsFashion) {
       genderId.setValidators([Validators.required]);
       colorFashion.setValidators([Validators.required]);
+      reference.clearValidators();
     }
     genderId.updateValueAndValidity();
     colorFashion.updateValueAndValidity();
+    reference.updateValueAndValidity();
 
   }
 
@@ -1101,6 +1105,9 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios' &&
       config['children'] && config['children'].length > 0) {
         this.photosForm.get('genderId').disable();
+        const referenceForm = this.photosForm.get('reference');
+        referenceForm.clearValidators();
+        referenceForm.updateValueAndValidity();
       }
 
     }
@@ -1118,7 +1125,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   private initialSize() {
     const children = {
       'sizeId': '',
-      'stock': 1
+      'stock': 1,
+      'reference': ''
     };
     return children;
   }
@@ -1127,7 +1135,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const children = [
       {
         'sizeId': '',
-        'stock': 1
+        'stock': 1,
+        'reference': ''
       }
     ];
     return children;
@@ -1137,7 +1146,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const children = childrenForm.map(child => {
       return this.fb.group({
         'sizeId': [child['sizeId'], [Validators.required]],
-        'stock': [child['stock'], [Validators.required]]
+        'stock': [child['stock'], [Validators.required]],
+        'reference': [child['reference'], [Validators.required]]
       });
     });
     return children;

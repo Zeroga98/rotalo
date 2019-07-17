@@ -211,6 +211,7 @@ import { UpdateTrackingNumberComponent } from '../pages/profile/admin-orders/upd
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
+import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/products-edit-microsite/products-edit-microsite.component';
 
 @NgModule({
   declarations: [
@@ -345,6 +346,7 @@ import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/p
     UploadProductsComponent,
     FormProductMicrositeComponent,
     ProductsUploadMicrositeComponent,
+    ProductsEditMicrositeComponent,
   ],
   imports: [
     BrowserModule,
