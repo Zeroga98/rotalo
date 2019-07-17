@@ -425,7 +425,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   scrollToError() {
     /**El numero 3 puede cambiar en caso que se agreguen nuevos campos al formulario**/
-    debugger
     const elements = document.getElementsByClassName('ng-invalid');
     if (this.errorUploadImg || this.errorMaxImg) {
       const element = document.getElementById('image-upload');
