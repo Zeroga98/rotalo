@@ -89,6 +89,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   productForModal = {};
   public childrens;
   public errorSize;
+  public childSelected;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -287,9 +288,10 @@ export class DetailProductMicrositeComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.childrens)
+        if (this.products.children)
         {
-          this.childrens = this.products.childrens;
+          this.childrens = this.products.children;
+          this.childSelected = this.products.children[0];
         }
       }
     },
@@ -431,6 +433,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     {
       if(child.id==id)
       {
+        this.childSelected = child;
         this.totalStock = child.stock;
       }
     }
@@ -589,7 +592,6 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   async addToShoppingCar(product) {
-    console.log(product);
     let idProducto;
     let nombreProducto = this.products.name;
     let fotoProducto = this.products.photoList;

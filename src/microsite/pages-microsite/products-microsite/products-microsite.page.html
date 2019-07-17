@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="carousel-theme desktop" *ngIf="showBannersPromo">
+  <div class="carousel-theme desktop" *ngIf="!categoryName">
     <div class="div-banners-promo">
       <div class="div-banner-promo"
         *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">

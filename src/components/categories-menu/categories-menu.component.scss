@@ -291,10 +291,8 @@
                             color:#433490
                         }
                     }
-                    a.disabled{
-                      cursor: auto;
-                      color:  rgba(155, 155, 155, 0.61);
-                      font-weight: normal;
+                    li.disabled{
+                      display:none;
                     }
                 }
 

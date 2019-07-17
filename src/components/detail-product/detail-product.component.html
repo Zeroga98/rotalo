@@ -711,7 +711,7 @@
                 {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
               <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
-                (click)="buyProduct(childrens)">
+                (click)="buyProduct(childSelected.id)">
                 {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
               <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
@@ -728,7 +728,7 @@
                   {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
                 <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
-                  (click)="buyProduct(childrens)">
+                  (click)="buyProduct(childSelected.id)">
                   {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
                 <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"

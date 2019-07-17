@@ -6,7 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RemoveDigitsPipe implements PipeTransform {
 
     transform(value: string, codeDecimal = '.'): string {
-        const indexDecimal = value.indexOf(codeDecimal);
-        return value.substring(0, indexDecimal);
+        try{
+          const indexDecimal = value.indexOf(codeDecimal);
+          return value.substring(0, indexDecimal);
+        }catch (e){
+
+        }        
     }
 }

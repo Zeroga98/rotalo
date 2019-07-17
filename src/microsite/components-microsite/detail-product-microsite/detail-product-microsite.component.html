@@ -176,7 +176,7 @@
               Agregar al carrito
             </button>
             <button class="gtmProdComprar botons" *ngIf="products['sell-type'] == 'VENTA' && products.children"
-              (click)="addToShoppingCar(childrens)">
+              (click)="addToShoppingCar(childSelected)">
               <span class="icon-shop_car"></span>
               Agregar al carrito
             </button>

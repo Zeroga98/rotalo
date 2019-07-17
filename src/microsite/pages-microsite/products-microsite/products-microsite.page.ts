@@ -455,6 +455,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       immovable_pool: false,
       immovable_full_furnished: false
     };
+    this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     this.routineUpdateProducts(this.feedService.getInitialFilter());
     this.scrollToTop();
   }
@@ -469,15 +470,20 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     window.scrollTo(0, 0);
   }
 
-  public filterByCategory(categoryId: String, name: String) {
-    this.changeBanner(categoryId);
-    this.category = categoryId;
-    this.categoryName = name;
+  public filterByCategory(id: String, name: String) {
+
     this.showBannersPromo = false;
-    this.selected = 'Más relevante';
-    this.routineUpdateProducts({ product_category_id: categoryId, number: 1 });
+    if(id==='' && name===''){
+      this.showBannersPromo = true;
+    }
+    this.changeBanner(id);
+    this.category = id;
+    this.categoryName = name;
+    this.selected='Más relevante';
+    this.routineUpdateProducts({ product_category_id: id, number: 1 });
     this.scrollToTop();
   }
+
   public changeBanner(category) {
     var i;
     this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
@@ -813,7 +819,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     categoria.click();
   }
   redirectCategory(categoria: String) {
-    this.filterByCategory(categoria, '');
+    let name;
+    for(let i = 0; i<this.filter.filtroCategoria.categorias.length;i++){
+      if(this.filter.filtroCategoria.categorias[i].id==categoria){
+        name=this.filter.filtroCategoria.categorias[i].name;
+      }
+    }
+    this.filterByCategory(categoria, name);
   }
   public filterOrder(filtro) {
     let order;

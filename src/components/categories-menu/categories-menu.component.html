@@ -35,9 +35,9 @@
           </a>
       </div>
       <ul>
-        <li class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories"
+        <li [ngClass]="subcategory.productsActives != 0 ?  '': 'disabled'" class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}" *ngFor="let subcategory of category.subcategories"
           (click)="selectCategory(category, subcategory)">
-          <a [ngClass]="subcategory.productsActives != 0 ?  '': 'disabled'" class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}">
+          <a class="gtmMegaMeCateg{{category.url}}{{ subcategory.url }}">
             {{ subcategory.name }} </a>
         </li>
       </ul>
