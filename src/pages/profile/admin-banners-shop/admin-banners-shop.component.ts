@@ -303,7 +303,6 @@ export class AdminBannersShopComponent implements OnInit {
     || event.file.type == 'image/gif') {
       if (event.file.size < 5000000) {
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
-          debugger
           if (type == 'desktop') {
             element.patchValue({ 'urlBannerDesktop': response.urlPhoto });
             element.patchValue({ 'idBannerDesktop': response.photoId });
