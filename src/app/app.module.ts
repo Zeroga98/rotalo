@@ -217,6 +217,9 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
 import { ModalReactivateUserComponent } from '../components/modal-reactivate-user/modal-reactivate-user.component';
 import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
 
+import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
+import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
+import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/products-edit-microsite/products-edit-microsite.component';
 
 @NgModule({
   declarations: [
@@ -355,6 +358,9 @@ import { ModalReactivateUserSuccessComponent } from '../components/modal-reactiv
     StatesModalComponent,
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
+    FormProductMicrositeComponent,
+    ProductsUploadMicrositeComponent,
+    ProductsEditMicrositeComponent,
   ],
   imports: [
     BrowserModule,

@@ -59,6 +59,8 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
+import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
+import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/products-edit-microsite/products-edit-microsite.component';
 
 export const appRouter: Routes = [
   {
@@ -201,6 +203,14 @@ export const appRouter: Routes = [
           {
             path: `${ROUTES.MICROSITE.DETAIL}/:id`,
             component: DetalleProductoMicrositioComponent,
+          },
+          {
+            path: ROUTES.MICROSITE.UPLOAD,
+            component: ProductsUploadMicrositeComponent,
+          },
+          {
+            path: `${ROUTES.MICROSITE.UPLOAD}/:id`,
+            component: ProductsEditMicrositeComponent,
           },
           {
             path: ROUTES.MICROSITE.CAR,
