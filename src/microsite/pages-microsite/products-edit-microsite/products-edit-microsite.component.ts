@@ -14,9 +14,11 @@ import { CurrentSessionService } from '../../../services/current-session.service
 export class ProductsEditMicrositeComponent implements OnInit {
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
   product: ProductInterface;
+  public errorference = '';
   constructor(
     private router: Router,
     private productsService: ProductsService,
+    private changeDetectorRef: ChangeDetectorRef,
     private currentSessionService: CurrentSessionService
   ) { }
 
@@ -53,6 +55,10 @@ export class ProductsEditMicrositeComponent implements OnInit {
       this.productsService.products = [];
     },
       (error) => {
+        if (error.error) {
+          this.errorference = error.error.message;
+          this.changeDetectorRef.markForCheck();
+        }
         console.log(error);
       }
     );

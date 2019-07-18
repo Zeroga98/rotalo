@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -11,11 +11,12 @@ import { ModalUploadProductService } from '../../../components/modal-uploadProdu
   styleUrls: ['./products-upload-microsite.component.scss']
 })
 export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
-
+  public errorference = '';
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef,
     private modalService: ModalUploadProductService,
   ) { }
 
@@ -26,6 +27,7 @@ export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
   }
 
   publishPhoto (event) {
+    this.errorference = '';
     this.productsService.saveProductsForm(event).subscribe((response) => {
 
       this.userService.updateInfoUser();
@@ -34,6 +36,10 @@ export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
       }
     },
     (error) => {
+      if (error.error) {
+        this.errorference = error.error.message;
+        this.changeDetectorRef.markForCheck();
+      }
       console.error('Error: ', error);
     });
   }

@@ -435,6 +435,17 @@
     }
   }
 
+  .help-block.block {
+    display: none;
+  }
+
+  .size-container:last-child{
+    .help-block.block {
+      display: block;
+    }
+  }
+
+
 }
 
 @media screen and (max-width: 850px) {

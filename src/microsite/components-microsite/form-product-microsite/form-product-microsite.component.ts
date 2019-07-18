@@ -1,6 +1,6 @@
 import { DATAPICKER_CONFIG } from '../../../commons/constants/datapicker.config';
 import { ProductInterface } from '../../../commons/interfaces/product.interface';
-import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { EventEmitter, Output, Input, OnChanges, ViewChild, ElementRef, ChangeDetectionStrategy, AfterViewInit, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { CategoryInterface } from '../../../commons/interfaces/category.interface';
@@ -111,6 +111,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   socialClasses: Array<any> = SOCIALCLASS;
   cellphone: String;
   public formFashion;
+  @Input() errorference;
+
 
   constructor(
     private router: Router,
@@ -118,13 +120,14 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     private currentSessionSevice: CurrentSessionService,
     private photosService: PhotosService,
     private categoryService: CategoriesService,
-
+    private changeDetectorRef: ChangeDetectorRef,
     private utilsService: UtilsService,
     private userService: UserService,
     private collectionService: CollectionSelectService,
     ) {
       this.getCountries();
       this.defineSubastaTimes();
+      this.changeDetectorRef.markForCheck();
     }
 
     async ngOnInit() {
@@ -136,21 +139,21 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         this.categoryService.getCategoriesActiveServer().subscribe((response) => {
           this.loadYearsModelVehicle();
           this.categories = response;
-
+          this.changeDetectorRef.markForCheck();
         }, (error) => {
           console.log(error);
         });
-
+        this.changeDetectorRef.markForCheck();
       } catch (error) {
         console.log(error);
       }
     }
 
     ngAfterViewInit(): void {
-
+      this.changeDetectorRef.markForCheck();
     }
 
-    ngOnChanges(): void {
+    ngOnChanges(value): void {
       if (this.product) {
         this.setInitialForm(this.getInitialConfig());
         this.getCountries();
@@ -164,6 +167,13 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
           }
         }, 30);
       }
+
+      if (value && value.errorference && document.getElementById('fashion')) {
+        const element = document.getElementById('fashion');
+        element.scrollIntoView({ block: 'end', behavior: 'smooth' });
+      }
+
+      this.changeDetectorRef.markForCheck();
     }
 
 
@@ -174,7 +184,13 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       this.communityName = this.userEdit.company.community.name;
     }
     this.onInfoRetrieved(this.userEdit);
-
+/** **/
+    if (this.userEdit && !this.userEdit['is-admin-store'] && this.photosForm) {
+      const referenceForm = this.photosForm.get('reference');
+      referenceForm.clearValidators();
+      referenceForm.updateValueAndValidity();
+    }
+    this.changeDetectorRef.markForCheck();
   }
 
   onInfoRetrieved(user): void {
@@ -188,7 +204,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       this.stateValue =  this.product.city.state;
       this.cityValue = this.product.city;
     }
-
+    this.changeDetectorRef.markForCheck();
   }
 
   async getCountries() {
@@ -212,7 +228,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     this.collectionService.getSizes(params).subscribe((response) => {
       if (response.body) {
         this.sizesList = response.body.tallas;
-
+        this.changeDetectorRef.markForCheck();
       }
     }, (error) => {
       console.log(error);
@@ -403,7 +419,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       };
 
       this.publish.emit(request);
-
     } else {
       this.validateAllFormFields(this.photosForm);
       if (!this.showOptionsFashion && this.formFashion && this.formFashion.invalid) {
@@ -411,7 +426,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       }
       if (this.photosUploaded.length <= 0) {
         this.errorMaxImg = true;
-
+        this.changeDetectorRef.markForCheck();
       }
       if (!this.state['id']) {
         this.errorState = true;
@@ -509,7 +524,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         this.photosService.uploadPhoto(event.file).subscribe((response) => {
           const photo = Object.assign({}, response, { file: event.file });
           this.photosUploaded.push(photo);
-
+          this.changeDetectorRef.markForCheck();
         }, (error) => {
           if (error.error && error.error.status) {
             if (error.error.status == '624') {
@@ -525,7 +540,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
             this.errorUploadImg = true;
           }
           console.error('Error: ', error);
-
+          this.changeDetectorRef.markForCheck();
         },
           () => {
             if (this.photosCounter > 0) {
@@ -551,7 +566,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     if (photo && photo.photoId) {
       this.removeImageFromServer(photo.photoId);
     }
-
+    this.changeDetectorRef.markForCheck();
   }
 
   onRemoveAll() {
@@ -575,14 +590,14 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const photo = this.findPhoto(file);
     if (photo) {this.removeImageFromServer(photo.photoId); }
     this.errorUploadImg = false;
-
+    this.changeDetectorRef.markForCheck();
   }
 
   async removeImageFromServer(id: number) {
     try {
       const response = await this.photosService.deletePhoto(id);
       this.removePhoto(id);
-
+      this.changeDetectorRef.markForCheck();
     } catch (error) {
       console.error('error: ', error);
     }
@@ -696,7 +711,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     airConditioner.updateValueAndValidity();
     absBrakes.updateValueAndValidity();
     uniqueOwner.updateValueAndValidity();
-
+    this.changeDetectorRef.markForCheck();
   }
 
 
@@ -744,7 +759,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     elevator.updateValueAndValidity();
     guardHouse.updateValueAndValidity();
     parking.updateValueAndValidity();
-
+    this.changeDetectorRef.markForCheck();
   }
 
   setFashionValidation () {
@@ -761,7 +776,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     genderId.updateValueAndValidity();
     colorFashion.updateValueAndValidity();
     reference.updateValueAndValidity();
-
+    this.changeDetectorRef.markForCheck();
   }
 
   setLinesVehicle (id) {
@@ -773,7 +788,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
      if (brands && brands.length > 0) {
       this.modelList = brands[0].lines;
      }
-
+     this.changeDetectorRef.markForCheck();
     }
   }
 
@@ -1111,6 +1126,12 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     }
 
+    if (this.userEdit && !this.userEdit['is-admin-store']) {
+      const referenceForm = this.photosForm.get('reference');
+      referenceForm.clearValidators();
+      referenceForm.updateValueAndValidity();
+    }
+
   }
 
   private setInitialFormFashion(children) {
@@ -1175,7 +1196,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   private createBasicItem(children) {
     return this.fb.group({
         'sizeId': [children['sizeId'], [Validators.required]],
-        'stock': [children['stock'], [Validators.required]]
+        'stock': [children['stock'], [Validators.required]],
+        'reference': [children['reference'], [Validators.required]]
       });
   }
 
@@ -1412,7 +1434,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
       newPrice.updateValueAndValidity();
       this.photosForm.patchValue({ 'special-price': maxNewPrice });
-
+      this.changeDetectorRef.markForCheck();
     } else  {
       this.removeValidatorNewPrice();
       if (!this.categorySelected ) {
