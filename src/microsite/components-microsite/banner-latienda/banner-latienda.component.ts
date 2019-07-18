@@ -140,19 +140,19 @@ export class BannerLatiendaComponent implements OnInit {
 
   goHomeStore() {
     const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    var categoria = document.createElement("a");
+    const categoria = document.createElement('a');
     categoria.href = routeHome;
     categoria.click();
   }
 
   redirectLink(url) {
-    var categoria = document.createElement("a");
-    categoria.target = "_blank";
+    const categoria = document.createElement('a');
+    categoria.target = '_blank';
     categoria.href = url;
     categoria.click();
   }
 
   redirectCategory(idCategoria: number) {
-    console.log("idCategoria: " + idCategoria);
+    console.log('idCategoria: ' + idCategoria);
   }
 }
