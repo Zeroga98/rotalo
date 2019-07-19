@@ -435,8 +435,13 @@
     }
   }
 
+
   .help-block.block {
     display: none;
+  }
+
+  .help-block.block-product {
+    display: block;
   }
 
   .size-container:last-child{
@@ -444,6 +449,7 @@
       display: block;
     }
   }
+
 
 
 }
