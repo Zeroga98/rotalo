@@ -18,7 +18,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   public statusTab = 0;
   public productos = [];
   @ViewChild('grid') grid: ElementRef;
-  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/`;
+  edit: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.UPLOAD}/`;
   show: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/`;
   preview: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.PREVIEW}/`;
 

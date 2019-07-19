@@ -260,7 +260,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
         if(this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
         }
-        
+
 
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {
@@ -410,7 +410,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
 
   editProduct(product: ProductInterface) {
     this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}/${product.id}`
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.UPLOAD}/${product.id}`
     ]);
   }
 
