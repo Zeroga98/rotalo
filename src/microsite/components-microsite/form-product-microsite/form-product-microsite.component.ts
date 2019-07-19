@@ -325,6 +325,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         });
 
       }
+
       this.photosUploaded.length = 0;
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];

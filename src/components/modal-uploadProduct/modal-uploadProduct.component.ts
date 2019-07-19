@@ -144,6 +144,8 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
       this.router.navigate([
         `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`
       ]);
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
     } else if (id) {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
