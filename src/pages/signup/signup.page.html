@@ -17,7 +17,6 @@
           {{errorMessage}}
         </span>
       </div>
-
       <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('name').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('name').invalid && !registerForm.get('name').pristine}"
@@ -50,7 +49,6 @@
             </span>
         </span>
       </div>
-
       <div class="input-readonly material-input text-center">
           <span [ngClass]="{'input--filled': registerForm.get('identification').value}" class="text-left input input--label-md">
             <input [ngClass]="{'invalid': registerForm.get('identification').invalid && !registerForm.get('identification').pristine}"
@@ -61,7 +59,6 @@
             </label>
           </span>
       </div>
-
       <div class="input-readonly material-input text-center">
         <span [ngClass]="{'input--filled': registerForm.get('cellphone').value}" class="text-left input input--label-md">
           <input [ngClass]="{'invalid': registerForm.get('cellphone').invalid && !registerForm.get('cellphone').pristine}"
@@ -71,8 +68,7 @@
             <span class="input__label-content input__label-content--label-md" data-content="Número de celular">Número de celular</span>
           </label>
         </span>
-    </div>
-
+      </div>
       <div class="select-country form-group">
         <select-country class="white-theme-select material-select" [initialValue]="country" (selected)="country=$event;"></select-country>
       </div>
@@ -84,6 +80,11 @@
         <div class="form-group column">
           <select-cities [ngClass]="{'invalid': errorCity}" class="white-theme-select material-select" [state]="state" (selected)="city=$event; validateCity()"></select-cities>
           <span class="error-msg">Este campo es requerido.</span>
+        </div>
+      </div>
+      <div class="row material-design">
+        <div class="form-group">
+          <input placeholder="Código referido" formControlName="reference" name="reference"  type="text" class="form-control" maxlength="20">
         </div>
       </div>
 

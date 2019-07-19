@@ -55,7 +55,8 @@ export class SignUpPage implements OnInit {
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
       identification: new FormControl({value: '', disabled: true}, [Validators.required]),
       email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
-      cellphone: new FormControl({value: '', disabled: true}, [Validators.required])
+      cellphone: new FormControl({value: '', disabled: true}, [Validators.required]),
+      reference: new FormControl(''),
     });
     this.getCountries();
   }
@@ -237,7 +238,8 @@ export class SignUpPage implements OnInit {
   buildParamsUserRequest() {
     const params = {
       'idCiudad': this.city['id'],
-      'codigoActivacion': this.codeSignup
+      'codigoActivacion': this.codeSignup,
+      'referencia': this.registerForm.get('reference').value
     };
     return params;
   }
