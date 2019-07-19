@@ -229,8 +229,9 @@
               </div>
               <div *ngIf="showOptionsFashion && userEdit && userEdit['is-admin-store']" class="form-group">
                 <label class="label-title">Referencia del producto*</label>
-                <input formControlName="reference" type="text" class="form-control" name="reference" maxlength="20">
+                <input (keydown) = "clearInputReference()" id="reference-product" formControlName="reference" type="text" class="form-control" name="reference" maxlength="20">
                 <span class="help-block error-msg"> Este campo es requerido </span>
+                <span *ngIf="errorference"  class="help-block block-product">{{errorference}}</span>
               </div>
               <div *ngIf="isNewPriceShow" class="form-group">
                 <div class="label-title check-offer">
@@ -369,7 +370,7 @@
 
                           <div class="form-group">
                             <label class="label-title">Referencia*</label>
-                            <input  formControlName="reference"  type="text" class="form-control" name="reference" maxlength="20">
+                            <input (keydown) = "clearInputReference()" formControlName="reference"  type="text" class="form-control" name="reference" maxlength="20">
                             <span class="help-block error-msg"> Este campo es requerido </span>
                             <span *ngIf="errorference"  class="help-block block">{{errorference}}</span>
                           </div>
