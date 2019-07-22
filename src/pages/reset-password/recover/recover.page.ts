@@ -54,6 +54,9 @@ export class RecoverPage implements OnInit {
         if(error.error.status==609){
           this.errorStatus = error.error.status;
         }
+        if(error.error.status==610){
+          this.errorStatus = error.error.status;
+        }
       }
     );
   }
