@@ -53,12 +53,10 @@
     margin-top: 25px;
   }
   .input-email {
-   // width: 300px;
-     width: 277px;
+   width: 300px;
   }
   .input-password {
-   // width: 240px;
-    width: 169px;
+    width: 240px;
   }
   .btn-mobile{
     display: none;
@@ -83,20 +81,21 @@
     opacity: 0;
   }
 
+  .shop-icon {
+    margin: 0 10px 0 0;
+    width: 18px;
+    height: 18px;
+    background-size: 18px 18px;
+    background-image: url(../../assets/img/logos_menu/admin_tienda_3.svg);
+  }
+
   .link-shop-container {
-    margin-left: 70px;
+    margin-left: 50px;
     cursor: pointer;
     .promo-shop{
       display: flex;
       width: 100%;
       align-items: center;
-    }
-    .shop-icon {
-      margin: 0 10px 0 0;
-      width: 18px;
-      height: 18px;
-      background-size: 18px 18px;
-      background-image: url(../../assets/img/logos_menu/admin_tienda_3.svg);
     }
     .label {
       color:#333333;
@@ -141,10 +140,57 @@
 
 }
 
+:host {
+  .mat-icon-button {
+    display: none;
+    margin-top: 2.3rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+  }
+}
+
+
 @keyframes movetag {
   0% {left: 0px;}
   50% {left: 10px;}
   100% {left: 0px;}
+}
+
+@media screen and (max-width: 1264px) {
+  :host {
+    .link-shop-container {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  :host {
+    .link-shop-container {
+     display: none;
+    }
+    .mat-icon-button {
+      display: block;
+      margin-right: 10px;
+    }
+    .shop-icon {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  :host {
+    .input, .content-link {
+      display: none;
+    }
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -152,10 +198,6 @@
 
     .container {
       padding: 15px 5.7%;
-    }
-
-    .input, .content-link {
-      display: none;
     }
 
     .container-logo{
@@ -174,11 +216,26 @@
       display: block;
     }
 
+    .mat-icon-button {
+      margin: 0px;
+      margin-right: 10px;
+      margin-top: -2px;
+    }
+
   }
 }
 
 @media screen and (max-width: 1200px) {
   .link-shop-container {
     display: none;
+  }
+}
+
+
+@media screen and (max-width: 320px) {
+  :host {
+    .mat-icon-button {
+      margin: 0 5px;
+    }
   }
 }
