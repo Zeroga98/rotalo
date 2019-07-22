@@ -26,6 +26,9 @@
         height: 100%;
         display: block;
       }
+      .shop-img {
+        display: none;
+      }
     }
   }
 
@@ -337,34 +340,27 @@ input[type="email"].input__field {
   }
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1180px) {
   :host {
     .play-container {
-      top: calc(100% - 260px);
-    }
-
-    .register-container {
-    //  width: 35%;
-      padding: 20px 0;
-      padding-bottom: 0;
+      top: calc(100% - 380px);
     }
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1050px) {
   :host {
-    .play-container {
-      top: calc(100% - 220px);
-    }
 
     .home-container {
       flex-direction: column;
     }
 
+    .play-container {
+      top: calc(100% - 240px);
+    }
+
     .video-container {
       width: 100%;
-      height: 350px;
-
       img {
         display: none;
       }
@@ -376,7 +372,7 @@ input[type="email"].input__field {
     }
 
     .hero-image {
-      background-image: url("../../assets/img/img_bienvenida@2x.png");
+      background-image: url("../../assets/img/img_bienvenida_sola@2x.png");
       height: 100%;
       background-position: center;
       background-repeat: no-repeat;
@@ -384,13 +380,37 @@ input[type="email"].input__field {
       position: relative;
     }
 
-    .success-container {
-      margin: 5%;
-      margin-top: 0px;
+    .video-container {
+      height: 300px;
+      margin-bottom: 20rem;
+      .layer-shop{
+        position: inherit;
+        width: 100%;
+        display: block;
+        a {
+          cursor: pointer;
+          width: 100%;
+          .shop-img {
+            display: block;
+            margin-top: 10px;
+          }
+        }
+      }
     }
-
   }
 }
+
+@media screen and (max-width: 800px) {
+  :host {
+    .video-container {
+      margin-bottom: 16rem;
+    }
+    .video-container .layer-shop {
+      height: auto;
+    }
+  }
+}
+
 
 @media screen and (max-width: 800px) {
   :host {
@@ -411,11 +431,14 @@ input[type="email"].input__field {
         }
       }
     }
+  }
+}
 
+@media screen and (max-width: 600px) {
+  :host {
     .video-container {
-      height: 300px;
+      margin-bottom: 10rem;
     }
-
   }
 }
 
@@ -455,4 +478,20 @@ input[type="email"].input__field {
 
 
 
+}
+
+@media screen and (max-width: 400px) {
+  :host {
+    .video-container {
+      margin-bottom: 8rem;
+    }
+  }
+}
+
+@media screen and (max-width: 340px) {
+  :host {
+    .video-container {
+      margin-bottom: 6.5rem;
+    }
+  }
 }
