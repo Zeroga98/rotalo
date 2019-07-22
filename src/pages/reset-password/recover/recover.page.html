@@ -49,6 +49,14 @@
           <br><br>
           <span> <a class="registrate-aqui" (click)="goToHome()">Regístrate aquí</a> </span>
         </div>
+        <div *ngIf="errorStatus==610 && recoverForm">
+            <span> ¡Ups! no puedes recuperar tu contraseña porque aún </span>
+            <br>
+            <span> no has activado tu cuenta. Hemos enviado un enlace de activación
+            </span>
+            <br>
+            <span>a la dirección<strong> {{recoverForm.get('email').value}}</strong></span>
+          </div>
       </div>
     </div>
 
