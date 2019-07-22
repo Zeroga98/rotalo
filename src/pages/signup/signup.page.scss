@@ -163,6 +163,17 @@
     font-size: 1.6rem;
   }
 
+  .material-design {
+    .form-group{
+      label {
+        color:#383838;
+        font-size: 1.8rem;
+        margin-bottom: 17px;
+        display: block;
+      }
+    }
+  }
+
   .form-theme .material-design input[type=text]:focus {
     border-color: #0FBBD8;
   }
