@@ -104,6 +104,25 @@
 
 }
 
+.message-notification {
+  border-radius: 50%;
+  font-size: 1.0rem;
+  height: 17px;
+  width: 17px;
+  color: #FFFFFF;
+  background-color: #FF3646;
+  display: inline-block;
+  position: relative;
+  vertical-align: text-bottom;
+  margin-left: 5px;
+  p {
+    position: absolute;
+    top: 49%;
+    left: 48%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
 
 :host {
   .ac-container label {
