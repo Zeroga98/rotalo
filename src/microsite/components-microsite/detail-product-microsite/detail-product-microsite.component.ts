@@ -31,6 +31,7 @@ import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-pro
 import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
+import { timingSafeEqual } from 'crypto';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -90,6 +91,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   public childrens;
   public errorSize;
   public childSelected;
+  public reference;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -288,10 +290,12 @@ export class DetailProductMicrositeComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
+        this.reference = this.products.reference;
         if (this.products.children)
         {
           this.childrens = this.products.children;
           this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
         }
       }
     },
@@ -435,6 +439,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       {
         this.childSelected = child;
         this.totalStock = child.stock;
+        this.reference = child.reference;
       }
     }
     this.quantityForm = this.fb.group(
