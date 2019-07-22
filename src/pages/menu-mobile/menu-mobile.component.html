@@ -50,6 +50,9 @@
     <button routerLinkActive="active" [routerLink]="messages" mat-menu-item>
         <div class="button-container">
                 Mensajes
+                <span *ngIf="messagesUnRead" class="message-notification">
+                    <p>{{messagesUnRead}}</p>
+                </span>
             <div class="arrow icon"></div>
         </div>
     </button>

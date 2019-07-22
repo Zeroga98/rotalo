@@ -199,7 +199,7 @@
           align-items: center;
           position: relative;
 
-          span {
+          .hamburger-menu {
             cursor: pointer;
             width: 18px;
             height: 18px;
@@ -216,6 +216,13 @@
             background-size: contain;
             margin-top: 0px;
           }
+
+          .message-notification {
+            position: absolute;
+            top: -7px;
+            right: -7px;
+          }
+
         }
       }
 
@@ -228,10 +235,17 @@
 
           .icon-bell.active {
             cursor: pointer;
-            width: 16px;
-            height: 18px;
-            background: url(../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
-            background-size: contain;
+            position: relative;
+            &:before {
+              content: '';
+              display: block;
+              height: 10px;
+              width: 10px;
+              position: absolute;
+              right: -3px;
+              border-radius: 50%;
+              background-color: #FF3646;
+            }
           }
 
           .icon-bell {
@@ -376,6 +390,33 @@
         color: #CD0E2E;
       }
     }
+  }
+
+}
+
+.message-notification {
+  border-radius: 50%;
+  font-size: 1.0rem;
+  height: 17px;
+  width: 17px;
+  color: #FFFFFF;
+  background-color: #FF3646;
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  p {
+    position: absolute;
+    top: 49%;
+    left: 48%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+.mat-menu-item {
+  .message-notification {
+    vertical-align: text-bottom;
+    margin-left: 5px;
   }
 }
 
