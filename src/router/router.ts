@@ -59,6 +59,7 @@ import { ProductsShopComponent } from '../pages/profile/products-shop/products-s
 import { UploadProductsComponent } from '../pages/profile/upload-products/upload-products.component';
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
+import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -279,6 +280,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
+  },
+  {
+    path: ROUTES.SHOP,
+    component: HomeShopComponent
   },
   {
     path: '',

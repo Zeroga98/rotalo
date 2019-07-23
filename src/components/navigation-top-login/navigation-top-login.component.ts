@@ -25,6 +25,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   private userCountry: any;
   @ViewChild('email') email: ElementRef;
   @ViewChild('pass') pass: ElementRef;
+  public readonly shop: string = `/${ROUTES.SHOP}`;
 
   constructor(
     private loginService: LoginService,
@@ -200,7 +201,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
               this.openDialogReactivate();
               //this.changeRef.markForCheck();
             }
-            
+
             if (response.status === 9999) {
               this.openDialog();
             }

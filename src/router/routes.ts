@@ -16,6 +16,7 @@ export const ROUTES = {
     STEPS: 'steps',
     FAQ: 'faq',
     LOGINMOBILE: 'login-mobile',
+    SHOP: 'shop',
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

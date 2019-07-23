@@ -216,6 +216,8 @@ import { MatSelectModule } from '@angular/material';
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 import { ModalReactivateUserComponent } from '../components/modal-reactivate-user/modal-reactivate-user.component';
 import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
+import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
+import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop/feedMicrosite.service';
 
 
 @NgModule({
@@ -355,6 +357,7 @@ import { ModalReactivateUserSuccessComponent } from '../components/modal-reactiv
     StatesModalComponent,
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
+    HomeShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -466,6 +469,7 @@ import { ModalReactivateUserSuccessComponent } from '../components/modal-reactiv
     ProductsMicrositeService,
     ConfigurationMicrositeService,
     FeedMicrositeService,
+    FeedShopMicrositeService,
     ShoppingCarService,
     windowService
   ],
