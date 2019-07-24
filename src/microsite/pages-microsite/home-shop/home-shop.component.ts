@@ -1,11 +1,3 @@
-import { FeedMicrositeService } from './feedMicrosite.service';
-import { CountryInterface } from './../../../components/select-country/country.interface';
-import { CityInterface } from './../../../commons/interfaces/city.interface';
-import { NavigationService } from '../../../pages/products/navigation.service';
-import { Router } from '@angular/router';
-import { SubcategoryInterface } from './../../../commons/interfaces/subcategory.interface';
-import { CategoryInterface } from './../../../commons/interfaces/category.interface';
-import { ProductInterface } from './../../../commons/interfaces/product.interface';
 import {
   Component,
   OnInit,
@@ -18,26 +10,38 @@ import {
   QueryList,
   AfterViewInit
 } from '@angular/core';
+import { LoginService } from '../../../services/login/login.service';
+import { CurrentSessionService } from '../../../services/current-session.service';
+import { MessagesService } from '../../../services/messages.service';
+import { UserService } from '../../../services/user.service';
 import { NgxCarousel } from 'ngx-carousel';
+import { FeedShopMicrositeService } from './feedMicrosite.service';
+import { CountryInterface } from './../../../components/select-country/country.interface';
+import { CityInterface } from './../../../commons/interfaces/city.interface';
+import { NavigationService } from '../../../pages/products/navigation.service';
+import { Router } from '@angular/router';
+import { SubcategoryInterface } from './../../../commons/interfaces/subcategory.interface';
+import { CategoryInterface } from './../../../commons/interfaces/category.interface';
+import { ProductInterface } from './../../../commons/interfaces/product.interface';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { ROUTES } from './../../../router/routes';
 import { Subscription } from 'rxjs';
 import { StatesRequestEnum } from '../../../commons/states-request.enum';
 import { UtilsService } from '../../../util/utils.service';
-import { CurrentSessionService } from '../../../services/current-session.service';
 import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
 import { ModalTicketService } from '../../../components/modal-ticket/modal-ticket.service';
 import { FormBuilder } from '@angular/forms';
 import { SettingsService } from '../../../services/settings.service';
 import { CAROUSEL_BANNER_TIENDA_CONFIG } from './carouselBannerTienda.config';
 import { CAROUSEL_CONFIG } from './carousel.config';
+
 @Component({
-  selector: 'products--microsite',
-  templateUrl: 'products-microsite.page.html',
-  styleUrls: ['products-microsite.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-home-shop',
+  templateUrl: './home-shop.component.html',
+  styleUrls: ['./home-shop.component.scss']
 })
-export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
+export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
+  private userCountry: any;
   public carouselConfig: NgxCarousel;
   public imagesBanner: Array<string>;
   public products: Array<ProductInterface> = [];
@@ -105,48 +109,36 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public carouselProductsConfig: NgxCarousel;
   buttonNameFilter: any;
   showFilterResponsive: boolean;
-  constructor(
+  constructor(private loginService: LoginService,
+    private currentSessionService: CurrentSessionService,
+    private userService: UserService,
+    private messagesService: MessagesService,
     private productsMicrositeService: ProductsMicrositeService,
     private router: Router,
     private utilService: UtilsService,
     private navigationService: NavigationService,
-    private feedService: FeedMicrositeService,
+    private feedService: FeedShopMicrositeService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSession: CurrentSessionService,
     private modalService: ModalShareProductService,
     private modalTicketService: ModalTicketService,
     private settingsService: SettingsService,
-    private formBuilder: FormBuilder
-  ) {
-    this.currentFilter = this.feedService.getCurrentFilter();
-    this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
-    this.carouselConfig = CAROUSEL_CONFIG;
-    this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
-  }
-  ngOnInit() {
-
-    this.selected = 'Más relevante';
-    this.loadBanners();
-    this.setFormHomeShop(this.getInitialConfigHomeShop());
-    this.setInitialFormPromo(this.getInitialConfigPromo());
-    this.setInitialFormCategories(this.getInitialConfigCategories());
-    this.countDown();
-    let countryId;
-    if (this.navigationService.getCurrentCountryId()) {
-      countryId = this.navigationService.getCurrentCountryId();
-    } else {
-      countryId = this.currentSession.currentUser()['countryId'];
+    private formBuilder: FormBuilder ) {
+      this.currentFilter = this.feedService.getCurrentFilter();
+      this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
+      this.carouselConfig = CAROUSEL_CONFIG;
+      this.carouselProductsConfig = CAROUSEL_BANNER_TIENDA_CONFIG;
     }
-    this.idCountry = countryId;
-    this.loadProductsUser(countryId);
-    this._subscribeCountryChanges();
-    this.showToFilter();
-    //this.loadFirstBanners();
+
+  ngOnInit() {
+    this.login();
   }
+
   ngOnDestroy(): void {
     this._subscriptionCountryChanges.unsubscribe();
     this.changeDetectorRef.markForCheck();
   }
+
   ngAfterViewInit() {
     this.showPagination = true;
     if (this.productsMicrositeService.products.length > 0) {
@@ -163,27 +155,82 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.productsMicrositeService.getProductLocation();
     this.changeDetectorRef.markForCheck();
   }
-  countDown() {
-    const countDownDate = new Date('Nov 30, 2018 23:59:59').getTime();
-    const that = this;
-    const x = setInterval(function () {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const h = d * 24 + Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((distance % (1000 * 60)) / 1000);
-      const hours = h > 9 ? '' + h : '0' + h;
-      const minutes = m > 9 ? '' + m : '0' + m;
-      const seconds = s > 9 ? '' + s : '0' + s;
-      that.counter = hours + ': ' + minutes + ': ' + seconds;
-      that.changeDetectorRef.markForCheck();
-      if (distance < 0) {
-        clearInterval(x);
+
+  login() {
+
+    const user = {
+      user: 'jorge.fernandez@pragma.com.co',
+      password: '8ik,7ujM',
+      ipAddress: '127.0.0.0'
+    };
+    this.loginService.logOutClearSession(user.user).subscribe(data => {
+      if (data.status === 200) {
+        this.loginService.loginSapiUser(user)
+          .then(response => {
+            if (response.status === 200) {
+              const saveInfo = {
+                'auth-token': response.body.data.token,
+                email: response.body.data.userProperties.email,
+                id: response.body.data.userProperties.roles[0],
+                rol: response.body.data.userProperties.roles[1],
+                'id-number': response.body.data.userProperties.identification,
+                name: response.body.data.userProperties.fullname,
+                photo: {
+                  id: ' ',
+                  url: ' '
+                }
+              };
+              this.currentSessionService.setSession(saveInfo);
+              this.currentSessionService.getIdUser();
+              this.setUserCountry(saveInfo);
+              this.checkNotificationHobbies(saveInfo.id);
+              this.selected = 'Más relevante';
+              this.loadBanners();
+              this.setFormHomeShop(this.getInitialConfigHomeShop());
+              this.setInitialFormPromo(this.getInitialConfigPromo());
+              this.setInitialFormCategories(this.getInitialConfigCategories());
+              let countryId;
+              if (this.navigationService.getCurrentCountryId()) {
+                countryId = this.navigationService.getCurrentCountryId();
+              } else {
+                countryId = this.currentSession.currentUser()['countryId'];
+              }
+              this.idCountry = countryId;
+              this.loadProductsUser(countryId);
+              this._subscribeCountryChanges();
+              this.showToFilter();
+            }
+          })
+          .catch(httpErrorResponse => {
+            console.error(httpErrorResponse);
+          });
       }
-    }, 1000);
+    });
   }
-  updateSrc(evt) {
+
+  async setUserCountry(userInfo) {
+    try {
+      const user = await this.userService.getInfoUser();
+      this.userCountry = user.city.state.country.id;
+      const userLogin = Object.assign({}, userInfo, {
+        countryId: this.userCountry
+      });
+      this.currentSessionService.setSession(userLogin);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  checkNotificationHobbies(idUser) {
+    this.messagesService.checkNotificationHobbies(idUser)
+     .subscribe(
+       state => {
+       },
+       error => console.log(error)
+     );
+   }
+
+   updateSrc(evt) {
     evt.currentTarget.src = this.defaultImage;
   }
   getLocation(product): string {
@@ -808,13 +855,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
   goHomeStore() {
     const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    var categoria = document.createElement("a");
+    var categoria = document.createElement('a');
     categoria.href = routeHome;
     categoria.click();
   }
   redirectLink(url) {
-    var categoria = document.createElement("a");
-    categoria.target = "_blank";
+    var categoria = document.createElement('a');
+    categoria.target = '_blank';
     categoria.href = url;
     categoria.click();
   }
@@ -830,29 +877,30 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public filterOrder(filtro) {
     let order;
     if (filtro === 'Relevancia') {
-      order = "product_store_index-asc";
+      order = 'product_store_index-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Más reciente') {
-      order = "product_published_at-desc";
+      order = 'product_published_at-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Más antiguo') {
-      order = "product_published_at-asc";
+      order = 'product_published_at-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Menor precio') {
-      order = "product_price-asc";
+      order = 'product_price-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Mayor precio') {
-      order = "product_price-desc";
+      order = 'product_price-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
   }
+
 }

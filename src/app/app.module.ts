@@ -216,6 +216,10 @@ import { MatSelectModule } from '@angular/material';
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 import { ModalReactivateUserComponent } from '../components/modal-reactivate-user/modal-reactivate-user.component';
 import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
+import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
+import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop/feedMicrosite.service';
+import { NavigationTopPublicComponent } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.component';
+import { ProductMicrositePublicComponent } from '../microsite/components-microsite/product-microsite-public/product-microsite-public.component';
 
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
@@ -361,6 +365,9 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     FormProductMicrositeComponent,
     ProductsUploadMicrositeComponent,
     ProductsEditMicrositeComponent,
+    HomeShopComponent,
+    NavigationTopPublicComponent,
+    ProductMicrositePublicComponent,
   ],
   imports: [
     BrowserModule,
@@ -472,6 +479,7 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     ProductsMicrositeService,
     ConfigurationMicrositeService,
     FeedMicrositeService,
+    FeedShopMicrositeService,
     ShoppingCarService,
     windowService
   ],

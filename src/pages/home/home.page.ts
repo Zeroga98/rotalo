@@ -49,6 +49,7 @@ export class HomePage implements OnInit {
   public country = 'Colombia';
   public userEmail = '';
   public showReactivateModal = false;
+  public readonly shop: string = `/${ROUTES.SHOP}`;
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
@@ -401,8 +402,8 @@ export class HomePage implements OnInit {
       console.log(error);
     });
 
-      
-    
+
+
   }
 
   openDialogReactivateSuccess(): void {
