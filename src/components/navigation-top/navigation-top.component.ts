@@ -201,7 +201,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   isBancolombiaShopValidation() {
-    if (this.router.url.includes(`${ROUTES.MICROSITE.LINK}`) && this.userEdit && !this.userEdit['is-admin-store']) {
+    if (this.router.url.includes(`${ROUTES.MICROSITE.LINK}`) || this.router.url.includes(`${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`) ) {
       this.isBancolombiaShop = true;
       this.getTotalProductsCart();
     } else {
@@ -335,13 +335,14 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   }
 
   goToUploadProduct() {
-    if (this.userEdit && this.userEdit['is-admin-store']) {
+    /*if (this.userEdit && this.userEdit['is-admin-store']) {
       this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
         ROUTES.MICROSITE.UPLOAD}`]);
     } else if (!this.isBancolombiaShop) {
       this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.UPLOAD}`]);
-    }
+    }*/
+    this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}`]);
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }

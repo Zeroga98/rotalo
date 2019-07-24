@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { SettingsService } from '../../../services/settings.service';
 import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-shop',
@@ -25,6 +26,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   constructor(private productsService: ProductsService,
     private utilService: UtilsService,
     private userService: UserService,
+    private router: Router,
     private settingsService: SettingsService) { }
 
   ngOnInit() {
@@ -121,6 +123,13 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   goBack(): void {
     window.history.back();
+  }
+
+  goToUploadProduct() {
+    this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
+      ROUTES.MICROSITE.UPLOAD}`]);
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
   }
 
 }
