@@ -89,6 +89,8 @@ export class PreviewProductMicrositeComponent implements OnInit {
   productForModal = {};
   public childrens;
   public errorSize;
+  public childSelected;
+  public reference;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -282,9 +284,11 @@ export class PreviewProductMicrositeComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.childrens)
-        {
-          this.childrens = this.products.childrens;
+        this.reference = this.products.reference;
+        if (this.products.children) {
+          this.childrens = this.products.children;
+          this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
         }
       }
     },
@@ -422,11 +426,11 @@ export class PreviewProductMicrositeComponent implements OnInit {
 
   updateSize(id){
     this.errorSize = false;
-    for(let child of this.products.children)
-    {
-      if(child.id==id)
-      {
+    for (const child of this.products.children) {
+      if (child.id == id) {
+        this.childSelected = child;
         this.totalStock = child.stock;
+        this.reference = child.reference;
       }
     }
     this.quantityForm = this.fb.group(
