@@ -17,11 +17,27 @@
     </div>
   </div>
 
-  <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
-    <mat-tab label="Activos">
-    </mat-tab>
-    <mat-tab label="Inactivos"></mat-tab>
-  </mat-tab-group>
+  <div class="navbar-header">
+      <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
+          <mat-tab label="Activos">
+          </mat-tab>
+          <mat-tab label="Inactivos"></mat-tab>
+        </mat-tab-group>
+
+        <div id="upload-offer-shop" class="flexbox center-center centrado upload-shop">
+            <div class="container-offer">
+              <a (click)="goToUploadProduct()" class="upload-offer-button">
+                <div class="outside-circle">
+                  <div class="inside-circle">
+                    <span></span>
+                  </div>
+                  <label class="">Subir producto</label>
+                </div>
+              </a>
+            </div>
+          </div>
+  </div>
+
 
   <div *ngIf="productos && productos.length > 0" class="tabla-campaign">
       <table id="campaigns-wrap" class="campaigns">
