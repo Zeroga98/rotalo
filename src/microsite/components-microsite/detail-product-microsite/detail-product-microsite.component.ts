@@ -90,6 +90,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   public childrens;
   public errorSize;
   public childSelected;
+  public reference;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -261,7 +262,7 @@ export class DetailProductMicrositeComponent implements OnInit {
         if(this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
         }
-        
+
         /*      const price = this.quantityForm.get('stock');
               price.clearValidators();
               price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
@@ -288,10 +289,11 @@ export class DetailProductMicrositeComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.children)
-        {
+        this.reference = this.products.reference;
+        if (this.products.children) {
           this.childrens = this.products.children;
           this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
         }
       }
     },
@@ -427,14 +429,13 @@ export class DetailProductMicrositeComponent implements OnInit {
     return `${city.name}, ${state.name}`;
   }
 
-  updateSize(id){
+  updateSize(id) {
     this.errorSize = false;
-    for(let child of this.products.children)
-    {
-      if(child.id==id)
-      {
+    for (const child of this.products.children) {
+      if (child.id == id) {
         this.childSelected = child;
         this.totalStock = child.stock;
+        this.reference = child.reference;
       }
     }
     this.quantityForm = this.fb.group(
