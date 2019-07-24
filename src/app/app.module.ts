@@ -218,6 +218,7 @@ import { ModalReactivateUserComponent } from '../components/modal-reactivate-use
 import { ModalReactivateUserSuccessComponent } from '../components/modal-reactivate-user-success/modal-reactivate-user-success.component';
 import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
 import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop/feedMicrosite.service';
+import { ProductMicrositePublicComponent } from '../microsite/components-microsite/product-microsite-public/product-microsite-public.component';
 
 
 @NgModule({
@@ -358,6 +359,7 @@ import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
     HomeShopComponent,
+    ProductMicrositePublicComponent,
   ],
   imports: [
     BrowserModule,

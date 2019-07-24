@@ -160,7 +160,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const user = {
       user: 'jorge.fernandez@pragma.com.co',
-      password: '123456',
+      password: '8ik,7ujM',
       ipAddress: '127.0.0.0'
     };
     this.loginService.logOutClearSession(user.user).subscribe(data => {
