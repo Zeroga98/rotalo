@@ -935,11 +935,11 @@
                   </mat-form-field>
                 </div>
                 <div class="grid-item">
-                  <product-microsite #productsFinish
+                  <product-microsite-public #productsFinish
                     *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
                     class="product-feed" [isProductSelling]="false" [showField]="true" [product]="product"
                     (selected)="selectProduct($event); setScroll($event)" id="{{product.product_id}}">
-                  </product-microsite>
+                  </product-microsite-public>
                 </div>
               </div>
               <div class="pagination-store">

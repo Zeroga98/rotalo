@@ -1,3 +1,30 @@
-<p>
-  navigation-top-public works!
-</p>
+<nav>
+    <div class="container">
+      <div class="navbar-header material-design form-theme">
+        <div class="divisor-left">
+          <a class="gtmLogoRotalo navbar-brand">
+            <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
+            <h1 class="sr-only">rótalo</h1>
+          </a>
+          <div class="search-container desktop">
+
+            <form>
+              <input [matAutocomplete]="auto" class="form-control" type="text" name="search">
+              <button class="button-search" type="submit">
+                <div class="search-icon">
+                </div>
+              </button>
+            </form>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
+                [value]="suggestion.suggestion">
+                <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg"
+                  height="15">
+                <span class="suggestion">{{suggestion.suggestion}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>

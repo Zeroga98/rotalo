@@ -103,7 +103,8 @@
     }
     .tag {
       font-size: 1.4rem;
-      background: #e1e366;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       display: inline-block;
       height: 30px;
       line-height: 30px;

@@ -236,7 +236,7 @@
         flex-flow: row wrap;
       }
 
-      product-microsite {
+      product-microsite-public {
         cursor: pointer;
         text-align: left;
         width: 23.5%;
@@ -1060,7 +1060,7 @@
 
 @media screen and (max-width: 1110px) {
   :host {
-    .container-masonry .masonry product-microsite {
+    .container-masonry .masonry product-microsite-public {
       width: 31%;
     }
   }
@@ -1068,7 +1068,7 @@
 
 @media screen and (max-width: 952px) {
   :host {
-    .container-masonry .masonry product-microsite {
+    .container-masonry .masonry product-microsite-public {
       width: 45%;
     }
   }
@@ -1127,7 +1127,7 @@
       padding: 0;
     }
 
-    .container-masonry .masonry product-microsite {
+    .container-masonry .masonry product-microsite-public {
       width: 43%;
     }
 

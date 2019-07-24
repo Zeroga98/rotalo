@@ -219,6 +219,7 @@ import { ModalReactivateUserSuccessComponent } from '../components/modal-reactiv
 import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
 import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop/feedMicrosite.service';
 import { NavigationTopPublicComponent } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.component';
+import { ProductMicrositePublicComponent } from '../microsite/components-microsite/product-microsite-public/product-microsite-public.component';
 
 
 @NgModule({
@@ -360,6 +361,7 @@ import { NavigationTopPublicComponent } from '../microsite/components-microsite/
     ModalReactivateUserSuccessComponent,
     HomeShopComponent,
     NavigationTopPublicComponent,
+    ProductMicrositePublicComponent,
   ],
   imports: [
     BrowserModule,
