@@ -25,7 +25,7 @@
               <p>
                 {{product.nombreProducto}}
               </p>
-              <p class = "refOrden">
+              <p *ngIf="product.reference" class = "refOrden">
                 Ref: {{product.reference}}
               </p>
             </li>

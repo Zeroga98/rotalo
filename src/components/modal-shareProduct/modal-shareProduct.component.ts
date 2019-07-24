@@ -137,7 +137,9 @@ export class ModalShareProductComponent implements OnInit, OnDestroy {
 
   close(): void {
     this.modalService.setProductId(undefined);
-    this.sendInfoProduct.reset();
+    if (this.sendInfoProduct) {
+      this.sendInfoProduct.reset();
+    }
     this.messageSuccess = false;
     this.messageError = false;
     this.element.classList.remove('md-show');

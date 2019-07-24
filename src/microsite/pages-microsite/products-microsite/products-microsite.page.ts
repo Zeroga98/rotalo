@@ -144,7 +144,9 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     //this.loadFirstBanners();
   }
   ngOnDestroy(): void {
-    this._subscriptionCountryChanges.unsubscribe();
+    if (this._subscriptionCountryChanges) {
+      this._subscriptionCountryChanges.unsubscribe();
+    }
     this.changeDetectorRef.markForCheck();
   }
   ngAfterViewInit() {
