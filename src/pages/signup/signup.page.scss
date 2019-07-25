@@ -145,6 +145,43 @@
   }
 }
 
+
+:host {
+  .row.material-design {
+    width: 100%;
+    margin: 10px 0px;
+  }
+
+  .form-group {
+    width: 50%;
+  }
+
+  .form-theme .material-design   input[type=text].form-control {
+    border: 1px solid #a2a2a2;
+    border-bottom: 1px solid #a2a2a2;
+    border-radius: 10px;
+    padding: 6px 12px;
+  }
+
+  input[type=text].form-control::placeholder {
+    color: #383838;
+    font-size: 1.6rem;
+  }
+
+  .material-design {
+    label {
+      color:#383838;
+      font-size: 1.6rem;
+      margin-bottom: 17px;
+      display: block;
+    }
+  }
+
+  .form-theme .material-design input[type=text]:focus {
+    border-color: #0FBBD8;
+  }
+}
+
 :host {
   @media (max-width: 1024px) {
     .form-container {

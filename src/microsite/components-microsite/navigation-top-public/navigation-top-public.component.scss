@@ -1,5 +1,5 @@
-@import "../../styles/settings/colors.scss";
-@import "../../styles/settings/variables.scss";
+@import "../../../styles/settings/colors.scss";
+@import "../../../styles/settings/variables.scss";
 
 :host {
   display: block;
@@ -76,7 +76,7 @@
             height: 22px;
             min-width: 22px;
             background-size: 22px 22px;
-            background-image: url(../../assets/img/iconos/camara.svg);
+            background-image: url(../../../assets/img/iconos/camara.svg);
           }
         }
 
@@ -178,7 +178,7 @@
             margin-right: 5px;
             width: 16px;
             height: 13px;
-            background: url(../../assets/img/iconos/ic_header_carrito.svg);
+            background: url(../../../assets/img/iconos/ic_header_carrito.svg);
             background-size: contain;
           }
         }
@@ -199,11 +199,11 @@
           align-items: center;
           position: relative;
 
-          .hamburger-menu {
+          span {
             cursor: pointer;
             width: 18px;
             height: 18px;
-            background: url(../../assets/img/iconos/ic_menu.svg) no-repeat;
+            background: url(../../../assets/img/iconos/ic_menu.svg) no-repeat;
             background-size: contain;
             margin-top: 2px;
           }
@@ -212,17 +212,10 @@
             cursor: pointer;
             width: 17px;
             height: 18px;
-            background: url(../../assets/img/iconos/ic_close.svg) no-repeat;
+            background: url(../../../assets/img/iconos/ic_close.svg) no-repeat;
             background-size: contain;
             margin-top: 0px;
           }
-
-          .message-notification {
-            position: absolute;
-            top: -7px;
-            right: -7px;
-          }
-
         }
       }
 
@@ -235,24 +228,17 @@
 
           .icon-bell.active {
             cursor: pointer;
-            position: relative;
-            &:before {
-              content: '';
-              display: block;
-              height: 10px;
-              width: 10px;
-              position: absolute;
-              right: -3px;
-              border-radius: 50%;
-              background-color: #FF3646;
-            }
+            width: 16px;
+            height: 18px;
+            background: url(../../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
+            background-size: contain;
           }
 
           .icon-bell {
             cursor: pointer;
             width: 16px;
             height: 18px;
-            background: url(../../assets/img/iconos/ic_campana.svg) no-repeat;
+            background: url(../../../assets/img/iconos/ic_campana.svg) no-repeat;
             background-size: contain;
           }
         }
@@ -274,7 +260,7 @@
           }
 
           .icon-shopping-car {
-            background: url(../../assets/img/iconos/ic_header_carrito_activo.svg) no-repeat;
+            background: url(../../../assets/img/iconos/ic_header_carrito_activo.svg) no-repeat;
           }
         }
 
@@ -284,7 +270,7 @@
           }
 
           .icon-shopping-car {
-            background: url(../../assets/img/iconos/ic_header_carrito_hover.svg) no-repeat !important;
+            background: url(../../../assets/img/iconos/ic_header_carrito_hover.svg) no-repeat !important;
           }
         }
       }
@@ -297,7 +283,7 @@
         font-weight: bold;
 
         .icon-account-header {
-          background: url(../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
+          background: url(../../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
         }
       }
     }
@@ -325,7 +311,7 @@
       .icon-account-header {
         cursor: pointer;
         margin-right: 5px;
-        background: url(../../assets/img/iconos/Group167.svg) no-repeat;
+        background: url(../../../assets/img/iconos/Group167.svg) no-repeat;
         background-size: contain;
         width: 14px;
         height: 14px;
@@ -340,7 +326,7 @@
       }
 
       .icon-account-header {
-        background: url(../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
+        background: url(../../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
       }
     }
 
@@ -390,33 +376,6 @@
         color: #CD0E2E;
       }
     }
-  }
-
-}
-
-.message-notification {
-  border-radius: 50%;
-  font-size: 1.0rem;
-  height: 17px;
-  width: 17px;
-  color: #FFFFFF;
-  background-color: #FF3646;
-  display: inline-block;
-  position: relative;
-  vertical-align: bottom;
-  p {
-    position: absolute;
-    top: 49%;
-    left: 48%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
-}
-
-.mat-menu-item {
-  .message-notification {
-    vertical-align: text-bottom;
-    margin-left: 5px;
   }
 }
 
@@ -482,7 +441,7 @@
         height: 30px;
         margin-right: 10px;
         border-radius: 50%;
-        background: url(../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
+        background: url(../../../assets/img/iconos/ic_arrow_back_24px.svg) no-repeat;
         background-size: 50% 50%;
         background-position: center;
         cursor: pointer;
@@ -545,7 +504,7 @@
     width: 18px;
     height: 18px;
     margin: 0 auto;
-    background: url(../../assets/img/iconos/ic_header_search.svg);
+    background: url(../../../assets/img/iconos/ic_header_search.svg);
     background-position: 92% center;
     background-size: 18px 18px;
     background-repeat: no-repeat;
@@ -555,7 +514,7 @@
     width: 18px;
     height: 18px;
     margin: 0 auto;
-    background: url(../../assets/img/iconos/ic_header_search_grey.svg);
+    background: url(../../../assets/img/iconos/ic_header_search_grey.svg);
     background-position: 92% center;
     background-size: 18px 18px;
     background-repeat: no-repeat;
@@ -608,7 +567,7 @@
 
   .categories {
     padding-right: 2.5rem;
-    background-image: url(../../assets/img/arrow.svg);
+    background-image: url(../../../assets/img/arrow.svg);
     background-position: 95% center;
     background-size: 10px 10px;
     background-repeat: no-repeat;
@@ -636,7 +595,7 @@
     display: none;
     width: 18px;
     height: 18px;
-    background-image: url(../../assets/img/rotalo-center.svg);
+    background-image: url(../../../assets/img/rotalo-center.svg);
     background-size: 18px 18px;
   }
 
@@ -673,7 +632,7 @@
   }
 
   .navbar-header .list-options li.car-container.cart-active .container-car .icon-shopping-car {
-    background: url(../../assets/img/iconos/ic_header_carrito_activo.svg);
+    background: url(../../../assets/img/iconos/ic_header_carrito_activo.svg);
   }
 
 }
@@ -707,7 +666,7 @@
   width: 18px;
   height: 18px;
   margin: 0 auto;
-  background: url(../../assets/img/iconos/ic_header_search_gris_claro.svg);
+  background: url(../../../assets/img/iconos/ic_header_search_gris_claro.svg);
   background-position: 92% center;
   background-size: 18px 18px;
   background-repeat: no-repeat;
@@ -762,13 +721,13 @@
   display: inline-block;
   width: 13px;
   height: 13px;
-  background: url(../../assets/img/estrella_blanca_linea.svg);
+  background: url(../../../assets/img/estrella_blanca_linea.svg);
   background-size: 13px 13px;
   vertical-align: middle;
 }
 
 .star-full {
-  background: url(../../assets/img/estrella_amarilla.svg);
+  background: url(../../../assets/img/estrella_amarilla.svg);
   background-size: 13px 13px;
 }
 
@@ -832,7 +791,7 @@
   width: 18px;
   height: 18px;
   margin: 0 auto;
-  background: url(../../assets/img/iconos/ic_header_search_gris_claro.svg);
+  background: url(../../../assets/img/iconos/ic_header_search_gris_claro.svg);
   background-position: 92% center;
   background-size: 18px 18px;
   background-repeat: no-repeat;
@@ -1079,7 +1038,7 @@
   }
 
   .icon {
-    background-image: url(../../assets/img/logos_menu/arrow_down_1.svg);
+    background-image: url(../../../assets/img/logos_menu/arrow_down_1.svg);
     background-position: 92% center;
     background-size: 10px 10px;
     background-repeat: no-repeat;
@@ -1091,7 +1050,7 @@
   .open input+label .icon,
   .open input+label:hover .icon,
   .active .option .icon {
-    background-image: url(../../assets/img/logos_menu/arrow_down_2.svg);
+    background-image: url(../../../assets/img/logos_menu/arrow_down_2.svg);
   }
 
   .ac-container .open input+label .icon,

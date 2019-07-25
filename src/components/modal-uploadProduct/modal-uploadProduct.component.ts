@@ -5,6 +5,7 @@ import { ProductsService } from '../../services/products.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
 import { ROUTES } from '../../router/routes';
+import { UserService } from '../../services/user.service';
 
 function isEmailOwner( c: AbstractControl ): { [key: string]: boolean } | null {
   const email = c;
@@ -29,6 +30,7 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
   private element: any;
   private productId;
   private currentEmail;
+  public userEdit;
 
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
@@ -44,11 +46,13 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
+    private userService: UserService,
     private router: Router) {
       this.element = el.nativeElement;
     }
 
   ngOnInit() {
+    this.getInfoUser();
     const modal = this;
     const currentUser = this.currentSessionSevice.currentUser();
     if(currentUser) {
@@ -69,6 +73,10 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
         email: ['', [Validators.required , isEmailOwner.bind(this) , Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]]
       }
     );
+  }
+
+  async getInfoUser() {
+    this.userEdit = await this.userService.getInfoUser();
   }
 
   shareProduct() {
@@ -132,7 +140,13 @@ export class ModalUploadProductComponent implements OnInit, OnDestroy {
     this.element.classList.remove('md-show');
     document.body.classList.remove('modal-open');
     const id = this.modalService.getProductId();
-    if (id) {
+    if (this.userEdit && this.userEdit['is-admin-store']) {
+      this.router.navigate([
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`
+      ]);
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+    } else if (id) {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`
       ]);

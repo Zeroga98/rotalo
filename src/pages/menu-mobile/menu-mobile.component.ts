@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
+import { NavigationService } from '../products/navigation.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'menu-mobile',
@@ -35,15 +37,24 @@ export class MenuMobileComponent implements OnInit {
   public bannersShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SHOPBANNERS}`;
   public options = [false, false, false, false];
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
+  public messagesUnRead: number = 0;
+  public userId;
   constructor(private userService: UserService,
     private router: Router,
+    private messagesService: MessagesService,
     private changeDetector: ChangeDetectorRef,
     private loginService: LoginService,
+    private navigationService: NavigationService,
     private currentSessionService: CurrentSessionService,
     ) { }
 
   ngOnInit() {
     this.getInfoUser();
+    this.userId = this.currentSessionService.getIdUser();
+    this.setListenerMessagesUnread(this.userId);
+    if (this.navigationService.getMessagesUnRead()) {
+      this.messagesUnRead = this.navigationService.getMessagesUnRead();
+    }
   }
 
   async getInfoUser() {
@@ -109,6 +120,26 @@ export class MenuMobileComponent implements OnInit {
     for (let i = 0; i < this.options.length; i++) {
       this.options[i] = false;
     }
+  }
+
+  private setListenerMessagesUnread(userId) {
+    this.messagesService.getMessagesUnred(userId).subscribe(
+      state => {
+        if (state && state.body) {
+          this.messagesUnRead = state.body.cantidadMensajes;
+          this.navigationService.setMessagesUnRead(this.messagesUnRead);
+        }
+        if (state.status == 9999) {
+          this.loginService.logout();
+        }
+        this.changeDetector.markForCheck();
+      },
+      error => {
+        if (error.error.error == 401) {
+          this.loginService.logout();
+        }
+      }
+    );
   }
 
 }

@@ -68,6 +68,277 @@
       width: 200px;
     }
   }
+
+  .navbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   // padding: 10px 0;
+
+    .upload-shop {
+      margin-bottom: 3rem;
+    }
+
+    .divisor-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .divisor-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .upload-offer-button {
+      display: inline-block;
+      vertical-align: middle;
+
+      .outside-circle {
+        padding: 5px;
+        display: table-cell;
+        vertical-align: middle;
+        background-color: #0FBBD8;
+        color: white;
+        height: 40px;
+        width: 170px;
+        border-radius: 20px 20px 20px 20px;
+        cursor: pointer;
+
+        .inside-circle {
+          display: inline-flex;
+          vertical-align: middle;
+          //  padding: 9px 6px;
+          padding-left: 8px;
+          height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+
+          span {
+            /*  font-size: 35px;
+            font-family: "Abel", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            color: white;*/
+            width: 15px;
+            height: 15px;
+            min-width: 15px;
+            background-size: 15px 15px;
+            background-image: url(../../../assets/img/iconos/camara.svg);
+          }
+        }
+
+        label {
+          vertical-align: middle;
+          margin-left: 8px;
+          cursor: pointer;
+          font-weight: normal;
+          font-size: 1.6rem;
+          margin-bottom: 0px;
+        }
+      }
+
+      .outside-circle.disable {
+        background: #E5E5E5;
+        color: #707070;
+
+        .inside-circle {
+          // background: #B0B0B0;
+        }
+      }
+    }
+
+    .navbar-brand {
+      width: 100px;
+      cursor: pointer;
+      margin-right: 5%;
+
+      img {
+        height: auto;
+        width: 100%;
+        // min-width: 92px;
+      }
+    }
+
+    .list-options {
+      display: flex;
+      color: #707070;
+
+      li {
+        font-size: 1.6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          cursor: pointer;
+          color: #707070;
+        }
+
+        .icon-message,
+        .text-rotalo {
+          position: relative;
+        }
+
+        .text-rotalo {
+          font-size: 1.6rem;
+          text-align: center;
+          color: #707070;
+        }
+
+        &:hover:not(:last-child) {
+          color: #414141;
+          font-weight: bold;
+        }
+
+        .noti-circle {
+          position: absolute;
+          top: 0px;
+          right: -20px;
+          margin-left: 5px;
+          background-color: $blue;
+          border-radius: 50%;
+          font-size: 1rem;
+          height: 20px;
+          width: 20px;
+          display: flex;
+          justify-content: center;
+          font-weight: bold;
+          align-items: center;
+          color: #fff;
+        }
+      }
+
+      li:not(:last-child) {
+        margin-right: 2.4rem;
+      }
+
+      li.car-container {
+        // margin-right: 1.6rem;
+
+        .container-car {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          .icon-shopping-car {
+            margin-right: 5px;
+            width: 16px;
+            height: 13px;
+            background: url(../../../assets/img/iconos/ic_header_carrito.svg);
+            background-size: contain;
+          }
+        }
+      }
+
+
+      li.mobile-search {
+        display: none;
+      }
+
+      li.menu-container {
+        margin-top: 0px;
+        display: none;
+
+        .menu {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          span {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: url(../../../assets/img/iconos/ic_menu.svg) no-repeat;
+            background-size: contain;
+            margin-top: 2px;
+          }
+
+          span.close {
+            cursor: pointer;
+            width: 17px;
+            height: 18px;
+            background: url(../../../assets/img/iconos/ic_close.svg) no-repeat;
+            background-size: contain;
+            margin-top: 0px;
+          }
+        }
+      }
+
+      li.bell-container {
+        .container-bell {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          .icon-bell.active {
+            cursor: pointer;
+            width: 16px;
+            height: 18px;
+            background: url(../../../assets/img/iconos/ic_campana_notificaciones.svg) no-repeat;
+            background-size: contain;
+          }
+
+          .icon-bell {
+            cursor: pointer;
+            width: 16px;
+            height: 18px;
+            background: url(../../../assets/img/iconos/ic_campana.svg) no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+
+      li.bell-container.mobile-notification {
+        display: none;
+      }
+
+      li.car-container.active {
+        .container-car {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          p {
+            color: #0FBBD8;
+          }
+
+          .icon-shopping-car {
+            background: url(../../../assets/img/iconos/ic_header_carrito_activo.svg) no-repeat;
+          }
+        }
+
+        &:hover {
+          p {
+            font-weight: bold;
+          }
+
+          .icon-shopping-car {
+            background: url(../../../assets/img/iconos/ic_header_carrito_hover.svg) no-repeat !important;
+          }
+        }
+      }
+
+      li.disabled {
+        color: #B0B0B0;
+      }
+
+      li .active {
+        font-weight: bold;
+
+        .icon-account-header {
+          background: url(../../../assets/img/iconos/ic_header_perfil_hover.svg) no-repeat !important;
+        }
+      }
+    }
+  }
+
+
 }
 
 :host {
@@ -770,7 +1041,7 @@
   :host {
     width: 100%;
   }
-} 
+}
 
 @media screen and (max-width: 1000px) {
   :host() {

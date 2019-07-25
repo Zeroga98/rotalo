@@ -7,7 +7,7 @@
 </div>
 <div class="container-fluid p-t p-b">
   <div>
-    
+
     <form role="form" [formGroup]="recoverForm" (ngSubmit)="onSubmit()" class="form-theme text-center">
       <div class="text-center">
         <p class="text-gray-3 text-titulo bold">¡Recupera tu contraseña!</p>
@@ -49,6 +49,14 @@
           <br><br>
           <span> <a class="registrate-aqui" (click)="goToHome()">Regístrate aquí</a> </span>
         </div>
+        <div *ngIf="errorStatus==610 && recoverForm">
+            <span> ¡Ups! no puedes recuperar tu contraseña porque aún </span>
+            <br>
+            <span> no has activado tu cuenta. Hemos enviado un enlace de activación
+            </span>
+            <br>
+            <span>a la dirección<strong> {{recoverForm.get('email').value}}</strong></span>
+          </div>
       </div>
     </div>
 

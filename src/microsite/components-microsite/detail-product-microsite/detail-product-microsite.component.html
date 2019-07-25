@@ -107,12 +107,12 @@
       </div>
     </div>
     <div *ngIf="products" class="product-info">
-      <div class="card-product">
-        <div class="title-product">{{products.name}}</div>
-        <div class="date">
-            Publicado
-            <span class="date">{{products['published-at'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
-        </div>
+        <div class="card-product">
+            <div class="title-product">{{products.name}}</div>
+            <div class="date">
+              <span *ngIf="reference" class="date">Referencia: {{reference}} - </span>
+              <span class="date">{{visitsNumber}} visitas</span>
+            </div>
 
           <div
           [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"

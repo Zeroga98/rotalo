@@ -7,9 +7,21 @@
             <img  src="./assets/img/logo-red.svg" alt="brand">
           </a>
         </div>
+        <div class="link-shop-container">
+          <a [routerLink]="shop">
+            <div class="promo-shop">
+              <div class="shop-icon"></div>
+              <div class="label">Tienda del inmueble</div>
+              <div class="tag purple">¡Nuevo!</div>
+            </div>
+          </a>
+        </div>
       </div>
       <div class="menu_login_container">
           <form id="loginForm" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
+              <a class="shop" mat-icon-button>
+                  <div class="shop-icon"></div>
+              </a>
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">
                     <input
@@ -61,9 +73,9 @@
                 <custom-button routerLink="/login-mobile"  id="login-mobile" class="primary-size primary-blue btn-mobile" type="submit" text="Iniciar sesión"></custom-button>
                 <div class="content-link">
                     <a routerLink="/reset-password" class="gtmLoginOlvTuContrasenia">¿Olvidaste tu contraseña?</a>
-                  </div>
+                </div>
               </div>
-            </form>
+          </form>
       </div>
     </div>
   </div>

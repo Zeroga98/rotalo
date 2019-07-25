@@ -32,7 +32,7 @@ export class RecoverPage implements OnInit {
     let idCountry;
     if (currentUrl.includes('gt')) {
       idCountry = 9;
-    }else {
+    } else {
       idCountry = 1;
     }
     const params = {
@@ -41,8 +41,6 @@ export class RecoverPage implements OnInit {
     };
     this.recoverService.recoverUser(params).subscribe(
       (response) => {
-        //this.router.navigate([`/${ROUTES.RESETPASS}/${ROUTES.CONFIRM}`]);
-        //this.errorStatus = response.status + " - " + response.message;
         this.errorStatus = '200';
         this.email = userEmail;
       },
@@ -54,6 +52,9 @@ export class RecoverPage implements OnInit {
           this.errorStatus = error.error.status;
         }
         if(error.error.status==609){
+          this.errorStatus = error.error.status;
+        }
+        if(error.error.status==610){
           this.errorStatus = error.error.status;
         }
       }
@@ -69,6 +70,5 @@ export class RecoverPage implements OnInit {
     } else {
       `/${url}` === this.router.url ? location.reload() : this.router.navigate([url]);
     }
-    //this.queryField.reset();
   }
 }

@@ -173,6 +173,11 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         element.scrollIntoView({ block: 'end', behavior: 'smooth' });
       }
 
+      if (value && value.errorference && document.getElementById('reference-product')) {
+        const element = document.getElementById('reference-product');
+        element.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+
       this.changeDetectorRef.markForCheck();
     }
 
@@ -185,6 +190,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     }
     this.onInfoRetrieved(this.userEdit);
 /** **/
+
     if (this.userEdit && !this.userEdit['is-admin-store'] && this.photosForm) {
       const referenceForm = this.photosForm.get('reference');
       referenceForm.clearValidators();
@@ -319,6 +325,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         });
 
       }
+
       this.photosUploaded.length = 0;
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];
@@ -1500,6 +1507,10 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     });
     // checkbox.checked = true;
     this.closeTermsModal();
+  }
+
+  clearInputReference() {
+    this.errorference = '';
   }
 
 }
