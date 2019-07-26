@@ -154,15 +154,45 @@ export class adminOrdersPage implements OnInit {
         this.showModalDescription = false;
         alert(response.message);
         this.getOrderList(this.currentFilter);
+        if (this.statusOrder == 2) {
+          this.gapush(
+            'send',
+            'event',
+            'TiendaCorporativa',
+            'ClicAdminValidar',
+            'CompraExitosa'
+          );
+        } else if (this.statusOrder == 3) {
+          this.gapush(
+            'send',
+            'event',
+            'TiendaCorporativa',
+            'ClicAdminValidar',
+            'CompraFracasada'
+          );
+        }
         this.referenceNumber = null;
         this.statusOrder = null;
         this.description = null;
+
       }, (error) => {
         console.log(error);
       });
     }
   }
 
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
 
 
 }

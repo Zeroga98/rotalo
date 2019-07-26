@@ -10,14 +10,18 @@
       </div>
       <ngx-carousel class="carousel-featured" *ngIf="products.length != 0" [inputs]="carouselProductsConfig">
         <ngx-item NgxCarouselItem *ngFor="let product of products">
-          <a class="link-product" *ngIf="product" onclick="return false;" [href]="getUrlProduct(product)">
+          <a
+          [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+          class="link-product" *ngIf="product" onclick="return false;" [href]="getUrlProduct(product)">
             <div class="carousel-container">
               <div class="featured-cards">
                 <div class="featured-card">
                   <div class="item__wrapper">
 
                     <div class="item__card">
-                      <a onclick="return false;" [href]="getUrlProduct(product)">
+                      <a
+                      [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                      onclick="return false;" [href]="getUrlProduct(product)">
                         <div class="item__image-container">
                           <div *ngIf="product['is-low-price'] ||  isActivePromo(product)"
                             class="container-low-price">
@@ -30,13 +34,16 @@
                             [alt]="product.name" (error)="updateSrc($event)">
                           <img (click)="selectProductSuperUser(product, $event)" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url"
                             [alt]="product.name" (error)="updateSrc($event)">
-                          <div (click)="shareProduct('custom-modal-2' , product)" class="gtmCompartirProducto icon-share-container">
-                            <div class="gtmCompartirProducto icon-share">
+                          <div
+                          [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoCompartirProducto': 'gtmCompartirProducto'"
+                          (click)="shareProduct('custom-modal-2' , product)" class="icon-share-container">
+                            <div  [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoCompartirProducto': 'gtmCompartirProducto'" class="icon-share">
                             </div>
                           </div>
                         </div>
                       </a>
-                      <a onclick="return false;" [href]="getUrlProduct(product)">
+                      <a  [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                      onclick="return false;" [href]="getUrlProduct(product)">
                         <div (click)="selectProductSuperUser(product , $event)" class="item__content">
                           <div class="item__name">
                             <span>

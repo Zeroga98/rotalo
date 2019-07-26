@@ -59,11 +59,32 @@ export class ResponseMicrositePage implements OnInit {
         this.cleanShoppingCart();
         this.car.changeCartNumber(0);
         this.car.setTotalCartProducts(0);
+        this.gapush(
+          'send',
+          'event',
+          'TiendaCorporativa',
+          'ClicVolver',
+          'CompraExitosa'
+        );
       } else {
         this.showErrorPage();
+        this.gapush(
+          'send',
+          'event',
+          'TiendaCorporativa',
+          'ClicVolver',
+          'CompraFracasada'
+        );
       }
       this.changeDetectorRef.markForCheck();
     } catch (error) {
+      this.gapush(
+        'send',
+        'event',
+        'TiendaCorporativa',
+        'ClicVolver',
+        'CompraFracasada'
+      );
       this.showErrorPage();
       this.changeDetectorRef.markForCheck();
     }
@@ -117,5 +138,19 @@ export class ResponseMicrositePage implements OnInit {
     });
     return json;
   }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
+  }
+
+
 }
 
