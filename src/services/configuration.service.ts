@@ -24,7 +24,7 @@ export class ConfigurationService {
     inactivityLimit: 86400 // seconds
   };
 
-  sapi = {
+  api = {
     protocol: 'https',
     server: 'api.dev.rotalo.co:1443/gateway',
     inactivityLimit: 86400 // seconds
