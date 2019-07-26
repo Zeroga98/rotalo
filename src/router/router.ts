@@ -60,6 +60,9 @@ import { UploadProductsComponent } from '../pages/profile/upload-products/upload
 import { AdminBannersShopComponent } from '../pages/profile/admin-banners-shop/admin-banners-shop.component';
 import { PreviewProductMicrositeComponent } from '../microsite/components-microsite/preview-product-microsite/preview-product-microsite.component';
 import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
+import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
+import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
+import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -276,15 +279,33 @@ export const appRouter: Routes = [
     path: ROUTES.FAQ,
     component: FrequentlyAskedQuestionsComponent
   },
-
   {
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
-  {
-    path: ROUTES.SHOP,
-    component: HomeShopComponent
-  },
+
+/****/
+{
+  path: ROUTES.SHOPS.LINK,
+  component: ProductsHomePage,
+  children: [
+    {
+      path: ROUTES.SHOPS.FEED,
+      component: HomeShopComponent,
+    },
+    {
+      path: `${ROUTES.SHOPS.SHOW}/:id`,
+      component: DetailPageShopComponent,
+    },
+    {
+      path: '',
+      redirectTo: ROUTES.SHOPS.FEED,
+      pathMatch: 'full'
+    },
+  ]
+},
+/****/
+
   {
     path: '',
     redirectTo: ROUTES.HOME,

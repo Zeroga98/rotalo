@@ -4,8 +4,8 @@ import {
   AfterViewInit,
   Renderer2,
   ChangeDetectorRef
-} from "@angular/core";
-import { ProductInterface } from "./../../../commons/interfaces/product.interface";
+} from '@angular/core';
+import { ProductInterface } from './../../../commons/interfaces/product.interface';
 import {
   Component,
   Input,
@@ -13,19 +13,19 @@ import {
   EventEmitter,
   Output,
   ViewChild
-} from "@angular/core";
-import { ProductsService } from "../../../services/products.service";
-import { ROUTES } from "../../../router/routes";
-import { Router } from "@angular/router";
-import { CurrentSessionService } from "../../../services/current-session.service";
-import { ModalShareProductService } from "../../../components/modal-shareProduct/modal-shareProduct.service";
-import { NavigationService } from "../../../pages/products/navigation.service";
-import { START_DATE_BF, END_DATE_BF } from "../../../commons/constants/dates-promos.contants";
+} from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
+import { ROUTES } from '../../../router/routes';
+import { Router } from '@angular/router';
+import { CurrentSessionService } from '../../../services/current-session.service';
+import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
+import { NavigationService } from '../../../pages/products/navigation.service';
+import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-promos.contants';
 
 @Component({
-  selector: "product-microsite-public",
-  templateUrl: "./product-microsite-public.component.html",
-  styleUrls: ["./product-microsite-public.component.scss"],
+  selector: 'product-microsite-public',
+  templateUrl: './product-microsite-public.component.html',
+  styleUrls: ['./product-microsite-public.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -40,12 +40,12 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @Output() updateProducts:  EventEmitter<any> = new EventEmitter();
   @Input() colourCompany: string;
-  @ViewChild("containerProducts", { read: ElementRef })
+  @ViewChild('containerProducts', { read: ElementRef })
   containerProducts: ElementRef;
-  readonly defaultImage: string = "../../../assets/img/product-no-image.png";
+  readonly defaultImage: string = '../../../assets/img/product-no-image.png';
   private readonly limitSize: number = 220;
   public productStatus: boolean = false;
-  public productChecked: String = "active";
+  public productChecked: String = 'active';
   public idUser: string = this.currentSessionSevice.getIdUser();
   public idCountry = 1;
   public startDate = START_DATE_BF;
@@ -72,7 +72,7 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
-    this.productStatus = this.product.status === "active";
+    this.productStatus = this.product.status === 'active';
     this.changeDetectorRef.markForCheck();
   }
 
@@ -98,10 +98,10 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
     const params = {
-      estado: this.productStatus ? "active" : "inactive"
+      estado: this.productStatus ? 'active' : 'inactive'
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
@@ -126,16 +126,11 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
 
   selectProduct(event) {
     if (event.ctrlKey) {
-      //const url =  `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${this.product['product_id']}`;
-      const routeDetailProduct = `${location.origin}/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
-        ROUTES.MICROSITE.DETAIL}/${this.product['product_id']}`;
+      const routeDetailProduct = `${location.origin}/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`;
       window.open(routeDetailProduct, '_blank');
     } else {
-      const routeDetailProduct = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
-        ROUTES.MICROSITE.DETAIL
-        }/${this.product['product_id']}`;
+      const routeDetailProduct = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`;
       this.router.navigate([routeDetailProduct]);
-      //this.selected.emit(this.product['product_id']);
     }
   }
 
@@ -145,7 +140,7 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
 
   async deleteProduct(product: ProductInterface) {
     try {
-      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      const result = confirm('¿Seguro quieres borrar esta publicación?');
       if (!result) {
         return;
       }
@@ -196,7 +191,7 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
     setTimeout(() => {
       const elem = this.containerProducts.nativeElement;
       if (elem.offsetWidth <= this.limitSize) {
-        this.render.addClass(elem, "mini-card");
+        this.render.addClass(elem, 'mini-card');
       }
     });
   }
@@ -217,8 +212,8 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
   }
 
   getUrlProduct(product: ProductInterface) {
-    const routeDetailProduct = `../../${ROUTES.PRODUCTS.LINK}/${
-      ROUTES.PRODUCTS.SHOW
+    const routeDetailProduct = `../../${ROUTES.SHOPS.LINK}/${
+      ROUTES.SHOPS.SHOW
       }/${product.id}`;
     return routeDetailProduct;
   }

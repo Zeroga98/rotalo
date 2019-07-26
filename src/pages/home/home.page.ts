@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
   public country = 'Colombia';
   public userEmail = '';
   public showReactivateModal = false;
-  public readonly shop: string = `/${ROUTES.SHOP}`;
+  public readonly shop: string = `/${ROUTES.SHOPS.LINK}`;
 
   @ViewChild('checkBoxTerms', { read: ElementRef }) checkBoxTerms: ElementRef;
   constructor(private userService: UserService,
