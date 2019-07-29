@@ -12,10 +12,16 @@
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
     class="item-banner">
-      <a target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
-        <img [src]="image['url-photo-desktop']">
+      <a
+      [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+      target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
+        <img
+        [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+        [src]="image['url-photo-desktop']">
       </a>
-      <img *ngIf="!image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [src]="image['url-photo-desktop']">
+      <img
+      [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+      *ngIf="!image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [src]="image['url-photo-desktop']">
       <a target="_blank" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
         <img class="gtmSliderSoatNProductos" [src]="image['url-photo-desktop']">
       </a>
@@ -37,10 +43,16 @@
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div  [ngClass]="image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
     class="item-banner">
-        <a target="_blank" *ngIf="image['link']" [href]="image['link']">
-            <img [src]="image['url-photo-mobile']">
+        <a
+        [ngClass]="image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+        target="_blank" *ngIf="image['link']" [href]="image['link']">
+            <img
+            [ngClass]="image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+            [src]="image['url-photo-mobile']">
         </a>
-        <img *ngIf="!image['link']" [src]="image['url-photo-mobile']">
+        <img
+        [ngClass]="image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+        *ngIf="!image['link']" [src]="image['url-photo-mobile']">
     </div>
   </ngx-item>
   <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
