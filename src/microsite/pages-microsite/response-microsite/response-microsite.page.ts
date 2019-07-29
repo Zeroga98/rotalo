@@ -63,7 +63,7 @@ export class ResponseMicrositePage implements OnInit {
           'send',
           'event',
           'TiendaCorporativa',
-          'ClicVolver',
+          'ClicPasarela',
           'CompraExitosa'
         );
       } else {
@@ -72,8 +72,8 @@ export class ResponseMicrositePage implements OnInit {
           'send',
           'event',
           'TiendaCorporativa',
-          'ClicVolver',
-          'CompraFracasada'
+          'ClicPasarela',
+          'CompraRechazada'
         );
       }
       this.changeDetectorRef.markForCheck();

@@ -168,7 +168,7 @@ export class adminOrdersPage implements OnInit {
             'event',
             'TiendaCorporativa',
             'ClicAdminValidar',
-            'CompraFracasada'
+            'CompraRechazada'
           );
         }
         this.referenceNumber = null;
