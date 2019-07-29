@@ -683,6 +683,104 @@
               </tbody>
             </table>
         </div>
+        <div *ngIf="products.vehicle" class="tabla-container mobile">
+            <h1>Características</h1>
+            <table class="table-info">
+              <tbody>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Marca/Modelo
+                      <p *ngIf="products.vehicle.line">{{products.vehicle.line.brand.name}},
+                        {{products.vehicle.line.name}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left middle-cell">
+                    <div>
+                      Año
+                      <p *ngIf="products.model">{{products.model}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left">
+                    <div>
+                      Kilometraje
+                      <p *ngIf="products.vehicle.mileage &&  products.vehicle.mileage != 0">{{products.vehicle.mileage |
+                        currency:" " | removeDigits }} Km</p>
+                      <p *ngIf="products.vehicle.mileage == 0">0 Km</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Color
+                      <p *ngIf="products.vehicle.color">{{products.vehicle.color}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left middle-cell">
+                    <div *ngIf="products.vehicle.gas">
+                      Combustible
+                      <p *ngIf="products.vehicle.gas">{{products.vehicle.gas}}</p>
+                    </div>
+                    <div *ngIf="products.vehicle.displacement">
+                      Cilindraje
+                      <p *ngIf="products.vehicle.displacement">{{products.vehicle.displacement}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left">
+                    <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                      Tipo de Vehículo
+                      <p *ngIf="products.typeVehicle">{{products.typeVehicle}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                      Placa
+                      <p *ngIf="products.vehicle.licensePlate">*****{{products.vehicle.licensePlate}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left middle-cell">
+                    <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                      Transmisión
+                      <p *ngIf="products.vehicle.transmission">{{products.vehicle.transmission}}</p>
+                    </div>
+                  </td>
+                  <td class="padding-cell-left">
+                    <div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 *ngIf="motoHasCharacteristics() || autoHasCharacteristics()">Características adicionales</h1>
+            <div class="additional-info">
+              <div *ngIf="products.vehicle.airbag && products.vehicle.vehicleType == 'AUTO'" class="additional-container">
+                <div class="img-airbag additional-img"></div>
+                <div class="additional-text">Airbag</div>
+              </div>
+              <div *ngIf="products.vehicle.absBrakes" class="additional-container">
+                <div class="img-frenos additional-img"></div>
+                <div class="additional-text">Frenos ABS</div>
+              </div>
+              <div *ngIf="products.vehicle.airConditioner && products.vehicle.vehicleType == 'AUTO'"
+                class="additional-container">
+                <div class="img-aire additional-img"></div>
+                <div class="additional-text">Aire acondicionado</div>
+              </div>
+              <div *ngIf="products.vehicle.typeOfSeat && products.vehicle.vehicleType == 'AUTO'"
+                class="additional-container">
+                <div class="img-material additional-img"></div>
+                <div *ngIf="products.vehicle.typeOfSeat == 'CUERO'" class="additional-text">Material Cuero</div>
+                <div *ngIf="products.vehicle.typeOfSeat == 'TELA'" class="additional-text">Material Tela</div>
+              </div>
+              <div *ngIf="products.vehicle['uniqueOwner']" class="additional-container">
+                <div class="img-unico additional-img"></div>
+                <div class="additional-text">Único dueño</div>
+              </div>
+            </div>
+        </div>
         <div class="info-section">
           <div class="product-info-user">
             <div class="info-container">

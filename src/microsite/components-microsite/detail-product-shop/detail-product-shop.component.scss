@@ -415,7 +415,7 @@
 
     .low-price {
       .valor-product {
-        color: #B0B0B0;
+        color: #8B8B8B;
         font-size: 1.6rem;
         font-weight: normal;
         text-decoration: line-through;
@@ -776,7 +776,7 @@
   .product{
     .low-price {
       .valor-product {
-        color:#A2A2A2;
+        color:#8B8B8B;
         text-decoration: line-through;
       }
     }
@@ -1151,7 +1151,7 @@ input:checked+.switch-slider:before {
     .product-photos {
       .panel-heading {
         .container-product__image {
-          height: 70vw;
+          height: 262px;
         }
       }
     }
@@ -1283,18 +1283,6 @@ input:checked+.switch-slider:before {
 
     .product-info-user {
       padding-top: 20px;
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
-  :host {
-    .product-photos {
-      .panel-heading {
-        .container-product__image {
-          height: 110vw;
-        }
-      }
     }
   }
 }
