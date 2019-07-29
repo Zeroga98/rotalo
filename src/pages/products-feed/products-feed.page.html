@@ -10,8 +10,7 @@
 
 <ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
-    <div
-    [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+    <div [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
     class="item-banner">
       <a target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
         <img [src]="image['url-photo-desktop']">
