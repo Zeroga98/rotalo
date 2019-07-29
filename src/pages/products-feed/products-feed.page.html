@@ -10,7 +10,8 @@
 
 <ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
-    <div class="item-banner">
+    <div [ngClass]="image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+    class="item-banner">
       <a target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
         <img [src]="image['url-photo-desktop']">
       </a>
@@ -34,7 +35,8 @@
 
 <ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
-    <div class="item-banner">
+    <div  [ngClass]="image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA') ? 'gtmSliderSufiSimuladorCProductos' : ''"
+    class="item-banner">
         <a target="_blank" *ngIf="image['link']" [href]="image['link']">
             <img [src]="image['url-photo-mobile']">
         </a>
