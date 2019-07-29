@@ -326,6 +326,9 @@
 }
 
 :host() {
+  .mobile {
+    display: none;
+  }
   .btns-container {
     display: flex;
     flex-wrap: wrap;
@@ -333,7 +336,7 @@
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-
+    margin-top: 5px;
     .btn-item{
       width: 48%;
       .botons {
@@ -353,6 +356,7 @@
         justify-content: center;
         align-items: center;
         margin: 5px;
+        margin-left: 0px;
         span {
           color: #fff;
           font-size: 2rem;
@@ -427,7 +431,8 @@
     .date,
     .visit {
       font-size: 1.6rem;
-      margin: 0 0 10px 0;
+      margin: 5px 0;
+      color: #8B8B8B;
     }
 
     .span-title{
@@ -458,6 +463,46 @@
       font-size: 1.7rem;
       color: #FFFFFF;
       padding: 0;
+    }
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+    align-items: center;
+  }
+
+  .share {
+    .share-button {
+
+      .ic_arrow_share {
+        display: inline-block;
+        margin-bottom: 4px;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        background-size: 16px 16px;
+        background-image: url(../../../assets/img/iconos/ic_arrow_share.svg);
+      }
+
+      color: #7C7C7C;
+      font-size: 1.6rem;
+      font-family: 'Lato Regular';
+      font-weight: normal;
+    }
+
+    .share-button:hover {
+      .ic_arrow_share {
+        margin-bottom: 4px;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        background-size: 16px 16px;
+        background-image: url(../../../assets/img/iconos/ic_arrow_share_hover.svg);
+      }
+
+      color: #272727;
     }
   }
 
@@ -1132,9 +1177,18 @@ input:checked+.switch-slider:before {
 
 @media screen and (max-width: 750px) {
   :host {
+    .mobile {
+      display: block;
+    }
+
+    .desktop {
+      display: none;
+    }
+
     .product *{
       font-size: 1.6rem;
     }
+
     .product .product-info {
       min-height: auto;
       padding: 0px;
@@ -1238,4 +1292,22 @@ input:checked+.switch-slider:before {
       }
     }
   }
+}
+
+.ic_share_email {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../../assets/img/iconos/ic_share_email.svg);
+}
+
+.ic_share_whatsapp {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background-size: 16px 16px;
+  background-image: url(../../../assets/img/iconos/ic_share_whatsapp.svg);
 }

@@ -89,6 +89,7 @@ export class DetailProductShopComponent implements OnInit {
   public childrens;
   public errorSize;
   public childSelected;
+  public reference;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -287,10 +288,11 @@ export class DetailProductShopComponent implements OnInit {
           this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
-        if (this.products.children)
-        {
+        this.reference = this.products.reference;
+        if (this.products.children) {
           this.childrens = this.products.children;
           this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
         }
       }
     },
@@ -316,7 +318,7 @@ export class DetailProductShopComponent implements OnInit {
   }
 
   getUrlImge() {
-    return 'url(' + this.products.user.photos.url + ')';
+    return ('url(' + this.products.user.photos.url.replace(/ /g, '%20')) + ')';
   }
 
   saveCheck() {
@@ -426,14 +428,13 @@ export class DetailProductShopComponent implements OnInit {
     return `${city.name}, ${state.name}`;
   }
 
-  updateSize(id){
+  updateSize(id) {
     this.errorSize = false;
-    for(let child of this.products.children)
-    {
-      if(child.id==id)
-      {
+    for (const child of this.products.children) {
+      if (child.id == id) {
         this.childSelected = child;
         this.totalStock = child.stock;
+        this.reference = child.reference;
       }
     }
     this.quantityForm = this.fb.group(
@@ -656,6 +657,28 @@ export class DetailProductShopComponent implements OnInit {
 
   closeModal() {
     this.showModalBuy = false;
+  }
+
+  sendMessageWhatsapp(id) {
+    if (this.products.subcategory && (
+      this.products.subcategory.name == 'Carros' ||
+      this.products.subcategory.name == 'Motos' ||
+      this.products.subcategory.category &&
+      this.products.subcategory.category.name == 'Inmuebles')) {
+      this.gapush(
+        'send',
+        'event',
+        'Productos',
+        this.products.subcategory.name,
+        'ComparteProductoWhatsapp'
+      );
+    }
+    const base_url = window.location.origin;
+    const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
+    ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
+    window.open(
+      url,
+      '_blank');
   }
 
 }
