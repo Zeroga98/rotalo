@@ -1,0 +1,54 @@
+:host {
+
+  display: block;
+  width: 100%;
+
+  back-arrow {
+    margin-top: 20px;
+    margin-left: 1%;
+  }
+  .container-terms {
+    padding: 1rem 5rem 5rem;
+    min-height: calc(100vh - 140px);
+  }
+  .container-bar-offer {
+    background: url('/assets/img/image_bw.jpg') no-repeat center;
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+
+      .inside-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 4rem;
+        width: 4rem;
+        background-color: #41b5cb;
+        border-radius: 50%;
+        margin-right: 2rem;
+        .icon-tag {
+          font-size: 2.5rem;
+          color: white;
+        }
+      }
+      .offer-head-title {
+        color: white;
+        margin: 0;
+        font-size: 4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :host {
+    .container-terms {
+      padding: 2rem;
+    }
+    back-arrow {
+      margin-left: 3%;
+    }
+  }
+}

@@ -19,7 +19,9 @@ export const ROUTES = {
     SHOPS: {
       LINK: 'shop',
       FEED: 'home',
-      SHOW: 'show'
+      SHOW: 'show',
+      TERMS: 'terms',
+      FAQ: 'faq',
     },
     PRODUCTS: {
         LINK: 'products',

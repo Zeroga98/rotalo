@@ -223,6 +223,9 @@ import { ProductMicrositePublicComponent } from '../microsite/components-microsi
 import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
 import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
 import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
+import { TermsShopComponentComponent } from '../microsite/components-microsite/terms-shop-component/terms-shop-component.component';
+import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
 
 
 @NgModule({
@@ -368,6 +371,9 @@ import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-pag
     DetailProductShopComponent,
     ProductsHomePage,
     DetailPageShopComponent,
+    TermsShopComponent,
+    TermsShopComponentComponent,
+    FrequentlyAsketQuestionsShopComponent
   ],
   imports: [
     BrowserModule,

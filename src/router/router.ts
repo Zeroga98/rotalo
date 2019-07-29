@@ -63,6 +63,8 @@ import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-s
 import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
 import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
 import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
+import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -298,14 +300,21 @@ export const appRouter: Routes = [
       component: DetailPageShopComponent,
     },
     {
+      path: ROUTES.SHOPS.TERMS,
+      component: TermsShopComponent,
+    },
+    {
+      path: ROUTES.SHOPS.FAQ,
+      component: FrequentlyAsketQuestionsShopComponent,
+    },
+    {
       path: '',
       redirectTo: ROUTES.SHOPS.FEED,
       pathMatch: 'full'
-    },
+    }
   ]
 },
 /****/
-
   {
     path: '',
     redirectTo: ROUTES.HOME,
