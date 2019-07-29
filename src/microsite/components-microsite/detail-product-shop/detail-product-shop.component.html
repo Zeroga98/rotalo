@@ -1,6 +1,8 @@
 <app-modal-detail [product]="productForModal" (closeModal)="closeModal()" *ngIf="showModalBuy"></app-modal-detail>
 <offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
 <custom-spinner *ngIf="!products"></custom-spinner>
+<div class="md-overlay"></div>
+<modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
 <div *ngIf="products" class="container">
   <div class="product">
       <div *ngIf="!products?.photoList" class="product-photos">
@@ -51,7 +53,6 @@
                     <mat-menu class="share-product" #menu="matMenu">
                       <div mat-menu-item>
                           <button mat-icon-button>
-
                               <div (click)="shareProduct('custom-modal-2' , products)" class="ic_share_email"></div>
                            </button>
                            <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
@@ -308,237 +309,7 @@
                 </tbody>
               </table>
           </div>
-          <div *ngIf="products.immovable" class="tabla-container mobile">
-              <h1>Características</h1>
-              <table class="table-info">
-                <tbody>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Antiguedad
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.antiquity">
-                          {{products.immovable.antiquity}}
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Metros construidos
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.squareMeters">
-                          {{products.immovable.squareMeters}} mts2
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Piso
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.floor">
-                          {{products.immovable.floor}}
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Tipo de vendedor
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.sellerType">{{products.immovable.sellerType}}</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Habitaciones
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.rooms">{{products.immovable.rooms}}</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Baños
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.bathrooms">{{products.immovable.bathrooms}}</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Porteria
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.guardHouse">{{products.immovable.guardHouse}}</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Ascensor
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="!products.immovable.elevator">No</p>
-                        <p *ngIf="products.immovable.elevator">Si</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Parqueadero
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="!products.immovable.parking">No</p>
-                        <p *ngIf="products.immovable.parking">Si</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h1>Características adicionales</h1>
-              <table class="table-info">
-                <tbody>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Valor de la administración
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.canonQuota">
-                          {{products.immovable.canonQuota | currency:"$" | removeDigits}}
-                        </p>
-                        <p *ngIf="!products.immovable.canonQuota">
-                          $ 0
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Metros 2 terreno
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.squareMetersTerrain">
-                          {{products.immovable.squareMetersTerrain}} mts2
-                        </p>
-                        <p *ngIf="!products.immovable.squareMetersTerrain">
-                          0 mts2
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Estrato
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.socialClass">
-                          {{products.immovable.socialClass}}
-                        </p>
-                        <p *ngIf="!products.immovable.socialClass">
-                          N/A
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Juegos infantiles
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.childishGames">Si</p>
-                        <p *ngIf="!products.immovable.childishGames">No</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Cuarto útil
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.usefulRoom">Si</p>
-                        <p *ngIf="!products.immovable.usefulRoom">No</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Piscina
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.pool">Si</p>
-                        <p *ngIf="!products.immovable.pool">No</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class=" ">
-                      <div>
-                        Amoblado
-                      </div>
-                    </td>
-                    <td class="">
-                      <div>
-                        <p *ngIf="products.immovable.fullyFurnished">Si</p>
-                        <p *ngIf="!products.immovable.fullyFurnished">No</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
+
           <div *ngIf="products.children" class="tabla-container desktop">
               <h1>Características</h1>
               <table class="table-info">
@@ -680,6 +451,237 @@
                 </div>
             </div>
             <pre>{{products.description}}</pre>
+        </div>
+        <div *ngIf="products.immovable" class="tabla-container mobile">
+            <h1>Características</h1>
+            <table class="table-info">
+              <tbody>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Antiguedad
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.antiquity">
+                        {{products.immovable.antiquity}}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Metros construidos
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.squareMeters">
+                        {{products.immovable.squareMeters}} mts2
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Piso
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.floor">
+                        {{products.immovable.floor}}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Tipo de vendedor
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.sellerType">{{products.immovable.sellerType}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Habitaciones
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.rooms">{{products.immovable.rooms}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Baños
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.bathrooms">{{products.immovable.bathrooms}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Porteria
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.guardHouse">{{products.immovable.guardHouse}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Ascensor
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="!products.immovable.elevator">No</p>
+                      <p *ngIf="products.immovable.elevator">Si</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Parqueadero
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="!products.immovable.parking">No</p>
+                      <p *ngIf="products.immovable.parking">Si</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h1>Características adicionales</h1>
+            <table class="table-info">
+              <tbody>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Valor de la administración
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.canonQuota">
+                        {{products.immovable.canonQuota | currency:"$" | removeDigits}}
+                      </p>
+                      <p *ngIf="!products.immovable.canonQuota">
+                        $ 0
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Metros 2 terreno
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.squareMetersTerrain">
+                        {{products.immovable.squareMetersTerrain}} mts2
+                      </p>
+                      <p *ngIf="!products.immovable.squareMetersTerrain">
+                        0 mts2
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Estrato
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.socialClass">
+                        {{products.immovable.socialClass}}
+                      </p>
+                      <p *ngIf="!products.immovable.socialClass">
+                        N/A
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Juegos infantiles
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.childishGames">Si</p>
+                      <p *ngIf="!products.immovable.childishGames">No</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Cuarto útil
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.usefulRoom">Si</p>
+                      <p *ngIf="!products.immovable.usefulRoom">No</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Piscina
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.pool">Si</p>
+                      <p *ngIf="!products.immovable.pool">No</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class=" ">
+                    <div>
+                      Amoblado
+                    </div>
+                  </td>
+                  <td class="">
+                    <div>
+                      <p *ngIf="products.immovable.fullyFurnished">Si</p>
+                      <p *ngIf="!products.immovable.fullyFurnished">No</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
         </div>
         <div class="info-section">
           <div class="product-info-user">

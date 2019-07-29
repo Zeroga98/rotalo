@@ -31,6 +31,7 @@ import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-pro
 import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
+import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -114,6 +115,7 @@ export class DetailProductShopComponent implements OnInit {
     private car: ShoppingCarService,
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
+    private modalService: ModalShareProductService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
 
@@ -166,6 +168,15 @@ export class DetailProductShopComponent implements OnInit {
     this.changeDetectorRef.markForCheck();
   }
 
+
+  public shareProduct(id: string, product) {
+    if (product.id) {
+      this.modalService.setProductId(product.id);
+      this.modalService.open(id);
+    }
+  }
+
+  /*
   shareProduct() {
     if (!this.sendInfoProduct.invalid) {
       const params = {
@@ -193,7 +204,7 @@ export class DetailProductShopComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         });
     }
-  }
+  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {

@@ -1169,6 +1169,11 @@ input:checked+.switch-slider:before {
         }
       }
     }
+
+    .btns-container {
+      margin-top: 15px;
+    }
+
   }
   .additional-info {
     margin-bottom: 40px;
@@ -1310,4 +1315,8 @@ input:checked+.switch-slider:before {
   min-width: 16px;
   background-size: 16px 16px;
   background-image: url(../../../assets/img/iconos/ic_share_whatsapp.svg);
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0 !important;
 }
