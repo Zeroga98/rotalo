@@ -622,7 +622,7 @@
               </select>
               <span *ngIf="errorSize == true" class="error-msg">Selecciona la talla</span>
             </div>-->
-          <div class="btns-container">
+        <div class="btns-container">
             <!--
             <div class="full-width quantity-container">
               <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"
@@ -658,6 +658,28 @@
               Quiero más información
             </button>
           </div>
+        </div>
+        <div class="tabla-container description mobile">
+            <div class="flex">
+                <h1>Descripción</h1>
+                <div class="share">
+                    <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
+                      <div class="ic_arrow_share"></div>
+                      Compartir publicación
+                    </button>
+                    <mat-menu class="share-product" #menu="matMenu">
+                      <div mat-menu-item>
+                          <button mat-icon-button>
+                              <div (click)="shareProduct('custom-modal-2' , products)" class="gtmComparteProductoRotalo ic_share_email"></div>
+                           </button>
+                           <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
+                              <div class="ic_share_whatsapp"></div>
+                           </button>
+                      </div>
+                    </mat-menu>
+                </div>
+            </div>
+            <pre>{{products.description}}</pre>
         </div>
         <div class="info-section">
           <div class="product-info-user">

@@ -630,11 +630,11 @@
                 <span *ngIf="products.price == 0" class="valor-product">Gratis</span>
               </div>
             </div>
-          </div>
-          <div *ngIf="products && products.negotiable" class="get-offer">
+        </div>
+        <div *ngIf="products && products.negotiable" class="get-offer">
               <span class="icon-check"></span>
               <span>Recibe ofertas</span>
-          </div>
+        </div>
         <div class="size-div" *ngIf="products && products.children">
           <label class="label-title">Talla</label>
           <select ng-model="childrens" class="form-control-select" (change)="updateSize($event.target.value)">
