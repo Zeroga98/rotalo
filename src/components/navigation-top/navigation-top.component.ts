@@ -195,7 +195,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    if (this.userEdit.name) {
+    if (this.userEdit && this.userEdit.name) {
       const name = this.userEdit.name.split(' ');
       this.userName = name[0];
       this.changeDetector.markForCheck();

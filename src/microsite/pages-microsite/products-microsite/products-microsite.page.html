@@ -90,7 +90,7 @@
       </div>
     </div>
 
-    <div *ngIf="showBannersPromo" [ngClass]="{'active': !showFilterResponsive}" class="featured-banners featured-section">
+    <div *ngIf="showBannersPromo && !categoryName" [ngClass]="{'active': !showFilterResponsive}" class="featured-banners featured-section">
       <div class="mask-box">
       <div class="featured-container">
         <div class="row-featured">
