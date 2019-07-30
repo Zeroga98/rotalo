@@ -173,8 +173,8 @@
      display: none;
     }
     .mat-icon-button {
-      display: block;
-      margin-right: 10px;
+   /*   display: block;
+      margin-right: 10px;*/
     }
     .shop-icon {
       margin: 0;
@@ -190,6 +190,14 @@
   :host {
     .input, .content-link {
       display: none;
+    }
+    //temporal
+    .button-container {
+      margin-top: 0px;
+    }
+    //temporal
+    .container {
+      padding: 15px 5.7%;
     }
   }
 }

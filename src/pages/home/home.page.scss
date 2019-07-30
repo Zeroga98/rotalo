@@ -382,7 +382,7 @@ input[type="email"].input__field {
 
     .video-container {
       height: 300px;
-      margin-bottom: 20rem;
+    //  margin-bottom: 20rem;
       .layer-shop{
         position: inherit;
         width: 100%;
@@ -403,7 +403,7 @@ input[type="email"].input__field {
 @media screen and (max-width: 800px) {
   :host {
     .video-container {
-      margin-bottom: 16rem;
+  //    margin-bottom: 16rem;
     }
     .video-container .layer-shop {
       height: auto;
@@ -437,7 +437,7 @@ input[type="email"].input__field {
 @media screen and (max-width: 600px) {
   :host {
     .video-container {
-      margin-bottom: 10rem;
+     // margin-bottom: 10rem;
     }
   }
 }
@@ -483,7 +483,7 @@ input[type="email"].input__field {
 @media screen and (max-width: 400px) {
   :host {
     .video-container {
-      margin-bottom: 8rem;
+     // margin-bottom: 8rem;
     }
   }
 }
@@ -491,7 +491,7 @@ input[type="email"].input__field {
 @media screen and (max-width: 340px) {
   :host {
     .video-container {
-      margin-bottom: 6.5rem;
+      // margin-bottom: 6.5rem;
     }
   }
 }
