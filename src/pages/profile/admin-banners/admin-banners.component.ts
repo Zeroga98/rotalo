@@ -410,6 +410,7 @@ export class AdminBannersComponent implements OnInit {
 
   openDialogState(country, element): void {
     const statesIds = element.get('states-ids').value;
+    let allOption = false;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
@@ -420,7 +421,7 @@ export class AdminBannersComponent implements OnInit {
     dialogConfig.data = [];
     const states = [
       {
-        id: -1,
+        id: '-1',
         nombre: 'Todos',
         marca: false
       }
@@ -436,10 +437,12 @@ export class AdminBannersComponent implements OnInit {
       });
 
       states.map((item) => {
-        if (statesIds.includes(item.id)) {
+        if (statesIds.includes(Number(item.id)) || statesIds.includes(item.id) ) {
           item.marca = true;
         }
       });
+
+      dialogConfig.data = states;
 
     } else if (country == 'Guatemala') {
       this.guatemalaStates.map((response) => {
@@ -452,14 +455,13 @@ export class AdminBannersComponent implements OnInit {
       });
 
       states.map((item) => {
-        if (statesIds.includes(item.id)) {
+        if (statesIds.includes(Number(item.id)) || statesIds.includes(item.id)) {
           item.marca = true;
         }
       });
-
+      dialogConfig.data = states;
     }
 
-    dialogConfig.data = states;
     const dialogRef = this.dialog.open(StatesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
