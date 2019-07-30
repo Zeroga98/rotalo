@@ -437,8 +437,11 @@ export class AdminBannersComponent implements OnInit {
       });
 
       states.map((item) => {
-        if (statesIds.includes(Number(item.id)) || statesIds.includes(item.id) ) {
+        if (statesIds.includes(Number(item.id)) || statesIds.includes(item.id) || allOption) {
           item.marca = true;
+          if (item.id=='-1') {
+             allOption = true;
+          }
         }
       });
 
