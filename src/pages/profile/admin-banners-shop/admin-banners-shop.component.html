@@ -285,7 +285,13 @@
                 </div>
               <div class="banner" [formGroupName]="i">
                 <div class="row">
-                  <a (click)="removeBannerById (i, bannersCategoriaForm.get('bannersCategoria').controls[i])"
+                  <a *ngIf="bannersCategoriaForm.get('bannersCategoria').controls.length > 1"
+                  (click)="removeBannerById (i, bannersCategoriaForm.get('bannersCategoria').controls[i])"
+                    mat-icon-button>
+                    <div class="trash-icon"></div>
+                  </a>
+                  <a *ngIf="bannersCategoriaForm.get('bannersCategoria').controls.length == 1"
+                  (click)="resetFormBanner (i)"
                     mat-icon-button>
                     <div class="trash-icon"></div>
                   </a>

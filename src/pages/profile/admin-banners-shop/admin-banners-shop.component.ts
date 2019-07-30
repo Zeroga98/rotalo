@@ -274,15 +274,20 @@ export class AdminBannersShopComponent implements OnInit {
     }
   }
 
+  resetFormBanner(id) {
+    this.removeBanner(id);
+    this.addBanner();
+  }
+
   removeBanner(id) {
     const banners = this.bannersCategoriaForm.get('bannersCategoria').controls;
-     if (banners.length > 1) {
+   //  if (banners.length > 1) {
        this.bannersCategoriaForm.get('bannersCategoria').controls = banners.filter((item, index) => {
          if (index != id) {
            return item;
          }
        });
-     }
+  //   }
    }
 
    onRemovePreviewImageDynamic(event, element, type) {
