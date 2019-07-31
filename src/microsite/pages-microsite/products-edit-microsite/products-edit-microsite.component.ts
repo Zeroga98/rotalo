@@ -15,6 +15,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
   idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
   product: ProductInterface;
   public errorference = '';
+  public photosUploadedRest = null;
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -30,6 +31,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
       if (reponse.body) {
         this.product = reponse.body.productos[0];
+        this.photosUploadedRest = 0;
         this.redirectIfisNotOwner(this.product);
       }
     } ,

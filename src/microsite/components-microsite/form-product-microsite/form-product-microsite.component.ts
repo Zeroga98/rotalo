@@ -112,7 +112,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   cellphone: String;
   public formFashion;
   @Input() errorference;
-
+  @Input() photosUploadedRest;
 
   constructor(
     private router: Router,
@@ -176,6 +176,10 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       if (value && value.errorference && document.getElementById('reference-product')) {
         const element = document.getElementById('reference-product');
         element.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+
+      if (value && value.photosUploadedRest == 0) {
+        this.photosUploaded.length = 0;
       }
 
       this.changeDetectorRef.markForCheck();
@@ -326,7 +330,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
       }
 
-      this.photosUploaded.length = 0;
+    //  this.photosUploaded.length = 0;
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];
       delete params['transmission'];

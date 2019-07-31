@@ -343,7 +343,7 @@ export class AdminBannersShopComponent implements OnInit {
       if(this.bannersCategoriaForm.value && this.bannersCategoriaForm.value.bannersCategoria) {
         body.bannersCategoria = this.bannersCategoriaForm.value.bannersCategoria;
       }
-      console.log(this.bannersCategoriaForm.value);
+
       this.settingsService.uploadBannerShop(body).subscribe((response) => {
 
         alert('Cambios guardados correctamente');

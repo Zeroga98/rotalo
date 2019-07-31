@@ -308,6 +308,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
       }
       this.photosUploaded.length = 0;
+
       /**Mejora hacer nested formgroups**/
       delete params['line-id'];
       delete params['transmission'];
