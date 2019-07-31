@@ -12,6 +12,7 @@ import { ModalUploadProductService } from '../../../components/modal-uploadProdu
 })
 export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
   public errorference = '';
+  public photosUploadedRest = null;
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -29,9 +30,9 @@ export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
   publishPhoto (event) {
     this.errorference = '';
     this.productsService.saveProductsForm(event).subscribe((response) => {
-
       this.userService.updateInfoUser();
       if (response.body && response.body.producto) {
+        this.photosUploadedRest = 0;
         this.shareProduct('custom-modal-3', response.body.producto.id);
       }
     },
