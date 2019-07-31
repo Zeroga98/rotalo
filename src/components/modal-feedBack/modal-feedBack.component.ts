@@ -72,7 +72,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       if (this.currentUrl && this.currentUrl.includes('microsite')) {
         idTienda = 1;
       } else if (this.currentUrl && this.currentUrl.includes('shop')) {
-        idTienda = 35;
+        idTienda = 34;
       }
 
       const params = {
