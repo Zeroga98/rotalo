@@ -104,7 +104,9 @@ export class ProductsPromoPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this._subscriptionCountryChanges.unsubscribe();
+    if (this._subscriptionCountryChanges) {
+      this._subscriptionCountryChanges.unsubscribe();
+    }
     this.changeDetectorRef.markForCheck();
   }
 

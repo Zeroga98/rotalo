@@ -139,7 +139,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.productsService.setCounterProductChecked(0);
-    this._subscriptionCountryChanges.unsubscribe();
+    if (this._subscriptionCountryChanges) {
+      this._subscriptionCountryChanges.unsubscribe();
+    }
     this.changeDetectorRef.markForCheck();
   }
 

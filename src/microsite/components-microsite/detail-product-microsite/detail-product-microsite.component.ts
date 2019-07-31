@@ -320,7 +320,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   getUrlImge() {
-    return 'url(' + this.products.user.photos.url + ')';
+    return ('url(' + this.products.user.photos.url.replace(/ /g, '%20')) + ')';
   }
 
   saveCheck() {
