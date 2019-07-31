@@ -1,5 +1,5 @@
 import { ROUTES } from './../../router/routes';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalVideoService } from '../../components/modal-video/modal-video.service';
@@ -329,7 +329,6 @@ export class HomePage implements OnInit {
     }
   }
 
-
   sendTokenShareProduct() {
     if (this.codeProduct && this.codeProduct !== 'na') {
       this.productsService.sendTokenShareProduct(this.codeProduct).subscribe(
@@ -389,21 +388,18 @@ export class HomePage implements OnInit {
     this.validateParametersUrl(email, code);
   }
 
-
   validateParametersUrl(email, code) {
 
     const params = {
-      "email": email,
-      "token": code
-    }
+      'email': email,
+      'token': code
+    };
+
     this.userService.reactivateUser(params).subscribe(response => {
         this.openDialogReactivateSuccess();
     }, error => {
       console.log(error);
     });
-
-
-
   }
 
   openDialogReactivateSuccess(): void {
