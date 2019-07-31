@@ -1,0 +1,9 @@
+<div class="large container-accordion">
+  <div>
+    <h2 class="faq-title">Preguntas frecuentes</h2>
+  </div>
+  <p>{{introduction}}</p>
+  <div *ngIf="questions">
+      <accordion class="desktop accordion" [questions]='questions'></accordion>
+  </div>
+</div>

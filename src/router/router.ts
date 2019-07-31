@@ -62,6 +62,11 @@ import { PreviewProductMicrositeComponent } from '../microsite/components-micros
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
 import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/products-edit-microsite/products-edit-microsite.component';
 import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-shop.component';
+import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
+import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
+import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
+import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
 
 export const appRouter: Routes = [
   {
@@ -286,15 +291,40 @@ export const appRouter: Routes = [
     path: ROUTES.FAQ,
     component: FrequentlyAskedQuestionsComponent
   },
-
   {
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
-  {
-    path: ROUTES.SHOP,
-    component: HomeShopComponent
-  },
+
+/****/
+{
+  path: ROUTES.SHOPS.LINK,
+  component: ProductsHomePage,
+  children: [
+    {
+      path: ROUTES.SHOPS.FEED,
+      component: HomeShopComponent,
+    },
+    {
+      path: `${ROUTES.SHOPS.SHOW}/:id`,
+      component: DetailPageShopComponent,
+    },
+    {
+      path: ROUTES.SHOPS.TERMS,
+      component: TermsShopComponent,
+    },
+    {
+      path: ROUTES.SHOPS.FAQ,
+      component: FrequentlyAsketQuestionsShopComponent,
+    },
+    {
+      path: '',
+      redirectTo: ROUTES.SHOPS.FEED,
+      pathMatch: 'full'
+    }
+  ]
+},
+/****/
   {
     path: '',
     redirectTo: ROUTES.HOME,

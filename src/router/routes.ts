@@ -16,7 +16,13 @@ export const ROUTES = {
     STEPS: 'steps',
     FAQ: 'faq',
     LOGINMOBILE: 'login-mobile',
-    SHOP: 'shop',
+    SHOPS: {
+      LINK: 'shop',
+      FEED: 'home',
+      SHOW: 'show',
+      TERMS: 'terms',
+      FAQ: 'faq',
+    },
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

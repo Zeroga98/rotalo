@@ -12,8 +12,10 @@ import { CurrentSessionService } from '../../services/current-session.service';
 })
 export class FooterComponent implements OnInit {
   public readonly termsLink: string = `/${ROUTES.TERMS}`;
+  public readonly termsLinkShop: string = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.TERMS}`;
   public readonly termsCompaniesLink: string = `/${ROUTES.TERMSCOMPANIES}`;
   public readonly faqLink: string = `/${ROUTES.FAQ}`;
+  public readonly faqLinkShop: string  = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FAQ}`;
   private readonly _homeRoute: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   public successModal  = false;
   private currentUrl = '';
@@ -31,6 +33,13 @@ export class FooterComponent implements OnInit {
 
   get isGuatemala() {
     if (this.currentUrl.includes('gt')) {
+      return true;
+    }
+    return false;
+  }
+
+  get isShop() {
+    if (this.currentUrl.includes('shop')) {
       return true;
     }
     return false;

@@ -1,0 +1,4 @@
+<banner-latienda></banner-latienda>
+<div class="container">
+  <detail-product-shop (notify)='onNotify($event)' *ngIf="!isSpinnerShow" [idProduct]="idProduct" ></detail-product-shop>
+</div>

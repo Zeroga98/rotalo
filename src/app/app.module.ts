@@ -220,6 +220,12 @@ import { HomeShopComponent } from '../microsite/pages-microsite/home-shop/home-s
 import { FeedShopMicrositeService } from '../microsite/pages-microsite/home-shop/feedMicrosite.service';
 import { NavigationTopPublicComponent } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.component';
 import { ProductMicrositePublicComponent } from '../microsite/components-microsite/product-microsite-public/product-microsite-public.component';
+import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
+import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
+import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
+import { TermsShopComponentComponent } from '../microsite/components-microsite/terms-shop-component/terms-shop-component.component';
+import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
 
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
@@ -368,6 +374,12 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     HomeShopComponent,
     NavigationTopPublicComponent,
     ProductMicrositePublicComponent,
+    DetailProductShopComponent,
+    ProductsHomePage,
+    DetailPageShopComponent,
+    TermsShopComponent,
+    TermsShopComponentComponent,
+    FrequentlyAsketQuestionsShopComponent
   ],
   imports: [
     BrowserModule,

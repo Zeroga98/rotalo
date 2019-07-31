@@ -25,7 +25,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
   private userCountry: any;
   @ViewChild('email') email: ElementRef;
   @ViewChild('pass') pass: ElementRef;
-  public readonly shop: string = `/${ROUTES.SHOP}`;
+  public readonly shop: string = `/${ROUTES.SHOPS.LINK}`;
 
   constructor(
     private loginService: LoginService,
