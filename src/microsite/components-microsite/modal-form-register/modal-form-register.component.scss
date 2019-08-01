@@ -1,0 +1,24 @@
+:host {
+  .modal-container {
+    width: 100%;
+      position: relative;
+      .close {
+        position: absolute;  
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background: url(../../../assets/img/icon_close_detalle.svg) no-repeat;
+        background-size: contain;
+        margin-top: 0px;
+        top: -12px;
+        right: -10px;
+      }
+  }
+}
+::ng-deep.mat-dialog-container {
+    border-radius: 12px !important;
+}
+
+::ng-deep.cdk-global-overlay-wrapper {
+    justify-content: center!important;
+}

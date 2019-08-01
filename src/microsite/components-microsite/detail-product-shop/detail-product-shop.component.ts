@@ -32,6 +32,8 @@ import { ShoppingCarService } from '../../services-microsite/front/shopping-car.
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
 import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ModalFormRegisterComponent } from '../modal-form-register/modal-form-register.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -102,6 +104,7 @@ export class DetailProductShopComponent implements OnInit {
   }
 
   constructor(
+    public dialog: MatDialog,
     private productsService: ProductsService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
@@ -690,6 +693,25 @@ export class DetailProductShopComponent implements OnInit {
     window.open(
       url,
       '_blank');
+  }
+
+  openModal() {
+    const dialogConfig = new MatDialogConfig();
+   // dialogConfig.maxWidth = '896px';
+    dialogConfig.width = '100%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+
+   /* dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.autoFocus = false;*/
+
+    const dialogRef = this.dialog.open(ModalFormRegisterComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 
 }
