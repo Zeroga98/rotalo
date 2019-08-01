@@ -36,7 +36,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
       }
     } ,
     (error) => {
-      console.log(error);
+     console.log(error);
     });
   }
 
@@ -52,7 +52,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
   updatePhoto(event) {
     this.productsService.updateProductForm(this.idProduct, event).subscribe((response) => {
       this.router.navigate([
-        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SELLING}`
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`
       ]);
       this.productsService.products = [];
     },

@@ -173,6 +173,7 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.editProfileForm) {
       this.editProfileForm.reset();
     }
+
     if (user) {
       this.editProfileForm.patchValue({
         name: user.name,
@@ -180,7 +181,7 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
         email: user.email.toLowerCase(),
         'content-admin': user['content-admin'] ? true : false,
         'is-admin-store': user['is-admin-store'] ? true : false,
-        'company-id': user.company.id,
+        'company-id': user.company ? user.company.id : '',
         cellphone: user.cellphone
       });
 
@@ -198,7 +199,6 @@ export class EditUsersComponent implements OnInit, OnChanges, AfterViewInit {
       idPais: idCountry
     };
     this.settingsService.getCommpanyList(params).subscribe((response) => {
-
       if (response && response.body.empresas) {
         this.companies = response.body.empresas;
       }
