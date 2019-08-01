@@ -223,6 +223,7 @@ import { ProductMicrositePublicComponent } from '../microsite/components-microsi
 import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
 import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
 import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { ModalFormRegisterComponent } from '../microsite/components-microsite/modal-form-register/modal-form-register.component';
 
 
 @NgModule({
@@ -368,6 +369,7 @@ import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-pag
     DetailProductShopComponent,
     ProductsHomePage,
     DetailPageShopComponent,
+    ModalFormRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -492,7 +494,8 @@ import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-pag
     UpdateTrackingNumberComponent,
     StatesModalComponent,
     ModalReactivateUserComponent,
-    ModalReactivateUserSuccessComponent]
+    ModalReactivateUserSuccessComponent,
+    ModalFormRegisterComponent]
 })
 
 export class AppModule { }
