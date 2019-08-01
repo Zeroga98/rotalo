@@ -223,6 +223,7 @@ import { ProductMicrositePublicComponent } from '../microsite/components-microsi
 import { DetailProductShopComponent } from '../microsite/components-microsite/detail-product-shop/detail-product-shop.component';
 import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/products-shop.page';
 import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
+import { NavigationTopServicePublic } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.service';
 
 
 @NgModule({
@@ -451,6 +452,7 @@ import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-pag
     ModalPromoProductService,
     NavigationTopService,
     FilterService,
+    NavigationTopServicePublic,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

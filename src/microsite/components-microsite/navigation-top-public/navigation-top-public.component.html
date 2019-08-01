@@ -1,30 +1,48 @@
+<div (click)="openSearch()" [ngClass]="showSearchMobile ?  'show ': '' " class="md-overlay-promo"></div>
 <nav>
     <div class="container">
       <div class="navbar-header material-design form-theme">
         <div class="divisor-left">
-          <a class="gtmLogoRotalo navbar-brand">
-            <img class="gtmLogoRotalo" src="./assets/img/logo-red.svg" alt="brand">
+          <a class="navbar-brand">
+            <img  src="./assets/img/logo-red.svg" alt="brand">
             <h1 class="sr-only">rótalo</h1>
           </a>
           <div class="search-container desktop">
-
-            <form>
-              <input [matAutocomplete]="auto" class="form-control" type="text" name="search">
+            <form (ngSubmit)="onSubmitSearch()">
+              <input [formControl]="queryField"  class="form-control" type="text" name="search">
               <button class="button-search" type="submit">
                 <div class="search-icon">
                 </div>
               </button>
             </form>
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option (click)="goToCategory(suggestion)" *ngFor="let suggestion of suggestList"
-                [value]="suggestion.suggestion">
-                <img class="option-img" aria-hidden src="../../assets/img/iconos/ic_header_search_gris_claro.svg"
-                  height="15">
-                <span class="suggestion">{{suggestion.suggestion}}</span>
-              </mat-option>
-            </mat-autocomplete>
           </div>
         </div>
+
+        <div class="divisor-right">
+          <ul class="list-options">
+              <li (click)="openSearch()" class="mobile-search bell-container">
+                  <div class="container-bell">
+                    <span class="search-icon-dark">
+                    </span>
+                  </div>
+                </li>
+          </ul>
+        </div>
+
       </div>
     </div>
+
+    <div class="search" [ngClass]="showSearchMobile ?  'show ': '' ">
+        <div class="search-container-mobile">
+          <div (click)="openSearch()" class="back-arrow"></div>
+          <form class="form-theme" (ngSubmit)="onSubmitSearch()">
+            <input placeholder="¿Qué estás buscando?"  [formControl]="queryField"
+              class="form-control" type="text" name="search">
+            <button class="button-search" type="submit">
+              <div class=" search-icon-dark">
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
   </nav>
