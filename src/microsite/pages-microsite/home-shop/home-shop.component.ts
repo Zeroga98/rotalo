@@ -710,7 +710,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }*/
   loadBanners() {
-    this.settingsService.getBannersShop(1).subscribe(response => {
+    this.settingsService.getBannersShopPublic(1).subscribe(response => {
       if (response.body) {
         if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
         if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }

@@ -23,14 +23,14 @@
             <span *ngIf="product.product_price != 0 && product.product_currency != 'GTQ' && idCountry == 1" class="name">{{product.product_price | currency:"$" | removeDigits}}</span>
             <span *ngIf="product.product_price == 0" class="name">Gratis</span>
           </div>
-          <div class="low-price">
-            <span>$1.200.000</span>
+          <div *ngIf="product.product_old_price" class="low-price">
+            <span>{{product.product_old_price | currency:"$" | removeDigits}}</span>
           </div>
         </div>
       </div>
-      <div class="item__location">
+      <div *ngIf="product.product_city_name && product.product_state_name" class="item__location">
         <span class="icon-location"></span>
-        <span>Medellín, Antioquia</span>
+        <span>{{product.product_city_name}}, {{product.product_state_name}}</span>
       </div>
     </div>
   </a>

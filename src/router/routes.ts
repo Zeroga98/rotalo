@@ -17,9 +17,9 @@ export const ROUTES = {
     FAQ: 'faq',
     LOGINMOBILE: 'login-mobile',
     SHOPS: {
-      LINK: 'shop',
-      FEED: 'home',
-      SHOW: 'show'
+      LINK: 'tiendainmueble',
+      FEED: 'inicio',
+      SHOW: 'detalle'
     },
     PRODUCTS: {
         LINK: 'products',
