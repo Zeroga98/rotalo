@@ -39,6 +39,7 @@ export class MenuMobileComponent implements OnInit {
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   public messagesUnRead: number = 0;
   public userId;
+  public stores = [];
   constructor(private userService: UserService,
     private router: Router,
     private messagesService: MessagesService,
@@ -59,6 +60,7 @@ export class MenuMobileComponent implements OnInit {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.stores = this.userEdit.stores;
     if (this.userEdit.name) {
       const name = this.userEdit.name.split(' ');
       this.userName = name[0];

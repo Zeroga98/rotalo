@@ -106,13 +106,13 @@ export const appRouter: Routes = [
       {path: `${ROUTES.MENUROTALOCENTER.DETAILORDERS}/:id`, component: DetailOrderComponent},
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`, component: ProductsShopComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/:id`, component: ProductsShopComponent},
       {path: ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS, component: UploadProductsComponent },
       { path: ROUTES.MENUROTALOCENTER.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.MENUROTALOCENTER.HOBBIES, component: HobbiesPage },
       { path: ROUTES.MENUROTALOCENTER.EDITPROFILE, component: EditProfilePage },
       { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
-      {path: ROUTES.MENUROTALOCENTER.SHOPBANNERS, component: AdminBannersShopComponent},
+      {path: `${ROUTES.MENUROTALOCENTER.SHOPBANNERS}/:id`, component: AdminBannersShopComponent},
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
@@ -206,11 +206,11 @@ export const appRouter: Routes = [
             component: DetalleProductoMicrositioComponent,
           },
           {
-            path: ROUTES.MICROSITE.UPLOAD,
+            path: `${ROUTES.MICROSITE.UPLOAD}/:idShop`,
             component: ProductsUploadMicrositeComponent,
           },
           {
-            path: `${ROUTES.MICROSITE.UPLOAD}/:id`,
+            path: `${ROUTES.MICROSITE.UPLOAD}/:idShop/:id`,
             component: ProductsEditMicrositeComponent,
           },
           {

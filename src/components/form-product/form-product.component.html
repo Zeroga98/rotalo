@@ -148,26 +148,26 @@
                 <div>
                   <div class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
-                      [attr.disabled]="disabledFieldType ? '' : null" value="VENTA" formControlName="sell-type"
-                      id="vender" type="radio" name="sell-type">
+                      [attr.disabled]="disabledFieldType ? '' : null" value="VENTA" formControlName="sellType"
+                      id="vender" type="radio" name="sellType">
                     <label for="vender">Vender</label>
                   </div>
                   <div *ngIf="showOptionsVehicles" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
-                      [attr.disabled]="disabledFieldType ? '' : null" value="ALQUILA" formControlName="sell-type"
-                      id="alquilar" type="radio" name="sell-type">
+                      [attr.disabled]="disabledFieldType ? '' : null" value="ALQUILA" formControlName="sellType"
+                      id="alquilar" type="radio" name="sellType">
                     <label for="alquilar">Alquilar</label>
                   </div>
                   <div *ngIf="showOptionsVehicles &&  showOptionEstate && showOptionsFashion" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
-                      [attr.disabled]="disabledFieldType ? '' : null" value="SUBASTA" formControlName="sell-type"
-                      id="subastar" type="radio" name="sell-type">
+                      [attr.disabled]="disabledFieldType ? '' : null" value="SUBASTA" formControlName="sellType"
+                      id="subastar" type="radio" name="sellType">
                     <label for="subastar">Subastar</label>
                   </div>
                   <div *ngIf="showOptionsVehicles &&  showOptionEstate" class="md-radio">
                     <input (click)="changeKindOfProduct($event.target.value)"
-                      [attr.disabled]="disabledFieldType ? '' : null" value="GRATIS" formControlName="sell-type"
-                      id="regalar" type="radio" name="sell-type">
+                      [attr.disabled]="disabledFieldType ? '' : null" value="GRATIS" formControlName="sellType"
+                      id="regalar" type="radio" name="sellType">
                     <label for="regalar">Regalar</label>
                   </div>
                   <span class="error-msg">Este campo es requerido</span>
@@ -238,10 +238,10 @@
                 </div>
                 <div class="price-container">
                   <input [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null"
-                    class="form-control input-price" name="special-price" currencyMask
+                    class="form-control input-price" name="specialPrice" currencyMask
                     [options]="{prefix: '' , align: 'left', precision: 0}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder=""
-                    formControlName="special-price" maxlength="50" autocomplete="off">
+                    formControlName="specialPrice" maxlength="50" autocomplete="off">
                   <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a
                     {{maxValueNewPrice | currency:" ":0 | removeDigits}}</span>
                   <span *ngIf="isErrorCategoryNewPrice" class="error-msg">Debe seleccionar una categoría</span>
@@ -271,12 +271,12 @@
                   (selected)="city=$event; validateCity()"></select-cities>
                 <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="date-auction form-group" *ngIf="photosForm.get('sell-type').value == 'SUBASTA'"
-                [ngClass]="{'valid': photosForm.get('sell-type').value}">
+              <div class="date-auction form-group" *ngIf="photosForm.get('sellType').value == 'SUBASTA'"
+                [ngClass]="{'valid': photosForm.get('sellType').value}">
                 <div class="date-container">
                   <label class="label-title">Fecha de vencimiento</label>
-                  <my-date-picker class="data-picker-theme" name="publish-until"
-                    placeholder="Fecha de vencimiento de la subasta" formControlName="publish-until"
+                  <my-date-picker class="data-picker-theme" name="publishUntil"
+                    placeholder="Fecha de vencimiento de la subasta" formControlName="publishUntil"
                     [options]="datePickerOptions"></my-date-picker>
                   <span class="help-block error-msg"> Este campo es requerido </span>
                 </div>
@@ -394,8 +394,8 @@
                 <label class="label-title">Marca</label>
                 <span class="error-msg">Este campo es requerido</span>
               </div>
-              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('line-id').value}">
-                <select name="line-id" class="form-control" formControlName="line-id">
+              <div class="form-group field-form" [ngClass]="{'valid': photosForm.get('lineId').value}">
+                <select name="lineId" class="form-control" formControlName="lineId">
                   <option value="" disabled></option>
                   <option value="{{model.id}}" *ngFor="let model of modelList">{{model.name}}</option>
                 </select>
@@ -464,8 +464,8 @@
                 <span class="error-msg">Este campo es requerido</span>
               </div>
               <div *ngIf="subcategoryIsVehicle()" class="form-group field-form"
-                [ngClass]="{'valid': photosForm.get('license-plate').value}">
-                <select name="license-plate" class="form-control" formControlName="license-plate">
+                [ngClass]="{'valid': photosForm.get('licensePlate').value}">
+                <select name="licensePlate" class="form-control" formControlName="licensePlate">
                   <option value="" disabled></option>
                   <option value="{{vehicleNumber}}" *ngFor="let vehicleNumber of vehicleNumberList">{{vehicleNumber}}
                   </option>
@@ -474,8 +474,8 @@
                 <span class="error-msg">Este campo es requerido</span>
               </div>
               <div *ngIf="subcategoryIsVehicle()" class="form-group field-form"
-                [ngClass]="{'valid': photosForm.get('type-vehicle').value}">
-                <select name="type-vehicle" class="form-control" formControlName="type-vehicle">
+                [ngClass]="{'valid': photosForm.get('typeVehicle').value}">
+                <select name="typeVehicle" class="form-control" formControlName="typeVehicle">
                   <option value="" disabled></option>
                   <option *ngFor="let vehicleProperty of vehicleProperties" value="{{vehicleProperty}}">
                     {{vehicleProperty}}</option>
@@ -502,19 +502,19 @@
                   <label for="id-name--1" class="switch-label">Airbag</label>
                 </div>
                 <div>
-                  <input formControlName="air-conditioner" type="checkbox" id="id-name--2" name="air-conditioner"
+                  <input formControlName="airConditioner" type="checkbox" id="id-name--2" name="airConditioner"
                     class="switch-input">
                   <label for="id-name--2" class="switch-label">Aire acondicionado</label>
                 </div>
               </div>
               <div class="form-group">
                 <div>
-                  <input formControlName="abs-brakes" type="checkbox" id="id-name--3" name="abs-brakes"
+                  <input formControlName="absBrakes" type="checkbox" id="id-name--3" name="absBrakes"
                     class="switch-input">
                   <label for="id-name--3" class="switch-label">Frenos ABS</label>
                 </div>
                 <div>
-                  <input formControlName="unique-owner" type="checkbox" id="id-name--4" name="unique-owner"
+                  <input formControlName="uniqueOwner" type="checkbox" id="id-name--4" name="uniqueOwner"
                     class="switch-input">
                   <label for="id-name--4" class="switch-label">Único dueño</label>
                 </div>
@@ -523,11 +523,11 @@
                 <label class="label-title">Tipo de asiento</label>
                 <div>
                   <div class="md-radio">
-                    <input value="TELA" formControlName="type-of-seat" id="kindSeat1" type="radio" name="type-of-seat">
+                    <input value="TELA" formControlName="typeOfSeat" id="kindSeat1" type="radio" name="typeOfSeat">
                     <label for="kindSeat1">Tela</label>
                   </div>
                   <div class="md-radio">
-                    <input value="CUERO" formControlName="type-of-seat" id="kindSeat2" type="radio" name="type-of-seat">
+                    <input value="CUERO" formControlName="typeOfSeat" id="kindSeat2" type="radio" name="typeOfSeat">
                     <label for="kindSeat2">Cuero
                     </label>
                   </div>

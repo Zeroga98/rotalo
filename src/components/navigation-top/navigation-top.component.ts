@@ -100,7 +100,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public showSearchMobile = false;
   public menu  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`;
   public options = [false, false, false, false];
-
+  public stores = [];
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -195,6 +195,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
+    this.stores = this.userEdit.stores;
     if (this.userEdit && this.userEdit.name) {
       const name = this.userEdit.name.split(' ');
       this.userName = name[0];

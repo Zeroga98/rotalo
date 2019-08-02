@@ -1,6 +1,6 @@
 import { ProductInterface } from '../../../commons/interfaces/product.interface';
 import { ProductsService } from '../../../services/products.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { CurrentSessionService } from '../../../services/current-session.service';
@@ -12,19 +12,24 @@ import { CurrentSessionService } from '../../../services/current-session.service
   styleUrls: ['./products-edit-microsite.component.scss']
 })
 export class ProductsEditMicrositeComponent implements OnInit {
-  idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ""));
+
   product: ProductInterface;
   public errorference = '';
   public photosUploadedRest = null;
+  public idProduct;
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
-    private currentSessionService: CurrentSessionService
+    private currentSessionService: CurrentSessionService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.loadProduct();
+    this.route.params.subscribe(params => {
+      this.idProduct = params['id'];
+      this.loadProduct();
+    });
   }
 
   loadProduct() {
@@ -32,7 +37,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
       if (reponse.body) {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
-        this.redirectIfisNotOwner(this.product);
+       // this.redirectIfisNotOwner(this.product);
       }
     } ,
     (error) => {

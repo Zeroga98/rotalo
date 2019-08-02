@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SettingsService } from '../../../services/settings.service';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { IMAGE_LOAD_STYLES } from '../../../components/form-product/image-load.constant';
@@ -6,13 +6,14 @@ import { PhotosService } from '../../../services/photos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UtilsService } from '../../../util/utils.service';
 import { CategoriesService } from '../../../services/categories.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-admin-banners-shop',
   templateUrl: './admin-banners-shop.component.html',
   styleUrls: ['./admin-banners-shop.component.scss']
 })
-export class AdminBannersShopComponent implements OnInit {
+export class AdminBannersShopComponent implements OnInit, OnDestroy{
 
   public customStyleImageLoader = IMAGE_LOAD_STYLES;
   public errorHomeTienda = '';
@@ -24,6 +25,8 @@ export class AdminBannersShopComponent implements OnInit {
   public bannerPromocionalForm;
   public bannersCategorias;
   public categories;
+  public idTienda;
+  public routeSub;
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
@@ -31,14 +34,22 @@ export class AdminBannersShopComponent implements OnInit {
     public dialog: MatDialog,
     private utilsService: UtilsService,
     private categoriesService: CategoriesService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.loadCategories();
-    this.loadBanners();
-    this.setFormHomeShop(this.getInitialConfigHomeShop());
-    this.setInitialFormCategories(this.getInitialConfigCategories());
-    this.setInitialFormPromo(this.getInitialConfigPromo());
+    this.routeSub = this.route.params.subscribe(params => {
+      this.idTienda = params['id'];
+      this.loadBanners();
+      this.setFormHomeShop(this.getInitialConfigHomeShop());
+      this.setInitialFormCategories(this.getInitialConfigCategories());
+      this.setInitialFormPromo(this.getInitialConfigPromo());
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 
   loadCategories() {
@@ -50,7 +61,8 @@ export class AdminBannersShopComponent implements OnInit {
   }
 
   loadBanners() {
-    this.settingsService.getBannersShop(1).subscribe(response => {
+
+    this.settingsService.getBannersShop(this.idTienda).subscribe(response => {
       if (response.body) {
       if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
       if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
@@ -338,12 +350,13 @@ export class AdminBannersShopComponent implements OnInit {
       const body = {
         bannerHomeTienda: this.bannerHomeTienda.value,
         bannerPromocional: this.bannerPromocionalForm.value.bannerPromocional,
-        bannersCategoria: null
+        bannersCategoria: null,
+        idTienda: this.idTienda
       };
       if(this.bannersCategoriaForm.value && this.bannersCategoriaForm.value.bannersCategoria) {
         body.bannersCategoria = this.bannersCategoriaForm.value.bannersCategoria;
       }
-      console.log(this.bannersCategoriaForm.value);
+
       this.settingsService.uploadBannerShop(body).subscribe((response) => {
 
         alert('Cambios guardados correctamente');
