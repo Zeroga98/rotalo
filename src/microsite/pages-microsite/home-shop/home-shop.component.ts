@@ -757,7 +757,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
       for (let i = 0; i < this.bannerPromocionalForm.get('bannerPromocional').controls.length; i++) {
             j++;
       }
-      if(j==3){
+      if(j==3) {
         this.showBannersPromo = true;
       }
     });
