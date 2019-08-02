@@ -192,7 +192,6 @@ export class SimulateCreditPage implements OnInit {
     if (!this.formIsInValid) {
       this.simulateCredit();
     } else {
-      console.log(this.simulateForm);
       this.validateAllFormFields(this.simulateForm);
     }
   }
