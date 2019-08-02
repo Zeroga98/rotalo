@@ -47,6 +47,7 @@ export class RotaloCenterPage implements OnInit  {
   public userName: String;
   public photoUrl: String;
   public bannersShop = `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.SHOPBANNERS}`;
+  public stores = [];
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -123,6 +124,8 @@ export class RotaloCenterPage implements OnInit  {
   async getInfoUser() {
     const user = await this.userService.getInfoUser();
     this.currentUser = user;
+    this.stores = this.currentUser.stores;
+    console.log(this.currentUser);
   }
 
   async getUserInfo() {

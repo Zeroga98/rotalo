@@ -78,36 +78,38 @@
         <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
 
-        <div #option3 *ngIf="currentUser && currentUser['is-admin-store']"  routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
-            <div class="option">
-              <div class="ico shop-icon"></div>
-              <input  (change) = " selectOption(option3, 2)" id="ac-3" name="accordion-3" type="checkbox" />
-              <label for="ac-3">Admin. Tienda<div class="icon"></div></label>
+        <div *ngFor="let store of stores">
+            <div #option3   routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
+                <div class="option">
+                  <div class="ico shop-icon"></div>
+                  <input  (change) = " selectOption(option3, 2)" id="store-{{store.id}}" name="accordion-{{store.id}}" type="checkbox" />
+                  <label for="store-{{store.id}}">{{store.name}}<div class="icon"></div></label>
+                </div>
+                <article (click)="closeOptions(2)" class="ac-small">
+                  <ul>
+                    <li *ngIf="store.id == 1" routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
+                      <div class="bullet"></div>
+                      <a>Ordenes</a>
+                    </li>
+                    <li routerLinkActive="active" routerLink="{{productShop}}/{{store.id}}" class="subOption">
+                      <div class="bullet"></div>
+                      <a>Productos</a>
+                    </li>
+                    <li routerLinkActive="active" routerLink="{{bannersShop}}/{{store.id}}" class="subOption">
+                        <div class="bullet"></div>
+                        <a>Banners tienda</a>
+                    </li>
+                <!--    <li class="subOption">
+                      <div class="bullet"></div>
+                      <a>Destacados</a>
+                    </li> -->
+            <!--    <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
+                      <div class="bullet"></div>
+                      <a>Carga de productos</a>
+                    </li> -->
+                  </ul>
+                </article>
             </div>
-            <article (click)="closeOptions(2)" class="ac-small">
-              <ul>
-                <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
-                  <div class="bullet"></div>
-                  <a>Ordenes</a>
-                </li>
-                <li routerLinkActive="active" [routerLink]="productShop" class="subOption">
-                  <div class="bullet"></div>
-                  <a>Productos</a>
-                </li>
-                <li routerLinkActive="active" [routerLink]="bannersShop" class="subOption">
-                    <div class="bullet"></div>
-                    <a>Banners tienda</a>
-                </li>
-            <!--    <li class="subOption">
-                  <div class="bullet"></div>
-                  <a>Destacados</a>
-                </li> -->
-        <!--    <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
-                  <div class="bullet"></div>
-                  <a>Carga de productos</a>
-                </li> -->
-              </ul>
-            </article>
         </div>
 
         <div *ngIf="isSuperUser()" class="line">

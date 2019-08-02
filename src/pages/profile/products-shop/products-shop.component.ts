@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { SettingsService } from '../../../services/settings.service';
 import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-shop',
@@ -25,14 +25,21 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   public messageChange = '';
   public errorChange = '';
+  public routeSub;
+  public idTienda;
+
   constructor(private productsService: ProductsService,
     private utilService: UtilsService,
     private userService: UserService,
     private router: Router,
-    private settingsService: SettingsService) { }
+    private settingsService: SettingsService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getProductsList(0, 1);
+    this.routeSub = this.route.params.subscribe(params => {
+    this.idTienda = params['id'];
+    this.getProductsList(0, this.idTienda);
+    });
   }
 
   ngAfterViewInit() {
@@ -81,7 +88,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   }
 
   getUrlProduct (idProduct) {
-    return this.edit + idProduct;
+    return this.edit + this.idTienda + '/' + idProduct;
   }
 
   getUrlPreviewProduct (idProduct) {
@@ -133,7 +140,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   goToUploadProduct() {
     this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${
-      ROUTES.MICROSITE.UPLOAD}`]);
+      ROUTES.MICROSITE.UPLOAD}/${this.idTienda}`]);
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   }

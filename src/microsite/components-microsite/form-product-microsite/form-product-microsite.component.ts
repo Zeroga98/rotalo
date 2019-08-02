@@ -10,7 +10,7 @@ import { CategoriesService } from '../../../services/categories.service';
 import { IMAGE_LOAD_STYLES } from './image-load.constant';
 import * as moment from 'moment';
 import { IMyDpOptions } from 'mydatepicker';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UtilsService } from '../../../util/utils.service';
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { ImageUploadComponent } from 'angular2-image-upload';
@@ -23,7 +23,7 @@ import { COLOR_FASHION } from './colors-clothes.constant';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
-  const sellType = c.get('sell-type').value;
+  const sellType = c.get('sellType').value;
   if ((sellType === 'VENTA' && price > 0) || (sellType === 'SUBASTA' && price > 0) || (sellType === 'GRATIS' && price === 0)) {
       return null;
   }
@@ -113,9 +113,10 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   public formFashion;
   @Input() errorference;
   @Input() photosUploadedRest;
-
+  public idShop ;
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private currentSessionSevice: CurrentSessionService,
     private photosService: PhotosService,
@@ -127,10 +128,14 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     ) {
       this.getCountries();
       this.defineSubastaTimes();
+      this.route.params.subscribe(params => {
+        this.idShop = params['idShop'];
+      });
       this.changeDetectorRef.markForCheck();
     }
 
     async ngOnInit() {
+
       const currentUser = this.currentSessionSevice.currentUser();
       this.countryId = Number(currentUser['countryId']);
       try {
@@ -275,38 +280,38 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     if ((!this.formIsInValid && (this.city['id'])  &&  this.photosUploaded.length > 0)
     && (this.showOptionsFashion || !this.showOptionsFashion && this.formFashion && !this.formFashion.invalid)) {
-      const photosIds = { 'photo-ids': this.loadOrderPhotos() };
+      const photosIds = { 'photoIds': this.loadOrderPhotos() };
       let dateMoment: any;
 
-      if (this.photosForm.value['publish-until'].formatted) {
-        dateMoment = moment(this.photosForm.value['publish-until'].formatted, 'YYYY-MM-DD');
+      if (this.photosForm.value['publishUntil'].formatted) {
+        dateMoment = moment(this.photosForm.value['publishUntil'].formatted, 'YYYY-MM-DD');
         dateMoment = dateMoment.toDate();
       } else {
-        this.photosForm.value['publish-until'].date.month = this.photosForm.value['publish-until'].date.month - 1;
-        dateMoment = moment(this.photosForm.value['publish-until'].date).format('YYYY-MM-DD');
+        this.photosForm.value['publishUntil'].date.month = this.photosForm.value['publishUntil'].date.month - 1;
+        dateMoment = moment(this.photosForm.value['publishUntil'].date).format('YYYY-MM-DD');
       }
       let dataAdditional;
-      if (this.photosForm.get('sell-type').value === 'SUBASTA') {
+      if (this.photosForm.get('sellType').value === 'SUBASTA') {
         dataAdditional = {
-          'publish-until': dateMoment,
+          'publishUntil': dateMoment,
           'negotiable': true
         };
       } else {
         if (this.product) {
-          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+          if (this.photosForm.get('sellType').value === 'GRATIS') {
             dataAdditional = {
               'negotiable': false
             };
           }
         } else {
-          if (this.photosForm.get('sell-type').value === 'GRATIS') {
+          if (this.photosForm.get('sellType').value === 'GRATIS') {
             dataAdditional = {
-              'publish-until': this.getPublishUntilDate(),
+              'publishUntil': this.getPublishUntilDate(),
               'negotiable': false
             };
           } else {
             dataAdditional = {
-              'publish-until': this.getPublishUntilDate()
+              'publishUntil': this.getPublishUntilDate()
             };
           }
         }
@@ -314,37 +319,37 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       let params;
       if (this.product) {
         params = Object.assign({}, this.photosForm.value, photosIds, dataAdditional, {
-          'city-id': this.city['id']
+          'cityId': this.city['id']
         });
-        if (this.photosForm.get('sell-type').value !== 'SUBASTA') {
-          delete params['publish-until'];
+        if (this.photosForm.get('sellType').value !== 'SUBASTA') {
+          delete params['publishUntil'];
         }
       } else {
         const publishDate = {
-          'published-at': new Date()
+          'publishedAt': new Date()
         };
-        // const photosIds2 = [{ 'photo-id': 12965, 'position': 1}];
+        // const photosIds2 = [{ 'photoId': 12965, 'position': 1}];
         params = Object.assign({}, this.photosForm.value, photosIds, publishDate, dataAdditional, {
-          'city-id': this.city['id']
+          'cityId': this.city['id']
         });
 
       }
 
     //  this.photosUploaded.length = 0;
       /**Mejora hacer nested formgroups**/
-      delete params['line-id'];
+      delete params['lineId'];
       delete params['transmission'];
       delete params['color'];
-      delete params['license-plate'];
+      delete params['licensePlate'];
       delete params['mileage'];
       delete params['displacement'];
       delete params['gas'];
       delete params['carMake'];
-      delete params['type-of-seat'];
+      delete params['typeOfSeat'];
       delete params['airbag'];
-      delete params['air-conditioner'];
-      delete params['abs-brakes'];
-      delete params['unique-owner'];
+      delete params['airConditioner'];
+      delete params['absBrakes'];
+      delete params['uniqueOwner'];
 
       delete params['antiquity'];
       delete params['squareMeters'];
@@ -365,24 +370,24 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
 
       if (!this.photosForm.get('checkNewPrice').value) {
-        delete params['special-price'];
+        delete params['specialPrice'];
       }
       delete params['checkNewPrice'];
       if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
           const vehicle  = {
-            'vehicle-type': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
-            'line-id': this.photosForm.get('line-id').value,
+            'vehicleType': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
+            'lineId': this.photosForm.get('lineId').value,
             'transmission': this.photosForm.get('transmission').value,
             'color': this.photosForm.get('color').value,
-            'license-plate': this.photosForm.get('license-plate').value,
+            'licensePlate': this.photosForm.get('licensePlate').value,
             'mileage': this.photosForm.get('mileage').value,
             'displacement': this.photosForm.get('displacement').value,
             'gas': this.photosForm.get('gas').value,
-            'type-of-seat': this.photosForm.get('type-of-seat').value,
+            'typeOfSeat': this.photosForm.get('typeOfSeat').value,
             'airbag': this.photosForm.get('airbag').value,
-            'air-conditioner': this.photosForm.get('air-conditioner').value,
-            'abs-brakes': this.photosForm.get('abs-brakes').value,
-            'unique-owner': this.photosForm.get('unique-owner').value
+            'airConditioner': this.photosForm.get('airConditioner').value,
+            'absBrakes': this.photosForm.get('absBrakes').value,
+            'uniqueOwner': this.photosForm.get('uniqueOwner').value
           };
           params.vehicle = vehicle;
       }
@@ -410,7 +415,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     }
       params.stock = this.photosForm.get('stock').value;
-
+      params.storeId = this.idShop;
       if (!this.showOptionsFashion && this.formFashion && !this.formFashion.invalid) {
         params.children = this.formFashion.get('children').value;
         params.children.map((item) => {
@@ -616,33 +621,33 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   resetFormsVehicle() {
     this.photosForm.patchValue({stock: 1});
-    this.photosForm.patchValue({'line-id': ''});
+    this.photosForm.patchValue({'lineId': ''});
     this.photosForm.patchValue({'carMake': ''});
     let sellType = '';
-      sellType = this.photosForm.get('sell-type').value;
+      sellType = this.photosForm.get('sellType').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
-        this.photosForm.patchValue({'sell-type': 'VENTA'});
+        this.photosForm.patchValue({'sellType': 'VENTA'});
     }
     this.disabledField = false;
     this.photosForm.controls['negotiable'].enable();
   }
 
   setValidationVehicle() {
-    const typeVehicleControl = this.photosForm.get('type-vehicle');
+    const typeVehicleControl = this.photosForm.get('typeVehicle');
     const model = this.photosForm.get('model');
-    const lineId = this.photosForm.get('line-id');
+    const lineId = this.photosForm.get('lineId');
     const transmission = this.photosForm.get('transmission');
     const color = this.photosForm.get('color');
-    const licensePlate = this.photosForm.get('license-plate');
+    const licensePlate = this.photosForm.get('licensePlate');
     const mileage = this.photosForm.get('mileage');
     const displacement = this.photosForm.get('displacement');
     const gas = this.photosForm.get('gas');
     const carMake = this.photosForm.get('carMake');
-    const kindSeat = this.photosForm.get('type-of-seat');
+    const kindSeat = this.photosForm.get('typeOfSeat');
     const airbag = this.photosForm.get('airbag');
-    const airConditioner = this.photosForm.get('air-conditioner');
-    const absBrakes = this.photosForm.get('abs-brakes');
-    const uniqueOwner = this.photosForm.get('unique-owner');
+    const airConditioner = this.photosForm.get('airConditioner');
+    const absBrakes = this.photosForm.get('absBrakes');
+    const uniqueOwner = this.photosForm.get('uniqueOwner');
     typeVehicleControl.clearValidators();
     model.clearValidators();
     lineId.clearValidators();
@@ -795,7 +800,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       const brands = this.brandsList.filter(value => {
         return value.id == id;
       });
-    this.photosForm.patchValue({'line-id': ''});
+    this.photosForm.patchValue({'lineId': ''});
      if (brands && brands.length > 0) {
       this.modelList = brands[0].lines;
      }
@@ -865,9 +870,9 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     this.subCategory = null;
     if (idCategory == 7 || idCategory == 6 || idCategory == 10) {
       let sellType = '';
-      sellType = this.photosForm.get('sell-type').value;
+      sellType = this.photosForm.get('sellType').value;
       if (sellType != 'VENTA' && sellType != 'ALQUILA') {
-        this.photosForm.patchValue({'sell-type': 'VENTA'});
+        this.photosForm.patchValue({'sellType': 'VENTA'});
       }
       this.disabledField = false;
       this.photosForm.controls['negotiable'].enable();
@@ -942,7 +947,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
           carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
           lineId = vehicle['line'] ? vehicle['line'].id : '';
           this.setLinesVehicle(carMake);
-          this.photosForm.patchValue({'line-id': lineId});
+          this.photosForm.patchValue({'lineId': lineId});
         }
       }
     }, (error) => {
@@ -1021,12 +1026,12 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
        brandFashion = config['children'][0].brand;
     }
 
-    if (config['sell-type'] === 'GRATIS') {
+    if (config['sellType'] === 'GRATIS') {
       this.disabledField = true;
       this.photosForm.controls['negotiable'].disable();
     }
 
-    if (config['sell-type'] === 'SUBASTA') {
+    if (config['sellType'] === 'SUBASTA') {
       this.disabledField = true;
       this.disabledFieldType = true;
       this.photosForm.controls['negotiable'].disable();
@@ -1065,27 +1070,27 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
       contactSeller: [config.contactSeller, [Validators.required]],
-      'sell-type': [config['sell-type'], [Validators.required]],
+      'sellType': [config['sellType'], [Validators.required]],
       description: [config.description, [Validators.required]],
       negotiable: [{ value: config.negotiable, disabled: false }, []],
-      'publish-until': [config['publish-until'], []],
-      'type-vehicle': [typeVehicle, []],
+      'publishUntil': [config['publishUntil'], []],
+      'typeVehicle': [typeVehicle, []],
       'model': [model, []],
-      'line-id': [lineId, []],
+      'lineId': [lineId, []],
       'transmission': [transmission, []],
       'color': [color, []],
-      'license-plate': [licensePlate, []],
+      'licensePlate': [licensePlate, []],
       'mileage': [mileage, []],
       'displacement': [displacement, []],
       'gas': [gas, []],
       'carMake': [carMake, []],
-      'type-of-seat': [kindSeat, []],
+      'typeOfSeat': [kindSeat, []],
       'airbag': [airbag, []],
-      'air-conditioner': [airConditioner, []],
-      'abs-brakes': [absBrakes, []],
-      'unique-owner': [uniqueOwner, []],
+      'airConditioner': [airConditioner, []],
+      'absBrakes': [absBrakes, []],
+      'uniqueOwner': [uniqueOwner, []],
       'checkNewPrice': [checkNewPrice, []],
-      'special-price': [newPrice, []],
+      'specialPrice': [newPrice, []],
       category: [config['category'], [Validators.required]],
 
       antiquity : [antiquity, []],
@@ -1114,9 +1119,9 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     this.setInitialFormFashion(this.getInitialConfigSize());
     if (this.product) {
       if (this.isActivePromo(this.product)) {
-        const price = this.photosForm.get('special-price').value;
+        const price = this.photosForm.get('specialPrice').value;
         this.maxValueNewPrice = price;
-        const specialPrice = this.photosForm.get('special-price');
+        const specialPrice = this.photosForm.get('specialPrice');
         specialPrice.clearValidators();
         specialPrice.setValidators([Validators.required, Validators.max(this.maxValueNewPrice)]);
         specialPrice.updateValueAndValidity();
@@ -1223,7 +1228,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         }
     };
     if (this.product) {
-      const publishUntil  = moment(this.product['publish-until']).toDate();
+      const publishUntil  = moment(this.product['publishUntil']).toDate();
       objectDate = {
         date: {
           year: publishUntil.getFullYear(),
@@ -1231,7 +1236,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
           day: publishUntil.getDate()
           }
       };
-      this.product['publish-until'] = objectDate;
+      this.product['publishUntil'] = objectDate;
     }
 
     /**Moneda por defecto**/
@@ -1252,16 +1257,16 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       name: null,
       price: null,
       reference: null,
-      'special-price': null,
+      'specialPrice': null,
       currency: currency,
       'subcategory': {id : ''},
       stock: 1,
       used: false,
       visible: true,
       contactSeller: false,
-      'sell-type': 'VENTA',
+      'sellType': 'VENTA',
       description: null,
-      'publish-until': objectDate,
+      'publishUntil': objectDate,
       negotiable: true,
       checkNewPrice: false,
       category: ''
@@ -1380,7 +1385,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   addStock() {
     if (this.showOptionsVehicles &&  this.showOptionEstate) {
-      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value < 9999) {
+      if (this.photosForm.get('sellType').value == 'VENTA' && this.photosForm.get('stock').value < 9999) {
         let stock =  this.photosForm.get('stock').value;
         stock = ++stock;
         this.photosForm.patchValue({stock: stock});
@@ -1390,7 +1395,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   minusStock() {
     if (this.showOptionsVehicles && this.showOptionEstate) {
-      if (this.photosForm.get('sell-type').value == 'VENTA' && this.photosForm.get('stock').value > 1) {
+      if (this.photosForm.get('sellType').value == 'VENTA' && this.photosForm.get('stock').value > 1) {
         let stock =  this.photosForm.get('stock').value;
         stock = --stock;
         this.photosForm.patchValue({stock: stock});
@@ -1399,7 +1404,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   addStockSize(sizeStock, element) {
-    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock < 9999) {
+    if (this.photosForm.get('sellType').value == 'VENTA' && sizeStock < 9999) {
       let stock = sizeStock;
       stock = ++stock;
       element.patchValue({ stock: stock });
@@ -1407,7 +1412,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   minusStockSize(sizeStock , element) {
-    if (this.photosForm.get('sell-type').value == 'VENTA' && sizeStock > 1) {
+    if (this.photosForm.get('sellType').value == 'VENTA' && sizeStock > 1) {
       let stock = sizeStock;
       stock = --stock;
       element.patchValue({ stock: stock });
@@ -1415,7 +1420,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   get isNewPriceShow() {
-    if (!this.isGuatemala && this.isPromoDate && this.photosForm.get('sell-type').value == 'VENTA' &&
+    if (!this.isGuatemala && this.isPromoDate && this.photosForm.get('sellType').value == 'VENTA' &&
     (this.photosForm.get('price').value || this.photosForm.get('price').value > 0)) {
       return true;
     }
@@ -1432,7 +1437,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   checkNewPriceChange() {
     if (this.categorySelected && this.photosForm.get('checkNewPrice').value && this.photosForm.get('price').value ) {
-      const newPrice = this.photosForm.get('special-price');
+      const newPrice = this.photosForm.get('specialPrice');
       const category = this.findCategory(this.categorySelected);
       const percentagePrice = category['porcentajeMinimoBajoPrecio'];
       const price = this.photosForm.get('price').value ;
@@ -1444,13 +1449,13 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       newPrice.clearValidators();
       newPrice.setValidators([Validators.required, Validators.max(maxNewPrice)]);
       newPrice.updateValueAndValidity();
-      this.photosForm.patchValue({ 'special-price': maxNewPrice });
+      this.photosForm.patchValue({ 'specialPrice': maxNewPrice });
       this.changeDetectorRef.markForCheck();
     } else  {
       this.removeValidatorNewPrice();
       if (!this.categorySelected ) {
         this.photosForm.patchValue({'checkNewPrice': false});
-        const newPrice = this.photosForm.get('special-price');
+        const newPrice = this.photosForm.get('specialPrice');
         newPrice.clearValidators();
         newPrice.setErrors({ 'invalid': true });
         newPrice.markAsDirty({ onlySelf: true });
@@ -1463,7 +1468,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   get isErrorCategoryNewPrice() {
-    const newPrice = this.photosForm.get('special-price');
+    const newPrice = this.photosForm.get('specialPrice');
     if (newPrice.errors && newPrice.errors.isCategory) {
       return true;
     }
@@ -1471,8 +1476,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   removeValidatorNewPrice() {
-    const newPrice = this.photosForm.get('special-price');
-    this.photosForm.patchValue({'special-price': null});
+    const newPrice = this.photosForm.get('specialPrice');
+    this.photosForm.patchValue({'specialPrice': null});
     newPrice.clearValidators();
     newPrice.updateValueAndValidity();
   }
@@ -1490,7 +1495,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     let order = [];
     order = this.photosUploaded.map((photo, index) => {
       return {
-        'photo-id': photo.photoId,
+        'photoId': photo.photoId,
         'position': index + 1
       };
     });

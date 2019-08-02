@@ -96,26 +96,26 @@
         </div>
       </div>
 
-      <div class="ac-container">
-        <div #option3 *ngIf="userEdit && userEdit['is-admin-store']" routerLinkActive="active"
+      <div *ngFor="let store of stores" class="ac-container">
+        <div #option3 routerLinkActive="active"
         [ngClass]="options[2] ? 'open' : ''">
         <div (click)="$event.stopPropagation();" mat-menu-item class="option">
           <div class="ico shop-icon"></div>
-          <input [disabled]="validateIfIsActive(option3)" [(ngModel)]="options[2]" id="menu-3"
-            name="accordion-3" type="checkbox" />
-          <label for="menu-3">Admin. Tienda<div class="icon-down"></div></label>
+          <input [disabled]="validateIfIsActive(option3)" [(ngModel)]="options[2]" id="store-{{store.id}}"
+            name="accordion-{{store.id}}" type="checkbox" />
+          <label for="store-{{store.id}}">{{store.name}}<div class="icon-down"></div></label>
         </div>
         <article (click)="closeOptions(2)" class="ac-small">
           <ul>
-            <li routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
+            <li *ngIf="store.id == 1" routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
               <div class="bullet"></div>
               <a>Ordenes</a>
             </li>
-            <li routerLinkActive="active" [routerLink]="productShop" class="subOption">
+            <li routerLinkActive="active" routerLink="{{productShop}}/{{store.id}}" class="subOption">
               <div class="bullet"></div>
               <a>Productos</a>
             </li>
-            <li routerLinkActive="active" [routerLink]="bannersShop" class="subOption">
+            <li routerLinkActive="active" routerLink="{{bannersShop}}/{{store.id}}" class="subOption">
                 <div class="bullet"></div>
                 <a>Banners tienda</a>
             </li>
