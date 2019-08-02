@@ -227,6 +227,7 @@ import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/term
 import { TermsShopComponentComponent } from '../microsite/components-microsite/terms-shop-component/terms-shop-component.component';
 import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
 import { NavigationTopServicePublic } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.service';
+import { ModalFormRegisterComponent } from '../microsite/components-microsite/modal-form-register/modal-form-register.component';
 
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
@@ -380,7 +381,8 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     DetailPageShopComponent,
     TermsShopComponent,
     TermsShopComponentComponent,
-    FrequentlyAsketQuestionsShopComponent
+    FrequentlyAsketQuestionsShopComponent,
+    ModalFormRegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -506,7 +508,8 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     UpdateTrackingNumberComponent,
     StatesModalComponent,
     ModalReactivateUserComponent,
-    ModalReactivateUserSuccessComponent]
+    ModalReactivateUserSuccessComponent,
+    ModalFormRegisterComponent]
 })
 
 export class AppModule { }
