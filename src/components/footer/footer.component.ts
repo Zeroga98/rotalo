@@ -39,7 +39,7 @@ export class FooterComponent implements OnInit {
   }
 
   get isShop() {
-    if (this.currentUrl.includes('shop')) {
+    if (this.currentUrl.includes('tiendainmueble')) {
       return true;
     }
     return false;

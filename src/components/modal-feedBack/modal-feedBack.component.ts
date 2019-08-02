@@ -71,7 +71,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
 
       if (this.currentUrl && this.currentUrl.includes('microsite')) {
         idTienda = 1;
-      } else if (this.currentUrl && this.currentUrl.includes('shop')) {
+      } else if (this.currentUrl && this.currentUrl.includes('tiendainmueble')) {
         idTienda = 34;
       }
 
@@ -79,7 +79,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
         'correo': email,
         'mensaje': comment,
         'idPais': parseInt(countryId),
-        'destino': this.currentUrl && this.currentUrl.includes('microsite') || this.currentUrl && this.currentUrl.includes('shop')
+        'destino': this.currentUrl && this.currentUrl.includes('microsite') || this.currentUrl && this.currentUrl.includes('tiendainmueble')
         ? 'tienda' : 'admin',
         'idTienda': idTienda
       };
