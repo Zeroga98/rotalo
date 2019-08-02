@@ -175,6 +175,13 @@ export class SettingsService {
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getBannersShopPublic(idShop) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/storesbanners/${idShop}`;
+    return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
   deleteBannerShop(idBanner) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);

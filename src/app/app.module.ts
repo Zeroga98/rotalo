@@ -226,6 +226,7 @@ import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-pag
 import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
 import { TermsShopComponentComponent } from '../microsite/components-microsite/terms-shop-component/terms-shop-component.component';
 import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
+import { NavigationTopServicePublic } from '../microsite/components-microsite/navigation-top-public/navigation-top-public.service';
 
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
@@ -463,6 +464,7 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     ModalPromoProductService,
     NavigationTopService,
     FilterService,
+    NavigationTopServicePublic,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

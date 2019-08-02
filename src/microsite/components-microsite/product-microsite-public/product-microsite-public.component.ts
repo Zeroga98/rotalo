@@ -61,13 +61,7 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
     private modalService: ModalShareProductService,
     private navigationService: NavigationService,
   ) {
-    let countryId;
-    if (this.navigationService.getCurrentCountryId()) {
-      countryId = this.navigationService.getCurrentCountryId();
-    }else {
-      countryId = this.currentSessionSevice.currentUser()['countryId'];
-    }
-    this.idCountry = countryId;
+    this.idCountry = 1;
   }
 
   ngAfterContentInit() {

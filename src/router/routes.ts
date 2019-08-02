@@ -17,11 +17,11 @@ export const ROUTES = {
     FAQ: 'faq',
     LOGINMOBILE: 'login-mobile',
     SHOPS: {
-      LINK: 'shop',
-      FEED: 'home',
-      SHOW: 'show',
+      LINK: 'tiendainmueble',
+      FEED: 'inicio',
+      SHOW: 'detalle',
       TERMS: 'terms',
-      FAQ: 'faq',
+      FAQ: 'faq'
     },
     PRODUCTS: {
         LINK: 'products',

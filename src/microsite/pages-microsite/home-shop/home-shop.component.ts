@@ -19,7 +19,7 @@ import { FeedShopMicrositeService } from './feedMicrosite.service';
 import { CountryInterface } from './../../../components/select-country/country.interface';
 import { CityInterface } from './../../../commons/interfaces/city.interface';
 import { NavigationService } from '../../../pages/products/navigation.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SubcategoryInterface } from './../../../commons/interfaces/subcategory.interface';
 import { CategoryInterface } from './../../../commons/interfaces/category.interface';
 import { ProductInterface } from './../../../commons/interfaces/product.interface';
@@ -107,9 +107,11 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
   public selected = this.orderBy[0];
   public carouselProductsConfig: NgxCarousel;
-  buttonNameFilter: any;
-  showFilterResponsive: boolean;
+  public buttonNameFilter: any;
+  public showFilterResponsive: boolean;
+  public sub;
   constructor(private loginService: LoginService,
+    private route: ActivatedRoute,
     private currentSessionService: CurrentSessionService,
     private userService: UserService,
     private messagesService: MessagesService,
@@ -131,7 +133,18 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
   ngOnInit() {
-    this.login();
+    this.loadBanners();
+    this.setFormHomeShop(this.getInitialConfigHomeShop());
+    this.setInitialFormPromo(this.getInitialConfigPromo());
+    this.setInitialFormCategories(this.getInitialConfigCategories());
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.params = params;
+      this.currentFilter = Object.assign({}, this.currentFilter, this.params);
+      this.loadProductsUser(1);
+      this.selected = 'Más reciente';
+    });
+
+    this.showToFilter();
   }
 
   ngOnDestroy(): void {
@@ -156,58 +169,6 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     this.productsMicrositeService.products = [];
     this.productsMicrositeService.getProductLocation();
     this.changeDetectorRef.markForCheck();
-  }
-
-  login() {
-
-    const user = {
-      user: 'jorge.fernandez@pragma.com.co',
-      password: '123456',
-      ipAddress: '127.0.0.0'
-    };
-    this.loginService.logOutClearSession(user.user).subscribe(data => {
-      if (data.status === 200) {
-        this.loginService.loginSapiUser(user)
-          .then(response => {
-            if (response.status === 200) {
-              const saveInfo = {
-                'auth-token': response.body.data.token,
-                email: response.body.data.userProperties.email,
-                id: response.body.data.userProperties.roles[0],
-                rol: response.body.data.userProperties.roles[1],
-                'id-number': response.body.data.userProperties.identification,
-                name: response.body.data.userProperties.fullname,
-                photo: {
-                  id: ' ',
-                  url: ' '
-                }
-              };
-              this.currentSessionService.setSession(saveInfo);
-              this.currentSessionService.getIdUser();
-              this.setUserCountry(saveInfo);
-              this.checkNotificationHobbies(saveInfo.id);
-              this.selected = 'Más relevante';
-              this.loadBanners();
-              this.setFormHomeShop(this.getInitialConfigHomeShop());
-              this.setInitialFormPromo(this.getInitialConfigPromo());
-              this.setInitialFormCategories(this.getInitialConfigCategories());
-              let countryId;
-              if (this.navigationService.getCurrentCountryId()) {
-                countryId = this.navigationService.getCurrentCountryId();
-              } else {
-                countryId = this.currentSession.currentUser()['countryId'];
-              }
-              this.idCountry = countryId;
-              this.loadProductsUser(countryId);
-              this._subscribeCountryChanges();
-              this.showToFilter();
-            }
-          })
-          .catch(httpErrorResponse => {
-            console.error(httpErrorResponse);
-          });
-      }
-    });
   }
 
   async setUserCountry(userInfo) {
@@ -250,11 +211,13 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return false;
   }
+
   loadProductsUser(countryId) {
     this.countrySelected = { id: countryId };
     const params = this.getParamsToProducts();
     this.loadProducts(params);
   }
+
   async loadProducts(params: Object = {}) {
     try {
       this.stateRequest = this.statesRequestEnum.loading;
@@ -266,7 +229,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
         this.changeDetectorRef.markForCheck();
       } else {
         let products;
-        products = await this.productsMicrositeService.getProductsMicrosite(this.userId, params);
+        products = await this.productsMicrositeService.getProductsShopMicrosite(this.userId, params);
         this.updateProducts(products);
         this.changeDetectorRef.markForCheck();
       }
@@ -286,17 +249,19 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.changeDetectorRef.markForCheck();
   }
+
   setScroll(event) {
     this.productsMicrositeService.setProductLocation(this.products, event.id, this.currentPage);
-    const carObject =
-    {
+    const carObject = {
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
     };
   }
+
   getParamsToProducts() {
     return this.currentFilter;
   }
+
   searchByTags(evt: Array<string>) {
     if (evt.length > 0) {
       const filterValue = evt.join('+');
@@ -490,6 +455,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
       size: 24,
       number: 1
     };
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams: {} });
     this.otherFilter = {
       vehicle_airbag: false,
       vehicle_abs_brakes: false,
@@ -746,7 +712,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }*/
   loadBanners() {
-    this.settingsService.getBannersShop(1).subscribe(response => {
+    this.settingsService.getBannersShopPublic(1).subscribe(response => {
       if (response.body) {
         if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
         if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }

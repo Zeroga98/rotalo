@@ -103,7 +103,7 @@ export class FilterProductsComponent
       } else {
         this.category = null;
       }
-      this.selected='Más reciente';
+      this.selected = 'Más reciente';
     });
 
     this.showToFilter();

@@ -104,6 +104,23 @@ export class ProductsMicrositeService {
       });
   }
 
+  getProductsShopMicrosite(idUser, params): Promise<any> {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { tiendaId: '1' });
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/stores/filters';
+    return this.http.get(url, { headers: headers, params: params }).toPromise()
+      .then((response: any) => {
+        if (response.body.totalProductos) {
+          this.setTotalProducts(response.body.totalProductos);
+        }
+        if (response.body.filtros){
+          this.setFiltros(response.body.filtros);
+        }
+        return response.body.productos;
+      });
+  }
+
   addProductToBD(body): Promise<any> {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
