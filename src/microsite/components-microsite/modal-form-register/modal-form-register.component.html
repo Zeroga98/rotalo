@@ -1,6 +1,87 @@
 <div class="modal-container">
   <div  class="close"></div>
-  hola
+  <div class="container">
+    <div class="monkey-container">
+      <div class="img-monkey"></div>
+      <div class="text">
+        <p>¡Déjanos tus datos</p>
+        <p>para comunicarnos contigo!</p>
+      </div>
+    </div>
+    <div class="register-container material-register">
+      <div class="container-fluid">
+        <div class="form-container">
+          <form role="form" name="registerForm" class="form-theme">
+            <div class="text-center">
+              <span
+                class="input-full-name text-left input input--float">
+                <input 
+                  name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
+                  type="text" />
+                <label class="input__label input__label--float">
+                  <span class="input__label-content input__label-content--float"
+                    data-content="Nombres y apellidos">Nombres y apellidos</span>
+                </label>
+              </span>
+            </div>
+            <div>
+              <div class="row text-center">
+                <div class="text-center type-document">
+                  <span
+                    class="input-pass-user text-left input input--float">
+                    <select class="select-text input__field input__field--float" name="type-id">
+                      <option value="" disabled selected></option>
+                      <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">
+                        {{typeDocument['abrev']}}</option>
+                    </select>
+                    <label class="input__label input__label--float">
+                      <span class="input__label-content input__label-content--float" data-content="Tipo doc.">
+                        Tipo doc.</span>
+                    </label>
+                  </span>
+                </div>
+                <div class="text-center number-document">
+                  <span
+                    class="input-pass-user text-left input input--float">
+                    <input name="id-number" maxlength="40" class="input__field input__field--float"
+                      id="txt-id-number" autocomplete="off" type="text">
+                    <label class="input__label input__label--float">
+                      <span class="input__label-content input__label-content--float" data-content=" Número de documento">
+                        Número de documento</span>
+                    </label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <span
+                class="input-email-user text-left input input--float">
+                <input 
+                  name="email" maxlength="64" class=" input__field input__field--float "
+                  id="txt-email-register" type="email" />
+                <label class="input__label input__label--float">
+                  <span class="input__label-content input__label-content--float" data-content="Email corporativo">
+                    Email corporativo</span>
+                </label>
+              </span>
+            </div>
+            <div class="text-center">
+              <span
+                class="input-full-cellphone text-left input input--float">
+                <input
+                  name="cellphone" class="input__field input__field--float" id="txt-cellphone"
+                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" />
+                <label class="input__label input__label--float">
+                  <span class="input__label-content input__label-content--float" data-content="Número celular">Número
+                    celular</span>
+                </label>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
     
     

@@ -701,7 +701,7 @@ export class DetailProductShopComponent implements OnInit {
     dialogConfig.width = '100%';
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
-
+    dialogConfig.minHeight = '494px';
    /* dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';

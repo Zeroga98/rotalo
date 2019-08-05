@@ -1,7 +1,9 @@
 :host {
+  background-color: #FFFFFF;
   .modal-container {
     width: 100%;
-      position: relative;
+    padding-top: 10px;
+    position: relative;
       .close {
         position: absolute;  
         cursor: pointer;
@@ -12,9 +14,74 @@
         margin-top: 0px;
         top: -12px;
         right: -10px;
+        &:hover {
+          background: url(../../../assets/img/icon_close_detalle_hover.svg) no-repeat;
+          background-size: contain;
+        }
       }
+      .container{
+        display: flex;
+      }
+      .monkey-container {
+        margin: 0 auto;
+        width: 45%;
+        .img-monkey {
+          margin: 0 auto;
+          margin-top: 70px;
+          margin-bottom: 15px;
+          width: 170.93px;
+          height: 170.93px;
+          background: url(../../../microsite/assets/img/iconos/ic_mono_call_center.svg) no-repeat;
+          background-size: contain;
+          background-position: center;
+
+        }
+        .text {
+          text-align: center;
+          p {
+            color: #383838;
+            font-size: 2.0rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+        }
+      }
+      .register-container{
+        width: 55%;
+      }
+     
+  }
+
+  .material-register {
+    .input {
+      background: transparent;
+    }
+    .input__label {
+      font-size: 1.6rem;
+      transform: translate3d(0, 3.3rem, 0);
+      transition: transform 0.3s;
+    }
+
+    .input__label-content {
+      transition: transform 0.3s;
+    }
+
+    .input__field--float:focus + .input__label--float {
+      padding-left: 0;
+      transform: translate3d(0, -2px, 0);
+    }
+
+    .input__label-content--float::after {
+      font-weight: normal;
+      font-size: 1.4rem;
+    }
+
+    .input__field {
+      padding: 1rem;
+    }
   }
 }
+
 ::ng-deep.mat-dialog-container {
     border-radius: 12px !important;
 }
