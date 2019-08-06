@@ -64,6 +64,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       && !req.url.includes('activacion')
       && !req.url.includes('cargas')
       && !req.url.includes('ausente')
+      && !req.url.includes('detalletienda')
       ;
     }
 }

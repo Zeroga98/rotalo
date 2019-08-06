@@ -252,7 +252,11 @@ export class DetailProductShopComponent implements OnInit {
 
 
   loadProduct() {
-    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+    const params =  {
+      idTienda: 71,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
         this.initQuantityForm();
