@@ -9,27 +9,38 @@
       </div>
     </div>
     <div class="register-container material-register">
-      <div class="container-fluid">
+      <div *ngIf="registerForm" class="container-fluid">
         <div class="form-container">
-          <form role="form" name="registerForm" class="form-theme">
+          <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme"
+          (ngSubmit)="submitForm(form)" #form>
             <div class="text-center">
-              <span
+              <span [ngClass]="{'input--filled': registerForm.get('nombres').value
+            , 'input-error': registerForm.get('nombres').invalid && !registerForm.get('nombres').pristine && !registerForm.get('nombres').errors.nameError}"
                 class="input-full-name text-left input input--float">
                 <input
-                  name="name" maxlength="50" class="input__field input__field--float" id="txt-name"
+                [ngClass]="{'invalid': registerForm.get('nombres').invalid && !registerForm.get('nombres').pristine}"
+                formControlName="nombres" name="nombres" maxlength="50" class="input__field input__field--float" id="txt-name"
                   type="text" />
                 <label class="input__label input__label--float">
                   <span class="input__label-content input__label-content--float"
                     data-content="Nombres y apellidos*">Nombres y apellidos*</span>
                 </label>
+                <span class="help-block">
+                  <span
+                    *ngIf="registerForm.get('nombres').dirty && registerForm.get('nombres').errors && registerForm.get('nombres').errors.nameError">
+                    Ingresa nombre y apellido.
+                  </span>
+                </span>
               </span>
             </div>
-            <div>
+            <div class="document-container">
               <div class="two-column row text-center">
                 <div class="text-center type-document">
-                  <span
+                  <span [ngClass]="{'input--filled': registerForm.get('tipoDocumento').value}"
                     class="input-pass-user text-left input input--float">
-                    <select class="select-text input__field input__field--float" name="type-id">
+                    <select class="select-text input__field input__field--float" name="tipoDocumento"
+                    formControlName="tipoDocumento"
+                    (change)="documentId=$event.target.value; setValidationId(); validateTypeDocument()">
                       <option value="" disabled selected></option>
                       <option *ngFor="let typeDocument of typeDocumentsFilter" value="{{typeDocument.id}}">
                         {{typeDocument['abrev']}}</option>
@@ -41,9 +52,13 @@
                   </span>
                 </div>
                 <div class="text-center number-document">
-                  <span
+                  <span [ngClass]="{'input--filled': registerForm.get('nroDocumento').value, 
+                  'input-error': !errorMessageDoc && (registerForm.get('tipoDocumento').touched && registerForm.get('tipoDocumento').invalid) 
+                  || registerForm.get('nroDocumento').touched && registerForm.get('nroDocumento').errors?.required && !registerForm.get('nroDocumento').pristine}"
                     class="input-pass-user text-left input input--float">
-                    <input name="id-number" maxlength="40" class="input__field input__field--float"
+                    <input (keypress)="removeError()"
+                    [ngClass]="{'invalid': registerForm.get('nroDocumento').invalid && !registerForm.get('nroDocumento').pristine || errorMessageDoc}"
+                    formControlName="nroDocumento" name="nroDocumento" maxlength="40" class="input__field input__field--float"
                       id="txt-id-number" autocomplete="off" type="text">
                     <label class="input__label input__label--float">
                       <span class="input__label-content input__label-content--float" data-content="Número de documento *">
@@ -51,36 +66,60 @@
                     </label>
                   </span>
                 </div>
+              
               </div>
+              <span class="error-document text-center help-block">
+                <span class="error-text-long"
+                  *ngIf="!registerForm.get('nroDocumento').errors?.required && registerForm.get('nroDocumento').invalid">
+                  {{errorMessageId}}
+                </span>
+                <span *ngIf="errorMessageDoc" class="error-message-doc">
+                  {{errorMessageDoc}}
+                </span>
+              </span>
             </div>
             <div class="text-center">
-              <span
+              <span [ngClass]="{'input--filled': registerForm.get('email').value  , 'input-error': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
                 class="input-email-user text-left input input--float">
-                <input
-                  name="email" maxlength="64" class=" input__field input__field--float "
+                <input (keypress)="removeError()"
+                  [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
+                  formControlName="email" name="email" maxlength="64" class=" input__field input__field--float "
                   id="txt-email-register" type="email" />
                 <label class="input__label input__label--float">
                   <span class="input__label-content input__label-content--float" data-content="Email*">
                     Email*</span>
                 </label>
+                <span class="help-block text-left">
+                  <span *ngIf="errorMessage">
+                    {{errorMessage}}
+                  </span>
+                </span>
               </span>
             </div>
             <div class="text-center">
-              <span
+              <span [ngClass]="{'input--filled': registerForm.get('celular').value ,  
+              'input-error': registerForm.get('celular').invalid && !registerForm.get('celular').pristine && !registerForm.get('celular').errors['pattern']}"
                 class="input-full-cellphone text-left input input--float">
-                <input
-                  name="cellphone" class="input__field input__field--float" id="txt-cellphone"
-                  onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" />
+                <input [ngClass]="{'invalid': registerForm.get('celular').invalid && !registerForm.get('celular').pristine}"
+                formControlName="celular" name="celular" class="input__field input__field--float" id="txt-cellphone"
+                onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10" />
                 <label class="input__label input__label--float">
                   <span class="input__label-content input__label-content--float" data-content="Número celular*">Número
                     celular*</span>
                 </label>
-              </span>
+                <span class="help-block">
+                  <span
+                    *ngIf="registerForm.get('celular').invalid && !registerForm.get('celular').pristine && registerForm.get('celular').errors['pattern']">
+                    El campo no cumple con el formato de teléfono.
+                  </span>
+                </span>
+              </span> 
             </div>
           </form>
           <div  class="product-btns">
             <div class="cont-botons">
-              <button  class="botons" mat-flat-button>Enviar</button>
+              <button  (click) = "submitForm(form)"
+              class="botons" mat-flat-button>Enviar</button>
             </div>
           </div>
         </div>

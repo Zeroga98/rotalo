@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
 
 
@@ -22,8 +22,8 @@ function validateNameUser(
   templateUrl: './modal-form-register.component.html',
   styleUrls: ['./modal-form-register.component.scss']
 })
-export class ModalFormRegisterComponent implements OnInit {
-public typeDocumentsFilter ;
+export class ModalFormRegisterComponent implements OnInit  {
+public typeDocumentsFilter = [];
 public registerForm: FormGroup;
 private currentUrl;
 public idCountry;
@@ -39,28 +39,30 @@ public documentId;
     private typeDocumentsService: TypeDocumentsService,
     private dialogRef: MatDialogRef<ModalFormRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
+
+      this.registerForm = this.fb.group({
+        nombres: ['', [Validators.required, validateNameUser]],
+        email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
+        tipoDocumento: ['', Validators.required],
+        nroDocumento: ['', [
+          Validators.required
+        ]],
+        celular: ['', [Validators.required]]
+      });
+
+      this.currentUrl = window.location.href;
+      if (this.currentUrl.includes('gt')) {
+        this.loadTypeDocument(9);
+        this.country = 'Guatemala';
+      } else {
+        this.loadTypeDocument(1);
+        this.country = 'Colombia';
+      }
     }
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
-      nombres: ['', [Validators.required, validateNameUser]],
-      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
-      tipoDocumento: ['', Validators.required],
-      nroDocumento: ['', [
-        Validators.required
-      ]],
-      celular: ['', [Validators.required]]
-    });
-
-    this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('gt')) {
-      this.loadTypeDocument(9);
-      this.country = 'Guatemala';
-    } else {
-      this.loadTypeDocument(1);
-      this.country = 'Colombia';
-    }
   }
+
 
   loadTypeDocument(idCountry) {
     const countryDocument = {
@@ -124,7 +126,7 @@ public documentId;
 
   setValidationId(): void {
     if (this.country) {
-      const idDocumentControl = this.registerForm.get('id-number');
+      const idDocumentControl = this.registerForm.get('nroDocumento');
       const documentObject = this.findNameDocumentType();
       let documentName;
       if (documentObject) {
@@ -191,6 +193,22 @@ public documentId;
   removeError() {
     this.errorMessage = '';
     this.errorMessageDoc = '';
+  }
+
+  submitForm(form) {
+    this.validateAllFormFields(this.registerForm);
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 
 }

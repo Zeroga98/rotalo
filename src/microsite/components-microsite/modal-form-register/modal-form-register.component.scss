@@ -2,7 +2,7 @@
   background-color: #FFFFFF;
   .modal-container {
     width: 100%;
-    padding-top: 10px;
+    padding-top: 20px;
     position: relative;
       .close {
         position: absolute;
@@ -60,6 +60,12 @@
     .input {
       background: transparent;
       width: 100%;
+      margin-top: 1rem;
+
+    }
+
+    .document-container {
+      margin: 1.5rem;
     }
 
     .type-document .input {
@@ -94,11 +100,12 @@
       padding-top: 10px;
     }
 
-    .input__field--float:focus + .input__label--float {
+    .input--filled .input__label--float,  .input__field--float:focus + .input__label--float {
       padding-left: 0;
       max-height: 30px;
       transform: translate3d(0, -100%, 0);
     }
+
 
     .input__label-content--float::after {
       font-weight: normal;
@@ -110,13 +117,28 @@
       min-height: 40px;
     }
 
+    .input-error:after {
+      content: '*';
+      position: absolute;
+      font-size: 2.0rem;
+      top: 10px;
+      right: -15px;
+      color: #FF3646;
+    }
+
     .two-column {
       max-width: 390px;
       width: 100%;
       margin: 0 auto;
-      margin-top: 2.5rem;
-      margin-bottom: 1.5rem;
       display: flex;
+    }
+
+    .error-document {
+      text-align: left;
+      max-width: 390px;
+      width: 100%;
+      margin: 0 auto;
+      min-height: 17px;
     }
 
   }
@@ -125,7 +147,7 @@
 :host {
 
   .cont-botons {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 
   .product-btns .botons {
