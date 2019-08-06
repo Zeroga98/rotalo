@@ -1,6 +1,6 @@
 <div class="modal-container">
-  <div  class="close"></div>
-  <div class="container">
+  <div (click) = "close()" class="close"></div>
+  <div *ngIf="!showSuccess" class="container flex">
     <div class="monkey-container">
       <div class="img-monkey"></div>
       <div class="text">
@@ -12,7 +12,7 @@
       <div *ngIf="registerForm" class="container-fluid">
         <div class="form-container">
           <form role="form" [formGroup]="registerForm" name="registerForm" class="form-theme"
-          (ngSubmit)="submitForm(form)" #form>
+          (ngSubmit)="submitForm()" >
             <div class="text-center">
               <span [ngClass]="{'input--filled': registerForm.get('nombres').value
             , 'input-error': registerForm.get('nombres').invalid && !registerForm.get('nombres').pristine && !registerForm.get('nombres').errors.nameError}"
@@ -52,8 +52,8 @@
                   </span>
                 </div>
                 <div class="text-center number-document">
-                  <span [ngClass]="{'input--filled': registerForm.get('nroDocumento').value, 
-                  'input-error': !errorMessageDoc && (registerForm.get('tipoDocumento').touched && registerForm.get('tipoDocumento').invalid) 
+                  <span [ngClass]="{'input--filled': registerForm.get('nroDocumento').value,
+                  'input-error': !errorMessageDoc && (registerForm.get('tipoDocumento').touched && registerForm.get('tipoDocumento').invalid)
                   || registerForm.get('nroDocumento').touched && registerForm.get('nroDocumento').errors?.required && !registerForm.get('nroDocumento').pristine}"
                     class="input-pass-user text-left input input--float">
                     <input (keypress)="removeError()"
@@ -66,7 +66,6 @@
                     </label>
                   </span>
                 </div>
-              
               </div>
               <span class="error-document text-center help-block">
                 <span class="error-text-long"
@@ -97,7 +96,7 @@
               </span>
             </div>
             <div class="text-center">
-              <span [ngClass]="{'input--filled': registerForm.get('celular').value ,  
+              <span [ngClass]="{'input--filled': registerForm.get('celular').value ,
               'input-error': registerForm.get('celular').invalid && !registerForm.get('celular').pristine && !registerForm.get('celular').errors['pattern']}"
                 class="input-full-cellphone text-left input input--float">
                 <input [ngClass]="{'invalid': registerForm.get('celular').invalid && !registerForm.get('celular').pristine}"
@@ -113,7 +112,7 @@
                     El campo no cumple con el formato de teléfono.
                   </span>
                 </span>
-              </span> 
+              </span>
             </div>
           </form>
           <div  class="product-btns">
@@ -121,8 +120,32 @@
               <button  (click) = "submitForm(form)"
               class="botons" mat-flat-button>Enviar</button>
             </div>
+            <div *ngIf="registerForm.get('nombres').invalid && !registerForm.get('nombres').pristine && !registerForm.get('nombres').errors.nameError ||
+            !errorMessageDoc && (registerForm.get('tipoDocumento').touched && registerForm.get('tipoDocumento').invalid)
+            || registerForm.get('nroDocumento').touched && registerForm.get('nroDocumento').errors?.required && !registerForm.get('nroDocumento').pristine
+            || registerForm.get('email').invalid && !registerForm.get('email').pristine
+            || registerForm.get('celular').invalid && !registerForm.get('celular').pristine && !registerForm.get('celular').errors['pattern']
+            " class="message">
+              <p>
+                ¡Hey! Los campos con * son requeridos
+              </p>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showSuccess" class="container">
+    <div class="monkey-success">
+      <div class="img-monkey"></div>
+      <div class="text">
+        <p>¡Gracias! ¡Te llamaremos pronto!</p>
+      </div>
+    </div>
+    <div  class="product-btns">
+      <div class="cont-botons success">
+        <button  (click) = "close()"
+        class="botons" mat-flat-button>Ok</button>
       </div>
     </div>
   </div>

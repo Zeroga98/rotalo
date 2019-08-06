@@ -19,9 +19,30 @@
           background-size: contain;
         }
       }
-      .container{
+
+      .flex{
         display: flex;
       }
+
+      .cont-botons.success {
+        margin-top: 27px;
+      }
+
+      .monkey-success {
+        margin: 0 auto;
+        width: 100%;
+        .img-monkey {
+          margin: 0 auto;
+          margin-top: 70px;
+          margin-bottom: 15px;
+          width: 170.93px;
+          height: 170.93px;
+          background: url(../../assets/img/iconos/ic_felicitaciones_carrito.svg) no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+      }
+
       .monkey-container {
         margin: 0 auto;
         width: 45%;
@@ -36,14 +57,14 @@
           background-position: center;
 
         }
-        .text {
-          text-align: center;
-          p {
-            color: #383838;
-            font-size: 2.0rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-          }
+      }
+      .text {
+        text-align: center;
+        p {
+          color: #383838;
+          font-size: 2.0rem;
+          font-weight: bold;
+          margin-bottom: 5px;
         }
       }
       .register-container{
@@ -150,6 +171,16 @@
     margin-top: 15px;
   }
 
+  .product-btns {
+    .message {
+      text-align: center;
+      p {
+        color: #FF3646;
+        font-size: 1.4rem;
+      }
+    }
+  }
+
   .product-btns .botons {
     border: 1px solid #FF3646;
     width: 203px;
@@ -163,6 +194,7 @@
     justify-content: center;
     align-items: center;
     margin: 15px auto;
+    margin-bottom: 8px;
   }
 
 

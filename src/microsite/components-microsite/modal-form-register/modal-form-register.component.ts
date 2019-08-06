@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { TypeDocumentsService } from '../../../services/type-documents.service';
+import { Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 
 
@@ -33,8 +35,11 @@ public errorMessageId;
 public errorMessageDoc;
 public errorTypeDocument = false;
 public documentId;
-
+public showSuccess;
+public idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^\d]/g, ''));
   constructor(
+    private router: Router,
+    private userService: UserService,
     private fb: FormBuilder,
     private typeDocumentsService: TypeDocumentsService,
     private dialogRef: MatDialogRef<ModalFormRegisterComponent>,
@@ -195,8 +200,38 @@ public documentId;
     this.errorMessageDoc = '';
   }
 
-  submitForm(form) {
-    this.validateAllFormFields(this.registerForm);
+  submitForm() {
+    if (!this.formIsInValid) {
+      const currentUrl = window.location.href;
+      if (currentUrl.includes('gt')) {
+        this.idCountry = 9;
+      } else {
+        this.idCountry = 1;
+      }
+      let params = {
+        idPais: this.idCountry,
+        idTienda: 71,
+        idProducto: this.idProduct
+      };
+      params = Object.assign({}, this.registerForm.value, params);
+      this.userService.contactUserProduct(params).subscribe(response => {
+        this.showSuccess = true;
+      }, error => {
+          console.log(error);
+          if (error.error) {
+            if (error.error.status == '603' || error.error.status == '604'
+              || error.error.status == '608' || error.error.status == '606') {
+              this.errorMessage = error.error.message;
+              this.errorMessageDoc = '';
+            } else if (error.error.status == '612' || error.error.status == '613') {
+              this.errorMessage = '';
+              this.errorMessageDoc = error.error.message;
+            }
+          }
+        });
+    } else  {
+      this.validateAllFormFields(this.registerForm);
+    }
   }
 
   validateAllFormFields(formGroup: FormGroup) {
