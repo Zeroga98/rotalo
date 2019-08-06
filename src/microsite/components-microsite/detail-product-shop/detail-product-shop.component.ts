@@ -118,15 +118,8 @@ export class DetailProductShopComponent implements OnInit {
     private modalService: ModalShareProductService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
-
     this.carouselConfig = CAROUSEL_CONFIG;
-    let countryId;
-    if (this.navigationService.getCurrentCountryId()) {
-      countryId = this.navigationService.getCurrentCountryId();
-    } else {
-      countryId = this.currentSessionSevice.currentUser()['countryId'];
-    }
-    this.idCountry = countryId;
+    this.idCountry = 1;
   }
 
   ngOnInit() {
