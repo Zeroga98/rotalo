@@ -30,9 +30,13 @@
                           <div *ngIf="product['featuredType'] == 'mostVisits'" class="container-trending">
                             <p>TRENDING</p>
                           </div>
-                          <img (click)="selectProductSuperUser(product, $event)" *ngIf="!product.photos" [src]="defaultImage"
+                          <img
+                          [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                          (click)="selectProductSuperUser(product, $event)" *ngIf="!product.photos" [src]="defaultImage"
                             [alt]="product.name" (error)="updateSrc($event)">
-                          <img (click)="selectProductSuperUser(product, $event)" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url"
+                          <img
+                          [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                          (click)="selectProductSuperUser(product, $event)" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url"
                             [alt]="product.name" (error)="updateSrc($event)">
                           <div
                           [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoCompartirProducto': 'gtmCompartirProducto'"
@@ -44,7 +48,9 @@
                       </a>
                       <a  [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
                       onclick="return false;" [href]="getUrlProduct(product)">
-                        <div (click)="selectProductSuperUser(product , $event)" class="item__content">
+                        <div
+                        [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                        (click)="selectProductSuperUser(product , $event)" class="item__content">
                           <div class="item__name">
                             <span>
                               {{product.name}}

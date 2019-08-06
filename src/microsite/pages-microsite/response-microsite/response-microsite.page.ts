@@ -82,8 +82,8 @@ export class ResponseMicrositePage implements OnInit {
         'send',
         'event',
         'TiendaCorporativa',
-        'ClicVolver',
-        'CompraFracasada'
+        'ClicPasarela',
+        'CompraPendiente'
       );
       this.showErrorPage();
       this.changeDetectorRef.markForCheck();
