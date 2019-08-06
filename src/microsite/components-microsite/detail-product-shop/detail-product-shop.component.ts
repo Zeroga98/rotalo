@@ -121,15 +121,8 @@ export class DetailProductShopComponent implements OnInit {
     private modalService: ModalShareProductService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
-
     this.carouselConfig = CAROUSEL_CONFIG;
-    let countryId;
-    if (this.navigationService.getCurrentCountryId()) {
-      countryId = this.navigationService.getCurrentCountryId();
-    } else {
-      countryId = this.currentSessionSevice.currentUser()['countryId'];
-    }
-    this.idCountry = countryId;
+    this.idCountry = 1;
   }
 
   ngOnInit() {
@@ -262,7 +255,11 @@ export class DetailProductShopComponent implements OnInit {
 
 
   loadProduct() {
-    this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+    const params =  {
+      idTienda: 71,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
         this.initQuantityForm();

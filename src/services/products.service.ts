@@ -194,6 +194,13 @@ export class ProductsService {
     return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  getProductsByIdDetailPublic(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/detalletienda`;
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
   deleteProduct(params){
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
