@@ -5,29 +5,13 @@
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
 <div *ngIf="products" class="container">
   <div class="product">
-      <div *ngIf="!products?.photoList" class="product-photos">
-        <div *ngIf="isSellProcess()" class="lable-sell-process">
-          <div class="icon-clock label-sell--center"></div>
-          <label class="label-sell--center">Venta en proceso</label>
+        <div  class="product-photos">
+          <div *ngIf="!products?.photoList" class="panel-heading">
+            <div class="container-product__image">
+              <img src="/assets/img/product-no-image.png">
+            </div>
         </div>
-        <div class="panel-heading">
-          <div class="container-product__image">
-            <img src="/assets/img/product-no-image.png">
-          </div>
-        </div>
-        <div class="description">
-          <pre>{{products.description}}</pre>
-        </div>
-        <div>
-          tabla
-        </div>
-      </div>
-      <div *ngIf="products?.photoList" class="product-photos">
-        <div *ngIf="isSellProcess()" class="lable-sell-process">
-          <div class="icon-clock label-sell--center"></div>
-          <label class="label-sell--center">Venta en proceso</label>
-        </div>
-        <div [ngClass]="isSellProcess() ? 'deactivated-photo' : ''" class="panel-heading">
+        <div *ngIf="products?.photoList" [ngClass]="isSellProcess() ? 'deactivated-photo' : ''" class="panel-heading">
           <ngx-carousel [inputs]="carouselConfig">
             <ngx-item NgxCarouselItem *ngFor="let productImage of productsPhotos">
               <div class="container-product__image">
