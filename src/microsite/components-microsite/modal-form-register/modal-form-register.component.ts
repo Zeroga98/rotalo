@@ -65,6 +65,7 @@ public idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^
         this.loadTypeDocument(1);
         this.country = 'Colombia';
       }
+      this.setValidationPhone(this.country);
     }
 
   ngOnInit() {
@@ -87,11 +88,11 @@ public idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^
   setValidationPhone(country): void {
     if (country) {
       const idCountry = country;
-      const phoneNumberControl = this.registerForm.get('cellphone');
+      const phoneNumberControl = this.registerForm.get('celular');
       switch (idCountry) {
         case 'Colombia': {
           phoneNumberControl.setValidators([Validators.required]);
-          this.registerForm.get('cellphone').setValidators([Validators.required]);
+          this.registerForm.get('celular').setValidators([Validators.required]);
           phoneNumberControl.setValidators([
             Validators.required,
             Validators.pattern(/^\d{10}$/)

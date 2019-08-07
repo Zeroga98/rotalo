@@ -78,7 +78,7 @@
               </span>
             </div>
             <div class="text-center">
-              <span [ngClass]="{'input--filled': registerForm.get('email').value  , 'input-error': registerForm.get('email').invalid && !registerForm.get('email').pristine}"
+              <span [ngClass]="{'input--filled': registerForm.get('email').value  , 'input-error': registerForm.get('email').invalid && !registerForm.get('email').pristine && !registerForm.get('email').errors['pattern']}"
                 class="input-email-user text-left input input--float">
                 <input (keypress)="removeError()"
                   [ngClass]="{'invalid': registerForm.get('email').invalid && !registerForm.get('email').pristine || errorMessage}"
@@ -89,6 +89,9 @@
                     Email*</span>
                 </label>
                 <span class="help-block text-left">
+                  <span *ngIf="registerForm.get('email').invalid && registerForm.get('email').errors['pattern']">
+                        El campo no cumple con el formato de correo.
+                  </span>
                   <span *ngIf="errorMessage">
                     {{errorMessage}}
                   </span>
@@ -123,7 +126,7 @@
             <div *ngIf="registerForm.get('nombres').invalid && !registerForm.get('nombres').pristine && !registerForm.get('nombres').errors.nameError ||
             !errorMessageDoc && (registerForm.get('tipoDocumento').touched && registerForm.get('tipoDocumento').invalid)
             || registerForm.get('nroDocumento').touched && registerForm.get('nroDocumento').errors?.required && !registerForm.get('nroDocumento').pristine
-            || registerForm.get('email').invalid && !registerForm.get('email').pristine
+            || registerForm.get('email').invalid && !registerForm.get('email').pristine && !registerForm.get('email').errors['pattern']
             || registerForm.get('celular').invalid && !registerForm.get('celular').pristine && !registerForm.get('celular').errors['pattern']
             " class="message">
               <p>
