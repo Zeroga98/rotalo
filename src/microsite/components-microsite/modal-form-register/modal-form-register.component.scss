@@ -232,7 +232,23 @@
 }
 
 @media screen and (max-width: 860px) {
+
+  ::ng-deep.mat-dialog-container::-webkit-scrollbar{
+    height:5px;
+    width:5px;
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  ::ng-deep.mat-dialog-container::-webkit-scrollbar-thumb{
+    background:#CBCBCB;
+    border-radius: 4px;
+  }
   :host{
+    .material-register .document-container {
+      margin: 1.5rem auto;
+    }
 
     .material-register .input {
       margin: 10px auto;
