@@ -94,7 +94,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   }
 
   getUrlPreviewProduct (idProduct) {
-    return this.preview + idProduct;
+    return this.preview + this.idTienda + '/' + idProduct;
   }
 
   getUrlProductDetail (idProduct) {

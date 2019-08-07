@@ -227,7 +227,7 @@ export const appRouter: Routes = [
             component: ResponseMicrositePage,
           },
           {
-            path: `${ROUTES.MICROSITE.PREVIEW}/:id`,
+            path: `${ROUTES.MICROSITE.PREVIEW}/:idShop/:id`,
             component: PreviewProductMicrositeComponent,
           },
           {

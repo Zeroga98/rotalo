@@ -17,7 +17,7 @@ import { NgxCarousel } from 'ngx-carousel';
 import { ProductInterface } from './../../../commons/interfaces/product.interface';
 import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalInterface } from '../../../commons/interfaces/modal.interface';
 import { ConversationInterface } from '../../../commons/interfaces/conversation.interface';
 import { CurrentSessionService } from '../../../services/current-session.service';
@@ -91,6 +91,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
   public errorSize;
   public childSelected;
   public reference;
+  public idShop;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -115,6 +116,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
     private car: ShoppingCarService,
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
+    private route: ActivatedRoute
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
 
@@ -135,7 +137,15 @@ export class PreviewProductMicrositeComponent implements OnInit {
       this.countryId = currentUser.countryId;
     }
     this.initShareForm();
-    this.loadProduct();
+    this.route.params.subscribe(params => {
+      this.idProduct = params['id'];
+      this.idShop = params['idShop'];
+      if (this.idShop == 1) {
+        this.loadProduct();
+      } else  {
+        this.loadProductShop();
+      }
+    });
   }
 
   initShareForm() {
@@ -247,6 +257,58 @@ export class PreviewProductMicrositeComponent implements OnInit {
     ]);
   }
 
+  loadProductShop() {
+    const params =  {
+      idTienda:  this.idShop,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
+      if (reponse.body) {
+        this.products = reponse.body.productos[0];
+        this.initQuantityForm();
+        this.totalStock = this.products.stock;
+        if (this.products['stock']) {
+          this.totalStock = this.products['stock'];
+        } else {
+          this.totalStock = 1;
+        }
+        if (this.products && this.products.children && this.products.children[0].stock) {
+          this.totalStock = this.products.children[0].stock;
+        }
+
+        const fullName = this.products.user.name.split(' ');
+        if (this.products.user.name) {
+          this.firstName = fullName[0];
+          this.onLoadProduct(this.products);
+          this.productIsSold(this.products);
+          if (this.products.photoList) {
+            this.productsPhotos = [].concat(this.products.photoList);
+            this.products.photoList = this.productsPhotos;
+          }
+          if (this.products.photoList) {
+            this.conversation = {
+              photo: this.products.photoList[0].url,
+              name: this.products.user.name
+            };
+          }
+          this.productChecked = this.products.status;
+          this.productStatus = this.products.status === 'active';
+          this.visitorCounter();
+          this.changeDetectorRef.markForCheck();
+        }
+        this.reference = this.products.reference;
+        if (this.products.children) {
+          this.childrens = this.products.children;
+          this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
+        }
+      }
+    } ,
+    (error) => {
+     console.log(error);
+    });
+  }
+
 
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
@@ -262,7 +324,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
         if(this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
         }
-
 
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {

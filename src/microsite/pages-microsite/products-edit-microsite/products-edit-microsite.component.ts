@@ -17,23 +17,50 @@ export class ProductsEditMicrositeComponent implements OnInit {
   public errorference = '';
   public photosUploadedRest = null;
   public idProduct;
+  public idShop;
   constructor(
     private router: Router,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionService: CurrentSessionService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.route.params.subscribe(params => {
+      this.idShop = params['idShop'];
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.idProduct = params['id'];
-      this.loadProduct();
+
+      if(this.idShop == 1) {
+        this.loadProduct();
+      } else  {
+        this.loadProductShop();
+      }
     });
   }
 
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.photosUploadedRest = 0;
+       // this.redirectIfisNotOwner(this.product);
+      }
+    } ,
+    (error) => {
+     console.log(error);
+    });
+  }
+
+  loadProductShop() {
+    const params =  {
+      idTienda:  this.idShop,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
       if (reponse.body) {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
