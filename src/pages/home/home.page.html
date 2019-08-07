@@ -4,7 +4,8 @@
 <modal-video class="md-modal-center md-effect-1" id="custom-modal-3"></modal-video>
 <div class="home-container">
   <div class="video-container">
-    <img src="../../assets/img/img_bienvenida@2x.png" alt="video">
+    <img *ngIf="!isColombia" src="../../assets/img/img_bienvenida@2x.png" alt="video">
+    <img *ngIf="isColombia" src="../../assets/img/img_bienvenida@shop.png" alt="video">
     <div class="hero-image"></div>
     <div class="play-container">
       <div class="btn-container-video">
@@ -17,7 +18,7 @@
       </div>
     </div>
 
-    <div class="layer-shop">
+    <div *ngIf="isColombia" class="layer-shop">
       <a [routerLink]="shop">
         <img class="shop-img" src="../../assets/img/tienda@2x.png" alt="tienda">
       </a>

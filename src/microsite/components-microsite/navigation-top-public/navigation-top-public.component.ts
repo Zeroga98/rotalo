@@ -39,4 +39,12 @@ export class NavigationTopPublicComponent implements OnInit {
     this.showSearchMobile = !this.showSearchMobile;
   }
 
+  goToHome() {
+    const url = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FEED}`;
+    const urlHome = `${ROUTES.HOME}`;
+    `/${url}` === this.router.url ? this.router.navigate([urlHome]) : this.router.navigate([url]);
+  //this.feedService.resetFilter();
+    this.queryField.reset();
+  }
+
 }

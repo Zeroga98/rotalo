@@ -27,7 +27,7 @@ export class FrequentlyAsketQuestionsShopComponent implements OnInit {
     }
 
     loadfrequentlyAskedQuestions() {
-      this.frequentlyAskedQuestionsService.getFrequentlyAskedQuestions().subscribe(
+      this.frequentlyAskedQuestionsService.getFrequentlyAskedQuestions(2).subscribe(
         response => {
           this.introduction = response.introduccion;
           this.questions = response.faqs;

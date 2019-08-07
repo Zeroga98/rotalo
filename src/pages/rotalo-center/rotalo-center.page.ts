@@ -40,7 +40,8 @@ export class RotaloCenterPage implements OnInit  {
   public messagesUnRead: number = 0;
   public currentUser;
 
-  public options = [false, false, false, false];
+  public options = [false, false, false];
+  public optionsStore = [];
 
   readonly defaultImage: string = '../assets/img/user_sin_foto.svg';
   public userInfo;
@@ -125,7 +126,9 @@ export class RotaloCenterPage implements OnInit  {
     const user = await this.userService.getInfoUser();
     this.currentUser = user;
     this.stores = this.currentUser.stores;
-    console.log(this.currentUser);
+    for (let i = 0 ; i < this.stores.length ; i++) {
+      this.optionsStore.push(false);
+    }
   }
 
   async getUserInfo() {
@@ -158,10 +161,27 @@ export class RotaloCenterPage implements OnInit  {
     }
   }
 
+  selectOptionStores(option, indexOption) {
+    if (option.classList.contains('open') && option.classList.contains('active')) {
+      this.optionsStore[indexOption] = false;
+      option.classList.remove('open');
+    } else  {
+      this.optionsStore[indexOption] = !this.optionsStore[indexOption];
+    }
+  }
+
   closeOptions(option) {
     for (let i = 0; i < this.options.length; i++) {
       if (option != i) {
         this.options[i] = false;
+      }
+    }
+  }
+
+  closeOptionsStores(option) {
+    for (let i = 0; i < this.optionsStore.length; i++) {
+      if (option != i) {
+        this.optionsStore[i] = false;
       }
     }
   }

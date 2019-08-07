@@ -268,5 +268,13 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
      }
    }
 
+   get isColombia() {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      return false;
+    }
+    return true;
+   }
+
 
 }

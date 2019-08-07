@@ -34,6 +34,7 @@ import { FeedMicrositeService } from '../../pages-microsite/products-microsite/f
 import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalFormRegisterComponent } from '../modal-form-register/modal-form-register.component';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -119,6 +120,7 @@ export class DetailProductShopComponent implements OnInit {
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
     private modalService: ModalShareProductService,
+    private configurationService: ConfigurationService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -256,11 +258,12 @@ export class DetailProductShopComponent implements OnInit {
 
   loadProduct() {
     const params =  {
-      idTienda: 71,
+      idTienda: this.configurationService.storeIdPublic,
       idProducto: this.idProduct
     };
     this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
       if (reponse.body) {
+
         this.products = reponse.body.productos[0];
         this.initQuantityForm();
         this.totalStock = this.products.stock;
@@ -296,7 +299,7 @@ export class DetailProductShopComponent implements OnInit {
           }
           this.productChecked = this.products.status;
           this.productStatus = this.products.status === 'active';
-          this.visitorCounter();
+        //  this.visitorCounter();
           this.changeDetectorRef.markForCheck();
         }
         this.reference = this.products.reference;
@@ -707,7 +710,7 @@ export class DetailProductShopComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ModalFormRegisterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from
 import { TypeDocumentsService } from '../../../services/type-documents.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 
 
@@ -39,6 +40,7 @@ public showSuccess;
 public idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^\d]/g, ''));
   constructor(
     private router: Router,
+    private configurationService: ConfigurationService,
     private userService: UserService,
     private fb: FormBuilder,
     private typeDocumentsService: TypeDocumentsService,
@@ -210,7 +212,7 @@ public idProduct: number = parseInt(this.router.url.split('?', 2)[0].replace(/[^
       }
       let params = {
         idPais: this.idCountry,
-        idTienda: 71,
+        idTienda:  this.configurationService.storeIdPublic,
         idProducto: this.idProduct
       };
       params = Object.assign({}, this.registerForm.value, params);

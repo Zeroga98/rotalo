@@ -3,6 +3,7 @@ import { ModalFeedBackService } from './modal-feedBack.service';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'modal-feedBack',
@@ -17,11 +18,13 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
   public feedBackForm: FormGroup;
   public messageSuccess: boolean;
 
-  constructor(private modalService: ModalFeedBackService,
+  constructor(
+    private modalService: ModalFeedBackService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionService: CurrentSessionService,
     private router: Router,
-    private el: ElementRef) {
+    private el: ElementRef,
+    private configurationService:   ConfigurationService) {
     this.element = el.nativeElement;
   }
 
@@ -72,7 +75,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       if (this.currentUrl && this.currentUrl.includes('microsite')) {
         idTienda = 1;
       } else if (this.currentUrl && this.currentUrl.includes('tiendainmueble')) {
-        idTienda = 34;
+        idTienda = this.configurationService.storeIdPublic;
       }
 
       const params = {

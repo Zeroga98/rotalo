@@ -106,9 +106,10 @@ export class ProductsMicrositeService {
 
   getProductsShopMicrosite(idUser, params): Promise<any> {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { tiendaId: '1' });
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { tiendaId: this.configurationService.storeIdPublic.toString() });
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = this.urlSapi + '/stores/filters';
+
     return this.http.get(url, { headers: headers, params: params }).toPromise()
       .then((response: any) => {
         if (response.body.totalProductos) {

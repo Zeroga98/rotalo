@@ -40,6 +40,8 @@ export class MenuMobileComponent implements OnInit {
   public messagesUnRead: number = 0;
   public userId;
   public stores = [];
+  public optionsStore = [];
+
   constructor(private userService: UserService,
     private router: Router,
     private messagesService: MessagesService,
@@ -61,6 +63,9 @@ export class MenuMobileComponent implements OnInit {
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
     this.stores = this.userEdit.stores;
+    for (let i = 0 ; i < this.stores.length ; i++) {
+      this.optionsStore.push(false);
+    }
     if (this.userEdit.name) {
       const name = this.userEdit.name.split(' ');
       this.userName = name[0];
@@ -114,6 +119,14 @@ export class MenuMobileComponent implements OnInit {
     for (let i = 0; i < this.options.length; i++) {
       if (option != i) {
         this.options[i] = false;
+      }
+    }
+  }
+
+  closeOptionsStores(option) {
+    for (let i = 0; i < this.optionsStore.length; i++) {
+      if (option != i) {
+        this.optionsStore[i] = false;
       }
     }
   }

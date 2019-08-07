@@ -78,14 +78,15 @@
         <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
 
-        <div *ngFor="let store of stores">
-            <div #option3   routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
+        <div *ngFor="let store of stores ; let i = index">
+            <div #option3
+            *ngIf="store['is_assigned_to_user']" routerLinkActive="active open"  [ngClass]="optionsStore[i] ? 'open' : ''">
                 <div class="option">
                   <div class="ico shop-icon"></div>
-                  <input  (change) = " selectOption(option3, 2)" id="store-{{store.id}}" name="accordion-{{store.id}}" type="checkbox" />
+                  <input  (change) = "selectOptionStores(option3, i)" id="store-{{store.id}}" name="accordion-{{store.id}}" type="checkbox" />
                   <label for="store-{{store.id}}">{{store.name}}<div class="icon"></div></label>
                 </div>
-                <article (click)="closeOptions(2)" class="ac-small">
+                <article (click)="closeOptionsStores(i)" class="ac-small">
                   <ul>
                     <li *ngIf="store.id == 1" routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
                       <div class="bullet"></div>
@@ -115,7 +116,7 @@
         <div *ngIf="isSuperUser()" class="line">
         </div>
 
-        <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open"  [ngClass]="options[3] ? 'open' : ''">
+        <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
             <div class="option">
               <div class="ico admin-icon "></div>
               <input  (change) = " selectOption(option4, 3)" id="ac-4" name="accordion-4" type="checkbox" />

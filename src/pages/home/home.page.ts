@@ -414,4 +414,12 @@ export class HomePage implements OnInit {
     });
   }
 
+  get isColombia() {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('gt')) {
+      return false;
+    }
+    return true;
+   }
+
 }

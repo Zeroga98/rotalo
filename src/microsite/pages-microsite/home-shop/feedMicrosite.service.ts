@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 @Injectable()
 export class FeedShopMicrositeService{
@@ -6,14 +7,14 @@ export class FeedShopMicrositeService{
         'size': 24,
         'number': 1,
         'product_country_id': 1,
-        'seller_store_id': 1
-    }
+        'seller_store_id': this.configurationService.storeIdPublic
+    };
 
     private currentFilter: Object = undefined;
 
     private configFiltersSubcategory: Object = undefined;
 
-    constructor() {
+    constructor(private configurationService: ConfigurationService) {
         this.setCurrentFilter(this.initialFilter);
     }
 

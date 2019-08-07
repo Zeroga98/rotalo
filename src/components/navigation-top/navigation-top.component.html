@@ -132,16 +132,17 @@
                   </div>
                 </div>
 
-                <div *ngFor="let store of stores" class="ac-container">
-                  <div #option3 routerLinkActive="active open"
-                  [ngClass]="options[2] ? 'open' : ''">
+                <div *ngFor="let store of stores; let i = index" class="ac-container">
+                  <div *ngIf="store['is_assigned_to_user']"
+                  #option3 routerLinkActive="active open"
+                  [ngClass]="optionsStore[i] ? 'open' : ''">
                   <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                     <div class="ico shop-icon"></div>
-                    <input (change) = "selectOption(option3, 2)"  id="shop-{{store.id}}"
+                    <input  (change) = "selectOptionStores(option3, i)"  id="shop-{{store.id}}"
                       name="accordion-{{store.id}}" type="checkbox" />
                     <label for="shop-{{store.id}}">{{store.name}}<div class="icon"></div></label>
                   </div>
-                  <article (click)="closeOptions(2)" class="ac-small">
+                  <article (click)="closeOptionsStores(i)"  class="ac-small">
                     <ul>
                       <li *ngIf="store.id == 1" routerLinkActive="active" [routerLink]="adminOrders" class="subOption">
                         <div class="bullet"></div>

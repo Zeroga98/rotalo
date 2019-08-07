@@ -31,9 +31,9 @@ export class ProductsUploadMicrositeComponent implements OnInit, OnDestroy {
     this.errorference = '';
     this.productsService.saveProductsForm(event).subscribe((response) => {
       this.userService.updateInfoUser();
-      if (response.body && response.body.producto) {
+      if (response.body && response.body.productos) {
         this.photosUploadedRest = 0;
-        this.shareProduct('custom-modal-3', response.body.producto.id);
+        this.shareProduct('custom-modal-3', response.body.productos.id);
       }
     },
     (error) => {

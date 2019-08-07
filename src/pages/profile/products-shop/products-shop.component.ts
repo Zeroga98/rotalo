@@ -78,8 +78,10 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   saveCheck(check, idCampaign) {
     const params = {
-      estado: check.checked ? 'active' : 'inactive'
+      estado: check.checked ? 'active' : 'inactive',
+      storeId : this.idTienda
     };
+
     this.productsService
       .updateProductStatus(idCampaign, params)
       .then(response => {

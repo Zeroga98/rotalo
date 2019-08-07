@@ -7,7 +7,7 @@
             <img  src="./assets/img/logo-red.svg" alt="brand">
           </a>
         </div>
-        <div class="link-shop-container">
+        <div *ngIf="isColombia" class="link-shop-container">
           <a [routerLink]="shop">
             <div class="promo-shop">
               <div class="shop-icon"></div>

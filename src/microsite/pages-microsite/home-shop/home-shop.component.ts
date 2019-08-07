@@ -34,6 +34,7 @@ import { FormBuilder } from '@angular/forms';
 import { SettingsService } from '../../../services/settings.service';
 import { CAROUSEL_BANNER_TIENDA_CONFIG } from './carouselBannerTienda.config';
 import { CAROUSEL_CONFIG } from './carousel.config';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 @Component({
   selector: 'app-home-shop',
@@ -111,6 +112,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
   public showFilterResponsive: boolean;
   public sub;
   constructor(private loginService: LoginService,
+    private configurationService: ConfigurationService,
     private route: ActivatedRoute,
     private currentSessionService: CurrentSessionService,
     private userService: UserService,
@@ -515,6 +517,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showLogo = false;
       }
     }
+    this.changeDetectorRef.markForCheck();
   }
   public filterBySubcategory(subcategory: string, name: string) {
     this.subcategory = subcategory;
@@ -712,7 +715,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }*/
   loadBanners() {
-    this.settingsService.getBannersShopPublic(1).subscribe(response => {
+    this.settingsService.getBannersShopPublic(this.configurationService.storeIdPublic).subscribe(response => {
       if (response.body) {
         if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
         if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
@@ -727,7 +730,9 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showBannersPromo = true;
       }
     });
+    this.changeDetectorRef.markForCheck();
   }
+
   private getInitialConfigHomeShop() {
     const config = {
       'idLogo': '',

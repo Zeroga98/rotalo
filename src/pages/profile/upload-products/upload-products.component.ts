@@ -46,7 +46,7 @@ export class UploadProductsComponent implements OnInit {
     this.productsService.getProductsHistorical().subscribe((response) => {
       if (response.body) {
         this.historicalProducts = response.body.historialCargasMasivas;
-        console.log(response.body);
+
       }
     }, (error) => {
       console.log(error);

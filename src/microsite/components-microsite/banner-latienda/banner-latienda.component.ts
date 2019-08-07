@@ -8,6 +8,7 @@ import { SettingsService } from '../../../services/settings.service';
 import { FormBuilder } from '@angular/forms';
 import { ROUTES } from './../../../router/routes';
 import { Router } from '@angular/router';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 @Component({
   selector: 'banner-latienda',
@@ -25,12 +26,19 @@ export class BannerLatiendaComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private configurationService: ConfigurationService
   ) { }
   ngOnInit() {
     this.location = window.location.href;
     this.getShowBanner(this.location);
-    this.loadBanners();
+
+    if (window.location.href.includes('tiendainmueble')) {
+      this.loadBannersPublic(this.configurationService.storeIdPublic);
+    } else {
+      this.loadBanners(1);
+    }
+
     this.setFormHomeShop(this.getInitialConfigHomeShop());
     this.setInitialFormPromo(this.getInitialConfigPromo());
   }
@@ -41,8 +49,8 @@ export class BannerLatiendaComponent implements OnInit {
     }
   }
 
-  loadBanners() {
-    this.settingsService.getBannersShop(1).subscribe(response => {
+  loadBanners(idTienda) {
+    this.settingsService.getBannersShop(idTienda).subscribe(response => {
       if (response.body) {
         if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
         if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
@@ -50,6 +58,24 @@ export class BannerLatiendaComponent implements OnInit {
       }
 
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+    });
+  }
+
+  loadBannersPublic(idTienda) {
+    this.settingsService.getBannersShopPublic(idTienda).subscribe(response => {
+      if (response.body) {
+        if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
+        if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
+        if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
+      }
+      this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+     /* let j=0;
+      for (let i = 0; i < this.bannerPromocionalForm.get('bannerPromocional').controls.length; i++) {
+            j++;
+      }
+      if(j==3) {
+        this.showBannersPromo = true;
+      }*/
     });
   }
 
@@ -153,6 +179,6 @@ export class BannerLatiendaComponent implements OnInit {
   }
 
   redirectCategory(idCategoria: number) {
-    console.log('idCategoria: ' + idCategoria);
+    // console.log('idCategoria: ' + idCategoria);
   }
 }

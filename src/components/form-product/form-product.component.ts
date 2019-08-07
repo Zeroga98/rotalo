@@ -788,7 +788,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   subcategoryIsVehicle(): boolean {
-    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    const subcategoryValue = this.photosForm.get('subcategoryId').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
       if (subcategory && subcategory.name === 'Carros') {
@@ -799,7 +799,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   subcategoryIsMotos(): boolean {
-    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    const subcategoryValue = this.photosForm.get('subcategoryId').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
       if (subcategory && subcategory.name === 'Motos') {
@@ -811,7 +811,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
 
   subcategoryIsHouse(): boolean {
-    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    const subcategoryValue = this.photosForm.get('subcategoryId').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
       if (subcategory && subcategory.name === 'Casas') {
@@ -822,7 +822,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   subcategoryIsFlat(): boolean {
-    const subcategoryValue = this.photosForm.get('subcategory-id').value;
+    const subcategoryValue = this.photosForm.get('subcategoryId').value;
     if (subcategoryValue) {
       const subcategory = this.findSubCategory(subcategoryValue);
       if (subcategory && subcategory.name === 'Apartamentos') {
@@ -862,9 +862,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   }
 
   loadSizes() {
-    if (this.photosForm.get('subcategory-id').value && this.photosForm.get('genderId').value) {
+    if (this.photosForm.get('subcategoryId').value && this.photosForm.get('genderId').value) {
       const params = {
-        'subcategoryId': this.photosForm.get('subcategory-id').value,
+        'subcategoryId': this.photosForm.get('subcategoryId').value,
         'genderId': this.photosForm.get('genderId').value
       };
       this.getSizes(params);
@@ -1012,7 +1012,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros'
       || config.subcategory.name == 'Casas' || config.subcategory.name == 'Apartamentos') {
         this.photosForm.get('category').disable();
-        this.photosForm.get('subcategory-id').disable();
+        this.photosForm.get('subcategoryId').disable();
       }
 
       if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios') {
@@ -1021,7 +1021,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
       if (config.subcategory && config.subcategory.category && config.subcategory.category.name == 'Moda y accesorios'
       && config['children'] && config['children'].length > 0) {
-        this.photosForm.get('subcategory-id').disable();
+        this.photosForm.get('subcategoryId').disable();
       }
 
       if (this.isActivePromo(this.product)) {
@@ -1035,7 +1035,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       name: [config.name, [Validators.required]],
       price: [config.price, [Validators.required]],
       currency: [config.currency, [Validators.required]],
-      'subcategory-id': [config['subcategory'].id, [Validators.required]],
+      'subcategoryId': [config['subcategory'].id, [Validators.required]],
       'stock': [stock, [Validators.required, Validators.min(1), Validators.max(9999)]],
       used: [config.used, [Validators.required]],
       visible: [config.visible, [Validators.required]],
@@ -1239,7 +1239,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       if (options[index].value == subCategory.category.id) {
         this.selectedComunity(subCategory.category.id as number);
         this.photosForm.controls['category'].setValue(subCategory.category.id);
-        this.photosForm.controls['subcategory-id'].setValue(subCategory.id);
+        this.photosForm.controls['subcategoryId'].setValue(subCategory.id);
         this.loadFashionGender(subCategory.id);
       }
     }
@@ -1318,7 +1318,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   get showOptionsVehicles () {
     if (this.photosForm.get('category').value == 6) {
-      if (this.photosForm.get('subcategory-id').value != 11) {
+      if (this.photosForm.get('subcategoryId').value != 11) {
         return false;
       }
     }

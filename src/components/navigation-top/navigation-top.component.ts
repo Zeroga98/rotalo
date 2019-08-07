@@ -101,6 +101,7 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   public menu  = `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.MOBILEMENU}`;
   public options = [false, false, false, false];
   public stores = [];
+  public optionsStore = [];
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenHeight = window.innerHeight;
@@ -196,6 +197,9 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
     this.stores = this.userEdit.stores;
+    for (let i = 0 ; i < this.stores.length ; i++) {
+      this.optionsStore.push(false);
+    }
     if (this.userEdit && this.userEdit.name) {
       const name = this.userEdit.name.split(' ');
       this.userName = name[0];
@@ -538,6 +542,23 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
   closeAllOptions() {
     for (let i = 0; i < this.options.length; i++) {
       this.options[i] = false;
+    }
+  }
+
+  closeOptionsStores(option) {
+    for (let i = 0; i < this.optionsStore.length; i++) {
+      if (option != i) {
+        this.optionsStore[i] = false;
+      }
+    }
+  }
+
+  selectOptionStores(option, indexOption) {
+    if (option.classList.contains('open') && option.classList.contains('active')) {
+      this.optionsStore[indexOption] = false;
+      option.classList.remove('open');
+    } else  {
+      this.optionsStore[indexOption] = !this.optionsStore[indexOption];
     }
   }
 
