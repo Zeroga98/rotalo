@@ -85,7 +85,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     this.productsService
       .updateProductStatus(idCampaign, params)
       .then(response => {
-        this.getProductsList(this.statusTab, 1);
+        this.getProductsList(this.statusTab, this.idTienda);
       });
   }
 
@@ -103,7 +103,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
     this.statusTab = tabChangeEvent.index;
-    this.getProductsList(tabChangeEvent.index, 1);
+    this.getProductsList(tabChangeEvent.index, this.idTienda);
   }
 
   calculateIVA(price) {
