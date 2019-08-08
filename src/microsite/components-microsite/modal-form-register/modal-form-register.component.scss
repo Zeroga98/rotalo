@@ -22,6 +22,7 @@
 
       .flex{
         display: flex;
+        padding-top: 20px;
       }
 
       .cont-botons.success {
@@ -125,6 +126,9 @@
       padding-left: 0;
       max-height: 30px;
       transform: translate3d(0, -100%, 0);
+      .input__label-content {
+        overflow: initial;
+      }
     }
 
 
@@ -136,6 +140,8 @@
     .input__field {
       padding: 1rem;
       min-height: 40px;
+      font-size: 1.6rem;
+      color:#383838;
     }
 
     .input-error:after {
@@ -249,7 +255,7 @@
   ::ng-deep.mat-dialog-content {
     max-height: 70vh;
   }
-  
+
   :host{
 
     .form-theme .help-block, .form-theme .error-msg {
@@ -270,6 +276,7 @@
       margin-top: 0px;
       .two-column {
         margin: 10px auto;
+        margin-bottom: 0px;
         margin-top: 20px;
       }
     }
