@@ -143,7 +143,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
       this.params = params;
       this.currentFilter = Object.assign({}, this.currentFilter, this.params);
       this.loadProductsUser(1);
-      this.selected = 'Más reciente';
+      this.selected = 'Más relevante';
     });
 
     this.showToFilter();
@@ -827,7 +827,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     return bannersCategoria;
   }
   goHomeStore() {
-    const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    const routeHome = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FEED}`;
     var categoria = document.createElement('a');
     categoria.href = routeHome;
     categoria.click();

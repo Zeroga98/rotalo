@@ -385,7 +385,7 @@ export class DetailProductShopComponent implements OnInit {
       const currency = this.products.currency;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
-      if (this.products['sell-type'] === 'VENTA') {
+      if (this.products['sellType'] === 'VENTA') {
         if (countryId === 9 && currency == 'GTQ' && priceVehicle >= 5000) {
           return true;
         } else if (countryId === 9 && currency == 'USD' && priceVehicle >= 650) {
@@ -517,7 +517,7 @@ export class DetailProductShopComponent implements OnInit {
       title: product.name,
       price: product.price,
       'product-id': product.id,
-      type: product['sell-type'],
+      type: product['sellType'],
       currency: product.currency
     };
   }
@@ -613,18 +613,15 @@ export class DetailProductShopComponent implements OnInit {
     {
       this.errorSize = true;
     }
-    if(!product.id)
-    {
-      for(let children of this.products.children)
-      {
+    if(!product.id) {
+      for(let children of this.products.children) {
         if(children.id==product)
         {
           idProducto = children.id;
         }
       }
     }
-    else
-    {
+    else {
       idProducto = product.id;
     }
     if (this.quantityForm.get('stock').value > 0 && this.quantityForm.get('stock').value <= this.totalStock) {
