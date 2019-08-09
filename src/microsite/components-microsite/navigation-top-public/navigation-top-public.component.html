@@ -3,6 +3,7 @@
     <div class="container">
       <div class="navbar-header material-design form-theme">
         <div class="divisor-left">
+          <back-arrow  *ngIf="!hideBackArrow"></back-arrow>
           <a class="navbar-brand" (click)="goToHome()">
             <img  src="./assets/img/logo-red.svg" alt="brand">
             <h1 class="sr-only">rótalo</h1>

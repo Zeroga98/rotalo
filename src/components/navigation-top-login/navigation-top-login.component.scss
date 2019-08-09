@@ -96,6 +96,11 @@
       display: flex;
       width: 100%;
       align-items: center;
+      &:hover {
+        .label {
+          font-weight: bold;
+        }
+      }
     }
     .label {
       color:#333333;

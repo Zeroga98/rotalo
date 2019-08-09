@@ -19,9 +19,8 @@
       </div>
       <div class="menu_login_container">
           <form id="loginForm" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" name="loginForm" class="text-center form-theme form-login">
-              <a class="shop" mat-icon-button>
-                +
-                  <div class="shop-icon"></div>
+              <a [routerLink]="shop" class="shop" mat-icon-button>
+                <div class="shop-icon"></div>
               </a>
               <div class="text-left">
                   <span [ngClass]="{'input--filled': loginForm.get('email').value}" class="input-email input input--float">

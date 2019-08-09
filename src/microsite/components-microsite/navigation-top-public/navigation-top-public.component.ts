@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -15,6 +15,7 @@ export class NavigationTopPublicComponent implements OnInit {
   public showSearchMobile = false;
   queryField: FormControl = new FormControl();
   public autoCompleteOptions: Array<string> = [];
+  @Input() hideBackArrow: boolean = false;
   constructor( private router: Router,
     private navigationTopService: NavigationTopServicePublic,) { }
 
