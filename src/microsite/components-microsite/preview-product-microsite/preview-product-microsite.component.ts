@@ -475,7 +475,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
 
   editProduct(product: ProductInterface) {
     this.router.navigate([
-      `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.UPLOAD}/${product.id}`
+      `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.UPLOAD}/${this.idShop}/${product.id}`
     ]);
   }
 
