@@ -1,4 +1,4 @@
-<offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false"></offer-modal>
+<offer-modal *ngIf="isOfferModalShowed" [config]="configModal" (close)="isOfferModalShowed = false; refreshPage()"></offer-modal>
 <custom-spinner *ngIf="!products"></custom-spinner>
 <div class="md-overlay"></div>
 <modal-shareProduct class="md-modal-center md-effect-1" id="custom-modal-2"></modal-shareProduct>
@@ -597,7 +597,7 @@
     <div *ngIf="products" class="product-info">
       <div class="card-product">
         <div class="capitalize">
-          <span class="span-title">{{products.used ? 'Usado' : 'Nuevo'}} - {{products['sell-type'].toLowerCase()}}</span>
+          <span class="span-title">{{products.used ? 'Usado' : 'Nuevo'}} - {{products['sellType'].toLowerCase()}}</span>
         </div>
         <div class="title-product">{{products.name}}</div>
         <div class="date">
@@ -646,7 +646,7 @@
         </div>
         <div class="btns-container">
           <div
-            *ngIf="products['sell-type'] == 'VENTA' && showOptionsVehicles &&  showOptionEstate"
+            *ngIf="products['sellType'] == 'VENTA' && showOptionsVehicles &&  showOptionEstate"
             class="full-width quantity-container">
             <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"
               (ngSubmit)="quantity(form)" #form>
@@ -704,34 +704,34 @@
               </div>
 
             <div
-              *ngIf="products && !checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] != 'ALQUILA' && !isSubcategoryCars && !isSubcategoryMotos"
+              *ngIf="products && !checkBAMBotton() && !checkSufiBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sellType'] != 'ALQUILA' && !isSubcategoryCars && !isSubcategoryMotos"
               class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && !products.children"
+              <button class="gtmProdComprar botons" *ngIf="products && products['sellType'] !== 'SUBASTA' && !products.children"
                 (click)="buyProduct(products.id)">
-                {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                {{products['sellType'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
+              <button class="gtmProdComprar botons" *ngIf="products && products['sellType'] !== 'SUBASTA' && products.children"
                 (click)="buyProduct(childSelected.id)">
-                {{products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                {{products['sellType'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
-              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+              <button *ngIf="products && products['sellType'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
                 (click)="openOfferModal(products)">
                 Hacer oferta
               </button>
             </div>
 
             <div class="btn-item"
-              *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA' && !isCategoryImmovables && !isSubcategoryCars && !isSubcategoryMotos">
+              *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sellType'] !== 'ALQUILA' && !isCategoryImmovables && !isSubcategoryCars && !isSubcategoryMotos">
               <div>
-                <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && !products.children"
+                <button class="gtmProdComprar botons" *ngIf="products && products['sellType'] !== 'SUBASTA' && !products.children"
                   (click)="buyProduct(products.id)">
-                  {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                  {{ products['sellType'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
-                <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA' && products.children"
+                <button class="gtmProdComprar botons" *ngIf="products && products['sellType'] !== 'SUBASTA' && products.children"
                   (click)="buyProduct(childSelected.id)">
-                  {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                  {{ products['sellType'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
                 </button>
-                <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+                <button *ngIf="products && products['sellType'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
                   (click)="openOfferModal(products)">
                   Hacer oferta
                 </button>
@@ -739,15 +739,15 @@
             </div>
 
             <div
-              *ngIf="products && !checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sell-type'] == 'ALQUILA'"
+              *ngIf="products && !checkBAMBotton() && !isCategoryImmovables && !isSellProcess() && !validateSession() &&  products['sellType'] == 'ALQUILA'"
               class="btn-item">
               <button class="gtmProdAlquilar botons" (click)="rentProduct(products.id)">
-                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : ''"></span> Me
+                <span [ngClass]="products['sellType'] === 'GRATIS' ? 'icon-love-detalle' : ''"></span> Me
                 interesa
               </button>
             </div>
 
-            <div *ngIf="products && products['sell-type'] !== 'ALQUILA' && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()" class="credit-leasing btn-item">
+            <div *ngIf="products && products['sellType'] !== 'ALQUILA' && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()" class="credit-leasing btn-item">
                 <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
                   <div class="icon-banco"></div>Simula Crédito o Leasing
                 </button>
@@ -779,26 +779,26 @@
               </div>
             </div>
             <div class="btn-item" *ngIf="!isCategoryImmovables && !isSubcategoryCars && !isSubcategoryMotos">
-              <button *ngIf="products && products['sell-type'] == 'VENTA'"
+              <button *ngIf="products && products['sellType'] == 'VENTA'"
               class="gtmProdComprar botons" (click)="buyProduct(products.id)">
                 Comprar
               </button>
-              <button *ngIf="products && products['sell-type'] == 'SUBASTA'"
+              <button *ngIf="products && products['sellType'] == 'SUBASTA'"
               class="gtmProdHacerOferta botons" (click)="openOfferModal(products)">
                   Hacer oferta
               </button>
-              <button *ngIf="products['sell-type'] == 'ALQUILA'"
+              <button *ngIf="products['sellType'] == 'ALQUILA'"
               class="gtmProdAlquilar botons" (click)="rentProduct(products.id)">
                 Me interesa
               </button>
-              <button *ngIf="products['sell-type'] == 'GRATIS'"
+              <button *ngIf="products['sellType'] == 'GRATIS'"
               class="gtmProdComprar botons" (click)="buyProduct(products.id)">
                 Lo quiero
               </button>
             </div>
 
             <div class="btn-item">
-              <button *ngIf="products && checkBAMBotton() && products['sell-type'] == 'VENTA'"
+              <button *ngIf="products && checkBAMBotton() && products['sellType'] == 'VENTA'"
               class="gtmFinanciar botons" (click)="creditProduct(products.id)">
                 <span class="gtmFinanciar"></span> Financiar
               </button>
@@ -806,26 +806,26 @@
           </div>
           <!--/Botones Guatemala-->
 
-          <!--div [ngClass]="products['sell-type'] !== 'ALQUILA' ? 'btn-two-container creditImmovables' : 'btn-item-full'"
+          <!--div [ngClass]="products['sellType'] !== 'ALQUILA' ? 'btn-two-container creditImmovables' : 'btn-item-full'"
             *ngIf="products && !checkBAMBotton() && isCategoryImmovables && !isSellProcess() && !validateSession()">
-            <div *ngIf="products && products['sell-type'] !== 'ALQUILA'" class="credit-leasing btn-item">
+            <div *ngIf="products && products['sellType'] !== 'ALQUILA'" class="credit-leasing btn-item">
               <button class="gtmCreditoHipotecario  botons" (click)="goToHipotecario()">
                 <div class="icon-banco"></div>Simula Crédito o Leasing
               </button>
             </div>
-            <div *ngIf="products && products['sell-type'] !== 'ALQUILA' && !isSubcategoryCars && !isSubcategoryMotos && !isCategoryImmovables" class="btn-item">
-              <button class="gtmProdComprar botons" *ngIf="products && products['sell-type'] !== 'SUBASTA'"
+            <div *ngIf="products && products['sellType'] !== 'ALQUILA' && !isSubcategoryCars && !isSubcategoryMotos && !isCategoryImmovables" class="btn-item">
+              <button class="gtmProdComprar botons" *ngIf="products && products['sellType'] !== 'SUBASTA'"
                 (click)="buyProduct(products.id)">
-                {{ products['sell-type'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
+                {{ products['sellType'] === 'GRATIS' ? 'Lo quiero' : 'Comprar' }}
               </button>
-              <button *ngIf="products && products['sell-type'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
+              <button *ngIf="products && products['sellType'] == 'SUBASTA'" class="gtmProdHacerOferta botons"
                 (click)="openOfferModal(products)">
                 <span class="icon-ofert-detalle"></span> Hacer oferta
               </button>
             </div>
-            <div *ngIf="products && products['sell-type'] === 'ALQUILA'" class="btn-item">
+            <div *ngIf="products && products['sellType'] === 'ALQUILA'" class="btn-item">
               <button class="gtmProdAlquilar  botons" (click)="rentProduct(products.id)">
-                <span [ngClass]="products['sell-type'] === 'GRATIS' ? 'icon-love-detalle' : ''"></span> Me
+                <span [ngClass]="products['sellType'] === 'GRATIS' ? 'icon-love-detalle' : ''"></span> Me
                 interesa
               </button>
             </div>
@@ -861,7 +861,7 @@
               </div>
           </div>
         </div>
-        <div *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sell-type'] !== 'ALQUILA'" class="sufi-container">
+        <div *ngIf="products && !checkBAMBotton() && checkSufiBotton() && !isSellProcess() && !validateSession() &&  products['sellType'] !== 'ALQUILA'" class="sufi-container">
           <div class="title">
             <span class="icon-custom icon-custom--sufi-logo"></span>
             Así de fácil lo podrías pagar con Sufi

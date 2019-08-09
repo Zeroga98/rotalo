@@ -528,7 +528,7 @@ export class DetailProductComponent implements OnInit {
       const currency = this.products.currency;
       const currentUser = this.currentSessionSevice.currentUser();
       const countryId = Number(currentUser['countryId']);
-      if (this.products['sell-type'] === 'VENTA') {
+      if (this.products['sellType'] === 'VENTA') {
         if (countryId === 9 && currency == 'GTQ' && priceVehicle >= 5000) {
           return true;
         } else if (countryId === 9 && currency == 'USD' && priceVehicle >= 650) {
@@ -685,7 +685,7 @@ export class DetailProductComponent implements OnInit {
       title: product.name,
       price: product.price,
       'product-id': product.id,
-      type: product['sell-type'],
+      type: product['sellType'],
       currency: product.currency
     };
   }
@@ -968,4 +968,9 @@ export class DetailProductComponent implements OnInit {
       url,
       '_blank');
   }
+
+  refreshPage() {
+    this.loadProduct();
+  }
+
 }
