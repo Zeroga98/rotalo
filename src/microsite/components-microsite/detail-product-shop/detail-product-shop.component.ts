@@ -686,7 +686,7 @@ export class DetailProductShopComponent implements OnInit {
     }
     const base_url = window.location.origin;
     const url = `https://api.whatsapp.com/send?text=¡Hola!👋vi%20esto%20en%20Rótalo%20y%20creo%20que%20puede%20gustarte.%20Entra%20ya%20a%20
-    ${base_url}/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${id}`;
+    ${base_url}/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${id}`;
     window.open(
       url,
       '_blank');

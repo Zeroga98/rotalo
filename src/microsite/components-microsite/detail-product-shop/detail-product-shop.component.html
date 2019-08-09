@@ -36,9 +36,11 @@
                     </button>
                     <mat-menu class="share-product" #menu="matMenu">
                       <div mat-menu-item>
+                          <!--
                           <button mat-icon-button>
                               <div (click)="shareProduct('custom-modal-2' , products)" class="ic_share_email"></div>
                            </button>
+                           -->
                            <button (click) = "sendMessageWhatsapp(products.id)" mat-icon-button>
                               <div class="ic_share_whatsapp"></div>
                            </button>

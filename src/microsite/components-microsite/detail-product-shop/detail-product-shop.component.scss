@@ -1308,3 +1308,7 @@ input:checked+.switch-slider:before {
 ::ng-deep .mat-menu-content:not(:empty) {
   padding: 0 !important;
 }
+
+::ng-deep .mat-menu-panel {
+  min-width: auto !important;
+}

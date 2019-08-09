@@ -8,10 +8,12 @@
       <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
     <div class="container-name">
+      <!--
       <div (click)="shareProduct('custom-modal-2')" *ngIf="!isProductSelling  && !isProductSold" class="gtmCompartirProducto icon-share-container">
         <div class="gtmCompartirProducto icon-share">
         </div>
       </div>
+      -->
       <span (click)="selectProduct($event)" class="name">{{product.product_name}}</span>
     </div>
     <div class="product-info" (click)="selectProduct($event)">
