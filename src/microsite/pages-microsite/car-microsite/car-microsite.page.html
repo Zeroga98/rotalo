@@ -20,62 +20,69 @@
             <p>Mi carrito de compras</p>
         </div>
         <div class="general-container">
-            <div class="container-products">
-                <div class="title-products">
-                    <div class="title-added-products">
-                        <p>
-                            <span class="showSpanResponsive"></span> Artículos añadidos al carrito:</p>
+            <div>
+                <div class="container-products">
+                    <div class="title-products">
+                        <div class="title-added-products">
+                            <p>
+                                <span class="showSpanResponsive"></span> Artículos añadidos al carrito:</p>
+                        </div>
+                        <div class="btn-delete-product" (click)="deleteCheckedProducts()" [ngClass]="{'disabled': disabledButton}">
+                            <span class="icon-delete"></span>
+                        </div>
                     </div>
-                    <div class="btn-delete-product" (click)="deleteCheckedProducts()" [ngClass]="{'disabled': disabledButton}">
-                        <span class="icon-delete"></span>
+                    <div class="container-cards">
+                        <div class="product" *ngFor="let product of products">
+                            <mini-product-detail [product]="product" (changeQuantity)="changeQuantity($event, product)"
+                                (updateButtonStatus)="updateButtonStatus()"></mini-product-detail>
+                        </div>
                     </div>
                 </div>
-                <div class="container-cards">
-                    <div class="product" *ngFor="let product of products">
-                        <mini-product-detail [product]="product" (changeQuantity)="changeQuantity($event, product)"
-                            (updateButtonStatus)="updateButtonStatus()"></mini-product-detail>
+                <div class="user-info">
+                    <div class="info-title-box" (click)="hideInfoText()">
+                        <p>Tu información personal</p>
+                        <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showInfo}"></div>
+                    </div>
+                    <div class="info-container" *ngIf="showInfo">
+                      <div class = "column">
+                          <div class="label-title-form">Nombre</div>
+                          <div class="row-form">
+                              <div class="row-value">{{ nameUser }}</div>
+                              <div class="icon-checked">
+                                  <span class="circle-check"></span>
+                              </div>
+                          </div>
+                          <div class="label-title-form">Correo electrónico</div>
+                          <div class="row-form">
+                              <div class="row-value">{{ email }}</div>
+                              <div class="icon-checked"></div>
+                          </div>
+                      </div>
+                      <div class = "column">
+                          <div class="label-title-form">Tipo de documento</div>
+                          <div class="row-form">
+                              <div class="row-value">{{ typeDocument }}</div>
+                              <div class="icon-checked"></div>
+                          </div>
+                          <div class="label-title-form">Celular</div>
+                          <div class="row-form">
+                              <div class="row-value">{{ cellphone }}</div>
+                              <div class="icon-checked"></div>
+                          </div>
+                      </div>
+                      <div class = "column">
+                          <div class="label-title-form">Número de doc.</div>
+                          <div class="row-form">
+                              <div class="row-value">{{ documentNumber }}</div>
+                              <div class="icon-checked"></div>
+                          </div>
+                      </div>
                     </div>
                 </div>
             </div>
+
             <div class="container-info-user">
-
                 <div class="info-user-box">
-                    <div class="user-info">
-                        <div class="info-title-box" (click)="hideInfoText()">
-                            <p>1. Verifica tu información personal</p>
-                            <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showInfo}"></div>
-                        </div>
-                        <div class="info-container" *ngIf="showInfo">
-                            <div class="label-title-form">Nombre</div>
-                            <div class="row-form">
-                                <div class="row-value">{{ nameUser }}</div>
-                                <div class="icon-checked">
-                                    <span class="circle-check"></span>
-                                </div>
-                            </div>
-                            <div class="label-title-form">Tipo de documento</div>
-                            <div class="row-form">
-                                <div class="row-value">{{ typeDocument }}</div>
-                                <div class="icon-checked"></div>
-                            </div>
-                            <div class="label-title-form">Número de doc.</div>
-                            <div class="row-form">
-                                <div class="row-value">{{ documentNumber }}</div>
-                                <div class="icon-checked"></div>
-                            </div>
-                            <div class="label-title-form">Correo electrónico</div>
-                            <div class="row-form">
-                                <div class="row-value">{{ email }}</div>
-                                <div class="icon-checked"></div>
-                            </div>
-                            <div class="label-title-form">Celular</div>
-                            <div class="row-form">
-                                <div class="row-value">{{ cellphone }}</div>
-                                <div class="icon-checked"></div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="form-info">
                         <div class="info-title-box" (click)="hideFormText()">
                             <p>2. Agrega tu dirección de envío</p>

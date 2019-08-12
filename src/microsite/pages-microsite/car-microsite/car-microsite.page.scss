@@ -27,6 +27,72 @@
     }
   }
 
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    background-color: #4f9a94;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    padding-left: 31px;
+    padding-right: 31px;
+    border-radius: 8px;
+    margin-top: 12px;
+
+    .info-title-box {
+      color: #383838;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .label-title-form {
+      color: #383838;
+      font-size: 1.4rem;
+      margin-top: 2.0rem;
+    }
+
+    .row-form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .row-value {
+        color: #383838;
+        font-size: 1.6rem;
+      }
+
+      .icon-checked {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: relative;
+        background: #EEEEEE;
+      }
+
+      .icon-checked::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 6px;
+        top: 2.5px;
+        width: 5px;
+        height: 10px;
+        border: solid #707070;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .info-container {
+    display: flex;
+    .column {
+      margin-right: 5%;
+    }
+  }
+
 }
 
 .no-products,
@@ -138,58 +204,6 @@
       justify-content: flex-start;
       align-items: flex-start;
       margin: 0px 0px 97px;
-
-      .user-info {
-        display: flex;
-        flex-direction: column;
-
-        .info-title-box {
-          color: #272727;
-          font-size: 1.8rem;
-          font-weight: bold;
-        }
-
-        .label-title-form {
-          color: #707070;
-          font-size: 1.4rem;
-          margin-top: 2.0rem;
-        }
-
-        .row-form {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-
-          .row-value {
-            color: #707070;
-            font-size: 1.8rem;
-          }
-
-          .icon-checked {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            position: relative;
-            background: #EEEEEE;
-          }
-
-          .icon-checked::after {
-            content: "";
-            display: block;
-            position: absolute;
-            left: 6px;
-            top: 2.5px;
-            width: 5px;
-            height: 10px;
-            border: solid #707070;
-            border-width: 0 2px 2px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-          }
-        }
-      }
 
       .form-info {
         margin-top: 20px;
