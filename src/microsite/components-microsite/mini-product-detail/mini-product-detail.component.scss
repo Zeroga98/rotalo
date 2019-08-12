@@ -1,3 +1,11 @@
+:host {
+  .select-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .mini-producto-detail {
     border-bottom: 1px dashed #E5E5E5;
     padding: 18px 0px;
@@ -54,8 +62,7 @@
                             width: 93%;
 
                             p {
-                                font-size: 18px;
-                                font-weight: bold;
+                                font-size: 1.6rem;
                                 color: #707070;
                             }
                         }
@@ -82,7 +89,7 @@
                         }
 
                         .label-title {
-                            font-size: 18px;
+                            font-size: 1.6rem;
                             color: #707070;
                         }
 
@@ -135,21 +142,22 @@
 
             .secondary-info {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-left: 20px;
+                align-self: flex-start;
+                align-self: stretch;
 
                 .price-info {
                     display: flex;
                     flex-direction: column;
-                    width: 170px;
+                    width: 150px;
+                    margin-right: 10%;
 
                     .total-price {
-                        color: #414141;
-                        font-size: 18px;
+                        color: #383838;
+                        font-size: 2.0rem;
                         font-weight: bold;
-                        margin: 5px 0px;
-
+                        margin: 0px;
+                        margin-top: 12px;
+                        text-align: right;
                         .next-line {
                             display: none;
                         }
@@ -196,6 +204,12 @@
             }
         }
     }
+}
+
+::ng-deep .product:last-child {
+  .mini-producto-detail {
+    border-bottom: 0;
+  }
 }
 
 @media screen and (max-width: 1150px) {
@@ -257,6 +271,7 @@
                     }
                 }
                 .secondary-info {
+
                     .check-section {
                         div {
                             width: 22px;
@@ -267,7 +282,7 @@
                             top: 1px;
                             width: 6px;
                             height: 12px;
-                        }                        
+                        }
                     }
                 }
             }
@@ -351,7 +366,7 @@
         justify-content: space-between;
         margin-top: 10px;
     }
-    
+
     .mini-producto-detail .product-info .container-info .primary-info .title-image-product .title-product {
         width: calc(100vw - 190px);
     }

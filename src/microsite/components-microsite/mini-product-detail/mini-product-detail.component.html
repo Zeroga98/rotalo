@@ -13,18 +13,15 @@
                             <p>
                                 {{ product.product.name }}
                             </p>
-                        </div>
-                        <div class="unitary-price">
-                            <p>
-                                {{ product.product.price | currency:"$" | removeDigits }}
-                            </p>
+                            <p><strong>Talla: </strong>M</p>
+                            <p><strong>Ref: </strong>20Caracteres</p>
                         </div>
                     </div>
                 </div>
                 <div class="quantity-info">
                     <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme" #form>
                         <div class="form-group">
-                            <label class="label-title">Cantidad</label>
+                            <label class="label-title"> {{ product.product.price | currency:"$" | removeDigits }}</label>
                             <div class="input-group quantity-wrapper">
                                 <span class="input-group-btn">
                                     <button (click)="minusStock()" type="button" class="btn btn-default btn-number btn-sm">
@@ -49,12 +46,14 @@
             </div>
             <div class="secondary-info">
                 <div class="price-info">
-                    <div class="total-price">Total: 
+                    <div class="total-price">
                         <br class="next-line">
                         {{ product.quantity * product.product.price | currency:"$" | removeDigits }}</div>
                 </div>
-                <div class="check-section">
-                    <div [ngClass]="{'selected': classCheckSelected}" (click)="clickCheckProduct()"></div>
+                <div class="select-product">
+                    <div class="check-section">
+                        <div [ngClass]="{'selected': classCheckSelected}" (click)="clickCheckProduct()"></div>
+                    </div>
                 </div>
             </div>
         </div>
