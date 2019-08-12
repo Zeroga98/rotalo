@@ -38,12 +38,29 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
     this.idTienda = params['id'];
+    this.loadInfoUser (this.idTienda);
     this.getProductsList(0, this.idTienda);
     });
   }
 
   ngAfterViewInit() {
+  }
 
+  async  loadInfoUser (idStore) {
+    try {
+      const currentUser = await this.userService.getInfoUser();
+      if (currentUser.stores) {
+        for (let i = 0 ; i < currentUser.stores.length; i++ ) {
+          if (currentUser.stores[i] &&
+          currentUser.stores[i].id == idStore &&
+          !currentUser.stores[i]['is_assigned_to_user'] ) {
+            this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getFormatDate(date) {
