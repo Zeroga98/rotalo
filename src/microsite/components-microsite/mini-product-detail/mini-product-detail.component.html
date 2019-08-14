@@ -13,8 +13,8 @@
                             <p>
                                 {{ product.product.name }}
                             </p>
-                            <p><strong>Talla: </strong>M</p>
-                            <p><strong>Ref: </strong>20Caracteres</p>
+                            <p *ngIf="product.product && product.product.size"><strong>Talla: </strong>{{product.product.size}}</p>
+                            <p *ngIf="product.product && product.product.reference"><strong>Ref: </strong>{{product.product.reference}}</p>
                             <p class= "mobile">
                               {{ product.product.price | currency:"$" | removeDigits }}
                             </p>
