@@ -15,7 +15,9 @@
                             </p>
                             <p><strong>Talla: </strong>M</p>
                             <p><strong>Ref: </strong>20Caracteres</p>
-                            <p></p>
+                            <p class= "mobile">
+                              {{ product.product.price | currency:"$" | removeDigits }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +50,9 @@
             <div class="secondary-info">
                 <div class="price-info">
                     <div class="total-price">
-                        <br class="next-line">
+                      <div class="mobile">
+                          Total
+                      </div>
                         {{ product.quantity * product.product.price | currency:"$" | removeDigits }}</div>
                 </div>
                 <div class="select-product">
