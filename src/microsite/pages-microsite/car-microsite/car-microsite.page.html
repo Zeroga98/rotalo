@@ -45,36 +45,46 @@
                     </div>
                     <div class="info-container" *ngIf="showInfo">
                       <div class = "column">
-                          <div class="label-title-form">Nombre</div>
+                          <div class="main-label">
+                              <div class="icon-checked">
+                              </div>
+                              <div class="label-title-form">Nombre</div>
+                          </div>
                           <div class="row-form">
                               <div class="row-value">{{ nameUser }}</div>
-                              <div class="icon-checked">
-                                  <span class="circle-check"></span>
-                              </div>
                           </div>
-                          <div class="label-title-form">Correo electrónico</div>
+
+                          <div class="main-label">
+                              <div class="icon-checked"></div>
+                              <div class="label-title-form">Correo electrónico</div>
+                          </div>
                           <div class="row-form">
                               <div class="row-value">{{ email }}</div>
-                              <div class="icon-checked"></div>
                           </div>
                       </div>
                       <div class = "column">
-                          <div class="label-title-form">Tipo de documento</div>
+                          <div class="main-label">
+                              <div class="icon-checked"></div>
+                              <div class="label-title-form">Tipo de documento</div>
+                          </div>
                           <div class="row-form">
                               <div class="row-value">{{ typeDocument }}</div>
-                              <div class="icon-checked"></div>
                           </div>
-                          <div class="label-title-form">Celular</div>
+                          <div class="main-label">
+                              <div class="icon-checked"></div>
+                              <div class="label-title-form">Celular</div>
+                          </div>
                           <div class="row-form">
                               <div class="row-value">{{ cellphone }}</div>
-                              <div class="icon-checked"></div>
                           </div>
                       </div>
                       <div class = "column">
-                          <div class="label-title-form">Número de doc.</div>
+                          <div class="main-label">
+                              <div class="icon-checked"></div>
+                              <div class="label-title-form">Número de doc.</div>
+                          </div>
                           <div class="row-form">
                               <div class="row-value">{{ documentNumber }}</div>
-                              <div class="icon-checked"></div>
                           </div>
                       </div>
                     </div>
@@ -82,10 +92,51 @@
             </div>
 
             <div class="container-info-user">
+                <div class="title-total">
+                    <p>Resumen de tu compra</p>
+                </div>
+                <div class="container-price">
+                    <div class="row-price-container">
+                        <div class="row-text">
+                            <div class="label-text">Subtotal</div>
+                            <div class="label-price">{{ carSubTotalPrice | currency:"$" | removeDigits }}</div>
+                        </div>
+                        <div class="row-text">
+                            <div class="label-text">IVA</div>
+                            <div class="label-price">{{ carTotalIva | currency:"$" | removeDigits }}</div>
+                        </div>
+                        <div class="row-text">
+                            <div class="label-text">Envío</div>
+                            <div class="label-price">$0</div>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        <div class="label-price red-text">Total: {{ carTotalPrice | currency:"$" | removeDigits }}</div>
+                    </div>
+                </div>
+
+                <div class="options-container">
+                  <div class="title">
+                      ¿Cómo quieres recibir o recoger tu compra?
+                  </div>
+                  <div class="option">
+                      <div class="check-section">
+                          <div></div>
+                      </div>
+                      <div class="label">Envío nacional : $6.000 adicionales</div>
+                  </div>
+                  <div class="option">
+                      <div class="check-section">
+                          <div></div>
+                      </div>
+                      <div class="label">Recoger en Bancolombia dirección general</div>
+                  </div>
+                </div>
+
                 <div class="info-user-box">
                     <div class="form-info">
                         <div class="info-title-box" (click)="hideFormText()">
-                            <p>2. Agrega tu dirección de envío</p>
+                            <p>Ingresa tus datos de entrega</p>
                             <div class="btn-hide" *ngIf="canHide" [ngClass]="{'active': showForm}"></div>
                         </div>
                         <div class="form-container" *ngIf="showForm">
@@ -142,6 +193,40 @@
                                     </span>
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons-section">
+                    <button class="btn-buy gtmTienCorpCarComprar" type="submit" id="btn-pagar" (click)="pay()" [ngClass]="{'disabled': disablePayButton}">Comprar</button>
+                    <button class="btn-go-microsite gtmTienCorpCarSigueComprando" (click)="goToMicrosite()">Seguir comprando</button>
+                </div>
+                <div class="pending-message" *ngIf="hasPending">
+                    <p>{{ errorPending }}</p>
+                </div>
+                <div class="form-empty-message" *ngIf="emptyMessaje">
+                    <p>Debes diligenciar todos los campos obligatorios del formulario</p>
+                </div>
+                <div class="form-empty-message" *ngIf="productsWithError">
+                    <p>¡Ups! parece que alguno de tus productos ya no se encuentra disponible.</p>
+                </div>
+
+
+                <div class="info-send-section">
+                    <div class="first-info-section">
+                        <div class="info-label">
+                            <div class="icon-label icon-watch"></div>
+                            <div class="text-label">Devoluciones aplican
+                                <span (click)="goToTerms()">términos y condiciones.</span>
+                            </div>
+                        </div>
+                        <div class="info-label">
+                            <div class="icon-label icon-shopping-car"></div>
+                            <div class="text-label">Empresa transportadora: Coordinadora S.A</div>
+                        </div>
+                        <div class="info-label">
+                            <div class="icon-label icon-box"></div>
+                            <div class="text-label">Entrega hasta 5 días hábiles</div>
                         </div>
                     </div>
                 </div>

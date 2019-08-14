@@ -212,13 +212,18 @@
   }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1300px) {
+
+    .label-title {
+      display: none;
+    }
+
     .mini-producto-detail {
         .product-info {
             .container-info {
                 .primary-info {
                     flex-direction: column;
-                    align-items: center;
+                    align-items: start;
                     .title-image-product {
                         .title-product {
                             width: 150px;
@@ -263,7 +268,7 @@
                 .primary-info {
                     flex-direction: row;
                     justify-content: flex-start;
-                    align-items: center;
+
                     .title-image-product {
                         .title-product {
                             width: 200px;
