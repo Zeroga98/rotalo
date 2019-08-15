@@ -56,9 +56,15 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   emptyMessaje = false;
   hasANewQuantity = false;
   productsWithError = false;
+  emptyCheck = false;
+  nameProductError = '';
   errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
 
   public registerForm: FormGroup;
+
+  public shippingTaxes;
+
+  public classCheckSelected;
 
   constructor(
     private car: ShoppingCarService,
@@ -155,9 +161,13 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.registerForm = new FormGroup({
+    /*this.registerForm = new FormGroup({
       address: new FormControl('', [Validators.required]),
       cellphone: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)])
+    });*/
+    this.registerForm = new FormGroup({
+      address: new FormControl(''),
+      cellphone: new FormControl('')
     });
   }
 
@@ -174,20 +184,37 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     }
   }
 
+  scrollToError() {
+
+    /**El numero 3 puede cambiar en caso que se agreguen nuevos campos al formulario**/
+    const elements = document.getElementsByClassName('ng-invalid');
+    if (this.errorState || this.errorCity) {
+      const element = document.getElementById('select-states');
+      element.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } else if (elements && elements[3]) {
+      elements[3].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  }
+
   onSubmit() {
-    if (this.formIsInvalid) {
-      this.validateAllFormFields(this.registerForm);
-      if (this.state && !this.state['id']) {
-        this.errorState = true;
-      }
-      if (this.state && !this.city['id']) {
-        this.errorCity = true;
+    if (!this.classCheckSelected) {
+      this.emptyCheck = true;
+    } else {
+      if (this.formIsInvalid) {
+        this.validateAllFormFields(this.registerForm);
+        if (this.state && !this.state['id']) {
+          this.errorState = true;
+        }
+        if (this.state && !this.city['id']) {
+          this.errorCity = true;
+        }
+        this.scrollToError();
       }
     }
   }
 
   get formIsInvalid(): boolean {
-    return this.registerForm.invalid || !this.selectIsCompleted();
+    return this.classCheckSelected == 2 && (this.registerForm.invalid || !this.selectIsCompleted());
   }
 
   private selectIsCompleted(): boolean {
@@ -241,6 +268,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     });
     this.carTotalIva = Math.round(this.carTotalPrice - (this.carTotalPrice / 1.19));
     this.carSubTotalPrice = this.carTotalPrice - this.carTotalIva;
+    if (this.shippingTaxes) {
+      this.carTotalPrice = this.carTotalIva + this.carSubTotalPrice + this.shippingTaxes.price;
+    }
   }
 
   goToMicrosite() {
@@ -304,6 +334,44 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     }
   }
 
+  clickCheckProduct(numberSelect) {
+    this.emptyCheck = false;
+    this.emptyMessaje = false;
+    this.errorState = false;
+    this.errorCity = false;
+    this.classCheckSelected = numberSelect;
+    const address = this.registerForm.get('address');
+    const cellphone = this.registerForm.get('cellphone');
+    address.clearValidators();
+    cellphone.clearValidators();
+    if (this.classCheckSelected == 2) {
+      address.setValidators([Validators.required]);
+      cellphone.setValidators([Validators.required, Validators.pattern(/^\d{10}$/)]);
+    } else  {
+      this.registerForm.reset();
+    }
+    address.updateValueAndValidity();
+    cellphone.updateValueAndValidity();
+    this.updateCart(numberSelect);
+  }
+
+  async updateCart(numberSelect) {
+    try {
+      const request = {
+        envio: numberSelect
+      }
+      const response = await this.back.updateCartProducts(request);
+      this.shippingTaxes =  response.body.carroCompras.shippingTaxes;
+      if (this.shippingTaxes) {
+        this.carTotalPrice = this.carTotalIva + this.carSubTotalPrice + this.shippingTaxes.price;
+      }
+    } catch (error) {
+      console.log(error);
+      this.changeDetectorRef.markForCheck();
+    }
+    this.changeDetectorRef.markForCheck();
+  }
+
   async loadProducts() {
     this.showView = 'loading';
     try {
@@ -314,6 +382,24 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       });
       this.car.setProducts(this.products);
       this.products = this.car.getProducts();
+
+      if (response.carroCompras.shippingTaxes) {
+        this.shippingTaxes =  response.carroCompras.shippingTaxes;
+        if (this.shippingTaxes.id == 2) {
+          this.classCheckSelected = 2;
+          const address = this.registerForm.get('address');
+          const cellphone = this.registerForm.get('cellphone');
+          address.clearValidators();
+          cellphone.clearValidators();
+          address.setValidators([Validators.required]);
+          cellphone.setValidators([Validators.required, Validators.pattern(/^\d{10}$/)]);
+          address.updateValueAndValidity();
+          cellphone.updateValueAndValidity();
+        } else if (this.shippingTaxes.id == 1) {
+          this.classCheckSelected = 1;
+        }
+      }
+
       if (this.products.length == 0) {
         this.showView = 'noProducts';
       } else {
@@ -390,19 +476,23 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
-    if (!this.disablePayButton) {
+
+    if (this.classCheckSelected && !this.disablePayButton) {
       this.hasPending = false;
       this.emptyMessaje = false;
+      this.emptyCheck = false;
       this.disablePayButton = true;
       this.productsWithError = false;
-      if (!this.formIsInvalid) {
+      if (this.classCheckSelected  && (this.classCheckSelected == 1 || !this.formIsInvalid)) {
         try {
           // Verificar la cantidad de los productos
           const response_add = await this.back.addProductToBD(this.generateJson());
+
           try {
             // Generarla orden de waybox
             const orden = await this.back.getOrden(this.generateJsonToWaybox());
             try {
+
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
               this.gapush('send', 'event', 'TiendaCorporativa', 'ClicCarrito', 'ComprarExitoso');
@@ -429,10 +519,16 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           }
           this.changeDetectorRef.markForCheck();
         } catch (error) {
+          console.log(error);
           this.reloadProducts();
           this.hasANewQuantity = true;
           this.disablePayButton = false;
           this.productsWithError = true;
+
+          if (error.error.status == '602') {
+            this.nameProductError = error.error.body.productosConErrores[0].producto.name;
+          }
+
           this.changeDetectorRef.markForCheck();
         }
       } else {
@@ -498,7 +594,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           'idProducto': element.product.id,
           'nombre': element.product.name,
           'precio': element.product.price * element.quantity,
-          'talla': '',
+          'talla': element.product.size ?  element.product.size : '',
+          'referencia' : element.product.reference ?  element.product.reference : '',
           'color': '',
           'numeroUnidades': element.quantity,
           'urlPhotoProducto': element.product.photos.url,
@@ -507,6 +604,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     });
     const json = {
       'totalOrder': this.carTotalPrice,
+      'envio': this.classCheckSelected,
       'cliente': {
         'nombre': this.nameUser,
         'tipoDocumento': this.typeDocument,

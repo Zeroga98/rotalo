@@ -152,6 +152,16 @@ export class ProductsMicrositeService {
       });
   }
 
+  updateCartProducts(body): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = this.urlSapi + '/carritos/actualizar';
+    return this.http.post(url, body, { headers: headers }).toPromise()
+      .then((response: any) => {
+        return response;
+      });
+  }
+
   /*getProductsById(id: number): Promise<any> {
     const url = `${this.url}/${id}`;
     return this.http

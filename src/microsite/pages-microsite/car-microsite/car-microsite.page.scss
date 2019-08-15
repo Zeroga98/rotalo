@@ -11,10 +11,10 @@
   }
 
   .info-title {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 30px;
-    max-width: 1200px;
+    //max-width: 1200px;
 
     p {
       font-size: 2.0rem;
@@ -240,7 +240,6 @@
   align-items: center;
 }
 
-
 :host {
   .options-container {
     margin-top: 20px;
@@ -413,6 +412,17 @@
 
 }
 
+:host {
+  .form-main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    .container {
+     margin-left: 60px;
+    }
+  }
+
+}
 
 @media screen and (max-width: 736px) {
 
@@ -431,14 +441,15 @@
 }
 
 
+
 .general-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 30px;
-  max-width: 1200px;
+  // max-width: 1200px;
 
   .container-info-user {
     display: flex;
@@ -519,7 +530,7 @@
         margin-right: 5px;
 
         .icon-delete {
-          width: 50%;
+          width: 47%;
           height: 50%;
           background: url(../../assets/img/iconos/ic_boton_eliminar.svg);
           background-size: contain;
@@ -644,9 +655,13 @@
     display: block;
   }
   .buttons-section .btn-buy, .buttons-section .btn-go-microsite{
-    line-height: 19px;
+    line-height: 18px;
     height: 44px;
   }
+}
+
+.buttons-section .btn-buy, .buttons-section .btn-go-microsite {
+  font-family: 'Lato Regular';
 }
 
 @media screen and (max-width: 1220px) {
@@ -654,7 +669,6 @@
     margin-right: 8px !important;
   }
 }
-
 
 @media screen and (max-width: 1150px) {
   .info-send-section {
@@ -700,7 +714,7 @@
   }
 }
 
-@media screen and (max-width: 1055px) {
+@media screen and (max-width: 1168px) {
   :host {
 
     .desktop {
@@ -715,9 +729,14 @@
       flex-direction: column;
     }
 
+     .form-main .container {
+      margin: 0;
+    }
+
     .items {
       flex-direction: column-reverse;
       display: flex;
+      width: 100%;
     }
 
     .user-info {
@@ -728,6 +747,12 @@
     .container-info-user {
       margin-top: 12px;
     }
+
+    .container-info-user {
+      width: 100%;
+      max-width: 100%;
+    }
+
   }
 }
 

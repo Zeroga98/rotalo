@@ -55,7 +55,7 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            width: 170px;
+          //  width: 170px;
             margin-left: 10px;
 
             .title-text,
@@ -64,8 +64,8 @@
             }
 
             .title-text {
-              width: 93%;
-
+              width: 100%;
+              max-width: 130px;
               p {
                 font-size: 1.6rem;
                 color: #707070;
@@ -218,7 +218,18 @@
   }
 }
 
-@media screen and (max-width: 1300px) {
+
+:host  {
+  .mini-producto-detail .product-info .container-info .primary-info .title-image-product .title-product .title-text p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 100px
+  }
+}
+
+
+@media screen and (max-width: 1320px) {
   ::ng-deep .container-cards {
     width: 100%;
   }
