@@ -77,7 +77,7 @@
           <li>
           </li>
           <li class="right">
-            <div class="total-price">{{detailOrder.totalOrden}}</div>
+            <div class="total-price">{{detailOrder.totalOrden | currency:'$' | removeDigits}}</div>
           </li>
         </ul>
       </div>
@@ -195,7 +195,7 @@
               </div>
           </div>
 
-          <div *ngIf="detailOrder.shippingTaxes && detailOrder.shippingTaxes.idShippingTaxes == 2" class="info-label">
+          <div *ngIf="detailOrder.numeroGuia" class="info-label">
               <div class="icon-label icon-shopping-car"></div>
               <div class="text-label">Empresa transportadora: Coordinadora S.A</div>
           </div>
