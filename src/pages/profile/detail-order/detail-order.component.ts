@@ -69,4 +69,5 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
     });
   }
 
+
 }
