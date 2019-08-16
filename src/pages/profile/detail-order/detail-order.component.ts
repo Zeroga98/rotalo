@@ -40,6 +40,7 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
     this.productsService.detailOrders(reference).subscribe((response) => {
       if (response.body) {
        this.detailOrder = response.body.detalleOrden;
+       console.log(this.detailOrder);
         if (this.currentSession.currentUser().id == this.detailOrder.userId) {
           this.isOwnOrder = true;
         }
@@ -67,7 +68,5 @@ export class DetailOrderComponent implements OnInit, AfterViewInit {
       console.log(httpErrorResponse);
     });
   }
-
-
 
 }

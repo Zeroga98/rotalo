@@ -142,7 +142,7 @@
             width: 100%;
             border-bottom: 1px solid #70707066;
             position: absolute;
-            bottom: 10px;
+            bottom: 4px;
           }
 
           .right {
@@ -360,6 +360,12 @@
     background-size: contain;
     background-position: center;
     margin-right: 5px;
+  }
+
+  .icon-box {
+    background: url(../../../assets/img/iconos/ic_box_mail.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
   }
 
   .breadcrumb .loading{

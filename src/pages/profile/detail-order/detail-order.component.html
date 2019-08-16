@@ -25,8 +25,11 @@
               <p>
                 {{product.nombreProducto}}
               </p>
-              <p *ngIf="product.reference" class = "refOrden">
-                Ref: {{product.reference}}
+              <p *ngIf="product.talla" class = "refOrden">
+                <strong>Talla:</strong> {{product.talla}}
+              </p>
+              <p *ngIf="product.referencia" class = "refOrden">
+               <strong>Ref:</strong> {{product.referencia}}
               </p>
             </li>
             <li>
@@ -51,6 +54,7 @@
           <li class="first">
             <div>Subtotal</div>
             <div>IVA</div>
+ <div *ngIf="detailOrder.shippingTaxes">Envío</div>
           </li>
           <li>
           </li>
@@ -59,6 +63,7 @@
           <li class="right">
             <div>{{detailOrder.subtotalOrden  | currency:'$' | removeDigits}}</div>
             <div>{{detailOrder.ivaOrden  | currency:'$' | removeDigits}}</div>
+<div *ngIf="detailOrder.shippingTaxes">{{detailOrder.shippingTaxes.shippingPrice  | currency:'$' | removeDigits}}</div>
           </li>
           <div class="line"></div>
         </ul>
@@ -72,7 +77,7 @@
           <li>
           </li>
           <li class="right">
-            <div class="total-price">{{detailOrder.totalOrden | currency:'$' | removeDigits}}</div>
+            <div class="total-price">{{totalPrice}}</div>
           </li>
         </ul>
       </div>
@@ -106,13 +111,25 @@
         </ul>
         <div *ngIf="detailOrder.datosEnvio" class="row">
           <div class="title">
-            Datos de envío
+            Datos de entrega
           </div>
           <div class="item">
             <div class="img">
               <div class="location"></div>
             </div>
             <div class="item-description">
+              <div *ngIf="detailOrder.shippingTaxes">
+                <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 1">
+                  <span>
+                    Recoger en Bancolombia Dirección General
+                  </span>
+                </p>
+                <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 2">
+                  <span>
+                    Envío nacional {{detailOrder.shippingTaxes.shippingPrice | currency:"$" | removeDigits}}
+                  </span>
+                </p>
+              </div>
               <div class="flex">
                 <p class="address">{{detailOrder.datosEnvio.direccion}}</p>
                 <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> -
@@ -159,18 +176,30 @@
           </a>
         </div>-->
         <div class="logistic-info">
-          <div class="info-label">
-            <div class="icon-label icon-shopping-car"></div>
-            <div class="text-label">Envío incluido</div>
-          </div>
+
           <div class="info-label">
             <div class="icon-label icon-watch"></div>
             <div class="text-label">Devoluciones aplican <a [routerLink]="terms">términos y condiciones.</a></div>
           </div>
-          <div class="company">
-            <p>Empresa transportadora: {{detailOrder.transportadora}}</p>
-            <p>Entrega hasta 5 días hábiles</p>
+
+          <div *ngIf="detailOrder.shippingTaxes && detailOrder.shippingTaxes.idShippingTaxes == 1" class="info-label">
+              <div class="icon-label icon-box"></div>
+              <div class="text-label">Entrega inmediata</div>
           </div>
+
+
+          <div *ngIf="detailOrder.shippingTaxes && detailOrder.shippingTaxes.idShippingTaxes == 2" class="info-label">
+              <div class="icon-label icon-box"></div>
+              <div class="text-label">
+                  Entrega hasta 5 días hábiles
+              </div>
+          </div>
+
+          <div *ngIf="detailOrder.shippingTaxes && detailOrder.shippingTaxes.idShippingTaxes == 2" class="info-label">
+              <div class="icon-label icon-shopping-car"></div>
+              <div class="text-label">Empresa transportadora: Coordinadora S.A</div>
+          </div>
+
         </div>
       </div>
     </div>
