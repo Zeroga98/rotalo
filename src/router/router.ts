@@ -67,6 +67,9 @@ import { ProductsHomePage } from '../microsite/pages-microsite/products-shop/pro
 import { DetailPageShopComponent } from '../microsite/pages-microsite/detail-page-shop/detail-page-shop.component';
 import { TermsShopComponent } from '../microsite/pages-microsite/terms-shop/terms-shop.component';
 import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-microsite/frequently-asket-questions-shop/frequently-asket-questions-shop.component';
+import { ProductsShopPrivateComponent } from '../microsite/pages-microsite/products-shop-private/products-shop-private.component';
+import { HomeShopPrivateComponent } from '../microsite/pages-microsite/home-shop-private/home-shop-private.component';
+import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/detail-page-shop-private/detail-page-shop-private.component';
 
 export const appRouter: Routes = [
   {
@@ -320,6 +323,35 @@ export const appRouter: Routes = [
     {
       path: '',
       redirectTo: ROUTES.SHOPS.FEED,
+      pathMatch: 'full'
+    }
+  ]
+},
+/****/
+{
+  path: ROUTES.SHOPSPRIVATE.LINK,
+  component: ProductsShopPrivateComponent,
+  canActivate: [AuthGuardService],
+  children: [
+    {
+      path: ROUTES.SHOPSPRIVATE.FEED,
+      component: HomeShopPrivateComponent,
+    },
+    {
+      path: `${ROUTES.SHOPSPRIVATE.SHOW}/:id`,
+      component: DetailPageShopPrivateComponent,
+    },
+    {
+      path: ROUTES.SHOPSPRIVATE.TERMS,
+      component: TermsShopComponent,
+    },
+    {
+      path: ROUTES.SHOPSPRIVATE.FAQ,
+      component: FrequentlyAsketQuestionsShopComponent,
+    },
+    {
+      path: '',
+      redirectTo: ROUTES.SHOPSPRIVATE.FEED,
       pathMatch: 'full'
     }
   ]
