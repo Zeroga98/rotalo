@@ -11,12 +11,12 @@ export class FrequentlyAskedQuestionsService {
   private configurationService: ConfigurationService) { }
   readonly urlSapi = this.configurationService.getBaseSapiUrl();
 
-  getFrequentlyAskedQuestions(idCountry) {
+  getFrequentlyAskedQuestions(params) {
     let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     jsonSapiHeaders = Object.assign(jsonSapiHeaders);
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = this.urlSapi + '/general/faq?pais=' + idCountry;
-    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response.body));
+    const url = `${this.urlSapi}/general/faq`;
+    return this.http.get(url, { headers: headers, params: params }).pipe(map((response: any) => response.body));
   }
 
 }

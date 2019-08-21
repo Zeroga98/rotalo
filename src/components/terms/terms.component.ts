@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,20 +11,40 @@ import { SettingsService } from '../../services/settings.service';
 export class TermsComponent implements OnInit {
   private currentUrl = '';
   public terms = '';
+  public params;
   @Input() showTitle = true;
-  constructor( private settingsService: SettingsService, private changeDetector: ChangeDetectorRef) {
+  constructor( private route: ActivatedRoute, private settingsService: SettingsService, private changeDetector: ChangeDetectorRef) {
     this.currentUrl = window.location.href;
   }
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.settingsService.getTerms().subscribe((response) => {
-      this.terms = response.body.terminoCondicion.content;
-      this.settingsService.setIdterms(response.body.terminoCondicion.id);
-      this.changeDetector.markForCheck();
-    } ,
-    (error) => {
-      console.log(error);
+    let params = {};
+    let pais = 1;
+    if (this.isGuatemala) {
+      pais = 9;
+    }
+    this.route.params.subscribe(p => {
+      this.params = p;
+      let tienda;
+      if (this.params['id']) {
+        tienda = this.params['id'];
+        params = {
+          pais: pais,
+          tienda: tienda
+        };
+      }
+      this.settingsService.getTerms(params).subscribe((response) => {
+        if (response.body && response.body.terminoCondicion) {
+          this.terms = response.body.terminoCondicion.content;
+          this.settingsService.setIdterms(response.body.terminoCondicion.id);
+          this.changeDetector.markForCheck();
+        }
+      } ,
+      (error) => {
+        console.log(error);
+      });
+
     });
   }
 

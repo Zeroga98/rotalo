@@ -3,6 +3,7 @@ import { ROUTES } from './../../router/routes';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
 import { CurrentSessionService } from '../../services/current-session.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'custom-footer',
@@ -11,20 +12,25 @@ import { CurrentSessionService } from '../../services/current-session.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
-  public readonly termsLink: string = `/${ROUTES.TERMS}`;
-  public readonly termsLinkShop: string = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.TERMS}`;
+  public  termsLink: string = `/${ROUTES.TERMS}`;
+  public readonly termsLinkShop: string = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.TERMS}/${this.configurationService.storeIdPublic}`;
   public readonly termsCompaniesLink: string = `/${ROUTES.TERMSCOMPANIES}`;
-  public readonly faqLink: string = `/${ROUTES.FAQ}`;
-  public readonly faqLinkShop: string  = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FAQ}`;
+  public  faqLink: string = `/${ROUTES.FAQ}`;
+  public readonly faqLinkShop: string  = `/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FAQ}/${this.configurationService.storeIdPublic}`;
   private readonly _homeRoute: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   public successModal  = false;
   private currentUrl = '';
   constructor(private _router: Router,
     private currentSessionService: CurrentSessionService,
-    private modalService: ModalFeedBackService) { }
+    private modalService: ModalFeedBackService,
+    private configurationService: ConfigurationService) { }
 
   ngOnInit() {
     this.currentUrl = window.location.href;
+    if (this.currentUrl.includes('feriasufi')) {
+      this.termsLink = `/${ROUTES.TERMS}/${this.configurationService.storeIdPrivate}`;
+      this.faqLink = `/${ROUTES.FAQ}/${this.configurationService.storeIdPrivate}`;
+    }
   }
 
   goToHome() {

@@ -139,11 +139,11 @@ export class SettingsService {
     return this.http.get(url , { headers: headers }).pipe(map((response: any) => response));
   }
 
-  getTerms() {
+  getTerms(params) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/terminos/condiciones/reciente`;
-    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+    return this.http.get(url, { headers: headers , params: params}).pipe(map((response: any) => response));
   }
 
   acceptTerms(params) {

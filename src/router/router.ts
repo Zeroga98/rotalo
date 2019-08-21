@@ -258,6 +258,10 @@ export const appRouter: Routes = [
     component: TermsPage
   },
   {
+    path: `${ROUTES.TERMS}/:id`,
+    component: TermsPage,
+  },
+  {
     path: ROUTES.TERMSCOMPANIES,
     component: TermsCompaniesComponent
   },
@@ -292,6 +296,10 @@ export const appRouter: Routes = [
     component: FrequentlyAskedQuestionsComponent
   },
   {
+    path: `${ROUTES.FAQ}/:id`,
+    component: FrequentlyAskedQuestionsComponent
+  },
+  {
     path: ROUTES.NOTIFICATIONCONFIRMATION,
     component: NotificationConfirmation
   },
@@ -314,7 +322,15 @@ export const appRouter: Routes = [
       component: TermsShopComponent,
     },
     {
+      path: `${ROUTES.SHOPS.TERMS}/:id`,
+      component: TermsShopComponent,
+    },
+    {
       path: ROUTES.SHOPS.FAQ,
+      component: FrequentlyAsketQuestionsShopComponent,
+    },
+    {
+      path: `${ROUTES.SHOPS.FAQ}/:id`,
       component: FrequentlyAsketQuestionsShopComponent,
     },
     {
