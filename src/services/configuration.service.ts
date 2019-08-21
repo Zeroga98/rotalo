@@ -6,8 +6,7 @@ export class ConfigurationService {
 /*Staging*/
 /**develop storePublicId = 71 **/
 public storeIdPublic = 34;
-public storeIdPrivate = 87;
-
+public storeIdPrivate = 40;
 
  api = {
     protocol: 'https',
