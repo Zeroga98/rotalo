@@ -897,7 +897,6 @@ input:checked+.switch-slider:before {
   color: #FF1522;
 }
 
-
 :host {
   .tabla-container {
     width: 100%;
@@ -1107,6 +1106,220 @@ input:checked+.switch-slider:before {
 
 }
 
+
+:host {
+  .sufi-container {
+    border-radius: 5px;
+    border: 1px dashed #D5D5D5;
+    padding: 10px;
+    margin-top: 20px;
+    .icon-custom--sufi-logo {
+      color: rgb(237, 28, 42);
+      margin-right: 10px;
+    }
+
+    .title {
+      font-size: 1.6rem;
+      color: #272727;
+      padding-bottom: 15px;
+    }
+
+    .container-input {
+      width: 100%;
+
+      .row {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+      }
+
+      .column {
+        display: flex;
+        width: 50%;
+        align-items: center;
+      }
+
+      .label-title,
+      input {
+        font-size: 1.8rem;
+        color: #383838;
+        padding-right: 10px;
+      }
+
+      .input-price {
+        width: 55%;
+        font-size: 1.6rem;
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+        padding: 5px 2px 5px 10px;
+      }
+
+      .select-time {
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+        width: 55px;
+        color: #767676;
+        font-size: 1.6rem;
+        padding: 4px;
+        background-color: white;
+
+        option {
+          color: #767676;
+          font-size: 1.6rem;
+        }
+      }
+    }
+
+
+    .btn-container {
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .terms {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: 22px;
+        p {
+          font-size: 1.0rem;
+          color: #767676;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+        }
+      }
+    }
+
+   .btn-item {
+     text-align: right;
+     button {
+       min-width: 245px;
+      border: 1px solid #FF3646;
+      padding: 9px;
+      min-height: 44px;
+      color: #FF3646;
+      background-color: #FFFFFF;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.6rem;
+      border-radius: 22px;
+     }
+     button:hover {
+        border: 1px solid #AE1631;
+        color: #AE1631;
+        //background-color: #0080FF;
+     }
+   }
+
+  }
+}
+
+:host {
+
+  .sufi-info {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    .col {
+      width: 49%;
+      border: 1px dashed #D5D5D5;
+      border-radius: 5px;
+      padding-bottom: 10px;
+    }
+
+    .col .title-plan{
+      text-align: center;
+      background-color: #F8F8F8;
+      padding-bottom: 5px;
+    }
+
+    .col .title-plan p {
+      color: #272727;
+      font-size: 1.6rem;
+      display: inline-block;
+    }
+    table {
+      width: 100%;
+      border-collapse: inherit;
+      border-spacing: 0px 5px;
+      td {
+        font-size: 1.4rem;
+        color: #707070;
+        width: 50%;
+        padding-left: 5px;
+        strong {
+          font-weight: bold;
+          font-size: 1.8rem;
+          color: #383838;
+        }
+      }
+      tr {
+        padding-bottom: 10px;
+      }
+      .text-right {
+        color: #383838;
+        padding-right: 5px;
+        text-align: right;
+      }
+    }
+  }
+
+  .tooltip {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    background: url(../../../assets/img/iconos/ic_tooltip.svg);
+    background-size: 15px 15px;
+    margin: 0 auto;
+    margin-left: 10px;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .tooltip:hover {
+    .toolTipText {
+      visibility: visible;
+      opacity: 1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+
+  .tooltip {
+    .toolTipText {
+      visibility: hidden;
+      width: 115px;
+      background-color: white;
+      color: #383838;
+      text-align: center;
+      padding: 5px 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 140%;
+      left: 30%;
+      margin-left: -55px;
+      opacity: 0;
+      transition: opacity 1s;
+      font-size: 1.4rem;
+    }
+  }
+
+  .toolTipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+  }
+
+
+}
+
+
+
 @media screen and (max-width: 1300px) {
   :host {
     .product-btn{
@@ -1116,6 +1329,45 @@ input:checked+.switch-slider:before {
     .info-container {
       width: 100%;
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  :host {
+    .row {
+      flex-direction: column;
+    }
+
+    .sufi-container .container-input .column {
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    .sufi-info {
+      flex-direction: column;
+
+      .col {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .sufi-container .btn-container {
+      flex-direction: column;
+    }
+
+    .terms,  .sufi-container .btn-item {
+      text-align: center;
+    }
+
+    .terms{
+      order: 2;
+    }
+
+    .btn-item {
+      order: 1;
+    }
+
   }
 }
 

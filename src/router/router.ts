@@ -178,6 +178,10 @@ export const appRouter: Routes = [
         component: SimulateCreditPage,
       },
       {
+        path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id/:storeId`,
+        component: SimulateCreditPage,
+      },
+      {
         path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
         component: FinanceBamComponent,
       },

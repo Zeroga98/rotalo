@@ -23,7 +23,7 @@ import { ConversationInterface } from '../../../commons/interfaces/conversation.
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { UserService } from '../../../services/user.service';
 import { MessagesService } from '../../../services/messages.service';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 import { ShareInfoChatService } from '../../../components/chat-thread/shareInfoChat.service';
 import { BuyService } from '../../../services/buy.service';
 import { NavigationService } from '../../../pages/products/navigation.service';
@@ -33,13 +33,34 @@ import { ProductsMicrositeService } from '../../services-microsite/back/products
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
 import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { ModalFormRegisterComponent } from '../modal-form-register/modal-form-register.component';
 import { ConfigurationService } from '../../../services/configuration.service';
+import { CountUpOptions } from 'countup.js';
+import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
   if (email.value == this.currentEmail) {
     return { emailError: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMax(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue > 5000000000) {
+    return { priceValueMax: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMin(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue < 10000000) {
+    return { priceValueMin: true };
   }
   return null;
 }
@@ -94,6 +115,18 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public errorSize;
   public childSelected;
   public reference;
+  public simulateForm: FormGroup;
+  public interesNominal = 0.0105;
+  public porcentajeSimulacion = 20;
+  public showSufiButton = false;
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+
+  public optionsCountSimulate: CountUpOptions = {
+    decimalPlaces: 2,
+    duration: 1,
+    useEasing: true,
+    prefix: '$'
+  };
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -255,6 +288,21 @@ export class DetailProductShopPrivateComponent implements OnInit {
     ]);
   }
 
+  validateMonths() {
+    if (this.products && this.products['vehicle']) {
+      const currentYear = new Date().getFullYear();
+      const modelo = this.products['model'];
+      const differenceYear = currentYear - modelo;
+      let nameBrandMoto;
+      if (this.products['vehicle'].line.brand) {
+        nameBrandMoto = this.products['vehicle'].line.brand.name;
+      }
+      if (differenceYear >= 5 && differenceYear <= 10 || nameBrandMoto == 'BMW') {
+        this.rangeTimetoPayArray = [12, 24, 36, 48, 60];
+        this.simulateForm.patchValue({ 'term-months': 60 });
+      }
+    }
+  }
 
   loadProduct() {
     const params =  {
@@ -264,6 +312,20 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
+
+        if (this.products.interesNominal) {
+          this.interesNominal = this.products.interesNominal / 100;
+        }
+        if (this.products.porcentajeSimulacion) {
+          this.porcentajeSimulacion = this.products.porcentajeSimulacion / 100;
+        }
+        if (this.products.vehicle) {
+          this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
+        }
+        this.setFormSufi();
+
+
+
         this.initQuantityForm();
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
@@ -271,7 +333,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
         } else {
           this.totalStock = 1;
         }
-        if(this.products && this.products.children && this.products.children[0].stock){
+        if (this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
         }
 
@@ -495,7 +557,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   openSimulateCreditSufi(id: number | string) {
     const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
-      }/${id}`;
+      }/${id}/${this.configurationService.storeIdPrivate}`;
     this.router.navigate([urlSimulateCredit]);
   }
 
@@ -686,6 +748,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   openModal() {
+    this.sendEmail();
     const dialogConfig = new MatDialogConfig();
    // dialogConfig.maxWidth = '896px';
     dialogConfig.width = '100%';
@@ -700,10 +763,112 @@ export class DetailProductShopPrivateComponent implements OnInit {
     dialogConfig.width = '55%';
     dialogConfig.autoFocus = false;*/
 
-    const dialogRef = this.dialog.open(ModalFormRegisterComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ModalFormDetailComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
     });
   }
+
+  sendEmail() {
+    const params = {
+      productId: this.idProduct
+    };
+    this.userService.contactUserProductPrivate(params).subscribe(response => {
+      console.log(response);
+    }, error => {
+        console.log(error);
+    });
+
+  }
+
+  setFormSufi() {
+    let creditValue = 0;
+    if (this.products.porcentajeSimulacion) {
+      this.porcentajeSimulacion = this.products.porcentajeSimulacion;
+    }
+    if (this.products && this.products.price && this.porcentajeSimulacion) {
+      creditValue = (this.products.price) * (this.porcentajeSimulacion) / 100;
+    }
+    this.simulateForm = this.fb.group(
+      {
+        'credit-value': [
+          creditValue,
+          [
+            Validators.required,
+            priceVehicleValidatorMax,
+            priceVehicleValidatorMin
+          ]
+        ],
+        'term-months': [72, Validators.required]
+      }
+    );
+  }
+
+
+  calcularCuotasPrimerPlan() {
+    let va = 0;
+    let n = 0;
+    const i = this.interesNominal;
+
+    this.simulateForm.get('credit-value') &&
+      //this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
+
+
+    this.simulateForm.get('term-months') &&
+      this.simulateForm.get('term-months').value
+      ? n = this.simulateForm.get('term-months').value : n = 0;
+
+    return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1);
+  }
+
+  calcularSeguro() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+      //this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
+    return ((va * 0.12) / 100);
+  }
+
+  calcularCuotasExtraSegundoPlan() {
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+      // this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
+
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+      this.simulateForm.get('term-months').value ? n = this.simulateForm.get('term-months').value : n = 0;
+    const i = this.interesNominal;
+    return (va * (Math.pow((1 + i), n)) * i) / ((Math.pow((1 + i), n)) - 1) * 2;
+  }
+
+  calcularCuotasSegundoPlan() {
+    let ve = 0;
+    ve = this.calcularCuotasExtraSegundoPlan();
+    const i = this.interesNominal;
+    const i1 = Math.pow((1 + i), 6) - 1;
+    let va = 0;
+    this.simulateForm.get('credit-value') &&
+      // this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
+      ? va = this.products.price - this.simulateForm.get('credit-value').value : va = 0;
+
+    let n = 0;
+    this.simulateForm.get('term-months') &&
+      this.simulateForm.get('term-months').value ? n = this.simulateForm.get('term-months').value : n = 0;
+    const n1 = n / 6;
+    const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
+    const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
+    return pago;
+  }
+
 
 }

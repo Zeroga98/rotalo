@@ -239,6 +239,7 @@ import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/det
 import { DetailProductShopPrivateComponent } from '../microsite/components-microsite/detail-product-shop-private/detail-product-shop-private.component';
 import { ProductMicrositePrivateComponent } from '../microsite/components-microsite/product-microsite-private/product-microsite-private.component';
 import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-go-to-store.component';
+import { ModalFormDetailComponent } from '../microsite/components-microsite/modal-form-detail/modal-form-detail.component';
 
 @NgModule({
   declarations: [
@@ -395,7 +396,8 @@ import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-g
     DetailPageShopPrivateComponent,
     DetailProductShopPrivateComponent,
     ProductMicrositePrivateComponent,
-    ModalGoToStoreComponent
+    ModalGoToStoreComponent,
+    ModalFormDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -524,7 +526,8 @@ import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-g
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
     ModalGoToStoreComponent,
-    ModalFormRegisterComponent]
+    ModalFormRegisterComponent,
+    ModalFormDetailComponent]
 })
 
 export class AppModule { }
