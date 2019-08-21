@@ -258,12 +258,11 @@ export class DetailProductShopPrivateComponent implements OnInit {
 
   loadProduct() {
     const params =  {
-      idTienda: this.configurationService.storeIdPublic,
+      idTienda: this.configurationService.storeIdPrivate,
       idProducto: this.idProduct
     };
-    this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
+    this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
-
         this.products = reponse.body.productos[0];
         this.initQuantityForm();
         this.totalStock = this.products.stock;
@@ -275,12 +274,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
         if(this.products && this.products.children && this.products.children[0].stock){
           this.totalStock = this.products.children[0].stock;
         }
-
-        /*      const price = this.quantityForm.get('stock');
-              price.clearValidators();
-              price.setValidators([Validators.required, Validators.min(1), Validators.max(this.totalStock)]);
-              price.updateValueAndValidity();
-      */
 
         const fullName = this.products.user.name.split(' ');
         if (this.products.user.name) {

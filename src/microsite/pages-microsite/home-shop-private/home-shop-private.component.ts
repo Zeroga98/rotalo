@@ -231,7 +231,7 @@ export class HomeShopPrivateComponent implements OnInit, OnDestroy, AfterViewIni
           this.changeDetectorRef.markForCheck();
         } else {
           let products;
-          products = await this.productsMicrositeService.getProductsShopMicrosite(this.userId, params);
+          products = await this.productsMicrositeService.getProductsShopPrivateMicrosite(this.userId, params);
           this.updateProducts(products);
           this.changeDetectorRef.markForCheck();
         }
@@ -715,7 +715,7 @@ export class HomeShopPrivateComponent implements OnInit, OnDestroy, AfterViewIni
       }
     }*/
     loadBanners() {
-      this.settingsService.getBannersShopPublic(this.configurationService.storeIdPublic).subscribe(response => {
+      this.settingsService.getBannersShopPrivate(this.configurationService.storeIdPrivate).subscribe(response => {
         if (response.body) {
           if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
           if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }

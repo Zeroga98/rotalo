@@ -238,6 +238,7 @@ import { FeedShopPrivateMicrositeService } from '../microsite/pages-microsite/ho
 import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/detail-page-shop-private/detail-page-shop-private.component';
 import { DetailProductShopPrivateComponent } from '../microsite/components-microsite/detail-product-shop-private/detail-product-shop-private.component';
 import { ProductMicrositePrivateComponent } from '../microsite/components-microsite/product-microsite-private/product-microsite-private.component';
+import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-go-to-store.component';
 
 @NgModule({
   declarations: [
@@ -393,7 +394,8 @@ import { ProductMicrositePrivateComponent } from '../microsite/components-micros
     HomeShopPrivateComponent,
     DetailPageShopPrivateComponent,
     DetailProductShopPrivateComponent,
-    ProductMicrositePrivateComponent
+    ProductMicrositePrivateComponent,
+    ModalGoToStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -521,6 +523,7 @@ import { ProductMicrositePrivateComponent } from '../microsite/components-micros
     StatesModalComponent,
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
+    ModalGoToStoreComponent,
     ModalFormRegisterComponent]
 })
 

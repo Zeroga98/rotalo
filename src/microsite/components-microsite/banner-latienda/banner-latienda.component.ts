@@ -32,9 +32,10 @@ export class BannerLatiendaComponent implements OnInit {
   ngOnInit() {
     this.location = window.location.href;
     this.getShowBanner(this.location);
-
     if (window.location.href.includes('tiendainmueble')) {
       this.loadBannersPublic(this.configurationService.storeIdPublic);
+    } if (window.location.href.includes('feriasufi')) {
+      this.loadBannersPrivate(this.configurationService.storeIdPrivate);
     } else {
       this.loadBanners(1);
     }
@@ -69,13 +70,17 @@ export class BannerLatiendaComponent implements OnInit {
         if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
-     /* let j=0;
-      for (let i = 0; i < this.bannerPromocionalForm.get('bannerPromocional').controls.length; i++) {
-            j++;
+    });
+  }
+
+  loadBannersPrivate(idTienda) {
+    this.settingsService.getBannersShopPrivate(idTienda).subscribe(response => {
+      if (response.body) {
+        if (response.body.bannerHomeTienda) { this.setFormHomeShop(response.body.bannerHomeTienda); }
+        if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
+        if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
-      if(j==3) {
-        this.showBannersPromo = true;
-      }*/
+      this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
     });
   }
 

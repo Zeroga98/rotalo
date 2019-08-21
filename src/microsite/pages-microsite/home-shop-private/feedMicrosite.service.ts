@@ -7,7 +7,7 @@ export class FeedShopPrivateMicrositeService{
         'size': 24,
         'number': 1,
         'product_country_id': 1,
-        'seller_store_id': this.configurationService.storeIdPublic
+        'seller_store_id': this.configurationService.storeIdPrivate
     };
 
     private currentFilter: Object = undefined;

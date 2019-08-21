@@ -16,6 +16,7 @@ import { ProductsService } from '../../services/products.service';
 import { ProductsMicrositeService } from '../../microsite/services-microsite/back/products-microsite.service';
 import { TermsDialogComponent } from '../home/terms-modal/terms-dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ModalGoToStoreComponent } from '../../components/modal-go-to-store/modal-go-to-store.component';
 
 
 @Component({
@@ -113,6 +114,7 @@ export class LoginPage implements OnInit {
         this.loginService.loginSapiUser(user)
           .then(response => {
             if (response.status === 200) {
+
               this.gapush(
                 'send',
                 'event',
@@ -137,6 +139,7 @@ export class LoginPage implements OnInit {
               this.currentSessionService.getIdUser();
               this.setUserCountry(saveInfo);
               this.checkNotificationHobbies(saveInfo.id);
+
             }
             if (response.status === 401) {
               this.errorLogin = 'Usuario o contraseña incorrecto.';
@@ -215,10 +218,30 @@ export class LoginPage implements OnInit {
         this.router.navigate([
           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
         ]);
+
+        let showBancolombiaProducts = false;
+        user && user.company && user.company.name == 'Bancolombia' ?
+        showBancolombiaProducts = true : showBancolombiaProducts = false;
+        if (showBancolombiaProducts) {
+          this.openDialogGoToStore();
+        }
       }
     } catch (error) {
       console.error(error);
     }
+  }
+
+
+  openDialogGoToStore(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    // dialogConfig.disableClose = true;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalGoToStoreComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   goBack(): void {

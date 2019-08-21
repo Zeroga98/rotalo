@@ -45,6 +45,8 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
 import { NavigationTopService } from '../../components/navigation-top/navigation-top.service';
 import { SettingsService } from '../../services/settings.service';
 import { debug } from 'util';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+
 
 
 @Component({
@@ -110,14 +112,14 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     private modalTicketService: ModalTicketService,
     private userService: UserService,
     private navigationTopService: NavigationTopService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    public dialog: MatDialog
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.configFiltersSubcategory = this.feedService.getConfigFiltersSubcategory();
     this.showBanner = this.configFiltersSubcategory === undefined;
     this.carouselConfig = CAROUSEL_CONFIG;
     this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
-
     this.loadBancolombiaProduct();
   }
 
@@ -135,6 +137,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.communitySubscription();
     this.searchSubscription();
     this.loadInfoUser();
+
   }
 
   ngOnDestroy(): void {
@@ -164,6 +167,8 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.markForCheck();
   }
 
+
+
   loadBanners() {
     this.settingsService.getBannersHomeList().subscribe(response => {
       if (response.body) {
@@ -187,7 +192,9 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
   async loadInfoUser() {
     try {
       this.currentUser = await this.userService.getInfoUser();
-      this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Bancolombia' ?
+
+     // this.currentUser && this.currentUser.company.community && this.currentUser.company.community.name == 'Bancolombia' ?
+     this.currentUser && this.currentUser.company && this.currentUser.company.name == 'Bancolombia' ?
       this.showBancolombiaProducts = true : this.showBancolombiaProducts = false;
       this.loadBanners();
     } catch (error) {

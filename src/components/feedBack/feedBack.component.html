@@ -1,4 +1,4 @@
-<div *ngIf="!checkSession()">
+<div *ngIf="!checkSession() || isStore">
   <div (click)="openModal('custom-modal-1')" class="feedback-container">
     <span class="feedback-text">
       Contáctanos
@@ -8,5 +8,5 @@
       </div>
     </div>
   </div>
-  <modal-feedBack class="md-modal md-effect-2" id="custom-modal-1"></modal-feedBack>
+  <modal-feedBack [currentUrl] = "currentUrl" class="md-modal md-effect-2" id="custom-modal-1"></modal-feedBack>
 </div>

@@ -28,6 +28,14 @@ export class FeedBackComponent implements OnInit {
     return this.currentSessionService.currentUser();
   }
 
+  public get isStore() {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('feriasufi')) {
+      return true;
+    }
+    return false;
+  }
+
   openModal(id: string) {
     this.modalService.open(id);
    /* if (this.checkSession()) {
