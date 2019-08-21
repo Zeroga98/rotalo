@@ -232,6 +232,13 @@ import { ModalFormRegisterComponent } from '../microsite/components-microsite/mo
 import { FormProductMicrositeComponent } from '../microsite/components-microsite/form-product-microsite/form-product-microsite.component';
 import { ProductsUploadMicrositeComponent } from '../microsite/pages-microsite/products-upload-microsite/products-upload-microsite.component';
 import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/products-edit-microsite/products-edit-microsite.component';
+import { ProductsShopPrivateComponent } from '../microsite/pages-microsite/products-shop-private/products-shop-private.component';
+import { HomeShopPrivateComponent } from '../microsite/pages-microsite/home-shop-private/home-shop-private.component';
+import { FeedShopPrivateMicrositeService } from '../microsite/pages-microsite/home-shop-private/feedMicrosite.service';
+import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/detail-page-shop-private/detail-page-shop-private.component';
+import { DetailProductShopPrivateComponent } from '../microsite/components-microsite/detail-product-shop-private/detail-product-shop-private.component';
+import { ProductMicrositePrivateComponent } from '../microsite/components-microsite/product-microsite-private/product-microsite-private.component';
+import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-go-to-store.component';
 
 @NgModule({
   declarations: [
@@ -383,6 +390,12 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     TermsShopComponentComponent,
     FrequentlyAsketQuestionsShopComponent,
     ModalFormRegisterComponent,
+    ProductsShopPrivateComponent,
+    HomeShopPrivateComponent,
+    DetailPageShopPrivateComponent,
+    DetailProductShopPrivateComponent,
+    ProductMicrositePrivateComponent,
+    ModalGoToStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -496,6 +509,7 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     ConfigurationMicrositeService,
     FeedMicrositeService,
     FeedShopMicrositeService,
+    FeedShopPrivateMicrositeService,
     ShoppingCarService,
     windowService
   ],
@@ -509,6 +523,7 @@ import { ProductsEditMicrositeComponent } from '../microsite/pages-microsite/pro
     StatesModalComponent,
     ModalReactivateUserComponent,
     ModalReactivateUserSuccessComponent,
+    ModalGoToStoreComponent,
     ModalFormRegisterComponent]
 })
 

@@ -1,0 +1,36 @@
+::ng-deep.mat-dialog-container {
+  border-radius: 12px !important;
+}
+
+::ng-deep.mat-dialog-container {
+  background: url(../../assets/img/credito_hipotecario.png) no-repeat;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+::ng-deep.mat-dialog-content {
+  min-height: 250px;
+}
+
+
+.modal-container {
+  width: 100%;
+  padding-top: 20px;
+  position: relative;
+  .close {
+    position: absolute;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: url(../../assets/img/icon_close_detalle.svg) no-repeat;
+    background-size: contain;
+    margin-top: 0px;
+    top: -12px;
+    right: -10px;
+    &:hover {
+      background: url(../../assets/img/icon_close_detalle_hover.svg) no-repeat;
+      background-size: contain;
+    }
+  }
+}

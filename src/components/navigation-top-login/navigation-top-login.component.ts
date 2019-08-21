@@ -12,6 +12,7 @@ import { ProductsMicrositeService } from '../../microsite/services-microsite/bac
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { TermsDialogComponent } from '../../pages/home/terms-modal/terms-dialog.component';
 import { ModalReactivateUserComponent } from '../modal-reactivate-user/modal-reactivate-user.component';
+import { ModalGoToStoreComponent } from '../modal-go-to-store/modal-go-to-store.component';
 
 
 @Component({
@@ -173,6 +174,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
                    url: ' '
                  }
                };
+
                this.modalFeedBackService.close('custom-modal-1');
                this.currentSessionService.setSession(saveInfo);
                this.currentSessionService.getIdUser();
@@ -262,11 +264,31 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
         this.router.navigate([
           `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
         ]);
+
+        let showBancolombiaProducts = false;
+        user && user.company && user.company.name == 'Bancolombia' ?
+        showBancolombiaProducts = true : showBancolombiaProducts = false;
+        if (showBancolombiaProducts) {
+          this.openDialogGoToStore();
+        }
       }
      } catch (error) {
        console.error(error);
      }
    }
+
+   openDialogGoToStore(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+  //  dialogConfig.minHeight = '350px';
+    // dialogConfig.disableClose = true;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalGoToStoreComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
    get isColombia() {
     const currentUrl = window.location.href;

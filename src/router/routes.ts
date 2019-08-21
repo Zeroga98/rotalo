@@ -23,6 +23,13 @@ export const ROUTES = {
       TERMS: 'terms',
       FAQ: 'faq'
     },
+    SHOPSPRIVATE: {
+      LINK: 'feriasufi',
+      FEED: 'inicio',
+      SHOW: 'detalle',
+      TERMS: 'terms',
+      FAQ: 'faq'
+    },
     PRODUCTS: {
         LINK: 'products',
         SHOW: 'show',

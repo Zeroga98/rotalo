@@ -76,16 +76,21 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
         idTienda = 1;
       } else if (this.currentUrl && this.currentUrl.includes('tiendainmueble')) {
         idTienda = this.configurationService.storeIdPublic;
+      } else if (this.currentUrl && this.currentUrl.includes('feriasufi')) {
+        idTienda = this.configurationService.storeIdPrivate;
       }
 
       const params = {
         'correo': email,
         'mensaje': comment,
         'idPais': parseInt(countryId),
-        'destino': this.currentUrl && this.currentUrl.includes('microsite') || this.currentUrl && this.currentUrl.includes('tiendainmueble')
+        'destino': this.currentUrl && this.currentUrl.includes('microsite')
+        || this.currentUrl && this.currentUrl.includes('tiendainmueble')
+        || this.currentUrl && this.currentUrl.includes('feriasufi')
         ? 'tienda' : 'admin',
         'idTienda': idTienda
       };
+
       this.modalService.sendEmail(params) .subscribe(
         state => {
           this.messageSuccess = true;

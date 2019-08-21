@@ -25,10 +25,8 @@ export class AuthGuardService implements CanActivate {
     }
     const urlCurrent = window.location.href;
     if (urlCurrent.includes(`/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}`)) {
-
       this.productsService.setUrlDetailProduct(urlCurrent);
     } else if (urlCurrent.includes(`/${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}/${ROUTES.MICROSITE.FEED}`)) {
-
       this.productsMicrositeService.setUrlShop(urlCurrent);
     }
     this.router.navigate([`/${ROUTES.LOGIN}`]);
