@@ -36,6 +36,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ConfigurationService } from '../../../services/configuration.service';
 import { CountUpOptions } from 'countup.js';
 import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail.component';
+import { SimulateCreditService } from '../../../services/simulate-credit.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -152,7 +153,8 @@ export class DetailProductShopPrivateComponent implements OnInit {
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
     private modalService: ModalShareProductService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private simulateCreditService: SimulateCreditService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -558,6 +560,8 @@ export class DetailProductShopPrivateComponent implements OnInit {
     const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
       }/${id}/${this.configurationService.storeIdPrivate}`;
+    this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
+    this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
     this.router.navigate([urlSimulateCredit]);
   }
 

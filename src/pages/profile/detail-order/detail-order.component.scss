@@ -88,7 +88,8 @@
           .order-info {
             display: flex;
             li {
-              padding: 20px 10px;
+             // padding: 20px 10px;
+             padding: 0px 10px;
               width: 100%;
             }
             .refOrden {
@@ -448,7 +449,7 @@
     }
 
     .detail-order .container .list-orders .order .order-info li {
-      padding: 10px 0px 0px 10px;
+      padding: 0px 0px 10px 10px;
     }
 
     .detail-order .container .list-orders .order .total-product {

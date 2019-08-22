@@ -237,6 +237,7 @@ export class LoginPage implements OnInit {
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
+    dialogConfig.panelClass = 'store-dialog-container-class';
     // dialogConfig.disableClose = true;
     // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
     const dialogRef = this.dialog.open(ModalGoToStoreComponent, dialogConfig);

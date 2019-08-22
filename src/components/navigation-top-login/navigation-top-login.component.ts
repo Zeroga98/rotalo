@@ -282,6 +282,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '900px';
     dialogConfig.width = '55%';
+    dialogConfig.panelClass = 'store-dialog-container-class';
   //  dialogConfig.minHeight = '350px';
     // dialogConfig.disableClose = true;
     // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();

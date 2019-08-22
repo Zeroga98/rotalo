@@ -827,7 +827,10 @@ export class HomeShopPrivateComponent implements OnInit, OnDestroy, AfterViewIni
       return bannersCategoria;
     }
     goHomeStore() {
-      const routeHome = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FEED}`;
+      let routeHome = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FEED}`;
+      if (window.location.href.includes('feriasufi')) {
+        routeHome = `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`;
+      }
       var categoria = document.createElement('a');
       categoria.href = routeHome;
       categoria.click();

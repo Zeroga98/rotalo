@@ -156,6 +156,7 @@ export class SimulateCreditPage implements OnInit {
 
     const initialQuota  = this.simulateCreditService.getInitialQuota();
     const months = this.simulateCreditService.getMonths();
+
     this.simulateForm = this.fb.group(
       {
         'credit-value': [
@@ -236,7 +237,10 @@ export class SimulateCreditPage implements OnInit {
 
   simulateCredit() {
     const priceVehicle = this.simulateForm.get('credit-value').value;
-    const initialFee = this.simulateForm.get('initial-quota').value;
+    let initialFee = this.simulateForm.get('initial-quota').value;
+    if (initialFee) {
+      initialFee = Math.round(initialFee);
+    }
     let termMonths = this.simulateForm.get('term-months').value;
     termMonths = Number(termMonths);
     const infoVehicle = {
@@ -269,7 +273,10 @@ export class SimulateCreditPage implements OnInit {
   creditRequest() {
     if (this.contactUser.valid) {
       const priceVehicle = this.simulateForm.get('credit-value').value;
-      const initialFee = this.simulateForm.get('initial-quota').value;
+      let initialFee = this.simulateForm.get('initial-quota').value;
+      if (initialFee) {
+        initialFee = Math.round(initialFee);
+      }
       let termMonths = this.simulateForm.get('term-months').value;
       termMonths = Number(termMonths);
       const phone = this.contactUser.get('phone-user').value;
@@ -283,7 +290,8 @@ export class SimulateCreditPage implements OnInit {
         'plazo': termMonths,
         'telefono': phone,
         'horarioDeContacto': hourContact,
-        'ingresos': salary
+        'ingresos': salary,
+        'storeId': this.storeId
       };
 
       infoVehicle = Object.assign(infoVehicle, this.simulatePlan);
