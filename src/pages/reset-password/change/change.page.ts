@@ -59,7 +59,7 @@ export class ChangePage implements OnInit {
     let idCountry;
     if (currentUrl.includes('gt')) {
       idCountry = 9;
-    }else {
+    } else {
       idCountry = 1;
     }
     const params = {
@@ -73,12 +73,30 @@ export class ChangePage implements OnInit {
       this.errorChange = '';
       this.showLink = true;
       alert('Su contraseña se ha actualizado correctamente.');
+      this.gapush(
+        'send',
+        'event',
+        'Ingreso',
+        'ClicLogin',
+        'GuardarTuContraseniaExitoso'
+      );
       this.router.navigate([`${ROUTES.HOME}`]);
     },
     (error) => {
       this.errorChange = error.error.message;
     });
+  }
 
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
 }

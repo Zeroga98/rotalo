@@ -43,22 +43,55 @@ export class RecoverPage implements OnInit {
       (response) => {
         this.errorStatus = '200';
         this.email = userEmail;
+        this.gapush(
+          'send',
+          'event',
+          'Ingreso',
+          'ClicLogin',
+          'RecuperaTuContraseniaCorp'
+        );
       },
       (error) => {
         if(error.error.status==603){
           this.errorStatus = error.error.status;
+          this.gapush(
+            'send',
+            'event',
+            'Ingreso',
+            'ClicLogin',
+            'RecuperaTuContraseniaNoCorp'
+          );
         }
         if(error.error.status==607){
           this.errorStatus = error.error.status;
         }
         if(error.error.status==609){
           this.errorStatus = error.error.status;
+          this.gapush(
+            'send',
+            'event',
+            'Ingreso',
+            'ClicLogin',
+            'RecuperaTuContraseniaNoRegist'
+          );
         }
         if(error.error.status==610){
           this.errorStatus = error.error.status;
         }
       }
     );
+  }
+
+  gapush(method, type, category, action, label) {
+    const paramsGa = {
+      event: 'pushEventGA',
+      method: method,
+      type: type,
+      categoria: category,
+      accion: action,
+      etiqueta: label
+    };
+    window['dataLayer'].push(paramsGa);
   }
 
   goToHome() {

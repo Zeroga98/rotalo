@@ -268,9 +268,9 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
         let showBancolombiaProducts = false;
         user && user.company && user.company.name == 'Bancolombia' ?
         showBancolombiaProducts = true : showBancolombiaProducts = false;
-        if (showBancolombiaProducts) {
+       /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
-        }
+        }*/
       }
      } catch (error) {
        console.error(error);
