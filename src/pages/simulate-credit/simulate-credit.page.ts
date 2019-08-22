@@ -7,7 +7,7 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductInterface } from '../../commons/interfaces/product.interface';
 import { ProductsService } from '../../services/products.service';
 import { SettingsService } from '../../services/settings.service';
@@ -78,7 +78,8 @@ export class SimulateCreditPage implements OnInit {
   public simulateForm: FormGroup;
   public contactUser: FormGroup;
   public product: ProductInterface;
-  public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
+ // public idProduct: number = parseInt(this.router.url.replace(/[^\d]/g, ''));
+  public idProduct;
   public showSimulator = false;
   public priceVehicle: number;
   public showMessageBank: boolean;
@@ -127,6 +128,8 @@ export class SimulateCreditPage implements OnInit {
     }
   ];
 
+  public storeId;
+
   @HostListener('document:click', ['$event']) clickout(event) {
     if (event.target && event.target.className) {
       if (event.target.className == 'opacity') {
@@ -138,6 +141,7 @@ export class SimulateCreditPage implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private productsService: ProductsService,
     private fb: FormBuilder,
     private settingsService: SettingsService,
@@ -149,6 +153,7 @@ export class SimulateCreditPage implements OnInit {
   }
 
   ngOnInit(): void {
+
     const initialQuota  = this.simulateCreditService.getInitialQuota();
     const months = this.simulateCreditService.getMonths();
     this.simulateForm = this.fb.group(
@@ -174,10 +179,20 @@ export class SimulateCreditPage implements OnInit {
       'hour-contact': ['Mañana', Validators.required],
       'check-authorization': ['', [Validators.required, checkValidator]]
     });
-    this.loadProduct();
-    // this.loadInterestRate();
-    this.loadCurrentUser();
-    this.sufiRegister();
+    this.getParams ();
+  }
+
+  getParams () {
+    this.route.params.subscribe(params => {
+      this.idProduct = params['id'];
+      if (params['storeId']) {
+        this.storeId = params['storeId'];
+      }
+      this.loadProduct();
+      // this.loadInterestRate();
+      this.loadCurrentUser();
+      this.sufiRegister();
+    });
   }
 
   loadSimulateCredit() {
@@ -270,7 +285,11 @@ export class SimulateCreditPage implements OnInit {
         'horarioDeContacto': hourContact,
         'ingresos': salary
       };
+
       infoVehicle = Object.assign(infoVehicle, this.simulatePlan);
+      if (this.storeId) {
+        infoVehicle = Object.assign(infoVehicle, {storeId: this.storeId});
+      }
       this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
         this.showModalCredit = true;
         this.changeDetectorRef.markForCheck();
@@ -313,19 +332,40 @@ export class SimulateCreditPage implements OnInit {
   loadProduct() {
     const self = this;
     if (this.idProduct) {
-      this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
-        if (reponse.body) {
-          this.product = reponse.body.productos[0];
-          this.showPage = true;
-          this.populatePreciVehicle(this.product);
-          this.validateMonths();
-          this.changeDetectorRef.markForCheck();
-          self.loadSimulateCredit();
-        }
-      },
+      if (this.storeId) {
+        const params =  {
+          idTienda: this.storeId,
+          idProducto: this.idProduct
+        };
+        this.productsService.getProductsByIdDetailPrivate(params).subscribe((response) => {
+          if (response.body) {
+            this.product = response.body.productos[0];
+            this.showPage = true;
+            this.populatePreciVehicle(this.product);
+            this.validateMonths();
+            this.changeDetectorRef.markForCheck();
+            self.loadSimulateCredit();
+          }
+        },
         (error) => {
           console.log(error);
         });
+
+      } else  {
+        this.productsService.getProductsByIdDetail(this.idProduct).subscribe((response) => {
+          if (response.body) {
+            this.product = response.body.productos[0];
+            this.showPage = true;
+            this.populatePreciVehicle(this.product);
+            this.validateMonths();
+            this.changeDetectorRef.markForCheck();
+            self.loadSimulateCredit();
+          }
+        },
+          (error) => {
+            console.log(error);
+          });
+      }
     }
   }
 

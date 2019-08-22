@@ -112,6 +112,17 @@ export class UserService {
     return this.httpClient.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  contactUserProductPrivate (params) {
+    let jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    jsonSapiHeaders = Object.assign(jsonSapiHeaders, { storeId: this.configurationService.storeIdPrivate.toString(),
+      productId: params.productId.toString()});
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    console.log(jsonSapiHeaders);
+    const url =
+    `${this.urlSapi}/storescontactprivate`;
+    return this.httpClient.post(url, {} , { headers: headers }).pipe(map((response: any) => response));
+  }
+
   loadUserInfoCode(code) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);

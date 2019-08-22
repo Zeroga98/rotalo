@@ -170,7 +170,10 @@ export class BannerLatiendaComponent implements OnInit {
   }
 
   goHomeStore() {
-    const routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    let routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
+    if (window.location.href.includes('feriasufi')) {
+      routeHome = `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`;
+    }
     const categoria = document.createElement('a');
     categoria.href = routeHome;
     categoria.click();

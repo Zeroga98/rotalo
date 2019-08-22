@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ROUTES } from './../../router/routes';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ModalFeedBackService } from '../modal-feedBack/modal-feedBack.service';
@@ -20,7 +20,9 @@ export class FooterComponent implements OnInit {
   private readonly _homeRoute: string = `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`;
   public successModal  = false;
   private currentUrl = '';
+  public params;
   constructor(private _router: Router,
+    private route: ActivatedRoute,
     private currentSessionService: CurrentSessionService,
     private modalService: ModalFeedBackService,
     private configurationService: ConfigurationService) { }
@@ -31,6 +33,15 @@ export class FooterComponent implements OnInit {
       this.termsLink = `/${ROUTES.TERMS}/${this.configurationService.storeIdPrivate}`;
       this.faqLink = `/${ROUTES.FAQ}/${this.configurationService.storeIdPrivate}`;
     }
+    this.route.params.subscribe((response) => {
+      if (response['id']) {
+        this.termsLink = `/${ROUTES.TERMS}/${response['id']}`;
+        this.faqLink = `/${ROUTES.FAQ}/${response['id']}`;
+      }
+    }, (error) => {
+      console.log(error);
+    });
+
   }
 
   goToHome() {

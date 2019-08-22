@@ -339,6 +339,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.emptyMessaje = false;
     this.errorState = false;
     this.errorCity = false;
+    this.state = undefined;
+    this.city = undefined;
     this.classCheckSelected = numberSelect;
     const address = this.registerForm.get('address');
     const cellphone = this.registerForm.get('cellphone');
@@ -477,12 +479,13 @@ export class CarMicrositePage implements OnInit, OnDestroy {
 
   async pay() {
 
-    if (this.classCheckSelected && !this.disablePayButton) {
+    if (this.classCheckSelected ) {
       this.hasPending = false;
       this.emptyMessaje = false;
       this.emptyCheck = false;
       this.disablePayButton = true;
       this.productsWithError = false;
+
       if (this.classCheckSelected  && (this.classCheckSelected == 1 || !this.formIsInvalid)) {
         try {
           // Verificar la cantidad de los productos
@@ -491,8 +494,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           try {
             // Generarla orden de waybox
             const orden = await this.back.getOrden(this.generateJsonToWaybox());
-            try {
 
+            try {
               // Una vez se genere la orden, se reserva el stock
               const response = await this.back.reserveStock();
               this.gapush('send', 'event', 'TiendaCorporativa', 'ClicCarrito', 'ComprarExitoso');
@@ -509,6 +512,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           } catch (error) {
             this.hasPending = true;
             this.disablePayButton = false;
+
             console.log(error)
             if (error.error.status === 500) {
               this.errorPending = '¡Ups! parece que algo ha salido mal, cominícate con info@rotalo.com.';
@@ -564,6 +568,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         }
       );
     });
+    console.log(body);
     return body;
   }
 
@@ -589,6 +594,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   generateJsonToWaybox() {
     const jsonProducts = [];
     this.products.forEach(element => {
+
       jsonProducts.push(
         {
           'idProducto': element.product.id,
@@ -602,7 +608,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         }
       );
     });
-    const json = {
+
+    let json = {
       'totalOrder': this.carTotalPrice,
       'envio': this.classCheckSelected,
       'cliente': {
@@ -613,10 +620,10 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         'numeroCelular': this.cellphone
       },
       'datosDireccion': {
-        'departamento': this.state.name,
-        'ciudad': this.city.name,
-        'direccion': this.registerForm.get('address').value,
-        'numeroContacto': this.registerForm.get('cellphone').value
+        'departamento': this.state && this.state.name ? this.state.name : '',
+        'ciudad': this.city && this.city.name ?this.city.name : '',
+        'direccion': this.registerForm && this.registerForm.get('address').value ? this.registerForm.get('address').value : '',
+        'numeroContacto': this.registerForm && this.registerForm.get('cellphone').value  ? this.registerForm.get('cellphone').value : ''
       },
       'listaProductos': jsonProducts
     };
