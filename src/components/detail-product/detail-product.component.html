@@ -602,7 +602,7 @@
         <div class="title-product">{{products.name}}</div>
         <div class="date">
             Publicado
-            <span class="date">{{products['published-at'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
+            <span class="date">{{products['publishedAt'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
         </div>
         <div
             [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"
