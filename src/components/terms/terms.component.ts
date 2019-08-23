@@ -19,21 +19,24 @@ export class TermsComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    let params = {};
-    let pais = 1;
+    const params = {
+      pais: 1,
+    };
+
     if (this.isGuatemala) {
-      pais = 9;
+      params.pais = 9;
     }
     this.route.params.subscribe(p => {
       this.params = p;
-      let tienda;
-      if (this.params['id']) {
+    //  let tienda;
+   /*   if (this.params['id']) {
         tienda = this.params['id'];
         params = {
           pais: pais,
           tienda: tienda
         };
-      }
+      }*/
+
       this.settingsService.getTerms(params).subscribe((response) => {
         if (response.body && response.body.terminoCondicion) {
           this.terms = response.body.terminoCondicion.content;
