@@ -857,6 +857,13 @@
       margin-right: 2.4rem;
     }
 
+    .navbar-header .list-options li.car-container.cart-active.totalCart .container-car .icon-shopping-car {
+      background: url(../../assets/img/iconos/ic_header_carrito_red.svg) no-repeat;
+      width: 18px;
+      height: 18px;
+      margin: 0px;
+    }
+
     .container-car {
       p {
         display: none;
@@ -883,8 +890,9 @@
     }
 
     .navbar-header .list-options li .noti-circle {
-      top: 3px;
-      right: -10px;
+     /* top: 3px;
+      right: -10px;*/
+      display: none;
     }
 
     .navbar-header .list-options li.perfil-container {
