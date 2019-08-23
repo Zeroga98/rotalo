@@ -17,13 +17,13 @@
               <div class="featured-cards">
                 <div class="featured-card">
                   <div class="item__wrapper">
-
                     <div class="item__card">
+
                       <a
                       [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
                       onclick="return false;" [href]="getUrlProduct(product)">
                         <div class="item__image-container">
-                          <div *ngIf="product['is-low-price'] ||  isActivePromo(product)"
+                          <div *ngIf="product['isLowPrice'] ||  isActivePromo(product)"
                             class="container-low-price">
                             <p>$ REBAJÓ</p>
                           </div>

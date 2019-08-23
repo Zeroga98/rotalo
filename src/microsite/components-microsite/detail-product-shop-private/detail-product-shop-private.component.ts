@@ -778,7 +778,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
       productId: this.idProduct
     };
     this.userService.contactUserProductPrivate(params).subscribe(response => {
-      console.log(response);
+
     }, error => {
         console.log(error);
     });

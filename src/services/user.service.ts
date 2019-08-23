@@ -117,7 +117,6 @@ export class UserService {
     jsonSapiHeaders = Object.assign(jsonSapiHeaders, { storeId: this.configurationService.storeIdPrivate.toString(),
       productId: params.productId.toString()});
     const headers = new HttpHeaders(jsonSapiHeaders);
-    console.log(jsonSapiHeaders);
     const url =
     `${this.urlSapi}/storescontactprivate`;
     return this.httpClient.post(url, {} , { headers: headers }).pipe(map((response: any) => response));

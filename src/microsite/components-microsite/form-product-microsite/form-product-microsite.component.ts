@@ -193,7 +193,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   async getInfoUser() {
     this.userEdit = await this.userService.getInfoUser();
-    console.log( this.userEdit);
     this.cellphone = this.userEdit.cellphone;
     if (this.userEdit && this.userEdit.company && this.userEdit.company.community) {
       this.communityName = this.userEdit.company.community.name;

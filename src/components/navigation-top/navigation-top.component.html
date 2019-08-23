@@ -160,10 +160,11 @@
                           <div class="bullet"></div>
                           <a>Destacados</a>
                         </li> -->
+                        <!--
                         <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
                             <div class="bullet"></div>
                             <a>Carga de productos</a>
-                          </li>
+                          </li>-->
                     </ul>
                   </article>
                 </div>
@@ -209,7 +210,7 @@
             </mat-menu>
           </li>
 
-          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
+          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" [ngClass]="{totalCart: totalCart}" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
               </span>

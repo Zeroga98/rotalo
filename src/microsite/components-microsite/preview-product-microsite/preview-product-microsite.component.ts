@@ -649,7 +649,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
   }
 
   async addToShoppingCar(product) {
-    console.log(product);
     let idProducto;
     let nombreProducto = this.products.name;
     let fotoProducto = this.products.photoList;

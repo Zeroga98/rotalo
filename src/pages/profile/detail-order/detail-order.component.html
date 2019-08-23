@@ -129,10 +129,15 @@
                     Envío nacional {{detailOrder.shippingTaxes.shippingPrice | currency:"$" | removeDigits}}
                   </span>
                 </p>
+                <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 1">
+                  <span>
+                    Carrera 48 N.° 26-85 – Torre Sur
+                  </span>
+                </p>
               </div>
               <div class="flex">
                 <p class="address">{{detailOrder.datosEnvio.direccion}}</p>
-                <p> <span>{{detailOrder.datosEnvio.ciudad}}</span> -
+                <p> <span *ngIf="detailOrder.datosEnvio.ciudad">{{detailOrder.datosEnvio.ciudad}}  - </span>
                   <span>{{detailOrder.datosEnvio.departamento}}</span></p>
               </div>
               <div>

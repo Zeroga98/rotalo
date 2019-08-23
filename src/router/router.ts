@@ -115,7 +115,7 @@ export const appRouter: Routes = [
       {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
       {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/:id`, component: ProductsShopComponent},
-      {path: ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS, component: UploadProductsComponent },
+/*      {path: ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS, component: UploadProductsComponent },*/
       { path: ROUTES.MENUROTALOCENTER.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.MENUROTALOCENTER.HOBBIES, component: HobbiesPage },
       { path: ROUTES.MENUROTALOCENTER.EDITPROFILE, component: EditProfilePage },
@@ -312,6 +312,7 @@ export const appRouter: Routes = [
   },
 
 /****/
+/*
 {
   path: ROUTES.SHOPS.LINK,
   component: ProductsHomePage,
@@ -346,8 +347,9 @@ export const appRouter: Routes = [
       pathMatch: 'full'
     }
   ]
-},
+},*/
 /****/
+/*
 {
   path: ROUTES.SHOPSPRIVATE.LINK,
   component: ProductsShopPrivateComponent,
@@ -375,7 +377,7 @@ export const appRouter: Routes = [
       pathMatch: 'full'
     }
   ]
-},
+},*/
 /****/
   {
     path: '',
