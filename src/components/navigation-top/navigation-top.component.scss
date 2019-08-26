@@ -666,6 +666,9 @@
     background-color: #E5E5E5;
     color: #707070;
     cursor: not-allowed;
+    span {
+      background-image: url(../../assets/img/iconos/ic_camera_disabled.svg);
+    }
   }
 
   .navbar-header .disabled .upload-offer-button .outside-circle .inside-circle {
