@@ -114,7 +114,7 @@
                 </div>
               </li>
 
-              <li *ngIf="showPayButton && product['sell-type'] == 'VENTA' ">
+              <li *ngIf="showPayButton && product['sellType'] == 'VENTA' ">
                 <span>Selecciona el método con el que quieres pagar</span>
                 <div class="btn-container-pay">
                   <mat-button-toggle-group #group="matButtonToggleGroup" [value]="selectedVal" (change)="onValChange(group.value)">
@@ -139,7 +139,7 @@
 
             <div class="button-form">
               <div class="container-button">
-                <div *ngIf="product && product['sell-type'] !='ALQUILA'" class="button">
+                <div *ngIf="product && product['sellType'] !='ALQUILA'" class="button">
                   <custom-button [buttonClass]="'gtmCompConfirmComp primary'" [disabled]="disableButton"
                     class="gtmCompConfirmComp" type="submit" text="Confirmar"></custom-button>
                 </div>

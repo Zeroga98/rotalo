@@ -123,7 +123,7 @@ export class BuyProductPage implements OnInit {
 
   vaproductIsFree() {
     return (
-      (this.product && this.product['sell-type'] === 'GRATIS') ||
+      (this.product && this.product['sellType'] === 'GRATIS') ||
       this.product.price === 0
     );
   }
