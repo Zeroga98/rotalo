@@ -1138,6 +1138,11 @@
       height: 150vw;
     }
 
+    div.banner-latienda .img-logo-tienda {
+      width: 98.71px;
+      height: 70.51px;
+    }
+
   }
 }
 
@@ -1200,6 +1205,10 @@ div.banner-latienda {
     border-radius: 5px;
     margin-left: 60px;
     cursor: pointer;
+    width: 100%;
+    min-width: 98.71px;
+    max-width: 175px;
+    max-height: 125px;
   }
 }
 
@@ -2619,5 +2628,13 @@ div.div-banners-promo {
     background: #fff !important;
     // padding:0 !important;
     max-width: 3000 !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :host {
+    div.banner-latienda .div-banner-tienda {
+      height: 4.5rem;
+    }
   }
 }
