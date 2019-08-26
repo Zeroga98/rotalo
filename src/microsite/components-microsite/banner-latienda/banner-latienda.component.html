@@ -30,7 +30,7 @@
         <div class="div-banner-tienda-solo"></div>
         <div class="div-logo-tienda" *ngIf="bannerHomeTienda && bannerHomeTienda.get('urlLogo')
                                             && bannerHomeTienda.get('urlLogo').value">
-            <a (click)="goHomeStore()"><img class="img-logo-tienda" [src]="bannerHomeTienda.get('urlLogo').value"></a>
+            <a (click)="goHomeStore()"><img class="img-logo-tienda detail" [src]="bannerHomeTienda.get('urlLogo').value"></a>
         </div>
     </div>
 </div>

@@ -13,11 +13,16 @@
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-
+    position: relative;
     @media #{$medium-max} {
       width: 90%;
       ;
     }
+  }
+
+  back-arrow {
+    position: absolute;
+    left: -4.5%;
   }
 
   .mobile-notification {
@@ -1158,6 +1163,14 @@
       }
     }
 
+  }
+}
+
+@media screen and (max-width: 955px) {
+  :host {
+    back-arrow {
+      position: initial;
+    }
   }
 }
 
