@@ -302,6 +302,11 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   //   }
    }
 
+
+   resetBannerPromo(id) {
+
+   }
+
    onRemovePreviewImageDynamic(event, element, type) {
     event.deleteAll();
     if (type == 'desktop') {

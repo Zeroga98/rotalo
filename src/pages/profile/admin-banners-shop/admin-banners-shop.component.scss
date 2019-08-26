@@ -563,10 +563,12 @@
         width: 30%;
         margin-right: 3%;
       }
+      .form-group.full{
+        width: 46%;
+      }
     }
   }
 }
-
 
 :host {
   .trash-icon {
@@ -677,6 +679,16 @@
     border: 1px solid #ED2F3C;
     border-radius: 30px 30px 30px 30px;
     margin: 20px 0;
+  }
+}
+
+:host {
+  .category-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .right-site {
+    width: 46%;
   }
 }
 
