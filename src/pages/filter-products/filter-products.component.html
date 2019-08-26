@@ -26,7 +26,7 @@
 
     <aside class="accordion" [ngClass]="{'active': !showFilterResponsive}">
       <div class="filters">
-        <div class="title-filter">
+        <div *ngIf="params && params['product_name'] || category || category && category.subCategory && category.subCategory.name"  class="title-filter">
           <p class="category bold" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
           <p class="category" [ngClass]="!category.subCategory || !category.subCategory.name  ?  'bold': ''"
             *ngIf="category">{{category.name}}

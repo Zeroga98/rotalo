@@ -65,7 +65,7 @@
             <div class="main">
               <div [ngClass]="{'active': !showFilterResponsive}" class="head-filter">
                 <div class="container-filter">
-                  <div class="title-filter">
+                  <div  class="title-filter">
                     <div *ngIf="showFilterResponsive">
                       <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
                       <p class="category" *ngIf="category">{{category.name}}
@@ -130,7 +130,7 @@
       <div>
         <aside class="accordion" *ngIf="filter" [ngClass]="{'active': !showFilterResponsive}">
           <div class="filters">
-            <div class="title-filter">
+            <div *ngIf="params && params['product_name'] || category || category && category.subCategory && category.subCategory.name" class="title-filter">
               <div *ngIf="showFilterResponsive">
                 <p class="category" *ngIf="params && params['product_name']">{{params['product_name']}}</p>
                 <p class="category" *ngIf="category">{{category.name}}
