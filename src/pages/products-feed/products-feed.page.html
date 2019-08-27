@@ -11,20 +11,24 @@
 <ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div  [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
     class="item-banner">
       <a
      [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
       target="_blank" *ngIf="image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [href]="image['link']">
         <img
        [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
         [src]="image['url-photo-desktop']">
       </a>
       <img
      [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
       *ngIf="!image['link'] && 0>image['url-photo-desktop'].indexOf('SOAT')" [src]="image['url-photo-desktop']">
       <a target="_blank" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
         <img class="gtmSliderSoatNProductos" [src]="image['url-photo-desktop']">
@@ -47,21 +51,25 @@
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div
     [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
 
     class="item-banner">
         <a
         [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
         target="_blank" *ngIf="image['link']" [href]="image['link']">
             <img
             [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
             [src]="image['url-photo-mobile']">
         </a>
         <img
         [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO')}"
+    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat')}"
         *ngIf="!image['link']" [src]="image['url-photo-mobile']">
     </div>
   </ngx-item>
