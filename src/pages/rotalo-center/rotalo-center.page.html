@@ -105,12 +105,10 @@
                       <a>Destacados</a>
                     </li> -->
 
-
-                    <!--
-                    <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
+                    <li routerLinkActive="active" routerLink="{{uploadProducts}}/{{store.id}}" class="subOption">
                         <div class="bullet"></div>
                         <a>Carga de productos</a>
-                      </li>-->
+                      </li>
                   </ul>
                 </article>
             </div>
@@ -122,10 +120,10 @@
         <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
             <div class="option">
               <div class="ico admin-icon "></div>
-              <input  (change) = " selectOption(option4, 3)" id="ac-4" name="accordion-4" type="checkbox" />
+              <input  (change) = " selectOption(option4, 2)" id="ac-4" name="accordion-4" type="checkbox" />
               <label for="ac-4">Admin. Sistema<div class="icon"></div></label>
             </div>
-            <article (click)="closeOptions(3)" class="ac-small">
+            <article (click)="closeOptions(2)" class="ac-small">
               <ul>
                 <li [routerLink]="users" routerLinkActive="active" class="subOption">
                   <div class="bullet"></div>

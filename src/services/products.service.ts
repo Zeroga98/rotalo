@@ -469,28 +469,28 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
-  getProductsHistorical() {
+  getProductsHistorical(idTienda) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
-    const url = `${this.urlSapi}/cargas/masivas/consultas/historiales`;
-    return this.http.get(url, { headers: headers }).pipe(map((response: any) => response));
+    ///${idTienda}
+    const url = `${this.urlSapi}/cargas/masivas/consultas/historiales/${idTienda}`;
+    return this.http.get(url, { headers: headers  }).pipe(map((response: any) => response));
   }
 
-  uploadPhotosShop(files) {
-    const formData: FormData = this.buildFormDataPhotos(files);
+  uploadPhotosShop(files, idShop) {
+    const formData: FormData = this.buildFormDataPhotos(files, idShop);
     const url = `${this.urlSapi}/cargas/masivas/validaciones/imagenes`;
     return this.http.post(url, formData,  {
       headers: new HttpHeaders().delete('Content-Type')
     }).pipe(map((response: any) => response));
   }
 
-  private buildFormDataPhotos(files): FormData {
+  private buildFormDataPhotos(files, idShop): FormData {
     const formData = new FormData();
-    const idTienda = '1';
     for (let i = 0; i < files.length; i++) {
       formData.append('imagenesProductos', files[i]);
     }
-    formData.append('idTienda', idTienda);
+    formData.append('idTienda', idShop);
     return formData;
   }
 

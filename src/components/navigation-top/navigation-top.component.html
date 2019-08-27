@@ -160,25 +160,25 @@
                           <div class="bullet"></div>
                           <a>Destacados</a>
                         </li> -->
-                        <!--
-                        <li routerLinkActive="active" [routerLink]="uploadProducts" class="subOption">
-                            <div class="bullet"></div>
-                            <a>Carga de productos</a>
-                          </li>-->
+
+                        <li routerLinkActive="active" routerLink="{{uploadProducts}}/{{store.id}}" class="subOption">
+                          <div class="bullet"></div>
+                          <a>Carga de productos</a>
+                        </li>
                     </ul>
                   </article>
                 </div>
                 </div>
 
                 <div class="ac-container">
-                      <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open" [ngClass]="options[3] ? 'open' : ''">
+                      <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open" [ngClass]="options[2] ? 'open' : ''">
                         <div (click)="$event.stopPropagation();" mat-menu-item class="option">
                           <div class="ico admin-icon "></div>
-                          <input (change) = "selectOption(option4, 3)"  id="menu-4"
+                          <input (change) = "selectOption(option4, 2)"  id="menu-4"
                             name="accordion-4" type="checkbox" />
                           <label for="menu-4">Admin. Sistema<div class="icon"></div></label>
                         </div>
-                        <article (click)="closeOptions(3)" class="ac-small">
+                        <article (click)="closeOptions(2)" class="ac-small">
                           <ul>
                             <li [routerLink]="users" routerLinkActive="active" class="subOption">
                               <div class="bullet"></div>

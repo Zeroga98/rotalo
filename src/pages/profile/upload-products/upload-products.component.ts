@@ -31,19 +31,23 @@ export class UploadProductsComponent implements OnInit {
   public loading = false;
   public checkFile = [false, false];
   public maxFiles = [];
+  public idTienda;
   constructor(private userService: UserService,
     private photosService: PhotosService,
     private currentSession: CurrentSessionService,
-    private actRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private productsService: ProductsService,
     private router: Router) { }
 
   ngOnInit() {
-    this.getProductsHistorical();
+    this.route.params.subscribe(params => {
+      this.idTienda = params['id'];
+      this.getProductsHistorical();
+    });
   }
 
   getProductsHistorical() {
-    this.productsService.getProductsHistorical().subscribe((response) => {
+    this.productsService.getProductsHistorical(this.idTienda).subscribe((response) => {
       if (response.body) {
         this.historicalProducts = response.body.historialCargasMasivas;
 
@@ -96,7 +100,7 @@ export class UploadProductsComponent implements OnInit {
       this.loading = true;
       if (this.selectedFile.name.includes('.xls') || this.selectedFile.name.includes('.xlsx')) {
         this.selectedFileName = this.selectedFile.name;
-        this.productsService.uploadFileProducts(this.selectedFile, 1).subscribe((response) => {
+        this.productsService.uploadFileProducts(this.selectedFile, this.idTienda).subscribe((response) => {
           this.checkFile[0] = true;
           this.loading = false;
           this.messageError = '';
@@ -131,7 +135,7 @@ export class UploadProductsComponent implements OnInit {
         this.messageError = 'Alguna de tus imágenes está un poco pesadas. Debe ser máximo de 10MB.';
         this.maxFiles = this.maxSizeFiles();
       } else {
-        this.productsService.uploadPhotosShop(this.selectedFilesImages).subscribe((response) => {
+        this.productsService.uploadPhotosShop(this.selectedFilesImages, this.idTienda).subscribe((response) => {
           this.checkFile[1] = true;
           this.loading = false;
           this.messageError = '';
@@ -165,9 +169,9 @@ export class UploadProductsComponent implements OnInit {
     this.success = false;
     this.error = false;
     this.loading = true;
-    if(this.checkFile[0] && this.checkFile[1]) {
+    if (this.checkFile[0] && this.checkFile[1]) {
       const params = {
-        'idTienda': 1,
+        'idTienda': this.idTienda,
         'nombreArchivo': this.selectedFileName
       };
       this.productsService.proccessProducts(params).subscribe((response)=> {
@@ -176,7 +180,7 @@ export class UploadProductsComponent implements OnInit {
         this.error = false;
         this.success = true;
         this.getProductsHistorical();
-      }, (error)=> {
+      }, (error) => {
         this.loading = false;
         this.error = true;
         if (error.error && error.error.message) {
