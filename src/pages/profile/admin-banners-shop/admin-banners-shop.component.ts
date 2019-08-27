@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UtilsService } from '../../../util/utils.service';
 import { CategoriesService } from '../../../services/categories.service';
 import { ActivatedRoute } from '@angular/router';
+import { CategoryInterface } from '../../../commons/interfaces/category.interface';
 
 @Component({
   selector: 'app-admin-banners-shop',
@@ -25,6 +26,7 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   public bannerPromocionalForm;
   public bannersCategorias;
   public categories;
+  public subCategories = [];
   public idTienda;
   public routeSub;
   constructor(
@@ -61,11 +63,13 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   }
 
   loadBanners() {
-
     this.settingsService.getBannersShop(this.idTienda).subscribe(response => {
       if (response.body) {
-      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda);}
-      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {this.setInitialFormPromo(response.body);}
+      if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda); }
+      if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {
+        console.log(response.body);
+        this.setInitialFormPromo(response.body);
+      }
       if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
       }
     });
@@ -159,6 +163,7 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
           'idBannerMobile': '',
           'urlBannerMobile': '',
           'idCategoria': '',
+          'idSubCategoria': '',
           'link': ''
         },
         {
@@ -168,6 +173,7 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
           'idBannerMobile': '',
           'urlBannerMobile': '',
           'idCategoria': '',
+          'idSubCategoria': '',
           'link': ''
         }
         ,   {
@@ -177,6 +183,7 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
           'idBannerMobile': '',
           'urlBannerMobile': '',
           'idCategoria': '',
+          'idSubCategoria': '',
           'link': ''
         }
       ]
@@ -193,6 +200,7 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
         idBannerMobile: banner.idBannerMobile,
         urlBannerMobile: banner.urlBannerMobile,
         idCategoria: banner.idCategoria,
+        idSubCategoria: banner.idSubCategoria,
         link: banner.link
       });
     });
@@ -278,7 +286,6 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
         this.removeBanner(id);
       }, (error) => {
         this.errorHomeTienda  = error.error.message;
-
         console.log(error);
       });
     } else {
@@ -397,6 +404,16 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
       });
     //}
 
+  }
+
+  selectedCategory(idCategory: number , index) {
+    this.subCategories[index] = this.findCategory(idCategory).subcategories;
+  }
+
+  private findCategory(id: number) {
+    return this.categories.find(
+      (category: CategoryInterface) => category.id == id
+    );
   }
 
 

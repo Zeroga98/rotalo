@@ -251,17 +251,19 @@
                             <div class="category-container">
                                 <div class="form-group field-form full">
                                     <label class="label-title">Categoría</label>
-                                    <select formControlName="idCategoria" name="position" class="form-control">
+                                    <select
+                                    (change)="selectedCategory($event.target.value, i)"
+                                    formControlName="idCategoria" name="position" class="form-control">
                                       <option value="" selected="true"></option>
                                       <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                                     </select>
                                     <span class="error-msg">Este campo es requerido</span>
                                 </div>
                                 <div class="form-group field-form full">
-                                    <label class="label-title">Categoría</label>
-                                    <select formControlName="idCategoria" name="position" class="form-control">
+                                    <label class="label-title">Sub categoría</label>
+                                    <select formControlName="idSubCategoria" name="position" class="form-control">
                                       <option value="" selected="true"></option>
-                                      <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                                      <option *ngFor="let subCategory of subCategories[i]" value="{{subCategory.id}}">{{subCategory.name}}</option>
                                     </select>
                                     <span class="error-msg">Este campo es requerido</span>
                                 </div>
