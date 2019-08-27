@@ -41,13 +41,6 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.loadCategories();
-    this.routeSub = this.route.params.subscribe(params => {
-      this.idTienda = params['id'];
-      this.loadBanners();
-      this.setFormHomeShop(this.getInitialConfigHomeShop());
-      this.setInitialFormCategories(this.getInitialConfigCategories());
-      this.setInitialFormPromo(this.getInitialConfigPromo());
-    });
   }
 
   ngOnDestroy() {
@@ -57,6 +50,13 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   loadCategories() {
     this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
       this.categories = response;
+      this.routeSub = this.route.params.subscribe(params => {
+        this.idTienda = params['id'];
+        this.loadBanners();
+        this.setFormHomeShop(this.getInitialConfigHomeShop());
+        this.setInitialFormCategories(this.getInitialConfigCategories());
+        this.setInitialFormPromo(this.getInitialConfigPromo());
+      });
     }, (error) => {
       console.log(error);
     });
@@ -67,10 +67,14 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
       if (response.body) {
       if (response.body.bannerHomeTienda) {this.setFormHomeShop(response.body.bannerHomeTienda); }
       if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) {
-        console.log(response.body);
+        for (let i = 0; i < response.body.bannerPromocional.length; i++) {
+          if (response.body.bannerPromocional[i].idCategoria) {
+            this.selectedCategory(response.body.bannerPromocional[i].idCategoria , i);
+          }
+        }
         this.setInitialFormPromo(response.body);
       }
-      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body);}
+      if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) {this.setInitialFormCategories(response.body); }
       }
     });
   }
@@ -311,7 +315,14 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
 
 
    resetBannerPromo(id) {
-
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerPromocional: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerDesktop: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ urlBannerDesktop: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerMobile: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ urlBannerMobile: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idCategoria: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idSubCategoria: '' });
+    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ link: '' });
    }
 
    onRemovePreviewImageDynamic(event, element, type) {
@@ -407,7 +418,9 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   }
 
   selectedCategory(idCategory: number , index) {
-    this.subCategories[index] = this.findCategory(idCategory).subcategories;
+    if (this.categories) {
+      this.subCategories[index] = this.findCategory(idCategory).subcategories;
+    }
   }
 
   private findCategory(id: number) {

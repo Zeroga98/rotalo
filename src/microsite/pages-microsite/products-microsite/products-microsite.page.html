@@ -29,7 +29,7 @@
         </div>
         <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
           <a class="pointer"
-            (click)="redirectCategory(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value)"
+            (click)="redirectPromoBanner(bannerPromocionalForm.get('bannerPromocional').controls[i])"
             target="_blank">
             <img class="img-promo"
               [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerDesktop'].value">

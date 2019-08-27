@@ -475,13 +475,13 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   public filterByCategory(id: String, name: String) {
 
     this.showBannersPromo = false;
-    if(id==='' && name===''){
+    if(id==='' && name==='') {
       this.showBannersPromo = true;
     }
     this.changeBanner(id);
     this.category = id;
     this.categoryName = name;
-    this.selected='Más relevante';
+    this.selected = 'Más relevante';
     this.routineUpdateProducts({ product_category_id: id, number: 1 });
     this.scrollToTop();
   }
@@ -736,6 +736,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
           'idBannerMobile': '',
           'urlBannerMobile': '',
           'idCategoria': '',
+          'idSubCategoria': '',
           'link': ''
         }
       ]
@@ -813,49 +814,60 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     if (window.location.href.includes('feriasufi')) {
       routeHome = `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`;
     }
-    var categoria = document.createElement("a");
+    var categoria = document.createElement('a');
     categoria.href = routeHome;
     categoria.click();
   }
   redirectLink(url) {
-    var categoria = document.createElement("a");
-    categoria.target = "_blank";
+    var categoria = document.createElement('a');
+    categoria.target = '_blank';
     categoria.href = url;
     categoria.click();
   }
   redirectCategory(categoria: String) {
     let name;
-    for(let i = 0; i<this.filter.filtroCategoria.categorias.length;i++){
-      if(this.filter.filtroCategoria.categorias[i].id==categoria){
-        name=this.filter.filtroCategoria.categorias[i].name;
+    for(let i = 0; i < this.filter.filtroCategoria.categorias.length; i++) {
+      if (this.filter.filtroCategoria.categorias[i].id == categoria){
+        name = this.filter.filtroCategoria.categorias[i].name;
       }
     }
     this.filterByCategory(categoria, name);
   }
+
+  redirectPromoBanner(formControl) {
+    let name;
+    for(let i = 0; i < this.filter.filtroCategoria.categorias.length; i++) {
+      if (this.filter.filtroCategoria.categorias[i].id == formControl.controls['idCategoria'].value){
+        name = this.filter.filtroCategoria.categorias[i].name;
+      }
+    }
+    this.filterByCategory(formControl.controls['idCategoria'].value, name);
+  }
+
   public filterOrder(filtro) {
     let order;
     if (filtro === 'Relevancia') {
-      order = "product_store_index-asc";
+      order = 'product_store_index-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Más reciente') {
-      order = "product_published_at-desc";
+      order = 'product_published_at-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Más antiguo') {
-      order = "product_published_at-asc";
+      order = 'product_published_at-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Menor precio') {
-      order = "product_price-asc";
+      order = 'product_price-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Mayor precio') {
-      order = "product_price-desc";
+      order = 'product_price-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }

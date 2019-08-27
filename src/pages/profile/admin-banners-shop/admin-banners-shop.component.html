@@ -18,7 +18,7 @@
   </div>
 -->
   <!--banner tienda-->
-  <div class="form-container">
+  <div *ngIf="bannerHomeTienda" class="form-container">
     <form [formGroup]="bannerHomeTienda" class="form-theme">
       <div class="material-design">
         <div class="row">
@@ -145,7 +145,7 @@
   </div>
 
   <!--banner promocional-->
-  <div class="form-container full-card">
+  <div *ngIf="bannerPromocionalForm" class="form-container full-card">
     <form [formGroup]="bannerPromocionalForm" class="form-theme">
       <div class="material-design">
         <div class="sub-container">
@@ -290,7 +290,7 @@
   </div>
 
     <!--banner categorias-->
-  <div class="form-container">
+  <div *ngIf="bannersCategoriaForm" class="form-container">
       <form [formGroup]="bannersCategoriaForm" class="form-theme">
         <div class="material-design">
           <div formArrayName="bannersCategoria" class="row">
