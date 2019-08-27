@@ -1231,7 +1231,7 @@ div.div-banners-promo {
   }
 
   .img-promo {
-    width: 120%;
+    width: 100%;
   }
 }
 
@@ -1661,9 +1661,10 @@ div.div-banners-promo {
 }
 
 .desktop {
-  margin-right: 50px;
-  margin-left: 50px;
   display: block;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 :host {
