@@ -351,9 +351,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
       this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${
         ROUTES.PRODUCTS.UPLOAD}`]);
     }*/
-    this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}`]);
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
+    if(!this.isBancolombiaShop) {
+      this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.UPLOAD}`]);
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+    }
+
   }
 
   get isColombiaCountry() {

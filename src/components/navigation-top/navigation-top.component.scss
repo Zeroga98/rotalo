@@ -13,11 +13,16 @@
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-
+    position: relative;
     @media #{$medium-max} {
       width: 90%;
       ;
     }
+  }
+
+  back-arrow {
+    position: absolute;
+    left: -4.5%;
   }
 
   .mobile-notification {
@@ -145,17 +150,17 @@
 
         .noti-circle {
           position: absolute;
-          top: 0px;
+          top: 2px;
           right: -20px;
           margin-left: 5px;
-          background-color: $blue;
+          background-color: #FF3646;
           border-radius: 50%;
           font-size: 1rem;
-          height: 20px;
-          width: 20px;
+          height: 16px;
+          width: 16px;
           display: flex;
           justify-content: center;
-          font-weight: bold;
+          font-family: 'Lato Regular';
           align-items: center;
           color: #fff;
         }
@@ -165,8 +170,12 @@
         margin-right: 2.4rem;
       }
 
+      li.car-container.totalCart {
+        margin-right: 4.8rem;
+      }
+
       li.car-container {
-        // margin-right: 1.6rem;
+       // margin-right: 4.8rem;
 
         .container-car {
           display: flex;
@@ -650,7 +659,7 @@
   }
 
   .navbar-header .list-options li.cart-active {
-    color: #0FBBD8;
+    color: #333333;
     cursor: pointer;
 
     &:hover {
@@ -662,6 +671,9 @@
     background-color: #E5E5E5;
     color: #707070;
     cursor: not-allowed;
+    span {
+      background-image: url(../../assets/img/iconos/ic_camera_disabled.svg);
+    }
   }
 
   .navbar-header .disabled .upload-offer-button .outside-circle .inside-circle {
@@ -847,6 +859,19 @@
 
 @media screen and (max-width: 1276px) {
   :host {
+
+
+    .navbar-header .list-options li.car-container.totalCart {
+      margin-right: 2.4rem;
+    }
+
+    .navbar-header .list-options li.car-container.cart-active.totalCart .container-car .icon-shopping-car {
+      background: url(../../assets/img/iconos/ic_header_carrito_red.svg) no-repeat;
+      width: 18px;
+      height: 18px;
+      margin: 0px;
+    }
+
     .container-car {
       p {
         display: none;
@@ -873,8 +898,9 @@
     }
 
     .navbar-header .list-options li .noti-circle {
-      top: 3px;
-      right: -10px;
+     /* top: 3px;
+      right: -10px;*/
+      display: none;
     }
 
     .navbar-header .list-options li.perfil-container {
@@ -1137,6 +1163,14 @@
       }
     }
 
+  }
+}
+
+@media screen and (max-width: 955px) {
+  :host {
+    back-arrow {
+      position: initial;
+    }
   }
 }
 

@@ -210,7 +210,7 @@
             </mat-menu>
           </li>
 
-          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" class="car-container cart-active">
+          <li *ngIf="isBancolombiaShop" (click)="goToShoppingCar()" [ngClass]="{totalCart: totalCart}" class="car-container cart-active">
             <div [ngClass]="{active: isActive(rotaloCart)}" class="container-car">
               <span class="icon-shopping-car">
               </span>
