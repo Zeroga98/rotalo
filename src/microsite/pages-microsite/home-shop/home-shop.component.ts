@@ -808,6 +808,7 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
         idBannerMobile: banner.idBannerMobile,
         urlBannerMobile: banner.urlBannerMobile,
         idCategoria: banner.idCategoria,
+        idSubCategoria: banner.idSubCategoria,
         link: banner.link
       });
     });
@@ -841,15 +842,29 @@ export class HomeShopComponent implements OnInit, OnDestroy, AfterViewInit {
     categoria.href = url;
     categoria.click();
   }
-  redirectCategory(categoria: String) {
+
+  redirectPromoBanner(formControl) {
     let name;
-    for(let i = 0; i<this.filter.filtroCategoria.categorias.length;i++){
-      if(this.filter.filtroCategoria.categorias[i].id==categoria){
-        name=this.filter.filtroCategoria.categorias[i].name;
+    for(let i = 0; i < this.filter.filtroCategoria.categorias.length; i++) {
+      if (this.filter.filtroCategoria.categorias[i].id == formControl.controls['idCategoria'].value){
+        name = this.filter.filtroCategoria.categorias[i].name;
       }
     }
-    this.filterByCategory(categoria, name);
+    this.filterByCategory(formControl.controls['idCategoria'].value, name);
+    if (formControl.controls['idSubCategoria'] && formControl.controls['idSubCategoria'].value) {
+      let nameCategory = '';
+      if (this.filter.filtroSubcategoria  && this.filter.filtroSubcategoria.subcategorias) {
+        const subCategory = this.filter.filtroSubcategoria.subcategorias.filter(message => {
+          return message.id == formControl.controls['idSubCategoria'].value;
+        });
+        if(subCategory) {
+          nameCategory = subCategory[0].name;
+        }
+      }
+      this.filterBySubcategory(formControl.controls['idSubCategoria'].value, nameCategory);
+    }
   }
+
   public filterOrder(filtro) {
     let order;
     if (filtro === 'Relevancia') {
