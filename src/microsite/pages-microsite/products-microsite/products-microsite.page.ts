@@ -507,7 +507,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.subcategory = subcategory;
     this.subcategoryName = name;
     this.showBannersPromo = false;
-    this.selected='Más relevante';
+    this.selected = 'Más relevante';
     this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
     this.scrollToTop();
   }
@@ -791,6 +791,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         idBannerMobile: banner.idBannerMobile,
         urlBannerMobile: banner.urlBannerMobile,
         idCategoria: banner.idCategoria,
+        idSubCategoria: banner.idSubCategoria,
         link: banner.link
       });
     });
@@ -842,6 +843,18 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.filterByCategory(formControl.controls['idCategoria'].value, name);
+    if (formControl.controls['idSubCategoria'] && formControl.controls['idSubCategoria'].value) {
+      let nameCategory = '';
+      if (this.filter.filtroSubcategoria  && this.filter.filtroSubcategoria.subcategorias) {
+        const subCategory = this.filter.filtroSubcategoria.subcategorias.filter(message => {
+          return message.id == formControl.controls['idSubCategoria'].value;
+        });
+        if(subCategory) {
+          nameCategory = subCategory[0].name;
+        }
+      }
+      this.filterBySubcategory(formControl.controls['idSubCategoria'].value, nameCategory);
+    }
   }
 
   public filterOrder(filtro) {
