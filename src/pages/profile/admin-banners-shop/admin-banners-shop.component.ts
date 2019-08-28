@@ -315,7 +315,6 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
 
 
    resetBannerPromo(id) {
-    this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerPromocional: '' });
     this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerDesktop: '' });
     this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ urlBannerDesktop: '' });
     this.bannerPromocionalForm.get('bannerPromocional').controls[id].patchValue({ idBannerMobile: '' });
