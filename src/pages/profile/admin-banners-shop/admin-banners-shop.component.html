@@ -18,7 +18,7 @@
   </div>
 -->
   <!--banner tienda-->
-  <div class="form-container">
+  <div *ngIf="bannerHomeTienda" class="form-container">
     <form [formGroup]="bannerHomeTienda" class="form-theme">
       <div class="material-design">
         <div class="row">
@@ -95,7 +95,7 @@
                               </div>
                             </div>
                             <div class="title-first">Banner versión desktop</div>
-                            <div class="title-first">1900px X 188px</div>
+                            <div class="title-first">1920px X 188px</div>
                           </div>
                         </div>
                         <div class="item place-holder">
@@ -145,7 +145,7 @@
   </div>
 
   <!--banner promocional-->
-  <div class="form-container full-card">
+  <div *ngIf="bannerPromocionalForm" class="form-container full-card">
     <form [formGroup]="bannerPromocionalForm" class="form-theme">
       <div class="material-design">
         <div class="sub-container">
@@ -164,13 +164,18 @@
               </div>
               <div class="banner" [formGroupName]="i">
                 <div class="row">
+                    <a (click)="resetBannerPromo(i)"
+                      mat-icon-button>
+                      <div class="trash-icon"></div>
+                    </a>
+                </div>
+                <div class="row">
                   <div class="images-container full">
                     <div class="container-prev-photos">
                       <div class="grid-wrapper">
                         <div id="grid-holder{{i}}" class="grid-holder">
                           <div class="item place-holder">
                             <div id='photo1{{i}}' class="item-content">
-
                               <div
                                 *ngIf="
                                         bannerPromocionalForm.get('bannerPromocional').controls[i] &&
@@ -242,18 +247,32 @@
                               <div class="title-first">255px X 110px</div>
                             </div>
                           </div>
-                          <div class="form-group field-form position">
-                              <label class="label-title">Categoría</label>
-                              <select formControlName="idCategoria" name="position" class="form-control">
-                                <option value="" selected="true"></option>
-                                <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
-                              </select>
-                              <span class="error-msg">Este campo es requerido</span>
-                          </div>
-                          <div class="form-group field-form position">
-                              <label class="label-title">Link</label>
-                              <input class="form-control" formControlName="link" type="text">
-                              <span class="error-msg">Este campo es requerido</span>
+                          <div class="right-site">
+                            <div class="category-container">
+                                <div class="form-group field-form full">
+                                    <label class="label-title">Categoría</label>
+                                    <select
+                                    (change)="selectedCategory($event.target.value, i)"
+                                    formControlName="idCategoria" name="position" class="form-control">
+                                      <option value="" selected="true"></option>
+                                      <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                                    </select>
+                                    <span class="error-msg">Este campo es requerido</span>
+                                </div>
+                                <div class="form-group field-form full">
+                                    <label class="label-title">Sub categoría</label>
+                                    <select formControlName="idSubCategoria" name="position" class="form-control">
+                                      <option value="" selected="true"></option>
+                                      <option *ngFor="let subCategory of subCategories[i]" value="{{subCategory.id}}">{{subCategory.name}}</option>
+                                    </select>
+                                    <span class="error-msg">Este campo es requerido</span>
+                                </div>
+                            </div>
+                            <div class="form-group field-form full">
+                                  <label class="label-title">Link</label>
+                                  <input class="form-control" formControlName="link" type="text">
+                                  <span class="error-msg">Este campo es requerido</span>
+                              </div>
                           </div>
                         </div>
                       </div>
@@ -271,7 +290,7 @@
   </div>
 
     <!--banner categorias-->
-  <div class="form-container">
+  <div *ngIf="bannersCategoriaForm" class="form-container">
       <form [formGroup]="bannersCategoriaForm" class="form-theme">
         <div class="material-design">
           <div formArrayName="bannersCategoria" class="row">
@@ -291,7 +310,7 @@
                     <div class="trash-icon"></div>
                   </a>
                   <a *ngIf="bannersCategoriaForm.get('bannersCategoria').controls.length == 1"
-                  (click)="resetFormBanner (i)"
+                  (click)="resetFormBanner(i)"
                     mat-icon-button>
                     <div class="trash-icon"></div>
                   </a>
@@ -337,7 +356,7 @@
                                 </div>
                               </div>
                               <div class="title-first">Banner versión desktop</div>
-                              <div class="title-first">1900px X 188px</div>
+                              <div class="title-first">1920px X 188px</div>
                             </div>
                           </div>
                           <div class="item place-holder">
