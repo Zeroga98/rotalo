@@ -42,9 +42,10 @@
         <div class="list">
           <div class="masonry">
             <div class="grid-item">
-              <product #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 9, currentPage: pageNumber, totalItems: totalItems }"
+              <product (click) = "goToDetail()" #productsEnd *ngFor="let product of products | paginate: { itemsPerPage: 9, currentPage: pageNumber, totalItems: totalItems }"
                 class="product-feed product-rotando"
                 (updateProducts)="updateProduct($event)"
+                [rotando]="true"
                 [isProductSelling]="true" [showField]="false" [product]="product"
                 [colourCompany]="product['seller_company_color']  ? product['seller_company_color'] : '#FF3646'" id="{{product.product_id}}">
               </product>

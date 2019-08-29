@@ -185,7 +185,7 @@
     }
   }
 
-  .container-photo {
+  .urlProduct{
     .options-container {
       position: absolute;
       z-index: 1;
@@ -270,10 +270,12 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
+
   .gold-ranking{
     width: 12rem;
     background: transparent;
   }
+
   .container-date {
     color: #A2A2A2;
   }
@@ -287,6 +289,10 @@
     background-color: #0fbbd817;
     margin-bottom: 10px;
   }
+}
+
+.urlProduct {
+  position: relative;
 }
 
 }
