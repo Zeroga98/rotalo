@@ -241,6 +241,7 @@ import { ProductMicrositePrivateComponent } from '../microsite/components-micros
 import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-go-to-store.component';
 import { ModalFormDetailComponent } from '../microsite/components-microsite/modal-form-detail/modal-form-detail.component';
 import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
+import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
 
 @NgModule({
   declarations: [
@@ -399,7 +400,8 @@ import { ActivationEmailComponent } from '../pages/activation-email/activation-e
     ProductMicrositePrivateComponent,
     ModalGoToStoreComponent,
     ModalFormDetailComponent,
-    ActivationEmailComponent
+    ActivationEmailComponent,
+    ModalAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -529,7 +531,8 @@ import { ActivationEmailComponent } from '../pages/activation-email/activation-e
     ModalReactivateUserSuccessComponent,
     ModalGoToStoreComponent,
     ModalFormRegisterComponent,
-    ModalFormDetailComponent]
+    ModalFormDetailComponent,
+    ModalAlertComponent]
 })
 
 export class AppModule { }

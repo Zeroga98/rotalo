@@ -13,6 +13,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { TermsDialogComponent } from '../../pages/home/terms-modal/terms-dialog.component';
 import { ModalReactivateUserComponent } from '../modal-reactivate-user/modal-reactivate-user.component';
 import { ModalGoToStoreComponent } from '../modal-go-to-store/modal-go-to-store.component';
+import { ModalAlertComponent } from '../modal-alert/modal-alert.component';
 
 
 @Component({
@@ -271,6 +272,7 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
+        this.openDialogAlert();
       }
      } catch (error) {
        console.error(error);
@@ -287,6 +289,20 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
     // dialogConfig.disableClose = true;
     // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
     const dialogRef = this.dialog.open(ModalGoToStoreComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openDialogAlert(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.panelClass = 'alert-class';
+  //  dialogConfig.minHeight = '350px';
+    // dialogConfig.disableClose = true;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalAlertComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
     });
   }
