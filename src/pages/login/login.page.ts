@@ -17,6 +17,7 @@ import { ProductsMicrositeService } from '../../microsite/services-microsite/bac
 import { TermsDialogComponent } from '../home/terms-modal/terms-dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ModalGoToStoreComponent } from '../../components/modal-go-to-store/modal-go-to-store.component';
+import { ModalAlertComponent } from '../../components/modal-alert/modal-alert.component';
 
 
 @Component({
@@ -244,6 +245,21 @@ export class LoginPage implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+    openDialogAlert(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.width = '55%';
+    dialogConfig.panelClass = 'alert-class';
+  //  dialogConfig.minHeight = '350px';
+    // dialogConfig.disableClose = true;
+    // dialogConfig.data = this.loginForm.get('email').value.toLowerCase();
+    const dialogRef = this.dialog.open(ModalAlertComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
 
   goBack(): void {
     window.history.back();
