@@ -175,6 +175,129 @@ export const IMGS_COMPANIES = [
     url: './assets/img/logos_company/36_optima.png',
     name: 'optima'
   }
+  ,
+
+
+
+
+
+
+  {
+    url: './assets/img/logos_company/40_Fec.png',
+    name: 'fec'
+  }
+  , {
+    url: './assets/img/logos_company/41_Pro_hogar.png',
+    name: 'pro_hogar'
+  }
+  , {
+    url: './assets/img/logos_company/42_Comfenalco.png',
+    name: 'comfenalco'
+  }
+  , {
+    url: './assets/img/logos_company/43_Loyals.png',
+    name: 'loyals'
+  }
+  , {
+    url: './assets/img/logos_company/44_Viviendas_y_proyectos.png',
+    name: 'Viviendas_y_proyectos'
+  }
+
+  , {
+    url: './assets/img/logos_company/45_ACtual.png',
+    name: 'ACtual.png'
+  }
+
+  , {
+    url: './assets/img/logos_company/46_Arquitectura_y_concreto.png',
+    name: 'Arquitectura_y_concreto'
+  }
+
+  , {
+    url: './assets/img/logos_company/47_TCC.png',
+    name: 'TCC'
+  }
+
+  , {
+    url: './assets/img/logos_company/48_CAribemotor.png',
+    name: 'CAribemotor'
+  }
+  , {
+    url: './assets/img/logos_company/49_Tuyo_motor.png',
+    name: 'Tuyo_motor.png'
+  }
+  , {
+    url: './assets/img/logos_company/50_Incolmotos.png',
+    name: 'Incolmotos'
+  }
+  , {
+    url: './assets/img/logos_company/51_Ayura_motor.png',
+    name: 'Ayura_motor'
+  }
+  , {
+    url: './assets/img/logos_company/52_Inter_llantas.png',
+    name: 'Inter_llantas'
+  }
+  , {
+    url: './assets/img/logos_company/53_vehiculos_del_camino.png',
+    name: 'vehiculos_del_camino'
+  }
+  , {
+    url: './assets/img/logos_company/54_Red_llantas.png',
+    name: 'Red_llantas'
+  }
+
+  , {
+    url: './assets/img/logos_company/55_ANDAR.png',
+    name: 'ANDAR'
+  }
+  , {
+    url: './assets/img/logos_company/56_Emi.png',
+    name: 'Emi'
+  }
+  , {
+    url: './assets/img/logos_company/57_Cruz_roja.png',
+    name: 'Cruz_roja.png'
+  }
+  , {
+    url: './assets/img/logos_company/58_Satrack.png',
+    name: 'Satrack'
+  }
+  , {
+    url: './assets/img/logos_company/59_Marikay.png',
+    name: 'Marikay'
+  }
+  , {
+    url: './assets/img/logos_company/60_Globant.png',
+    name: 'Globant'
+  }
+  , {
+    url: './assets/img/logos_company/61_Personal_soft.png',
+    name: 'Personal_soft'
+  }
+  , {
+    url: './assets/img/logos_company/62_Todo_1.png',
+    name: 'Todo_1'
+  }
+
+  , {
+    url: './assets/img/logos_company/63_Pactia.png',
+    name: 'Pactia'
+  }
+
+  , {
+    url: './assets/img/logos_company/64_Autoland.png',
+    name: 'Autoland'
+  }
+  , {
+    url: './assets/img/logos_company/65_Cintel.png',
+    name: 'Cintel'
+  }
+  , {
+    url: './assets/img/logos_company/66_iblu.png',
+    name: 'iblu'
+  }
+
 ];
 
 export const IMGS_COMPANIES_GUATEMALA = [
