@@ -27,7 +27,7 @@
         <div class="reenviar-correo">
           <div class="title"><strong>¡Revisa tu correo!</strong></div>
           <br>
-          <div>Acabamos de enviar la activación de tu cuenta a <strong>{{email}}</strong></div>
+          <div>Hemos enviado el nuevo link de activación a tu cuenta <strong>{{email}}</strong></div>
           <div>Si no lo ves, verifica tu Correo No Deseado.</div>
         </div>
       </div>
@@ -35,6 +35,7 @@
           <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el email">
           </custom-button>
         </div>
+
         <div *ngIf="showMessageEmail" class="success-message">
           <span class="icon-check">
           </span>
