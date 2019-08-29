@@ -5,6 +5,7 @@ export const ROUTES = {
     ROTALOCENTER: 'rotalo-center',
     RESETPASS: 'reset-password',
     RECOVER: 'recover',
+    ACTIVATIONROTALO: 'send-email',
     CONFIRM: 'confirm',
     CHANGE: 'change',
     PROFILE: 'profile',

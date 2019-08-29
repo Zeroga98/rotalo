@@ -70,6 +70,7 @@ import { FrequentlyAsketQuestionsShopComponent } from '../microsite/pages-micros
 import { ProductsShopPrivateComponent } from '../microsite/pages-microsite/products-shop-private/products-shop-private.component';
 import { HomeShopPrivateComponent } from '../microsite/pages-microsite/home-shop-private/home-shop-private.component';
 import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/detail-page-shop-private/detail-page-shop-private.component';
+import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
 
 export const appRouter: Routes = [
   {
@@ -301,6 +302,10 @@ export const appRouter: Routes = [
   {
     path: ROUTES.FAQ,
     component: FrequentlyAskedQuestionsComponent
+  },
+  {
+    path: `${ROUTES.ACTIVATIONROTALO}/:country/:email`,
+    component: ActivationEmailComponent
   },
   {
     path: `${ROUTES.FAQ}/:id`,

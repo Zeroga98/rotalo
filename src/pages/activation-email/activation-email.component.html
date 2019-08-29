@@ -1,0 +1,48 @@
+<navigation-top-login>
+</navigation-top-login>
+<div class="container">
+  <div *ngIf="!successEmail">
+      <div class="icon-link-page">
+        </div>
+        <div class="info-container">
+          <div class="title">
+            <p>
+              ¡Rayos! este link está roto
+            </p>
+          </div>
+          <div class="description">
+            <p>
+              Haz clic en el botón y te enviaremos otro link de activación
+            </p>
+          </div>
+          <div class="btn-container">
+            <button (click)="reSendEmail()" color="warn" class="button" mat-flat-button>Enviar nuevamente</button>
+          </div>
+        </div>
+  </div>
+  <div *ngIf="successEmail" class="success-container">
+      <div class="img-send">
+      </div>
+      <div class="text-container">
+        <div class="reenviar-correo">
+          <div class="title"><strong>¡Revisa tu correo!</strong></div>
+          <br>
+          <div>Hemos enviado el nuevo link de activación a tu cuenta <strong>{{email}}</strong></div>
+          <div>Si no lo ves, verifica tu Correo No Deseado.</div>
+        </div>
+      </div>
+      <div class="btn-container">
+          <custom-button type="submit" (click)="reSendEmail()" buttonClass="primary register" text="No me llegó el email">
+          </custom-button>
+        </div>
+
+        <div *ngIf="showMessageEmail" class="success-message">
+          <span class="icon-check">
+          </span>
+          <span class="text">
+            ¡Hemos enviado el correo con éxito!
+          </span>
+        </div>
+  </div>
+</div>
+<custom-footer></custom-footer>

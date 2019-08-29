@@ -103,8 +103,14 @@ export class SignUpPage implements OnInit {
       }
     }, (error) => {
       if (error.status) {
-        console.log(error.status);
+        console.log(error);
+
         this.errorMessage = error.error.message;
+        if (error.error.status && error.error.status == '605') {
+          if (this.country) {
+            this.router.navigate([`/${ROUTES.ACTIVATIONROTALO}/${this.country.id}/${error.error.email}`]);
+          }
+        }
         this.utilsService.goToTopWindow(20, 600);
       }
     });

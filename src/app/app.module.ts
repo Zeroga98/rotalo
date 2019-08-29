@@ -240,6 +240,7 @@ import { DetailProductShopPrivateComponent } from '../microsite/components-micro
 import { ProductMicrositePrivateComponent } from '../microsite/components-microsite/product-microsite-private/product-microsite-private.component';
 import { ModalGoToStoreComponent } from '../components/modal-go-to-store/modal-go-to-store.component';
 import { ModalFormDetailComponent } from '../microsite/components-microsite/modal-form-detail/modal-form-detail.component';
+import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
 
 @NgModule({
   declarations: [
@@ -397,7 +398,8 @@ import { ModalFormDetailComponent } from '../microsite/components-microsite/moda
     DetailProductShopPrivateComponent,
     ProductMicrositePrivateComponent,
     ModalGoToStoreComponent,
-    ModalFormDetailComponent
+    ModalFormDetailComponent,
+    ActivationEmailComponent
   ],
   imports: [
     BrowserModule,
