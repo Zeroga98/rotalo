@@ -47,6 +47,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   @Input() totalProducts = 5;
   @ViewChild('containerProducts', { read: ElementRef })
   containerProducts: ElementRef;
+  @Input() rotando: boolean;
 
   readonly defaultImage: string = '../assets/img/product-no-image.png';
   private readonly limitSize: number = 220;
@@ -163,12 +164,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   openModalInactiveProduct(): void {
     let estado = this.productStatus ? (this.productChecked = 'active') : (this.productChecked = 'inactive');
 
-    if(estado=='inactive')
-    {
-      this.saveCheck()
-    }
-    else
-    {
+    if (estado == 'inactive') {
+      this.saveCheck();
+    } else {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = '300px';
@@ -486,7 +484,19 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-
+  goToDetail(product: ProductInterface) {
+    if (this.rotando) {
+      if (product.id) {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product.id}`
+        ]);
+      } else if (product['product_id']) {
+        this.router.navigate([
+          `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product['product_id']}`
+        ]);
+      }
+    }
+  }
 
 
 }
