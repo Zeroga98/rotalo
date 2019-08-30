@@ -316,6 +316,12 @@ export class NavigationTopComponent implements OnInit, OnDestroy {
         if (error.error.error == 401) {
           this.loginService.logout();
         }
+        if (error.error.error == 400) {
+          this.loginService.logout();
+        }
+        if (error.status == 0) {
+          this.loginService.logout();
+        }
       }
     );
   }
