@@ -417,8 +417,13 @@ export class AdminBannersShopComponent implements OnInit, OnDestroy{
   }
 
   selectedCategory(idCategory: number , index) {
-    if (this.categories) {
-      this.subCategories[index] = this.findCategory(idCategory).subcategories;
+    if(idCategory) {
+      if (this.categories) {
+        this.subCategories[index] = this.findCategory(idCategory).subcategories;
+      }
+    } else  {
+      this.subCategories[index] = undefined;
+      this.bannerPromocionalForm.get('bannerPromocional').controls[index].patchValue({ idSubCategoria: '' });
     }
   }
 
