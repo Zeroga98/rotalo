@@ -25,6 +25,11 @@
               ¡Hemos enviado el correo con éxito!
             </span>
           </div>
+          <div *ngIf="showMessageError" class="success-message">
+            <span class="text error">
+              {{error}}
+            </span>
+          </div>
         </div>
   </div>
 </div>

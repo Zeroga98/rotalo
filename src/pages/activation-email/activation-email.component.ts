@@ -12,8 +12,9 @@ export class ActivationEmailComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
   public country;
   public email;
-  public successEmail = false;
   public showMessageEmail = false;
+  public showMessageError = false;
+  public error;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -29,10 +30,15 @@ export class ActivationEmailComponent implements OnInit {
         'correo': this.email ? this.email : ''
       };
       this.userService.reSendEmail(params).subscribe(response => {
-        this.successEmail = true;
+        this.showMessageError = false;
         this.showMessageEmail = true;
       }, error => {
         console.log(error);
+        this.showMessageError = true;
+        this.showMessageEmail = false;
+        if (error.error && error.error.message) {
+          this.error = error.error.message;
+        }
       });
   }
 
