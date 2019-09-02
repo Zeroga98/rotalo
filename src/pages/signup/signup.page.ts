@@ -36,6 +36,7 @@ export class SignUpPage implements OnInit {
   public errorLogin;
   private userCountry: any;
   public errorMessage = '';
+  public email;
 
   constructor(
     private userService: UserService,
@@ -83,6 +84,11 @@ export class SignUpPage implements OnInit {
         this.setCountry(this.paramsUrl.country);
         this.codeSignup =  this.paramsUrl.code;
         this.loadUserInfoCode(this.codeSignup);
+        this.email = this.paramsUrl.email;
+        let email = this.email;
+        email = email.replace(' ', '+');
+        email = email.replace(/\s+/g, '+');
+        this.email = email;
         this.userCountry = this.paramsUrl.country;
       });
     } catch (error) {
@@ -108,7 +114,7 @@ export class SignUpPage implements OnInit {
         this.errorMessage = error.error.message;
         if (error.error.status && error.error.status == '605') {
           if (this.country) {
-            this.router.navigate([`/${ROUTES.ACTIVATIONROTALO}/${this.country.id}/${error.error.email}`]);
+            this.router.navigate([`/${ROUTES.ACTIVATIONROTALO}/${this.country.id}/${this.email}`]);
           }
         }
         this.utilsService.goToTopWindow(20, 600);
