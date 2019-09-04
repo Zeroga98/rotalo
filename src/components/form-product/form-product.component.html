@@ -183,7 +183,7 @@
                     </button>
                   </span>
                   <input type="text" class="form-control input-number input-sm quantity-style" name="stock" currencyMask
-                    [options]="{prefix: '' , align: 'left', precision: 0}"
+                    [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="stock"
                     placeholder="1" maxlength="5" autocomplete="off">
                   <span class="input-group-btn">
@@ -239,7 +239,7 @@
                 <div class="price-container">
                   <input [attr.disabled]="!photosForm.get('checkNewPrice').value ? '' : null"
                     class="form-control input-price" name="specialPrice" currencyMask
-                    [options]="{prefix: '' , align: 'left', precision: 0}"
+                    [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder=""
                     formControlName="specialPrice" maxlength="50" autocomplete="off">
                   <span *ngIf="!isErrorCategoryNewPrice" class="error-msg">Ingresa un precio menor o igual a
@@ -347,7 +347,7 @@
                                   </button>
                                 </span>
                                 <input formControlName="stock" type="text" class="form-control input-number input-sm quantity-style" name="stock"
-                                  currencyMask [options]="{prefix: '' , align: 'left', precision: 0}"
+                                  currencyMask [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                   placeholder="1" maxlength="5" autocomplete="off">
                                 <span class="input-group-btn">
@@ -417,7 +417,7 @@
                 <div class="kilometraje-container">
                   <label class="label-title">Kilometraje*</label>
                   <input class="form-control input-price" name="mileage" currencyMask
-                    [options]="{prefix: '' , align: 'left', precision: 0}"
+                    [options]="{prefix: '' , align: 'left', precision: 0, allowNegative: false}"
                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="mileage"
                     placeholder="10.000" maxlength="50" autocomplete="off">
                   <label class="symbol-km">Km</label>
