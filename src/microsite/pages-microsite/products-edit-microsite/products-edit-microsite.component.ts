@@ -84,7 +84,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
   updatePhoto(event) {
     this.productsService.updateProductForm(this.idProduct, event).subscribe((response) => {
       this.router.navigate([
-        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}`
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/${this.idShop}`
       ]);
       this.productsService.products = [];
     },
