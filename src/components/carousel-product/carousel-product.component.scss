@@ -20,6 +20,7 @@
         }
 
         h3 {
+
           color: #383838;
           font-size: 1.8rem;
           font-weight: bold;
@@ -550,3 +551,12 @@
   }
 
 }
+
+@media screen and (max-width: 520px) {
+  .featured-section .featured-container .header-featured{
+    display: flex;
+    align-items: center;
+  }
+}
+
+
