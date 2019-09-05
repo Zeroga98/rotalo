@@ -926,7 +926,7 @@
             <div class="list">
               <div class="masonry">
                 <div class="order-by">
-                  <h4>Ordenar por:</h4>
+                  <h4>Ordenar por</h4>
                   <mat-form-field>
                     <mat-select (selectionChange)="filterOrder($event.value)" [(value)]="selected">
                       <mat-option *ngFor="let order of orderBy" [value]="order">{{order}}</mat-option>
