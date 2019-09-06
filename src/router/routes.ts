@@ -18,14 +18,14 @@ export const ROUTES = {
     FAQ: 'faq',
     LOGINMOBILE: 'login-mobile',
     SHOPS: {
-      LINK: 'tiendainmueble',
+      LINK: 'tiendainmuebleTest',
       FEED: 'inicio',
       SHOW: 'detalle',
       TERMS: 'terms',
       FAQ: 'faq'
     },
     SHOPSPRIVATE: {
-      LINK: 'feriasufi',
+      LINK: 'feriasufiTest',
       FEED: 'inicio',
       SHOW: 'detalle',
       TERMS: 'terms',

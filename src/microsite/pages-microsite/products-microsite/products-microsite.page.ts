@@ -473,7 +473,6 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public filterByCategory(id: String, name: String) {
-
     this.showBannersPromo = false;
     if(id==='' && name==='') {
       this.showBannersPromo = true;
@@ -714,6 +713,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         this.showBannersPromo = true;
       }
     });
+    this.changeDetectorRef.markForCheck();
   }
   private getInitialConfigHomeShop() {
     const config = {
@@ -849,7 +849,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
         const subCategory = this.filter.filtroSubcategoria.subcategorias.filter(message => {
           return message.id == formControl.controls['idSubCategoria'].value;
         });
-        if(subCategory) {
+        if(subCategory && subCategory[0]) {
           nameCategory = subCategory[0].name;
         }
       }
@@ -885,4 +885,10 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
       this.scrollToTop();
     }
   }
+
+  testt() {
+    alert('test');
+  }
+
 }
+

@@ -226,7 +226,7 @@ export class LoginPage implements OnInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
-        this.openDialogAlert();
+       // this.openDialogAlert();
       }
     } catch (error) {
       console.error(error);

@@ -94,11 +94,22 @@
         <div class="featured-container">
           <div class="row-featured">
               <ngx-carousel class="carousel-featured" [inputs]="carouselConfig">
-                <ngx-item NgxCarouselItem *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
-                  <a class="link-product">
-                    <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerMobile'].value">
-                  </a>
-                </ngx-item>
+                  <ngx-item NgxCarouselItem *ngFor="let banner of bannerPromocionalForm.get('bannerPromocional').controls; let i = index;">
+                      <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value">
+                          <a
+                          (click)="redirectLink(bannerPromocionalForm.get('bannerPromocional').controls[i].controls['link'].value)"
+                          class="link-product">
+                            <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerMobile'].value">
+                          </a>
+                        </div>
+                        <div *ngIf="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['idCategoria'].value">
+                          <a
+                          (click)="redirectPromoBanner(bannerPromocionalForm.get('bannerPromocional').controls[i])"
+                          class="link-product">
+                            <img class="img-promo" [src]="bannerPromocionalForm.get('bannerPromocional').controls[i].controls['urlBannerMobile'].value">
+                          </a>
+                        </div>
+                    </ngx-item>
                 <ngx-item NgxCarouselItem>
                     <div class="overflow-box"></div>
                 </ngx-item>
