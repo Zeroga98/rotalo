@@ -88,6 +88,8 @@
           <show-star [numberStar]="product.calification" class="price"> </show-star>
         </div>
       </div>
+      <!--
+      Cambio de cards sprint 36 -- no se borran los campos en caso de que se vuelvan adicionar
       <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
         <span class="icon-margin">$</span>
         <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
@@ -96,9 +98,10 @@
         <span class="icon icon-tag icon-margin"></span>
         <span class="name">{{product['product_used'] ? 'Usado' : 'Nuevo'}}</span>
       </div>
+      -->
       <div *ngIf="showField && !isProductChecked" class="container-location">
-        <span class="icon-location"></span>
-        <span>{{getLocation(product)}}</span>
+          <span class="icon-location"></span>
+          <span>{{getLocation(product)}}</span>
       </div>
       <div *ngIf="!showField && !isProductChecked" class="container-date">
         <span class="icon-calendar"></span>
@@ -148,6 +151,7 @@
         <a [routerLink]="detailOrder + product['reference_number']" mat-flat-button>Ver detalle</a>
       </div>
     </div>
+    <!--
     <div (click)="selectProduct($event); goToDetail(product)" *ngIf="showField && !isProductChecked"
       class="container-info-user">
       <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
@@ -160,7 +164,7 @@
           <span class="comunidad-text">{{product['seller_community_name']}}</span>
         </p>
       </div>
-    </div>
+    </div>-->
     <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="form-theme rotando media">
       <div class="form-group  media-left media-middle">
         <input [checked]="productStatus" (change)="openModalInactiveProduct()" type="checkbox" name="switch"
