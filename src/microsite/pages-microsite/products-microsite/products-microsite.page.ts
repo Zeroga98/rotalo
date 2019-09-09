@@ -812,7 +812,7 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
   }
   goHomeStore() {
     let routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    if (window.location.href.includes('feriasufi')) {
+    if (window.location.href.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       routeHome = `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`;
     }
     var categoria = document.createElement('a');

@@ -30,7 +30,7 @@ export class FeedBackComponent implements OnInit {
 
   public get isStore() {
     const currentUrl = window.location.href;
-    if (currentUrl.includes('feriasufi')) {
+    if (currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       return true;
     }
     return false;

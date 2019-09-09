@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ElementRef
+  ElementRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { SettingsService } from '../../../services/settings.service';
 import { FormBuilder } from '@angular/forms';
@@ -27,16 +28,17 @@ export class BannerLatiendaComponent implements OnInit {
     private settingsService: SettingsService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private changeDetector: ChangeDetectorRef,
     private configurationService: ConfigurationService
   ) { }
   ngOnInit() {
     this.location = window.location.href;
     this.getShowBanner(this.location);
-    if (window.location.href.includes('tiendainmueble')) {
+    if (window.location.href.includes(ROUTES.SHOPS.LINK)) {
       this.loadBannersPublic(this.configurationService.storeIdPublic);
-    } if (window.location.href.includes('feriasufi')) {
+    } if (window.location.href.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       this.loadBannersPrivate(this.configurationService.storeIdPrivate);
-    } else {
+    } if (window.location.href.includes(ROUTES.MICROSITE.LINK)) {
       this.loadBanners(1);
     }
 
@@ -57,8 +59,8 @@ export class BannerLatiendaComponent implements OnInit {
         if (response.body.bannerPromocional && response.body.bannerPromocional.length > 0) { this.setInitialFormPromo(response.body); }
         if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
-
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+      this.changeDetector.markForCheck();
     });
   }
 
@@ -70,6 +72,7 @@ export class BannerLatiendaComponent implements OnInit {
         if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+      this.changeDetector.markForCheck();
     });
   }
 
@@ -81,6 +84,7 @@ export class BannerLatiendaComponent implements OnInit {
         if (response.body.bannersCategoria && response.body.bannersCategoria.length > 0) { this.setInitialFormCategories(response.body); }
       }
       this.srcBannerHomeTienda = this.bannerHomeTienda.controls['urlBannerDesktop'].value;
+      this.changeDetector.markForCheck();
     });
   }
 
@@ -171,8 +175,10 @@ export class BannerLatiendaComponent implements OnInit {
 
   goHomeStore() {
     let routeHome = `${ROUTES.PRODUCTS.LINK}/${ROUTES.MICROSITE.LINK}`;
-    if (window.location.href.includes('feriasufi')) {
+    if (window.location.href.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       routeHome = `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`;
+    } else if (window.location.href.includes(ROUTES.SHOPS.LINK)) {
+      routeHome = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.FEED}`;
     }
     const categoria = document.createElement('a');
     categoria.href = routeHome;
