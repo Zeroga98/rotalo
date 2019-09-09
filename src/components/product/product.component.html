@@ -19,7 +19,7 @@
           <div (click)="selectProduct($event)" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''"
             *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"
             class="container-low-price">
-            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
+            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ Rebajó</p>
           </div>
         <img (click)="selectProduct($event); goToDetail(product)" (load)="triggerMasonryLayout()"
           *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']"
