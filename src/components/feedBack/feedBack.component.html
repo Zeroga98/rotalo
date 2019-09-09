@@ -1,4 +1,4 @@
-<div *ngIf="!checkSession() || isStore">
+<div *ngIf="!checkSession() || checkSession() && isStore && !checkSession() && isStore">
   <div (click)="openModal('custom-modal-1')" class="feedback-container">
     <span class="feedback-text">
       Contáctanos

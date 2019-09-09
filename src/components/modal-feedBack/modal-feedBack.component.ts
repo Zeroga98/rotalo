@@ -73,7 +73,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       const comment = this.feedBackForm.get('comment').value;
       let idTienda = 0;
 
-      if (this.currentUrl && this.currentUrl.includes('microsite')) {
+      if (this.currentUrl && this.currentUrl.includes(ROUTES.MICROSITE.LINK)) {
         idTienda = 1;
       } else if (this.currentUrl && this.currentUrl.includes(ROUTES.SHOPS.LINK)) {
         idTienda = this.configurationService.storeIdPublic;
@@ -85,7 +85,7 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
         'correo': email,
         'mensaje': comment,
         'idPais': parseInt(countryId),
-        'destino': this.currentUrl && this.currentUrl.includes('microsite')
+        'destino': this.currentUrl && this.currentUrl.includes(ROUTES.MICROSITE.LINK)
         || this.currentUrl && this.currentUrl.includes(ROUTES.SHOPS.LINK)
         || this.currentUrl && this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)
         ? 'tienda' : 'admin',
