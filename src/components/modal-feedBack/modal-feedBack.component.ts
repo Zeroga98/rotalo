@@ -4,6 +4,7 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { CurrentSessionService } from '../../services/current-session.service';
 import { Router } from '@angular/router';
 import { ConfigurationService } from '../../services/configuration.service';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'modal-feedBack',
@@ -72,11 +73,11 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       const comment = this.feedBackForm.get('comment').value;
       let idTienda = 0;
 
-      if (this.currentUrl && this.currentUrl.includes('microsite')) {
+      if (this.currentUrl && this.currentUrl.includes(ROUTES.MICROSITE.LINK)) {
         idTienda = 1;
-      } else if (this.currentUrl && this.currentUrl.includes('tiendainmueble')) {
+      } else if (this.currentUrl && this.currentUrl.includes(ROUTES.SHOPS.LINK)) {
         idTienda = this.configurationService.storeIdPublic;
-      } else if (this.currentUrl && this.currentUrl.includes('feriasufi')) {
+      } else if (this.currentUrl && this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
         idTienda = this.configurationService.storeIdPrivate;
       }
 
@@ -84,9 +85,9 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
         'correo': email,
         'mensaje': comment,
         'idPais': parseInt(countryId),
-        'destino': this.currentUrl && this.currentUrl.includes('microsite')
-        || this.currentUrl && this.currentUrl.includes('tiendainmueble')
-        || this.currentUrl && this.currentUrl.includes('feriasufi')
+        'destino': this.currentUrl && this.currentUrl.includes(ROUTES.MICROSITE.LINK)
+        || this.currentUrl && this.currentUrl.includes(ROUTES.SHOPS.LINK)
+        || this.currentUrl && this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)
         ? 'tienda' : 'admin',
         'idTienda': idTienda
       };

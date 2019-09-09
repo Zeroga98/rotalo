@@ -30,7 +30,8 @@ export class FeedBackComponent implements OnInit {
 
   public get isStore() {
     const currentUrl = window.location.href;
-    if (currentUrl.includes('feriasufi')) {
+    if (currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK) ||
+    currentUrl.includes(ROUTES.SHOPS.LINK)) {
       return true;
     }
     return false;
@@ -38,22 +39,6 @@ export class FeedBackComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
-   /* if (this.checkSession()) {
-      if (this.currentUrl === `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`) {
-        if (this.shareInfoChatService.getAdminConversation()) {
-          this.shareInfoChatService.changeMessage(this.shareInfoChatService.getAdminConversation());
-        }
-      }
-      this.router.navigate(
-        [`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.MESSAGES}/${ROUTES.MENUROTALOCENTER.FEEDBACK}`]);
-      if (this.shareInfoChatService.getAdminConversation()) {
-        this.shareInfoChatService.setScrollDown(true);
-        this.shareInfoChatService.setIdConversation(this.shareInfoChatService.getAdminConversation().idEmisario);
-      }
-      this.shareInfoChatService.feedBackAdmin();
-    } else {
-      this.modalService.open(id);
-    }*/
   }
 
   closeModal(id: string) {

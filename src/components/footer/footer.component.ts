@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.currentUrl = window.location.href;
-    if (this.currentUrl.includes('feriasufi')) {
+    if (this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       this.termsLink = `/${ROUTES.TERMS}/${this.configurationService.storeIdPrivate}`;
       this.faqLink = `/${ROUTES.FAQ}/${this.configurationService.storeIdPrivate}`;
     }
@@ -56,7 +56,7 @@ export class FooterComponent implements OnInit {
   }
 
   get isShop() {
-    if (this.currentUrl.includes('tiendainmueble')) {
+    if (this.currentUrl.includes(ROUTES.SHOPS.LINK)) {
       return true;
     }
     return false;
