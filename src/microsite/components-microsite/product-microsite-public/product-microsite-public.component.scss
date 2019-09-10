@@ -29,6 +29,14 @@
       font-size: 1.4rem;
       margin-bottom: 5px;
       line-height: 32px;
+      span {
+        height: 35px;
+        display: -webkit-box;
+        margin: 0 auto;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
     .icon-share-container{
       cursor: pointer;
@@ -366,8 +374,8 @@
 
   .item__location {
     color: #A2A2A2;
-    font-size: 1.4rem;
-    line-height: 17px;
+    font-size: 1.2rem;
+    line-height: 15px;
     padding-bottom: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -413,7 +421,7 @@
   }
 
   .container-product .container-price {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #FF3646;
     font-weight: bold;
     margin-bottom: 0px;
@@ -490,6 +498,16 @@
   }
 }
 
+:host(.product-feed) {
+  @media screen and (max-width: 760px) {
+    .container-product .container-price {
+      font-size: 1.2rem;
+    }
+    .item__location {
+      font-size: 1.1rem;
+    }
+  }
+}
 
 @media screen and (max-width: 500px) {
   :host(.product-feed) {

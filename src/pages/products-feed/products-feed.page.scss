@@ -516,9 +516,20 @@
 
 }
 
+@media screen and (max-width: 760px) {
+  :host {
+    .container-masonry{
+      width: 100%;
+    }
+    .container-masonry .masonry product {
+      width: 30%;
+    }
+  }
+}
+
 @media screen and (max-width: 952px) {
   :host {
-    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
+     .container-masonry .masonry product-rotalo-center {
       width: 45%;
     }
   }

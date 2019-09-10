@@ -667,72 +667,24 @@
   }
 }
 
-@media screen and (max-width: 500px) {
-  :host(.product-feed) {
-
-    .container-product {
-      max-height: 367px;
-    }
-
-    .container-product .container-name {
+:host(.product-feed) {
+  @media screen and (max-width: 760px) {
+    .container-product .container-price {
       font-size: 1.2rem;
     }
-
-    .container-product .container-price {
-      font-size: 1.6rem;
+    .container-product .container-location  {
+      font-size: 1.1rem;
     }
-
-    .container-product .container-location,
-    .container-product .container-location .icon-location,
-    .container-product .container-date .icon-calendar,
-    .container-product .container-date p {
-      font-size: 1.0rem;
-      line-height: 13px;
-    }
-
-    .container-product .container-info-user .name-text {
-      font-size: 1.0rem;
-      line-height: 12px;
-    }
-
-    .container-product .container-info-user .company-text {
-      font-size: 1.0rem;
-      line-height: 10px;
-    }
-
-    .container-masonry .masonry product {
-      width: 43%;
-    }
-
-    .container-product .container-photo {
-      min-height: 137px;
-      height: 137px;
-    }
-
-  }
-
-  :host(.referenceNumber) {
-    .container-product {
-      max-height: initial;
-    }
-  }
-
-}
-
-@media screen and (max-width: 570px) {
-  :host {
     .container-low-price {
-      top: 0;
-      left: 0;
-      width: 104px;
-      height: 40px;
-      background-size: 104px 40px;
-
-      p {
-        font-size: 1.2rem;
-        padding: 5px 10px;
-      }
+      width: 52px;
+      height: 20px;
+    }
+    .container-low-price p {
+      font-size: 1.0rem;
+      line-height: 2;
+      padding-left: 6px;
     }
   }
-
 }
+
+
