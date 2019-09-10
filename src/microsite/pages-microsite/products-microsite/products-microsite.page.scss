@@ -239,7 +239,10 @@
       product-microsite {
         cursor: pointer;
         text-align: left;
-        width: 23.5%;
+      //  width: 23.5%;
+        width: 27%;
+        max-width: 249px;
+        min-width: 203px;
         overflow: hidden;
         //margin: 0 0rem 1.5rem 0rem;
         border: 1px solid #e2e2e2;
@@ -979,7 +982,6 @@
   }
 }
 
-
 :host {
   .icon-share-container {
     cursor: pointer;
@@ -1056,6 +1058,18 @@
   // .background-feed {
   //   background: white;
   // }
+}
+
+
+:host(.product-feed) {
+  @media screen and (max-width: 760px) {
+    .container-product .container-price {
+      font-size: 1.2rem;
+    }
+    .item__location {
+      font-size: 1.1rem;
+    }
+  }
 }
 
 @media screen and (max-width: 1110px) {

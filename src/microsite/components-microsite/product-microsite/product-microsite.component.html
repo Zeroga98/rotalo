@@ -25,6 +25,10 @@
           </div>
         </div>
       </div>
+      <div *ngIf="product.product_city_name && product.product_state_name" class="item__location">
+        <span class="icon-location"></span>
+        <span>{{product.product_city_name}}, {{product.product_state_name}}</span>
+      </div>
     </div>
   </a>
 </div>

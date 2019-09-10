@@ -624,10 +624,6 @@
 }
 
 :host(.product-rotando) {
-  .container-product {
-    height: 525px;
-  }
-
   .form-theme {
     width: 95%;
   }
@@ -635,8 +631,6 @@
 
 :host(.product-sold) {
   .container-product {
-    height: 550px;
-
     .container-info-user {
       padding: 1rem 0;
     }
