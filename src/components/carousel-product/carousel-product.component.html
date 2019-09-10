@@ -25,10 +25,10 @@
                         <div class="item__image-container">
                           <div *ngIf="product['isLowPrice'] ||  isActivePromo(product)"
                             class="container-low-price">
-                            <p>$ REBAJÓ</p>
+                            <p>$ Rebajó</p>
                           </div>
                           <div *ngIf="product['featuredType'] == 'mostVisits'" class="container-trending">
-                            <p>TRENDING</p>
+                            <p>Más visto</p>
                           </div>
                           <img
                           [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
@@ -88,6 +88,8 @@
                             <span class="icon-location"></span>
                             <span>{{getLocation(product)}}</span>
                           </div>
+
+                          <!--
                           <div *ngIf="product.user" class="item_info-user">
                             <div class="icon-container" [ngStyle]="{'background-color':product.user.company.colour}">
                               <span class="icon-account" *ngIf="!product.user.photo && !product.user.photos"></span>
@@ -102,6 +104,8 @@
                               </p>
                             </div>
                           </div>
+                          -->
+
                         </div>
                       </a>
                     </div>
