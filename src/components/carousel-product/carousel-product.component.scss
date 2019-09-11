@@ -54,7 +54,7 @@
         margin: 0 auto;
         margin-bottom: 20px;
         max-width: 224px;
-        height: 300px;
+        height: 290px;
         overflow: hidden;
 
         .item__card {
@@ -64,7 +64,7 @@
           margin: 0;
           width: 100%;
           max-width: 224px;
-          height: 300px;
+          height: 290px;
           color: #333;
           white-space: normal;
           background-color: #fff;
@@ -138,9 +138,14 @@
               font-size: 1.2rem;
               line-height: 17px;
               padding-bottom: 8px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
+              display: flex;
+              justify-content: space-between;
+              .location {
+                width: 70%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
             }
 
             .item_info-user {
@@ -233,6 +238,32 @@
 
   .icon-location {
     margin-right: 5px;
+  }
+
+  .heart-container {
+    position: relative;
+    .heart {
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+      position: absolute;
+      z-index: 1;
+      top: 0px;
+      right: 35px;
+      transition: all 0.5s ease;
+    }
+
+    .heart {
+      background-image: url(../../assets/img/ic_heart_simple.svg);
+    }
+
+    .heart:hover {
+      background-image: url(../../assets/img/ic_heart_hover.svg);
+    }
+
+    .heart.active {
+      background-image: url(../../assets/img/ic_heart_active.svg);
+    }
   }
 
 }
@@ -550,12 +581,14 @@
     }
 
 
-    .container-trending, .container-low-price {
+    .container-trending,
+    .container-low-price {
       width: 52px;
       height: 20px;
     }
 
-    .container-trending p,  .container-low-price p {
+    .container-trending p,
+    .container-low-price p {
       font-size: 1.0rem;
       line-height: 2;
       padding-left: 6px;

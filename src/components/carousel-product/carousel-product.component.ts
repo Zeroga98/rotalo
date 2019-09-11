@@ -7,6 +7,7 @@ import { ModalShareProductService } from '../modal-shareProduct/modal-shareProdu
 import { CurrentSessionService } from '../../services/current-session.service';
 import { NavigationService } from '../../pages/products/navigation.service';
 import { CAROUSEL_PRODUCTS_CONFIG } from './carouselProducts.config';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -21,9 +22,11 @@ export class CarouselProductComponent implements OnInit {
   @Input() imgRoute;
   public idCountry = 1;
   readonly defaultImage: string = '../assets/img/product-no-image.png';
+  public likeSelected = [];
 
-
-  constructor(private router: Router, private modalService: ModalShareProductService,
+  constructor(
+    private productsService: ProductsService,
+    private router: Router, private modalService: ModalShareProductService,
     private currentSession: CurrentSessionService, private navigationService: NavigationService) {
       this.carouselProductsConfig = CAROUSEL_PRODUCTS_CONFIG;
     }
@@ -35,7 +38,11 @@ export class CarouselProductComponent implements OnInit {
     } else {
       countryId = this.currentSession.currentUser()['countryId'];
     }
-
+    if (this.products) {
+      for (let i = 0; i < this.products.length; i++) {
+        this.likeSelected.push(false);
+      }
+    }
     this.idCountry = countryId;
   }
 
@@ -81,6 +88,45 @@ export class CarouselProductComponent implements OnInit {
     const city = product.city;
     const state = city.state;
     return `${city.name}, ${state.name}`;
+  }
+
+  checkLike(product, index) {
+    const params = {
+      idProducto: product['id'],
+      idTienda: product['seller_store_id']
+    };
+
+    if (!this.likeSelected[index]) {
+      this.likeSelected[index] = true;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.likeSelected[index] = false;
+            console.log(error);
+          }
+        );
+    } else if (this.likeSelected[index]) {
+      this.likeSelected[index] = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  kFormatter(num) {
+    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
   }
 
 }

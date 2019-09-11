@@ -288,6 +288,33 @@
     width: 12rem;
     background: transparent;
   }
+
+  .heart-container {
+    position: relative;
+    .heart {
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+      position: absolute;
+      z-index: 1;
+      top: 0px;
+      right: 35px;
+      transition: all 0.5s ease;
+    }
+
+    .heart {
+      background-image: url(../../../assets/img/ic_heart_simple.svg);
+    }
+
+    .heart:hover {
+      background-image: url(../../../assets/img/ic_heart_hover.svg);
+    }
+
+    .heart.active {
+      background-image: url(../../../assets/img/ic_heart_active.svg);
+    }
+  }
+
 }
 
 :host {
@@ -548,9 +575,13 @@
     font-size: 1.2rem;
     line-height: 15px;
     padding-bottom: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    .location {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 

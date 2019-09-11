@@ -457,6 +457,8 @@
         cursor: pointer;
         text-align: left;
         width: 31%;
+        max-width: 249px;
+        min-width: 203px;
         overflow: hidden;
         margin: 0 1rem 2.5rem;
         border: 1px solid #e2e2e2;

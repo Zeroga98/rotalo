@@ -87,7 +87,8 @@
 
       .icon-location {
         margin-right: 0.5rem;
-        font-size: 2rem;
+        font-size: 1.3rem!important;
+        margin-left: 0.1rem;
       }
 
       span {
@@ -335,6 +336,33 @@
     position: relative;
   }
 
+  .heart-container {
+    position: relative;
+    .heart {
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+      position: absolute;
+      z-index: 1;
+      top: 5px;
+      right: 35px;
+      transition: all 0.5s ease;
+    }
+
+    .heart {
+      background-image: url(../../assets/img/ic_heart_simple.svg);
+    }
+
+    .heart:hover {
+      background-image: url(../../assets/img/ic_heart_hover.svg);
+    }
+
+    .heart.active {
+      background-image: url(../../assets/img/ic_heart_active.svg);
+    }
+  }
+
+
 }
 
 :host {
@@ -559,10 +587,14 @@
   }
 
   .container-product .container-location {
-    width: 55%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    .location {
+      width: 70%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   .container-product .container-location,
@@ -666,13 +698,16 @@
     .container-product .container-price {
       font-size: 1.2rem;
     }
-    .container-product .container-location  {
+
+    .container-product .container-location {
       font-size: 1.1rem;
     }
+
     .container-low-price {
       width: 52px;
       height: 20px;
     }
+
     .container-low-price p {
       font-size: 1.0rem;
       line-height: 2;
@@ -680,5 +715,3 @@
     }
   }
 }
-
-

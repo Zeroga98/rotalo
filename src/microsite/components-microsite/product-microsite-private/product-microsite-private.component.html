@@ -16,8 +16,8 @@
       -->
       <span (click)="selectProduct($event)" class="name">{{product.product_name}}</span>
     </div>
-    <div class="product-info" (click)="selectProduct($event)">
-      <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
+    <div class="product-info">
+      <div (click)="selectProduct($event)" [ngClass]="showField ? '' : 'border-price'" class="container-price">
         <div class="price-container">
           <div>
             <span *ngIf="product.product_price != 0 && product.product_currency == 'GTQ'" class="name">{{product.product_price | currency:"Q" | removeDigits}}</span>
@@ -31,8 +31,16 @@
         </div>
       </div>
       <div *ngIf="product.product_city_name && product.product_state_name" class="item__location">
-        <span class="icon-location"></span>
-        <span>{{product.product_city_name}}, {{product.product_state_name}}</span>
+        <div (click)="selectProduct($event)"  class="location">
+            <span class="icon-location"></span>
+            <span>{{product.product_city_name}}, {{product.product_state_name}}</span>
+        </div>
+        <div (click)="checkLike()" class="heart-container">
+            <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
+            <span>
+                {{kFormatter(9999)}}
+            </span>
+          </div>
       </div>
     </div>
   </a>
