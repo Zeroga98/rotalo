@@ -60,6 +60,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public starSelected = false;
+  public likeSelected = false;
   private status = '';
   public numbersOrder = ['1', '2', '3', '4', '5'];
   public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
@@ -92,6 +93,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
+    }
+    if (this.product['product_manual_feature']) {
+      this.likeSelected = true;
     }
     this.changeDetectorRef.markForCheck();
   }
@@ -436,6 +440,41 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
+  checkLike() {
+    const params = {
+      idProducto: this.product['product_id'],
+      idTienda: this.product['seller_store_id']
+    };
+
+    if (!this.likeSelected) {
+      this.likeSelected = true;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.likeSelected = false;
+            console.log(error);
+          }
+        );
+    } else if (this.likeSelected) {
+      this.likeSelected = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
   changeCheckProduct(event) {
     const id = event.target.value;
     const productParams = this.productsService.getCheckedProductArray().data;
@@ -496,6 +535,10 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         ]);
       }
     }
+  }
+
+  kFormatter(num) {
+    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
   }
 
 

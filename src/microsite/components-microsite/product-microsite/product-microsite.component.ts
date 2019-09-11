@@ -51,7 +51,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
   public startDate = START_DATE_BF;
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
-
+  public likeSelected = false;
   constructor(
     private render: Renderer2,
     private productsService: ProductsService,
@@ -221,6 +221,45 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
       ROUTES.PRODUCTS.SHOW
       }/${product.id}`;
     return routeDetailProduct;
+  }
+
+  checkLike() {
+    const params = {
+      idProducto: this.product['product_id'],
+      idTienda: this.product['seller_store_id']
+    };
+
+    if (!this.likeSelected) {
+      this.likeSelected = true;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.likeSelected = false;
+            console.log(error);
+          }
+        );
+    } else if (this.likeSelected) {
+      this.likeSelected = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  kFormatter(num) {
+    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
   }
 
 }
