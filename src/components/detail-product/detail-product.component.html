@@ -117,8 +117,12 @@
                 </td>
                 <td class="padding-cell-left">
                   <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
-                    Tipo de Vehículo
+                    Tipo de Uso
                     <p *ngIf="products.typeVehicle">{{products.typeVehicle}}</p>
+                  </div>
+                  <div *ngIf="products.vehicle.vehicleType == 'MOTO'">
+                    Tipo de Vehículo
+                    <p *ngIf="products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
                   </div>
                 </td>
               </tr>
@@ -136,7 +140,9 @@
                   </div>
                 </td>
                 <td class="padding-cell-left">
-                  <div>
+                  <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
+                    Tipo de Vehículo
+                    <p *ngIf="products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
                   </div>
                 </td>
               </tr>
