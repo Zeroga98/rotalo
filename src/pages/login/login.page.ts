@@ -226,7 +226,10 @@ export class LoginPage implements OnInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
-       // this.openDialogAlert();
+        const currentUrl = window.location.href;
+        if (!currentUrl.includes('gt')) {
+          this.openDialogAlert();
+        }
       }
     } catch (error) {
       console.error(error);
@@ -250,7 +253,7 @@ export class LoginPage implements OnInit {
     openDialogAlert(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '300px';
-    dialogConfig.maxWidth = '900px';
+    dialogConfig.maxWidth = '680px';
     dialogConfig.width = '55%';
     dialogConfig.panelClass = 'alert-class';
   //  dialogConfig.minHeight = '350px';
