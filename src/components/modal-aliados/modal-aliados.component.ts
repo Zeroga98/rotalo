@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'app-modal-aliados',
@@ -24,6 +25,11 @@ export class ModalAliadosComponent implements OnInit {
   goToUrl() {
     window.open(this.params, '_blank');
     this.dialogRef.close();
+  }
+
+  getUrlTerms() {
+    const routeToTerms = `../../${ROUTES.TERMS}`;
+    return routeToTerms;
   }
 
 }

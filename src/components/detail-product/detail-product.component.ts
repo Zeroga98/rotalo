@@ -316,7 +316,6 @@ export class DetailProductComponent implements OnInit {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((response) => {
       if (response.body) {
         this.products = response.body.productos[0];
-        console.log(this.products);
 
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
@@ -988,6 +987,10 @@ export class DetailProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
     });
+  }
+
+  get isGuatemala() {
+    return window.location.href.includes('gt');
   }
 
 }

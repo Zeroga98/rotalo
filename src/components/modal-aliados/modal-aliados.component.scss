@@ -34,31 +34,16 @@
         width: 100%;
         .img-monkey {
           margin: 0 auto;
-          margin-top: 70px;
+          margin-top: 20px;
           margin-bottom: 15px;
           width: 170.93px;
           height: 170.93px;
-          background: url(../../assets/img/iconos/ic_felicitaciones_carrito.svg) no-repeat;
+          background: url(../../assets/img/ic_mico_sonriente.svg) no-repeat;
           background-size: contain;
           background-position: center;
         }
       }
 
-      .monkey-container {
-        margin: 0 auto;
-        width: 45%;
-        .img-monkey {
-          margin: 0 auto;
-          margin-top: 55px;
-          margin-bottom: 15px;
-          width: 170.93px;
-          height: 170.93px;
-          background: url(../../microsite/assets/img/iconos/ic_mono_call_center.svg) no-repeat;
-          background-size: contain;
-          background-position: center;
-
-        }
-      }
       .text {
         text-align: center;
         p {
@@ -73,7 +58,15 @@
       }
 
   }
-
+  .terms-container {
+    text-align: center;
+    margin-top: 30px;
+    a {
+      color:#383838;
+      font-size: 1.8rem;
+      text-decoration: underline;
+    }
+  }
 
 }
 
