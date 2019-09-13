@@ -125,8 +125,14 @@ export class CarouselProductComponent implements OnInit {
     }
   }
 
-  kFormatter(num) {
-    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
+
+  kFormatter(product) {
+    if (product['product_likes']) {
+      return Math.abs(product['product_likes']) > 9999 ?
+      ((Math.abs(product['product_likes']) / 1000))  + 'K +' :
+       product['product_likes'];
+    }
+    return 0;
   }
 
 }

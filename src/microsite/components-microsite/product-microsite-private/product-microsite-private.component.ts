@@ -67,6 +67,9 @@ export class ProductMicrositePrivateComponent implements AfterViewInit, AfterCon
   ngAfterContentInit() {
     this.productChecked = this.product.status;
     this.productStatus = this.product.status === 'active';
+    if (this.product['product_like']) {
+      this.likeSelected = true;
+    }
     this.changeDetectorRef.markForCheck();
   }
 
@@ -247,8 +250,12 @@ export class ProductMicrositePrivateComponent implements AfterViewInit, AfterCon
     }
   }
 
-  kFormatter(num) {
-    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
+  kFormatter() {
+    if (this.product['product_likes']) {
+      return Math.abs(this.product['product_likes']) > 9999 ?
+      ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
+       this.product['product_likes'];
+    }
   }
 
 }

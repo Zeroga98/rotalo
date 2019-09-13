@@ -93,8 +93,8 @@
                             </div>
                             <div (click)="checkLike(product, i)" class="heart-container">
                                 <div [ngClass]="likeSelected[i] ? 'active' : ''" class="heart"></div>
-                                <span>
-                                    {{kFormatter(10000)}}
+                                <span *ngIf="kFormatter(product) > 0">
+                                    {{kFormatter(product)}}
                                 </span>
                             </div>
                           </div>
