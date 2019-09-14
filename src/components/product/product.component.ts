@@ -452,11 +452,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
-            /*if (error.error.status == '623') {
-              this.changeDetectorRef.markForCheck();
-            }*/
             this.likeSelected = false;
             console.log(error);
           }
@@ -467,6 +469,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             console.log(error);

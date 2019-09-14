@@ -4,8 +4,8 @@ import {
   AfterViewInit,
   Renderer2,
   ChangeDetectorRef
-} from "@angular/core";
-import { ProductInterface } from "./../../../commons/interfaces/product.interface";
+} from '@angular/core';
+import { ProductInterface } from './../../../commons/interfaces/product.interface';
 import {
   Component,
   Input,
@@ -13,19 +13,19 @@ import {
   EventEmitter,
   Output,
   ViewChild
-} from "@angular/core";
-import { ProductsService } from "../../../services/products.service";
-import { ROUTES } from "../../../router/routes";
-import { Router } from "@angular/router";
-import { CurrentSessionService } from "../../../services/current-session.service";
-import { ModalShareProductService } from "../../../components/modal-shareProduct/modal-shareProduct.service";
-import { NavigationService } from "../../../pages/products/navigation.service";
-import { START_DATE_BF, END_DATE_BF } from "../../../commons/constants/dates-promos.contants";
+} from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
+import { ROUTES } from '../../../router/routes';
+import { Router } from '@angular/router';
+import { CurrentSessionService } from '../../../services/current-session.service';
+import { ModalShareProductService } from '../../../components/modal-shareProduct/modal-shareProduct.service';
+import { NavigationService } from '../../../pages/products/navigation.service';
+import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-promos.contants';
 
 @Component({
-  selector: "product-microsite",
-  templateUrl: "./product-microsite.component.html",
-  styleUrls: ["./product-microsite.component.scss"],
+  selector: 'product-microsite',
+  templateUrl: './product-microsite.component.html',
+  styleUrls: ['./product-microsite.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -40,12 +40,12 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
   @Output() selected: EventEmitter<ProductInterface> = new EventEmitter();
   @Output() updateProducts:  EventEmitter<any> = new EventEmitter();
   @Input() colourCompany: string;
-  @ViewChild("containerProducts", { read: ElementRef })
+  @ViewChild('containerProducts', { read: ElementRef })
   containerProducts: ElementRef;
-  readonly defaultImage: string = "../../../assets/img/product-no-image.png";
+  readonly defaultImage: string = '../../../assets/img/product-no-image.png';
   private readonly limitSize: number = 220;
   public productStatus: boolean = false;
-  public productChecked: String = "active";
+  public productChecked: String = 'active';
   public idUser: string = this.currentSessionSevice.getIdUser();
   public idCountry = 1;
   public startDate = START_DATE_BF;
@@ -64,7 +64,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
-    }else {
+    } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
     this.idCountry = countryId;
@@ -72,7 +72,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
-    this.productStatus = this.product.status === "active";
+    this.productStatus = this.product.status === 'active';
     if (this.product['product_like']) {
       this.likeSelected = true;
     }
@@ -101,10 +101,10 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
   saveCheck() {
     this.productStatus = !this.productStatus;
     this.productStatus
-      ? (this.productChecked = "active")
-      : (this.productChecked = "inactive");
+      ? (this.productChecked = 'active')
+      : (this.productChecked = 'inactive');
     const params = {
-      estado: this.productStatus ? "active" : "inactive"
+      estado: this.productStatus ? 'active' : 'inactive'
     };
     this.changeDetectorRef.markForCheck();
     this.productsService
@@ -148,7 +148,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
 
   async deleteProduct(product: ProductInterface) {
     try {
-      const result = confirm("¿Seguro quieres borrar esta publicación?");
+      const result = confirm('¿Seguro quieres borrar esta publicación?');
       if (!result) {
         return;
       }
@@ -199,7 +199,7 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
     setTimeout(() => {
       const elem = this.containerProducts.nativeElement;
       if (elem.offsetWidth <= this.limitSize) {
-        this.render.addClass(elem, "mini-card");
+        this.render.addClass(elem, 'mini-card');
       }
     });
   }
@@ -238,6 +238,11 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             /*if (error.error.status == '623') {
@@ -253,6 +258,11 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             console.log(error);

@@ -227,6 +227,11 @@ export class ProductMicrositePrivateComponent implements AfterViewInit, AfterCon
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             /*if (error.error.status == '623') {
@@ -242,6 +247,11 @@ export class ProductMicrositePrivateComponent implements AfterViewInit, AfterCon
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             console.log(error);

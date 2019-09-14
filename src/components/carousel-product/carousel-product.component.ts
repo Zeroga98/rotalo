@@ -102,6 +102,10 @@ export class CarouselProductComponent implements OnInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected[index] = response.body.like;
+              product['product_likes'] = response.body.likes;
+            }
           },
           error => {
             /*if (error.error.status == '623') {
@@ -117,6 +121,10 @@ export class CarouselProductComponent implements OnInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected[index] = response.body.like;
+              product['product_likes'] = response.body.likes;
+            }
           },
           error => {
             console.log(error);
