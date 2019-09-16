@@ -55,10 +55,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   photosForm: FormGroup;
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];
-  subCategories: Array<SubcategoryInterface> = [];
+  subCategories: Array<any> = [];
   genders: Array<any> = [];
   vehiclesType: Array<any> = [];
-  subCategory: SubcategoryInterface;
+  subCategory;
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
   colorList: Array<any> = COLOR;
@@ -348,6 +348,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
       delete params['checkNewPrice'];
       if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
+
           const vehicle  = {
             'vehicleType': this.subcategoryIsVehicle() ? 'AUTO' : 'MOTO',
             'lineId': this.photosForm.get('lineId').value,
@@ -361,8 +362,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
             'airbag': this.photosForm.get('airbag').value,
             'airConditioner': this.photosForm.get('airConditioner').value,
             'absBrakes': this.photosForm.get('absBrakes').value,
-            'uniqueOwner': this.photosForm.get('uniqueOwner').value
+            'uniqueOwner': this.photosForm.get('uniqueOwner').value,
+            'vehiclesTypeId': this.photosForm.get('vehiclesTypeId').value
           };
+
           params.vehicle = vehicle;
       }
       if (this.subcategoryIsHouse() || this.subcategoryIsFlat()) {
@@ -623,6 +626,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     const airConditioner = this.photosForm.get('airConditioner');
     const absBrakes = this.photosForm.get('absBrakes');
     const uniqueOwner = this.photosForm.get('uniqueOwner');
+    const vehiclesTypeId = this.photosForm.get('vehiclesTypeId');
     typeVehicleControl.clearValidators();
     model.clearValidators();
     lineId.clearValidators();
@@ -638,6 +642,11 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     airConditioner.clearValidators();
     absBrakes.clearValidators();
     uniqueOwner.clearValidators();
+    vehiclesTypeId.clearValidators();
+
+    if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
+      vehiclesTypeId.setValidators([Validators.required]);
+    }
 
     if (this.subcategoryIsVehicle()) {
       carMake.setValidators([Validators.required]);
@@ -687,6 +696,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.brandsList = this.collectionService.getBrandsMotos();
       }
     }
+
+
+    vehiclesTypeId.updateValueAndValidity();
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
     lineId.updateValueAndValidity();
@@ -860,8 +872,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   selectedSubcategory(idSubcategory) {
     this.subCategory = this.findSubCategory(idSubcategory);
     this.photosForm.patchValue({'genderId': ''});
+    this.photosForm.patchValue({'vehiclesTypeId': ''});
     this.genders = this.subCategory.generos;
-    console.log(this.subCategory);
+    this.vehiclesType = this.subCategory.tipoVehiculos;
   }
 
   loadSizes() {
@@ -907,6 +920,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     };
     let checkNewPrice = false;
     let newPrice;
+    let vehiclesTypeId = '';
 
     if (config['subcategory'].name == 'Carros') {
       request.tipo = 1;
@@ -930,6 +944,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   /**Vehiculos**/
     if (config['vehicle']) {
+      debugger
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
       color = vehicle['color'] ? vehicle['color'] : '';
@@ -944,6 +959,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
       carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
       lineId = vehicle['line'] ? vehicle['line'].id : '';
+      vehiclesTypeId = vehicle['vehiclesTypeId'] ? vehicle['vehiclesTypeId'] : '';
     }
 
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
@@ -1065,6 +1081,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       'checkNewPrice': [checkNewPrice, []],
       'specialPrice': [newPrice, []],
       category: [config['category'], [Validators.required]],
+      vehiclesTypeId: [vehiclesTypeId, []],
 
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
@@ -1344,7 +1361,9 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   get showOptionsVehicle () {
     if (this.photosForm.get('category').value == 6) {
-      return true;
+      if (this.photosForm.get('subcategoryId').value == 9 || this.photosForm.get('subcategoryId').value == 10) {
+        return true;
+      }
     }
     return false;
   }

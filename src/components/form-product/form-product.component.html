@@ -56,17 +56,15 @@
                 <span class="error-msg">Este campo es requerido</span>
               </div>
 
-              <div *ngIf="showOptionsVehicle" class="form-group field-form" [ngClass]="{'valid': photosForm.get('subcategoryId').value}">
+              <div *ngIf="showOptionsVehicle" class="form-group field-form"
+              [ngClass]="{'valid': photosForm.get('vehiclesTypeId').value}">
                 <div>
-                  <select [(ngModel)]="currentSubcategory" class="subcategory form-control" (change)="selectedSubcategory($event.target.value);
-                    setValidationVehicle();
-                    setValidationImmovable();
-                    resetFormsVehicle()" name="subcategoryId" formControlName="subcategoryId">
+                  <select class="vehiclesTypeId form-control" name="vehiclesTypeId" formControlName="vehiclesTypeId">
                     <option value="" disabled></option>
-                    <option *ngFor="let subCategory of subCategories" value="{{subCategory.id}}">{{subCategory.name}}
+                    <option *ngFor="let vehicleType of vehiclesType" value="{{vehicleType.id}}">{{vehicleType.name}}
                     </option>
                   </select>
-                  <label class="label-title">Tipo de vehículo*</label>
+                  <label class="label-title">Tipo de vehículo* {{photosForm.get('vehiclesTypeId').value}}</label>
                   <span class="error-msg">Este campo es requerido</span>
                 </div>
               </div>
