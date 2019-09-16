@@ -26,7 +26,7 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    if (this.product['product_like']) {
+    if (this.product['like']) {
       this.likeSelected = true;
     }
   }
@@ -89,7 +89,7 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
           response => {
             if (response.body) {
               this.likeSelected = response.body.like;
-              this.product['product_likes'] = response.body.likes;
+              this.product['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
             }
           },
@@ -109,7 +109,7 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
           response => {
             if (response.body) {
               this.likeSelected = response.body.like;
-              this.product['product_likes'] = response.body.likes;
+              this.product['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
             }
           },
@@ -122,10 +122,10 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
   }
 
   kFormatter() {
-    if (this.product['product_likes']) {
-      return Math.abs(this.product['product_likes']) > 9999 ?
-      ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
-      this.product['product_likes'];
+    if (this.product['likes']) {
+      return Math.abs(this.product['likes']) > 9999 ?
+      ((Math.abs(this.product['likes']) / 1000))  + 'K +' :
+      this.product['likes'];
     }
     return 0;
   }
