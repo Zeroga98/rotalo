@@ -93,6 +93,7 @@
 
       span {
         vertical-align: middle;
+        margin-left: 10px;
       }
     }
 
@@ -338,15 +339,13 @@
 
   .heart-container {
     position: relative;
+    display: flex;
+    align-items: center;
     .heart {
       width: 15px;
       height: 15px;
       background-size: 15px 15px;
-      position: absolute;
-      z-index: 1;
-      top: 5px;
-      right: 35px;
-      transition: all 0.5s ease;
+     // transition: all 0.5s ease;
     }
 
     .heart {

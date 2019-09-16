@@ -1,0 +1,95 @@
+<a
+[ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+class="link-product" *ngIf="product" onclick="return false;" [href]="getUrlProduct(product)">
+  <div class="carousel-container">
+    <div class="featured-cards">
+      <div class="featured-card">
+        <div class="item__wrapper">
+          <div class="item__card">
+            <a
+            [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+            onclick="return false;" [href]="getUrlProduct(product)">
+              <div class="item__image-container">
+                <div *ngIf="product['isLowPrice'] ||  isActivePromo(product)"
+                  class="container-low-price">
+                  <p>$ Rebajó</p>
+                </div>
+                <div *ngIf="product['featuredType'] == 'mostVisits'" class="container-trending">
+                  <p>Más visto</p>
+                </div>
+                <img
+                [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                (click)="selectProductSuperUser(product, $event)" *ngIf="!product.photos" [src]="defaultImage"
+                  [alt]="product.name" (error)="updateSrc($event)">
+                <img
+                [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+                (click)="selectProductSuperUser(product, $event)" *ngIf="product.photos" [src]="product.photos?.url || product.photos[0].url"
+                  [alt]="product.name" (error)="updateSrc($event)">
+                <div
+                [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoCompartirProducto': 'gtmCompartirProducto'"
+                (click)="shareProduct('custom-modal-2' , product)" class="icon-share-container">
+                  <div  [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoCompartirProducto': 'gtmCompartirProducto'" class="icon-share">
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a  [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+            onclick="return false;" [href]="getUrlProduct(product)">
+              <div
+              [ngClass]="title && title.includes('Bancolombia') ?  'gtmBancoInternaProducto': ''"
+              class="item__content">
+              <div (click)="selectProductSuperUser(product , $event)">
+                  <div class="item__name">
+                      <span>
+                        {{product.name}}
+                      </span>
+                    </div>
+                    <div class="item__price-block">
+                      <div class="price-container">
+                        <div>
+                          <span *ngIf=" product.price != 0 && product.currency == 'GTQ'">
+                            {{product.price | currency:"Q" | removeDigits}}
+                          </span>
+                          <span *ngIf=" product.price != 0 && product.currency != 'GTQ' && idCountry == 9">
+                            {{product.price | currency:"$" | removeDigits}}
+                          </span>
+                          <span *ngIf=" product.price != 0 && product.currency != 'GTQ' && idCountry != 9">
+                            {{product.price | currency:"$" | removeDigits}}
+                          </span>
+                          <span *ngIf=" product.price == 0">Gratis</span>
+                        </div>
+                        <div [ngClass]="product['previousPrice'] && product['previousPrice'] >  product['price'] || isActivePromo(product)? 'low-price' : ''"
+                          *ngIf="product['previousPrice'] && isActivePromo(product) || product['previousPrice'] && product['previousPrice'] >  product['price']">
+                          <span *ngIf="product['previousPrice'] != 0 && product.currency == 'GTQ'" class="name">{{product['previousPrice']
+                            | currency:"Q" | removeDigits}}</span>
+                          <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 9"
+                            class="name">{{product['previousPrice']
+                            | currency:"$" | removeDigits}}</span>
+                          <span *ngIf="product['previousPrice'] != 0 && product.currency != 'GTQ' && idCountry == 1"
+                            class="name">{{product['previousPrice']
+                            | currency:"$" | removeDigits}}</span>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+                <div class="item__location">
+                  <div (click)="selectProductSuperUser(product , $event)" class = "location">
+                      <span class="icon-location"></span>
+                      <span>{{getLocation(product)}}</span>
+                  </div>
+                  <div (click)="checkLike()" class="heart-container">
+                      <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
+                      <span *ngIf="kFormatter(product) > 0">
+                          {{kFormatter(product)}}
+                      </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

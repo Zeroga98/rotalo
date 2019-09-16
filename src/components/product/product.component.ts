@@ -94,7 +94,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
     }
-    if (this.product['product_manual_feature']) {
+    if (this.product['product_like']) {
       this.likeSelected = true;
     }
     this.changeDetectorRef.markForCheck();
@@ -452,11 +452,13 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
-            /*if (error.error.status == '623') {
-              this.changeDetectorRef.markForCheck();
-            }*/
             this.likeSelected = false;
             console.log(error);
           }
@@ -467,6 +469,11 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
         .selectLikeProduct(params)
         .subscribe(
           response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
           },
           error => {
             console.log(error);
@@ -537,8 +544,12 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-  kFormatter(num) {
-    return Math.abs(num) > 9999 ?  ((Math.abs(num)/1000))  + 'K +' : num;
+  kFormatter() {
+    if (this.product['product_likes']) {
+      return Math.abs(this.product['product_likes']) > 9999 ?
+      ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
+       this.product['product_likes'];
+    }
   }
 
 

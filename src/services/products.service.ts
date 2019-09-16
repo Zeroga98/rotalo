@@ -162,7 +162,7 @@ export class ProductsService {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
     const url = `${this.urlSapi}/productos/like`;
-    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+    return this.http.post(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
   getProductsSuper(idUser, params) {
