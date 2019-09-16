@@ -57,6 +57,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
   categories: Array<CategoryInterface> = [];
   subCategories: Array<SubcategoryInterface> = [];
   genders: Array<any> = [];
+  vehiclesType: Array<any> = [];
   subCategory: SubcategoryInterface;
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
@@ -837,6 +838,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.photosForm.patchValue({'genderId': ''});
     this.genders = [];
+    this.vehiclesType = [];
     this.currentSubcategory = '';
     this.subCategory = null;
     if (idCategory == 7 || idCategory == 6 || idCategory == 10) {
@@ -859,6 +861,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     this.subCategory = this.findSubCategory(idSubcategory);
     this.photosForm.patchValue({'genderId': ''});
     this.genders = this.subCategory.generos;
+    console.log(this.subCategory);
   }
 
   loadSizes() {
@@ -1337,6 +1340,13 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       return false;
     }
     return true;
+  }
+
+  get showOptionsVehicle () {
+    if (this.photosForm.get('category').value == 6) {
+      return true;
+    }
+    return false;
   }
 
   addStock() {
