@@ -448,7 +448,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-
   validateState() {
     if (this.state['id']) {
       this.errorState = false;
@@ -697,7 +696,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       }
     }
 
-
     vehiclesTypeId.updateValueAndValidity();
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
@@ -894,8 +892,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
     }
   }
 
-
-
   private setInitialForm(config: ProductInterface) {
 
     /**Vehiculos**/
@@ -944,7 +940,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   /**Vehiculos**/
     if (config['vehicle']) {
-
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
       color = vehicle['color'] ? vehicle['color'] : '';
@@ -1004,7 +999,6 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       squareMetersTerrain = immovable['squareMetersTerrain'] ? immovable['squareMetersTerrain'] : '';
       socialClass = immovable['socialClass'] ? immovable['socialClass'] : '';
     }
-
 
     /**Moda**/
     let genderId = '';
