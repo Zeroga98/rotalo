@@ -253,7 +253,7 @@ export class LoginPage implements OnInit {
     openDialogAlert(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '300px';
-    dialogConfig.maxWidth = '900px';
+    dialogConfig.maxWidth = '680px';
     dialogConfig.width = '55%';
     dialogConfig.panelClass = 'alert-class';
   //  dialogConfig.minHeight = '350px';
