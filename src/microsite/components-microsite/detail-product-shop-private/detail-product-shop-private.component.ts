@@ -37,6 +37,7 @@ import { ConfigurationService } from '../../../services/configuration.service';
 import { CountUpOptions } from 'countup.js';
 import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail.component';
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
+import { ModalAliadosComponent } from '../../../components/modal-aliados/modal-aliados.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -872,6 +873,22 @@ export class DetailProductShopPrivateComponent implements OnInit {
     const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
     const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
     return pago;
+  }
+
+
+  openModalAliados(url) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '100%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.minHeight = '494px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = url;
+
+    const dialogRef = this.dialog.open(ModalAliadosComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
   }
 
 

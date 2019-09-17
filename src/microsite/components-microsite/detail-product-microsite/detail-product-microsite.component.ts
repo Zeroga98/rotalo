@@ -32,6 +32,8 @@ import { ShoppingCarService } from '../../services-microsite/front/shopping-car.
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
 import { timingSafeEqual } from 'crypto';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ModalAliadosComponent } from '../../../components/modal-aliados/modal-aliados.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -115,6 +117,7 @@ export class DetailProductMicrositeComponent implements OnInit {
     private navigationService: NavigationService,
     private car: ShoppingCarService,
     private back: ProductsMicrositeService,
+    public dialog: MatDialog,
     private feedService: FeedMicrositeService,
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
@@ -660,4 +663,21 @@ export class DetailProductMicrositeComponent implements OnInit {
   closeModal() {
     this.showModalBuy = false;
   }
+
+  openModalAliados(url) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '100%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.minHeight = '494px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = url;
+
+    const dialogRef = this.dialog.open(ModalAliadosComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
+  }
+
+
 }

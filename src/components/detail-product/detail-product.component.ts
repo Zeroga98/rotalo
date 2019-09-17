@@ -34,6 +34,7 @@ import { ModalShareProductService } from '../modal-shareProduct/modal-shareProdu
 import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
 import { SimulateCreditService } from '../../services/simulate-credit.service';
 import { CountUp, CountUpOptions } from 'countup.js';
+import { ModalAliadosComponent } from '../modal-aliados/modal-aliados.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -971,6 +972,25 @@ export class DetailProductComponent implements OnInit {
 
   refreshPage() {
     this.loadProduct();
+  }
+
+  openModalAliados(url) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '100%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.minHeight = '494px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = url;
+
+    const dialogRef = this.dialog.open(ModalAliadosComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
+  }
+
+  get isGuatemala() {
+    return window.location.href.includes('gt');
   }
 
 }
