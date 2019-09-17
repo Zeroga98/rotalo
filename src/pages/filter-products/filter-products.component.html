@@ -60,6 +60,30 @@
                 </article>
               </div>
 
+              <div *ngIf="filter.filtroVehicleType" class="option">
+                <input checked id="ac-vt" name="accordion-1" type="checkbox" />
+                <label for="ac-vt">Tipo de vehículo<div class="icon"></div></label>
+                <article class="ac-small">
+                  <div class="material-design">
+                    <div>
+                      <div class="md-radio">
+                        <input [checked]="currentFilter && !currentFilter['vehicles_types_id']"
+                          (change)="filterByVehicleType('')" value="" id="vehicleType" type="radio" name="vehicleType">
+                        <label for="vehicleType">Todas</label>
+                      </div>
+                      <div *ngFor="let vehicleType of filter.filtroVehicleType.vehiclesTypes; let i = index" class="md-radio">
+                        <input
+                        [checked]="currentFilter && currentFilter['vehicles_types_id'] == vehicleType.id "
+                        (change)="filterByVehicleType(vehicleType.id)" value="{vehicleType.id}}"
+                          id="vehicleType{{i}}" type="radio" name="subcategory">
+                        <label for="vehicleType{{i}}">{{vehicleType.name}}
+                          ({{vehicleType.quantityForFilter}})</label>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
           <div *ngIf="filter.filtroComunidad" class="option">
             <input checked id="ac-1" name="accordion-1" type="checkbox" />
             <label for="ac-1">Comunidades<div class="icon"></div></label>

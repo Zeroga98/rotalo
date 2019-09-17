@@ -558,6 +558,11 @@ export class FilterProductsComponent
     this.scrollToTop();
   }
 
+  public filterByVehicleType(vehicleTypeId) {
+    this.routineUpdateProducts({ vehicles_types_id: vehicleTypeId, number: 1 });
+    this.scrollToTop();
+  }
+
   removeFilters() {
     this.currentFilter = {
       product_country_id: this.countryId,
