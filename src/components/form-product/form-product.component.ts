@@ -959,7 +959,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
       uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
       carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
       lineId = vehicle['line'] ? vehicle['line'].id : '';
-      vehiclesTypeId = vehicle['vehiclesTypeId'] ? vehicle['vehiclesTypeId'] : '';
+      vehiclesTypeId = vehicle['vehiclesType'] ? vehicle['vehiclesType'].id : '';
     }
 
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
