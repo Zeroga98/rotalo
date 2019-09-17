@@ -227,9 +227,9 @@ export class LoginPage implements OnInit {
           this.openDialogGoToStore();
         }*/
         const currentUrl = window.location.href;
-        if (!currentUrl.includes('gt')) {
+      /*  if (!currentUrl.includes('gt')) {
           this.openDialogAlert();
-        }
+        }*/
       }
     } catch (error) {
       console.error(error);

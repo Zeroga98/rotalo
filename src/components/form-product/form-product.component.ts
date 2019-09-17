@@ -1261,6 +1261,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.photosForm.controls['category'].setValue(subCategory.category.id);
         this.photosForm.controls['subcategoryId'].setValue(subCategory.id);
         this.loadFashionGender(subCategory.id);
+        this.loadTypeVehicle(subCategory.id);
       }
     }
   }
@@ -1273,6 +1274,13 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.photosForm.controls['genderId'].setValue(this.product['children'][0].genderId);
         this.loadSizes();
       }
+    }
+  }
+
+  loadTypeVehicle(subcategoryValue) {
+    const subcategory = this.findSubCategory(subcategoryValue);
+    if (subcategory && subcategory.tipoVehiculos) {
+      this.vehiclesType = subcategory.tipoVehiculos;
     }
   }
 

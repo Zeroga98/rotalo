@@ -273,9 +273,9 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
           this.openDialogGoToStore();
         }*/
         const currentUrl = window.location.href;
-        if (!currentUrl.includes('gt')) {
+       /* if (!currentUrl.includes('gt')) {
           this.openDialogAlert();
-        }
+        }*/
       }
      } catch (error) {
        console.error(error);
