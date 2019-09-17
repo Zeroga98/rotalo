@@ -56,6 +56,19 @@
                 <span class="error-msg">Este campo es requerido</span>
               </div>
 
+              <div *ngIf="showOptionsVehicle" class="form-group field-form"
+              [ngClass]="{'valid': photosForm.get('vehiclesTypeId').value}">
+                <div>
+                  <select class="vehiclesTypeId form-control" name="vehiclesTypeId" formControlName="vehiclesTypeId">
+                    <option value="" disabled></option>
+                    <option *ngFor="let vehicleType of vehiclesType" value="{{vehicleType.id}}">{{vehicleType.name}}
+                    </option>
+                  </select>
+                  <label class="label-title">Tipo de vehículo* </label>
+                  <span class="error-msg">Este campo es requerido</span>
+                </div>
+              </div>
+
             </div>
             <div class="row-img">
               <div class="step-number">

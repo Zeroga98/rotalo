@@ -53,9 +53,10 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   photosForm: FormGroup;
   photosUploaded: Array<any> = [];
   categories: Array<CategoryInterface> = [];
-  subCategories: Array<SubcategoryInterface> = [];
+  subCategories: Array<any> = [];
   genders: Array<any> = [];
-  subCategory: SubcategoryInterface;
+  vehiclesType: Array<any> = [];
+  subCategory;
   yearsVehicle: Array<any> = [];
   transmissionList: Array<any> = LISTA_TRANSMISION;
   colorList: Array<any> = COLOR;
@@ -387,7 +388,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
             'airbag': this.photosForm.get('airbag').value,
             'airConditioner': this.photosForm.get('airConditioner').value,
             'absBrakes': this.photosForm.get('absBrakes').value,
-            'uniqueOwner': this.photosForm.get('uniqueOwner').value
+            'uniqueOwner': this.photosForm.get('uniqueOwner').value,
+            'vehiclesTypeId': this.photosForm.get('vehiclesTypeId').value
           };
           params.vehicle = vehicle;
       }
@@ -469,7 +471,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       element.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   }
-
 
   validateState() {
     if (this.state['id']) {
@@ -648,6 +649,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const airConditioner = this.photosForm.get('airConditioner');
     const absBrakes = this.photosForm.get('absBrakes');
     const uniqueOwner = this.photosForm.get('uniqueOwner');
+    const vehiclesTypeId = this.photosForm.get('vehiclesTypeId');
     typeVehicleControl.clearValidators();
     model.clearValidators();
     lineId.clearValidators();
@@ -663,6 +665,11 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     airConditioner.clearValidators();
     absBrakes.clearValidators();
     uniqueOwner.clearValidators();
+    vehiclesTypeId.clearValidators();
+
+    if (this.subcategoryIsVehicle() || this.subcategoryIsMotos()) {
+      vehiclesTypeId.setValidators([Validators.required]);
+    }
 
     if (this.subcategoryIsVehicle()) {
       carMake.setValidators([Validators.required]);
@@ -712,6 +719,8 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         this.brandsList = this.collectionService.getBrandsMotos();
       }
     }
+
+    vehiclesTypeId.updateValueAndValidity();
     typeVehicleControl.updateValueAndValidity();
     model.updateValueAndValidity();
     lineId.updateValueAndValidity();
@@ -866,6 +875,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     this.subCategories = this.findCategory(idCategory).subcategories;
     this.photosForm.patchValue({'genderId': ''});
     this.genders = [];
+    this.vehiclesType = [];
     this.currentSubcategory = '';
     this.subCategory = null;
     if (idCategory == 7 || idCategory == 6 || idCategory == 10) {
@@ -887,7 +897,9 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   selectedSubcategory(idSubcategory) {
     this.subCategory = this.findSubCategory(idSubcategory);
     this.photosForm.patchValue({'genderId': ''});
+    this.photosForm.patchValue({'vehiclesTypeId': ''});
     this.genders = this.subCategory.generos;
+    this.vehiclesType = this.subCategory.tipoVehiculos;
   }
 
   loadSizes() {
@@ -906,8 +918,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       this.yearsVehicle.push((new Date()).getFullYear() + 1 - i);
     }
   }
-
-
 
   private setInitialForm(config: ProductInterface) {
 
@@ -933,6 +943,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     };
     let checkNewPrice = false;
     let newPrice;
+    let vehiclesTypeId = '';
 
     if (config['subcategory'].name == 'Carros') {
       request.tipo = 1;
@@ -970,6 +981,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       uniqueOwner = vehicle['uniqueOwner'] ? vehicle['uniqueOwner'] : '';
       carMake = vehicle['line'] ? vehicle['line'].brand.id : '';
       lineId = vehicle['line'] ? vehicle['line'].id : '';
+      vehiclesTypeId = vehicle['vehiclesType'] ? vehicle['vehiclesType'].id : '';
     }
 
     typeVehicle = config['typeVehicle'] ? config['typeVehicle'] : '';
@@ -1014,7 +1026,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       squareMetersTerrain = immovable['squareMetersTerrain'] ? immovable['squareMetersTerrain'] : '';
       socialClass = immovable['socialClass'] ? immovable['socialClass'] : '';
     }
-
 
     /**Moda**/
     let genderId = '';
@@ -1092,6 +1103,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       'checkNewPrice': [checkNewPrice, []],
       'specialPrice': [newPrice, []],
       category: [config['category'], [Validators.required]],
+      vehiclesTypeId: [vehiclesTypeId, []],
 
       antiquity : [antiquity, []],
       squareMeters: [squareMeters, []],
@@ -1285,6 +1297,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         this.photosForm.controls['category'].setValue(subCategory.category.id);
         this.photosForm.controls['subcategoryId'].setValue(subCategory.id);
         this.loadFashionGender(subCategory.id);
+        this.loadTypeVehicle(subCategory.id);
       }
     }
   }
@@ -1297,6 +1310,13 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         this.photosForm.controls['genderId'].setValue(this.product['children'][0].genderId);
         this.loadSizes();
       }
+    }
+  }
+
+  loadTypeVehicle(subcategoryValue) {
+    const subcategory = this.findSubCategory(subcategoryValue);
+    if (subcategory && subcategory.tipoVehiculos) {
+      this.vehiclesType = subcategory.tipoVehiculos;
     }
   }
 
@@ -1381,6 +1401,15 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       return false;
     }
     return true;
+  }
+
+  get showOptionsVehicle () {
+    if (this.photosForm.get('category').value == 6) {
+      if (this.photosForm.get('subcategoryId').value == 9 || this.photosForm.get('subcategoryId').value == 10) {
+        return true;
+      }
+    }
+    return false;
   }
 
   addStock() {
@@ -1489,7 +1518,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     }
     return false;
   }
-
 
   loadOrderPhotos () {
     let order = [];

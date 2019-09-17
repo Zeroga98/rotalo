@@ -53,7 +53,9 @@ export class CategoriesService {
           productsActives: subcategory.productosActivos,
           url: subcategory.url,
           generos: subcategory.generos ? subcategory.generos : [],
+          tipoVehiculos: subcategory.tipoVehiculos ? subcategory.tipoVehiculos : [],
         };
+
         return interfaceSubCategory;
       });
     }

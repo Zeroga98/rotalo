@@ -226,8 +226,8 @@ export class LoginPage implements OnInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
-       /* const currentUrl = window.location.href;
-        if (!currentUrl.includes('gt')) {
+       // const currentUrl = window.location.href;
+      /*  if (!currentUrl.includes('gt')) {
           this.openDialogAlert();
         }*/
       }
