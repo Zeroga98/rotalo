@@ -317,6 +317,7 @@
 
       .form-control.category[disabled],
       .form-control.subcategory[disabled],
+      .form-control.vehiclesTypeId[disabled],
       .form-control.genderId[disabled] {
         background: transparent;
         border-bottom: 1px solid transparent;
@@ -324,6 +325,7 @@
 
       .form-control.category[disabled]+.label-title,
       .form-control.subcategory[disabled]+.label-title,
+      .form-control.vehiclesTypeId[disabled]+.label-title,
       .form-control.genderId[disabled]+.label-title
        {
         color: #383838;

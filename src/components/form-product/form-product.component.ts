@@ -944,7 +944,7 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
   /**Vehiculos**/
     if (config['vehicle']) {
-      debugger
+
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
       color = vehicle['color'] ? vehicle['color'] : '';
@@ -1127,6 +1127,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
         this.photosForm.get('genderId').disable();
       }
 
+    }
+
+    if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
+      this.photosForm.get('vehiclesTypeId').disable();
     }
 
   }
