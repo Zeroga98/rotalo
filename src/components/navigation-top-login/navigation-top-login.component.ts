@@ -272,10 +272,10 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
-        const currentUrl = window.location.href;
+       /* const currentUrl = window.location.href;
         if (!currentUrl.includes('gt')) {
           this.openDialogAlert();
-        }
+        }*/
       }
      } catch (error) {
        console.error(error);
