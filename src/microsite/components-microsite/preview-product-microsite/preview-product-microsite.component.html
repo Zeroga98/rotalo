@@ -22,9 +22,7 @@
         <div class="description">
           <pre>{{products.description}}</pre>
         </div>
-        <div>
-          tabla
-        </div>
+
       </div>
       <div *ngIf="products?.photoList" class="product-photos">
         <div *ngIf="isSellProcess()" class="lable-sell-process">
@@ -126,7 +124,7 @@
             <div class="price-container">
                 <div
                 [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'low-price' : ''"
-                *ngIf="products['previousPrice'] && isPromoDateBefore && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
+                *ngIf="products['previousPrice']  && isActivePromo || products['previousPrice'] && products['previousPrice'] >  products['price']">
                 <span *ngIf="products['previousPrice'] != 0 && products.currency != 'GTQ' && idCountry == 1"
                   class="valor-product">
                   {{products['previousPrice'] | currency:"$" | removeDigits}}</span>
@@ -149,7 +147,7 @@
           <div class="btns-container">
             <div class="full-width quantity-container">
               <form role="form" [formGroup]="quantityForm" name="quantityForm" class="form-theme"
-                (ngSubmit)="quantity(form)" #form>
+                 #form>
                 <div class="form-group">
                   <label class="label-title">Cantidad</label>
                   <div class="input-group quantity-wrapper">
@@ -170,7 +168,7 @@
                   </div>
                   <span class="quantity-on-stock" *ngIf="totalStock==1">({{totalStock}} disponible)</span>
                   <span class="quantity-on-stock" *ngIf="totalStock>1">({{totalStock}} disponibles)</span>
-                  <span [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este
+                  <span  *ngIf="quantityForm && quantityForm.get('stock')" [ngStyle]="{'display': quantityForm.get('stock').errors ? 'block' : ''}" class="error-msg">Este
                     campo debe ser mayor a 0 y menor igual a {{totalStock}}</span>
                 </div>
               </form>

@@ -31,6 +31,7 @@ import { START_DATE_BF, END_DATE_BF } from '../../../commons/constants/dates-pro
 import { ShoppingCarService } from '../../services-microsite/front/shopping-car.service';
 import { ProductsMicrositeService } from '../../services-microsite/back/products-microsite.service';
 import { FeedMicrositeService } from '../../pages-microsite/products-microsite/feedMicrosite.service';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -105,6 +106,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
+    private configurationService: ConfigurationService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
     private userService: UserService,
@@ -140,10 +142,12 @@ export class PreviewProductMicrositeComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.idProduct = params['id'];
       this.idShop = params['idShop'];
-      if (this.idShop == 1) {
+      if(this.idShop == 1) {
         this.loadProduct();
-      } else  {
+      } else if (this.idShop == this.configurationService.storeIdPublic)  {
         this.loadProductShop();
+      } else if (this.idShop == this.configurationService.storeIdPrivate) {
+        this.loadProductShopPrivate();
       }
     });
   }
@@ -309,6 +313,22 @@ export class PreviewProductMicrositeComponent implements OnInit {
     });
   }
 
+  loadProductShopPrivate() {
+    const params =  {
+      idTienda:  this.idShop,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
+      if (reponse.body) {
+        this.products = reponse.body.productos[0];
+        console.log(this.products);
+       // this.redirectIfisNotOwner(this.product);
+      }
+    } ,
+    (error) => {
+     console.log(error);
+    });
+  }
 
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {
