@@ -118,7 +118,8 @@ export class PreviewProductMicrositeComponent implements OnInit {
     private car: ShoppingCarService,
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private configurationService: ConfigurationService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
 
@@ -376,6 +377,58 @@ export class PreviewProductMicrositeComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+  }
+
+  loadProductShopPrivate() {
+    const params =  {
+      idTienda:  this.idShop,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
+      if (reponse.body) {
+        this.products = reponse.body.productos[0];
+        this.initQuantityForm();
+        this.totalStock = this.products.stock;
+        if (this.products['stock']) {
+          this.totalStock = this.products['stock'];
+        } else {
+          this.totalStock = 1;
+        }
+        if (this.products && this.products.children && this.products.children[0].stock) {
+          this.totalStock = this.products.children[0].stock;
+        }
+
+        const fullName = this.products.user.name.split(' ');
+        if (this.products.user.name) {
+          this.firstName = fullName[0];
+          this.onLoadProduct(this.products);
+          this.productIsSold(this.products);
+          if (this.products.photoList) {
+            this.productsPhotos = [].concat(this.products.photoList);
+            this.products.photoList = this.productsPhotos;
+          }
+          if (this.products.photoList) {
+            this.conversation = {
+              photo: this.products.photoList[0].url,
+              name: this.products.user.name
+            };
+          }
+          this.productChecked = this.products.status;
+          this.productStatus = this.products.status === 'active';
+          this.visitorCounter();
+          this.changeDetectorRef.markForCheck();
+        }
+        this.reference = this.products.reference;
+        if (this.products.children) {
+          this.childrens = this.products.children;
+          this.childSelected = this.products.children[0];
+          this.reference = this.childSelected.reference;
+        }
+      }
+    } ,
+    (error) => {
+     console.log(error);
+    });
   }
 
   productIsSold(product) {
