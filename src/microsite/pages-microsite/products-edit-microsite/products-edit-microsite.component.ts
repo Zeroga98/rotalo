@@ -43,6 +43,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
       } else if (this.idShop == this.configurationService.storeIdPrivate) {
         this.loadProductShopPrivate();
       }
+
     });
   }
 
@@ -52,6 +53,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
        // this.redirectIfisNotOwner(this.product);
+       this.changeDetectorRef.markForCheck();
       }
     } ,
     (error) => {
@@ -69,6 +71,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
        // this.redirectIfisNotOwner(this.product);
+       this.changeDetectorRef.markForCheck();
       }
     } ,
     (error) => {
@@ -87,6 +90,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
        // this.redirectIfisNotOwner(this.product);
+       this.changeDetectorRef.markForCheck();
       }
     } ,
     (error) => {
