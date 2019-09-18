@@ -1123,9 +1123,10 @@ export class FormProductComponent implements OnInit, OnChanges, AfterViewInit  {
 
     }
 
+    /*
     if (config.subcategory.name == 'Motos' ||  config.subcategory.name == 'Carros') {
       this.photosForm.get('vehiclesTypeId').disable();
-    }
+    }*/
 
   }
 
