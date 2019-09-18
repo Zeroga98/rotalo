@@ -139,7 +139,6 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       const currentUser = this.currentSessionSevice.currentUser();
       this.countryId = Number(currentUser['countryId']);
       try {
-
         this.setInitialForm(this.getInitialConfig());
         this.categoryService.getCategoriesActiveServer().subscribe((response) => {
           this.loadYearsModelVehicle();

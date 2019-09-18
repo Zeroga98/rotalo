@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ROUTES } from '../../../router/routes';
 import { CurrentSessionService } from '../../../services/current-session.service';
+import { ConfigurationService } from '../../../services/configuration.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class ProductsEditMicrositeComponent implements OnInit {
     private router: Router,
     private productsService: ProductsService,
     private changeDetectorRef: ChangeDetectorRef,
+    private configurationService: ConfigurationService,
     private currentSessionService: CurrentSessionService,
     private route: ActivatedRoute
   ) {
@@ -36,8 +38,10 @@ export class ProductsEditMicrositeComponent implements OnInit {
 
       if(this.idShop == 1) {
         this.loadProduct();
-      } else  {
+      } else if (this.idShop == this.configurationService.storeIdPublic)  {
         this.loadProductShop();
+      } else if (this.idShop == this.configurationService.storeIdPrivate) {
+        this.loadProductShopPrivate();
       }
     });
   }
@@ -61,6 +65,24 @@ export class ProductsEditMicrositeComponent implements OnInit {
       idProducto: this.idProduct
     };
     this.productsService.getProductsByIdDetailPublic(params).subscribe((reponse) => {
+      if (reponse.body) {
+        this.product = reponse.body.productos[0];
+        this.photosUploadedRest = 0;
+       // this.redirectIfisNotOwner(this.product);
+      }
+    } ,
+    (error) => {
+     console.log(error);
+    });
+  }
+
+
+  loadProductShopPrivate() {
+    const params =  {
+      idTienda:  this.idShop,
+      idProducto: this.idProduct
+    };
+    this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
         this.product = reponse.body.productos[0];
         this.photosUploadedRest = 0;
