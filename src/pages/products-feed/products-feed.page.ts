@@ -278,7 +278,7 @@ export class ProductsFeedPage implements OnInit, OnDestroy, AfterViewInit {
     this.countrySelected = { id: countryId };
     this.currentFilter = Object.assign({}, this.currentFilter, {
       'product_country_id' : countryId,
-      'size': 24,
+      'size': 25,
       'number': 1
     });
     this.loadFeaturedProduct(countryId, -1);

@@ -42,14 +42,14 @@
       width: 35px;
       height: 35px;
       text-align: center;
-      padding-top: 12px;
+      padding-top: 11px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
       position: absolute;
-      top: -30px;
+      top: -34px;
       right: 0;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
@@ -86,14 +86,14 @@
       margin-bottom: 1rem;
 
       .icon-location {
-        margin-right: 0.5rem;
         font-size: 1.3rem!important;
         margin-left: 0.1rem;
       }
 
       span {
         vertical-align: middle;
-        margin-left: 10px;
+        margin-left: 5px;
+        font-family: 'Lato Regular';
       }
     }
 
@@ -632,8 +632,8 @@
   }
 
   .container-product .container-photo {
-    height: 213px;
-    min-height: 213px;
+    height: 195px;
+    min-height: 195px;
     max-width: 100%;
     border-bottom: 1px solid rgba(51, 51, 51, 0.1);
     display: flex;
