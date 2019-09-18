@@ -263,7 +263,8 @@ export class ProductMicrositePrivateComponent implements AfterViewInit, AfterCon
   kFormatter() {
     if (this.product['product_likes']) {
       return Math.abs(this.product['product_likes']) > 9999 ?
-      ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
+     // ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
+      '10K +' :
        this.product['product_likes'];
     }
   }

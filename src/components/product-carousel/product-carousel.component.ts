@@ -124,7 +124,8 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
   kFormatter() {
     if (this.product['likes']) {
       return Math.abs(this.product['likes']) > 9999 ?
-      ((Math.abs(this.product['likes']) / 1000))  + 'K +' :
+   //   ((Math.abs(this.product['likes']) / 1000))  + 'K +' :
+      '10K +' :
       this.product['likes'];
     }
     return 0;
