@@ -32,7 +32,7 @@
         </div>
         <div (click)="checkLike()" class="heart-container">
             <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
-            <span>
+            <span *ngIf="kFormatter()">
                 {{kFormatter()}}
             </span>
           </div>

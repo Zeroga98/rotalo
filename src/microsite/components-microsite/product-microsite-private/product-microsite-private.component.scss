@@ -43,14 +43,14 @@
       width: 30px;
       height: 30px;
       text-align: center;
-      padding-top: 6px;
+      padding-top: 11px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
       position: absolute;
-      top: -30px;
+      top: -34px;
       right: 0;
       box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
       .icon-share {
@@ -278,6 +278,11 @@
     .heart.active {
       background-image: url(../../../assets/img/ic_heart_active.svg);
     }
+
+    span {
+      vertical-align: middle;
+      margin-left: 5px;
+    }
   }
 }
 
@@ -399,8 +404,8 @@
   .item__location {
     color: #A2A2A2;
     font-size: 1.2rem;
-    line-height: 15px;
-    padding-bottom: 8px;
+    line-height: 25px;
+
     display: flex;
     justify-content: space-between;
     .location {
@@ -504,8 +509,8 @@
   }
 
   .container-product .container-photo {
-    height: 170px;
-    min-height: 170px;
+    height: 195px;
+    min-height: 195px;
     max-width: 100%;
     border-bottom: 1px solid rgba(51, 51, 51, 0.1);
     display: flex;
@@ -574,8 +579,8 @@
     }
 
     .container-product .container-photo {
-      min-height: 137px;
-      height: 137px;
+      height: 195px;
+      min-height: 195px;
     }
 
   }

@@ -183,7 +183,6 @@
     }
   }
 
-
   .heart-container {
     position: relative;
     display: flex;
@@ -208,9 +207,13 @@
 
     span {
       vertical-align: middle;
-      margin-left: 10px;
+      margin-left: 5px;
     }
 
+  }
+
+  .icon-location {
+    margin-right: 5px;
   }
 
 }
@@ -306,8 +309,8 @@
       color: #FFFFFF;
       font-weight: bold;
       font-size: 1.2rem;
-      padding-left: 8px;
-      line-height: 2.5rem;
+      padding-left: 7px;
+      line-height: 2.4rem;
     }
   }
 
@@ -389,8 +392,8 @@
       color: #FFFFFF;
       font-weight: bold;
       font-size: 1.2rem;
-      padding-left: 8px;
-      line-height: 2.5rem;
+      padding-left: 7px;
+      line-height: 2.4rem;
     }
   }
 
