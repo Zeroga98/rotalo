@@ -49,9 +49,9 @@
                       </div>
                       <div *ngFor="let subcategory of filter.filtroSubcategoria.subcategorias; let i = index" class="md-radio">
                         <input
-                        [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id "
+                        [checked]="currentFilter && currentFilter['product_subcategory_id'] == subcategory.id"
                         (change)="filterBySubCategory(subcategory.id)" value="{subcategory.id}}"
-                          id="subcategory{{i}}" type="radio" name="subcategory">
+                        id="subcategory{{i}}" type="radio" name="subcategory">
                         <label for="subcategory{{i}}">{{subcategory.name}}
                           ({{subcategory.quantityForFilter}})</label>
                       </div>
