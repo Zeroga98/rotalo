@@ -119,7 +119,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
     private route: ActivatedRoute,
-    private configurationService: ConfigurationService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
 
@@ -307,23 +306,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
           this.childSelected = this.products.children[0];
           this.reference = this.childSelected.reference;
         }
-      }
-    } ,
-    (error) => {
-     console.log(error);
-    });
-  }
-
-  loadProductShopPrivate() {
-    const params =  {
-      idTienda:  this.idShop,
-      idProducto: this.idProduct
-    };
-    this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
-      if (reponse.body) {
-        this.products = reponse.body.productos[0];
-        console.log(this.products);
-       // this.redirectIfisNotOwner(this.product);
       }
     } ,
     (error) => {
