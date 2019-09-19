@@ -218,7 +218,7 @@
                         <input
                         [checked]="currentFilter && currentFilter['vehicles_types_id'] == vehicleType.id "
                         (change)="filterByVehicleType(vehicleType.id)" value="{vehicleType.id}}"
-                          id="vehicleType{{i}}" type="radio" name="subcategory">
+                          id="vehicleType{{i}}" type="radio" name="vehicleType">
                         <label for="vehicleType{{i}}">{{vehicleType.name}}
                           ({{vehicleType.quantityForFilter}})</label>
                       </div>
