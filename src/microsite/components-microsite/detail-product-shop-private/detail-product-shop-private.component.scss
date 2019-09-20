@@ -1,5 +1,5 @@
-@import "../../../styles/settings/_colors.scss";
-@import "../../../styles/settings/_variables.scss";
+@import '../../../styles/settings/_colors.scss';
+@import '../../../styles/settings/_variables.scss';
 
 :host() {
   display: block;
@@ -274,7 +274,7 @@
       -webkit-transform: scaleX(-1);
       transform: scaleX(-1);
       filter: FlipH;
-      -ms-filter: "FlipH";
+      -ms-filter: 'FlipH';
     }
   }
   .get-offer {
@@ -314,6 +314,19 @@
 
 
 
+}
+
+:host() {
+  .menu-container {
+    .option {
+      cursor: pointer;
+      position: relative;
+      label {
+        color: #383838;
+        font-size: 1.4rem;
+      }
+    }
+  }
 }
 
 .info-center {
@@ -522,7 +535,7 @@
   }
 
   .info-section:after {
-    content: "";
+    content: '';
     position: absolute;
     right: -42px;
     top: 0;
@@ -823,7 +836,7 @@
 
 .switch-slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
@@ -1108,11 +1121,22 @@ input:checked+.switch-slider:before {
 
 
 :host {
+
+  .banner-simulator {
+    margin-top: 20px;
+    background-image: url('../../../assets/img/banner-simulation.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 100px;
+  }
+
   .sufi-container {
     border-radius: 5px;
     border: 1px dashed #D5D5D5;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 15px;
     .icon-custom--sufi-logo {
       color: rgb(237, 28, 42);
       margin-right: 10px;
@@ -1174,7 +1198,7 @@ input:checked+.switch-slider:before {
     .btn-container {
       padding-top: 10px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       .terms {
         position: relative;
@@ -1239,6 +1263,7 @@ input:checked+.switch-slider:before {
       font-size: 1.6rem;
       display: inline-block;
     }
+
     table {
       width: 100%;
       border-collapse: inherit;
@@ -1263,6 +1288,32 @@ input:checked+.switch-slider:before {
         text-align: right;
       }
     }
+
+    .container-bottom {
+      background-color: #FFF4F4;
+      width: 95%;
+      margin: 0 auto;
+      padding: 7px 8px;
+      border-radius: 3px;
+      p {
+       color: #000000;
+       font-size: 1.2rem;
+       line-height: 1.6rem;
+      }
+      strong {
+        color: #000000;
+        font-size:1.4rem;
+        line-height: 1.6rem;
+      }
+    }
+
+    .container-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 90%;
+    }
+
   }
 
   .tooltip {
@@ -1305,7 +1356,7 @@ input:checked+.switch-slider:before {
   }
 
   .toolTipText::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     left: 50%;
@@ -1368,6 +1419,14 @@ input:checked+.switch-slider:before {
       order: 1;
     }
 
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    .banner-simulator {
+      height: 60px;
+    }
   }
 }
 
@@ -1451,7 +1510,7 @@ input:checked+.switch-slider:before {
       padding: 0px;
     }
     .info-section:after {
-      content: "";
+      content: '';
       display: none;
     }
     .btn-two-container, .btns-container,  .row-container{
@@ -1535,6 +1594,21 @@ input:checked+.switch-slider:before {
 
     .product-info-user {
       padding-top: 20px;
+    }
+
+    .banner-simulator {
+      margin-top: 0px;
+      background-image: url('../../../assets/img/banner-mobile-simulation.png');
+      height: 100px;
+    }
+
+  }
+}
+
+@media screen and (max-width: 460px) {
+  :host {
+    .banner-simulator {
+      height: 80px;
     }
   }
 }
