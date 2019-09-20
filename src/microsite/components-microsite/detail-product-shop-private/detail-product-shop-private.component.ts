@@ -121,6 +121,8 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public porcentajeSimulacion = 20;
   public showSufiButton = false;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public tradicionalSimulacion;
+  public especialSimulacion;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -314,7 +316,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
         }
@@ -325,8 +326,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
         this.setFormSufi();
-
-
 
         this.initQuantityForm();
         this.totalStock = this.products.stock;
@@ -806,6 +805,28 @@ export class DetailProductShopPrivateComponent implements OnInit {
         'term-months': [72, Validators.required]
       }
     );
+    this.simulateSufi();
+  }
+
+
+  simulateSufi() {
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+    const infoVehicle = {
+      'productId': this.idProduct,
+      'valorAFinanciar': this.products.price,
+      'cuotaInicial': creditValue,
+      'plazo': termMonths
+    };
+    this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {
+      if(response && response.simulaciones) {
+        this.tradicionalSimulacion = response.simulaciones[0];
+        this.especialSimulacion = response.simulaciones[1];
+        console.log(this.tradicionalSimulacion);
+        console.log(this.especialSimulacion);
+      }
+    })
+      .catch(httpErrorResponse => { });
   }
 
 

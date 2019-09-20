@@ -18,6 +18,13 @@ constructor(private http: HttpClient,
     return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
   }
 
+  simulateCreditSufi(infoVehicle): Promise<any> {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url =  this.urlSapi + '/sufi/simularsufi';
+    return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
+  }
+
   sendSimulateCredit(infoVehicle) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
