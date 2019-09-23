@@ -567,6 +567,10 @@ export class DetailProductShopPrivateComponent implements OnInit {
 
   }
 
+  closeForm() {
+    this.showForm = false ;
+  }
+
   openOfferModal(product: ProductInterface) {
     this.isOfferModalShowed = true;
     this.configurarModal(product);
