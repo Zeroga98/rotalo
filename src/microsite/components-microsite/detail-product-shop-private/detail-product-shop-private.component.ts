@@ -123,6 +123,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
   public tradicionalSimulacion;
   public especialSimulacion;
+  public showForm = false ;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -556,12 +557,14 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+   /* const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
       }/${id}/${this.configurationService.storeIdPrivate}`;
     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
-    this.router.navigate([urlSimulateCredit]);
+    this.router.navigate([urlSimulateCredit]);*/
+    this.showForm = true ;
+
   }
 
   openOfferModal(product: ProductInterface) {
@@ -815,7 +818,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
     const infoVehicle = {
       'productId': this.idProduct,
       'valorAFinanciar': this.products.price,
-      'cuotaInicial': creditValue,
+      'cuotaInicial': creditValue ? creditValue : 0,
       'plazo': termMonths
     };
     this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {

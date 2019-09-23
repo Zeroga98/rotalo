@@ -21,6 +21,9 @@ export class FooterComponent implements OnInit {
   public successModal  = false;
   private currentUrl = '';
   public params;
+
+  public hideFaqLink = false;
+
   constructor(private _router: Router,
     private route: ActivatedRoute,
     private currentSessionService: CurrentSessionService,
@@ -32,7 +35,9 @@ export class FooterComponent implements OnInit {
     if (this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
       this.termsLink = `/${ROUTES.TERMS}/${this.configurationService.storeIdPrivate}`;
       this.faqLink = `/${ROUTES.FAQ}/${this.configurationService.storeIdPrivate}`;
+      this.hideFaqLink = true;
     }
+
     this.route.params.subscribe((response) => {
       if (response['id']) {
         this.termsLink = `/${ROUTES.TERMS}/${response['id']}`;
