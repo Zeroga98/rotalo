@@ -74,7 +74,7 @@
                 <td class=" ">
                   <div>
                     Marca/Modelo
-                    <p *ngIf="products.vehicle.line">{{products.vehicle.line.brand.name}},
+                    <p *ngIf="products.vehicle.line && products.vehicle.line.brand">{{products.vehicle.line.brand.name}},
                       {{products.vehicle.line.name}}</p>
                   </div>
                 </td>
@@ -117,7 +117,7 @@
                   </div>
                   <div *ngIf="products.vehicle.vehicleType == 'MOTO'">
                     Tipo de Vehículo
-                    <p *ngIf="products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
+                    <p *ngIf="products.vehicle.vehiclesType && products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
                   </div>
                 </td>
               </tr>
@@ -137,7 +137,7 @@
                 <td class="padding-cell-left">
                   <div *ngIf="products.vehicle.vehicleType == 'AUTO'">
                     Tipo de Vehículo
-                    <p *ngIf="products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
+                    <p *ngIf="products.vehicle.vehiclesType && products.vehicle.vehiclesType.name">{{products.vehicle.vehiclesType.name}}</p>
                   </div>
                 </td>
               </tr>

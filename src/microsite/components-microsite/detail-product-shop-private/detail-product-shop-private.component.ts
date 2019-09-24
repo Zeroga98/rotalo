@@ -122,6 +122,10 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public porcentajeSimulacion = 20;
   public showSufiButton = false;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public tradicionalSimulacion;
+  public especialSimulacion;
+  public showForm = false ;
+  public contactUser: FormGroup;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -172,6 +176,14 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.loadProduct();
   }
 
+  initSufiForm() {
+    this.contactUser = this.fb.group({
+      'celular': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
+      ],
+      'horarioContacto': ['Mañana', Validators.required],
+      'check-authorization': [false, Validators.required]
+    });
+  }
 
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
@@ -210,35 +222,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     }
   }
 
-  /*
-  shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params, this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalleCorporativo'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -315,7 +298,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
         }
@@ -326,8 +308,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
         this.setFormSufi();
-
-
 
         this.initQuantityForm();
         this.totalStock = this.products.stock;
@@ -558,12 +538,18 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+   /* const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
       }/${id}/${this.configurationService.storeIdPrivate}`;
     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
-    this.router.navigate([urlSimulateCredit]);
+    this.router.navigate([urlSimulateCredit]);*/
+    this.showForm = true ;
+
+  }
+
+  closeForm() {
+    this.showForm = false ;
   }
 
   openOfferModal(product: ProductInterface) {
@@ -807,6 +793,28 @@ export class DetailProductShopPrivateComponent implements OnInit {
         'term-months': [72, Validators.required]
       }
     );
+    this.simulateSufi();
+  }
+
+
+  simulateSufi() {
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+    const infoVehicle = {
+      'productId': this.idProduct,
+      'valorAFinanciar': this.products.price,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'plazo': termMonths
+    };
+    this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {
+      if(response && response.simulaciones) {
+        this.tradicionalSimulacion = response.simulaciones[0];
+        this.especialSimulacion = response.simulaciones[1];
+        console.log(this.tradicionalSimulacion);
+        console.log(this.especialSimulacion);
+      }
+    })
+      .catch(httpErrorResponse => { });
   }
 
 
