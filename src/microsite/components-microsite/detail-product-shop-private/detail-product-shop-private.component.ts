@@ -37,6 +37,7 @@ import { ConfigurationService } from '../../../services/configuration.service';
 import { CountUpOptions } from 'countup.js';
 import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail.component';
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
+import { ModalContactSufiComponent } from '../../../components/modal-contact-sufi/modal-contact-sufi.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -125,6 +126,8 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public especialSimulacion;
   public showForm = false ;
   public contactUser: FormGroup;
+  public showSuccess = false;
+  public errorSuccess = false;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -173,16 +176,47 @@ export class DetailProductShopPrivateComponent implements OnInit {
     }
     this.initShareForm();
     this.loadProduct();
+    this.initSufiForm();
   }
 
   initSufiForm() {
     this.contactUser = this.fb.group({
-      'celular': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
+      'celular': ['', [Validators.required, Validators.pattern(/^\d{10}$/)]
       ],
       'horarioContacto': ['Mañana', Validators.required],
-      'check-authorization': [false, Validators.required]
+      'check-authorization': ['', Validators.required]
     });
   }
+
+
+  creditRequest() {
+    if (this.contactUser.valid && this.contactUser.get('check-authorization').value) {
+      const celular = this.contactUser.get('celular').value;
+      const horarioContacto = this.contactUser.get('horarioContacto').value;
+      const creditValue = this.simulateForm.get('credit-value').value;
+      const termMonths = this.simulateForm.get('term-months').value;
+      const infoVehicle = {
+        'plazo': termMonths,
+        'cuotaInicial': creditValue ? creditValue : 0,
+        'valorAFinanciar': this.products.price,
+        'productId': this.idProduct,
+        'celular': celular,
+        'horarioContacto': horarioContacto,
+        'storeId': this.configurationService.storeIdPrivate
+      };
+      this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
+        this.errorSuccess = false;
+        this.showSuccess = true;
+        this.changeDetectorRef.markForCheck();
+      }).catch(httpErrorResponse => {
+        console.log(httpErrorResponse);
+       });
+
+  } else  {
+    this.errorSuccess = true;
+    this.showSuccess = false;
+  }
+}
 
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
@@ -548,6 +582,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   closeForm() {
+    this.contactUser.reset();
     this.showForm = false ;
   }
 
@@ -809,8 +844,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
       if(response && response.simulaciones) {
         this.tradicionalSimulacion = response.simulaciones[0];
         this.especialSimulacion = response.simulaciones[1];
-        console.log(this.tradicionalSimulacion);
-        console.log(this.especialSimulacion);
       }
     })
       .catch(httpErrorResponse => { });
@@ -880,6 +913,34 @@ export class DetailProductShopPrivateComponent implements OnInit {
     const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
     const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
     return pago;
+  }
+
+  openModalSufi() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '335px';
+    dialogConfig.minHeight = '450px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.panelClass = 'sufi-dialog-container-class';
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+
+    const infoVehicle = {
+      'plazo': termMonths,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'valorAFinanciar': this.products.price,
+      'productId': this.idProduct,
+      'storeId': this.configurationService.storeIdPrivate
+    };
+
+    dialogConfig.data = infoVehicle;
+
+    const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
   }
 
 

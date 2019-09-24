@@ -1891,6 +1891,24 @@ input:checked+.switch-slider:before {
       font-size: 1.6rem;
     }
   }
+
+  .error-message {
+    margin-top: 20px;
+    p {
+      text-align: center;
+      color:#FF3646;
+      font-size: 1.4rem;
+    }
+  }
+
+  .btn-desktop {
+    display: block;
+  }
+
+  .btn-mobile {
+    display: none;
+  }
+
 }
 
 @media screen and (max-width: 1300px) {
@@ -1906,7 +1924,7 @@ input:checked+.switch-slider:before {
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1114px) {
   :host {
     .row {
       flex-direction: column;
@@ -1943,6 +1961,18 @@ input:checked+.switch-slider:before {
       order: 1;
     }
 
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  :host() {
+    .btn-desktop {
+      display: none;
+    }
+
+    .btn-mobile {
+      display: block;
+    }
   }
 }
 

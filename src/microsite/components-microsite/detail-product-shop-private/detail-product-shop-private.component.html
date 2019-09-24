@@ -475,11 +475,7 @@
                               <td class="text-right" [countUp]="tradicionalSimulacion.seguroVida"
                                 [options]="optionsCountSimulate"></td>
                             </tr>
-                            <tr>
-                              <td>Seguro de cuota desde </td>
-                              <td class="text-right" [countUp]="tradicionalSimulacion.seguroCuota"
-                                [options]="optionsCountSimulate"></td>
-                            </tr>
+
                             <!--
                                   <tr>
                                       <td>Total</td>
@@ -502,7 +498,7 @@
                             <p>Plan Especial Rótalo con Sufi</p>
                             <div class="tooltip">
                               <span class="toolTipText">
-                                Paga el primer año con tasa del 0.65 y en adelante 0.88 de interés.
+                                Paga el primer año con tasa del 0.65 y en adelante 0.88.
                               </span>
                             </div>
                           </div>
@@ -514,7 +510,7 @@
                               <td class="text-right" [countUp]="especialSimulacion.cuotas[0].valor"
                                 [options]="optionsCountSimulate"></td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="especialSimulacion.cuotas[1].cuotas && especialSimulacion.cuotas[1].cuotas > 0">
                               <td>{{especialSimulacion.cuotas[1].cuotas}} Cuotas mensuales de </td>
                               <td class="text-right" [countUp]="especialSimulacion.cuotas[1].valor"
                                 [options]="optionsCountSimulate"></td>
@@ -554,10 +550,15 @@
                 </div>
               </form>
               <div class="btn-container">
-                <div class="btn-item">
+                <div class="btn-item btn-desktop">
                   <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
                     Quiero más información
                   </button>
+                </div>
+                <div class="btn-item btn-mobile">
+                    <button class="gtmProdSufiTePresta botons" (click)="openModalSufi()">
+                      Quiero más información
+                    </button>
                 </div>
               </div>
               <div class="menu-container ac-container">
@@ -567,23 +568,6 @@
                     <label for="terms-1">Valores aproximados y sujetos a términos y condiciones.<div class="icon"></div>
                       </label>
                     <article class="ac-small">
-                      <p>
-                        Plan tradicional Rótalo con Sufi
-                        No incluye el valor de los cargos adicionales Aplica para clientes G1 a G4
-                        Promoción Válida para vehículos nuevos y usados. Usados hasta 10 años de antiguedad
-                      </p>
-                      <br>
-                      <p>
-                        Plan especial Rótalo con Sufi
-                        No incluye el valor de los cargos adicionales Aplica para clientes G1 a G4
-                        Promoción Válida para vehículos nuevos y usados. Usados hasta 10 años de antigüedad.
-                        *Aplican condiciones de Seguros.
-                      </p>
-                      <br>
-                      <p>
-                        Asegúrate de leer esto ¡Es importante!
-                      </p>
-                      <br>
                       <p>
                         ROT001 – Plan Tradicional con Tasa Especial durante todo el crédito.
                       </p>
@@ -704,7 +688,7 @@
               <div (click) ="closeForm()" class="close">
               </div>
               <div class="contactForm">
-                  <form role="form" class="form-theme"  name="contactForm" >
+                  <form role="form" class="form-theme"  [formGroup]="contactUser"  name="contactForm" (ngSubmit)="creditRequest()">
                       <h3>
                         ¡Déjanos tus datos para contactarte!
                       </h3>
@@ -714,10 +698,11 @@
                                 <div class="cellphone-container">
                                   <label class="label-title">Número de celular</label>
                                   <input
+                                  formControlName="celular"
                                   name="phone-user"
                                   class="form-control input-price" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                   maxlength="10" autocomplete="off">
-                                  <span class="error-msg">Este campo es requerido</span>
+                                  <span class="error-msg"> El campo no cumple con el formato de teléfono.</span>
                                 </div>
                               </div>
                         </div>
@@ -725,7 +710,9 @@
                             <div class="form-group">
                                 <div>
                                   <label class="label-title">En qué horario quieres que te llamemos</label>
-                                  <select class="form-control" name="hour-contact">
+                                  <select
+                                  formControlName="horarioContacto"
+                                  class="form-control" name="hour-contact">
                                     <option value="" disabled></option>
                                     <option value="Mañana">Mañana</option>
                                     <option value="Tarde">Tarde</option>
@@ -738,7 +725,9 @@
                         <div class="row">
                             <div class="check-offer">
                                 <label for="checkTerms" class="material-checkbox container-check">
-                                  <input type="checkbox" id="checkTerms" name="check-authorization">
+                                  <input
+                                  formControlName="check-authorization"
+                                  type="checkbox" id="checkTerms" name="check-authorization">
                                   <span class="checkmark"></span>
                                 </label>
                                 <span class="check-label">Acepto términos y condiciones</span>
@@ -753,7 +742,12 @@
                                 </div>
                               </div>
                         </div>
-                        <div class="row">
+                        <div *ngIf="errorSuccess" class="row">
+                          <div class="error-message">
+                              <p>Todos los campos son requeridos</p>
+                          </div>
+                        </div>
+                        <div *ngIf="showSuccess" class="row">
                           <div class="success-message">
                             <p>¡Genial! Tu simulación se envió con éxito, Sufi te contactará en los próximos días</p>
                           </div>
