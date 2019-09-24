@@ -124,6 +124,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public tradicionalSimulacion;
   public especialSimulacion;
   public showForm = false ;
+  public contactUser: FormGroup;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -174,6 +175,14 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.loadProduct();
   }
 
+  initSufiForm() {
+    this.contactUser = this.fb.group({
+      'celular': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]
+      ],
+      'horarioContacto': ['Mañana', Validators.required],
+      'check-authorization': [false, Validators.required]
+    });
+  }
 
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
@@ -212,35 +221,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     }
   }
 
-  /*
-  shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params, this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalleCorporativo'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {

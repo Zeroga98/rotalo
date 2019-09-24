@@ -1761,7 +1761,6 @@ input:checked+.switch-slider:before {
   }
 }
 
-
 .material-design {
   .material-checkbox {
     position: relative;
@@ -1880,6 +1879,19 @@ input:checked+.switch-slider:before {
 
 }
 
+:host {
+  .success-message {
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    p {
+      text-align: center;
+      color:#383838;
+      font-size: 1.6rem;
+    }
+  }
+}
 
 @media screen and (max-width: 1300px) {
   :host {
