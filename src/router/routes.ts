@@ -25,7 +25,7 @@ export const ROUTES = {
       FAQ: 'faq'
     },
     SHOPSPRIVATE: {
-      LINK: 'feriasufiTest',
+      LINK: 'feriasufi',
       FEED: 'inicio',
       SHOW: 'detalle',
       TERMS: 'terms',

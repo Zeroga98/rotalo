@@ -34,7 +34,7 @@
         width: 100%;
         .img-monkey {
           margin: 0 auto;
-          margin-top: 70px;
+          margin-top: 25px;
           margin-bottom: 15px;
           width: 170.93px;
           height: 170.93px;
@@ -61,9 +61,11 @@
       }
       .text {
         text-align: center;
+        width: 90%;
+        margin: 0 auto;
         p {
           color: #383838;
-          font-size: 2.0rem;
+          font-size: 1.6rem;
           font-weight: bold;
           margin-bottom: 5px;
         }

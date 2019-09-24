@@ -37,6 +37,7 @@ import { ConfigurationService } from '../../../services/configuration.service';
 import { CountUpOptions } from 'countup.js';
 import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail.component';
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
+import { ModalContactSufiComponent } from '../../../components/modal-contact-sufi/modal-contact-sufi.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -121,6 +122,12 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public porcentajeSimulacion = 20;
   public showSufiButton = false;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public tradicionalSimulacion;
+  public especialSimulacion;
+  public showForm = false ;
+  public contactUser: FormGroup;
+  public showSuccess = false;
+  public errorSuccess = false;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -169,8 +176,47 @@ export class DetailProductShopPrivateComponent implements OnInit {
     }
     this.initShareForm();
     this.loadProduct();
+    this.initSufiForm();
   }
 
+  initSufiForm() {
+    this.contactUser = this.fb.group({
+      'celular': ['', [Validators.required, Validators.pattern(/^\d{10}$/)]
+      ],
+      'horarioContacto': ['Mañana', Validators.required],
+      'check-authorization': ['', Validators.required]
+    });
+  }
+
+
+  creditRequest() {
+    if (this.contactUser.valid && this.contactUser.get('check-authorization').value) {
+      const celular = this.contactUser.get('celular').value;
+      const horarioContacto = this.contactUser.get('horarioContacto').value;
+      const creditValue = this.simulateForm.get('credit-value').value;
+      const termMonths = this.simulateForm.get('term-months').value;
+      const infoVehicle = {
+        'plazo': termMonths,
+        'cuotaInicial': creditValue ? creditValue : 0,
+        'valorAFinanciar': this.products.price,
+        'productId': this.idProduct,
+        'celular': celular,
+        'horarioContacto': horarioContacto,
+        'storeId': this.configurationService.storeIdPrivate
+      };
+      this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
+        this.errorSuccess = false;
+        this.showSuccess = true;
+        this.changeDetectorRef.markForCheck();
+      }).catch(httpErrorResponse => {
+        console.log(httpErrorResponse);
+       });
+
+  } else  {
+    this.errorSuccess = true;
+    this.showSuccess = false;
+  }
+}
 
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
@@ -209,35 +255,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     }
   }
 
-  /*
-  shareProduct() {
-    if (!this.sendInfoProduct.invalid) {
-      const params = {
-        correo: this.sendInfoProduct.get('email').value
-      };
-      this.productsService
-        .shareProduct(params, this.products.id)
-        .then(response => {
-          this.messageSuccess = true;
-          this.sendInfoProduct.reset();
-          this.gapush(
-            'send',
-            'event',
-            'Productos',
-            'ClicInferior',
-            'CompartirEsteProductoExitosoDetalleCorporativo'
-          );
-          this.changeDetectorRef.markForCheck();
-        })
-        .catch(httpErrorResponse => {
-          if (httpErrorResponse.status === 422) {
-            this.textError = httpErrorResponse.error.errors[0].detail;
-            this.messageError = true;
-          }
-          this.changeDetectorRef.markForCheck();
-        });
-    }
-  }*/
 
   gapush(method, type, category, action, label) {
     const paramsGa = {
@@ -314,7 +331,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.productsService.getProductsByIdDetailPrivate(params).subscribe((reponse) => {
       if (reponse.body) {
         this.products = reponse.body.productos[0];
-
         if (this.products.interesNominal) {
           this.interesNominal = this.products.interesNominal / 100;
         }
@@ -325,8 +341,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
         this.setFormSufi();
-
-
 
         this.initQuantityForm();
         this.totalStock = this.products.stock;
@@ -557,12 +571,19 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+   /* const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
       }/${id}/${this.configurationService.storeIdPrivate}`;
     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
-    this.router.navigate([urlSimulateCredit]);
+    this.router.navigate([urlSimulateCredit]);*/
+    this.showForm = true ;
+
+  }
+
+  closeForm() {
+    this.contactUser.reset();
+    this.showForm = false ;
   }
 
   openOfferModal(product: ProductInterface) {
@@ -806,6 +827,26 @@ export class DetailProductShopPrivateComponent implements OnInit {
         'term-months': [72, Validators.required]
       }
     );
+    this.simulateSufi();
+  }
+
+
+  simulateSufi() {
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+    const infoVehicle = {
+      'productId': this.idProduct,
+      'valorAFinanciar': this.products.price,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'plazo': termMonths
+    };
+    this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {
+      if(response && response.simulaciones) {
+        this.tradicionalSimulacion = response.simulaciones[0];
+        this.especialSimulacion = response.simulaciones[1];
+      }
+    })
+      .catch(httpErrorResponse => { });
   }
 
 
@@ -872,6 +913,34 @@ export class DetailProductShopPrivateComponent implements OnInit {
     const vae = (ve * ((Math.pow((1 + i1), n1)) - 1)) / (Math.pow((1 + i1), n1) * i1);
     const pago = ((va - vae) * ((Math.pow((1 + i), n)) * i)) / ((Math.pow((1 + i), n)) - 1);
     return pago;
+  }
+
+  openModalSufi() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '335px';
+    dialogConfig.minHeight = '450px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.panelClass = 'sufi-dialog-container-class';
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+
+    const infoVehicle = {
+      'plazo': termMonths,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'valorAFinanciar': this.products.price,
+      'productId': this.idProduct,
+      'storeId': this.configurationService.storeIdPrivate
+    };
+
+    dialogConfig.data = infoVehicle;
+
+    const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
   }
 
 

@@ -1,0 +1,73 @@
+<div class="modal-container">
+    <div (click) = "close()" class="close"></div>
+    <div  class="form-container">
+        <div class="contactForm">
+            <form role="form" class="form-theme"  [formGroup]="contactUser"  name="contactForm" (ngSubmit)="creditRequest()">
+                <h3>
+                  ¡Déjanos tus datos para contactarte!
+                </h3>
+                <div class="material-design">
+                  <div class="row">
+                      <div class="form-group">
+                          <div class="cellphone-container">
+                            <label class="label-title">Número de celular</label>
+                            <input
+                            formControlName="celular"
+                            name="phone-user"
+                            class="form-control input-price" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                            maxlength="10" autocomplete="off">
+                            <span class="error-msg"> El campo no cumple con el formato de teléfono.</span>
+                          </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group">
+                          <div>
+                            <label class="label-title">En qué horario quieres que te llamemos</label>
+                            <select
+                            formControlName="horarioContacto"
+                            class="form-control" name="hour-contact">
+                              <option value="" disabled></option>
+                              <option value="Mañana">Mañana</option>
+                              <option value="Tarde">Tarde</option>
+                              <option value="Noche">Noche</option>
+                            </select>
+                            <span class="error-msg">Este campo es requerido</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="check-offer">
+                          <label for="checkTerms" class="material-checkbox container-check">
+                            <input
+                            formControlName="check-authorization"
+                            type="checkbox" id="checkTerms" name="check-authorization">
+                            <span class="checkmark"></span>
+                          </label>
+                          <span class="check-label">Acepto términos y condiciones</span>
+                        </div>
+                  </div>
+                  <div class="row">
+                      <div class="btn-container">
+                          <div class="btn-item">
+                            <button>
+                              Enviar
+                            </button>
+                          </div>
+                        </div>
+                  </div>
+                  <div *ngIf="errorSuccess" class="row">
+                    <div class="error-message">
+                        <p>Todos los campos son requeridos</p>
+                    </div>
+                  </div>
+                  <div *ngIf="showSuccess" class="row">
+                    <div class="success-message">
+                      <p>¡Genial! Tu simulación se envió con éxito, Sufi te contactará en los próximos días</p>
+                    </div>
+                  </div>
+                </div>
+            </form>
+        </div>
+      </div>
+</div>

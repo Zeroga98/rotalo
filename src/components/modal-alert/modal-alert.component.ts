@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ROUTES } from '../../router/routes';
 
 @Component({
   selector: 'modal-alert',
@@ -19,6 +20,13 @@ export class ModalAlertComponent implements OnInit {
   }
 
   close() {
+    this.dialogRef.close();
+  }
+
+  goToUrl() {
+    this.router.navigate([
+      `${ROUTES.SHOPSPRIVATE.LINK}/${ROUTES.SHOPSPRIVATE.FEED}`
+    ]);
     this.dialogRef.close();
   }
 
