@@ -4,7 +4,7 @@
 
 ::ng-deep.alert-class {
   .mat-dialog-container {
-    background: url(../../assets/img/soat.png) no-repeat;
+    background: url(../../assets/img/sufi.png) no-repeat;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     box-shadow: none;
@@ -19,6 +19,7 @@
   width: 100%;
   padding-top: 20px;
   position: relative;
+  cursor: pointer;
   .close {
     position: absolute;
     cursor: pointer;
@@ -40,7 +41,7 @@
 @media screen and (max-width: 900px) {
   ::ng-deep.alert-class {
     .mat-dialog-container {
-      background: url(../../assets/img/soat_mobile.png) no-repeat;
+      background: url(../../assets/img/sufi_mobile.png) no-repeat;
       background-size: contain;
     }
   }

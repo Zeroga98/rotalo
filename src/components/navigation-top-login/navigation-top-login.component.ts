@@ -272,10 +272,13 @@ export class NavigationTopLoginComponent implements    OnInit, AfterViewInit {
        /* if (showBancolombiaProducts) {
           this.openDialogGoToStore();
         }*/
-       /* const currentUrl = window.location.href;
-        if (!currentUrl.includes('gt')) {
+
+       const currentUrl = window.location.href;
+        if (!currentUrl.includes('gt') &&
+        user && user.company && user.company.name == 'Bancolombia' &&
+        user && user.city && user.city.state && (user.city.state.id == '1' || user.city.state.id == 1 )) {
           this.openDialogAlert();
-        }*/
+        }
       }
      } catch (error) {
        console.error(error);
