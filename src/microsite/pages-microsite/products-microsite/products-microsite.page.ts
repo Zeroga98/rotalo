@@ -510,6 +510,12 @@ export class ProductsMicrositePage implements OnInit, OnDestroy, AfterViewInit {
     this.routineUpdateProducts({ product_subcategory_id: subcategory, number: 1 });
     this.scrollToTop();
   }
+
+  public filterByVehicleType(vehicleTypeId) {
+    this.routineUpdateProducts({ vehicles_types_id: vehicleTypeId, number: 1 });
+    this.scrollToTop();
+  }
+
   public filterByMinMax() {
     this.showBannersPromo = false;
     if (this.maxPrice && this.minPrice) {
