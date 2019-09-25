@@ -2336,6 +2336,18 @@ input:checked+.switch-slider:before {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  :host() {
+    .btn-desktop {
+      display: none;
+    }
+
+    .btn-mobile {
+      display: block;
+    }
+  }
+}
+
 @media screen and (max-width: 750px) {
   :host {
     .mobile {

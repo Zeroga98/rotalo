@@ -35,6 +35,7 @@ import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delet
 import { SimulateCreditService } from '../../services/simulate-credit.service';
 import { CountUp, CountUpOptions } from 'countup.js';
 import { ConfigurationService } from '../../services/configuration.service';
+import { ModalContactSufiComponent } from '../modal-contact-sufi/modal-contact-sufi.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -206,7 +207,7 @@ export class DetailProductComponent implements OnInit {
         productId: this.idProduct,
         celular: celular,
         horarioContacto: horarioContacto,
-        storeId: this.configurationService.storeIdPrivate
+        storeId: null
       };
       this.simulateCreditService
         .sendSimulateCreditFeria(infoVehicle)
@@ -1143,4 +1144,34 @@ export class DetailProductComponent implements OnInit {
   refreshPage() {
     this.loadProduct();
   }
+
+  openModalSufi() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '335px';
+    dialogConfig.minHeight = '450px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.panelClass = 'sufi-dialog-container-class';
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+
+    const infoVehicle = {
+      'plazo': termMonths,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'valorAFinanciar': this.products.price,
+      'productId': this.idProduct,
+      'storeId': 0
+    };
+
+    dialogConfig.data = infoVehicle;
+
+    const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
+  }
+
+
 }
