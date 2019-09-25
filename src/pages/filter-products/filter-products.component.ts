@@ -134,23 +134,29 @@ export class FilterProductsComponent
 
   public filterOrder(filtro) {
     let order;
+    if (filtro === 'Más relevante') {
+      order = 'product_store_index-asc';
+      this.routineUpdateProducts({ sort: order, number: 1 });
+      this.scrollToTop();
+    }
+
     if (filtro === 'Más reciente') {
-      order = "product_published_at-desc";
+      order = 'product_published_at-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Más antiguo') {
-      order = "product_published_at-asc";
+      order = 'product_published_at-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Menor precio') {
-      order = "product_price-asc";
+      order = 'product_price-asc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
     if (filtro === 'Mayor precio') {
-      order = "product_price-desc";
+      order = 'product_price-desc';
       this.routineUpdateProducts({ sort: order, number: 1 });
       this.scrollToTop();
     }
