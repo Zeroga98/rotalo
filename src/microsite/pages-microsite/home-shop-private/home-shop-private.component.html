@@ -168,10 +168,12 @@
                         <label for="category">Todas</label>
                       </div>
                       <div *ngFor="let category of filter.filtroCategoria.categorias; let i = index" class="md-radio">
-                        <input [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
-                          (change)="filterByCategory(category.id, category.name)" value="{{category.id}}" id="ct{{i}}"
-                          type="radio" name="category">
-                        <label for="ct{{i}}">{{category.name}}
+                        <input
+                        [ngClass]="category.name == 'Vehículos' ?  'gtmProductosSufiCategVehic': ''"
+                        [checked]="currentFilter && currentFilter['product_category_id'] == category.id "
+                        (change)="filterByCategory(category.id, category.name)" value="{{category.id}}" id="ct{{i}}"
+                        type="radio" name="category">
+                        <label [ngClass]="category.name == 'Vehículos' ?  'gtmProductosSufiCategVehic': ''" for="ct{{i}}">{{category.name}}
                           ({{category.quantityForFilter}})</label>
                       </div>
                     </div>
@@ -370,7 +372,7 @@
               <div *ngIf="filter.filtroTipoUso && category == '6' && subcategory == '9'" class="option">
                 <input [checked]="currentFilter && currentFilter['vehicle_use_type']" id="ct-13" name="accordion-1"
                   type="checkbox" />
-                <label for="ct-13">Tipo de vehículos<div class="icon"></div></label>
+                <label for="ct-13">Tipo de uso<div class="icon"></div></label>
                 <article class="ac-small">
                   <div class="material-design">
                     <div>
@@ -969,7 +971,7 @@
                   </mat-form-field>
                 </div>
                 <div class="grid-item">
-                  <product-microsite-private #productsFinish
+                  <product-microsite-private class="gtmProductosSufiVerDetalle" #productsFinish
                     *ngFor="let product of products | paginate: { itemsPerPage: 24, currentPage: pageNumber, totalItems: totalPages }"
                     class="product-feed" [isProductSelling]="false" [showField]="true" [product]="product"
                     (selected)="selectProduct($event); setScroll($event)" id="{{product.product_id}}">

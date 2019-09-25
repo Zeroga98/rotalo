@@ -1,22 +1,22 @@
 <div id="container-footer" class="container-footer">
 	<div *ngIf="!isShop" class="terms">
-    <a class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones usuarios</a>
-    -
-    <a class="faqs-link" [routerLink]="faqLink" >Preguntas frecuentes</a>
+    <a *ngIf="!IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones usuarios </a>
+    <a *ngIf="IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones tienda </a>
+    <a *ngIf="!IsSuFiShop" class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLink" >- Preguntas frecuentes</a>
     <a *ngIf="checkSession()" class="contact">
         <modal-feedBack
         [ngClass]="successModal ? 'success': ''"
         (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
         </modal-feedBack>
       <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
-       <label (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
+      <label class="gtmContactanosFooter" (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
       </a>
-    <a *ngIf='!isGuatemala' [routerLink]="termsCompaniesLink"> - Reglamento empresas</a>
+    <a class="gtmReglamentoEmpresas" *ngIf='!isGuatemala' [routerLink]="termsCompaniesLink"> - Reglamento empresas</a>
   </div>
   <div *ngIf="isShop" class="terms">
       <a [routerLink]="termsLinkShop">Términos y condiciones tienda</a>
       -
-      <a class="faqs-link" [routerLink]="faqLinkShop" >Preguntas frecuentes</a>
+      <a class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLinkShop" >Preguntas frecuentes</a>
       <a *ngIf="checkSession() || isShop " class="contact">
         <!--
           <modal-feedBack
@@ -24,7 +24,7 @@
           (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
           </modal-feedBack> -->
         <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
-         <label (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
+         <label class="gtmContactanosFooter" (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
         </a>
     </div>
 	<div class="gtmFooterRotalo logo" (click)="goToHome()">

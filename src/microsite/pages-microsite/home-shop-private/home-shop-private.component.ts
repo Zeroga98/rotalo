@@ -241,6 +241,9 @@ export class HomeShopPrivateComponent implements OnInit, OnDestroy, AfterViewIni
         this.stateRequest = this.statesRequestEnum.success;
         this.changeDetectorRef.markForCheck();
       } catch (error) {
+        if(error.status == 500) {
+          this.router.navigate([`${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`]);
+        }
         this.stateRequest = this.statesRequestEnum.error;
         this.changeDetectorRef.markForCheck();
       }

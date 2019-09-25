@@ -44,4 +44,15 @@ export class ModalFormDetailComponent implements OnInit  {
       this.dialogRef.close();
     }
 
+    sendEmail() {
+      this.dialogRef.close();
+      const params = {
+        productId: this.idProduct
+      };
+      this.userService.contactUserProductPrivate(params).subscribe(response => {
+      }, error => {
+          console.log(error);
+      });
+    }
+
  }

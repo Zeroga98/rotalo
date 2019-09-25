@@ -72,12 +72,11 @@ export class ModalFeedBackComponent implements OnInit, OnDestroy {
       const email = this.feedBackForm.get('email').value;
       const comment = this.feedBackForm.get('comment').value;
       let idTienda = 0;
-
-      if (this.currentUrl && this.currentUrl.includes(ROUTES.MICROSITE.LINK)) {
+      if (currentUrl && currentUrl.includes(ROUTES.MICROSITE.LINK)) {
         idTienda = 1;
-      } else if (this.currentUrl && this.currentUrl.includes(ROUTES.SHOPS.LINK)) {
+      } else if (currentUrl && currentUrl.includes(ROUTES.SHOPS.LINK)) {
         idTienda = this.configurationService.storeIdPublic;
-      } else if (this.currentUrl && this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
+      } else if (currentUrl && currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK)) {
         idTienda = this.configurationService.storeIdPrivate;
       }
 

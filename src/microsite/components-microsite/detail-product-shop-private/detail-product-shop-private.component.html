@@ -30,10 +30,10 @@
             <div class="flex">
                 <h1>Descripción</h1>
                 <div class="share">
-                    <button class="share-button" mat-button [matMenuTriggerFor]="menu">
+                  <!--  <button class="share-button" mat-button [matMenuTriggerFor]="menu">
                       <div class="ic_arrow_share"></div>
                       Compartir publicación
-                    </button>
+                    </button>-->
                     <mat-menu class="share-product" #menu="matMenu">
                       <div mat-menu-item>
                           <!--
@@ -416,8 +416,8 @@
               </form>
             </div> -->
           <div class="btn-item">
-            <button class="botons"
-              (click)=" openModal()">
+            <button class="gtmProductosSufiMeInteresa botons"
+              (click)="openModal()">
               Me interesa
             </button>
           </div>
@@ -557,12 +557,12 @@
               </form>
               <div class="btn-container">
                 <div class="btn-item btn-desktop">
-                  <button class="gtmProdSufiTePresta botons" (click)="openSimulateCreditSufi(products.id)">
+                  <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openSimulateCreditSufi(products.id)">
                     Quiero más información
                   </button>
                 </div>
                 <div class="btn-item btn-mobile">
-                    <button class="gtmProdSufiTePresta botons" (click)="openModalSufi()">
+                    <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openModalSufi()">
                       Quiero más información
                     </button>
                 </div>
@@ -742,9 +742,9 @@
                         <div class="row">
                             <div class="btn-container">
                                 <div class="btn-item">
-                                  <button>
-                                    Enviar
-                                  </button>
+                                    <button class="gtmProductosSufiQuierMasInfoSimuEnviar">
+                                      Enviar
+                                    </button>
                                 </div>
                               </div>
                         </div>
@@ -770,10 +770,10 @@
             <div class="flex">
                 <h1>Descripción</h1>
                 <div class="share">
-                    <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
+                 <!--   <button class="share-button gtmComparteProducto" mat-button [matMenuTriggerFor]="menu">
                       <div class="ic_arrow_share"></div>
                       Compartir publicación
-                    </button>
+                    </button>-->
                     <mat-menu class="share-product" #menu="matMenu">
                       <div mat-menu-item>
                           <button mat-icon-button>

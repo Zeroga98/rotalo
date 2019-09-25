@@ -51,12 +51,13 @@
   }
 
   ::ng-deep.cdk-overlay-pane.alert-class {
-    width: 300px !important;
+    width: 210px !important;
+    min-width: 210px !important;
   }
 
   .modal-container .close {
-    top: 6px;
-    right: 3px;
+    top: -4px;
+    right: -8px;
   }
 
 }

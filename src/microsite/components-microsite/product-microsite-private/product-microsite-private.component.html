@@ -1,5 +1,5 @@
 <div class="container-product" *ngIf="product" #containerProducts>
-  <a onclick="return false;" [href]="getUrlProduct(product)">
+  <a class="gtmProductosSufiVerDetalle" onclick="return false;" [href]="getUrlProduct(product)">
     <div (click)="selectProduct($event)" [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <!--<img [src]="product.photos.url" [alt]="product.name">-->
       <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product.product_name" (error)="updateSrc($event)">

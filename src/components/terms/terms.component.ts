@@ -21,6 +21,7 @@ export class TermsComponent implements OnInit {
     window.scrollTo(0, 0);
     const params = {
       pais: 1,
+      tienda: ''
     };
 
     if (this.isGuatemala) {
@@ -28,6 +29,10 @@ export class TermsComponent implements OnInit {
     }
     this.route.params.subscribe(p => {
       this.params = p;
+      if (this.params['id']) {
+        const tienda = this.params['id'];
+        params.tienda = tienda;
+      }
     //  let tienda;
    /*   if (this.params['id']) {
         tienda = this.params['id'];

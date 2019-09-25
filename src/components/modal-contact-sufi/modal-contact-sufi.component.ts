@@ -54,6 +54,13 @@ export class ModalContactSufiComponent implements OnInit {
       this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
         this.errorSuccess = false;
         this.showSuccess = true;
+        this.gapush(
+          'send',
+          'event',
+          'ProductosSufi',
+          'ClicQuieroMasInfoSimulador',
+          'EnvioExitoso'
+        );
       }).catch(httpErrorResponse => {
         console.log(httpErrorResponse);
        });
@@ -62,6 +69,19 @@ export class ModalContactSufiComponent implements OnInit {
     this.errorSuccess = true;
     this.showSuccess = false;
   }
+}
+
+
+gapush(method, type, category, action, label) {
+  const paramsGa = {
+    event: 'pushEventGA',
+    method: method,
+    type: type,
+    categoria: category,
+    accion: action,
+    etiqueta: label
+  };
+  window['dataLayer'].push(paramsGa);
 }
 
 

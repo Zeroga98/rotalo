@@ -22,9 +22,10 @@ export class FooterComponent implements OnInit {
   private currentUrl = '';
   public params;
 
-  public hideFaqLink = false;
+  public hideFaqLink = true;
 
   constructor(private _router: Router,
+    private changeDetector: ChangeDetectorRef,
     private route: ActivatedRoute,
     private currentSessionService: CurrentSessionService,
     private modalService: ModalFeedBackService,
@@ -36,6 +37,7 @@ export class FooterComponent implements OnInit {
       this.termsLink = `/${ROUTES.TERMS}/${this.configurationService.storeIdPrivate}`;
       this.faqLink = `/${ROUTES.FAQ}/${this.configurationService.storeIdPrivate}`;
       this.hideFaqLink = true;
+      this.changeDetector.markForCheck();
     }
 
     this.route.params.subscribe((response) => {
@@ -47,6 +49,11 @@ export class FooterComponent implements OnInit {
       console.log(error);
     });
 
+  }
+
+  get IsSuFiShop(){
+    this.currentUrl = window.location.href;
+    return this.currentUrl.includes(ROUTES.SHOPSPRIVATE.LINK);
   }
 
   goToHome() {

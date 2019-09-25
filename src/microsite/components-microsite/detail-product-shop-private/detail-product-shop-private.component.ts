@@ -207,6 +207,13 @@ export class DetailProductShopPrivateComponent implements OnInit {
       this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
         this.errorSuccess = false;
         this.showSuccess = true;
+        this.gapush(
+          'send',
+          'event',
+          'ProductosSufi',
+          'ClicQuieroMasInfoSimulador',
+          'EnvioExitoso'
+        );
         this.changeDetectorRef.markForCheck();
       }).catch(httpErrorResponse => {
         console.log(httpErrorResponse);
@@ -773,7 +780,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   }
 
   openModal() {
-    this.sendEmail();
+   // this.sendEmail();
     const dialogConfig = new MatDialogConfig();
    // dialogConfig.maxWidth = '896px';
     dialogConfig.width = '100%';
@@ -792,18 +799,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
     });
-  }
-
-  sendEmail() {
-    const params = {
-      productId: this.idProduct
-    };
-    this.userService.contactUserProductPrivate(params).subscribe(response => {
-
-    }, error => {
-        console.log(error);
-    });
-
   }
 
   setFormSufi() {
