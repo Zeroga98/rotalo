@@ -73,10 +73,10 @@
                   </p>
                 </td>
                 <td>
-                  {{product.price | currency:'$' | removeDigits}}
+                  {{calculateIVA(product.price) | currency:'$' | removeDigits}}
                 </td>
                 <td>
-                  {{calculateIVA(product.price) | currency:'$' | removeDigits}}
+                  {{product.price | currency:'$' | removeDigits}}
                 </td>
                 <td>
                   19%

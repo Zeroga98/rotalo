@@ -124,8 +124,8 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   }
 
   calculateIVA(price) {
-    const iva = (price * 19) / 100;
-    return price + iva;
+    const iva = (price) / (1.19);
+    return iva;
   }
 
 
