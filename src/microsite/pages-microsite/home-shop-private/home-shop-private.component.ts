@@ -877,7 +877,7 @@ export class HomeShopPrivateComponent implements OnInit, OnDestroy, AfterViewIni
 
     public filterOrder(filtro) {
       let order;
-      if (filtro === 'Relevancia') {
+      if (filtro === 'Más relevante') {
         order = 'product_store_index-asc';
         this.routineUpdateProducts({ sort: order, number: 1 });
         this.scrollToTop();
