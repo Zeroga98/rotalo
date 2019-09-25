@@ -223,7 +223,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.errorSuccess = true;
     this.showSuccess = false;
   }
-}
+  }
 
   initShareForm() {
     this.sendInfoProduct = this.fb.group(
