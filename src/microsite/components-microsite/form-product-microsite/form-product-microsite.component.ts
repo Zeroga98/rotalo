@@ -965,7 +965,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     });
 
   /**Vehiculos**/
-    if (config['vehicle']) {
+  if (config['vehicle']) {
       const vehicle  = config['vehicle'];
       transmission = vehicle['transmission'] ? vehicle['transmission'] : '';
       color = vehicle['color'] ? vehicle['color'] : '';
