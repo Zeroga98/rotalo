@@ -119,6 +119,12 @@ export class DetailProductComponent implements OnInit {
   public childrens;
   public errorSize;
   public childSelected;
+  public tradicionalSimulacion;
+  public especialSimulacion;
+  public showForm = false ;
+  public contactUser: FormGroup;
+  public showSuccess = false;
+  public errorSuccess = false;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
@@ -293,6 +299,26 @@ export class DetailProductComponent implements OnInit {
         'term-months': [72, Validators.required]
       }
     );
+    this.simulateSufi();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  simulateSufi() {
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+    const infoVehicle = {
+      'productId': this.idProduct,
+      'valorAFinanciar': this.products.price,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'plazo': termMonths
+    };
+    this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {
+      if(response && response.simulaciones) {
+        this.tradicionalSimulacion = response.simulaciones[0];
+        this.especialSimulacion = response.simulaciones[1];
+        this.changeDetectorRef.markForCheck();
+      }
+    }) .catch(httpErrorResponse => { });
   }
 
   validateMonths() {
@@ -666,12 +692,19 @@ export class DetailProductComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
-      ROUTES.PRODUCTS.SIMULATECREDIT
-      }/${id}`;
-    this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
-    this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
-    this.router.navigate([urlSimulateCredit]);
+    /* const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+       ROUTES.PRODUCTS.SIMULATECREDIT
+       }/${id}/${this.configurationService.storeIdPrivate}`;
+     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
+     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
+     this.router.navigate([urlSimulateCredit]);*/
+     this.showForm = true ;
+
+   }
+
+   closeForm() {
+    this.contactUser.reset();
+    this.showForm = false ;
   }
 
   openOfferModal(product: ProductInterface) {
