@@ -123,8 +123,9 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
       const routeDetailProduct = `${location.origin}/${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`;
       window.open(routeDetailProduct, '_blank');
     } else {
-      const routeDetailProduct = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`;
-      this.router.navigate([routeDetailProduct]);
+    //  const routeDetailProduct = `${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`;
+      this.router.navigate([`${ROUTES.SHOPS.LINK}/${ROUTES.SHOPS.SHOW}/${this.product['product_id']}`]);
+      this.changeDetectorRef.markForCheck();
     }
   }
 

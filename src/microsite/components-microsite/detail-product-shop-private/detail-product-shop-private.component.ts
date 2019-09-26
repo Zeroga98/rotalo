@@ -188,7 +188,6 @@ export class DetailProductShopPrivateComponent implements OnInit {
     });
   }
 
-
   creditRequest() {
     if (this.contactUser.valid && this.contactUser.get('check-authorization').value) {
       const celular = this.contactUser.get('celular').value;

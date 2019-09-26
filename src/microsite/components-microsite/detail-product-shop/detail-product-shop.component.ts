@@ -341,6 +341,15 @@ export class DetailProductShopComponent implements OnInit {
       if (reponse.body) {
 
         this.products = reponse.body.productos[0];
+
+        if (this.products.porcentajeSimulacion) {
+          this.porcentajeSimulacion = this.products.porcentajeSimulacion / 100;
+        }
+        if (this.products.vehicle) {
+          this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
+        }
+        this.setFormSufi();
+
         this.initQuantityForm();
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
