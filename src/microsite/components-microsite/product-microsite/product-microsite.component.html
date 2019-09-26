@@ -2,9 +2,13 @@
   <a onclick="return false;" [href]="getUrlProduct(product)">
     <div (click)="selectProduct($event)" [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <!--<img [src]="product.photos.url" [alt]="product.name">-->
-      <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product.product_name" (error)="updateSrc($event)">
-      <img (load)="triggerMasonryLayout()" *ngIf="product.product_photo_url" [src]="product.product_photo_url" [alt]="product.product_name"
-        (error)="updateSrc($event)">
+      <div class="img-container">
+          <div class="halloween" *ngIf="isCostume">
+          </div>
+          <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product.product_name" (error)="updateSrc($event)">
+          <img (load)="triggerMasonryLayout()" *ngIf="product.product_photo_url" [src]="product.product_photo_url" [alt]="product.product_name"
+            (error)="updateSrc($event)">
+      </div>
       <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
     <div class="container-name">

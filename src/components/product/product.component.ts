@@ -85,6 +85,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   ngAfterContentInit() {
     this.productChecked = this.product.status;
+    console.log(this.product);
     this.checkStatusProduct();
     if (this.product.status) {
       this.productStatus = this.product.status === 'active';
@@ -126,6 +127,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       (this.product['special-date'] && this.product['special-date'].active) ||
       (this.product['specialDate'] && this.product['specialDate'].active)
     ) {
+      return true;
+    }
+    return false;
+  }
+
+  get isCostume () {
+    if ((this.product['product_subcategory_id'] &&
+    (this.product['product_subcategory_id'] == 77 || this.product['product_subcategory_id'] == 127))) {
       return true;
     }
     return false;

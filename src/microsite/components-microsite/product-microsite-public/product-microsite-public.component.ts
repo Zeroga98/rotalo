@@ -212,4 +212,12 @@ export class ProductMicrositePublicComponent implements AfterViewInit, AfterCont
     return routeDetailProduct;
   }
 
+  get isCostume () {
+    if ((this.product['product_subcategory_id'] &&
+    (this.product['product_subcategory_id'] == 77 || this.product['product_subcategory_id'] == 127))) {
+      return true;
+    }
+    return false;
+  }
+
 }

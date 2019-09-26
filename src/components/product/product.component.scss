@@ -693,6 +693,20 @@
   }
 }
 
+:host {
+  .halloween {
+    position: absolute;
+    border-radius: 4px;
+    top: 6.7px;
+    left: 6px;
+    width: 86px;
+    height: 25px;
+    z-index: 1;
+    background-size: 86px 25px;
+    background-image: url(../../assets/img/halloween.svg);
+  }
+}
+
 :host(.product-feed) {
   @media screen and (max-width: 760px) {
     .container-product .container-price {

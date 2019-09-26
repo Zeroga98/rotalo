@@ -280,4 +280,12 @@ export class ProductMicrositeComponent implements AfterViewInit, AfterContentIni
     }
   }
 
+  get isCostume () {
+    if ((this.product['product_subcategory_id'] &&
+    (this.product['product_subcategory_id'] == 77 || this.product['product_subcategory_id'] == 127))) {
+      return true;
+    }
+    return false;
+  }
+
 }
