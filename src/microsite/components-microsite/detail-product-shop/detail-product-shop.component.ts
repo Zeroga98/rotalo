@@ -161,11 +161,10 @@ export class DetailProductShopComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.countryId = 1;
     this.initShareForm();
     this.loadProduct();
-    this.initSufiForm();
+  //  this.initSufiForm();
   }
 
   initSufiForm() {
@@ -348,7 +347,7 @@ export class DetailProductShopComponent implements OnInit {
         if (this.products.vehicle) {
           this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
         }
-        this.setFormSufi();
+        // this.setFormSufi();
 
         this.initQuantityForm();
         this.totalStock = this.products.stock;
