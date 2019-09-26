@@ -23,7 +23,7 @@ import { ConversationInterface } from '../../../commons/interfaces/conversation.
 import { CurrentSessionService } from '../../../services/current-session.service';
 import { UserService } from '../../../services/user.service';
 import { MessagesService } from '../../../services/messages.service';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
 import { ShareInfoChatService } from '../../../components/chat-thread/shareInfoChat.service';
 import { BuyService } from '../../../services/buy.service';
 import { NavigationService } from '../../../pages/products/navigation.service';
@@ -35,6 +35,7 @@ import { ModalShareProductService } from '../../../components/modal-shareProduct
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalFormRegisterComponent } from '../modal-form-register/modal-form-register.component';
 import { ConfigurationService } from '../../../services/configuration.service';
+import { SimulateCreditService } from '../../../services/simulate-credit.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -43,6 +44,27 @@ function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   }
   return null;
 }
+
+function priceVehicleValidatorMax(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue > 5000000000) {
+    return { priceValueMax: true };
+  }
+  return null;
+}
+
+function priceVehicleValidatorMin(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const priceValue = c.value;
+  if (priceValue < 10000000) {
+    return { priceValueMin: true };
+  }
+  return null;
+}
+
 @Component({
   selector: 'detail-product-shop',
   templateUrl: './detail-product-shop.component.html',
@@ -61,7 +83,7 @@ export class DetailProductShopComponent implements OnInit {
   public isOfferModalShowed: boolean = false;
   public isModalSendMessageShowed: boolean = false;
   public isModalBuyShowed: boolean = false;
-  public idUser: string = this.currentSessionSevice.getIdUser();
+
   public conversation: ConversationInterface;
   private minVehicleValue = 10000000;
   private maxVehicleValue = 5000000000;
@@ -94,6 +116,17 @@ export class DetailProductShopComponent implements OnInit {
   public errorSize;
   public childSelected;
   public reference;
+  public simulateForm: FormGroup;
+  public interesNominal = 0.0105;
+  public porcentajeSimulacion = 20;
+  public showSufiButton = false;
+  public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
+  public tradicionalSimulacion;
+  public especialSimulacion;
+  public showForm = false ;
+  public contactUser: FormGroup;
+  public showSuccess = false;
+  public errorSuccess = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -109,7 +142,6 @@ export class DetailProductShopComponent implements OnInit {
     private productsService: ProductsService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
-    private currentSessionSevice: CurrentSessionService,
     private userService: UserService,
     private messagesService: MessagesService,
     private shareInfoChatService: ShareInfoChatService,
@@ -120,7 +152,8 @@ export class DetailProductShopComponent implements OnInit {
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
     private modalService: ModalShareProductService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private simulateCreditService: SimulateCreditService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -128,13 +161,55 @@ export class DetailProductShopComponent implements OnInit {
   }
 
   ngOnInit() {
-    const currentUser = this.currentSessionSevice.currentUser();
-    if (currentUser) {
-      this.currentEmail = currentUser.email;
-      this.countryId = currentUser.countryId;
-    }
+    this.countryId = 1;
     this.initShareForm();
     this.loadProduct();
+  //  this.initSufiForm();
+  }
+
+  initSufiForm() {
+    this.contactUser = this.fb.group({
+      'celular': ['', [Validators.required, Validators.pattern(/^\d{10}$/)]
+      ],
+      'horarioContacto': ['Mañana', Validators.required],
+      'check-authorization': ['', Validators.required]
+    });
+  }
+
+  creditRequest() {
+    if (this.contactUser.valid && this.contactUser.get('check-authorization').value) {
+      const celular = this.contactUser.get('celular').value;
+      const horarioContacto = this.contactUser.get('horarioContacto').value;
+      const creditValue = this.simulateForm.get('credit-value').value;
+      const termMonths = this.simulateForm.get('term-months').value;
+      const infoVehicle = {
+        'plazo': termMonths,
+        'cuotaInicial': creditValue ? creditValue : 0,
+        'valorAFinanciar': this.products.price,
+        'productId': this.idProduct,
+        'celular': celular,
+        'horarioContacto': horarioContacto,
+        'storeId': this.configurationService.storeIdPrivate
+      };
+      this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
+        this.errorSuccess = false;
+        this.showSuccess = true;
+        this.gapush(
+          'send',
+          'event',
+          'ProductosSufi',
+          'ClicQuieroMasInfoSimulador',
+          'EnvioExitoso'
+        );
+        this.changeDetectorRef.markForCheck();
+      }).catch(httpErrorResponse => {
+        console.log(httpErrorResponse);
+       });
+
+  } else  {
+    this.errorSuccess = true;
+    this.showSuccess = false;
+  }
   }
 
   initShareForm() {
@@ -265,6 +340,15 @@ export class DetailProductShopComponent implements OnInit {
       if (reponse.body) {
 
         this.products = reponse.body.productos[0];
+
+        if (this.products.porcentajeSimulacion) {
+          this.porcentajeSimulacion = this.products.porcentajeSimulacion / 100;
+        }
+        if (this.products.vehicle) {
+          this.showSufiButton = this.products.vehicle.line.brand.showSufiSimulator;
+        }
+        // this.setFormSufi();
+
         this.initQuantityForm();
         this.totalStock = this.products.stock;
         if (this.products['stock']) {
@@ -362,8 +446,7 @@ export class DetailProductShopComponent implements OnInit {
   checkSufiBotton() {
     if (this.products && this.products['typeVehicle'] && this.products['model']) {
       const priceVehicle = this.products.price;
-      const currentUser = this.currentSessionSevice.currentUser();
-      const countryId = Number(currentUser['countryId']);
+      const countryId = 1;
       const type = this.products['typeVehicle'];
       const currentYear = new Date().getFullYear() + 1;
       const modelo = this.products['model'];
@@ -379,23 +462,6 @@ export class DetailProductShopComponent implements OnInit {
     return false;
   }
 
-  checkBAMBotton() {
-    if (this.products) {
-      const priceVehicle = this.products.price;
-      const currency = this.products.currency;
-      const currentUser = this.currentSessionSevice.currentUser();
-      const countryId = Number(currentUser['countryId']);
-      if (this.products['sellType'] === 'VENTA') {
-        if (countryId === 9 && currency == 'GTQ' && priceVehicle >= 5000) {
-          return true;
-        } else if (countryId === 9 && currency == 'USD' && priceVehicle >= 650) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
@@ -404,9 +470,6 @@ export class DetailProductShopComponent implements OnInit {
     );
   }
 
-  validateSession() {
-    return this.products && this.products.user.id == this.idUser;
-  }
 
   isSellProcess() {
     return this.products && this.products.status == 'sell_process';
@@ -712,5 +775,49 @@ export class DetailProductShopComponent implements OnInit {
       // console.log(result);
     });
   }
+
+  setFormSufi() {
+    let creditValue = 0;
+    if (this.products.porcentajeSimulacion) {
+      this.porcentajeSimulacion = this.products.porcentajeSimulacion;
+    }
+    if (this.products && this.products.price && this.porcentajeSimulacion) {
+      creditValue = (this.products.price) * (this.porcentajeSimulacion) / 100;
+    }
+    this.simulateForm = this.fb.group(
+      {
+        'credit-value': [
+          creditValue,
+          [
+            Validators.required,
+            priceVehicleValidatorMax,
+            priceVehicleValidatorMin
+          ]
+        ],
+        'term-months': [72, Validators.required]
+      }
+    );
+    this.simulateSufi();
+  }
+
+
+  simulateSufi() {
+    const creditValue = this.simulateForm.get('credit-value').value;
+    const termMonths = this.simulateForm.get('term-months').value;
+    const infoVehicle = {
+      'productId': this.idProduct,
+      'valorAFinanciar': this.products.price,
+      'cuotaInicial': creditValue ? creditValue : 0,
+      'plazo': termMonths
+    };
+    this.simulateCreditService.simulateCreditSufi(infoVehicle).then(response => {
+      if(response && response.simulaciones) {
+        this.tradicionalSimulacion = response.simulaciones[0];
+        this.especialSimulacion = response.simulaciones[1];
+      }
+    })
+      .catch(httpErrorResponse => { });
+  }
+
 
 }
