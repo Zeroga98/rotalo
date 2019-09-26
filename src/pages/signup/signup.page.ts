@@ -81,7 +81,7 @@ export class SignUpPage implements OnInit {
       await this.collectionService.isReady();
       this.route.queryParamMap.subscribe(params => {
         this.paramsUrl = params['params'];
-        if(!this.paramsUrl.code) {
+        if (!this.paramsUrl.code) {
           this.router.navigate([`/${ROUTES.HOME}`]);
         }
         this.setCountry(this.paramsUrl.country);
