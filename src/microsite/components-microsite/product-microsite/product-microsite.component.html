@@ -2,9 +2,13 @@
   <a onclick="return false;" [href]="getUrlProduct(product)">
     <div (click)="selectProduct($event)" [ngClass]="isProductSelling || isProductSold? 'opacity-container' : ''" class="container-photo">
       <!--<img [src]="product.photos.url" [alt]="product.name">-->
-      <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product.product_name" (error)="updateSrc($event)">
-      <img (load)="triggerMasonryLayout()" *ngIf="product.product_photo_url" [src]="product.product_photo_url" [alt]="product.product_name"
-        (error)="updateSrc($event)">
+      <div class="img-container">
+          <div class="halloween" *ngIf="isCostume">
+          </div>
+          <img (load)="triggerMasonryLayout()" *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product.product_name" (error)="updateSrc($event)">
+          <img (load)="triggerMasonryLayout()" *ngIf="product.product_photo_url" [src]="product.product_photo_url" [alt]="product.product_name"
+            (error)="updateSrc($event)">
+      </div>
       <!--<img [src]="product.photos.url || product.photos[0].url" [alt]="product.name">-->
     </div>
     <div class="container-name">
@@ -14,8 +18,8 @@
       </div>
       <span (click)="selectProduct($event)" class="name">{{product.product_name}}</span>
     </div>
-    <div class="product-info" (click)="selectProduct($event)">
-      <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
+    <div class="product-info">
+      <div (click)="selectProduct($event)" [ngClass]="showField ? '' : 'border-price'" class="container-price">
         <div class="price-container">
           <div>
             <span *ngIf="product.product_price != 0 && product.product_currency == 'GTQ'" class="name">{{product.product_price | currency:"Q" | removeDigits}}</span>
@@ -24,6 +28,18 @@
             <span *ngIf="product.product_price == 0" class="name">Gratis</span>
           </div>
         </div>
+      </div>
+      <div *ngIf="product.product_city_name && product.product_state_name" class="item__location">
+        <div (click)="selectProduct($event)" class="location">
+            <span class="icon-location"></span>
+            <span>{{product.product_city_name}}, {{product.product_state_name}}</span>
+        </div>
+        <div (click)="checkLike()" class="heart-container">
+            <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
+            <span *ngIf="kFormatter()">
+                {{kFormatter()}}
+            </span>
+          </div>
       </div>
     </div>
   </a>

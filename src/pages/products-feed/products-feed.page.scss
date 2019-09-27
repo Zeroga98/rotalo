@@ -132,9 +132,11 @@
       product, product-rotalo-center{
         cursor: pointer;
         text-align: left;
-        width: 23%;
+        width: 100%;
+        max-width: 224px;
+        min-width: 203px;
         overflow: hidden;
-        margin: 0 1rem 2.5rem;
+        margin: 0 0.8rem 2.5rem;
         border-radius: 5px;
         border: 1px solid #e2e2e2;
         border-radius: 5px;
@@ -445,7 +447,7 @@
       margin: 0 auto;
       width: 20px;
       height: 20px;
-      background: url(../../assets/img/icon_share_detalle.svg);
+      background: url(../../assets/img/ic_compartir.svg);
       background-size: 20px 20px;
     }
   }
@@ -514,9 +516,20 @@
 
 }
 
+@media screen and (max-width: 760px) {
+  :host {
+    .container-masonry{
+      width: 100%;
+    }
+    .container-masonry .masonry product {
+      width: 30%;
+    }
+  }
+}
+
 @media screen and (max-width: 952px) {
   :host {
-    .container-masonry .masonry product, .container-masonry .masonry product-rotalo-center {
+     .container-masonry .masonry product-rotalo-center {
       width: 45%;
     }
   }

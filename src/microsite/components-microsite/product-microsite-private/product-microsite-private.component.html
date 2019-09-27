@@ -31,8 +31,16 @@
         </div>
       </div>
       <div *ngIf="product.product_city_name && product.product_state_name" class="gtmProductosSufiVerDetalle item__location">
-        <span class="icon-location"></span>
-        <span class="gtmProductosSufiVerDetalle">{{product.product_city_name}}, {{product.product_state_name}}</span>
+        <div (click)="selectProduct($event)"  class="location">
+            <span class="icon-location"></span>
+            <span class="gtmProductosSufiVerDetalle">{{product.product_city_name}}, {{product.product_state_name}}</span>
+        </div>
+        <div (click)="checkLike()" class="heart-container">
+            <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
+            <span>
+                {{kFormatter()}}
+            </span>
+          </div>
       </div>
     </div>
   </a>

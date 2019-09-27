@@ -243,6 +243,8 @@ import { ModalFormDetailComponent } from '../microsite/components-microsite/moda
 import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
 import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
 import { ModalContactSufiComponent } from '../components/modal-contact-sufi/modal-contact-sufi.component';
+import { ProductCarouselComponent } from '../components/product-carousel/product-carousel.component';
+import { ModalAliadosComponent } from '../components/modal-aliados/modal-aliados.component';
 
 @NgModule({
   declarations: [
@@ -403,7 +405,9 @@ import { ModalContactSufiComponent } from '../components/modal-contact-sufi/moda
     ModalFormDetailComponent,
     ActivationEmailComponent,
     ModalAlertComponent,
-    ModalContactSufiComponent
+    ModalContactSufiComponent,
+    ProductCarouselComponent,
+    ModalAliadosComponent
   ],
   imports: [
     BrowserModule,
@@ -535,7 +539,8 @@ import { ModalContactSufiComponent } from '../components/modal-contact-sufi/moda
     ModalFormRegisterComponent,
     ModalFormDetailComponent,
     ModalAlertComponent,
-    ModalContactSufiComponent]
+    ModalContactSufiComponent,
+    ModalAliadosComponent]
 })
 
 export class AppModule { }

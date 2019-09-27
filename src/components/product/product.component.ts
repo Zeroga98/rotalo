@@ -60,6 +60,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   public endDate = END_DATE_BF;
   public courrentDate = new Date();
   public starSelected = false;
+  public likeSelected = false;
   private status = '';
   public numbersOrder = ['1', '2', '3', '4', '5'];
   public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
@@ -93,6 +94,9 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     if (this.product['product_manual_feature'] && !this.isProductChecked) {
       this.starSelected = true;
     }
+    if (this.product['product_like']) {
+      this.likeSelected = true;
+    }
     this.changeDetectorRef.markForCheck();
   }
 
@@ -122,6 +126,14 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
       (this.product['special-date'] && this.product['special-date'].active) ||
       (this.product['specialDate'] && this.product['specialDate'].active)
     ) {
+      return true;
+    }
+    return false;
+  }
+
+  get isCostume () {
+    if ((this.product['product_subcategory_id'] &&
+    (this.product['product_subcategory_id'] == 77 || this.product['product_subcategory_id'] == 127))) {
       return true;
     }
     return false;
@@ -436,6 +448,48 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
+  checkLike() {
+    const params = {
+      idProducto: this.product['product_id'],
+      idTienda: this.product['seller_store_id']
+    };
+
+    if (!this.likeSelected) {
+      this.likeSelected = true;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
+          },
+          error => {
+            this.likeSelected = false;
+            console.log(error);
+          }
+        );
+    } else if (this.likeSelected) {
+      this.likeSelected = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.likeSelected = response.body.like;
+              this.product['product_likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
   changeCheckProduct(event) {
     const id = event.target.value;
     const productParams = this.productsService.getCheckedProductArray().data;
@@ -495,6 +549,15 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
           `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.SHOW}/${product['product_id']}`
         ]);
       }
+    }
+  }
+
+  kFormatter() {
+    if (this.product['product_likes']) {
+      return Math.abs(this.product['product_likes']) > 9999 ?
+      // ((Math.abs(this.product['product_likes']) / 1000))  + 'K +' :
+      '10K +' :
+       this.product['product_likes'];
     }
   }
 

@@ -5,7 +5,7 @@ export class FeedService {
 
     private readonly initialFilter: Object = {
       'product_country_id': 1,
-      'size': 24,
+      'size': 25,
       'number': 1
     };
 

@@ -17,9 +17,11 @@
 
       <div class="img-container">
           <div (click)="selectProduct($event)" [ngClass]="isPromoDate && idCountry != 9? 'container-black-friday' : ''"
-            *ngIf="!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo)"
+            *ngIf="!isCostume && (!isProductChecked&&(product['product_is_low_price'] || isPromoDate && isActivePromo))"
             class="container-low-price">
-            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ REBAJÓ</p>
+            <p *ngIf="!isPromoDate && idCountry == 1 || idCountry == 9">$ Rebajó</p>
+          </div>
+          <div class="halloween" *ngIf="isCostume">
           </div>
         <img (click)="selectProduct($event); goToDetail(product)" (load)="triggerMasonryLayout()"
           *ngIf="!product.product_photo_url" [src]="defaultImage" [alt]="product['product_name']"
@@ -45,8 +47,8 @@
       </div>
       <span (click)="selectProduct($event)" class="name">{{product['product_name']}}</span>
     </div>
-    <div class="product-info" (click)="selectProduct($event); goToDetail(product)">
-      <div [ngClass]="showField ? '' : 'border-price'" class="container-price">
+    <div class="product-info">
+      <div (click)="selectProduct($event); goToDetail(product)" [ngClass]="showField ? '' : 'border-price'" class="container-price">
         <div class="price-container">
           <div>
             <span *ngIf="product['product_price'] != 0 && product['product_currency'] == 'GTQ'" class="name">{{product['product_price']
@@ -88,6 +90,8 @@
           <show-star [numberStar]="product.calification" class="price"> </show-star>
         </div>
       </div>
+      <!--
+      Cambio de cards sprint 36 -- no se borran los campos en caso de que se vuelvan adicionar
       <div *ngIf="product['product_sell_type'] && showField && !isProductChecked" class="container-status">
         <span class="icon-margin">$</span>
         <span class="name">{{product['product_sell_type'].toLowerCase()}}</span>
@@ -96,9 +100,18 @@
         <span class="icon icon-tag icon-margin"></span>
         <span class="name">{{product['product_used'] ? 'Usado' : 'Nuevo'}}</span>
       </div>
+      -->
       <div *ngIf="showField && !isProductChecked" class="container-location">
-        <span class="icon-location"></span>
-        <span>{{getLocation(product)}}</span>
+        <div (click)="selectProduct($event); goToDetail(product)" class = "location">
+            <span class="icon-location"></span>
+            <span>{{getLocation(product)}}</span>
+        </div>
+        <div (click)="checkLike()" class="heart-container">
+          <div [ngClass]="likeSelected ? 'active' : ''" class="heart"></div>
+          <span>
+            {{kFormatter()}}
+          </span>
+        </div>
       </div>
       <div *ngIf="!showField && !isProductChecked" class="container-date">
         <span class="icon-calendar"></span>
@@ -148,6 +161,7 @@
         <a [routerLink]="detailOrder + product['reference_number']" mat-flat-button>Ver detalle</a>
       </div>
     </div>
+    <!--
     <div (click)="selectProduct($event); goToDetail(product)" *ngIf="showField && !isProductChecked"
       class="container-info-user">
       <div class="icon-container" [ngStyle]="{'background-color':colourCompany}">
@@ -160,7 +174,7 @@
           <span class="comunidad-text">{{product['seller_community_name']}}</span>
         </p>
       </div>
-    </div>
+    </div>-->
     <div *ngIf="isProductSelling && !expiredProduct && !isProductChecked" class="form-theme rotando media">
       <div class="form-group  media-left media-middle">
         <input [checked]="productStatus" (change)="openModalInactiveProduct()" type="checkbox" name="switch"

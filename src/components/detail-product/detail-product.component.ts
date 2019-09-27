@@ -36,6 +36,7 @@ import { SimulateCreditService } from '../../services/simulate-credit.service';
 import { CountUp, CountUpOptions } from 'countup.js';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ModalContactSufiComponent } from '../modal-contact-sufi/modal-contact-sufi.component';
+import { ModalAliadosComponent } from '../modal-aliados/modal-aliados.component';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -210,7 +211,7 @@ export class DetailProductComponent implements OnInit {
         storeId: null
       };
       this.simulateCreditService
-        .sendSimulateCreditFeria(infoVehicle)
+        .sendSimulateCredit(infoVehicle)
         .then(response => {
           this.errorSuccess = false;
           this.showSuccess = true;
@@ -1146,9 +1147,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   openModalSufi() {
-
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '335px';
     dialogConfig.minHeight = '450px';
@@ -1162,16 +1161,33 @@ export class DetailProductComponent implements OnInit {
       'cuotaInicial': creditValue ? creditValue : 0,
       'valorAFinanciar': this.products.price,
       'productId': this.idProduct,
-      'storeId': 0
+      'storeId': null,
+      'rotalo' : true
     };
-
     dialogConfig.data = infoVehicle;
-
     const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
     });
   }
 
+  openModalAliados(url) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '100%';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.maxWidth = '900px';
+    dialogConfig.minHeight = '494px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = url;
+
+    const dialogRef = this.dialog.open(ModalAliadosComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
+  }
+
+  get isGuatemala() {
+    return window.location.href.includes('gt');
+  }
 
 }

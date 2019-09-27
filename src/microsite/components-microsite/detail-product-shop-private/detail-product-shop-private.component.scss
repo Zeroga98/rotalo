@@ -1474,6 +1474,126 @@ input:checked+.switch-slider:before {
 }
 
 :host {
+  .container-options {
+    background-color:#FAFAFA;
+    width: 100%;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    max-width: 540px;
+    .container-title {
+      display: flex;
+      justify-content: space-between;
+      .title p {
+        color:#272727;
+        font-size: 1.6rem;
+      }
+    }
+
+    .container-logos {
+      display: flex;
+      .mis-aliados {
+        margin: 0 10px;
+        width: 71.707px;
+        height: 32.635px;
+        background-image: url(../../../assets/img/logo_mis_aliados.svg);
+        background-size: 71.707px 32.635px;
+      }
+      .sura {
+        width: 81.937px;
+        height: 31.166px;
+        background-image: url(../../../assets/img/logo_sura.svg);
+        background-size: 81.937px 31.166px;
+      }
+    }
+
+    .options {
+      display: flex;
+      margin-top: 15px;
+      .option {
+        cursor: pointer;
+        background-color: #FFFFFF;
+        width: 100%;
+        max-width: 209px;
+        min-width: 75px;
+        min-height: 87px;
+        border: 1px solid #EFEFEF;
+        border-radius: 8px;
+        margin: 0 5px;
+        display: flex;
+        align-items: center;
+        transition: all 0.5s ease;
+        .text {
+          color: #383838;
+          font-size: 1.6rem;
+          font-weight: bold;
+          transition: all 0.5s ease;
+        }
+
+        .logo {
+          .logo-1 {
+            width: 65px;
+            height: 65px;
+            background-image: url(../../../assets/img/aliados/ic_plomeria.svg);
+            background-size: 65px 65px;
+            transition: all 0.5s ease;
+          }
+
+          .logo-2 {
+            width: 65px;
+            height: 65px;
+            background-image: url(../../../assets/img/aliados/ic_pintura.svg);
+            background-size: 65px 65px;
+            transition: all 0.5s ease;
+          }
+
+          .logo-3 {
+            width: 65px;
+            height: 65px;
+            background-image: url(../../../assets/img/aliados/ic_carpinteria.svg);
+            background-size: 65px 65px;
+            transition: all 0.5s ease;
+          }
+        }
+      }
+
+      .option:first-child {
+        margin-left: 0;
+      }
+
+      .option:last-child {
+        margin-right: 0;
+      }
+
+      .option:hover {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.15);
+        .text-1 {
+          color: #FFAE2A;
+        }
+        .text-2 {
+          color: #5A298D;
+        }
+        .text-3 {
+          color: #00AAC7;
+        }
+
+        .logo {
+          .logo-1 {
+            background-image: url(../../../assets/img/aliados/ic_prolmeria_hover.svg);
+          }
+          .logo-2 {
+            background-image: url(../../../assets/img/aliados/ic_pintura_hover.svg);
+          }
+          .logo-3 {
+            background-image: url(../../../assets/img/aliados/ic_carpinteria_hover.svg);
+          }
+        }
+      }
+    }
+  }
+}
+
+:host {
   .container {
     width: 100%;
     position: relative;
@@ -1673,9 +1793,7 @@ input:checked+.switch-slider:before {
 
   }
 
-
 }
-
 
 :host {
   .form-container {
@@ -1923,7 +2041,57 @@ input:checked+.switch-slider:before {
   }
 }
 
-@media screen and (max-width: 1114px) {
+@media screen and (max-width: 1250px) {
+  :host {
+    .container-options {
+      .options {
+        .option {
+          flex-direction: column;
+          height: 123px;
+          max-width: 110px;
+        }
+      }
+    }
+
+    .container-options .container-logos .sura {
+      margin-top: 10px;
+    }
+
+    .container-options .options .option .logo .logo-1,
+    .container-options .options .option .logo .logo-2,
+    .container-options .options .option .logo .logo-3 {
+      width: 80px;
+      height: 80px;
+      background-size: 80px 80px;
+    }
+
+    .container-options .options .option .text {
+      font-size: 1.6rem;
+    }
+
+    .container-options .options {
+      .option {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.15);
+        .logo {
+          .logo-1 {
+            background-image: url(../../../assets/img/aliados/ic_prolmeria_hover.svg);
+          }
+          .logo-2 {
+            background-image: url(../../../assets/img/aliados/ic_pintura_hover.svg);
+          }
+          .logo-3 {
+            background-image: url(../../../assets/img/aliados/ic_carpinteria_hover.svg);
+          }
+        }
+        .text-1 , .text-2, .text-3 {
+          color: #383838 !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
   :host {
     .row {
       flex-direction: column;
@@ -2171,6 +2339,7 @@ input:checked+.switch-slider:before {
     }
 
     .product-info-user {
+      padding: 0;
       padding-top: 20px;
     }
 

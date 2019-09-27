@@ -29,20 +29,28 @@
       font-size: 1.4rem;
       margin-bottom: 5px;
       line-height: 32px;
+      span {
+        height: 35px;
+        display: -webkit-box;
+        margin: 0 auto;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
     .icon-share-container{
       cursor: pointer;
       width: 30px;
       height: 30px;
       text-align: center;
-      padding-top: 6px;
+      padding-top: 11px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       vertical-align: middle;
       margin-right: 10px;
       position: absolute;
-      top: -30px;
+      top: -34px;
       right: 0;
       box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
       .icon-share {
@@ -247,6 +255,35 @@
     width: 12rem;
     background: transparent;
   }
+
+  .heart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .heart {
+      width: 15px;
+      height: 15px;
+      background-size: 15px 15px;
+     // transition: all 0.5s ease;
+    }
+
+    .heart {
+      background-image: url(../../../assets/img/ic_heart_simple.svg);
+    }
+
+    .heart:hover {
+      background-image: url(../../../assets/img/ic_heart_hover.svg);
+    }
+
+    .heart.active {
+      background-image: url(../../../assets/img/ic_heart_active.svg);
+    }
+
+    span {
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+  }
 }
 
 :host {
@@ -366,12 +403,16 @@
 
   .item__location {
     color: #A2A2A2;
-    font-size: 1.4rem;
-    line-height: 17px;
-    padding-bottom: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 1.2rem;
+    line-height: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    .location {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .price-container {
@@ -413,7 +454,7 @@
   }
 
   .container-product .container-price {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #FF3646;
     font-weight: bold;
     margin-bottom: 0px;
@@ -468,8 +509,8 @@
   }
 
   .container-product .container-photo {
-    height: 170px;
-    min-height: 170px;
+    height: 195px;
+    min-height: 195px;
     max-width: 100%;
     border-bottom: 1px solid rgba(51, 51, 51, 0.1);
     display: flex;
@@ -490,6 +531,16 @@
   }
 }
 
+:host(.product-feed) {
+  @media screen and (max-width: 760px) {
+    .container-product .container-price {
+      font-size: 1.2rem;
+    }
+    .item__location {
+      font-size: 1.1rem;
+    }
+  }
+}
 
 @media screen and (max-width: 500px) {
   :host(.product-feed) {
@@ -528,8 +579,8 @@
     }
 
     .container-product .container-photo {
-      min-height: 137px;
-      height: 137px;
+      height: 195px;
+      min-height: 195px;
     }
 
   }

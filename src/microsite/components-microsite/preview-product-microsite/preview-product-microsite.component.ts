@@ -106,6 +106,7 @@ export class PreviewProductMicrositeComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router,
+    private configurationService: ConfigurationService,
     private changeDetectorRef: ChangeDetectorRef,
     private currentSessionSevice: CurrentSessionService,
     private userService: UserService,
@@ -118,7 +119,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
     private back: ProductsMicrositeService,
     private feedService: FeedMicrositeService,
     private route: ActivatedRoute,
-    private configurationService: ConfigurationService
   ) {
     this.currentFilter = this.feedService.getCurrentFilter();
 
@@ -312,7 +312,6 @@ export class PreviewProductMicrositeComponent implements OnInit {
      console.log(error);
     });
   }
-
 
   loadProduct() {
     this.productsService.getProductsByIdDetail(this.idProduct).subscribe((reponse) => {

@@ -662,33 +662,69 @@
           </div>
         </div>
         <div class="info-section">
-          <div class="product-info-user">
-            <div class="info-container">
-              <div class="media-middle">
-                <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
-                  <span class="icon-account"></span>
-                </div>
-                <div *ngIf="products.user.photos" class="photo-user">
-                  <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
-                </div>
-              </div>
-              <div *ngIf="products.user.company" class="media-middle product-info-user--data">
-                <p class="name-user">{{products.user.name}}</p>
-                <p class="panel-product color-company">{{products.user.company.name}}
-                  -
-                  {{products.user.company.community.name}}
-                </p>
-              </div>
-            </div>
-            <div class="product-btn" *ngIf="!validateSession()">
-              <div class="product-btns">
-                <div class="cont-botons">
-                  <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
-                    Chatea con el asesor
+          <div>
+              <div class="product-info-user">
+                  <div class="info-container">
+                    <div class="media-middle">
+                      <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon" [ngStyle]="{'background-color':products.user.company.colour}">
+                        <span class="icon-account"></span>
+                      </div>
+                      <div *ngIf="products.user.photos" class="photo-user">
+                        <div [ngStyle]="{'background-image': getUrlImge()}" class="thumbnail-img"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="products.user.company" class="media-middle product-info-user--data">
+                      <p class="name-user">{{products.user.name}}</p>
+                      <p class="panel-product color-company">{{products.user.company.name}}
+                        -
+                        {{products.user.company.community.name}}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                  <div class="product-btn" *ngIf="!validateSession()">
+                    <div class="product-btns">
+                      <div class="cont-botons">
+                        <div class="gtmEnviarMensaje botons" (click)="sendMessage()">
+                          Chatea con el asesor
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="products.immovable" class="container-options">
+                      <div class="container-title">
+                        <div class="title">
+                          <p>
+                            Te podría interesar: expertos en mantenimiento y reparación
+                          </p>
+                        </div>
+                        <div class="container-logos">
+                          <div class="mis-aliados"></div>
+                          <div class="sura"></div>
+                        </div>
+                      </div>
+                      <div class="options">
+                        <a (click)="openModalAliados('https://misaliados.com.co/plomero')" class="option">
+                                <div class="logo">
+                                  <div class="logo-1"></div>
+                                </div>
+                                <div class="text text-1">Plomería</div>
+                        </a>
+                        <a (click)="openModalAliados('https://misaliados.com.co/pintor')" class="option">
+                                <div class="logo">
+                                  <div class="logo-2"></div>
+                                </div>
+                                <div class="text text-2">Pintura</div>
+                        </a>
+                        <a (click)="openModalAliados('https://misaliados.com.co/carpintero')" class="option">
+                                <div class="logo">
+                                  <div class="logo-3"></div>
+                                </div>
+                                <div class="text text-3">Carpintería</div>
+                        </a>
+
+                      </div>
+                    </div>
               </div>
-            </div>
           </div>
           <!--div class="row-container">
             <div class="share-container">
