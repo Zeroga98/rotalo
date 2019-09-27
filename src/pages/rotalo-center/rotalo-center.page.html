@@ -43,6 +43,10 @@
           <a class="gtmMensajes">Mensajes</a>
           <span *ngIf="messageAvailable" class="noti-circle">{{getMessagesUnRead}}</span>
         </div>
+        <div (click)="closeAllOptions()" [routerLink]="likes" class="option" routerLinkActive="active">
+            <div class="ico heart-icon"></div>
+            <a>Favoritos</a>
+          </div>
         <div (click)="closeAllOptions()" [routerLink]="selling" class="option" routerLinkActive="active">
           <div class="ico rotando-icon"></div>
           <a>Artículos publicados</a>
@@ -74,10 +78,8 @@
               </ul>
             </article>
         </div>
-
         <div *ngIf="currentUser && currentUser['is-admin-store']" class="line">
         </div>
-
         <div *ngFor="let store of stores ; let i = index">
             <div #option3
             *ngIf="store['is_assigned_to_user']" routerLinkActive="active open"  [ngClass]="optionsStore[i] ? 'open' : ''">
@@ -113,10 +115,8 @@
                 </article>
             </div>
         </div>
-
         <div *ngIf="isSuperUser()" class="line">
         </div>
-
         <div #option4 *ngIf="isSuperUser()" routerLinkActive="active open"  [ngClass]="options[2] ? 'open' : ''">
             <div class="option">
               <div class="ico admin-icon "></div>

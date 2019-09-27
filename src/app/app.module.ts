@@ -243,6 +243,7 @@ import { ModalFormDetailComponent } from '../microsite/components-microsite/moda
 import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
 import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
 import { ModalContactSufiComponent } from '../components/modal-contact-sufi/modal-contact-sufi.component';
+import { FavoritesComponent } from '../pages/profile/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -403,7 +404,8 @@ import { ModalContactSufiComponent } from '../components/modal-contact-sufi/moda
     ModalFormDetailComponent,
     ActivationEmailComponent,
     ModalAlertComponent,
-    ModalContactSufiComponent
+    ModalContactSufiComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

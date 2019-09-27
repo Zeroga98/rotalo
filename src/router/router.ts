@@ -71,6 +71,7 @@ import { ProductsShopPrivateComponent } from '../microsite/pages-microsite/produ
 import { HomeShopPrivateComponent } from '../microsite/pages-microsite/home-shop-private/home-shop-private.component';
 import { DetailPageShopPrivateComponent } from '../microsite/pages-microsite/detail-page-shop-private/detail-page-shop-private.component';
 import { ActivationEmailComponent } from '../pages/activation-email/activation-email.component';
+import { FavoritesComponent } from '../pages/profile/favorites/favorites.component';
 
 export const appRouter: Routes = [
   {
@@ -104,6 +105,10 @@ export const appRouter: Routes = [
       {
         path: ROUTES.MENUROTALOCENTER.SELLING,
         component: SellingPage,
+      },
+      {
+        path: ROUTES.MENUROTALOCENTER.LIKES,
+        component: FavoritesComponent,
       },
       {path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
       {path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
