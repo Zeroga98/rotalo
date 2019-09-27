@@ -86,7 +86,7 @@ export class ModalContactSufiComponent implements OnInit {
     this.errorSuccess = true;
     this.showSuccess = false;
   }
-}
+  }
 
 
 gapush(method, type, category, action, label) {
