@@ -638,8 +638,6 @@
 
 }
 
-
-
 :host {
   .navbar-header .list-options li .icon-rotalo {
     display: none;
@@ -691,7 +689,6 @@
 }
 
 :host {
-
   .toolbar {
     display: none;
     background-color: #cacaca;
@@ -822,13 +819,30 @@
   font-size: 1.6rem;
 }
 
+.heart {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  width: 14px;
+  height: 12px;
+  background-size: 14px 12px;
+  background-image: url(../../assets/img/iconos/corazon_linea.svg);
+}
+
+
 .mat-menu-item:hover {
   font-weight: bold;
+  .heart {
+    background-image: url(../../assets/img/iconos/corazon_relleno.svg);
+  }
 }
 
 .mat-menu-item.active {
   font-weight: bold;
   background: rgba(0, 0, 0, .04);
+  .heart {
+    background-image: url(../../assets/img/iconos/corazon_relleno.svg);
+  }
 }
 
 .active .mat-menu-item {
@@ -856,6 +870,8 @@
   font-family: 'Lato Regular';
   margin-left: 10px;
 }
+
+
 
 @media screen and (max-width: 1276px) {
   :host {
@@ -1004,8 +1020,7 @@
 
 }
 
-
-  .ac-container label {
+.ac-container label {
     position: relative;
     display: block;
     cursor: pointer;
