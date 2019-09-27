@@ -1146,9 +1146,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   openModalSufi() {
-
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.minWidth = '300px';
     dialogConfig.maxWidth = '335px';
     dialogConfig.minHeight = '450px';
@@ -1162,11 +1160,10 @@ export class DetailProductComponent implements OnInit {
       'cuotaInicial': creditValue ? creditValue : 0,
       'valorAFinanciar': this.products.price,
       'productId': this.idProduct,
-      'storeId': 0
+      'storeId': null,
+      'rotalo' : true
     };
-
     dialogConfig.data = infoVehicle;
-
     const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
