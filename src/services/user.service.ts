@@ -175,4 +175,11 @@ export class UserService {
     return this.httpClient.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  loadUserListLikes() {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/perfil/favoritos`;
+    return this.httpClient.get(url , { headers: headers }).pipe(map((response: any) => response));
+  }
+
 }

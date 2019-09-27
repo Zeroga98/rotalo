@@ -1,3 +1,25 @@
-<p>
-  favorites works!
-</p>
+<div class="info-container">
+  <div class="title main-title">
+    <h1 class="text ">Favoritos</h1>
+  </div>
+
+  <div *ngIf="products && products.length > 0" class="container-cards">
+    <div *ngFor="let product of products">
+      <favorite-product [product]="product"></favorite-product>
+    </div>
+  </div>
+  <div *ngIf="!products" class="animate-loading container-empty">
+  </div>
+  <div
+  *ngIf="products && products.length == 0"
+   class="container-empty">
+    <div>
+        <div class="icon-monkey">
+          </div>
+          <div class="sub-title">
+            Aún no tienes favoritos
+          </div>
+    </div>
+  </div>
+
+</div>

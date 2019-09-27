@@ -1,0 +1,36 @@
+:host {
+  .product {
+    padding: 0px;
+    display: flex;
+    border-bottom: 1px dashed #E5E5E5;
+    padding-bottom: 23px;
+    margin-top: 15px;
+    .first {
+
+      .thumb {
+        background-color: #E3E3E3;
+        background-position: center center;
+        background-repeat: no-repeat;
+        border: 1px solid #E3E3E3;
+        width: 124px;
+        min-width: 124px;
+        height: 94.03px;
+        border-radius: 5px;
+      }
+
+      .contain {
+        background-size: contain;
+        -moz-background-size: contain;
+      }
+
+      .cover {
+        background-size: cover;
+        -moz-background-size: cover;
+      }
+    }
+
+    .first~.product-info {
+      width: 100%;
+    }
+  }
+}

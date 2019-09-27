@@ -1,0 +1,29 @@
+<div class="product">
+  <div class="first">
+      <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
+  </div>
+  <div class="product-info">
+      <li>
+          <p>
+            Hermosas agendas de diferentes tamaños y colores
+          </p>
+          <p class = "status">
+           <span>Estado:</span> disponible
+          </p>
+        </li>
+        <li>
+          <p>
+            324234234234234
+          </p>
+         <!--
+           <p>
+            {{product.precioProducto  | currency:'$' | removeDigits}}
+          </p>
+         -->
+        </li>
+        <li class="heart-container">
+          <div class="heart"></div>
+        </li>
+  </div>
+
+</div>

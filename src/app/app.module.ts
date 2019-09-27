@@ -244,6 +244,7 @@ import { ActivationEmailComponent } from '../pages/activation-email/activation-e
 import { ModalAlertComponent } from '../components/modal-alert/modal-alert.component';
 import { ModalContactSufiComponent } from '../components/modal-contact-sufi/modal-contact-sufi.component';
 import { FavoritesComponent } from '../pages/profile/favorites/favorites.component';
+import { FavoriteProductComponent } from '../components/favorite-product/favorite-product.component';
 
 @NgModule({
   declarations: [
@@ -405,7 +406,8 @@ import { FavoritesComponent } from '../pages/profile/favorites/favorites.compone
     ActivationEmailComponent,
     ModalAlertComponent,
     ModalContactSufiComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    FavoriteProductComponent
   ],
   imports: [
     BrowserModule,
