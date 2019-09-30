@@ -1,5 +1,5 @@
 <div class="product" [ngClass]="{active: isProductAvailable}">
-  <div class="first">
+  <div (click)="goToProduct()" class="first">
       <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
       <div *ngIf="!isCostume && product['product_is_low_price']"
             class="container-low-price">
@@ -11,7 +11,7 @@
   <div class="product-info">
       <li>
         <div>
-            <p class="title">
+            <p (click)="goToProduct()" class="title">
               {{product.name}}
               </p>
               <p class = "status">
@@ -25,7 +25,7 @@
           </p>
         </li>
         <li class="heart-container">
-            <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+            <button (click)="checkLike()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                 <div class="heart"></div>
             </button>
         </li>

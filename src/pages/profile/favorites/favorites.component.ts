@@ -26,4 +26,10 @@ export class FavoritesComponent implements OnInit {
       }
     });
   }
+
+  dislikeProduct(productId) {
+    this.products.filter(product => product.productId != productId);
+    console.log(this.products);
+  }
+
 }

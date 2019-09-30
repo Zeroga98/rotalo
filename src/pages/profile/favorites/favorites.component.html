@@ -5,7 +5,9 @@
 
   <div *ngIf="products && products.length > 0" class="container-cards">
     <div *ngFor="let product of products">
-      <favorite-product [product]="product"></favorite-product>
+      <favorite-product
+      (disLike)="dislikeProduct($event)"
+      [product]="product"></favorite-product>
     </div>
   </div>
   <div *ngIf="!products" class="animate-loading container-empty">
