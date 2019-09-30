@@ -13,7 +13,13 @@ export class FavoriteProductComponent implements OnInit {
   }
 
   getUrlImge(photo) {
-    return ('url(' + photo.replace(/ /g, '%20')) + ')';
+    return ('url(' + photo.replace(/ /g, '%20') + ')') ;
   }
+
+
+  get isProductAvailable() {
+    return this.product.status == 'Disponible';
+  }
+
 
 }

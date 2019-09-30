@@ -1,11 +1,14 @@
 :host {
-  .product {
+
+.product {
     padding: 0px;
     display: flex;
-    border-bottom: 1px dashed #E5E5E5;
-    padding-bottom: 23px;
-    margin-top: 15px;
+    border-bottom: 1px solid #F2F2F2;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    font-family: 'Lato Regular';
     .first {
+      margin-right: 20px;
 
       .thumb {
         background-color: #E3E3E3;
@@ -32,5 +35,57 @@
     .first~.product-info {
       width: 100%;
     }
-  }
+
+    .product-info {
+      display: flex;
+      li {
+       list-style: none;
+       padding: 0px 10px;
+       width: 100%;
+       display: flex;
+       align-items: center;
+       p {
+         color: #707070;
+         font-size: 1.6rem;
+       }
+       .price {
+         font-weight: bold;
+       }
+       .status {
+        margin-top: 8px;
+        font-size: 1.4rem;
+        }
+      }
+      .heart-container {
+        justify-content: flex-end;
+      }
+
+    }
+}
+
+.product.active {
+    .first {
+      .thumb {
+        cursor: pointer;
+      }
+    }
+    .product-info {
+      li {
+       p.title {
+         cursor: pointer;
+         font-weight: bold;
+       }
+      }
+    }
+}
+
+.heart {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 16px;
+    background-size: 18px 16px;
+    background-image: url(../../assets/img/iconos/corazon_relleno.svg);
+}
+
 }
