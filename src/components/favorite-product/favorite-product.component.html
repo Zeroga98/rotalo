@@ -1,6 +1,12 @@
-<div  class="product">
+<div class="product" [ngClass]="{active: isProductAvailable}">
   <div class="first">
       <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
+      <div *ngIf="!isCostume && product['product_is_low_price']"
+            class="container-low-price">
+            <p>$ REBAJÓ</p>
+      </div>
+      <div *ngIf="isCostume" class="halloween">
+      </div>
   </div>
   <div class="product-info">
       <li>
