@@ -51,6 +51,7 @@ export class ChatWindowComponent
   idUsuarioVendedor;
   rating;
   nombreUsuarioChat;
+  companiaUsuarioChat;
   public paymentTypes = {
     cash: 'Efectivo',
     transfer_bancolombia: 'Transferencia bancaria',
@@ -93,6 +94,7 @@ export class ChatWindowComponent
           this.idReceptorUser = currentConversation.idEmisario;
           this.rating = currentConversation.calificacion;
           this.nombreUsuarioChat = currentConversation.nombreUsuarioChat;
+          this.companiaUsuarioChat = currentConversation.companiaEmisario;
           if (currentConversation.idUsuarioChat) {
             this.idUsuarioChat = currentConversation.idUsuarioChat;
           }
