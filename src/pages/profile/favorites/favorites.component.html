@@ -6,7 +6,7 @@
   <div *ngIf="products && products.length > 0" class="container-cards">
     <div *ngFor="let product of products">
       <favorite-product
-      (disLike)="dislikeProduct($event)"
+      (unlike)="unlikeProduct($event)"
       [product]="product"></favorite-product>
     </div>
   </div>

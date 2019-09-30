@@ -11,7 +11,7 @@ import { ProductsService } from '../../services/products.service';
 })
 export class FavoriteProductComponent implements OnInit {
   @Input() product;
-  @Output() disLike = new EventEmitter<string>();
+  @Output() unlike = new EventEmitter<string>();
   constructor(
     private router: Router,
     private productsService: ProductsService,
@@ -74,7 +74,7 @@ export class FavoriteProductComponent implements OnInit {
         .subscribe(
           response => {
             if (response.body) {
-              this.disLike.emit(this.product['productId']);
+              this.unlike.emit(this.product['productId']);
             }
           },
           error => {

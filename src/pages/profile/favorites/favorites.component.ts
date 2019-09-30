@@ -27,7 +27,7 @@ export class FavoritesComponent implements OnInit {
     });
   }
 
-  dislikeProduct(productId) {
+  unlikeProduct(productId) {
     this.products =  this.products.filter((product) => {
       return product.productId != productId;
     });
