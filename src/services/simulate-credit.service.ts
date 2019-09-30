@@ -32,13 +32,6 @@ constructor(private http: HttpClient,
     return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
   }
 
-  sendSimulateCreditFeria(infoVehicle) {
-    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
-    const headers = new HttpHeaders(jsonSapiHeaders);
-    const url =  this.urlSapi + '/sufi/enviar/feria';
-    return this.http.post(url, infoVehicle, { headers: headers }).toPromise();
-  }
-
   setInitialQuota(_initialQuota) {
     localStorage.setItem(this.initialQuota, _initialQuota);
   }

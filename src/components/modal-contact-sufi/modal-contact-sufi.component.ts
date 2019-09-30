@@ -67,7 +67,7 @@ export class ModalContactSufiComponent implements OnInit {
           console.log(httpErrorResponse);
          });
       } else  {
-        this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
+        this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
           this.errorSuccess = false;
           this.showSuccess = true;
           this.gapush(
