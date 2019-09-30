@@ -354,7 +354,7 @@ export const appRouter: Routes = [
   ]
 },
 /****/
-
+/*
 {
   path: ROUTES.SHOPSPRIVATE.LINK,
   component: ProductsShopPrivateComponent,
@@ -382,7 +382,7 @@ export const appRouter: Routes = [
       pathMatch: 'full'
     }
   ]
-},
+},*/
 /****/
   {
     path: '',
