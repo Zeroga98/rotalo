@@ -210,7 +210,7 @@ export class DetailProductComponent implements OnInit {
         storeId: null
       };
       this.simulateCreditService
-        .sendSimulateCreditFeria(infoVehicle)
+        .sendSimulateCredit(infoVehicle)
         .then(response => {
           this.errorSuccess = false;
           this.showSuccess = true;

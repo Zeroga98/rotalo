@@ -203,7 +203,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
         'horarioContacto': horarioContacto,
         'storeId': this.configurationService.storeIdPrivate
       };
-      this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
+      this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
         this.errorSuccess = false;
         this.showSuccess = true;
         this.gapush(
