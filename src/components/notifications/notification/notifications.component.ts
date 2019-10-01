@@ -324,6 +324,10 @@ export class NotificationsComponent implements OnInit {
     this.router.navigate([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.HOBBIES}`]);
   }
 
+  goToFavorites() {
+    this.router.navigate([`/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.LIKES}`]);
+  }
+
   loadMoreNotification() {
     if(this.messages.length == 0) {
       this.currentPage = 1;

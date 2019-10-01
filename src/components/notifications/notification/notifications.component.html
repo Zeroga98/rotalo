@@ -775,6 +775,39 @@ class="conversation">
           <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo}}</small>
         </div>
         <!-- FIN NOTIFICACION NUMERO DE GUIA ACTUALIZADO-->
+
+         <!-- INICIO NOTIFICACIÓN CAMBIO ESTADO PRODUCTO -->
+         <div *ngIf="message.tipoNotificacion == 'product_change_status'" class="notifications-item">
+          <span (click)='deleteNotification(message.idNotificacion)' class="icon-close">
+          </span>
+          <div class="notification">
+            <div
+            [ngClass]="message.fotoNotificacion && !message.fotoNotificacion.includes('svg') ?  'img-round': ''"
+             class="notification-img ">
+               <div [ngStyle]="{'background-image': getUrlImge(message)}" class="thumbnail-img"></div>
+            </div>
+            <div class="notification-body">
+              <p class="notification-text">
+                  Tu artículo marcado como favorito<br>
+                <span class="highlight bold">{{(message.producto.nombreProducto)}}</span>  
+                <span *ngIf="message.informacionAdicional == 'DISPONIBLE' "> se encuentra disponible</span> 
+                <span *ngIf="message.informacionAdicional == 'NO_DISPONIBLE' "> no está disponible</span> 
+             
+              </p>
+              <br>
+              <div class="button-item">
+                  <button mat-flat-button color="primary" class="button button-secondary" (click)="goToFavorites()">
+                    <span>Ir a favoritos</span>
+                  </button>
+                </div>
+            </div>
+          </div>
+          <small class="notification-date">{{message.fechaHora | amLocale:'es' | amTimeAgo }}
+          </small>
+        </div>
+        <!-- FIN NOTIFICACIÓN CAMBIO ESTADO PRODUCTO -->
+
+
       </div>
 
     </div>

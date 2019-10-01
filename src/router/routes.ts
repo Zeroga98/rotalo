@@ -52,6 +52,7 @@ export const ROUTES = {
         SELLING: 'selling',
         SOLD: 'sold',
         MESSAGES: 'messages',
+        LIKES: 'likes',
         CONVERSATION: 'conversation',
         FEEDBACK: 'feed-back',
         ADMINORDERS: 'admin-order',
