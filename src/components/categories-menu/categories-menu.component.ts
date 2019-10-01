@@ -30,7 +30,7 @@ export class CategoriesMenuComponent implements OnInit {
   ngOnInit() {
     if (this.categoriesService.getCategoriesActive()) {
       this.categories = this.categoriesService.getCategoriesActive();
-      
+
     } else {
       this.categoriesService.getCategoriesActiveServer().subscribe((response) => {
         this.categories = response;
@@ -77,11 +77,11 @@ export class CategoriesMenuComponent implements OnInit {
           category.subCategory = subCategory;
           this.navigationTopService.changeCategory(category);
           if (category.subCategory && category.subCategory.id) {
-            
+
             this.router.navigate([
               `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
             ], {queryParams: {product_category_id : category.id, product_subcategory_id: category.subCategory.id}});
-            
+
           } else {
             this.router.navigate([
               `${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FILTERS}`
@@ -93,7 +93,7 @@ export class CategoriesMenuComponent implements OnInit {
       }
     }else{
       if(this.activeCategory){
-        
+
         if(subCategory.productsActives != 0){
 
           if (category.productsActives != 0 || subCategory && subCategory.productsActives &&  subCategory.productsActives != 0) {
@@ -116,7 +116,7 @@ export class CategoriesMenuComponent implements OnInit {
       }else{
         this.activeCategory=true;
       }
-      
+
     }
   }
 

@@ -1,0 +1,129 @@
+:host  {
+  width: 79%;
+  height: auto;
+  padding: 0 5%;
+  padding-left: 2%;
+  position: relative;
+  background-color: #FAFAFA;
+  padding-top: 45px;
+  padding-bottom: 70px;
+  .title {
+    .text {
+      color: #383838;
+    }
+
+    h1.text {
+      font-size: 2.0rem;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  .main-title {
+    margin-bottom: 38px;
+  }
+
+  .container-empty {
+    padding-top: 80px;
+    width: 100%;
+    min-width: 100%;
+    min-height: 400px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding-bottom: 40px;
+  }
+
+  .container-cards {
+    width: 100%;
+    min-width: 100%;
+    min-height: 400px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 18px 14px;
+  }
+
+  .icon-monkey {
+    width: 160px;
+    height: 160px;
+    background: url(../../../assets/img/img_mico_empty.svg);
+    background-size: 160px 160px;
+    margin: 0 auto;
+  }
+
+  .sub-title {
+    margin: 0 auto;
+    color:#707070;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .container-empty.animate-loading {
+    background-color: #E3E3E3;
+  }
+
+  .animate-loading {
+    -webkit-animation: loadAnimation 3s infinite;
+    -moz-animation: loadAnimation 3s infinite;
+    -o-animation: loadAnimation 3s infinite;
+    animation: loadAnimation 3s infinite;
+  }
+
+}
+
+
+
+@keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes loadAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

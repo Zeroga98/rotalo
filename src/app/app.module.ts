@@ -245,6 +245,8 @@ import { ModalAlertComponent } from '../components/modal-alert/modal-alert.compo
 import { ModalContactSufiComponent } from '../components/modal-contact-sufi/modal-contact-sufi.component';
 import { ProductCarouselComponent } from '../components/product-carousel/product-carousel.component';
 import { ModalAliadosComponent } from '../components/modal-aliados/modal-aliados.component';
+import { FavoritesComponent } from '../pages/profile/favorites/favorites.component';
+import { FavoriteProductComponent } from '../components/favorite-product/favorite-product.component';
 
 @NgModule({
   declarations: [
@@ -407,7 +409,9 @@ import { ModalAliadosComponent } from '../components/modal-aliados/modal-aliados
     ModalAlertComponent,
     ModalContactSufiComponent,
     ProductCarouselComponent,
-    ModalAliadosComponent
+    ModalAliadosComponent,
+    FavoritesComponent,
+    FavoriteProductComponent
   ],
   imports: [
     BrowserModule,
