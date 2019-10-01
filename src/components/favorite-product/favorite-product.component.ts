@@ -21,7 +21,7 @@ export class FavoriteProductComponent implements OnInit {
   ngOnInit() {}
 
   getUrlImge(photo) {
-    const urlProduct: String = 'url(' + photo.replace(/ /g, '%20') + ')';
+    const urlProduct: String = 'url("' + photo.replace(/ /g, '%20') + '")';
     return urlProduct;
   }
 
@@ -31,9 +31,9 @@ export class FavoriteProductComponent implements OnInit {
 
   get isCostume() {
     if (
-      this.product['product_subcategory_id'] &&
-      (this.product['product_subcategory_id'] == 77 ||
-        this.product['product_subcategory_id'] == 127)
+      this.product['subcategory'] &&
+      (this.product['subcategory'].id == 77 ||
+        this.product['subcategory'].id == 127)
     ) {
       return true;
     }
