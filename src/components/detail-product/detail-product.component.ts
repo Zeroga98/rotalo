@@ -248,7 +248,8 @@ export class DetailProductComponent implements OnInit {
       precio: this.products.price,
       idUsuarioChat: this.products.user.id,
       nombreUsuarioChat: this.products.user.name,
-      calificacion: this.products.userCalification ? this.products.userCalification : 0
+      calificacion: this.products.userCalification ? this.products.userCalification : 0,
+      companiaEmisario: this.products.user.company.name
     };
 
     if (this.products.subcategory && (
