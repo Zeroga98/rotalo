@@ -76,6 +76,9 @@
     -o-animation: loadAnimation 3s infinite;
     animation: loadAnimation 3s infinite;
   }
+  .w-100 {
+    width: 100%;
+  }
 }
 
 @keyframes loadAnimation {
