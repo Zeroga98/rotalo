@@ -18,7 +18,7 @@ export class FavoritesComponent implements OnInit {
     this.userService.loadUserListLikes().subscribe((response) => {
       if (response) {
         this.products = response;
-        console.log(response);
+        //console.log(response);
       }
     }, (error) => {
       if (error.status) {
