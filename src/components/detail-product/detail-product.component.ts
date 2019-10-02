@@ -37,6 +37,7 @@ import { CountUp, CountUpOptions } from 'countup.js';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ModalContactSufiComponent } from '../modal-contact-sufi/modal-contact-sufi.component';
 import { ModalAliadosComponent } from '../modal-aliados/modal-aliados.component';
+import { LikeDataSharingService } from '../../services/like-data-sharing.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -128,7 +129,8 @@ export class DetailProductComponent implements OnInit {
   public contactUser: FormGroup;
   public showSuccess = false;
   public errorSuccess = false;
-
+  private likeDataSharingService: LikeDataSharingService;
+  
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 2,
     duration: 1,
@@ -159,8 +161,9 @@ export class DetailProductComponent implements OnInit {
     public dialog: MatDialog,
     private modalService: ModalShareProductService,
     private configurationService: ConfigurationService,
-    private simulateCreditService: SimulateCreditService
-  ) {
+    private simulateCreditService: SimulateCreditService,
+    private _likeDataSharingService: LikeDataSharingService)  {
+    this.likeDataSharingService = _likeDataSharingService;
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
@@ -1191,7 +1194,6 @@ export class DetailProductComponent implements OnInit {
 
 
   checkLike() {
-    console.log("entro")
     const params = {
       idProducto: this.products['id'],
       idTienda: this.products['seller_store_id']
@@ -1205,6 +1207,7 @@ export class DetailProductComponent implements OnInit {
               this.products.like = response.body.like;
               this.products['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
             }
           },
           error => {
@@ -1225,6 +1228,7 @@ export class DetailProductComponent implements OnInit {
               this.products.like = response.body.like;
               this.products['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
             }
           },
           error => {
