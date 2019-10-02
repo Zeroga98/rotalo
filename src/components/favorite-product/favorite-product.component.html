@@ -1,11 +1,15 @@
 <div class="product" [ngClass]="{active: isProductAvailable}">
   <div (click)="goToProduct()" class="first">
       <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
-      <div *ngIf="!isCostume && product['product_is_low_price']"
+      <div *ngIf="isCostume" class="halloween">
+      </div>
+      <div *ngIf="!isCostume && product['isLowPrice'] "
             class="container-low-price">
             <p>$ REBAJÓ</p>
       </div>
-      <div *ngIf="isCostume" class="halloween">
+      
+      <div *ngIf="product['mostView'] && !isCostume && !product['isLowPrice']" class="container-trending">
+        <p>Más visto</p>
       </div>
   </div>
   <div class="product-info">
