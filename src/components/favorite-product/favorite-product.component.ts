@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from '../../router/routes';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ProductsService } from '../../services/products.service';
-
+import { LikeDataSharingService } from '../../services/like-data-sharing.service';
 @Component({
   selector: 'favorite-product',
   templateUrl: './favorite-product.component.html',
@@ -12,16 +12,20 @@ import { ProductsService } from '../../services/products.service';
 export class FavoriteProductComponent implements OnInit {
   @Input() product;
   @Output() unlike = new EventEmitter<string>();
+  private likeDataSharingService: LikeDataSharingService
   constructor(
     private router: Router,
     private productsService: ProductsService,
-    private configurationService: ConfigurationService
-  ) {}
+    private configurationService: ConfigurationService,
+    private _likeDataSharingService: LikeDataSharingService
+  ) {
+    this.likeDataSharingService = _likeDataSharingService;
+  }
 
   ngOnInit() {}
 
   getUrlImge(photo) {
-    const urlProduct: String = 'url(' + photo.replace(/ /g, '%20') + ')';
+    const urlProduct: String = 'url("' + photo.replace(/ /g, '%20') + '")';
     return urlProduct;
   }
 
@@ -31,9 +35,9 @@ export class FavoriteProductComponent implements OnInit {
 
   get isCostume() {
     if (
-      this.product['product_subcategory_id'] &&
-      (this.product['product_subcategory_id'] == 77 ||
-        this.product['product_subcategory_id'] == 127)
+      this.product['subcategory'] &&
+      (this.product['subcategory'].id == 77 ||
+        this.product['subcategory'].id == 127)
     ) {
       return true;
     }
@@ -75,6 +79,7 @@ export class FavoriteProductComponent implements OnInit {
           response => {
             if (response.body) {
               this.unlike.emit(this.product['productId']);
+              this.likeDataSharingService.updateLikeProduct(response.body);
             }
           },
           error => {
