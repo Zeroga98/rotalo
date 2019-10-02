@@ -2034,7 +2034,7 @@ input:checked+.switch-slider:before {
       z-index: 1;
       bottom: 140%;
       left: 30%;
-      margin-left: -55px;
+      margin-left: -80px;
       opacity: 0;
       transition: opacity 1s;
       font-size: 1.4rem;
@@ -2046,7 +2046,7 @@ input:checked+.switch-slider:before {
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -5px;
+    margin-left: 20px;
     border-width: 5px;
     border-style: solid;
     border-color: white transparent transparent transparent;
