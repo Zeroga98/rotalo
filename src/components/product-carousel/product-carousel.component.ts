@@ -4,6 +4,7 @@ import { ProductInterface } from '../../commons/interfaces/product.interface';
 import { ModalShareProductService } from '../modal-shareProduct/modal-shareProduct.service';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
+import { LikeDataSharingService } from '../../services/like-data-sharing.service';
 
 @Component({
   selector: 'product-carousel',
@@ -16,13 +17,25 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
   readonly defaultImage: string = '../assets/img/product-no-image.png';
   public idCountry = 1;
   public likeSelected = false;
+  private likeDataSharingService: LikeDataSharingService;
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private productsService: ProductsService,
     private router: Router,
-    private modalService: ModalShareProductService) { }
+    private modalService: ModalShareProductService,
+    private _likeDataSharingService: LikeDataSharingService) {
+      this.likeDataSharingService = _likeDataSharingService;
+    }
 
   ngOnInit() {
+    this.likeDataSharingService.likeProductObservable.subscribe(producto => {
+      if(this.product.id == producto['idProducto']){
+          this.product.likes = producto['likes'];
+          this.product.like = producto['like'];
+          this.likeSelected = this.product.like;
+      }
+      
+    });
   }
 
   ngAfterContentInit() {
@@ -88,6 +101,7 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
         .subscribe(
           response => {
             if (response.body) {
+              this.likeDataSharingService.updateLikeProduct(response.body);
               this.likeSelected = response.body.like;
               this.product['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
@@ -108,9 +122,11 @@ export class ProductCarouselComponent implements OnInit, AfterContentInit {
         .subscribe(
           response => {
             if (response.body) {
+              this.likeDataSharingService.updateLikeProduct(response.body);
               this.likeSelected = response.body.like;
               this.product['likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
+
             }
           },
           error => {

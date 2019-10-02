@@ -12,7 +12,8 @@ import {
   ChangeDetectionStrategy,
   EventEmitter,
   Output,
-  ViewChild
+  ViewChild,
+  OnInit
 } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ROUTES } from '../../router/routes';
@@ -24,6 +25,7 @@ import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../commons/constants/
 import { ModalDeleteProductComponent } from '../modal-delete-product/modal-delete-product.component';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Validators, FormBuilder, AbstractControl, FormGroup } from '@angular/forms';
+import { LikeDataSharingService } from '../../services/like-data-sharing.service';
 
 @Component({
   selector: 'product',
@@ -64,7 +66,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
   private status = '';
   public numbersOrder = ['1', '2', '3', '4', '5'];
   public detailOrder = `../../${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.DETAILORDERS}/`;
-
+  private likeDataSharingService: LikeDataSharingService;
   constructor(
     public dialog: MatDialog,
     private render: Renderer2,
@@ -73,8 +75,10 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     private router: Router,
     private currentSessionSevice: CurrentSessionService,
     private modalService: ModalShareProductService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private _likeDataSharingService: LikeDataSharingService
   ) {
+    this.likeDataSharingService = _likeDataSharingService;
     let countryId;
     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
@@ -83,6 +87,19 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
+  
+  ngOnInit() {
+    this.likeDataSharingService.likeProductObservable.subscribe(producto => {
+        if(this.product.product_id == producto['idProducto']){
+
+          this.likeSelected = producto['like'];
+          this.product['product_likes'] = producto['likes'];
+          this.changeDetectorRef.markForCheck();
+      }
+      
+    });
+  }
+  
   ngAfterContentInit() {
     this.productChecked = this.product.status;
     this.checkStatusProduct();
@@ -464,6 +481,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
               this.likeSelected = response.body.like;
               this.product['product_likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
             }
           },
           error => {
@@ -481,6 +499,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
               this.likeSelected = response.body.like;
               this.product['product_likes'] = response.body.likes;
               this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
             }
           },
           error => {
