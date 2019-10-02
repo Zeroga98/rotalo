@@ -1,34 +1,35 @@
 <div class="product" [ngClass]="{active: isProductAvailable}">
   <div (click)="goToProduct()" class="first">
-      <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
-      <div *ngIf="!isCostume && product['product_is_low_price']"
-            class="container-low-price">
-            <p>$ REBAJÓ</p>
-      </div>
-      <div *ngIf="isCostume" class="halloween">
-      </div>
+    <div [ngStyle]="{'background-image': getUrlImge(product.url)}" class="thumb cover"></div>
+    <div *ngIf="!isCostume && product['product_is_low_price']" class="container-low-price">
+      <p>$ REBAJÓ</p>
+    </div>
+    <div *ngIf="isCostume" class="halloween">
+    </div>
   </div>
   <div class="product-info">
+    <section class="info">
       <li>
         <div>
-            <p (click)="goToProduct()" class="title">
-              {{product.name}}
-              </p>
-              <p class = "status">
-               <span>Estado:</span> {{product.status}}
-              </p>
-        </div>
-        </li>
-        <li>
-          <p class="price">
-            {{product.price  | currency:'$' | removeDigits}}
+          <p (click)="goToProduct()" class="title">
+            {{product.name}}
           </p>
-        </li>
-        <li class="heart-container">
-            <button (click)="checkLike()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                <div class="heart"></div>
-            </button>
-        </li>
+          <p class="status">
+            <span>Estado:</span> {{product.status}}
+          </p>
+        </div>
+      </li>
+      <li>
+        <p class="price">
+          {{product.price  | currency:'$' | removeDigits}}
+        </p>
+      </li>
+    </section>
+    <li class="heart-container">
+      <button (click)="checkLike()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+        <div class="heart"></div>
+      </button>
+    </li>
   </div>
 
 </div>
