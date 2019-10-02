@@ -387,7 +387,7 @@ export class DetailProductComponent implements OnInit {
           this.changeDetectorRef.markForCheck();
         }
       })
-      .catch(httpErrorResponse => {});
+      .catch(httpErrorResponse => { });
   }
 
   validateMonths() {
@@ -499,14 +499,14 @@ export class DetailProductComponent implements OnInit {
     const i = this.interesNominal;
 
     this.simulateForm.get('credit-value') &&
-    //this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
+      //this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
       ? (va = this.products.price - this.simulateForm.get('credit-value').value)
       : (va = 0);
 
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value
+      this.simulateForm.get('term-months').value
       ? (n = this.simulateForm.get('term-months').value)
       : (n = 0);
 
@@ -516,9 +516,9 @@ export class DetailProductComponent implements OnInit {
   calcularSeguro() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    //this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
+      //this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
       ? (va = this.products.price - this.simulateForm.get('credit-value').value)
       : (va = 0);
     return (va * 0.12) / 100;
@@ -527,15 +527,15 @@ export class DetailProductComponent implements OnInit {
   calcularCuotasExtraSegundoPlan() {
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    // this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
+      // this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
       ? (va = this.products.price - this.simulateForm.get('credit-value').value)
       : (va = 0);
 
     let n = 0;
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value
+      this.simulateForm.get('term-months').value
       ? (n = this.simulateForm.get('term-months').value)
       : (n = 0);
     const i = this.interesNominal;
@@ -549,15 +549,15 @@ export class DetailProductComponent implements OnInit {
     const i1 = Math.pow(1 + i, 6) - 1;
     let va = 0;
     this.simulateForm.get('credit-value') &&
-    // this.simulateForm.get('credit-value').value &&
-    this.products.price &&
-    this.products.price > this.simulateForm.get('credit-value').value
+      // this.simulateForm.get('credit-value').value &&
+      this.products.price &&
+      this.products.price > this.simulateForm.get('credit-value').value
       ? (va = this.products.price - this.simulateForm.get('credit-value').value)
       : (va = 0);
 
     let n = 0;
     this.simulateForm.get('term-months') &&
-    this.simulateForm.get('term-months').value
+      this.simulateForm.get('term-months').value
       ? (n = this.simulateForm.get('term-months').value)
       : (n = 0);
     const n1 = n / 6;
@@ -597,7 +597,7 @@ export class DetailProductComponent implements OnInit {
     };
     this.productsService
       .updateProductStatus(this.products.id, params)
-      .then(response => {});
+      .then(response => { });
   }
 
   /*changeStatusBuy() {
@@ -670,7 +670,7 @@ export class DetailProductComponent implements OnInit {
   changeDate() {
     return (
       new Date(this.products['publish-until']) <
-        new Date(new Date().toDateString()) ||
+      new Date(new Date().toDateString()) ||
       this.products.status === 'expired'
     );
   }
@@ -698,7 +698,7 @@ export class DetailProductComponent implements OnInit {
       this.router.navigate([
         `/${ROUTES.PRODUCTS.LINK}/${ROUTES.PRODUCTS.FEED}`
       ]);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   editProduct(product: ProductInterface) {
@@ -975,7 +975,7 @@ export class DetailProductComponent implements OnInit {
       fuente: 'hipotecario'
     };
     this.productsService.sufiRegistro(params).subscribe(
-      response => {},
+      response => { },
       error => {
         console.log(error);
       }
@@ -1084,7 +1084,7 @@ export class DetailProductComponent implements OnInit {
       ReportPublicationComponent,
       dialogConfig
     );
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
   public shareProduct(id: string, product) {
@@ -1161,7 +1161,7 @@ export class DetailProductComponent implements OnInit {
       'valorAFinanciar': this.products.price,
       'productId': this.idProduct,
       'storeId': null,
-      'rotalo' : true
+      'rotalo': true
     };
     dialogConfig.data = infoVehicle;
     const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);
@@ -1187,6 +1187,52 @@ export class DetailProductComponent implements OnInit {
 
   get isGuatemala() {
     return window.location.href.includes('gt');
+  }
+
+
+  checkLike() {
+    console.log("entro")
+    const params = {
+      idProducto: this.products['id'],
+      idTienda: this.products['seller_store_id']
+    };
+    if (!this.products.like) {
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.products.like = false;
+            console.log(error);
+          }
+        );
+    } else if (this.products.like) {
+      this.products.like = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+
   }
 
 }
