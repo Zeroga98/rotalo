@@ -2750,6 +2750,7 @@ input:checked + .switch-slider:before {
 
 .products-title {
   display: flex;
+  justify-content: space-between;
   .heart-container {
     display: flex;
     flex-direction: column;
