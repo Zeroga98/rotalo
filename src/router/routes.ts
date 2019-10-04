@@ -37,7 +37,7 @@ export const ROUTES = {
         FEED: 'home',
         UPLOAD: 'form',
         BUY: 'buy',
-        SIMULATECREDIT: 'simulate-credit',
+      //  SIMULATECREDIT: 'simulate-credit',
         FINANCEBAM: 'finance',
         ERROR: 'error',
         PROMO: 'promo',

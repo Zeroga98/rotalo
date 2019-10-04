@@ -175,7 +175,7 @@ export const appRouter: Routes = [
         path: `${ROUTES.PRODUCTS.BUY}/:id`,
         component: BuyProductPage,
       },
-      {
+   /*   {
         path: `${ROUTES.PRODUCTS.SIMULATECREDIT}`,
         component: SimulateCreditPage,
       },
@@ -186,7 +186,7 @@ export const appRouter: Routes = [
       {
         path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id/:storeId`,
         component: SimulateCreditPage,
-      },
+      },*/
       {
         path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
         component: FinanceBamComponent,
