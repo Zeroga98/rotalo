@@ -59,11 +59,9 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   emptyCheck = false;
   nameProductError = '';
   errorPending = 'Actualmente tienes una transacción en proceso, si no has recibido la confirmación de tu pago, escríbenos a info@rotalo.com.co';
-
   public registerForm: FormGroup;
-
+  public registerFormBank: FormGroup;
   public shippingTaxes;
-
   public classCheckSelected;
 
   constructor(
@@ -148,12 +146,42 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.userId = this.currentUser.id;
       this.email = this.currentUser.email;
       this.cellphone = this.currentUser.cellphone;
+
+      if (this.isBancolombia) {
+        this.classCheckSelected = 1;
+      } else  {
+        this.classCheckSelected = 2;
+      }
+      this.clickCheckProduct(this.classCheckSelected);
+      this.setPhone();
       this.changeDetectorRef.markForCheck();
     } catch (error) {
       if (error.status === 404) {
         this.redirectErrorPage();
       }
     }
+  }
+
+  setPhone() {
+    if (this.registerForm) {
+      if (this.cellphone) {
+        this.registerForm.patchValue({ cellphone: this.cellphone });
+      } else {
+        this.registerForm.patchValue({ cellphone: 0 });
+      }
+    } else  {
+      this.registerForm.patchValue({ cellphone: 0 });
+    }
+  }
+
+  get isBancolombia() {
+    if (this.currentUser
+      && this.currentUser.company
+      && this.currentUser.company.community
+      && this.currentUser.company.community.name == 'Grupo Bancolombia') {
+      return true;
+    }
+    return false;
   }
 
   redirectErrorPage() {
@@ -168,6 +196,10 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.registerForm = new FormGroup({
       address: new FormControl(''),
       cellphone: new FormControl('')
+    });
+
+    this.registerFormBank = new FormGroup({
+      address: new FormControl('')
     });
   }
 
@@ -201,12 +233,16 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.emptyCheck = true;
     } else {
       if (this.formIsInvalid) {
-        this.validateAllFormFields(this.registerForm);
-        if (this.state && !this.state['id']) {
-          this.errorState = true;
-        }
-        if (this.state && !this.city['id']) {
-          this.errorCity = true;
+        if (this.classCheckSelected == 2) {
+          this.validateAllFormFields(this.registerForm);
+          if (this.state && !this.state['id']) {
+            this.errorState = true;
+          }
+          if (this.state && !this.city['id']) {
+            this.errorCity = true;
+          }
+        } else {
+          this.validateAllFormFields(this.registerFormBank);
         }
         this.scrollToError();
       }
@@ -214,7 +250,8 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   get formIsInvalid(): boolean {
-    return this.classCheckSelected == 2 && (this.registerForm.invalid || !this.selectIsCompleted());
+    return (this.classCheckSelected == 2 && (this.registerForm.invalid || !this.selectIsCompleted())) ||
+    (this.classCheckSelected ==1  && this.registerFormBank.invalid);
   }
 
   private selectIsCompleted(): boolean {
@@ -342,16 +379,22 @@ export class CarMicrositePage implements OnInit, OnDestroy {
     this.state = undefined;
     this.city = undefined;
     this.classCheckSelected = numberSelect;
-    const address = this.registerForm.get('address');
     const cellphone = this.registerForm.get('cellphone');
+    const address = this.registerForm.get('address');
+    const addressBank = this.registerFormBank.get('address');
+    addressBank.clearValidators();
     address.clearValidators();
     cellphone.clearValidators();
     if (this.classCheckSelected == 2) {
-      address.setValidators([Validators.required]);
+      this.registerFormBank.reset();
       cellphone.setValidators([Validators.required, Validators.pattern(/^\d{10}$/)]);
+      address.setValidators([Validators.required]);
+      this.setPhone();
     } else  {
       this.registerForm.reset();
+      addressBank.setValidators([Validators.required]);
     }
+    addressBank.updateValueAndValidity();
     address.updateValueAndValidity();
     cellphone.updateValueAndValidity();
     this.updateCart(numberSelect);
@@ -399,6 +442,10 @@ export class CarMicrositePage implements OnInit, OnDestroy {
           cellphone.updateValueAndValidity();
         } else if (this.shippingTaxes.id == 1) {
           this.classCheckSelected = 1;
+          const address = this.registerFormBank.get('address');
+          address.clearValidators();
+          address.setValidators([Validators.required]);
+          address.updateValueAndValidity();
         }
       }
 
@@ -478,7 +525,6 @@ export class CarMicrositePage implements OnInit, OnDestroy {
   }
 
   async pay() {
-
     if (this.classCheckSelected ) {
       this.hasPending = false;
       this.emptyMessaje = false;
@@ -486,7 +532,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       this.disablePayButton = true;
       this.productsWithError = false;
 
-      if (this.classCheckSelected  && (this.classCheckSelected == 1 || !this.formIsInvalid)) {
+      if (this.classCheckSelected  && !this.formIsInvalid) {
         try {
           // Verificar la cantidad de los productos
           const response_add = await this.back.addProductToBD(this.generateJson());
@@ -568,7 +614,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
         }
       );
     });
-    console.log(body);
+
     return body;
   }
 
@@ -609,6 +655,7 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       );
     });
 
+
     let json = {
       'totalOrder': this.carTotalPrice,
       'envio': this.classCheckSelected,
@@ -622,11 +669,21 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       'datosDireccion': {
         'departamento': this.state && this.state.name ? this.state.name : '',
         'ciudad': this.city && this.city.name ?this.city.name : '',
-        'direccion': this.registerForm && this.registerForm.get('address').value ? this.registerForm.get('address').value : '',
+        'direccion': '',
         'numeroContacto': this.registerForm && this.registerForm.get('cellphone').value  ? this.registerForm.get('cellphone').value : ''
       },
       'listaProductos': jsonProducts
     };
+
+    debugger
+
+    if (this.classCheckSelected == 2) {
+      json.datosDireccion.direccion =
+      this.registerForm && this.registerForm.get('address').value ? this.registerForm.get('address').value : '';
+    } else  {
+      json.datosDireccion.direccion =
+      this.registerFormBank && this.registerFormBank.get('address').value ? this.registerFormBank.get('address').value : '';
+    }
 
     return json;
   }
