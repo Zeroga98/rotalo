@@ -889,10 +889,14 @@
     }
 
     .user-info,
-    .general-container .container-products,
-    .general-container .container-info-user {
+    .general-container .container-products {
       padding-left: 18px;
       padding-right: 18px;
+    }
+
+    .general-container .container-info-user {
+      padding-left: 0px;
+      padding-right: 0px;
     }
 
     .buttons-section {

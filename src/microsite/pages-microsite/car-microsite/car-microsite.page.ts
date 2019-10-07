@@ -668,14 +668,12 @@ export class CarMicrositePage implements OnInit, OnDestroy {
       },
       'datosDireccion': {
         'departamento': this.state && this.state.name ? this.state.name : '',
-        'ciudad': this.city && this.city.name ?this.city.name : '',
+        'ciudad': this.city && this.city.name ? this.city.name : '',
         'direccion': '',
         'numeroContacto': this.registerForm && this.registerForm.get('cellphone').value  ? this.registerForm.get('cellphone').value : ''
       },
       'listaProductos': jsonProducts
     };
-
-    debugger
 
     if (this.classCheckSelected == 2) {
       json.datosDireccion.direccion =
