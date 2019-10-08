@@ -51,25 +51,42 @@ export class ModalContactSufiComponent implements OnInit {
         'storeId': this.configurationService.storeIdPrivate
       };
       infoVehicle = Object.assign({}, infoVehicle,  this.params);
-      this.simulateCreditService.sendSimulateCreditFeria(infoVehicle).then(response => {
-        this.errorSuccess = false;
-        this.showSuccess = true;
-        this.gapush(
-          'send',
-          'event',
-          'ProductosSufi',
-          'ClicQuieroMasInfoSimulador',
-          'EnvioExitoso'
-        );
-      }).catch(httpErrorResponse => {
-        console.log(httpErrorResponse);
-       });
+      if (this.params.rotalo) {
+        delete this.params['rotalo'];
+        this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
+          this.errorSuccess = false;
+          this.showSuccess = true;
+          this.gapush(
+            'send',
+            'event',
+            'ProductosSufi',
+            'ClicQuieroMasInfoSimulador',
+            'EnvioExitoso'
+          );
+        }).catch(httpErrorResponse => {
+          console.log(httpErrorResponse);
+         });
+      } else  {
+        this.simulateCreditService.sendSimulateCredit(infoVehicle).then(response => {
+          this.errorSuccess = false;
+          this.showSuccess = true;
+          this.gapush(
+            'send',
+            'event',
+            'ProductosSufi',
+            'ClicQuieroMasInfoSimulador',
+            'EnvioExitoso'
+          );
+        }).catch(httpErrorResponse => {
+          console.log(httpErrorResponse);
+         });
+      }
 
   } else  {
     this.errorSuccess = true;
     this.showSuccess = false;
   }
-}
+  }
 
 
 gapush(method, type, category, action, label) {
