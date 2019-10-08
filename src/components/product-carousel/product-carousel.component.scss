@@ -6,7 +6,11 @@
       margin: 0 auto;
       margin-bottom: 20px;
       max-width: 224px;
-      height: 290px;
+      @media (max-width: 600px) {
+        height: auto;
+        margin-bottom: 0px;
+        padding: 0 4px;
+      }
       overflow: hidden;
 
       .item__card {
@@ -16,17 +20,19 @@
         margin: 0;
         width: 100%;
         max-width: 224px;
-        height: 290px;
+        @media (max-width: 600px) {
+          height: auto;
+        }
         color: #333;
         white-space: normal;
         background-color: #fff;
         border-radius: 5px;
         position: relative;
         flex-direction: column;
-        transition: height .1s ease-out;
+        transition: height 0.1s ease-out;
         z-index: 1;
         border: 1px solid #e2e2e2;
-        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         overflow: hidden;
 
         .item__image-container {
@@ -35,7 +41,10 @@
           align-items: center;
           justify-content: center;
           max-width: 224px;
-          height: 185px;
+          height: 172px;
+          @media (max-width: 600px) {
+            height: 118px;
+          }
           border-top-right-radius: 5px;
           border-top-left-radius: 5px;
           background-color: #fff;
@@ -51,8 +60,10 @@
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             width: auto;
-            transition: all .15s ease-in-out;
-
+            transition: all 0.15s ease-in-out;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
         }
 
@@ -60,7 +71,7 @@
           position: relative;
           padding: 5px 10px;
           padding-top: 10px;
-          border-top: 1px solid rgba(51, 51, 51, .1);
+          border-top: 1px solid rgba(51, 51, 51, 0.1);
 
           .item__name {
             position: relative;
@@ -79,14 +90,14 @@
           }
 
           .item__price-block {
-            color: #FF3646;
+            color: #ff3646;
             font-size: 1.4rem;
             font-weight: bold;
             line-height: 1.9;
           }
 
           .item__location {
-            color: #A2A2A2;
+            color: #a2a2a2;
             font-size: 1.2rem;
             line-height: 17px;
             padding-bottom: 8px;
@@ -103,11 +114,11 @@
           .item_info-user {
             display: flex;
             align-items: center;
-            border-top: 1px solid rgba(51, 51, 51, .1);
+            border-top: 1px solid rgba(51, 51, 51, 0.1);
             padding-top: 7px;
             opacity: 0;
             visibility: hidden;
-            transition: .1s ease-out;
+            transition: 0.1s ease-out;
             transition-property: opacity, top;
             transition: visibility 0s;
 
@@ -120,7 +131,7 @@
               align-items: center;
               justify-content: center;
               border-radius: 50%;
-              background: #ED2F3C;
+              background: #ed2f3c;
               margin-right: 1rem;
               overflow: hidden;
               position: relative;
@@ -155,7 +166,7 @@
                 line-height: 15px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                white-space: nowrap
+                white-space: nowrap;
               }
             }
           }
@@ -170,7 +181,6 @@
           transform: translate(-50%, -50%) scale(1.1);
         }
       }
-
     }
   }
 
@@ -209,13 +219,11 @@
       vertical-align: middle;
       margin-left: 5px;
     }
-
   }
 
   .icon-location {
     margin-right: 5px;
   }
-
 }
 
 :host {
@@ -244,7 +252,7 @@
     align-items: center;
 
     .icon {
-      color: #0FBBD8;
+      color: #0fbbd8;
       font-size: 2rem;
     }
   }
@@ -255,10 +263,7 @@
 
   .carousel-arrow__prev {
     left: -15px;
-
   }
-
-
 }
 
 :host {
@@ -297,7 +302,7 @@
 :host {
   .container-low-price {
     position: absolute;
-    background-color: #FF3646;
+    background-color: #ff3646;
     border-radius: 4px;
     top: 6.7px;
     left: 6px;
@@ -306,14 +311,13 @@
     z-index: 1;
 
     p {
-      color: #FFFFFF;
+      color: #ffffff;
       font-weight: bold;
       font-size: 1.2rem;
       padding-left: 7px;
       line-height: 2.4rem;
     }
   }
-
 }
 
 :host {
@@ -329,7 +333,6 @@
     position: relative;
 
     .item-banner {
-
       img {
         width: 100%;
         height: auto;
@@ -359,28 +362,25 @@
       left: auto;
       transform: rotate(-135deg);
     }
-
   }
-
 
   ngx-carousel.carousel-featured {
     .arrow {
       z-index: 3;
-      border-bottom: 4px solid #A2A2A2;
-      border-left: 4px solid #A2A2A2;
+      border-bottom: 4px solid #a2a2a2;
+      border-left: 4px solid #a2a2a2;
     }
 
     .hide.arrow {
       display: none !important;
     }
   }
-
 }
 
 :host {
   .container-trending {
     position: absolute;
-    background-color: #522FA0;
+    background-color: #522fa0;
     border-radius: 4px;
     top: 6.7px;
     left: 6px;
@@ -389,7 +389,7 @@
     z-index: 1;
 
     p {
-      color: #FFFFFF;
+      color: #ffffff;
       font-weight: bold;
       font-size: 1.2rem;
       padding-left: 7px;
@@ -398,19 +398,21 @@
   }
 
   .low-price {
-    color: #A2A2A2;
+    color: #a2a2a2;
     text-decoration: line-through;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .price-container {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
   }
 }
 
 :host {
-
   .carousel-arrow__prev {
     left: 0px;
   }
@@ -421,7 +423,6 @@
         max-width: 800px;
       }
     }
-
   }
 
   @media screen and (max-width: 760px) {
@@ -455,7 +456,6 @@
     .carousel-arrow__next {
       display: none !important;
     }
-
 
     .featured-section .featured-container .header-featured h3 {
       font-size: 1.6rem;
@@ -499,7 +499,7 @@
               .item_info-user {
                 opacity: 1;
                 visibility: visible;
-                transition: visibility .1s .1s;
+                transition: visibility 0.1s 0.1s;
 
                 .icon-container {
                   width: 2.8rem;
@@ -508,7 +508,7 @@
 
                 .info-user {
                   .name-text {
-                    font-size: 1.0rem;
+                    font-size: 1rem;
                     line-height: 12px;
                   }
 
@@ -530,7 +530,6 @@
       }
     }
 
-
     .container-trending,
     .container-low-price {
       width: 52px;
@@ -539,14 +538,9 @@
 
     .container-trending p,
     .container-low-price p {
-      font-size: 1.0rem;
+      font-size: 1rem;
       line-height: 2;
       padding-left: 6px;
     }
-
-
   }
-
 }
-
-

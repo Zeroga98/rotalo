@@ -3,7 +3,7 @@
     font-size: 1.4rem;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #D3E0E9;
+    border-bottom: 1px solid #d3e0e9;
     padding: 1.5rem;
     .image {
       width: 5rem;
@@ -14,7 +14,7 @@
     }
     .title {
       font-weight: bold;
-      color: #4A4A4A;
+      color: #4a4a4a;
     }
     .price {
       color: $red;
@@ -47,7 +47,7 @@
 }
 
 .md-modal.footer {
-/*  top: 10px;
+  /*  top: 10px;
   right: -115%;
   position: absolute;
   transform: translateY(-100%);*/
@@ -56,6 +56,11 @@
   position: absolute;
   /* -webkit-transform: translateY(-100%); */
   transform: translateY(0);
+  @media (max-width: 600px) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: -373px;
+  }
 }
 
 .md-modal.footer.success {
@@ -154,7 +159,7 @@
 }
 
 .modal-open {
-  overflow-y:hidden;
+  overflow-y: hidden;
   margin: 0;
   height: 100%;
   overflow: hidden;
@@ -202,7 +207,7 @@
   opacity: 0;
   transition: all 0.3s;
   background-image: url(assets/img/fondo_rojo.svg);
-  background-color: #FF3646;
+  background-color: #ff3646;
   background-attachment: fixed;
   background-size: cover !important;
   -webkit-background-size: cover !important;
@@ -243,8 +248,6 @@
   border-radius: 0 !important;
   position: relative;
 }
-
-
 
 @media (max-width: 1000px) {
   .md-modal-center.md-modal-coupon {

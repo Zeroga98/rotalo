@@ -1,41 +1,43 @@
-@import '../../styles/settings/_colors.scss';
-@import '../../styles/settings/_variables.scss';
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_variables.scss";
 
-:host{
+:host {
   position: relative;
-    .container-footer{
-        background: $red;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .container-footer {
+    background: $red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 3.1rem 8%;
+    font-size: 1.6rem;
+    font-weight: 400;
+    .terms {
+      cursor: pointer;
+      a {
         color: white;
-        padding: 3.1rem 8%;
-        font-size: 1.6rem;
-        font-weight: 400;
-        .terms{
-          position: relative;
-            cursor: pointer;
-            a{
-                color: white;
-            }
-            label {
-              cursor: pointer;
-            }
-        }
-        .logo{
-            cursor: pointer;
-            width: 9rem;
-            img{
-                width: 100%;
-                height: auto;
-            }
-        }
+      }
+      label {
+        cursor: pointer;
+      }
     }
+    .logo {
+      cursor: pointer;
+      width: 9rem;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 
-    .contact {
-      position: relative;
-      cursor: auto;
+  .contact {
+    position: relative;
+    cursor: auto;
+    @media (max-width: 600px) {
+      position: initial;
     }
+  }
 }
 
 :host() {
@@ -51,14 +53,13 @@
     transition: max-height 0.5s;
   }
   @media (max-width: 700px) {
-    .messages{
+    .messages {
       display: none;
     }
   }
-  @media (max-width: 1080px){
-    .container-footer{
+  @media (max-width: 1080px) {
+    .container-footer {
       padding-bottom: 6rem;
     }
   }
 }
-

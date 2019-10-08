@@ -2,10 +2,10 @@
   <div class="featured-container">
     <div class="row-featured">
       <div class="header-featured">
-          <img
+        <!--   <img
           src="{{imgRoute}}" alt="{{title}}"
           [ngClass]="imgRoute == '../../assets/img/estrella.gif' ?  'star-img': 'bank-img'"
-          >
+          > -->
           <h3>{{title}}</h3>
       </div>
       <ngx-carousel class="carousel-featured" *ngIf="products.length != 0" [inputs]="carouselProductsConfig">
@@ -13,10 +13,10 @@
           <product-carousel [product]="product" [title] = "title" ></product-carousel>
         </ngx-item>
         <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
-          <span class="icon icon-chevron-thin-left"></span>
+          <span class="icon arrow-flecha_derecha"></span>
         </span>
         <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
-          <span class="icon icon-chevron-thin-right"></span>
+          <span class="icon arrow-flecha_izquierdo"></span>
         </span>
       </ngx-carousel>
     </div>

@@ -8,7 +8,7 @@
   (onFilterBySellType)="filteBySellType($event)" (onFilterBySort)="filterBySort($event)" (onFilterByCity)="filterByCity($event)"
   (onFilterByState)="filterByState($event)"></subcategory-filter>
 
-<ngx-carousel class="carousel-theme desktop" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
+<ngx-carousel class="carousel-theme desktop banner-home container" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
   <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
     <div  [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('NOLIBERESLOBESTIA'),
     'gtmSliderColombiaQrProductos': image['url-photo-desktop'] && image['url-photo-desktop'].includes('PERSONAS_PREMIADO'),
@@ -41,6 +41,10 @@
       <a target="_blank" *ngIf="image['url-photo-desktop'].indexOf('SOAT')>=0" [href]="image['link']">
         <img class="gtmSliderSoatNProductos" [src]="image['url-photo-desktop']">
       </a>
+      <div class="banner-section" >
+        <img src="https://public-v2links.adobecc.com/b43b5e39-7101-4595-47f3-b83dabb9aa69/component?params=component_id:d4d54255-a8a2-4f89-b679-3542016e020e&params=version:0&token=1570636109_da39a3ee_7f8b23dbb79dad7f11966b72142f8eb88db23a13&api_key=CometServer1" >
+        <img src="https://public-v2links.adobecc.com/b43b5e39-7101-4595-47f3-b83dabb9aa69/component?params=component_id:d45b507b-40ef-4864-bea4-89e2019ddc5d&params=version:0&token=1570636109_da39a3ee_7f8b23dbb79dad7f11966b72142f8eb88db23a13&api_key=CometServer1" >
+      </div>
     </div>
   </ngx-item>
 
