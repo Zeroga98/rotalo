@@ -428,337 +428,372 @@
             </div>
             <div  class="sufi-container accordion">
               <div *ngIf="!showForm">
-                <div class="title">
-                  <span class="icon-custom icon-custom--sufi-logo"></span>
-                  Simula tu crédito Sufi con la tasa especial Rótalo
-                </div>
-                <form [formGroup]="simulateForm">
-                  <div class="container-input">
-                    <div class="row">
-                      <div class="column">
-                        <label class="label-title">Cuota Inicial</label>
-                        <input (ngModelChange)="simulateSufi()" name="credit-value" formControlName="credit-value"
-                          class="gtmProdCuotaInicial form-control input-price" currencyMask
-                          [options]="{prefix: '$' , align: 'left', precision: 0 , allowNegative: false}"
-                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="1.000.000"
-                          maxlength="14" autocomplete="off">
-                      </div>
-                      <div class="column">
-                        <label class="label-title">Plazo en meses</label>
-                        <select (change)="simulateSufi()" formControlName="term-months"
-                          class="gtmProdPlazoMeses select-time form-control" name="term-months">
-                          <option value="" disabled></option>
-                          <option class="gtmProdPlazoMeses" value="{{timetoPay}}"
-                            *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
-                        </select>
-                      </div>
+                    <div class="title">
+                      <span class="icon-custom icon-custom--sufi-logo"></span>
+                      Simula tu crédito Sufi con la tasa especial Rótalo
                     </div>
-                    <div class="table-container">
-                      <label class="label-title">Tu plan de pago estimado es:</label>
-                      <div class="sufi-info">
-                        <div class="col">
-                          <div class="title-plan">
-                            <div>
-                              <p>Plan tradicional Rótalo con Sufi</p>
-                              <div class="tooltip">
-                                <span class="toolTipText">
-                                  Paga cuotas fijas mensuales siempre con 0.81 de tasa.
-                                </span>
+                    <form [formGroup]="simulateForm">
+                      <div class="container-input">
+                        <div class="row">
+                          <div class="column">
+                            <label class="label-title">Cuota Inicial</label>
+                            <input (ngModelChange)="simulateSufi()" name="credit-value" formControlName="credit-value"
+                              class="gtmProdCuotaInicial form-control input-price" currencyMask
+                              [options]="{prefix: '$' , align: 'left', precision: 0 , allowNegative: false}"
+                              onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="1.000.000"
+                              maxlength="14" autocomplete="off">
+                          </div>
+                          <div class="column">
+                            <label class="label-title">Plazo en meses</label>
+                            <select (change)="simulateSufi()" formControlName="term-months"
+                              class="gtmProdPlazoMeses select-time form-control" name="term-months">
+                              <option value="" disabled></option>
+                              <option class="gtmProdPlazoMeses" value="{{timetoPay}}"
+                                *ngFor="let timetoPay of rangeTimetoPayArray">{{timetoPay}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="table-container">
+                          <label class="label-title">Tu plan de pago estimado es:</label>
+                          <div class="sufi-info">
+                            <div class="col">
+                              <div class="title-plan">
+                                <div>
+                                  <p>Plan tradicional Rótalo con Sufi</p>
+                                  <div class="tooltip">
+                                    <span class="toolTipText">
+                                      Paga cuotas fijas mensuales siempre con 0.81 de tasa.
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="container-plan">
+                                <table>
+                                  <tr>
+                                    <td *ngIf="simulateForm && simulateForm.get('term-months').value">
+                                      {{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
+                                    <td *ngIf="tradicionalSimulacion.aplica" class="text-right" [countUp]="tradicionalSimulacion.cuotas[0].valor"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!tradicionalSimulacion.aplica">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Seguro de vida desde</td>
+                                    <td *ngIf="tradicionalSimulacion.aplica" class="text-right" [countUp]="tradicionalSimulacion.seguroVida"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!tradicionalSimulacion.aplica">N/A</td>
+                                  </tr>
+
+                                  <!--
+                                        <tr>
+                                            <td>Total</td>
+                                            <td class="text-right">
+                                              <strong [countUp]="tradicionalSimulacion.cuotas[0].valorMasSeguros" [options]="optionsCountSimulate"></strong>
+                                            </td>
+                                        </tr>-->
+                                </table>
+                                <div class="container-bottom">
+                                  <p> <strong>Ahorra hasta </strong> <strong [countUp]="tradicionalSimulacion.ahorro"
+                                      [options]="optionsCountSimulate"></strong> <strong> / mes.</strong></p>
+                                  <p> vs. la tasa de mercado Sufi.</p>
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="col">
+                              <div class="title-plan">
+                                <div>
+                                  <p>Plan Especial Rótalo con Sufi</p>
+                                  <div class="tooltip">
+                                    <span class="toolTipText">
+                                      Paga el primer año con tasa del 0.65 y en adelante 0.88.
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-plan">
+                                <table>
+                                  <tr>
+                                    <td>{{especialSimulacion.cuotas[0].cuotas}} Cuotas mensuales de </td>
+                                    <td *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.cuotas[0].valor"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
+                                  </tr>
+                                  <tr *ngIf="especialSimulacion.cuotas[1].cuotas && especialSimulacion.cuotas[1].cuotas > 0">
+                                    <td>{{especialSimulacion.cuotas[1].cuotas}} Cuotas mensuales de </td>
+                                    <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.cuotas[1].valor"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Seguro de vida desde </td>
+                                    <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.seguroVida"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Seguro de cuota desde </td>
+                                    <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.seguroCuota"
+                                      [options]="optionsCountSimulate"></td>
+                                    <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
+                                  </tr>
+                                  <!--      <tr>
+                                            <td>Total</td>
+                                            <td class="text-right">
+                                              <strong [countUp]="especialSimulacion.cuotas[0].valorMasSeguros" [options]="optionsCountSimulate"></strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td class="text-right">
+                                              <strong [countUp]="especialSimulacion.cuotas[1].valorMasSeguros" [options]="optionsCountSimulate"></strong>
+                                            </td>
+                                        </tr> -->
+                                </table>
+                                <div class="container-bottom">
+                                  <p> <strong>Ahorra hasta </strong> <strong [countUp]="especialSimulacion.ahorro"
+                                      [options]="optionsCountSimulate"></strong> <strong> / mes.</strong></p>
+                                  <p> vs. la tasa de mercado Sufi.</p>
+                                </div>
                               </div>
                             </div>
                           </div>
-
-                          <div class="container-plan">
-                            <table>
-                              <tr>
-                                <td *ngIf="simulateForm && simulateForm.get('term-months').value">
-                                  {{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                                <td class="text-right" [countUp]="tradicionalSimulacion.cuotas[0].valor"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-                              <tr>
-                                <td>Seguro de vida desde</td>
-                                <td class="text-right" [countUp]="tradicionalSimulacion.seguroVida"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-
-                              <!--
-                                    <tr>
-                                        <td>Total</td>
-                                        <td class="text-right">
-                                          <strong [countUp]="tradicionalSimulacion.cuotas[0].valorMasSeguros" [options]="optionsCountSimulate"></strong>
-                                        </td>
-                                    </tr>-->
-                            </table>
-                            <div class="container-bottom">
-                              <p> <strong>Ahórrate hasta </strong> <strong [countUp]="tradicionalSimulacion.ahorro"
-                                  [options]="optionsCountSimulate"></strong></p>
-                              <p> vs. la tasa de mercado Sufi.</p>
-                            </div>
-                          </div>
-
-                        </div>
-                        <div class="col">
-                          <div class="title-plan">
-                            <div>
-                              <p>Plan Especial Rótalo con Sufi</p>
-                              <div class="tooltip">
-                                <span class="toolTipText">
-                                  Paga el primer año con tasa del 0.65 y en adelante 0.88.
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="container-plan">
-                            <table>
-                              <tr>
-                                <td>{{especialSimulacion.cuotas[0].cuotas}} Cuotas mensuales de </td>
-                                <td class="text-right" [countUp]="especialSimulacion.cuotas[0].valor"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-                              <tr *ngIf="especialSimulacion.cuotas[1].cuotas && especialSimulacion.cuotas[1].cuotas > 0">
-                                <td>{{especialSimulacion.cuotas[1].cuotas}} Cuotas mensuales de </td>
-                                <td class="text-right" [countUp]="especialSimulacion.cuotas[1].valor"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-                              <tr>
-                                <td>Seguro de vida desde </td>
-                                <td class="text-right" [countUp]="especialSimulacion.seguroVida"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-                              <tr>
-                                <td>Seguro de cuota desde </td>
-                                <td class="text-right" [countUp]="especialSimulacion.seguroCuota"
-                                  [options]="optionsCountSimulate"></td>
-                              </tr>
-                              <!--      <tr>
-                                        <td>Total</td>
-                                        <td class="text-right">
-                                          <strong [countUp]="especialSimulacion.cuotas[0].valorMasSeguros" [options]="optionsCountSimulate"></strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td class="text-right">
-                                          <strong [countUp]="especialSimulacion.cuotas[1].valorMasSeguros" [options]="optionsCountSimulate"></strong>
-                                        </td>
-                                    </tr> -->
-                            </table>
-                            <div class="container-bottom">
-                              <p> <strong>Ahórrate hasta </strong> <strong [countUp]="especialSimulacion.ahorro"
-                                  [options]="optionsCountSimulate"></strong></p>
-                              <p> vs. la tasa de mercado Sufi.</p>
-                            </div>
-                          </div>
                         </div>
                       </div>
+                    </form>
+                    <div class="btn-container">
+                      <div class="btn-item btn-desktop">
+                        <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openSimulateCreditSufi(products.id)">
+                          Quiero más información
+                        </button>
+                      </div>
+                      <div class="btn-item btn-mobile">
+                        <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openModalSufi()">
+                          Quiero más información
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
-                <div class="btn-container">
-                  <div class="btn-item btn-desktop">
-                    <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openSimulateCreditSufi(products.id)">
-                      Quiero más información
-                    </button>
-                  </div>
-                  <div class="btn-item btn-mobile">
-                      <button class="gtmProductosSufiQuierMasInfoSimu botons" (click)="openModalSufi()">
-                        Quiero más información
-                      </button>
-                  </div>
-                </div>
-                <div class="menu-container ac-container">
-                  <div>
-                    <div class="option">
-                      <input id="terms-1" name="accordion-1" type="checkbox" />
-                      <label for="terms-1">Valores aproximados y sujetos a términos y condiciones.<div class="icon"></div>
-                        </label>
-                      <article class="ac-small">
-                        <p>
-                          ROT001 – Plan Tradicional con Tasa Especial durante todo el crédito.
-                        </p>
-                        <br>
-                        <p>
-                          Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia
-                          S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de
-                          contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base
-                          en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se
-                          realiza.
-                        </p>
-                        <br>
-                        <p>
-                          *Sujeto a aprobación de estudio de crédito y cumplimiento de las políticas de la entidad que
-                          financia. Entidad que financia Bancolombia S.A. Cuota inicial desde el 0% del valor comercial
-                          del vehículo. El cliente durante toda la vigencia del crédito pagará mensualmente cargos
-                          adicionales y cuotas correspondientes a abono a capital e intereses a una tasa desde 0,81% NMV
-                          equivalente al 10,16% EA, la cual se determinará de acuerdo al perfil de riesgo establecido por
-                          la entidad financiera para cada cliente. Cuota fija, tasa variable, plazo estimado de 72 meses.
-                          Promoción vigente para solicitudes de crédito radicadas con documentación completa entre el 1 de
-                          septiembre de 2019 y el 31 de diciembre de 2019 que se desembolsen entre el 1 de septiembre de
-                          2019 y 15 el de febrero de 2020. Aplica para vehículos nuevos y usados hasta 10 años de
-                          antigüedad de servicio particular ofrecidos originados desde Rótalo. Las imágenes son solo de
-                          referencia y podrán variar. Bancolombia S.A ofrece únicamente la posibilidad de acceder a la
-                          financiación. Los vehículos comercializados son responsabilidad del concesionario; y por lo
-                          tanto son ellos los responsables de la calidad del servicio, la oferta, la venta, el
-                          funcionamiento, la garantía, la instalación y él envió y/o entrega de los mismos.
-                        </p>
-                        <br>
-                        <p>
-                          ** Este simulador tiene un fin estrictamente informativo y no comporta oferta, opción o promesa
-                          de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con
-                          base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que
-                          se realiza. El valor mensual a pagar es referencial y está compuesto por cuota correspondiente a
-                          intereses, capital y cargos adicionales. La cuotas son calculadas con una tasa de interés
-                          variable del 0,81% NMV equivalente al 10,16% EA y un plazo estimado. Los intereses se liquidarán
-                          con la tasa vigente al momento de la utilización del crédito.
-                        </p>
-                        <br>
-                        <p>
-                          Recuerda que para esta simulación se utilizó la tasa “desde” mencionada en la explicación del
-                          plan, la cual podrá variar de acuerdo al perfil de riesgo de cada cliente.
-                        </p>
-                        <br>
-                        <p>
-                          ROT002 – Plan Tradicional con Tasa Especial de 0,65% durante el primer año.
-                        </p>
-                        <br>
-                        <p>
-                          Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia
-                          S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de
-                          contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base
-                          en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se
-                          realiza.
-                        </p>
-                        <br>
-                        <p>
-                          *Sujeto a aprobación de estudio de crédito y cumplimiento de las políticas de la entidad que
-                          financia. Entidad que financia Bancolombia S.A. Financiación hasta el 100% del valor comercial
-                          del vehículo. Aplica para Monto mínimo de financiación de $30.000.000 COP. El cliente durante
-                          los doce (12) primeros meses de vigencia del crédito pagará mensualmente cuotas correspondientes
-                          a abono a capital e intereses a una tasa desde 0,65% N.M.V. equivalente al 8,08% E.A., la cual
-                          se determinará de acuerdo al perfil de riesgo establecido por la entidad financiera para cada
-                          cliente, y la contratación del seguro de vida y el seguro de empleado protegido o independiente
-                          protegido ofrecidos por las entidades aseguradoras través de SUFI. A partir del mes trece (13) y
-                          hasta finalizar la vigencia del crédito, el cliente pagará cuotas mensuales correspondientes a
-                          abono a capital e intereses a una tasa desde 0,88% N.M.V. equivalente al 11,09% E.A., la cual se
-                          determinará de acuerdo al perfil de riesgo establecido por la entidad financiera para cada
-                          cliente. Durante toda la vigencia del crédito el cliente pagará mensualmente cargos adicionales.
-                          Cuota fija, tasa variable, plazo estimado de 72 meses. Promoción vigente para solicitudes de
-                          crédito radicadas con documentación completa entre el 1 de septiembre de 2019 y el 31 de
-                          diciembre de 2019 que se desembolsen entre el 1 de septiembre de 2019 y 15 el de febrero de
-                          2020. Aplica para vehículos nuevos y usados hasta 10 años de antigüedad de servicio particular
-                          originados desde Rótalo. Las imágenes son solo de referencia y podrán variar. Bancolombia S.A
-                          ofrece únicamente la posibilidad de acceder a la financiación. Los vehículos comercializados son
-                          responsabilidad de quienes los vende a través de Rótalo; y por lo tanto son ellos los
-                          responsables de la calidad del servicio, la oferta, la venta, el funcionamiento, la garantía, la
-                          instalación y él envió y/o entrega de los mismos.
-                        </p>
-                        <br>
-                        <p>
-                          ** Este simulador tiene un fin estrictamente informativo y no comporta oferta, opción o promesa
-                          de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con
-                          base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que
-                          se realiza. El valor mensual a pagar es referencial y está compuesto por cuota correspondiente a
-                          intereses, capital y cargos adicionales. La cuotas son calculadas para los primeros doce (12)
-                          meses con una tasa de interés variable del 0,65% N.M.V. equivalente al 8,08% E.A., y a partir
-                          del mes trece (13) y hasta finalizar la vigencia del crédito con una tasa del 0,88% N.M.V.
-                          equivalente al 11,09% E.A., y un plazo estimado. Los intereses se liquidarán con la tasa vigente
-                          al momento de la utilización del crédito.
-                        </p>
-                        <br>
-                        <p>
-                          Recuerda que para esta simulación se utilizó la tasa “desde” mencionada en la explicación del
-                          plan, la cual podrá variar de acuerdo al perfil de riesgo de cada cliente.
-                        </p>
-                        <br>
-                        <p>
-                          Seguro de Vida: Seguro Colectivo de Seguros de Vida Suramericana S.A en el cual Bancolombia S.A.
-                          actúa como tomador por cuenta de sus deudores. El valor de la prima del seguro de vida y vida
-                          más esta sujeta a declaraciones de asegurabilidad por parte del cliente.
-                        </p>
-                        <br>
-                        <p>
-                          Cardif: Cardif Colombia Seguros Generales S.A. asume exclusivamente la responsabilidad del
-                          cumplimiento de las obligaciones del producto frente al consumidor financiero. Este producto es
-                          ofrecido por la red de Bancolombia S.A. limitándose única y exclusivamente al correcto
-                          cumplimiento de las instrucciones debidamente impartidas por Cardif Colombia Seguros Generales
-                          S.A. para la prestación del servicio en dicha red.
-                        </p>
-                      </article>
-                    </div>
-                  </div>
+                    <div class="menu-container ac-container">
+                      <div>
+                        <div class="option">
+                          <input id="terms-1" name="accordion-1" type="checkbox" />
+                          <label for="terms-1">Valores aproximados y sujetos a términos y condiciones.<div class="icon"></div>
+                          </label>
+                          <article class="ac-small">
+                            <p>
+                              ROT001 – Plan Tradicional con Tasa Especial durante todo el crédito.
+                            </p>
+                            <br>
+                            <p>
+                              Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia
+                              S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de
+                              contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base
+                              en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se
+                              realiza.
+                            </p>
+                            <br>
+                            <p>
+                              *Sujeto a aprobación de estudio de crédito y cumplimiento de las políticas de la entidad que
+                              financia. Entidad que financia Bancolombia S.A. Cuota inicial desde el 0% del valor comercial
+                              del vehículo. El cliente durante toda la vigencia del crédito pagará mensualmente cargos
+                              adicionales y cuotas correspondientes a abono a capital e intereses a una tasa desde 0,81% NMV
+                              equivalente al 10,16% EA, la cual se determinará de acuerdo al perfil de riesgo establecido por
+                              la entidad financiera para cada cliente. Cuota fija, tasa variable, plazo estimado de 72 meses.
+                              Promoción vigente para solicitudes de crédito radicadas con documentación completa entre el 1 de
+                              septiembre de 2019 y el 31 de diciembre de 2019 que se desembolsen entre el 1 de septiembre de
+                              2019 y 15 el de febrero de 2020. Aplica para vehículos nuevos y usados hasta 10 años de
+                              antigüedad de servicio particular ofrecidos originados desde Rótalo. Las imágenes son solo de
+                              referencia y podrán variar. Bancolombia S.A ofrece únicamente la posibilidad de acceder a la
+                              financiación. Los vehículos comercializados son responsabilidad del concesionario; y por lo
+                              tanto son ellos los responsables de la calidad del servicio, la oferta, la venta, el
+                              funcionamiento, la garantía, la instalación y él envió y/o entrega de los mismos.
+                            </p>
+                            <br>
+                            <p>
+                              ** Este simulador tiene un fin estrictamente informativo y no comporta oferta, opción o promesa
+                              de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con
+                              base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que
+                              se realiza. El valor mensual a pagar es referencial y está compuesto por cuota correspondiente a
+                              intereses, capital y cargos adicionales. La cuotas son calculadas con una tasa de interés
+                              variable del 0,81% NMV equivalente al 10,16% EA y un plazo estimado. Los intereses se liquidarán
+                              con la tasa vigente al momento de la utilización del crédito.
+                            </p>
+                            <br>
+                            <p>
+                              Recuerda que para esta simulación se utilizó la tasa “desde” mencionada en la explicación del
+                              plan, la cual podrá variar de acuerdo al perfil de riesgo de cada cliente.
+                            </p>
+                            <br>
+                            <p>
+                              ROT002 – Plan Tradicional con Tasa Especial de 0,65% durante el primer año.
+                            </p>
+                            <br>
+                            <p>
+                              Esta información es suministrada en atención a la solicitud que has efectuado a Bancolombia
+                              S.A., la misma se entrega sólo para fines informativos y no comporta oferta, opción o promesa de
+                              contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con base
+                              en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que se
+                              realiza.
+                            </p>
+                            <br>
+                            <p>
+                              *Sujeto a aprobación de estudio de crédito y cumplimiento de las políticas de la entidad que
+                              financia. Entidad que financia Bancolombia S.A. Financiación hasta el 100% del valor comercial
+                              del vehículo. Aplica para Monto mínimo de financiación de $30.000.000 COP. El cliente durante
+                              los doce (12) primeros meses de vigencia del crédito pagará mensualmente cuotas correspondientes
+                              a abono a capital e intereses a una tasa desde 0,65% N.M.V. equivalente al 8,08% E.A., la cual
+                              se determinará de acuerdo al perfil de riesgo establecido por la entidad financiera para cada
+                              cliente, y la contratación del seguro de vida y el seguro de empleado protegido o independiente
+                              protegido ofrecidos por las entidades aseguradoras través de SUFI. A partir del mes trece (13) y
+                              hasta finalizar la vigencia del crédito, el cliente pagará cuotas mensuales correspondientes a
+                              abono a capital e intereses a una tasa desde 0,88% N.M.V. equivalente al 11,09% E.A., la cual se
+                              determinará de acuerdo al perfil de riesgo establecido por la entidad financiera para cada
+                              cliente. Durante toda la vigencia del crédito el cliente pagará mensualmente cargos adicionales.
+                              Cuota fija, tasa variable, plazo estimado de 72 meses. Promoción vigente para solicitudes de
+                              crédito radicadas con documentación completa entre el 1 de septiembre de 2019 y el 31 de
+                              diciembre de 2019 que se desembolsen entre el 1 de septiembre de 2019 y 15 el de febrero de
+                              2020. Aplica para vehículos nuevos y usados hasta 10 años de antigüedad de servicio particular
+                              originados desde Rótalo. Las imágenes son solo de referencia y podrán variar. Bancolombia S.A
+                              ofrece únicamente la posibilidad de acceder a la financiación. Los vehículos comercializados son
+                              responsabilidad de quienes los vende a través de Rótalo; y por lo tanto son ellos los
+                              responsables de la calidad del servicio, la oferta, la venta, el funcionamiento, la garantía, la
+                              instalación y él envió y/o entrega de los mismos.
+                            </p>
+                            <br>
+                            <p>
+                              ** Este simulador tiene un fin estrictamente informativo y no comporta oferta, opción o promesa
+                              de contratar a cargo de Bancolombia S.A. Los términos de esta simulación son suministrados con
+                              base en las condiciones comerciales y de mercado que han sido establecidas para la fecha en que
+                              se realiza. El valor mensual a pagar es referencial y está compuesto por cuota correspondiente a
+                              intereses, capital y cargos adicionales. La cuotas son calculadas para los primeros doce (12)
+                              meses con una tasa de interés variable del 0,65% N.M.V. equivalente al 8,08% E.A., y a partir
+                              del mes trece (13) y hasta finalizar la vigencia del crédito con una tasa del 0,88% N.M.V.
+                              equivalente al 11,09% E.A., y un plazo estimado. Los intereses se liquidarán con la tasa vigente
+                              al momento de la utilización del crédito.
+                            </p>
+                            <br>
+                            <p>
+                              Recuerda que para esta simulación se utilizó la tasa “desde” mencionada en la explicación del
+                              plan, la cual podrá variar de acuerdo al perfil de riesgo de cada cliente.
+                            </p>
+                            <br>
+                            <p>
+                              Seguro de Vida: Seguro Colectivo de Seguros de Vida Suramericana S.A en el cual Bancolombia S.A.
+                              actúa como tomador por cuenta de sus deudores. El valor de la prima del seguro de vida y vida
+                              más esta sujeta a declaraciones de asegurabilidad por parte del cliente.
+                            </p>
+                            <br>
+                            <p>
+                              Cardif: Cardif Colombia Seguros Generales S.A. asume exclusivamente la responsabilidad del
+                              cumplimiento de las obligaciones del producto frente al consumidor financiero. Este producto es
+                              ofrecido por la red de Bancolombia S.A. limitándose única y exclusivamente al correcto
+                              cumplimiento de las instrucciones debidamente impartidas por Cardif Colombia Seguros Generales
+                              S.A. para la prestación del servicio en dicha red.
+                            </p>
+                          </article>
+                        </div>
+                      </div>
 
-                </div>
+                    </div>
               </div>
               <div *ngIf="showForm" class="form-container">
                 <div (click) ="closeForm()" class="close">
                 </div>
-                <div class="contactForm">
-                    <form role="form" class="form-theme"  [formGroup]="contactUser"  name="contactForm" (ngSubmit)="creditRequest()">
-                        <h3>
-                          ¡Déjanos tus datos para contactarte!
-                        </h3>
-                        <div class="material-design">
-                          <div class="row">
-                              <div class="form-group">
-                                  <div class="cellphone-container">
-                                    <label class="label-title">Número de celular</label>
-                                    <input
-                                    formControlName="celular"
-                                    name="phone-user"
-                                    class="form-control input-price" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                    maxlength="10" autocomplete="off">
-                                    <span class="error-msg"> El campo no cumple con el formato de teléfono.</span>
-                                  </div>
-                                </div>
+                <div class="success-message contactForm" *ngIf="showSuccess">
+                    <div class="img-monkey"></div>
+                    <div>
+                      <p>¡Genial! Tu simulación se envió con éxito, un asesor Sufi te contactará.</p>
+                    </div>
+                    <div class="row">
+                        <div class="btn-container">
+                          <div class="btn-item">
+                            <button (click)="closeForm()">
+                              Enviar
+                            </button>
                           </div>
-                          <div class="row">
-                              <div class="form-group">
-                                  <div>
-                                    <label class="label-title">En qué horario quieres que te llamemos</label>
-                                    <select
-                                    formControlName="horarioContacto"
-                                    class="form-control" name="hour-contact">
-                                      <option value="" disabled></option>
-                                      <option value="Mañana">Mañana</option>
-                                      <option value="Tarde">Tarde</option>
-                                      <option value="Noche">Noche</option>
-                                    </select>
-                                    <span class="error-msg">Este campo es requerido</span>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="check-offer">
-                                  <label for="checkTerms" class="material-checkbox container-check">
-                                    <input
-                                    formControlName="check-authorization"
-                                    type="checkbox" id="checkTerms" name="check-authorization">
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <span class="check-label">Acepto términos y condiciones</span>
-                                </div>
-                          </div>
-                          <div class="row">
-                              <div class="btn-container">
-                                  <div class="btn-item">
-                                      <button class="gtmProductosSufiQuierMasInfoSimuEnviar">
-                                        Enviar
-                                      </button>
-                                  </div>
-                                </div>
-                          </div>
-                          <div *ngIf="errorSuccess" class="row">
-                            <div class="error-message">
-                                <p>Todos los campos son requeridos</p>
-                            </div>
-                          </div>
-                          <div *ngIf="showSuccess" class="row">
-                            <div class="success-message">
-                              <p>¡Genial! Tu simulación se envió con éxito, Sufi te contactará en los próximos días</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!showSuccess" class="contactForm">
+                    <form role="form" class="form-theme" [formGroup]="contactUser" name="contactForm"
+                      (ngSubmit)="creditRequest()">
+                      <h3>
+                        ¡Déjanos tus datos para contactarte!
+                      </h3>
+                      <div class="material-design">
+                        <div class="row">
+                          <div class="form-group">
+                            <div class="cellphone-container">
+                              <label class="label-title">Número de celular</label>
+                              <input formControlName="celular" name="phone-user" class="form-control input-price"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10"
+                                autocomplete="off">
+                              <span class="error-msg"> El campo no cumple con el formato de teléfono.</span>
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="form-group">
+                            <div>
+                              <label class="label-title">En qué horario quieres que te llamemos</label>
+                              <select formControlName="horarioContacto" class="form-control" name="hour-contact">
+                                <option value="" disabled></option>
+                                <option value="Mañana">Mañana</option>
+                                <option value="Tarde">Tarde</option>
+                                <option value="Noche">Noche</option>
+                              </select>
+                              <span class="error-msg">Este campo es requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group">
+                            <div>
+                              <label class="label-title">¿En qué plan estás interesado?</label>
+                            </div>
+                            <div class="check-offer">
+                              <label for="checkTerms1" class="material-checkbox container-check">
+                                <input [value]="'Plan Tradicional Rótalo'" type="checkbox" formControlName="checkTerms1"
+                                  id="checkTerms1" name="check-authorization">
+                                <span class="checkmark"></span>
+                              </label>
+                              <span class="check-label">Plan Tradicional Rótalo</span>
+                            </div>
+                            <div class="check-offer">
+                              <label for="checkTerms2" class="material-checkbox container-check">
+                                <input [value]="'Plan Especial Rótalo'" type="checkbox" formControlName="checkTerms2"
+                                  id="checkTerms2" name="check-authorization">
+                                <span class="checkmark"></span>
+                              </label>
+                              <span class="check-label">Plan Especial Rótalo</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row margin-row">
+                          <div class="check-offer">
+                            <label for="checkTerms" class="material-checkbox container-check">
+                              <input formControlName="check-authorization" type="checkbox" id="checkTerms"
+                                name="check-authorization">
+                              <span class="checkmark"></span>
+                            </label>
+                            <span class="check-label">Acepto términos y condiciones</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="btn-container">
+                            <div class="btn-item">
+                              <button class="gtmProductosSufiQuierMasInfoSimuEnviar">
+                                Enviar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="errorSuccess" class="row">
+                          <div class="error-message">
+                            <p>Todos los campos son requeridos</p>
+                          </div>
+                        </div>
+                      </div>
                     </form>
                 </div>
               </div>

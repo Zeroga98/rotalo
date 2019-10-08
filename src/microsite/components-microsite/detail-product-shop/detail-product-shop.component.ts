@@ -36,6 +36,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { ModalFormRegisterComponent } from '../modal-form-register/modal-form-register.component';
 import { ConfigurationService } from '../../../services/configuration.service';
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
+import { CountUpOptions } from 'countup.js';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -127,6 +128,13 @@ export class DetailProductShopComponent implements OnInit {
   public contactUser: FormGroup;
   public showSuccess = false;
   public errorSuccess = false;
+
+  public optionsCountSimulate: CountUpOptions = {
+    decimalPlaces: 0,
+    duration: 1,
+    useEasing: true,
+    prefix: '$'
+  };
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -800,7 +808,6 @@ export class DetailProductShopComponent implements OnInit {
     this.simulateSufi();
   }
 
-
   simulateSufi() {
     const creditValue = this.simulateForm.get('credit-value').value;
     const termMonths = this.simulateForm.get('term-months').value;
@@ -817,6 +824,12 @@ export class DetailProductShopComponent implements OnInit {
       }
     })
       .catch(httpErrorResponse => { });
+  }
+
+  closeForm() {
+    this.contactUser.reset();
+    this.showForm = false;
+    this.showSuccess = false;
   }
 
 

@@ -1,7 +1,22 @@
 <div class="modal-container">
     <div (click) = "close()" class="close"></div>
     <div  class="form-container">
-        <div class="contactForm">
+        <div class="success-message contactForm" *ngIf="showSuccess">
+            <div class="img-monkey"></div>
+            <div>
+              <p>¡Genial! Tu simulación se envió con éxito, un asesor Sufi te contactará.</p>
+            </div>
+            <div class="row">
+                <div class="btn-container">
+                  <div class="btn-item">
+                    <button (click)="close()">
+                      Enviar
+                    </button>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div *ngIf="!showSuccess" class="contactForm">
             <form role="form" class="form-theme"  [formGroup]="contactUser"  name="contactForm" (ngSubmit)="creditRequest()">
                 <h3>
                   ¡Déjanos tus datos para contactarte!
@@ -37,6 +52,29 @@
                       </div>
                   </div>
                   <div class="row">
+                      <div class="form-group">
+                        <div>
+                          <label class="label-title">¿En qué plan estás interesado?</label>
+                        </div>
+                        <div class="check-offer">
+                          <label for="checkTerms1" class="material-checkbox container-check">
+                            <input  type="checkbox" id="checkTerms1"  formControlName="checkTerms1"
+                              name="check-authorization">
+                            <span class="checkmark"></span>
+                          </label>
+                          <span class="check-label">Plan Tradicional Rótalo</span>
+                        </div>
+                        <div class="check-offer">
+                          <label for="checkTerms2" class="material-checkbox container-check">
+                            <input type="checkbox" id="checkTerms2" formControlName="checkTerms2"
+                              name="check-authorization">
+                            <span class="checkmark"></span>
+                          </label>
+                          <span class="check-label">Plan Especial Rótalo</span>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="row margin-row">
                       <div class="check-offer">
                           <label for="checkTerms" class="material-checkbox container-check">
                             <input
@@ -59,11 +97,6 @@
                   <div *ngIf="errorSuccess" class="row">
                     <div class="error-message">
                         <p>Todos los campos son requeridos</p>
-                    </div>
-                  </div>
-                  <div *ngIf="showSuccess" class="row">
-                    <div class="success-message">
-                      <p>¡Genial! Tu simulación se envió con éxito, Sufi te contactará en los próximos días</p>
                     </div>
                   </div>
                 </div>
