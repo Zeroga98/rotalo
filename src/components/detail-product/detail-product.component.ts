@@ -947,15 +947,17 @@ export class DetailProductComponent implements OnInit {
   sendMessageWhatsappUser() {
     const productName = this.products.name;
     let phoneNumber = this.products.user.cellphone;
-    if (this.products.subcategory &&
+    if (this.products.subcategory && (
+      this.products.subcategory.name == 'Carros' ||
+      this.products.subcategory.name == 'Motos' ||
       this.products.subcategory.category &&
-      this.products.subcategory.category.name == 'Inmuebles') {
+      this.products.subcategory.category.name == 'Inmuebles')) {
       this.gapush(
         'send',
         'event',
         'Productos',
         this.products.subcategory.name,
-        'ContactaPorWhatsappExitoso'
+        'ContactarPorWhatsappExitoso'
       );
     }
     if (window.location.href.includes('gt')) {
