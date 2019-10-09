@@ -1153,7 +1153,10 @@ input:checked + .switch-slider:before {
     color: #383838 !important;
     font-size: 1.8rem !important;
     margin-top: 15px;
-    font-weight: bold;
+    a {
+      color: #383838!important;
+      font-size: 1.8rem!important;
+    }
   }
 
   .form-control-select {
