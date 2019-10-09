@@ -130,9 +130,9 @@ export class DetailProductComponent implements OnInit {
   public showSuccess = false;
   public errorSuccess = false;
   private likeDataSharingService: LikeDataSharingService;
-  
+  public simulaciones;
   public optionsCountSimulate: CountUpOptions = {
-    decimalPlaces: 2,
+    decimalPlaces: 0,
     duration: 1,
     useEasing: true,
     prefix: '$'
@@ -191,7 +191,9 @@ export class DetailProductComponent implements OnInit {
     this.contactUser = this.fb.group({
       celular: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       horarioContacto: ['Mañana', Validators.required],
-      'check-authorization': ['', Validators.required]
+      'check-authorization': ['', Validators.required],
+      'checkTerms1': [''],
+      'checkTerms2': [''],
     });
   }
 
@@ -204,6 +206,15 @@ export class DetailProductComponent implements OnInit {
       const horarioContacto = this.contactUser.get('horarioContacto').value;
       const creditValue = this.simulateForm.get('credit-value').value;
       const termMonths = this.simulateForm.get('term-months').value;
+      let planSeleccionado = '';
+      if (this.contactUser.get('checkTerms1').value && this.contactUser.get('checkTerms2').value) {
+        planSeleccionado = 'Plan Tradicional Rótalo, Plan Especial Rótalo';
+      } else if (this.contactUser.get('checkTerms1').value) {
+        planSeleccionado = 'Plan Tradicional Rótalo';
+      } else if (this.contactUser.get('checkTerms2').value) {
+        planSeleccionado = 'Plan Especial Rótalo';
+      }
+
       const infoVehicle = {
         plazo: termMonths,
         cuotaInicial: creditValue ? creditValue : 0,
@@ -211,7 +222,9 @@ export class DetailProductComponent implements OnInit {
         productId: this.idProduct,
         celular: celular,
         horarioContacto: horarioContacto,
-        storeId: null
+        storeId: null,
+        simulacion: this.simulaciones,
+        planSeleccionado: planSeleccionado
       };
       this.simulateCreditService
         .sendSimulateCredit(infoVehicle)
@@ -385,6 +398,7 @@ export class DetailProductComponent implements OnInit {
       .simulateCreditSufi(infoVehicle)
       .then(response => {
         if (response && response.simulaciones) {
+          this.simulaciones = response;
           this.tradicionalSimulacion = response.simulaciones[0];
           this.especialSimulacion = response.simulaciones[1];
           this.changeDetectorRef.markForCheck();
@@ -808,6 +822,7 @@ export class DetailProductComponent implements OnInit {
   closeForm() {
     this.contactUser.reset();
     this.showForm = false;
+    this.showSuccess = false;
   }
 
   openOfferModal(product: ProductInterface) {
@@ -1164,7 +1179,8 @@ export class DetailProductComponent implements OnInit {
       'valorAFinanciar': this.products.price,
       'productId': this.idProduct,
       'storeId': null,
-      'rotalo': true
+      'rotalo' : true,
+      simulacion: this.simulaciones,
     };
     dialogConfig.data = infoVehicle;
     const dialogRef = this.dialog.open(ModalContactSufiComponent, dialogConfig);

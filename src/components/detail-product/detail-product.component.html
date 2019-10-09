@@ -943,13 +943,15 @@
                             <tr>
                               <td *ngIf="simulateForm && simulateForm.get('term-months').value">
                                 {{simulateForm.get('term-months').value}} Cuotas mensuales de </td>
-                              <td class="text-right" [countUp]="tradicionalSimulacion.cuotas[0].valor"
+                              <td *ngIf="tradicionalSimulacion.aplica" class="text-right" [countUp]="tradicionalSimulacion.cuotas[0].valor"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!tradicionalSimulacion.aplica">N/A</td>
                             </tr>
                             <tr>
                               <td>Seguro de vida desde</td>
-                              <td class="text-right" [countUp]="tradicionalSimulacion.seguroVida"
+                              <td *ngIf="tradicionalSimulacion.aplica" class="text-right" [countUp]="tradicionalSimulacion.seguroVida"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!tradicionalSimulacion.aplica">N/A</td>
                             </tr>
 
                             <!--
@@ -961,8 +963,8 @@
                                   </tr>-->
                           </table>
                           <div class="container-bottom">
-                            <p> <strong>Ahórrate hasta </strong> <strong [countUp]="tradicionalSimulacion.ahorro"
-                                [options]="optionsCountSimulate"></strong></p>
+                            <p> <strong>Ahorra hasta </strong> <strong [countUp]="tradicionalSimulacion.ahorro"
+                                [options]="optionsCountSimulate"></strong> <strong> / mes.</strong></p>
                             <p> vs. la tasa de mercado Sufi.</p>
                           </div>
                         </div>
@@ -983,23 +985,27 @@
                           <table>
                             <tr>
                               <td>{{especialSimulacion.cuotas[0].cuotas}} Cuotas mensuales de </td>
-                              <td class="text-right" [countUp]="especialSimulacion.cuotas[0].valor"
+                              <td *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.cuotas[0].valor"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
                             </tr>
                             <tr *ngIf="especialSimulacion.cuotas[1].cuotas && especialSimulacion.cuotas[1].cuotas > 0">
                               <td>{{especialSimulacion.cuotas[1].cuotas}} Cuotas mensuales de </td>
-                              <td class="text-right" [countUp]="especialSimulacion.cuotas[1].valor"
+                              <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.cuotas[1].valor"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
                             </tr>
                             <tr>
                               <td>Seguro de vida desde </td>
-                              <td class="text-right" [countUp]="especialSimulacion.seguroVida"
+                              <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.seguroVida"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
                             </tr>
                             <tr>
                               <td>Seguro de cuota desde </td>
-                              <td class="text-right" [countUp]="especialSimulacion.seguroCuota"
+                              <td  *ngIf="especialSimulacion.aplica" class="text-right" [countUp]="especialSimulacion.seguroCuota"
                                 [options]="optionsCountSimulate"></td>
+                              <td class="text-right" *ngIf="!especialSimulacion.aplica">N/A</td>
                             </tr>
                             <!--      <tr>
                                       <td>Total</td>
@@ -1015,8 +1021,8 @@
                                   </tr> -->
                           </table>
                           <div class="container-bottom">
-                            <p> <strong>Ahórrate hasta </strong> <strong [countUp]="especialSimulacion.ahorro"
-                                [options]="optionsCountSimulate"></strong></p>
+                            <p> <strong>Ahorra hasta </strong> <strong [countUp]="especialSimulacion.ahorro"
+                                [options]="optionsCountSimulate"></strong> <strong> / mes.</strong></p>
                             <p> vs. la tasa de mercado Sufi.</p>
                           </div>
                         </div>
@@ -1163,7 +1169,22 @@
             <div *ngIf="showForm" class="form-container">
               <div (click)="closeForm()" class="close">
               </div>
-              <div class="contactForm">
+              <div class="success-message contactForm" *ngIf="showSuccess">
+                  <div class="img-monkey"></div>
+                  <div>
+                    <p>¡Genial! Tu simulación se envió con éxito, un asesor Sufi te contactará.</p>
+                  </div>
+                  <div class="row">
+                      <div class="btn-container">
+                        <div class="btn-item">
+                          <button (click)="closeForm()">
+                            Enviar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+              <div *ngIf="!showSuccess" class="contactForm">
                 <form role="form" class="form-theme" [formGroup]="contactUser" name="contactForm"
                   (ngSubmit)="creditRequest()">
                   <h3>
@@ -1196,6 +1217,29 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="form-group">
+                        <div>
+                          <label class="label-title">¿En qué plan estás interesado?</label>
+                        </div>
+                        <div class="check-offer">
+                          <label for="checkTerms1" class="material-checkbox container-check">
+                            <input [value]="'Plan Tradicional Rótalo'" type="checkbox" formControlName="checkTerms1"
+                              id="checkTerms1" name="check-authorization">
+                            <span class="checkmark"></span>
+                          </label>
+                          <span class="check-label">Plan Tradicional Rótalo</span>
+                        </div>
+                        <div class="check-offer">
+                          <label for="checkTerms2" class="material-checkbox container-check">
+                            <input [value]="'Plan Especial Rótalo'" type="checkbox" formControlName="checkTerms2"
+                              id="checkTerms2" name="check-authorization">
+                            <span class="checkmark"></span>
+                          </label>
+                          <span class="check-label">Plan Especial Rótalo</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row margin-row">
                       <div class="check-offer">
                         <label for="checkTerms" class="material-checkbox container-check">
                           <input formControlName="check-authorization" type="checkbox" id="checkTerms"
@@ -1219,18 +1263,12 @@
                         <p>Todos los campos son requeridos</p>
                       </div>
                     </div>
-                    <div *ngIf="showSuccess" class="row">
-                      <div class="success-message">
-                        <p>¡Genial! Tu simulación se envió con éxito, Sufi te contactará en los próximos días</p>
-                      </div>
-                    </div>
                   </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-
 
         <div class="tabla-container description mobile">
           <div class="flex">

@@ -1020,6 +1020,7 @@ input:checked+.switch-slider:before {
     color: #383838!important;
     font-size: 1.8rem!important;
     margin-top: 15px;
+    font-weight: bold;
   }
 
   .form-control-select{
@@ -1105,6 +1106,13 @@ input:checked+.switch-slider:before {
     }
   }
 
+}
+
+:host {
+  .margin-row {
+    margin-top: 20px;
+    border-top: 1px dashed #D5D5D5;
+  }
 }
 
 @media screen and (max-width: 1300px) {

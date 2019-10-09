@@ -1153,6 +1153,7 @@ input:checked + .switch-slider:before {
     color: #383838 !important;
     font-size: 1.8rem !important;
     margin-top: 15px;
+    font-weight: bold;
   }
 
   .form-control-select {
@@ -2020,7 +2021,7 @@ input:checked + .switch-slider:before {
 :host {
   .check-offer {
     margin-top: 15px;
-    text-align: center;
+    text-align: left;
   }
 }
 
@@ -2143,14 +2144,24 @@ input:checked + .switch-slider:before {
 
 :host {
   .success-message {
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 20px;
+
+    .img-monkey {
+      margin: 0 auto;
+      margin-bottom: 15px;
+      width: 170.93px;
+      height: 170.93px;
+      background: url(../../assets/img/iconos/ic_success_mono.svg) no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
     p {
+      width: 90%;
+      margin: 0 auto;
       text-align: center;
       color: #383838;
       font-size: 1.6rem;
+      margin-bottom: 15px;
     }
   }
 
@@ -2341,6 +2352,13 @@ input:checked + .switch-slider:before {
         }
       }
     }
+  }
+}
+
+:host {
+  .margin-row {
+    margin-top: 20px;
+    border-top: 1px dashed #D5D5D5;
   }
 }
 
