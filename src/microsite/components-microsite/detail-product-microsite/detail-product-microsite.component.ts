@@ -374,6 +374,7 @@ export class DetailProductMicrositeComponent implements OnInit {
       precio: this.products.price,
       idUsuarioChat: this.products.user.id,
       nombreUsuarioChat: this.products.user.name,
+      companiaEmisario: this.products.user.company.name,
       calificacion: this.products.userCalification
         ? this.products.userCalification
         : 0
