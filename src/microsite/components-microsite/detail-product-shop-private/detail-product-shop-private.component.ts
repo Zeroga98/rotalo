@@ -597,7 +597,11 @@ export class DetailProductShopPrivateComponent implements OnInit {
     this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
     this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
     this.router.navigate([urlSimulateCredit]);*/
-    this.showForm = true ;
+    if (!this.especialSimulacion.aplica) {
+      this.contactUser.get('checkTerms2').disable();
+     }
+
+    this.showForm = true;
 
   }
 
