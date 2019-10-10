@@ -51,7 +51,8 @@
           <th>IVA</th>
           <th>Fecha de publicación</th>
           <th>Unidades</th>
-          <th>Estado</th>
+          <th *ngIf="statusTab == 0">Inactivar</th>
+          <th *ngIf="statusTab == 1">Activar</th>
           <th class="table-no-border"></th>
           <th class="table-no-border"></th>
         </tr>

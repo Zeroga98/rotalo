@@ -120,6 +120,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
     this.statusTab = tabChangeEvent.index;
+    console.log(this.statusTab);
     this.getProductsList(tabChangeEvent.index, this.idTienda);
   }
 
