@@ -51,6 +51,9 @@
         height: auto;
         min-height: 388px;
         object-fit: cover;
+        @media (max-width: 600px) {
+          min-height: 207px;
+        }
       }
     }
     .arrow {
@@ -219,9 +222,20 @@
     max-width: 378px;
     min-width: 378px;
     margin-left: 2px;
+    @media (max-width: 600px) {
+      min-width: 100%;
+      max-width: 100%;
+    }
     img {
       height: 194px;
       width: 100%;
+      @media (max-width: 600px) {
+        width: calc(50% - 2px);
+        height: 129px;
+        &:first-child {
+          margin-right: 2px;
+        }
+      }
       object-fit: cover;
     }
   }

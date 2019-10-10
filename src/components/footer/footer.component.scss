@@ -6,6 +6,7 @@
   .container-footer {
     background: $red;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     color: white;
@@ -23,9 +24,11 @@
     }
     .logo {
       cursor: pointer;
-      width: 9rem;
+      width: 100%;
+      padding-bottom: 3.1rem;
+      border-bottom: 1px solid #ff747f;
       img {
-        width: 100%;
+        width: 9rem;
         height: auto;
       }
     }
@@ -37,6 +40,9 @@
     @media (max-width: 600px) {
       position: initial;
     }
+  }
+  .footer-content {
+    width: 100%;
   }
 }
 

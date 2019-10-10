@@ -7,6 +7,43 @@
 <subcategory-filter *ngIf="!showBanner || configFiltersSubcategory" [config]="configFiltersSubcategory"
   [country]="countrySelected" (onFilterBySellType)="filteBySellType($event)" (onFilterBySort)="filterBySort($event)"
   (onFilterByCity)="filterByCity($event)" (onFilterByState)="filterByState($event)"></subcategory-filter>
+<ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
+  <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
+    <div
+      [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
+        'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+        'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
+        'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
+        'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
+      class="item-banner">
+      <a [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
+        'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+        'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
+        'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
+        'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
+        target="_blank" *ngIf="image['link']" [href]="image['link']">
+        <img
+          [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
+        'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+        'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
+        'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
+        'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
+          [src]="image['url-photo-mobile']">
+      </a>
+      <img
+        [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
+        'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
+        'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
+        'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
+        'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
+        *ngIf="!image['link']" [src]="image['url-photo-mobile']">
+    </div>
+  </ngx-item>
+  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
+  </span>
+  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
+  </span>
+</ngx-carousel>
 <section class="container d-flex">
   <ngx-carousel class="carousel-theme desktop banner-home container" *ngIf="showBanner && !configFiltersSubcategory"
     [inputs]="carouselConfig">
@@ -63,44 +100,6 @@
     <img src="../../assets/img/banner/static-three.png">
   </div>
 </section>
-<ngx-carousel class="carousel-theme mobile" *ngIf="showBanner && !configFiltersSubcategory" [inputs]="carouselConfig">
-  <ngx-item NgxCarouselItem *ngFor="let image of imagesBanner">
-    <div
-      [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
-    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
-    'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
-    'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
-      class="item-banner">
-      <a [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
-    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
-    'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
-    'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
-        target="_blank" *ngIf="image['link']" [href]="image['link']">
-        <img
-          [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
-    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
-    'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
-    'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
-          [src]="image['url-photo-mobile']">
-      </a>
-      <img
-        [ngClass]="{'gtmSliderSufiSimuladorCProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('NOLIBERESLOBESTIA'),
-    'gtmSliderColombiaQrProductos': image['url-photo-mobile'] && image['url-photo-mobile'].includes('PERSONAS_PREMIADO'),
-    'gtmSliderAgrTranqComprarMiSoat': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_sufi_soat'),
-    'gtmSliderDisfrazHalloween': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_halloween'),
-    'gtmProductosSufiSliderFeriaVehiculosSufi': image['url-photo-desktop'] && image['url-photo-desktop'].includes('banner_tienda_sufi')}"
-        *ngIf="!image['link']" [src]="image['url-photo-mobile']">
-    </div>
-  </ngx-item>
-  <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
-  </span>
-  <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
-  </span>
-</ngx-carousel>
-
 
 <carousel-product *ngIf="featuredproducts.length != 0 && showBanner && !configFiltersSubcategory"
   [products]="featuredproducts" [imgRoute]="'../../assets/img/estrella.gif'" [title]="'Artículos destacados'">
