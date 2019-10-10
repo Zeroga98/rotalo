@@ -1,6 +1,6 @@
 :host {
   .featured-section {
-    min-height: 420px;
+    min-height: 390px;
 
     .featured-container {
       max-width: 1200px;
@@ -377,7 +377,7 @@
     z-index: 0;
 
     ngx-item {
-      min-height: 35.5rem;
+      min-height: 30rem;
     }
   }
 
@@ -530,8 +530,9 @@
     }
 
     .featured-section.featured-products {
-      min-height: 430px;
-      height: 430px;
+     /* min-height: 430px;
+      height: 430px;*/
+      height: 400px;
     }
 
     .featured-section {
