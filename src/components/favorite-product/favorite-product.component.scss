@@ -44,6 +44,14 @@
         @media (max-width: 680px) {
           flex-direction: column;
           width: 100%;
+          .desktop {
+            display: none;
+          }
+
+          .mobile {
+            margin-top: 8px;
+            display: block;
+          }
           .product .product-info li .price {
             margin-top: 8px;
           }
@@ -164,8 +172,15 @@
     }
   }
 
-}
+  .desktop {
+    display: block;
+  }
 
+  .mobile {
+    display: none;
+  }
+
+}
 
 @media (max-width: 480px) {
   :host {

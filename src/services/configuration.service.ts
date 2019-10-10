@@ -8,7 +8,7 @@ export class ConfigurationService {
 public storeIdPublic = 34;
 public storeIdPrivate = 40;
 
-
+/*
  api = {
     protocol: 'https',
     server: 'stgn-gateway.rotalo.com.co:1443/gateway/v1',
@@ -20,7 +20,7 @@ public storeIdPrivate = 40;
     server: 'stgn-gateway.rotalo.com.co:1443/gateway',
     inactivityLimit: 86400 // seconds
   };
-
+*/
   /*Desarrollo*/
 /*
   api = {
@@ -36,7 +36,7 @@ public storeIdPrivate = 40;
   };
 */
   /*Produccion*/
-/*
+
   api = {
     protocol: 'https',
     server: 'pdn.gateway.rotalo.com.co/gateway/v1',
@@ -48,7 +48,7 @@ public storeIdPrivate = 40;
     server: 'pdn.gateway.rotalo.com.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
+
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',
