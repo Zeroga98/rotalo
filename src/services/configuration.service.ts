@@ -36,8 +36,8 @@ public storeIdPrivate = 40;
   };
 */
   /*Produccion*/
-/*
-  api = {
+
+/*   api = {
     protocol: 'https',
     server: 'pdn.gateway.rotalo.com.co/gateway/v1',
     inactivityLimit: 86400 // seconds
@@ -48,7 +48,7 @@ public storeIdPrivate = 40;
     server: 'pdn.gateway.rotalo.com.co/gateway',
     inactivityLimit: 86400 // seconds
   };
-*/
+ */
 
   jsonApiSapiHeaders = {
     'Access-Control-Allow-Origin': '*',

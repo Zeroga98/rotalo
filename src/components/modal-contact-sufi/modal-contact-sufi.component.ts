@@ -33,22 +33,34 @@ export class ModalContactSufiComponent implements OnInit {
       'celular': ['', [Validators.required, Validators.pattern(/^\d{10}$/)]
       ],
       'horarioContacto': ['Mañana', Validators.required],
-      'check-authorization': ['', Validators.required]
+      'check-authorization': ['', Validators.required],
+      'checkTerms1': [''],
+      'checkTerms2': [''],
     });
   }
 
   close() {
     this.dialogRef.close();
+    this.showSuccess = false;
   }
 
   creditRequest() {
     if (this.contactUser.valid && this.contactUser.get('check-authorization').value) {
       const celular = this.contactUser.get('celular').value;
       const horarioContacto = this.contactUser.get('horarioContacto').value;
+      let planSeleccionado = '';
+      if (this.contactUser.get('checkTerms1').value && this.contactUser.get('checkTerms2').value) {
+        planSeleccionado = 'Plan Tradicional Rótalo, Plan Especial Rótalo';
+      } else if (this.contactUser.get('checkTerms1').value) {
+        planSeleccionado = 'Plan Tradicional Rótalo';
+      } else if (this.contactUser.get('checkTerms2').value) {
+        planSeleccionado = 'Plan Especial Rótalo';
+      }
       let infoVehicle = {
         'celular': celular,
         'horarioContacto': horarioContacto,
-        'storeId': this.configurationService.storeIdPrivate
+        'storeId': this.configurationService.storeIdPrivate,
+        planSeleccionado: planSeleccionado
       };
       infoVehicle = Object.assign({}, infoVehicle,  this.params);
       if (this.params.rotalo) {

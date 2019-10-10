@@ -7,25 +7,28 @@
             class="container-low-price">
             <p>$ REBAJÓ</p>
       </div>
-      
+
       <div *ngIf="product['mostView'] && !isCostume && !product['isLowPrice']" class="container-trending">
         <p>Más visto</p>
       </div>
   </div>
   <div class="product-info">
     <section class="info">
-      <li>
+      <li  class="description">
         <div>
           <p (click)="goToProduct()" class="title">
             {{product.name}}
           </p>
+          <p class="price mobile">
+              {{product.price  | currency:'$' | removeDigits}}
+            </p>
           <p class="status">
             <span>Estado:</span> {{product.status}}
           </p>
         </div>
       </li>
       <li>
-        <p class="price">
+        <p class="price desktop">
           {{product.price  | currency:'$' | removeDigits}}
         </p>
       </li>

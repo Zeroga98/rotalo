@@ -121,19 +121,25 @@
               <div *ngIf="detailOrder.shippingTaxes">
                 <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 1">
                   <span>
-                    Envío Correspondencia Interna (Para Empleados Bancolombia)
+                    Envío por correspondencia interna
                   </span>
+                </p>
+                <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 1">
+                    <span>
+                      (Empleados Bancolombia)
+                    </span>
                 </p>
                 <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 2">
                   <span>
                     Envío nacional {{detailOrder.shippingTaxes.shippingPrice | currency:"$" | removeDigits}}
                   </span>
                 </p>
+                <!--
                 <p *ngIf="detailOrder.shippingTaxes.idShippingTaxes == 1">
                   <span>
                     Carrera 48 N.° 26-85 – Torre Sur
                   </span>
-                </p>
+                </p>-->
               </div>
               <div class="flex">
                 <p class="address">{{detailOrder.datosEnvio.direccion}}</p>
