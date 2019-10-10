@@ -491,10 +491,10 @@ export class DetailProductMicrositeComponent implements OnInit {
   }
 
   openSimulateCreditSufi(id: number | string) {
-    const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
+  /*  const urlSimulateCredit = `${ROUTES.PRODUCTS.LINK}/${
       ROUTES.PRODUCTS.SIMULATECREDIT
       }/${id}`;
-    this.router.navigate([urlSimulateCredit]);
+    this.router.navigate([urlSimulateCredit]);*/
   }
 
   openOfferModal(product: ProductInterface) {

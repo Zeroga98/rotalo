@@ -618,7 +618,8 @@
           </div>
           <div class="heart-container">
             <button mat-icon-button [ngClass]="products.like && 'active'" (click)="checkLike()" color="warn" class="heart"></button>
-            <span>
+            <span
+            [ngStyle]="{'visibility': products.likes && products.likes > 0 ? '' : 'hidden' }">
               {{products.likes}}
             </span>
           </div>

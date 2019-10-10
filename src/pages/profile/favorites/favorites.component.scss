@@ -1,5 +1,5 @@
 :host {
-  width: 100%;
+  width: 79%;
   height: auto;
   padding: 0 5%;
   padding-left: 2%;
@@ -78,6 +78,27 @@
   }
   .w-100 {
     width: 100%;
+  }
+}
+
+
+@media (max-width: 1100px) {
+  :host {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 0 5%;
+    padding-top: 45px;
+    padding-right: 2%;
+    .title h1.text {
+      font-size: 1.4rem;
+    }
+    .main-title {
+      margin-bottom: 1.7rem;
+    }
   }
 }
 
