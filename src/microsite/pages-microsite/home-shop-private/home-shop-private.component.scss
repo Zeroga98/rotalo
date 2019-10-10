@@ -1081,16 +1081,19 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 104px;
+
     height: 40px;
     // background: url(../../../assets/img/img_insignia_trending.svg);
     background-size: 104px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     p {
       color: #FFFFFF;
       font-weight: bold;
       font-size: 1.2rem;
-      padding: 10px 10px;
+      padding-left: 7px;
     }
   }
 }
@@ -1131,6 +1134,7 @@
 
     .container-masonry .masonry product-microsite-private {
       width: 43%;
+      min-width: 140px;
     }
 
     .emotional-banner {
@@ -1637,16 +1641,19 @@ div.div-banners-promo {
     position: absolute;
     top: 0;
     left: 0;
-    width: 104px;
+
     height: 40px;
-    // background: url(../../assets/img/img_insignia_trending.svg);
+    // background: url(../../../assets/img/img_insignia_trending.svg);
     background-size: 104px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     p {
       color: #FFFFFF;
       font-weight: bold;
-      font-size: 1rem;
-      padding: 10px 10px;
+      font-size: 1.2rem;
+      padding-left: 7px;
     }
   }
 
