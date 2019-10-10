@@ -1,34 +1,64 @@
 <div id="container-footer" class="container-footer">
-	<div *ngIf="!isShop" class="terms">
-    <a *ngIf="!IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones usuarios </a>
-    <a *ngIf="IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones tienda </a>
-    <a *ngIf="!IsSuFiShop" class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLink" >- Preguntas frecuentes</a>
-    <a *ngIf="checkSession()" class="contact">
-        <modal-feedBack
-        [ngClass]="successModal ? 'success': ''"
-        (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
-        </modal-feedBack>
-      <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
-      <label class="gtmContactanosFooter" (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
-      </a>
-    <a class="gtmReglamentoEmpresas" *ngIf='!isGuatemala' [routerLink]="termsCompaniesLink"> - Reglamento empresas</a>
+  <div class="gtmFooterRotalo logo" (click)="goToHome()">
+    <img class="gtmFooterRotalo" src="./assets/img/logo-white.svg" alt="Logo rotalo">
   </div>
-  <div *ngIf="isShop" class="terms">
-      <a [routerLink]="termsLinkShop">Términos y condiciones tienda</a>
-      -
-      <a class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLinkShop" >Preguntas frecuentes</a>
-      <a *ngIf="checkSession() || isShop " class="contact">
-        <!--
-          <modal-feedBack
-          [ngClass]="successModal ? 'success': ''"
-          (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
-          </modal-feedBack> -->
-        <label (click) = "closeModal('custom-modal-1')" class="back-modal"></label>
-         <label class="gtmContactanosFooter" (click) = "openModal('custom-modal-1')"> - Contáctanos</label>
-        </a>
+  <section class="footer-content">
+    <div class="footer-col">
+      <a>Compras y ventas en confianza</a>
+      <a>Cero comisión en tus compras y ventas</a>
+      <a>Servicio al cliente dispuesto para tí.</a>
+      <a>Mira los testimonios de usuarios aquí</a>
     </div>
-	<div class="gtmFooterRotalo logo" (click)="goToHome()">
-		<img class="gtmFooterRotalo" src="./assets/img/logo-white.svg" alt="Logo rotalo">
-	</div>
+    <div class="footer-col">
+      <a>Quíenes somos Mapa del sitio</a>
+      <a>Términos y condiciones usuarios</a>
+      <a>Reglamento empresas </a>
+      <a>Preguntas frecuentes</a>
+      <a>Mapa del sitio</a>
+    </div>
+    <div class="footer-col">
+      <a>Contacto</a>
+      <a>info@rotalo.com.co</a>
+      <a>¿Quieres que tu empresa haga parte de Rótalo? </a>
+      <a>Escríbenos aquí</a>
+    </div>
+    <!--  <div>
+      <div *ngIf="!isShop" class="terms">
+        <a *ngIf="!IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones usuarios
+        </a>
+        <a *ngIf="IsSuFiShop" class="gtmTerminosYCondiciones" [routerLink]="termsLink">Términos y condiciones tienda
+        </a>
+        <a *ngIf="!IsSuFiShop" class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLink">- Preguntas
+          frecuentes</a>
+          <a *ngIf="checkSession()" class="contact">
+            <modal-feedBack [ngClass]="successModal ? 'success': ''" (success)='successModal = $event'
+            class="md-modal footer md-effect-1" id="custom-modal-1">
+          </modal-feedBack>
+          <label (click)="closeModal('custom-modal-1')" class="back-modal"></label>
+          <label class="gtmContactanosFooter" (click)="openModal('custom-modal-1')"> - Contáctanos</label>
+        </a>
+        <a class="gtmReglamentoEmpresas" *ngIf='!isGuatemala' [routerLink]="termsCompaniesLink"> - Reglamento
+          empresas</a>
+        </div>
+      </div> -->
+    <!--     <div>
+        <div *ngIf="isShop" class="terms">
+          <a [routerLink]="termsLinkShop">Términos y condiciones tienda</a>
+          -
+          <a class="gtmPreguntasFrecuentes faqs-link" [routerLink]="faqLinkShop">Preguntas frecuentes</a>
+          <a *ngIf="checkSession() || isShop " class="contact">
+            
+            <--  <modal-feedBack
+            [ngClass]="successModal ? 'success': ''"
+            (success) = 'successModal = $event'  class="md-modal footer md-effect-1" id="custom-modal-1">
+          </modal-feedBack> 
+          <label (click)="closeModal('custom-modal-1')" class="back-modal"></label>
+          <label class="gtmContactanosFooter" (click)="openModal('custom-modal-1')"> - Contáctanos</label>
+        </a>
+      </div>
+    </div> -->
+  </section>
+  <div class="bg-one"></div>
+  <div class="bg-two"></div>
+  <div class="bg-three"></div>
 </div>
-

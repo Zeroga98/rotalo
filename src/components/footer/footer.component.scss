@@ -13,6 +13,8 @@
     padding: 3.1rem 8%;
     font-size: 1.6rem;
     font-weight: 400;
+    position: relative;
+    overflow: hidden;
     .terms {
       cursor: pointer;
       a {
@@ -43,6 +45,62 @@
   }
   .footer-content {
     width: 100%;
+    display: flex;
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+    margin-right: 80px;
+    .col-title {
+      vertical-align: middle;
+      display: flex;
+      align-items: center;
+    }
+    a {
+      height: 38px;
+      vertical-align: middle;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .bg-one {
+    bottom: 2px;
+    left: -85px;
+    background: #5a298d;
+    width: 149px;
+    height: 74px;
+    transform: matrix(0.53, -0.85, -0.85, -0.53, 0, 0);
+    border-radius: 32px;
+    position: absolute;
+    transform: rotate(151deg);
+  }
+  .bg-two {
+    bottom: -360px;
+    right: -74px;
+    background: #5a298d;
+    width: 238px;
+    height: 442px;
+    -webkit-transform: matrix(0.53, -0.85, -0.85, -0.53, 0, 0);
+    transform: matrix(0.53, -0.85, -0.85, -0.53, 0, 0);
+    border-radius: 40px;
+    position: absolute;
+    -webkit-transform: rotate(151deg);
+    transform: rotate(149deg);
+  }
+  .bg-three {
+    top: calc(50% - 80px);
+    right: -100px;
+    background: #ff5f6c;
+    width: 149px;
+    height: 74px;
+    -webkit-transform: matrix(0.53, -0.85, -0.85, -0.53, 0, 0);
+    transform: matrix(0.53, -0.85, -0.85, -0.53, 0, 0);
+    border-radius: 32px;
+    position: absolute;
+    -webkit-transform: rotate(151deg);
+    transform: rotate(157deg);
   }
 }
 

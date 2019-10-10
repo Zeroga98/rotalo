@@ -17,6 +17,7 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+    overflow: hidden;
   }
 
   masonry-brick {
@@ -49,7 +50,7 @@
       img {
         width: 100%;
         height: auto;
-        min-height: 388px;
+        min-height: 390px;
         object-fit: cover;
         @media (max-width: 600px) {
           min-height: 207px;
