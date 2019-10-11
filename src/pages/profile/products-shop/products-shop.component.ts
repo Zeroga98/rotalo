@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MatSort, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
+import { MatSort, MatTableDataSource, MatTabChangeEvent, MatDialogConfig, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { UtilsService } from './../../../util/utils.service';
 import { UserService } from '../../../services/user.service';
@@ -7,6 +7,7 @@ import { SettingsService } from '../../../services/settings.service';
 import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ModalDeleteComponent } from '../../../components/modal-delete/modal-delete.component';
 
 @Component({
   selector: 'app-products-shop',
@@ -33,6 +34,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private router: Router,
     private settingsService: SettingsService,
+    public dialog: MatDialog,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -73,7 +75,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   getProductsList(option, idShop) {
     this.productsService.getProductsShop(idShop).subscribe((response) => {
-      if(response.body) {
+      if(response && response.body) {
         switch (option) {
           case 0:
           this.productos = response.body.productosActivos;
@@ -120,7 +122,6 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
     this.statusTab = tabChangeEvent.index;
-    console.log(this.statusTab);
     this.getProductsList(tabChangeEvent.index, this.idTienda);
   }
 
@@ -163,6 +164,24 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
       ROUTES.MICROSITE.UPLOAD}/${this.idTienda}`]);
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+  }
+
+  openModalDelete(idProducto) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+  //  dialogConfig.maxWidth = '335px';
+    dialogConfig.minHeight = '373px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.panelClass = 'delete-dialog-container-class';
+    const params = {
+      idTienda: this.idTienda,
+      idProducto: idProducto
+    };
+    dialogConfig.data = params;
+    const dialogRef = this.dialog.open(ModalDeleteComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(result);
+    });
   }
 
 }

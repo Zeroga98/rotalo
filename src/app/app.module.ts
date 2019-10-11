@@ -247,6 +247,7 @@ import { ProductCarouselComponent } from '../components/product-carousel/product
 import { ModalAliadosComponent } from '../components/modal-aliados/modal-aliados.component';
 import { FavoritesComponent } from '../pages/profile/favorites/favorites.component';
 import { FavoriteProductComponent } from '../components/favorite-product/favorite-product.component';
+import { ModalDeleteComponent } from '../components/modal-delete/modal-delete.component';
 
 @NgModule({
   declarations: [
@@ -411,7 +412,8 @@ import { FavoriteProductComponent } from '../components/favorite-product/favorit
     ProductCarouselComponent,
     ModalAliadosComponent,
     FavoritesComponent,
-    FavoriteProductComponent
+    FavoriteProductComponent,
+    ModalDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -544,7 +546,8 @@ import { FavoriteProductComponent } from '../components/favorite-product/favorit
     ModalFormDetailComponent,
     ModalAlertComponent,
     ModalContactSufiComponent,
-    ModalAliadosComponent]
+    ModalAliadosComponent,
+    ModalDeleteComponent]
 })
 
 export class AppModule { }

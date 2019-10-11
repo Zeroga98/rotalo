@@ -1,6 +1,6 @@
 <div class="info-container">
   <div class="tittle main-title">
-    <h1 class="text ">Productos tienda</h1>
+    <h1 (click)="openModalDelete()" class="text ">Productos tienda</h1>
   </div>
 
   <div id="flashMessage" class="flashMessage">
@@ -54,7 +54,6 @@
           <th *ngIf="statusTab == 0">Inactivar</th>
           <th *ngIf="statusTab == 1">Activar</th>
           <th class="table-no-border"></th>
-          <th class="table-no-border"></th>
         </tr>
         <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
         class="grid">
@@ -98,10 +97,23 @@
                     </div>
                 </td>
                 <td>
-                  <a [routerLink]="getUrlProduct(product.id)" >Editar</a>
-                </td>
-                <td>
-                  <a class="a-total" [routerLink]="getUrlPreviewProduct(product.id)" >Vista previa</a>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button [routerLink]="getUrlPreviewProduct(product.id)" mat-menu-item>
+                          <mat-icon>dialpad</mat-icon>
+                          <span>Vista previa</span>
+                        </button>
+                        <button [routerLink]="getUrlProduct(product.id)" mat-menu-item>
+                          <mat-icon>voicemail</mat-icon>
+                          <span>Editar</span>
+                        </button>
+                        <button (click)="openModalDelete()" mat-menu-item>
+                          <mat-icon>notifications_off</mat-icon>
+                          <span>Eliminar</span>
+                        </button>
+                      </mat-menu>
                 </td>
             </tr>
         </tbody>
