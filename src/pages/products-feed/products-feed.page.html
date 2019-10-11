@@ -120,6 +120,9 @@
 <carousel-product *ngIf="featuredproducts.length != 0 && showBanner && !configFiltersSubcategory"
   [products]="featuredproducts" [imgRoute]="'../../assets/img/estrella.gif'" [title]="'Artículos destacados'">
 </carousel-product>
+<carousel-category *ngIf="featuredproducts.length != 0 && showBanner && !configFiltersSubcategory"
+  [products]="featuredproducts" [title]="'Encuentra lo que buscas en más de 2.700 publicaciones activas'">
+</carousel-category>
 
 <div *ngIf="showBannerToShop && showBanner && !configFiltersSubcategory" class="featured-section bancolombia-site">
   <div class="featured-container">
