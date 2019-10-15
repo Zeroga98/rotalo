@@ -75,7 +75,8 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   getProductsList(option, idShop) {
     this.productsService.getProductsShop(idShop).subscribe((response) => {
-      if(response && response.body) {
+      if (response && response.body) {
+
         switch (option) {
           case 0:
           this.productos = response.body.productosActivos;
@@ -95,17 +96,22 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   }
 
 
-  saveCheck(check, idCampaign) {
+  saveCheck(check, product) {
     const params = {
       estado: check.checked ? 'active' : 'inactive',
       storeId : this.idTienda
     };
 
-    this.productsService
-      .updateProductStatus(idCampaign, params)
+    if(this.statusTab == 1 && product.stock == 0 ) {
+      this.router.navigate([this.edit + this.idTienda + '/' + product.id]);
+    } else  {
+      this.productsService
+      .updateProductStatus(product.id, params)
       .then(response => {
         this.getProductsList(this.statusTab, this.idTienda);
       });
+    }
+
   }
 
   getUrlProduct (idProduct) {
@@ -180,7 +186,9 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     dialogConfig.data = params;
     const dialogRef = this.dialog.open(ModalDeleteComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(result);
+      this.productos =  this.productos.filter(value => {
+        return value.id != result.idProducto;
+      });
     });
   }
 
