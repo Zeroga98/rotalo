@@ -102,15 +102,15 @@
                       </button>
                       <mat-menu #menu="matMenu">
                         <button [routerLink]="getUrlPreviewProduct(product.id)" mat-menu-item>
-                          <mat-icon>dialpad</mat-icon>
-                          <span>Vista previa</span>
+                          <div class="icon preview"></div>
+                          Vista previa
                         </button>
                         <button [routerLink]="getUrlProduct(product.id)" mat-menu-item>
-                          <mat-icon>voicemail</mat-icon>
+                          <div class="icon edit"></div>
                           <span>Editar</span>
                         </button>
-                        <button (click)="openModalDelete()" mat-menu-item>
-                          <mat-icon>notifications_off</mat-icon>
+                        <button (click)="openModalDelete(product.id)" mat-menu-item>
+                          <div class="icon delete"></div>
                           <span>Eliminar</span>
                         </button>
                       </mat-menu>

@@ -1042,15 +1042,40 @@
 }
 
 .mat-menu-item {
+  font-family: 'Lato Regular';
+    font-size: 1.4rem;
+    color:#707070;
+    padding-right: 30px;
   span {
     font-family: 'Lato Regular';
     font-size: 1.4rem;
     color:#707070;
   }
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background-size: 18px 18px;
+    margin: 0 auto;
+    margin-right: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .preview {
+    background-image: url(../../../assets/img/iconos/vista_previa.svg);
+  }
+  .edit {
+    background-image: url(../../../assets/img/iconos/editar.svg);
+  }
+  .delete {
+    background-image: url(../../../assets/img/iconos/eliminar.svg);
+  }
 }
 
 .mat-menu-item:hover {
   background-color: #F5F5F5;
+  color:#383838;
   span {
     color:#383838;
   }

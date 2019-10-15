@@ -28,8 +28,8 @@ export class ModalDeleteComponent implements OnInit {
       'idTienda':  this.params.idTienda,
       'idProducto':  this.params.idProducto
     };
-    this.productsService.setOrderProductsShop(params).subscribe((response) => {
-
+    this.productsService.deleteOrderProducts(params).subscribe((response) => {
+      this.dialogRef.close();
     }, (error) => {
       console.log(error);
     });
