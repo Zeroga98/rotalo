@@ -814,8 +814,17 @@
     </div>
 
     <div class="actions-form">
-      <custom-button [ngClass]="product ? 'gtmOfertEditOfert' : 'gtmOfertSubirOfert'" type="submit"
-        [text]="product ? 'Guardar' : 'Guardar publicación'"></custom-button>
+      <custom-button class="gtmOfertSubirOfert" type="submit"
+      *ngIf="!product"></custom-button>
+      <div *ngIf="product && product.status && product.status != 'active'" class="button-container">
+          <a (click)="cancel()" class="btn-white" mat-button>Cancelar</a>
+          <a (click)="publishPhoto(form)" class="btn-white" mat-button>Guardar</a>
+          <a class="btn-red" mat-button>Publicar</a>
+       </div>
+       <div *ngIf="product && product.status && product.status == 'active'" class="button-container">
+          <a (click)="cancel()" class="btn-white" mat-button>Cancelar</a>
+          <a (click)="publishPhoto(form)" class="btn-red" mat-button>Actualizar cambios</a>
+       </div>
     </div>
     <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()"
       (accept)="acceptTerms(checkBoxTerms)"></terms-modal>

@@ -18,7 +18,7 @@
   </div>
 
   <div class="navbar-header">
-      <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
+      <mat-tab-group [selectedIndex]="1" #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
           <mat-tab label="Activos">
           </mat-tab>
           <mat-tab label="Inactivos"></mat-tab>

@@ -20,6 +20,8 @@ import { LISTA_TRANSMISION, COLOR, PLACA, CILINDRAJE, COMBUSTIBLE } from './vehi
 import { START_DATE_BF, END_DATE_BF, START_DATE } from '../../../commons/constants/dates-promos.contants';
 import { TIPO_VENDEDOR, HABITACIONES, BATHROOMS, SOCIALCLASS, ANTIGUEDAD } from './immovable.constant';
 import { COLOR_FASHION } from './colors-clothes.constant';
+import { ROUTES } from '../../../router/routes';
+import { ProductsService } from '../../../services/products.service';
 
 function validatePrice(c: AbstractControl): {[key: string]: boolean} | null {
   const price = c.get('price').value;
@@ -126,6 +128,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     private utilsService: UtilsService,
     private userService: UserService,
     private collectionService: CollectionSelectService,
+    private productsService: ProductsService,
     ) {
       this.getCountries();
       this.defineSubastaTimes();
@@ -160,6 +163,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     ngOnChanges(value): void {
       if (this.product) {
+        console.log(this.product);
         this.setInitialForm(this.getInitialConfig());
         this.getCountries();
         const interval = setInterval(() => {
@@ -1547,6 +1551,19 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
   clearInputReference() {
     this.errorference = '';
+  }
+
+  cancel() {
+    if (this.product) {
+      if(this.product.status && this.product.status == 'active') {
+        this.productsService.setStatusTableProduct(0);
+      } else {
+        this.productsService.setStatusTableProduct(1);
+      }
+      this.router.navigate([
+        `/${ROUTES.ROTALOCENTER}/${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/${this.idShop}`
+      ]);
+    }
   }
 
 }

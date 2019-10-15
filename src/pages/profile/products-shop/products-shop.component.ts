@@ -41,7 +41,13 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     this.routeSub = this.route.params.subscribe(params => {
     this.idTienda = params['id'];
     this.loadInfoUser (this.idTienda);
-    this.getProductsList(0, this.idTienda);
+    if (this.productsService.getStatusTableProduct()) {
+      this.statusTab = this.productsService.getStatusTableProduct();
+      this.getProductsList(this.productsService.getStatusTableProduct(), this.idTienda);
+      this.productsService.setStatusTableProduct(0);
+    } else {
+      this.getProductsList(0, this.idTienda);
+    }
     });
   }
 
