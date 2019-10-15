@@ -384,7 +384,54 @@
     padding: 16px 0 16px 44px;
     font-size: 1.9rem;
     color: #383838;
+    .toolTipText {
+      display: none;
+    }
   }
+
+  .switch-label.empty {
+    .toolTipText {
+      display: block;
+      visibility: hidden;
+      width: 115px;
+      background-color: white;
+      color: #383838;
+      text-align: center;
+      padding: 5px 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 140%;
+      left: 30%;
+      margin-left: -55px;
+      opacity: 0;
+      transition: opacity 1s;
+      font-size: 1.2rem;
+    }
+  }
+
+  .switch-label.empty:hover {
+    .toolTipText {
+      visibility: visible;
+      opacity: 1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+
+
+  .switch-label.empty{
+    .toolTipText::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+      border-color: white transparent transparent transparent;
+    }
+  }
+
 
   .switch-label:before,
   .switch-label:after {
