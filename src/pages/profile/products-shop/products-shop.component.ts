@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MatSort, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
+import { MatSort, MatTableDataSource, MatTabChangeEvent, MatDialogConfig, MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { UtilsService } from './../../../util/utils.service';
 import { UserService } from '../../../services/user.service';
@@ -7,6 +7,7 @@ import { SettingsService } from '../../../services/settings.service';
 import { ProductsService } from '../../../services/products.service';
 import { ROUTES } from '../../../router/routes';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ModalDeleteComponent } from '../../../components/modal-delete/modal-delete.component';
 
 @Component({
   selector: 'app-products-shop',
@@ -33,6 +34,7 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private router: Router,
     private settingsService: SettingsService,
+    public dialog: MatDialog,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -73,7 +75,8 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
 
   getProductsList(option, idShop) {
     this.productsService.getProductsShop(idShop).subscribe((response) => {
-      if(response.body) {
+      if (response && response.body) {
+
         switch (option) {
           case 0:
           this.productos = response.body.productosActivos;
@@ -93,17 +96,22 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
   }
 
 
-  saveCheck(check, idCampaign) {
+  saveCheck(check, product) {
     const params = {
       estado: check.checked ? 'active' : 'inactive',
       storeId : this.idTienda
     };
 
-    this.productsService
-      .updateProductStatus(idCampaign, params)
+    if(this.statusTab == 1 && product.stock == 0 ) {
+      this.router.navigate([this.edit + this.idTienda + '/' + product.id]);
+    } else  {
+      this.productsService
+      .updateProductStatus(product.id, params)
       .then(response => {
         this.getProductsList(this.statusTab, this.idTienda);
       });
+    }
+
   }
 
   getUrlProduct (idProduct) {
@@ -162,6 +170,26 @@ export class ProductsShopComponent implements OnInit, AfterViewInit {
       ROUTES.MICROSITE.UPLOAD}/${this.idTienda}`]);
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
+  }
+
+  openModalDelete(idProducto) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+  //  dialogConfig.maxWidth = '335px';
+    dialogConfig.minHeight = '373px';
+    dialogConfig.autoFocus = false;
+    dialogConfig.panelClass = 'delete-dialog-container-class';
+    const params = {
+      idTienda: this.idTienda,
+      idProducto: idProducto
+    };
+    dialogConfig.data = params;
+    const dialogRef = this.dialog.open(ModalDeleteComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.productos =  this.productos.filter(value => {
+        return value.id != result.idProducto;
+      });
+    });
   }
 
 }

@@ -1,0 +1,17 @@
+<div class="modal-container">
+    <div (click) = "close()" class="close"></div>
+    <div  class="form-container">
+        <div class="success-message contactForm">
+            <div class="img-alert"></div>
+            <div>
+              <p>¿Estás seguro que deseas eliminar este producto?</p>
+            </div>
+            <div class="row">
+                <div class="btn-container">
+                  <button (click)="close()" mat-flat-button >Cancelar</button>
+                  <button (click)="deleteOrderProduct()" mat-flat-button  color="primary" >Sí</button>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
