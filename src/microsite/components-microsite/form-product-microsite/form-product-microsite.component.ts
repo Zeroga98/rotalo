@@ -437,6 +437,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         if (action == 'publicar') {
           params.publicar = true;
         } else if (action == 'guardar') {
+          this.productsService.setStatusTableProduct(1);
           params.publicar = false;
         }
       }
