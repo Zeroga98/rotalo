@@ -976,6 +976,10 @@
     font-size: 1.4rem;
   }
 
+  .campaigns td.name {
+    max-width: 120px;
+  }
+
   .a-total{
     width: 75px!important;
     display: block!important;
@@ -1116,7 +1120,7 @@
     background-image: url(../../../assets/img/iconos/editar.svg);
   }
   .delete {
-    background-image: url(../../../assets/img/iconos/eliminar.svg);
+    background-image: url(../../../assets/img/iconos/eliminar_gris.svg);
   }
 }
 

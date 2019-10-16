@@ -59,12 +59,12 @@
         class="grid">
             <tr id = {{product.id}}  *ngFor="let product of  productos">
                 <td>
-                  <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+                  <img *ngIf="product.productPhoto && product.productPhoto.url" [src]="product.productPhoto.url" alt="user.name">
                 </td>
                 <td>
                   {{product.id}}
                 </td>
-                <td>
+                <td class="name">
                   {{product.name}}
                 </td>
                 <td>
@@ -92,7 +92,7 @@
                         <input #status type="checkbox"
                         [checked]="product.status == 'active' ? true : false"
                         id="id-name--{{product.id}}" name="state" class="switch-input"
-                        (change)="saveCheck(status, product.id)">
+                        (change)="saveCheck(status, product)">
                         <label [ngClass]="product.stock == 0 && statusTab == 1? 'empty' : ''" for="id-name--{{product.id}}" class="switch-label">
                           <span class="toolTipText">
                             Este artículo debe tener mínimo 1 unidad. Edítalo para activarlo.
