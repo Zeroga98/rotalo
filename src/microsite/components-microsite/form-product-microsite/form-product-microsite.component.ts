@@ -163,7 +163,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     ngOnChanges(value): void {
       if (this.product) {
-        console.log(this.product);
+
         this.setInitialForm(this.getInitialConfig());
         this.getCountries();
         const interval = setInterval(() => {
@@ -276,7 +276,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     }
   }
 
-  async publishPhoto(form) {
+  async publishPhoto(form, action) {
 
     this.setValidationVehicle();
     this.setValidationImmovable();
@@ -431,6 +431,14 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
         delete params['genderId'];
         delete params['brandFashion'];
         delete params['colorFashion'];
+      }
+
+      if(this.product && action) {
+        if (action == 'publicar') {
+          params.publicar = true;
+        } else if (action == 'guardar') {
+          params.publicar = false;
+        }
       }
 
       const request = {

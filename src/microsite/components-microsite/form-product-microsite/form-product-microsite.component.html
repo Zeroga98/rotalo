@@ -13,7 +13,7 @@
       </p>
     </div>
   </div>
-  <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form)" #form>
+  <form role="form" [formGroup]="photosForm" name="photosForm" class="form-theme" (ngSubmit)="publishPhoto(form, '')" #form>
     <div class="container-step">
       <div class="material-design container-step">
         <div class="info-product">
@@ -814,16 +814,18 @@
     </div>
 
     <div class="actions-form">
-      <custom-button class="gtmOfertSubirOfert" type="submit"
-      *ngIf="!product"></custom-button>
+      <div *ngIf="!product">
+          <custom-button [text] = "'Guardar'" class="gtmOfertSubirOfert" type="submit"></custom-button>
+      </div>
+
       <div *ngIf="product && product.status && product.status != 'active'" class="button-container">
           <a (click)="cancel()" class="btn-white" mat-button>Cancelar</a>
-          <a (click)="publishPhoto(form)" class="btn-white" mat-button>Guardar</a>
-          <a class="btn-red" mat-button>Publicar</a>
+          <a (click)="publishPhoto(form, 'guardar')" class="btn-white" mat-button>Guardar</a>
+          <a (click)="publishPhoto(form, 'publicar')" class="btn-red" mat-button>Publicar</a>
        </div>
        <div *ngIf="product && product.status && product.status == 'active'" class="button-container">
           <a (click)="cancel()" class="btn-white" mat-button>Cancelar</a>
-          <a (click)="publishPhoto(form)" class="btn-red" mat-button>Actualizar cambios</a>
+          <a (click)="publishPhoto(form, '')" class="btn-red" mat-button>Actualizar cambios</a>
        </div>
     </div>
     <terms-modal class="opacity" *ngIf="modalTermsIsOpen" (close)="closeTermsModal()"
