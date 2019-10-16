@@ -454,6 +454,31 @@
 
 }
 
+:host {
+  .button-container {
+    text-align: start;
+    .mat-button {
+      min-width: 220px;
+      height: 43px;
+      border-radius: 26px;
+      font-family: 'Lato Regular';
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      line-height: 40px;
+      margin-right: 40px;
+    }
+
+    .mat-button.btn-red {
+      color:white;
+      background-color: #FF3646;
+    }
+    .mat-button.btn-white {
+      color:#FF3646;
+      border: 1px solid #FF3646;
+    }
+  }
+}
+
 @media screen and (max-width: 850px) {
   :host {
     .container-form {

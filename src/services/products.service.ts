@@ -31,6 +31,7 @@ export class ProductsService {
   public currentFilter;
   public carObject;
   public immovableObject;
+  public statusTable;
 
   constructor(
     private http: HttpClient,
@@ -527,6 +528,14 @@ export class ProductsService {
     const formData = new FormData();
     formData.append('archivo', file);
     return formData;
+  }
+
+  setStatusTableProduct(statusTable) {
+    this.statusTable = statusTable;
+  }
+
+  getStatusTableProduct() {
+    return this.statusTable;
   }
 
 }
