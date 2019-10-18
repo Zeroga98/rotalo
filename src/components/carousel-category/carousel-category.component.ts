@@ -10,7 +10,7 @@ import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'carousel-category',
   templateUrl: './carousel-category.component.html',
-  styleUrls: ['./carousel-categor.component.scss']
+  styleUrls: ['./carousel-category.component.scss']
 })
 export class CarouselCategoryComponent implements OnInit {
   public carouselProductsConfig: NgxCarousel;

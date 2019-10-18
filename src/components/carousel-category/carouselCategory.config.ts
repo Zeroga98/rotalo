@@ -8,7 +8,7 @@ export const CAROUSEL_PRODUCTS_CONFIG: NgxCarousel = {
             lg: 5,
             all: 0
         },*/
-    grid: { xs: 2, sm: 3, md: 4, lg: 5, all: 208 },
+    grid: { xs: 3, sm: 3, md: 4, lg: 5, all: 208 },
     slide: 1,
     speed: 500,
     interval: 3600000,
