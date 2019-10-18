@@ -200,6 +200,7 @@ import { TermsDialogComponent } from '../pages/home/terms-modal/terms-dialog.com
 import { CustomScrollDirective } from '../pages/home/terms-modal/custom-scroll.directive';
 import { CarouselProductComponent } from '../components/carousel-product/carousel-product.component';
 import { CarouselCategoryComponent } from '../components/carousel-category/carousel-category.component';
+import { CarouselImgComponent } from '../components/carousel-img/carousel-img.component';
 import { ModalDeleteProductComponent } from '../components/modal-delete-product/modal-delete-product.component';
 import { FilterProductsComponent } from '../pages/filter-products/filter-products.component';
 import { FilterService } from '../pages/filter-products/filter.service';
@@ -371,6 +372,7 @@ import { FavoriteProductComponent } from '../components/favorite-product/favorit
     CustomScrollDirective,
     CarouselProductComponent,
     CarouselCategoryComponent,
+    CarouselImgComponent,
     ModalDeleteProductComponent,
     FilterProductsComponent,
     DetailOrderComponent,
