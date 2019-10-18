@@ -277,7 +277,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
   }
 
   async publishPhoto(form, action) {
-
+    this.clearInputReference();
     this.setValidationVehicle();
     this.setValidationImmovable();
     this.setFashionValidation();
@@ -1140,7 +1140,10 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
 
     }, { validator: validatePrice });
 
-    this.setInitialFormFashion(this.getInitialConfigSize());
+    if(this.errorference == '' || !this.errorference) {
+      this.setInitialFormFashion(this.getInitialConfigSize());
+    }
+
     if (this.product) {
       if (this.isActivePromo(this.product)) {
         const price = this.photosForm.get('specialPrice').value;
@@ -1152,7 +1155,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
       }
 
       /**Moda**/
-      if (config['children'] && config['children'].length > 0) {
+      if (config['children'] && config['children'].length > 0 && (this.errorference == '' || !this.errorference)) {
         this.setInitialFormFashion(config['children']);
       }
 
@@ -1206,7 +1209,7 @@ export class FormProductMicrositeComponent implements OnInit, OnChanges, AfterVi
     const children = childrenForm.map(child => {
       return this.fb.group({
         'sizeId': [child['sizeId'], [Validators.required]],
-        'stock': [child['stock'], [Validators.required]],
+        'stock': [child['stock'] != 0 ? child['stock'] : 1 , [Validators.required]],
         'reference': [child['reference'], [Validators.required]]
       });
     });
