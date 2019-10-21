@@ -87,7 +87,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
     }
   }
 
-  
+
   ngOnInit() {
     this.likeDataSharingService.likeProductObservable.subscribe(producto => {
         if(this.product.product_id == producto['idProducto']){
@@ -96,10 +96,10 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
           this.product['product_likes'] = producto['likes'];
           this.changeDetectorRef.markForCheck();
       }
-      
+
     });
   }
-  
+
   ngAfterContentInit() {
     this.productChecked = this.product.status;
     this.checkStatusProduct();
@@ -150,7 +150,7 @@ export class ProductComponent implements AfterViewInit, AfterContentInit {
 
   get isCostume () {
     if ((this.product['product_subcategory_id'] &&
-    (this.product['product_subcategory_id'] == 77 || this.product['product_subcategory_id'] == 127))) {
+    (this.product['product_subcategory_id'] == 127))) {
       return true;
     }
     return false;
