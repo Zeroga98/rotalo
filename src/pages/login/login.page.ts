@@ -110,6 +110,7 @@ export class LoginPage implements OnInit {
       password: password,
       ipAddress: '127.0.0.0'
     };
+
     this.loginService.logOutClearSession(user.user).subscribe(data => {
       if (data.status === 200) {
         this.loginService.loginSapiUser(user)
@@ -122,6 +123,14 @@ export class LoginPage implements OnInit {
                 'Ingreso',
                 'ClicLogin',
                 'IngresarExitosamente'
+              );
+
+              this.gapush(
+                'send',
+                'event',
+                'Ingreso',
+                'ClicEmail',
+                userEmail
               );
               const saveInfo = {
                 'auth-token': response.body.data.token,
