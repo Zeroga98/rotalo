@@ -95,7 +95,7 @@
                         (change)="saveCheck(status, product)">
                         <label [ngClass]="product.stock == 0 && statusTab == 1? 'empty' : ''" for="id-name--{{product.id}}" class="switch-label">
                           <span class="toolTipText">
-                            Este artículo debe tener mínimo 1 unidad. Edítalo para activarlo.
+                            Artículo sin unidades, al activarlo agrega al menos uno.
                           </span>
                         </label>
                     </div>
