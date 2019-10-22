@@ -349,14 +349,26 @@
     </div>
     <div *ngIf="products" class="product-info">
       <div class="card-product">
-        <div class="capitalize">
-          <span class="span-title">{{products.used ? 'Usado' : 'Nuevo'}} - {{products['sellType'].toLowerCase()}}</span>
-        </div>
-        <div class="title-product">{{products.name}}</div>
-        <div class="date">
-          <span *ngIf="reference" class="date">Referencia: {{reference}} - </span>
-          <span class="date">{{visitsNumber}} visitas</span>
-        </div>
+          <section class="products-title">
+            <div class="mr-1">
+                <div class="capitalize">
+                    <span class="span-title">{{products.used ? 'Usado' : 'Nuevo'}} - {{products['sellType'].toLowerCase()}}</span>
+                  </div>
+                  <div class="title-product">{{products.name}}</div>
+                  <div class="date">
+                    <span *ngIf="reference" class="date">Referencia: {{reference}} - </span>
+                    <span class="date">{{visitsNumber}} visitas</span>
+                  </div>
+            </div>
+            <div class="heart-container">
+                <button mat-icon-button [ngClass]="products.like && 'active'" (click)="checkLike()" color="warn" class="heart"></button>
+                <span
+                [ngStyle]="{'visibility': products.likes && products.likes > 0 ? '' : 'hidden' }">
+                  {{products.likes}}
+                </span>
+              </div>
+          </section>
+
 
           <div
           [ngClass]="products['previousPrice'] && products['previousPrice'] >  products['price'] || isActivePromo? 'btn-item-full' : ''"

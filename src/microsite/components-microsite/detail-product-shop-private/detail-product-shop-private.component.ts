@@ -39,6 +39,7 @@ import { ModalFormDetailComponent } from '../modal-form-detail/modal-form-detail
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
 import { ModalContactSufiComponent } from '../../../components/modal-contact-sufi/modal-contact-sufi.component';
 import { ModalAliadosComponent } from '../../../components/modal-aliados/modal-aliados.component';
+import { LikeDataSharingService } from '../../../services/like-data-sharing.service';
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
   const email = c;
@@ -130,7 +131,7 @@ export class DetailProductShopPrivateComponent implements OnInit {
   public showSuccess = false;
   public errorSuccess = false;
   public simulaciones;
-
+  private likeDataSharingService: LikeDataSharingService;
 
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 0,
@@ -164,8 +165,10 @@ export class DetailProductShopPrivateComponent implements OnInit {
     private feedService: FeedMicrositeService,
     private modalService: ModalShareProductService,
     private configurationService: ConfigurationService,
-    private simulateCreditService: SimulateCreditService
+    private simulateCreditService: SimulateCreditService,
+    private _likeDataSharingService: LikeDataSharingService
   ) {
+    this.likeDataSharingService = _likeDataSharingService;
     this.currentFilter = this.feedService.getCurrentFilter();
     this.carouselConfig = CAROUSEL_CONFIG;
     this.idCountry = 1;
@@ -974,6 +977,53 @@ export class DetailProductShopPrivateComponent implements OnInit {
       // console.log(result);
     });
   }
+
+  checkLike() {
+    const params = {
+      idProducto: this.products['id'],
+      idTienda: this.products['storeId']
+    };
+    if (!this.products.like) {
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
+            }
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.products.like = false;
+            console.log(error);
+          }
+        );
+    } else if (this.products.like) {
+      this.products.like = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+
+  }
+
 
 
 }

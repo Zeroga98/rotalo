@@ -45,6 +45,7 @@ import { ModalAliadosComponent } from '../../../components/modal-aliados/modal-a
 import { SimulateCreditService } from '../../../services/simulate-credit.service';
 import { CountUpOptions } from 'countup.js';
 import { ModalContactSufiComponent } from '../../../components/modal-contact-sufi/modal-contact-sufi.component';
+import { LikeDataSharingService } from '../../../services/like-data-sharing.service';
 
 
 function isEmailOwner(c: AbstractControl): { [key: string]: boolean } | null {
@@ -136,7 +137,7 @@ export class DetailProductMicrositeComponent implements OnInit {
   public porcentajeSimulacion = 20;
   public rangeTimetoPayArray: Array<number> = [12, 24, 36, 48, 60, 72, 84];
   public showSufiButton = false;
-
+  private likeDataSharingService: LikeDataSharingService;
   public optionsCountSimulate: CountUpOptions = {
     decimalPlaces: 0,
     duration: 1,
@@ -168,8 +169,10 @@ export class DetailProductMicrositeComponent implements OnInit {
     private back: ProductsMicrositeService,
     public dialog: MatDialog,
     private feedService: FeedMicrositeService,
-    private simulateCreditService: SimulateCreditService
+    private simulateCreditService: SimulateCreditService,
+    private _likeDataSharingService: LikeDataSharingService
   ) {
+    this.likeDataSharingService = _likeDataSharingService;
     this.currentFilter = this.feedService.getCurrentFilter();
 
     this.carouselConfig = CAROUSEL_CONFIG;
@@ -924,6 +927,52 @@ export class DetailProductMicrositeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log(result);
     });
+  }
+
+  checkLike() {
+    const params = {
+      idProducto: this.products['id'],
+      idTienda: this.products['storeId']
+    };
+    if (!this.products.like) {
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
+            }
+          },
+          error => {
+            /*if (error.error.status == '623') {
+              this.changeDetectorRef.markForCheck();
+            }*/
+            this.products.like = false;
+            console.log(error);
+          }
+        );
+    } else if (this.products.like) {
+      this.products.like = false;
+      this.productsService
+        .selectLikeProduct(params)
+        .subscribe(
+          response => {
+            if (response.body) {
+              this.products.like = response.body.like;
+              this.products['likes'] = response.body.likes;
+              this.changeDetectorRef.markForCheck();
+              this.likeDataSharingService.updateLikeProduct(response.body);
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+
   }
 
 
