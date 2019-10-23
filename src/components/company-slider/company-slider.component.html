@@ -1,22 +1,24 @@
-<div  class="company-slider-section">
+<div class="company-slider-section">
   <div class="header-company">
     <h1>Estas empresas ya están rotando</h1>
   </div>
-  <ngx-carousel  [inputs]="carouselCompanyConfig">
-      <ngx-item NgxCarouselItem *ngFor="let img of imgCompanies">
-          <div class="companies-container">
-            <div class="company-container" >
-              <div class="img-container">
-                  <img class="{{img.name}}" [src]="img.url" [alt]="img.name">
-              </div>
-            </div>
+  <section class="slider-content">
+  </section>
+  <ngx-carousel [inputs]="carouselCompanyConfig">
+    <ngx-item NgxCarouselItem *ngFor="let img of imgCompanies">
+      <div class="companies-container">
+        <div class="company-container">
+          <div class="img-container">
+            <img class="{{img.name}}" [src]="img.url" [alt]="img.name">
           </div>
-      </ngx-item>
-      <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
-        <div class="ic-arrow ic-arrow-prev"></div>
-      </span>
-      <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
-        <div class="ic-arrow ic-arrow-next"></div>
-      </span>
+        </div>
+      </div>
+    </ngx-item>
+    <span NgxCarouselPrev class="gtmBannerRotFlechas arrow arrow-prev">
+      <div class="ic-arrow ic-arrow-prev"></div>
+    </span>
+    <span NgxCarouselNext class="gtmBannerRotFlechas arrow arrow-next">
+      <div class="ic-arrow ic-arrow-next"></div>
+    </span>
   </ngx-carousel>
 </div>
