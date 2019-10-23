@@ -212,12 +212,6 @@ export const IMGS_COMPANIES = [
     url: './assets/img/logos_company/46_Arquitectura_y_concreto.png',
     name: 'Arquitectura_y_concreto'
   }
-
-  , {
-    url: './assets/img/logos_company/47_TCC.png',
-    name: 'TCC'
-  }
-
   , {
     url: './assets/img/logos_company/48_CAribemotor.png',
     name: 'CAribemotor'

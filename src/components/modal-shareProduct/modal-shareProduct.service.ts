@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 export class ModalShareProductService {
   private modals: any[] = [];
   private productId;
+  private storeId;
 
 
   constructor() { }
@@ -14,6 +15,14 @@ export class ModalShareProductService {
 
   getProductId() {
     return this.productId;
+  }
+
+  setStoreId(storeId) {
+    this.storeId = storeId;
+  }
+
+  getStoreId() {
+    return this.storeId;
   }
 
   add(modal: any) {

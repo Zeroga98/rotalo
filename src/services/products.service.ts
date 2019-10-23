@@ -31,6 +31,7 @@ export class ProductsService {
   public currentFilter;
   public carObject;
   public immovableObject;
+  public statusTable;
 
   constructor(
     private http: HttpClient,
@@ -476,6 +477,13 @@ export class ProductsService {
     return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
   }
 
+  deleteOrderProducts(params) {
+    const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
+    const headers = new HttpHeaders(jsonSapiHeaders);
+    const url = `${this.urlSapi}/tiendas/eliminar`;
+    return this.http.put(url, params, { headers: headers }).pipe(map((response: any) => response));
+  }
+
   getProductsHistorical(idTienda) {
     const jsonSapiHeaders = this.configurationService.getJsonSapiHeaders();
     const headers = new HttpHeaders(jsonSapiHeaders);
@@ -520,6 +528,14 @@ export class ProductsService {
     const formData = new FormData();
     formData.append('archivo', file);
     return formData;
+  }
+
+  setStatusTableProduct(statusTable) {
+    this.statusTable = statusTable;
+  }
+
+  getStatusTableProduct() {
+    return this.statusTable;
   }
 
 }

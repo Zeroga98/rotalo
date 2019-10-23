@@ -7,22 +7,20 @@
         <div class="info-container">
           <div class="title">
             <p>
-              ¡Rayos! este link está roto
+                Rayos, tu link de activación ha caducado.
             </p>
           </div>
           <div class="description">
             <p>
-              Haz clic en el botón y te enviaremos otro link de activación
+                Haz click en “Enviar” para recibir un nuevo enlace.
             </p>
           </div>
           <div class="btn-container">
-            <button (click)="reSendEmail()" color="warn" class="button" mat-flat-button>Enviar nuevamente</button>
+            <button (click)="reSendEmail()" color="warn" class="button" mat-flat-button>Enviar</button>
           </div>
           <div *ngIf="showMessageEmail" class="success-message">
-            <span class="icon-check">
-            </span>
             <span class="text">
-              ¡Hemos enviado el correo con éxito!
+              ¡Genial! Te hemos enviado un correo con el nuevo link de activación. Ten en cuenta que el link caduca en 24 horas.
             </span>
           </div>
           <div *ngIf="showMessageError" class="success-message">

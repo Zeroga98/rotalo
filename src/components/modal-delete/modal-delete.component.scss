@@ -1,0 +1,110 @@
+:host {
+  background-color: #FFFFFF;
+
+  .modal-container {
+    width: 100%;
+  }
+
+  .close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: url(../../assets/img/iconos/ic_close_circle.svg) no-repeat;
+    background-size: contain;
+    margin-top: 0px;
+  }
+
+  .contactForm {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 30px;
+
+    h3 {
+      font-size: 2.0rem;
+      color: #272727;
+      text-align: center;
+    }
+
+    .label-title {
+      color: #383838 !important;
+      font-size: 1.3rem !important;
+      margin-bottom: 10px;
+      margin-top: 15px;
+      font-weight: bold;
+      display: block;
+    }
+
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+      button:first-child {
+        margin-right: 20px;
+      }
+    }
+
+  }
+
+  .mat-fab, .mat-flat-button, .mat-mini-fab, .mat-raised-button {
+    background-color: #FFFFFF;
+    font-family: 'Lato Regular';
+    font-size: 1.6rem;
+    font-weight: bold;
+    color:#FF3646;
+    border: 1px solid #FF3646;
+    border-radius: 20px;
+    width: 126px;
+
+    &:hover {
+      color:#FF4655;
+      border: 1px solid #FF4655;
+    }
+  }
+
+  .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+    background-color: #FF3646;
+    font-family: 'Lato Regular';
+    font-size: 1.6rem;
+    font-weight: bold;
+    color:white;
+    border-radius: 20px;
+    width: 126px;
+    &:hover {
+      background-color: #FF4655;
+    }
+  }
+
+
+  .success-message {
+
+    .img-alert {
+      margin: 0 auto;
+      margin-bottom: 15px;
+      width: 160px;
+      height: 160px;
+      background: url(../../assets/img/iconos/ic_alert.svg) no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    p {
+      margin: 0 auto;
+      text-align: center;
+      color:#272727;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+  }
+
+}
+::ng-deep.delete-dialog-container-class {
+
+  .mat-dialog-container {
+    position: relative;
+    border-radius: 12px !important;
+  }
+}

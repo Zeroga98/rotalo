@@ -18,7 +18,7 @@
   </div>
 
   <div class="navbar-header">
-      <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
+      <mat-tab-group [selectedIndex]="statusTab" #tabs (selectedTabChange)="tabChanged($event)" class="tab-table">
           <mat-tab label="Activos">
           </mat-tab>
           <mat-tab label="Inactivos"></mat-tab>
@@ -51,20 +51,20 @@
           <th>IVA</th>
           <th>Fecha de publicación</th>
           <th>Unidades</th>
-          <th>Estado</th>
-          <th class="table-no-border"></th>
+          <th *ngIf="statusTab == 0">Inactivar</th>
+          <th *ngIf="statusTab == 1">Activar</th>
           <th class="table-no-border"></th>
         </tr>
         <tbody #grid [sortablejs]="productos" [sortablejsOptions]="{ animation: 150 }" id="grid"
         class="grid">
             <tr id = {{product.id}}  *ngFor="let product of  productos">
                 <td>
-                  <img *ngIf="product.photos" [src]="product.photos.url" alt="user.name">
+                  <img *ngIf="product.productPhoto && product.productPhoto.url" [src]="product.productPhoto.url" alt="user.name">
                 </td>
                 <td>
                   {{product.id}}
                 </td>
-                <td>
+                <td class="name">
                   {{product.name}}
                 </td>
                 <td>
@@ -92,15 +92,32 @@
                         <input #status type="checkbox"
                         [checked]="product.status == 'active' ? true : false"
                         id="id-name--{{product.id}}" name="state" class="switch-input"
-                        (change)="saveCheck(status, product.id)">
-                        <label for="id-name--{{product.id}}" class="switch-label"></label>
+                        (change)="saveCheck(status, product)">
+                        <label [ngClass]="product.stock == 0 && statusTab == 1? 'empty' : ''" for="id-name--{{product.id}}" class="switch-label">
+                          <span class="toolTipText">
+                            Artículo sin unidades, al activarlo agrega al menos uno.
+                          </span>
+                        </label>
                     </div>
                 </td>
                 <td>
-                  <a [routerLink]="getUrlProduct(product.id)" >Editar</a>
-                </td>
-                <td>
-                  <a class="a-total" [routerLink]="getUrlPreviewProduct(product.id)" >Vista previa</a>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button [routerLink]="getUrlPreviewProduct(product.id)" mat-menu-item>
+                          <div class="icon preview"></div>
+                          Vista previa
+                        </button>
+                        <button [routerLink]="getUrlProduct(product.id)" mat-menu-item>
+                          <div class="icon edit"></div>
+                          <span>Editar</span>
+                        </button>
+                        <button (click)="openModalDelete(product.id)" mat-menu-item>
+                          <div class="icon delete"></div>
+                          <span>Eliminar</span>
+                        </button>
+                      </mat-menu>
                 </td>
             </tr>
         </tbody>

@@ -36,8 +36,7 @@ export class FavoriteProductComponent implements OnInit {
   get isCostume() {
     if (
       this.product['subcategory'] &&
-      (this.product['subcategory'].id == 77 ||
-        this.product['subcategory'].id == 127)
+      (this.product['subcategory'].id == 127)
     ) {
       return true;
     }
