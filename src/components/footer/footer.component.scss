@@ -46,6 +46,9 @@
   .footer-content {
     width: 100%;
     display: flex;
+    @media (max-width:680px) {
+      flex-direction: column;
+    }
   }
   .footer-col {
     display: flex;
