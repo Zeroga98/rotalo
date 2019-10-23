@@ -1,0 +1,36 @@
+<div *ngIf="products.length != 0" class="carousel-stores">
+  <div class="carousel-container">
+    <div class="row-featured">
+      <div class="header-featured">
+        <h3>{{title}}</h3>
+      </div>
+      <ngx-carousel class="carousel-featured" *ngIf="products.length != 0" [inputs]="carouselProductsConfig">
+        <ngx-item NgxCarouselItem *ngFor="let item of stores">
+          <div class="card-store">
+            <div class="card-store__img">
+              <img src=" ../../assets/img/{{item.img}}.png">
+              <div class="logo">
+                <img src="../../assets/img/{{item.logo}}.png"/>
+              </div>
+            </div>
+            <div class="card-store__content">
+              <span>{{item.name}}</span>
+              <div class="products">
+                <img src="../../assets/img/img-1.png" alt="">
+                <img src="../../assets/img/img-2.png" alt="">
+                <img src="../../assets/img/img-3.png" alt="">
+              </div>
+              <button mat-button>Ver tienda</button>
+            </div>
+          </div>
+        </ngx-item>
+        <span NgxCarouselPrev class="carousel-arrow carousel-arrow__prev">
+          <span class="icon arrow-flecha_derecha"></span>
+        </span>
+        <span NgxCarouselNext class="carousel-arrow carousel-arrow__next">
+          <span class="icon arrow-flecha_izquierdo"></span>
+        </span>
+      </ngx-carousel>
+    </div>
+  </div>
+</div>
