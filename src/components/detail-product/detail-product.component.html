@@ -50,7 +50,7 @@
             </span>
           </ngx-carousel>
         </div>
-        <div class="tabla-container description desktop">
+        <div  *ngIf="href && href!='show'"  class="tabla-container description desktop">
           <div class="flex">
             <h1>Descripción</h1>
             <div class="share">
@@ -616,7 +616,7 @@
               <span class="date">{{products['publishedAt'] | amTimeAgo}} - {{visitsNumber}} visitas</span>
             </div>
           </div>
-          <div class="heart-container">
+          <div  *ngIf="href && href!='show'" class="heart-container">
             <button mat-icon-button [ngClass]="products.like && 'active'" (click)="checkLike()" color="warn" class="heart"></button>
             <span
             [ngStyle]="{'visibility': products.likes && products.likes > 0 ? '' : 'hidden' }">
@@ -1272,7 +1272,7 @@
           </div>
         </div>
 
-        <div class="tabla-container description mobile">
+        <div  *ngIf="href && href!='show'"  class="tabla-container description mobile">
           <div class="flex">
             <h1>Descripción</h1>
             <div class="share">
@@ -1397,7 +1397,7 @@
         <div class="info-section">
           <div>
             <div class="product-info-user">
-              <div class="info-container">
+              <div  *ngIf="href && href!='show'" class="info-container">
                 <div class="media-middle">
                   <div *ngIf="!products.user.photos && products.user.company" class="product-info-user--icon">
                     <span class="icon-account"></span>

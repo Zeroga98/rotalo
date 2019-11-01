@@ -137,6 +137,7 @@ export class DetailProductComponent implements OnInit {
     useEasing: true,
     prefix: '$'
   };
+  public href;
 
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
@@ -162,16 +163,16 @@ export class DetailProductComponent implements OnInit {
     private modalService: ModalShareProductService,
     private configurationService: ConfigurationService,
     private simulateCreditService: SimulateCreditService,
-    private _likeDataSharingService: LikeDataSharingService)  {
+    private _likeDataSharingService: LikeDataSharingService) {
     this.likeDataSharingService = _likeDataSharingService;
     this.carouselConfig = CAROUSEL_CONFIG;
     let countryId;
-    if (this.navigationService.getCurrentCountryId()) {
+/*     if (this.navigationService.getCurrentCountryId()) {
       countryId = this.navigationService.getCurrentCountryId();
     } else {
       countryId = this.currentSessionSevice.currentUser()['countryId'];
     }
-    this.idCountry = countryId;
+    this.idCountry = countryId; */
   }
 
   ngOnInit() {
@@ -185,6 +186,8 @@ export class DetailProductComponent implements OnInit {
     this.initQuantityForm();
     this.loadProduct();
     this.initSufiForm();
+    this.href = this.router.url.split("/", 2)[1];
+    console.log(this.href)
   }
 
   initSufiForm() {
@@ -816,9 +819,9 @@ export class DetailProductComponent implements OnInit {
      this.simulateCreditService.setInitialQuota(this.simulateForm.get('credit-value').value);
      this.simulateCreditService.setMonths(this.simulateForm.get('term-months').value);
      this.router.navigate([urlSimulateCredit]);*/
-     if (!this.especialSimulacion.aplica) {
+    if (!this.especialSimulacion.aplica) {
       this.contactUser.get('checkTerms2').disable();
-     }
+    }
 
     this.showForm = true;
   }
@@ -1183,7 +1186,7 @@ export class DetailProductComponent implements OnInit {
       'valorAFinanciar': this.products.price,
       'productId': this.idProduct,
       'storeId': null,
-      'rotalo' : true,
+      'rotalo': true,
       simulacion: this.simulaciones,
     };
     dialogConfig.data = infoVehicle;

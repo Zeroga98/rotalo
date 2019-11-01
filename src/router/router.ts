@@ -84,6 +84,10 @@ export const appRouter: Routes = [
     component: SignUpPage
   },
   {
+    path: `show/:id`,
+    component: DetalleProductoComponent,
+  },
+  {
     path: ROUTES.LOGINMOBILE,
     component: LoginPage
   },
@@ -110,23 +114,23 @@ export const appRouter: Routes = [
         path: ROUTES.MENUROTALOCENTER.LIKES,
         component: FavoritesComponent,
       },
-      {path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
-      {path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
-      {path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent},
-      {path: ROUTES.MENUROTALOCENTER.CAMPAIGN, component: AdminCampaignComponent},
-      {path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent},
-      {path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.DETAILORDERS}/:id`, component: DetailOrderComponent},
-      {path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/:id`, component: ProductsShopComponent},
-      {path: `${ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS}/:id`, component: UploadProductsComponent},
+      { path: ROUTES.MENUROTALOCENTER.ADMINORDERS, component: adminOrdersPage },
+      { path: ROUTES.MENUROTALOCENTER.ADMINREGISTER, component: AdminRegisterPage },
+      { path: ROUTES.MENUROTALOCENTER.FEATUREDPRODUCT, component: FeaturedProductsComponent },
+      { path: ROUTES.MENUROTALOCENTER.CAMPAIGN, component: AdminCampaignComponent },
+      { path: ROUTES.MENUROTALOCENTER.UPLOAD, component: CampaignUploadComponent },
+      { path: `${ROUTES.MENUROTALOCENTER.UPLOAD}/:id`, component: CampaignEditComponent },
+      { path: ROUTES.MENUROTALOCENTER.BANNER, component: AdminBannersComponent },
+      { path: `${ROUTES.MENUROTALOCENTER.DETAILORDERS}/:id`, component: DetailOrderComponent },
+      { path: ROUTES.MENUROTALOCENTER.ADMINUSERS, component: AdminUsersComponent },
+      { path: `${ROUTES.MENUROTALOCENTER.EDITUSERS}/:id`, component: EditUsersComponent },
+      { path: `${ROUTES.MENUROTALOCENTER.PRODUCTSSHOP}/:id`, component: ProductsShopComponent },
+      { path: `${ROUTES.MENUROTALOCENTER.UPLOADPRODUCTS}/:id`, component: UploadProductsComponent },
       { path: ROUTES.MENUROTALOCENTER.PROFILEPASS, component: ChangePasswordPage },
       { path: ROUTES.MENUROTALOCENTER.HOBBIES, component: HobbiesPage },
       { path: ROUTES.MENUROTALOCENTER.EDITPROFILE, component: EditProfilePage },
       { path: ROUTES.SHOW, component: ShowInfoProfileComponent },
-      {path: `${ROUTES.MENUROTALOCENTER.SHOPBANNERS}/:id`, component: AdminBannersShopComponent},
+      { path: `${ROUTES.MENUROTALOCENTER.SHOPBANNERS}/:id`, component: AdminBannersShopComponent },
       {
         path: '',
         redirectTo: ROUTES.ROTALOCENTER,
@@ -160,7 +164,7 @@ export const appRouter: Routes = [
         component: ProductsUploadPage,
       },
       {
-        path: `${ROUTES.PRODUCTS.FILTERS}` ,
+        path: `${ROUTES.PRODUCTS.FILTERS}`,
         component: FilterProductsComponent,
       },
       {
@@ -175,18 +179,18 @@ export const appRouter: Routes = [
         path: `${ROUTES.PRODUCTS.BUY}/:id`,
         component: BuyProductPage,
       },
-   /*   {
-        path: `${ROUTES.PRODUCTS.SIMULATECREDIT}`,
-        component: SimulateCreditPage,
-      },
-      {
-        path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
-        component: SimulateCreditPage,
-      },
-      {
-        path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id/:storeId`,
-        component: SimulateCreditPage,
-      },*/
+      /*   {
+           path: `${ROUTES.PRODUCTS.SIMULATECREDIT}`,
+           component: SimulateCreditPage,
+         },
+         {
+           path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id`,
+           component: SimulateCreditPage,
+         },
+         {
+           path: `${ROUTES.PRODUCTS.SIMULATECREDIT}/:id/:storeId`,
+           component: SimulateCreditPage,
+         },*/
       {
         path: `${ROUTES.PRODUCTS.FINANCEBAM}/:id`,
         component: FinanceBamComponent,
@@ -321,74 +325,74 @@ export const appRouter: Routes = [
     component: NotificationConfirmation
   },
 
-/****/
+  /****/
 
-{
-  path: ROUTES.SHOPS.LINK,
-  component: ProductsHomePage,
-  children: [
-    {
-      path: ROUTES.SHOPS.FEED,
-      component: HomeShopComponent,
-    },
-    {
-      path: `${ROUTES.SHOPS.SHOW}/:id`,
-      component: DetailPageShopComponent,
-    },
-    {
-      path: ROUTES.SHOPS.TERMS,
-      component: TermsShopComponent,
-    },
-    {
-      path: `${ROUTES.SHOPS.TERMS}/:id`,
-      component: TermsShopComponent,
-    },
-    {
-      path: ROUTES.SHOPS.FAQ,
-      component: FrequentlyAsketQuestionsShopComponent,
-    },
-    {
-      path: `${ROUTES.SHOPS.FAQ}/:id`,
-      component: FrequentlyAsketQuestionsShopComponent,
-    },
-    {
-      path: '',
-      redirectTo: ROUTES.SHOPS.FEED,
-      pathMatch: 'full'
-    }
-  ]
-},
-/****/
+  {
+    path: ROUTES.SHOPS.LINK,
+    component: ProductsHomePage,
+    children: [
+      {
+        path: ROUTES.SHOPS.FEED,
+        component: HomeShopComponent,
+      },
+      {
+        path: `${ROUTES.SHOPS.SHOW}/:id`,
+        component: DetailPageShopComponent,
+      },
+      {
+        path: ROUTES.SHOPS.TERMS,
+        component: TermsShopComponent,
+      },
+      {
+        path: `${ROUTES.SHOPS.TERMS}/:id`,
+        component: TermsShopComponent,
+      },
+      {
+        path: ROUTES.SHOPS.FAQ,
+        component: FrequentlyAsketQuestionsShopComponent,
+      },
+      {
+        path: `${ROUTES.SHOPS.FAQ}/:id`,
+        component: FrequentlyAsketQuestionsShopComponent,
+      },
+      {
+        path: '',
+        redirectTo: ROUTES.SHOPS.FEED,
+        pathMatch: 'full'
+      }
+    ]
+  },
+  /****/
 
-{
-  path: ROUTES.SHOPSPRIVATE.LINK,
-  component: ProductsShopPrivateComponent,
-  canActivate: [AuthGuardService],
-  children: [
-    {
-      path: ROUTES.SHOPSPRIVATE.FEED,
-      component: HomeShopPrivateComponent,
-    },
-    {
-      path: `${ROUTES.SHOPSPRIVATE.SHOW}/:id`,
-      component: DetailPageShopPrivateComponent,
-    },
-    {
-      path: ROUTES.SHOPSPRIVATE.TERMS,
-      component: TermsShopComponent,
-    },
-    {
-      path: ROUTES.SHOPSPRIVATE.FAQ,
-      component: FrequentlyAsketQuestionsShopComponent,
-    },
-    {
-      path: '',
-      redirectTo: ROUTES.SHOPSPRIVATE.FEED,
-      pathMatch: 'full'
-    }
-  ]
-},
-/****/
+  {
+    path: ROUTES.SHOPSPRIVATE.LINK,
+    component: ProductsShopPrivateComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: ROUTES.SHOPSPRIVATE.FEED,
+        component: HomeShopPrivateComponent,
+      },
+      {
+        path: `${ROUTES.SHOPSPRIVATE.SHOW}/:id`,
+        component: DetailPageShopPrivateComponent,
+      },
+      {
+        path: ROUTES.SHOPSPRIVATE.TERMS,
+        component: TermsShopComponent,
+      },
+      {
+        path: ROUTES.SHOPSPRIVATE.FAQ,
+        component: FrequentlyAsketQuestionsShopComponent,
+      },
+      {
+        path: '',
+        redirectTo: ROUTES.SHOPSPRIVATE.FEED,
+        pathMatch: 'full'
+      }
+    ]
+  },
+  /****/
   {
     path: '',
     redirectTo: ROUTES.HOME,
